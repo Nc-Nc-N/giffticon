@@ -116,6 +116,15 @@
       <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
       <version>1.16</version>
     </dependency>
+
+    <!-- LOMBOK -->
+    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.12</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
