@@ -21,4 +21,5 @@ public class UserVO {
     private String stusCode;
 
     private String roleCode;
+
 }

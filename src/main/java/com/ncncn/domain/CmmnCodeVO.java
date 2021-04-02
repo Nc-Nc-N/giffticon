@@ -6,9 +6,13 @@ import lombok.Data;
 public class CmmnCodeVO {
 
 	private String code;
+
 	private String codeName;
+
 	private String codeType;
+
 	private String descn;
+
 	private char enabled;
 
 }

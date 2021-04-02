@@ -6,6 +6,7 @@ import lombok.Data;
 public class CmmnCodeTypeVO {
 
 	private String codeType;
+
 	private String codeDescn;
 
 }

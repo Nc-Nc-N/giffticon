@@ -8,10 +8,13 @@ import lombok.Data;
 public class AgreVO {
 
 	private int id;
+
 	private Date agreDt;
+
 	private char agreYn;
 
 	private int userId;
+
 	private int termsId;
 
 }

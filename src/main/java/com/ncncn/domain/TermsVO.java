@@ -6,6 +6,7 @@ import lombok.Data;
 public class TermsVO {
 
 	private int id;
+
 	private String cntnt;
 
 }
