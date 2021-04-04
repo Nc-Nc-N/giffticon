@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="sign_up.css"/><!--sign_up.css로 pwd/email css 사용-->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="imgcontainer">
+           <img src="../img/기쁘티콘.png">
+        </div>
+        <!-- <div class="pageinfo">비밀번호 찾기</div> -->
+        <form action="#" method="POST">
+        <div class="element">
+            <input type="text" class="input001" name="email" placeholder="Email">
+        </div>
+        <div class="element">
+            <input type="text" class="input001" name="name" placeholder="이름">
+        </div>
+        
+
+        <div class="element">
+            <span id="validateMsg">
+                <i class="fas fa-exclamation-circle"></i>
+                해당 가입 정보를 찾을 수 없습니다.
+            </span>
+            <span></span>
+        </div>
+        
+        <div class="element" id="btn">
+
+            <button type="submit" class="btn002">Email 찾기</button>
+            <button type="submit" class="btn001">임시 비밀번호 발송</button>
+
+        </div>
+        </form>
+        
+    </div>
+</body>
+</html>

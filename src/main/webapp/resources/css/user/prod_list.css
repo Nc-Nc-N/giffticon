@@ -1,0 +1,81 @@
+#container{
+    width:1000px;
+    height:1000px;
+    /* background-color:bisque; */
+    /* border-bottom: 2px solid gray; */
+    margin: auto;
+    
+}
+.space{
+    height:40px;
+    width:1000px;
+    margin:auto;
+}
+
+/* 카테고리 네비게이션바 */
+.catename{
+    padding: 10px;
+}
+.catename >.fas{
+    color: #FF585D;
+}
+nav{
+    margin-bottom: 50px;
+}
+nav ul{
+	background-color: white;
+	padding: 0;
+	overflow: hidden;
+    border-bottom: 1px solid gainsboro;
+	-webkit-transition: max-height 0.4s;
+	-ms-transition: max-height 0.4s;
+	-moz-transition: max-height 0.4s;
+	-o-transition: max-height 0.4s;
+	transition: max-height 0.4s;
+}
+nav ul li{
+	display: inline-block;
+	padding: 10px;
+    font-size: small;
+}
+nav ul li:hover{
+	color: #FF585D
+}
+.search-select {
+    background-color: rgb(245, 244, 244);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    float: right;
+    margin: 10px;
+    
+}
+
+/* 페이지네이션 css */
+.pagination {
+    display: inline-block;
+    position:relative;
+    left:32%;
+}
+
+.pagination a {
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: rgb(71, 71, 71);
+    background-color: rgb(245, 244, 244);
+    margin: 0 3px 0 3px;
+    border-radius: 5px;
+}
+
+.pagination a.active {
+    background-color: rgb(255, 88, 93);
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: rgb(255, 88, 93);
+    color: white;
+    border-radius: 5px;
+}
