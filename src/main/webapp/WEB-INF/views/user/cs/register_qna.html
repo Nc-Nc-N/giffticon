@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../header.css" type="text/css">
+    <link rel="stylesheet" href="../templete.css" type="text/css">
+    <link rel="stylesheet" href="/common-css/search-box.css" type="text/css">
+    <link rel="stylesheet" href="/관리자/notice/admin_notice.css" type="text/css">
+    <link rel="stylesheet" href="/common-css/pagination.css" type="text/css">
+    <link rel="stylesheet" href="/common-css/button.css" type="text/css">
+    <link rel="stylesheet" href="notice_board.css" type="text/css">
+    <link rel="stylesheet" href="register_qna.css" type="text/css"> 
+    
+    
+    <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+    </style>
+
+<div id="header">
+    <div class= "top_menu">
+        <span><a href="#" class="login-panel">로그인</a></span>
+        <span class="header_divider">|</span>
+        <span><a href="#" class="login-panel">회원가입</a></span>
+        <span class="header_divider">|</span>
+        <span><a href="#" class="login-panel">고객센터</a></span>
+    </div>
+    <div class="main-logo">
+        <div class="home-logo"><img src="../img/기쁘티콘.png" width="80%" ></a></div>
+    </div>
+    <div class="main-bar">
+        
+        <div class="bar-left">
+            <div class="category-drop">
+                <div class="category-btn"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</div>
+            </div>
+            <div class="leftmenus">
+                <div class="leftmenu">충전하기</div>  
+                <div class="leftmenu"><i class="fas fa-map-marker-alt"></i></div>
+            </div>
+        </div>
+
+        <div class="search">
+            <form action="(login)" >
+                <input type="text" class="searchbar" placeholder="기쁘티콘">
+                <button class="searchbutton"><i class="fas fa-search"></i> </button>
+            </form>
+        </div>
+        
+        <div class="bar-right">
+           
+            <span class="rightmenu"><i class="fas fa-ticket-alt"></i></span>
+           
+            <span class="rightmenu">판매하기</span>
+            <span class="rightmenu">마이페이지</span>
+        </div>
+        
+
+      
+    </div>
+</div>
+</head>
+<body>
+
+    <div id="container">
+        <div class="space"></div>
+        <div class="main">
+            <div class="menuhead">
+                <div class="menuname">고객센터</div><!--메뉴 이름 (사이드바 위)-->
+            </div>
+            <div class="menubody">
+                <div class="sidebarspace">
+                    <div class="sidebar"> <!--사이드 바 영역 (필요한만큼 영역 세로로늘리기)-->
+                        <!--필요한만큼 아래 추가해서 사용 (개당 세로크기70px)-->
+                        <a href="(메뉴이동"><div class="bar"><div >공지사항</div><i class="fas fa-chevron-right"></i></div></a>
+                        <a href="(메뉴이동"><div class="bar"><div>자주묻는 질문</div><i class="fas fa-chevron-right"></i></div></a>
+                        <a href="(메뉴이동"><div class="bar" style="background-color:rgb(240, 240, 240);"><div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">1:1문의</div><i class="fas fa-chevron-right"></i></div></a>
+                      
+                    </div>
+                </div>
+                <div class="emptyspace"></div>
+                
+                <div class="content">
+                    <h3>1:1문의</h3>
+                    <table id="t1" width=100%>
+                        <thead>
+                          <tr>
+                            <th class="t11">문의유형</th>
+                            <th class="t12">제목</th>
+                            <th class="t13">이메일</th>
+                            <th class="t14">문자메시지</th>
+                            <th class="t15">내용</th>
+                            <th class="t16">파일</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="t21">
+                                <select class="td-select">
+                                    <option>문의유형선택</option>
+                                    <option>구매</option>
+                                    <option>판매</option>
+                                </select>
+                            </td>
+                            <td class="t22">
+                                <input type="text" class="td-title">
+                               
+                            </td>
+                            <td class="t23">
+                                <input type="text" class="td-email">
+                                <input type="checkbox" class="td-check-email" name=""value="" checked>답변수신을 이메일로 받겠습니다
+                            </td>
+                            <td class="t24">
+                                <input type="text" class="td-message">
+                                <input type="checkbox" class="td-check-message" name=""value="" checked>답변수신을 문자메시지로 받겠습니다
+                            </td>
+                        
+                            <td class="t25">
+                                <div class="td-div-intro">
+                                    <p>1:1문의 작성 전 확인해주세요!<br>
+                                        기쁘티콘에서 구매하신 쿠폰은 프로모션 상품, 또는 리셀링된 쿠폰입니다.<br>
+                                        추후 문제가 발생할 우려가 있어 바코드 이미지 노출 이후 단순 변심, 주문 실수 등의 사유로 환불 및 교환이 불가합니다.<br>
+                                        해당 내용은 구매 페이지에 안내되어 있으니 참고 부탁드립니다.
+    
+                                    </p>
+                                </div>
+                                <div class="td-div-content">
+                                    <textarea type="text" class="td-content"></textarea>
+                                </div>
+                            </td>
+                            <td class="t26">
+                                <input type="file" class="td-file">
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                      <div id="qna-write">
+                          <button class="btn btn-active">저장</button>
+                      </div>
+                        
+                     
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

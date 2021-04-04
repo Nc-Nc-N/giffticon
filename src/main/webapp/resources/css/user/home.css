@@ -1,0 +1,247 @@
+
+.space{
+    height:40px;
+    width:1000px;
+    background-color:transparent;
+    margin:auto;
+}
+
+#advertiser{
+    width:100%;
+    height:330px;
+    background-color: salmon;
+    display: flex;
+    align-items:center;
+    margin:auto;
+    justify-content: flex-start;
+    
+    
+}
+
+.advertise{
+    width:90%;
+    height:280px;
+    background-color: white;
+    margin-left: 40px;
+    border-radius: 15px;
+    
+}
+
+#advertiser > span {
+    font-weight: bold;
+    color: white;
+    margin: 260px 0 0 20px;
+}
+
+#container{
+    width:1000px;
+    height:1000px;
+    /* background-color:bisque; */
+    /* border-bottom: 2px solid gray; */
+    margin: auto;
+    
+}
+.prdlist{
+    width:1000px;
+    height:400px;
+    /* background-color: cadetblue; */
+    /* border-bottom: 1px solid gray; */
+    
+    align-items:center;
+    justify-content: flex-start;
+
+}
+.listname_first{
+    width:100%;
+    height:10%;
+    /* background-color: lavenderblush; */
+    /* border-bottom: 3px solid gray; */
+    display: flex;
+}
+
+.listname{
+    width:100%;
+    height:10%;
+    /* background-color: lavenderblush; */
+    border-bottom: 3px solid gray;
+    display: flex;
+}
+
+.listnamefirst{
+    width:245px;
+    height:100%;
+    /* background-color: lightcoral; */
+    border-bottom: 3px solid gray;
+    
+}
+
+.listnamefirst > h3 {
+    text-align: left;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.listnamelast{
+    width: 490px;
+    height: 100%;
+    /* background-color: lightcoral; */
+
+    margin-left:20px;
+    border-bottom: 3px solid gray;
+    
+}
+
+.listnamelast > h3 {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.listnametotal{
+    width: 755px;
+    /* background-color: teal; */
+    height: 100%;
+}
+
+.listnametotal > h3 {
+    text-align: left;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+.categorycontroller {
+    width:245px;
+    height: 100%;   
+    border-bottom: 3px solid gray;
+    /* background-color: green; */
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+.categorypaging{
+    text-align:center;
+    margin-top:10px;
+    margin-right:10px;
+    /* background-color: chartreuse; */
+    font-size: small;
+}
+
+.watchAll{
+    margin-top:10px;
+    color:black;
+    font-size: small;
+}
+.listcontent{
+    width:1000px;
+    height:80%;
+    /* background-color:lawngreen ; */
+    display: flex;
+}
+
+.maps{
+   width: 225px;
+   /* background-color: blue; */
+   height:100%;
+   margin-left:20px;
+}
+
+.mapicon{
+    width: 100%;
+    height: 75%;
+    /* background-color: blueviolet; */
+    
+    display: flex;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+.mapicon > a > p > img {
+    width: 70%;
+}
+
+.mapinfo{
+    width: 100%;
+    height: 25%;
+    /* background-color:yellow; */
+    text-align: center;
+    font-weight: bold;
+}
+
+.items{
+    width:225px;
+    height:100%;
+    /* background-color: darkkhaki; */
+    margin-left:20px;
+    
+}
+
+
+.itemimg{
+    width: 225px;
+    height: 70%;
+    background-color: transparent;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.itemimg > img {
+    width:80%;
+}
+
+.itemnameNprice{
+    width: 225px;
+    height: 30%;
+    /* background-color:hotpink; */
+    display: block;
+}
+.itembrand{
+    /* background-color:burlywood; */
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    font-size: small;
+    font-weight: bold;
+    color:rgba(70,70,70,1);
+}
+.itemname{
+    /* background-color: cornflowerblue; */
+    width: 100%;
+    height: 25%;
+    font-size: medium;
+    font-weight: bold;
+    text-align: center;
+}
+
+.itemprice{
+    /* background-color:aquamarine; */
+    width: 100%;
+    height: 35%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.itemprice > span{
+    font-size: medium;
+    color:crimson;
+    font-weight: bold;
+}
+
+.itemprice > span:last-child{
+    color: black
+    
+}
+.itemoriginprice{
+    width: 100%;
+    height: 20%;
+    /* background-color:gold; */
+    font-size: x-small;
+    color: gray;
+    text-align: center;
+    
+}
+.itemoriginprice > span{
+    margin-right: 25%;
+}
