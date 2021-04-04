@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../common-css/button.css" type="text/css">
+    <link rel="stylesheet" href="../../common-css/search-box.css" type="text/css">
+    <link rel="stylesheet" href="request-detail.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+    </style>
+</head>
+<body>
+    <div id="register-content">
+        <h2>판매요청상세</h2>
+        <div>
+            <table class="register-table">
+                <tr id="category-tr">
+                    <td colspan="3">
+                        <label>상품분류</label>
+                        <div class="category-div">
+                            <select class="reg-select search-select" disabled>
+                                <option>대분류</option>
+                                <option selected>카페</option>
+                                <option>음식점</option>
+                            </select>
+                            <span>&gt;</span>
+                            <select class="reg-select search-select" disabled>
+                                <option>브랜드</option>
+                                <option selected>스타벅스</option>
+                                <option>커피빈</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="text-tr">
+                    <td colspan="3">
+                        <label>상품명</label>
+                        <div class="text-div">
+                            <input type="text" value="[스타벅스] 아이스 아메리카노 tall" name="productName" disabled>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="email-tr">
+                    <td colspan="3">
+                        <label>판매자</label>
+                        <div class="text-div">
+                            <input type="text" value="test@gmail.com" name="userEmail" disabled>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="price-tr">
+                    <td>
+                        <label>판매가</label>
+                        <div class="sale-div">
+                            <input type="text" value="2000" name="requestPrice" disabled>
+                            <span>원</span>
+                        </div>
+                    </td>
+                    <td>
+                        <label>정가</label>
+                        <div class="price-div">
+                            <div>2500 원</div>
+                            <div class="rq-rate">5 %</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rd-div">
+                            <input type="radio" name="isAuto" disabled> <span>추천가격</span> <br>
+                            <input type="radio" name="isAuto" checked disabled> <span>직접입력</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table class="register-table">
+                <tr id="img-tr">
+                    <td rowspan="4">
+                        <label>기프티콘 이미지</label>
+                        <div class="img-div">
+                            <img src="../img/star-gitficon.jpeg">
+                        </div>
+                    </td>
+                </tr>
+                <tr id="text-tr">
+                    <td>
+                        <label>유효기간</label>
+                        <div class="text-div">
+                            <input type="text" value="2021-05-31" name="expirationDate" disabled>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr id="text-tr">
+                    <td>
+                        <label>바코드 번호</label>
+                        <div class="text-div">
+                            <input type="text" value="90093838123323" name="barcodeNumber" disabled>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr id="state-tr">
+                    <td>
+                        <label>판매상태</label>
+                        <div class="state-div">
+                            <select class="reg-select search-select" disabled>
+                                <option selected>판매요청</option>
+                                <option>판매중</option>
+                                <option>판매완료</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div id="reg-btn-area">
+            <button class="btn btn-active">승인</button>
+            <button class="btn btn-disabled">취소</button>
+            <button class="btn dark">반려</button>
+        </div>
+    </div>
+</body>
+</html>

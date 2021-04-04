@@ -1,0 +1,68 @@
+#main {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}    
+
+#content {
+    height: fit-content;
+}
+
+.search-area {
+    justify-content: flex-end;
+}
+
+.product {
+    margin-top: 20px;
+    border-bottom: 1px solid gainsboro;
+    display: flex;
+}
+
+.product-img {
+    width: 120px;
+    height: 110px;
+}
+
+.product-info {
+    margin-left: 20px;
+    margin-bottom: 10px;
+    width: 60%;
+}
+
+.p {
+    font-size: 15px;
+    margin: 2px;
+    color: rgb(71, 71, 71);
+}
+
+.category {
+    font-size: 13px;
+    /* font-weight: 600; */
+    color: rgb(112, 112, 112);
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.desc-title {
+    font-size: 13px;
+    margin-top: 5px;
+    color: rgb(112, 112, 112);  
+}
+
+.desc {
+    font-size: 13px;
+    color: rgb(112, 112, 112);  
+}
+
+.price {
+    margin-top: 5px;
+}
+
+.main-footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 40px 0;
+}

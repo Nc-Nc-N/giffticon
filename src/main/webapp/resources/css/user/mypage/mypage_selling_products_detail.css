@@ -1,0 +1,13 @@
+
+
+.item_btn_seller{
+    width: 11%;
+    height: 95%;
+    /* background-color: grey; */
+    
+
+}
+
+.item_btn_seller > button {
+   margin-bottom: 10px;
+}

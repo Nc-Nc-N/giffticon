@@ -1,0 +1,55 @@
+.user_section{
+    width: 100%;
+    height: 40%;
+    /* background-color: cadetblue; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.user_info_column{
+    width: 100px;
+    height: 100%;
+    /* background-color: chocolate; */
+    
+}
+
+.user_info_column > div {
+    /* background-color: crimson; */
+    font-size: 20px;
+    font-weight: bold;
+    margin:20px 0 50px 0;
+
+}
+
+.user_info_row{
+    width: 300px;
+    height: 100%;
+    /* background-color: coral; */
+    margin-right:80px;
+}
+
+.user_info_row > div {
+    /* background-color: crimson; */
+    font-size: 20px;
+    font-weight: bold;
+    margin:20px 0 50px 0;
+
+}
+
+.account_section{
+    width: 100%;
+    height: 25%;
+    /* background-color:cyan; */
+    display: flex;
+    justify-content: space-between;
+}
+.user_info_btn{
+    width: 80px;
+    height: 100%;
+    /* background-color: crimson; */
+}
+
+.user_info_btn > button {
+    margin-top:15px;
+    
+}
