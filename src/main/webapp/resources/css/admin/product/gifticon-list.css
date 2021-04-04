@@ -1,0 +1,74 @@
+#main {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}    
+
+#content {
+    height: fit-content;
+}
+
+.search-area {
+    justify-content: flex-end;
+}
+
+.gifticon {
+    margin-top: 20px;
+    border-bottom: 1px solid gainsboro;
+    display: flex;
+}
+
+.gifticon-img {
+    width: 120px;
+    height: 110px;
+}
+
+.gifticon-info {
+    margin-left: 20px;
+    margin-bottom: 10px;
+    width: 60%;
+}
+
+.p {
+    font-size: 15px;
+    margin: 2px;
+    color: rgb(71, 71, 71);
+}
+
+.category {
+    font-size: 13px;
+    color: rgb(112, 112, 112);
+}
+
+.title {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.price {
+    margin-top: 5px;
+}
+
+.main-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0 40px 0;
+}
+
+a.detail-link {
+    color: rgb(71, 71, 71);
+}
+
+a.detail-link:link {
+    text-decoration: none;
+}
+
+a.detail_link:visited {
+    text-decoration: none;
+    color: rgb(71, 71, 71);
+}
+
+a.detail-link:active {
+    text-decoration: none;
+    color: rgb(71, 71, 71);
+} 

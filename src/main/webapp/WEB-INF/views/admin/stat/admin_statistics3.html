@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="../../사용자/header.css" type="text/css">
+    <link rel="stylesheet" href="admin_statistics3.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+</head>
+
+<body>
+    <div id="container">
+        <div class="header">
+            <div class="top_menu">
+                <span><a href="#" class="login-panel">로그인</a></span>
+                <span class="header_divider">|</span>
+                <span><a href="#" class="login-panel">회원가입</a></span>
+                <span class="header_divider">|</span>
+                <span><a href="#" class="login-panel">고객센터</a></span>
+            </div>
+            <div class="main-logo">
+                <div class="home-logo"><img src="../../사용자/img/기쁘티콘.png" width="230px" height="100px"></a></div>
+            </div>
+        </div>
+        <div id="content">
+
+            <!-- sidebar -->
+            <div id="sidebar">
+                <div id="admin-menu">
+                    <h2>회원관리</h2>
+                    <h2>상품관리</h2>
+                    <h2>배너관리</h2>
+                    <h2>판매요청관리</h2>
+                    <h2>거래내역관리</h2>
+                    <h2>포인트관리</h2>
+                    <h2>통계분석</h2>
+                </div>
+                <div id="admin-memo">
+                    <span class="span">Memo</span>
+                    <textarea id="memo">2021-03-25 관리자 메모내용</textarea>
+                </div>
+            </div>
+            <div id="main">
+                <h2>통계분석</h2>
+                <div id="menu">
+                    <div>
+                        <a href="#">매출 / 방문자수</span></a>
+                    </div>
+                    <div>
+                        <a href="#">카테고리별 매출비율</span></a>
+                    </div>
+                    <div>
+                        <a href="#" style="color: rgb(255, 88, 93);">카테고리별 인기상품</span></a>
+                    </div>
+                </div>
+
+                <!-- search area -->
+                <div class="search-area">
+                    <select class="search-select">
+                        <option>선택1</option>
+                        <option>선택2</option>
+                        <option>선택3</option>
+                        <option>선택4</option>
+                    </select>
+                    <div class="date-search">
+                        <input type="date" id="start-date">
+                        <span style="font-size:20px">~</span>
+                        <input type="date" id="end-date">
+                    </div>
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <!-- search area end -->
+
+                <table class="result-table">
+                    <tbody>
+                        <tr>
+                            <td class="cat">카페</td>
+                            <td>
+                                <table class="result-table-nested">
+                                    <tr>
+                                        <td>[스타벅스] 카페아메리카노 T</td>
+                                        <td>22.8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[스타벅스] 카페라떼 T</td>
+                                        <td>15.2%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[스타벅스] 카페모카 T</td>
+                                        <td>9.8%</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cat">편의점, 마트</td>
+                            <td>
+                                <table class="result-table-nested">
+                                    <tr>
+                                        <td>[CU] 바나나맛 우유</td>
+                                        <td>11.5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[CU] 핫식스 캔 250ml</td>
+                                        <td>7.6%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[GS25] 메로나</td>
+                                        <td>4.2%</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cat">빵, 아이스크림</td>
+                            <td>
+                                <table class="result-table-nested">
+                                    <tr>
+                                        <td>[파리바게뜨] 치즈케이크</td>
+                                        <td>29.7%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[던킨도너츠] 베이컨에그 잉글리쉬머핀</td>
+                                        <td>18.5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[베스킨라빈스] 파인트</td>
+                                        <td>16.2%</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cat">피자, 햄버거, 치킨</td>
+                            <td>
+                                <table class="result-table-nested">
+                                    <tr>
+                                        <td>[BHC] 뿌링클 + 콜라 1.25L</td>
+                                        <td>34.6%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[BBQ] 황금올리브치킨 + 콜라 1.25L</td>
+                                        <td>27.1%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[BBQ] 치즐링 + 콜라 1.25L</td>
+                                        <td>20.5%</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cat">문화, 게임, 영화</td>
+                            <td>
+                                <table class="result-table-nested">
+                                    <tr>
+                                        <td>[롯데시네마] 영화관람권 (주중/주말)</td>
+                                        <td>43.6%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[롯데시네마] 스위트콤보(팝콘L + 음료M2)</td>
+                                        <td>27.8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[CGV] 4DX 관람권</td>
+                                        <td>15.1%</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cat">외식, 분식</td>
+                            <td>
+                                <table class="result-table-nested">
+                                    <tr>
+                                        <td>[홍콩반점] 짜장면</td>
+                                        <td>55.2%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[아웃백 스테이크하우스] 5만원권</td>
+                                        <td>25.7%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[빕스(VIPS)] 기프티카드 5만원권</td>
+                                        <td>18.0%</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td class="cat">백화점, 주유, 뷰티</td>
+                            <td>
+                                <table class="result-table-nested">
+                                    <tr>
+                                        <td>[신세계] 3만원권</td>
+                                        <td>39.5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[롯데백화점] 10만원권</td>
+                                        <td>32.2%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[올리브영] 기프티카드 5만원권</td>
+                                        <td>15.9%</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td class="cat">휴대폰 데이터</td>
+                            <td>
+                                <table class="result-table-nested">
+                                    <tr>
+                                        <td>[]</td>
+                                        <td>0.0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[]</td>
+                                        <td>0.0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[]</td>
+                                        <td>0.0%</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr> 
+
+                    </tbody>
+                </table>
+                ㅤ
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="../../사용자/header.css" type="text/css">
+    <link rel="stylesheet" href="admin_pointfeehist.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+</head>
+
+<body>
+    <div id="container">
+        <div class="header">
+            <div class="top_menu">
+                <span><a href="#" class="login-panel">로그인</a></span>
+                <span class="header_divider">|</span>
+                <span><a href="#" class="login-panel">회원가입</a></span>
+                <span class="header_divider">|</span>
+                <span><a href="#" class="login-panel">고객센터</a></span>
+            </div>
+            <div class="main-logo">
+                <div class="home-logo"><img src="../../사용자/img/기쁘티콘.png" width="230px" height="100px"></a></div>
+            </div>
+        </div>
+        <div id="content">
+
+            <!-- sidebar -->
+            <div id="sidebar">
+                <div id="admin-menu">
+                    <h2>회원관리</h2>
+                    <h2>상품관리</h2>
+                    <h2>배너관리</h2>
+                    <h2>판매요청관리</h2>
+                    <h2>거래내역관리</h2>
+                    <h2>포인트관리</h2>
+                    <h2>통계분석</h2>
+                </div>
+                <div id="admin-memo">
+                    <span class="span">Memo</span>
+                    <textarea id="memo">2021-03-25 관리자 메모내용</textarea>
+                </div>
+            </div>
+            <div id="main">
+                <h2>포인트관리</h2>
+                <div id="menu">
+                    <div>
+                        <a href="#">포인트내역관리</span></a>
+                    </div>
+                    <div>
+                        <a href="#" style="color: rgb(255, 88, 93);">포인트 수수료관리</span></a>
+                    </div>
+                </div>
+
+
+
+
+                <br>
+                <div>
+                    <table id="t1" width="100%">
+                        <tr>
+                            <th style="width:33%">No.</th>
+                            <th style="width:33%">수수료</th>
+                            <th style="width:33%">적용기간</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>5%</td>
+                            <td>2020-12-21 - 2999-12-31</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>3%</td>
+                            <td>2019-01-01 - 2020-12-20</td>
+                        </tr>
+
+                    </table>
+
+                    <button type="button" id="btn1" class="btn btn-active">수수료 변경</button>
+
+
+
+
+                </div>
+                <br><br>
+                <div class="pagination">
+                    <a href="#">&lt;</a>
+                    <a href="#" class="active">1</a>
+                    <!-- <a href="#">2</a> -->
+                    <!-- <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a> -->
+                    <a href="#">&gt;</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal1">
+        <div class="black_bg"></div>
+        <div class="modal_wrap">
+            <div class="modal-content">
+                <h2>수수료 변경</h2><br>
+                <div class="inputcontainer">
+                    <div class="inputtitle">
+                        <span>현재 수수료</span>
+                        <span style="margin-left:162px">변경 수수료</span>
+                    </div>
+                    <br>
+                    <div class="feeinput">
+                        <input type="text" placeholder="내용을 입력해주세요">
+                        <span style="font-size:20px">></span>
+                        <input type="text" placeholder="내용을 입력해주세요">
+                    </div>
+                </div>
+                <div class="modalbtn">
+                    <button type="button" class="btn btn-active" style="color:white">등록</button>
+                    <button style="margin-left:30px" type="button" class="btn btn-disabled">취소</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
+</body>
+
+</html>
+
+
+<script>
+    window.onload = function () {
+
+        function onClick() {
+            document.querySelector('.modal_wrap').style.display = 'block';
+            document.querySelector('.black_bg').style.display = 'block';
+        }
+        function offClick() {
+            document.querySelector('.modal_wrap').style.display = 'none';
+            document.querySelector('.black_bg').style.display = 'none';
+        }
+
+        document.getElementById('btn1').addEventListener('click', onClick);
+        document.querySelector('.btn-disabled').addEventListener('click', offClick);
+    }
+</script>

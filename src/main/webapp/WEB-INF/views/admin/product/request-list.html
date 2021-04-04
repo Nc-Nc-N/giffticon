@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <link rel="stylesheet" href="../../common-css/search-box.css" type="text/css">
+        <link rel="stylesheet" href="../../common-css/button.css" type="text/css">
+        <link rel="stylesheet" href="../../common-css/pagination.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+        <link rel="stylesheet" href="../../사용자/header.css" type="text/css">
+        <link rel="stylesheet" href="../admin_layout.css" type="text/css">
+        <link rel="stylesheet" href="request-list.css" type="text/css">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="header">
+                <div class= "top_menu">
+                    <span><a href="#" class="login-panel">로그인</a></span>
+                    <span class="header_divider">|</span>
+                    <span><a href="#" class="login-panel">회원가입</a></span>
+                    <span class="header_divider">|</span>
+                    <span><a href="#" class="login-panel">고객센터</a></span>
+                </div>
+                <div class="main-logo">
+                    <div class="home-logo"><img class="logo" src="../../사용자/img/기쁘티콘.png" ></a></div>
+                </div>
+            </div>
+            <div id="content">
+
+                <!-- sidebar -->
+                <div id="sidebar">
+                    <div id="admin-menu">
+                        <h2>회원관리</h2>
+                        <h2>상품관리</h2>
+                        <h2>배너관리</h2>
+                        <h2>판매요청관리</h2>
+                        <h2>거래내역관리</h2>
+                        <h2>포인트관리</h2>
+                        <h2>통계분석</h2>
+                    </div>
+                    <div id="admin-memo">
+                        <span class="span">Memo</span>
+                        <textarea id="memo">2021-03-25 관리자 메모내용</textarea>
+                    </div>
+                </div>
+
+                <!-- main content -->
+                <div id="main">
+                    <h2>판매요청관리</h2>
+
+                    <!-- menu -->
+                    <div id="menu"></div>
+                    <!-- menu end -->
+                    
+                    <!-- search area -->
+                    <div class="search-area">
+                        <select class="search-select">
+                            <option>전체</option>
+                            <option>판매자</option>
+                            <option>상품명</option>
+                            <option>상품코드</option>
+                        </select>
+                        <form class="search-form">
+                            <div>
+                                <input type="text" class="search-input" />
+                
+                                <button type="submit" class="search-button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- search area end -->
+
+                    <!-- request list -->
+                    <div class="request-list">
+                        <div class="request">
+                            <img class="request-img" src="../img/starbucks_ia.jpg">
+                            <div class="request-info">
+                                <div class="p category">카페 > 스타벅스</div>
+                                <div class="p title"><a class="detail-link" href="#">[스타벅스] 아이스 아메리카노 tall</a></div>
+                                <div class="p email">판매자 test@gmail.com</div>
+                                <div class="p request-date">요청일 2021-03-25</div>
+                            </div>
+                            <button class="btn btn-active">판매승인</button>
+                        </div>
+                        <div class="request">
+                            <img class="request-img" src="../img/starbucks_ia.jpg">
+                            <div class="request-info">
+                                <div class="p category">카페 > 스타벅스</div>
+                                <div class="p title"><a class="detail-link" href="#">[스타벅스] 아이스 아메리카노 tall</a></div>
+                                <div class="p email">판매자 test@gmail.com</div>
+                                <div class="p request-date">요청일 2021-03-25</div>
+                            </div>
+                            <button class="btn btn-active">판매승인</button>
+                        </div>
+                        <div class="request">
+                            <img class="request-img" src="../img/starbucks_ia.jpg">
+                            <div class="request-info">
+                                <div class="p category">카페 > 스타벅스</div>
+                                <div class="p title"><a class="detail-link" href="#">[스타벅스] 아이스 아메리카노 tall</a></div>
+                                <div class="p email">판매자 test@gmail.com</div>
+                                <div class="p request-date">요청일 2021-03-25</div>
+                            </div>
+                            <button class="btn btn-active">판매승인</button>
+                        </div>
+                        <div class="request">
+                            <img class="request-img" src="../img/starbucks_ia.jpg">
+                            <div class="request-info">
+                                <div class="p category">카페 > 스타벅스</div>
+                                <div class="p title"><a class="detail-link" href="#">[스타벅스] 아이스 아메리카노 tall</a></div>
+                                <div class="p email">판매자 test@gmail.com</div>
+                                <div class="p request-date">요청일 2021-03-25</div>
+                            </div>
+                            <button class="btn btn-active">판매승인</button>
+                        </div>
+                        <div class="request">
+                            <img class="request-img" src="../img/starbucks_ia.jpg">
+                            <div class="request-info">
+                                <div class="p category">카페 > 스타벅스</div>
+                                <div class="p title"><a class="detail-link" href="#">[스타벅스] 아이스 아메리카노 tall</a></div>
+                                <div class="p email">판매자 test@gmail.com</div>
+                                <div class="p request-date">요청일 2021-03-25</div>
+                            </div>
+                            <button class="btn btn-disabled">판매반려</button>
+                        </div>
+                    </div>
+                    <!-- request list end -->
+
+                    <div class="main-footer">
+                        <div class="pagination">
+                            <a href="#">&lt;</a>
+                            <a href="#">1</a>
+                            <a href="#" class="active">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">&gt;</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- main content end -->
+            </div>
+            <!-- content end -->
+        </div>
+    </body>
+</html>
