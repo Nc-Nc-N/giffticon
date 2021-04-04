@@ -1,0 +1,306 @@
+/* 컨테이너 전체 */
+#container{
+    width:1000px;
+    height:1000px;
+    /* background-color:khaki; */
+    margin: auto;
+}
+
+/* 공백 */
+#space{
+    height:65px;
+    width:1000px;
+    background-color: transparent;
+}
+
+/* 헤더 아래 내용 시작 */
+#main{
+    width:1000px;
+    height:935px;
+    
+    /* background-color: lightgreen; */
+}
+
+/* 판매하기 */
+.menuname{
+    width:1000px;
+    /* background-color:yellow; */
+}
+
+/* 판매하기 내용 시작 */
+#content{
+    height:855px;
+    width:900px;
+    /* background-color:olive; */
+    /* margin: 0 0 0 50px; */
+}
+
+/* 한 카테고리 전체 */
+.block{
+    width: 1000px;
+    display: flex;
+    padding: 0px 0px 80px 0;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+/* 왼쪽 타이틀 */
+.catename {
+    width: 14%;
+    font-size: 18px;
+    padding-top: 80px;
+}
+.catename > span {
+    color: rgb(255, 88, 93);
+}
+
+/* 오른쪽 내용 시작 */
+.innerblock{
+    width: 100%;
+    margin-top: 80px
+}
+
+/* select box 3개 묶음 */
+.category {
+    display: flex;
+    width: 100%;
+    height: 19rem;
+    overflow: hidden;
+    border: 1px solid rgb(220, 220, 220);
+}
+
+/* select box 1개 */
+.innerbox {
+    /*width: 284px;*/
+    width: 33.33%;
+    height: 100%;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    overflow-y: auto;
+    color: rgb(220, 220, 220);
+}
+
+/* 대분류 카테고리 */
+.lclsbox, .brandbox, .productbox {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem 0px;
+}
+
+/*.brandbox {*/
+/*    display:none;*/
+/*}*/
+
+/*.productbox {*/
+/*    display:none;*/
+/*}*/
+
+/* select 박스 내용 */
+.lclsSelect  {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.select {
+    width: 100%;
+    height: 100%;
+    padding: 0px 1.5rem;
+}
+/* 박스 테두리 */
+.innerbox:nth-child(2), .innerbox:nth-child(3) {
+    border-left: 1px solid rgb(220, 220, 220);
+}
+
+/* 선택한 카테고리:~ */
+.showCategory {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    color: rgb(255, 88, 93);
+}
+
+/* 대표 이미지 */
+.imgspace{
+    width: 284px;
+    border: 1px solid rgb(220, 220, 220);
+}
+.imgspace > img{
+    width: 100%;
+}
+
+/* 상품 설명 */
+.prodInfo{
+    display: flex;
+    justify-content: space-between
+}
+.prodInfo > textarea{
+    width: 66%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 1px solid rgb(220, 220, 220);
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+/* 정가, 판매가 */
+.pricename{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+/* 자동입력, 가격제시 */
+.pricetype {
+    margin-top: 2%;
+}
+
+.auto {
+    font-size: 1rem;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    margin-right: 2rem;
+}
+
+/* 자동입력 설명 */
+.explain{
+    padding: 0;
+}
+
+.explain > label, .innerblock > label{
+    color: #FF585D;
+    vertical-align: middle;
+    display: inline-block;
+    font-size: smaller;
+    margin-left: 2%;
+}
+
+/* 쿠폰등록 부분 -> 구분선 없어서 따로 */
+.couponblock{
+    width: 1000px;
+    display: flex;
+}
+
+/* 쿠폰 등록 유의사항 */
+.coupon > textarea{
+    width: 100%;
+    height: 200px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 1px solid rgb(220, 220, 220);
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+/* 쿠폰 파일 업로드 */
+.box-file-input{
+    margin-top: 3%;
+}
+
+/* 쿠폰 등록 버튼 */
+.box-file-input label{
+    display:inline-block;
+    background:#FF585D;
+    color:#fff;
+    padding:0px 15px;
+    line-height:32px;
+    text-align: center;
+    border: none;
+    width: 80px;
+    height: 35px;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+}
+.box-file-input label:after{
+    content:"쿠폰등록";
+}
+.box-file-input .file-input{
+    display:none;
+}
+
+.box-file-input .filename{
+    display:inline-block;
+    padding-left:10px;
+}
+
+/* 기쁘티콘에게 전달할 메시지 */
+.message-title {
+    font-size: 18px;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.message > textarea{
+    width: 1000px;
+    height: 150px;
+    padding: 20px 0px 20px;
+    box-sizing: border-box;
+    border: 1px solid rgb(220, 220, 220);
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+
+/* 네모 input 박스 */
+.pricebox > input, .explain > input, .couponblock >.innerblock > input{
+    border: 1px solid rgb(220, 220, 220);
+    width: 284px;
+    height: 45px;
+    margin-bottom: 1%;
+}
+
+/* 버튼, input박스 텍스트 */
+button, input{
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0px;
+}
+
+button{
+    -webkit-font-smoothing: antialiased;
+    direction: ltr;
+    text-align: left;
+    letter-spacing: -0.5px;
+    outline: 0px;
+    border: 0px;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+/* date input  */
+#end-date{
+    -webkit-font-smoothing: antialiased;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid rgb(220, 220, 220);
+    color: rgb(88, 88, 88);
+    width: 284px;
+    height: 45px;
+}
+/* 버튼 css */
+.btn{
+    border: none;
+    width: 160px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    outline: none;
+    cursor: pointer;
+    line-height:32px;
+    text-align: center;
+    background-color: rgb(255, 88, 93);
+    color: white;
+    /* float: right; */
+}
+.register{
+    width: 1000px;
+    margin: 10px 0;
+    padding: 5% 0;
+    text-align: right;
+}

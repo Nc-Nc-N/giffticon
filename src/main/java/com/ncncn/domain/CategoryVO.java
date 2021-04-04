@@ -15,4 +15,12 @@ public class CategoryVO {
 
     private String descn;
 
+    private Date inDate;
+
+    private String inUser;
+
+    private Date upDate;
+
+    private String upUser;
+
 }
