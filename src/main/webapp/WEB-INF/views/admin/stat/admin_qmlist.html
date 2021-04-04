@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <link rel="stylesheet" href="../../사용자/header.css" type="text/css">
+        <link rel="stylesheet" href="admin_qmlist.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    </head>
+    <body>
+        <div id="container">
+            <div class="header">
+                <div class= "top_menu">
+                    <span><a href="#" class="login-panel">로그인</a></span>
+                    <span class="header_divider">|</span>
+                    <span><a href="#" class="login-panel">회원가입</a></span>
+                    <span class="header_divider">|</span>
+                    <span><a href="#" class="login-panel">고객센터</a></span>
+                </div>
+                <div class="main-logo">
+                    <div class="home-logo"><img src="../../사용자/img/기쁘티콘.png" width="230px" height="100px"></a></div>
+                </div>      
+            </div>
+            <div id="content">
+                <!-- sidebar -->
+                <div id="sidebar">
+                  <div id="admin-menu">
+                      <h2>회원관리</h2>
+                      <h2>상품관리</h2>
+                      <h2>배너관리</h2>
+                      <h2>판매요청관리</h2>
+                      <h2>거래내역관리</h2>
+                      <h2>포인트관리</h2>
+                      <h2>통계분석</h2>
+                  </div>
+                  <div id="admin-memo">
+                      <span class="span">Memo</span>
+                      <textarea id="memo">2021-03-25 관리자 메모내용</textarea>
+                  </div>
+              </div>
+                <div id="main">
+                    <h2>회원목록</h2>
+                    <div id="menu">
+                        <div>
+                            <a href="#" >회원목록</span></a>
+                        </div>
+                        <div> 
+                            <a href="#" style="color: rgb(255, 88, 93);">탈퇴회원목록</span></a>
+                        </div>
+                    </div>
+                    <br>
+                    
+                    <!-- search area -->
+                    <div class="search-area">
+                        <select class="search-select">
+                            <option>전체</option>
+                            <option>상품코드</option>
+                            <option>상품명</option>
+                        </select>
+                        <form class="search-form">
+                            <div>
+                                <input type="text" class="search-input" />
+                
+                                <button type="submit" class="search-button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- search area end -->
+                    <br><br>
+                    <div>
+                      <table id="t1" width="100%">
+                        <tr>
+                          <th>회원번호</th>
+                          <th>이메일</th>
+                          <th>아이디</th>
+                          <th>가입일시</th>
+                          <th>회원상태</th>
+                        </tr>
+                        <tr>
+                          <td>9544</td>
+                          <td>user9544@gmil.com</td>
+                          <td>user9544</td>
+                          <td>2013.03.15. 10:42:54</td>
+                          <td>탈퇴대기</td>
+                        </tr>
+                        <tr>
+                          <td>9544</td>
+                          <td>user9544@gmil.com</td>
+                          <td>user9544</td>
+                          <td>2013.03.15. 10:42:54</td>
+                          <td>탈퇴대기</td>
+                        </tr>
+                          <td>9544</td>
+                          <td>user9544@gmil.com</td>
+                          <td>user9544</td>
+                          <td>2013.03.15. 10:42:54</td>
+                          <td>탈퇴대기</td>
+                        </tr>
+                          <td>9544</td>
+                          <td>user9544@gmil.com</td>
+                          <td>user9544</td>
+                          <td>2013.03.15. 10:42:54</td>
+                          <td>탈퇴</td>
+                        </tr>
+                          <td>9544</td>
+                          <td>user9544@gmil.com</td>
+                          <td>user9544</td>
+                          <td>2013.03.15. 10:42:54</td>
+                          <td>탈퇴</td>
+                        </tr>
+                          <td>9544</td>
+                          <td>user9544@gmil.com</td>
+                          <td>user9544</td>
+                          <td>2013.03.15. 10:42:54</td>
+                          <td>탈퇴</td>
+                        </tr>
+                          <td>9544</td>
+                          <td>user9544@gmil.com</td>
+                          <td>user9544</td>
+                          <td>2013.03.15. 10:42:54</td>
+                          <td>탈퇴</td>
+                        </tr>
+                          <td>9544</td>
+                          <td>user9544@gmil.com</td>
+                          <td>user9544</td>
+                          <td>2013.03.15. 10:42:54</td>
+                          <td>탈퇴</td>
+                        </tr>
+                          <td>9544</td>
+                          <td>user9544@gmil.com</td>
+                          <td>user9544</td>
+                          <td>2013.03.15. 10:42:54</td>
+                          <td>탈퇴</td>
+                        </tr>
+                          <td>9544</td>
+                          <td>user9544@gmil.com</td>
+                          <td>user9544</td>
+                          <td>2013.03.15. 10:42:54</td>
+                          <td>탈퇴</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <br><br>
+                    <div class="pagination">
+                        <a href="#">&lt;</a>
+                        <a href="#">1</a>
+                        <a href="#" class="active">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">&gt;</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

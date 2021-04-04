@@ -1,0 +1,8 @@
+.sub-category-btn-all{
+    border: none;
+}
+
+.sub-category-btn-notice{
+    border-left:1px solid rgb(172, 172, 172);
+    border-right:1px solid rgb(172, 172, 172);
+}

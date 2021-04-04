@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class GifticonDTO {
+public class GifticonVO {
 
     private int id;
 
