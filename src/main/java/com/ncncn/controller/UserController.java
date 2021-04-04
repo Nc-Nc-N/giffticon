@@ -15,7 +15,7 @@ public class UserController {
         log.info("user main");
     }
 
-    @GetMapping("/mypage/mypage")
+    @GetMapping("/mypage/mypageDeals")
     public void userMypage(){
         log.info("user mypage");
     }

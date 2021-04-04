@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../header.css" type="text/css">
-    <link rel="stylesheet" href="templete.css" type="text/css">
-    <link rel="stylesheet" href="mypage_deals.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/mypage/mypage_deals.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-    <link rel="stylesheet" href="../../common-css/button.css" type="text/css">
-    <link rel="stylesheet" href="../../common-css/pagination.css" type="text/css">
-    <link rel="stylesheet" href="../../common-css/search-box.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
 
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
     <title>Document</title>
