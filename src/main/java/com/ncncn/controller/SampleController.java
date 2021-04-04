@@ -15,4 +15,5 @@ public class SampleController {
 	public void all() {
 		log.info("do all");
 	}
+
 }

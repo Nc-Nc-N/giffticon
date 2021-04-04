@@ -3,12 +3,33 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+    <bean id="customLoginSuccess" class="com.ncncn.controller.LoginSuccessHandler"></bean>
+    <bean id="customAccessDenied" class="com.ncncn.controller.CustomAccessDeniedHandler"></bean>
 
     <security:http>
-        <security:form-login/>
+        <security:form-login login-page="/login/signUp" authentication-success-handler-ref="customLoginSuccess"/>
+        <security:intercept-url pattern="/user/main" access="permitAll"/>
+        <security:intercept-url pattern="/admin/main" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/user/mypage/*" access="hasRole('ROLE_USER')"/>
+
+        <security:access-denied-handler ref="customAccessDenied"/>
+
     </security:http>
 
     <security:authentication-manager>
-
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN"/>
+                <security:user name="user" password="{noop}user" authorities="ROLE_USER"/>
+            </security:user-service>
+        </security:authentication-provider>
     </security:authentication-manager>
 </beans>
+
+<!--
+=========로그인 할 일=========
+1.디폴트 로그인 창에서 로그인
+2.member user 로그인 시 각 각 페이지로 이동
+3.각 롤은 다른 페이지 접근 불가
+4.csrf 설정
+-->
