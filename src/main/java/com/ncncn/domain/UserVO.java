@@ -1,5 +1,8 @@
 package com.ncncn.domain;
 
+import lombok.Data;
+
+@Data
 public class UserVO {
 
     private int id;

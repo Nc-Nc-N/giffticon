@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.UserMapper">
+
+    <select id="readByEmail" resultType="com.ncncn.domain.UserVO">
+        select * from user where email = #{email}
+    </select>
+
+    <insert id="insert">
+        insert into user(email, pwd, name, tel_no, memo, in_user, up_user)
+        value (#{email}, #{pwd}, #{name}, #{telNo}, #{memo}, current_user , current_user)
+    </insert>
+
+    <delete id="deleteByEmail">
+        delete from user where email = #{email}
+    </delete>
+
+</mapper>
