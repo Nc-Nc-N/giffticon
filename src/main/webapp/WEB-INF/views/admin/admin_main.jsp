@@ -1,11 +1,12 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <link rel="stylesheet" href="../../사용자/header.css" type="text/css">
-    <link rel="stylesheet" href="admin_main.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/admin/admin_main.css" type="text/css">
 </head>
 
 <body>
@@ -19,7 +20,7 @@
                 <span><a href="#" class="login-panel">고객센터</a></span>
             </div>
             <div class="main-logo">
-                <div class="home-logo"><img src="../../사용자/img/기쁘티콘.png" width="230px" height="100px"></a></div>
+                <div class="home-logo"><img src="/resources/img/logo.png" width="230px" height="100px"></a></div>
             </div>
         </div>
         <div id="content">

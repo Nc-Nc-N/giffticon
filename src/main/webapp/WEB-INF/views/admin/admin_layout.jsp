@@ -1,13 +1,14 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
         <meta charset="utf-8" />
         <title></title>
-        <link rel="stylesheet" href="../../사용자/header.css" type="text/css">
-        <link rel="stylesheet" href="admin_layout.css" type="text/css">
-        <link rel="stylesheet" href="../../common-css/search-box.css" type="text/css">
-        <link rel="stylesheet" href="../../common-css/button.css" type="text/css">
-        <link rel="stylesheet" href="../../common-css/pagination.css" type="text/css">
+        <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
+        <link rel="stylesheet" href="/resources/css/admin/admin_layout.css" type="text/css">
+        <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
+        <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
+        <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     </head>
     <body>

@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="../common/header.jsp"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,50 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="header.css" type="text/css">
-    <link rel="stylesheet" href="home.css" type="text/css">
+
+    <link rel="stylesheet" href="/resources/css/user/home.css" type="text/css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
     </style>
-    <div id="header"> <!-- header include (이후 삭제)-->
-        <div class= "top_menu">
-            <span><a href="#" class="login-panel">로그인</a></span>
-            <span class="header_divider">|</span>
-            <span><a href="#" class="login-panel">회원가입</a></span>
-            <span class="header_divider">|</span>
-            <span><a href="#" class="login-panel">고객센터</a></span>
-        </div>
-        <div class="main-logo">
-            <div class="home-logo"><img src="img/기쁘티콘.png" width="80%" ></a></div>
-        </div>
-        <div class="main-bar">
-            
-            <div class="bar-left">
-                <div class="category-drop">
-                    <div class="category-btn"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</div>
-                </div>
-                <div class="leftmenus">
-                    <div class="leftmenu">충전하기</div>  
-                    <div class="leftmenu"><i class="fas fa-map-marker-alt"></i></div>
-                </div>
-            </div>
-    
-            <div class="search">
-                <form action="(login)" >
-                    <input type="text" class="searchbar" placeholder="기쁘티콘">
-                    <button class="searchbutton"><i class="fas fa-search"></i> </button>
-                </form>
-            </div>
-            
-            <div class="bar-right">
-                <span class="rightmenu"><i class="fas fa-ticket-alt"></i></span>
-                <span class="rightmenu">판매하기</span>
-                <span class="rightmenu">마이페이지</span>
-            </div>
-            
-
-        </div>
-    </div>
 </head>
 
 <!--여기서부터 home body-->

@@ -1,23 +1,42 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%
+
+%>
 <!DOCTYPE html>
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 <head>
     <meta charset="UTF-8">
       <title>Document</title>
-    <link rel="stylesheet" href="header.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
     </style>
 
 <div id="header">
     <div class= "top_menu">
-        <span><a href="#" class="login-panel">로그인</a></span>
-        <span class="header_divider">|</span>
-        <span><a href="#" class="login-panel">회원가입</a></span>
+
+        <sec:authorize access="isAnonymous()">
+            <span><a href="/login/signIn" class="login-panel">로그인</a></span>
+            <span class="header_divider">|</span>
+            <span><a href="#" class="login-panel">회원가입</a></span>
+        </sec:authorize>
+
+        <sec:authorize access="isAuthenticated()">
+            <span><form action="/login/signOut" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="hidden" name="logout" value="로그아웃되었습니다.">
+                <button type="submit" class="btn003">로그아웃</button></form>
+            </span>
+            <span class="header_divider">|</span>
+            <span><sec:authentication property="principal.username"/></span>
+        </sec:authorize>
+
         <span class="header_divider">|</span>
         <span><a href="#" class="login-panel">고객센터</a></span>
     </div>
     <div class="main-logo">
-        <div class="home-logo"><img src="img/기쁘티콘.png" ></a></div>
+        <div class="home-logo"><a href="/user/home"><img src="/resources/img/logo.png" ></a></div>
     </div>
     <div class="main-bar">
         

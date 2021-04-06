@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../../../../../../screen_define/common-css/button.css"/>
-    <link rel="stylesheet" href="sign_up.css"/>
+    <link rel="stylesheet" href="/resources/css/common/button.css"/>
+    <link rel="stylesheet" href="/resources/css/login/signUp.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
     </style>
@@ -16,7 +16,7 @@
     <div class="container">
         
         <div class="imgcontainer">
-           <img src="../../../../../../../screen_define/사용자/img/기쁘티콘.png">
+           <img src="/resources/img/logo.png">
         </div>
         <form action="#" method="POST">
         <div class="element_email">

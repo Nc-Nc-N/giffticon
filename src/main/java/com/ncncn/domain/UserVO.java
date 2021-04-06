@@ -1,5 +1,11 @@
 package com.ncncn.domain;
 
+import lombok.Data;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.List;
+
+@Data
 public class UserVO {
 
     private int id;
@@ -21,5 +27,7 @@ public class UserVO {
     private String stusCode;
 
     private String roleCode;
+    
+
 
 }

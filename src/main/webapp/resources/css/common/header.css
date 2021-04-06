@@ -33,7 +33,7 @@
     margin: 0 auto;
 }
 
-.home-logo > img {
+.home-logo > a > img {
     width: 80%;
 }
 

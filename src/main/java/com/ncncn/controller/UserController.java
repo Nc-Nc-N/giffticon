@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j
 public class UserController {
 
-    @GetMapping("/main")
+    @GetMapping("/home")
     public void userMain(){
-        log.info("user main");
+        log.info("user home");
     }
 
     @GetMapping("/mypage/mypageDeals")

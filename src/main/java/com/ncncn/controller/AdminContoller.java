@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j
 public class AdminContoller {
 
-    @GetMapping("/main")
+    @GetMapping("/admin_main")
     public void adminMain(){
         log.info("admin Main");
     }
