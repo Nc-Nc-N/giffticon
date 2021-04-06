@@ -8,12 +8,16 @@
     </select>
 
     <insert id="insert">
-        insert into user(email, pwd, name, tel_no, memo, in_user, up_user)
-        value (#{email}, #{pwd}, #{name}, #{telNo}, #{memo}, current_user , current_user)
+        insert into user(email, pwd, name, tel_no, in_user, up_user)
+        value (#{email}, #{pwd}, #{name}, #{telNo}, current_user , current_user)
     </insert>
 
     <delete id="deleteByEmail">
         delete from user where email = #{email}
     </delete>
+
+    <select id="countByEmail" resultType="int">
+        select count(*) from user where email = #{email}
+    </select>
 
 </mapper>

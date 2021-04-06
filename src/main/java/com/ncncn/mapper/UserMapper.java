@@ -10,4 +10,5 @@ public interface UserMapper {
 
 	int deleteByEmail(String email);
 
+	int countByEmail(String email);
 }
