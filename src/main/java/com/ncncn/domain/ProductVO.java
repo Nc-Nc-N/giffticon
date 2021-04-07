@@ -27,4 +27,8 @@ public class ProductVO {
 
     private char enabled;
 
+    private Date inDate;
+
+    private Date upDate;
+
 }

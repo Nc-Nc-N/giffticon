@@ -1,5 +1,7 @@
 package com.ncncn.domain;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -14,5 +16,9 @@ public class CmmnCodeVO {
 	private String descn;
 
 	private char enabled;
+
+	private Date inDate;
+
+	private Date upDate;
 
 }

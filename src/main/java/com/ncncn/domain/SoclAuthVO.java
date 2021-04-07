@@ -1,5 +1,7 @@
 package com.ncncn.domain;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -18,5 +20,9 @@ public class SoclAuthVO {
 	private String rfrshTkn;
 
 	private int rfrshTknExpirIn;
+
+	private Date inDate;
+
+	private Date upDate;
 
 }

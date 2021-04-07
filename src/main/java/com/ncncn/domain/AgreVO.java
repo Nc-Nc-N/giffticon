@@ -17,4 +17,8 @@ public class AgreVO {
 
 	private int termsId;
 
+	private Date inDate;
+
+	private Date upDate;
+
 }

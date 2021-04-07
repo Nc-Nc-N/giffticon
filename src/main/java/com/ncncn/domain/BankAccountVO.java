@@ -20,4 +20,8 @@ public class BankAccountVO {
 
     private String accStus;
 
+    private Date inDate;
+
+    private Date upDate;
+
 }
