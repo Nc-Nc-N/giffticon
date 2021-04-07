@@ -21,4 +21,8 @@ public class PntHistVO {
 
 	private String pntHistCode;
 
+	private Date inDate;
+
+	private Date upDate;
+
 }

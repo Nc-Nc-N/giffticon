@@ -15,4 +15,8 @@ public class DcPrcHistVO {
 
 	private Date endDt;
 
+	private Date inDate;
+
+	private Date upDate;
+
 }

@@ -1,9 +1,8 @@
 package com.ncncn.domain;
 
 import lombok.Data;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.List;
+import java.util.Date;
 
 @Data
 public class UserVO {
@@ -27,7 +26,9 @@ public class UserVO {
     private int enabled;
 
     private String roleCode;
-    
 
+    private Date inDate;
+
+    private Date upDate;
 
 }
