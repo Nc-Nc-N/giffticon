@@ -64,7 +64,9 @@
 
 <script>
     $(document).ready(function (e) {
+        // 인증 코드를 저장
         let emlAuthTkn = '';
+        // 인증 여부를 저장
         let isEmailConfirm = false;
 
         let emailAuthBtn = $('button[name="email-auth-btn"]');
@@ -88,6 +90,7 @@
 
             alert("인증코드가 메일로 전송되었습니다.");
 
+            // 이메일 인증을 하면 인증 버튼을 비활성화 시킴
             emailAuthBtn.css('background-color', 'gray');
             emailAuthBtn.prop('disabled', true);
 
@@ -95,14 +98,23 @@
                 type: 'get',
                 url: '/account/emailConfirm?email=' + email,
                 success: function (result) {
+                    // 인증코드 메일 전송을 성공하면 해당 코드값을 받아옴
+                    // 사용자가 입력하는 코드 값과 비교하여 이메일 인증을 진행
                     emlAuthTkn = result.code;
+                    // 인증여부를 ture로 변경
                     isEmailConfirm = true;
+                }, error: function () {
+                    alert("인증 오류입니다. 다시 시도해주세요.");
                 }
             });
         });
 
+        // 사용자가 이메일을 수정하면 다시 인증을 받도록 함
         $('input[name="email"]').on('keyup', function (e) {
+            // 인증 여부를 false로 변경
             isEmailConfirm = false;
+
+            // 인증 버튼을 다시 활성화 시킴
             emailAuthBtn.css('background-color', "rgb(255,88,93)");
             emailAuthBtn.prop('disabled', false);
         });
@@ -135,14 +147,14 @@
                 return;
             }
 
-            // 비밀번호 확인이 비거나 비밀번호와 다른지 확인
+            // 비밀번호 확인 값이 일치하는지 확인
             if (confirmPwd !== pwd) {
                 $('#validateMsg').html("<i class=\"fas fa-exclamation-circle\"></i> 비밀번호가 다릅니다. 다시 확인해주세요.");
                 return;
             }
 
-            // 이름을 적었는지 확인
-            if (!checkName(name)) {
+            // 이름 길이가 2보다 작은지 확인
+            if (!(name.length >= 2)) {
                 $('#validateMsg').html("<i class=\"fas fa-exclamation-circle\"></i> 이름은 최소 2자리 이상이어야 합니다.");
                 return;
             }
@@ -167,10 +179,11 @@
                 data: JSON.stringify(user),
                 contentType: 'application/json; charset=utf-8',
                 success: function () {
+                    // 사용자 등록에 성공하면 로그인 페이지로 이동
                     window.location.replace("/account/signIn");
                 },
                 error: function () {
-                    alert("서버 오류입니다. 다시 시도해주세요.");
+                    alert("다시 시도해주세요.");
                 }
             });
         });
@@ -182,6 +195,7 @@
         return regExp.test(email);
     }
 
+    // 사용자가 입력한 이메일이 이미 사용중인지 확인
     function checkEmailAlreadyExists(email) {
         let count = '';
 
@@ -209,14 +223,11 @@
         return regExp.test(pwd);
     }
 
+    // 휴대전화 번호 형식과 일치하는지 확인
     function checkTelNo(telNo) {
         let regExp = /^\d{3}-\d{3,4}-\d{4}$/;
 
         return regExp.test(telNo);
     }
 
-    // 이름 길이가 2 이상이면 true
-    function checkName(name) {
-        return name.length >= 2;
-    }
 </script>
