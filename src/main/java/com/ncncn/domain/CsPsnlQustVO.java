@@ -29,4 +29,8 @@ public class CsPsnlQustVO {
 
 	private String stusCode;
 
+	private Date inDate;
+
+	private Date upDate;
+
 }

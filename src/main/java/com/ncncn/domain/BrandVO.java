@@ -17,4 +17,8 @@ public class BrandVO {
 
     private String descn;
 
+    private Date inDate;
+
+    private Date upDate;
+
 }

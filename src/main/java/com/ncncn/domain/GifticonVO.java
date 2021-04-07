@@ -29,4 +29,8 @@ public class GifticonVO {
 
     private String gftStusCode;
 
+    private Date inDate;
+
+    private Date upDate;
+
 }
