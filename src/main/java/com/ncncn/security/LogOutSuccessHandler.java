@@ -29,7 +29,6 @@ public class LogOutSuccessHandler implements LogoutSuccessHandler {
 
         response.setStatus(HttpServletResponse.SC_OK);
 
-        log.info(request.getAttribute("logout"));
-        response.sendRedirect("/login/signIn");
+        response.sendRedirect("/login/LogOut");
     }
 }

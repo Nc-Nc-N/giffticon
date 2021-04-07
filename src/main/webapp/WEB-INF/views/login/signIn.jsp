@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,9 +21,10 @@
         <div class="element">
             <a href="/user/home"><img src="/resources/img/logo.png"></a>
         </div>
+
         <form action="/login" method="POST">
         <div class="element">
-            <input type="text" class="input001" name="username" placeholder="ID">
+            <input type="text" class="input001" name="username" placeholder="Email" value="${email}">
         </div>
         <div class="element">
             <input type="password" class="input001" name="password" placeholder="Password">
@@ -30,7 +34,7 @@
         </div>
         <div class="element01">
             <div id="checkbox-container">
-                <input type="checkbox" class="checkbox001" name="isRemeber">
+                <input type="checkbox" class="checkbox001" name="isRemember" ${isRemember}>
                 <span>Remember ID</span>
             </div>
             <span><a href="/login/signUp">회원가입</a></span>
@@ -41,6 +45,7 @@
             <button type="submit" class="btn001">로그인</button>
         </div>
         </form>
+
     </div>
 </body>
 </html>

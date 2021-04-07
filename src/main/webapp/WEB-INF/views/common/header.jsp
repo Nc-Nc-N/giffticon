@@ -23,9 +23,8 @@
         </sec:authorize>
 
         <sec:authorize access="isAuthenticated()">
-            <span><form action="/login/signOut" method="post">
+            <span><form action="/login/1" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <input type="hidden" name="logout" value="로그아웃되었습니다.">
                 <button type="submit" class="btn003">로그아웃</button></form>
             </span>
             <span class="header_divider">|</span>
@@ -62,7 +61,7 @@
             <span class="rightmenu"><i class="fas fa-ticket-alt"></i></span>
            
             <span class="rightmenu">판매하기</span>
-            <span class="rightmenu">마이페이지</span>
+            <span class="rightmenu"><a href="/user/mypage/mypageDeals">마이페이지</a></span>
         </div>
         
 

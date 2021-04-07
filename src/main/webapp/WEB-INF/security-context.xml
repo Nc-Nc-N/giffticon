@@ -13,7 +13,7 @@
     <bean id="customUserDetailsService" class="com.ncncn.security.CustomUserDetailsService"></bean>
 
     <security:http>
-        <security:form-login login-page="/login/signIn" authentication-success-handler-ref="customLoginSuccess"/>
+        <security:form-login login-page="/login/signIn" authentication-success-handler-ref="customLoginSuccess" />
         <security:intercept-url pattern="/user/home" access="permitAll"/>
         <security:intercept-url pattern="/admin/*" access='hasAuthority("001")'/>
         <security:intercept-url pattern="/user/mypage/*" access='hasAuthority("000")'/>
@@ -26,7 +26,7 @@
 
         </security:session-management>
 
-        <security:logout logout-url="/login/signOut" success-handler-ref="customLogoutSuccess" />
+        <security:logout logout-url="/login/1" success-handler-ref="customLogoutSuccess" />
     </security:http>
 
     <security:authentication-manager>
@@ -41,9 +41,8 @@
 1.디폴트 로그인 창에서 로그인 OK
 2.member user 로그인 시 각 각 페이지로 이동 OK
 3.각 롤은 다른 페이지 접근 불가 OK
-4.csrf 설정 OK
-5.이미 로그인 되어있을시 signIn으로 가면 로그아웃으로 먼저 가기 OK...?
+4.csrf 설정 OK?
 6.로그인 후 리다이렉트 -> 이전에 있던 페이지로
-7.소셜로그인 추가
-8.아이디 기억하기 쿠키 추가
+7.소셜로그인 추가 (추가기능으로 넘김)
+8.아이디 기억하기 쿠키 추가 OK
 -->
