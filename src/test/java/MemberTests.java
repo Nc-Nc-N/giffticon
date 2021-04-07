@@ -25,7 +25,7 @@ public class MemberTests {
     
     @Test
     public void testInsertMember(){
-        String sql = "insert into user(email, pwd, name, tel_no, eml_auth_tkn, stus_code, role_code,in_user,up_user) values (?,?,?,?,?,?,?,current_user,current_user )";
+        String sql = "insert into userC(email, pwd, name, tel_no, enabled, role_code,in_user,up_user) values (?,?,?,?,?,?,current_user,current_user )";
         
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -34,15 +34,12 @@ public class MemberTests {
             con = ds.getConnection();
             pstmt = con.prepareStatement(sql);
             
-            pstmt.setString(1,"1234@1234");
+            pstmt.setString(1,"javahater3@gmail.com");
             pstmt.setString(2, pwencoder.encode("1234"));
-
-            log.info(pwencoder.encode("1234"));
-            pstmt.setString(3,"호롤롤");
-            pstmt.setString(4,"010-0000-3333");
-            pstmt.setString(5,"e");
-            pstmt.setString(6,"001");
-            pstmt.setString(7,"000");
+            pstmt.setString(3,"밤맛빵");
+            pstmt.setString(4,"010-3342-5676");
+            pstmt.setString(5,"1");
+            pstmt.setString(6,"002");
             pstmt.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();

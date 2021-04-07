@@ -16,19 +16,19 @@ public class LogOutSuccessHandler implements LogoutSuccessHandler {
     public void onLogoutSuccess(HttpServletRequest request,
                                 HttpServletResponse response,
                                 Authentication authentication)
-                                throws IOException, ServletException{
+            throws IOException, ServletException {
 
-        log.info("custom Logout...");
-        if(authentication != null && authentication.getDetails() != null){
-            try{
+        log.info("LogOutSuccessHandler...");
+        if (authentication != null && authentication.getDetails() != null) {
+            try {
                 request.getSession().invalidate();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
-
-        response.sendRedirect("/login/LogOut");
+        request.getSession().setAttribute("logout", "logout");
+        response.sendRedirect("/account/signIn");
     }
 }

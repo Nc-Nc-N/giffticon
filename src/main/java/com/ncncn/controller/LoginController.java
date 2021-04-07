@@ -10,14 +10,32 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/account")
 @Log4j
 public class LoginController {
 
     @GetMapping("/signIn")
-    public void signin(HttpServletRequest request, String error, Model model) {
+    public void signIn(HttpServletRequest request, String error, Model model) {
 
         log.info("Login Controller...");
+
+        model = cookieChecker(request, model);
+
+        if (error != null) {
+            log.info("msg:" + error);
+            model.addAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
+        }
+
+        if (request.getSession().getAttribute("logout") != null) {
+            model.addAttribute("msg", "로그아웃되었습니다.");
+            request.getSession().removeAttribute("logout");
+        }
+
+        request.getSession().setAttribute("referer", request.getHeader("referer"));
+
+    }
+
+    public Model cookieChecker(HttpServletRequest request, Model model) {
 
         Cookie[] cookies = request.getCookies();
 
@@ -29,26 +47,6 @@ public class LoginController {
                 }
             }
         }
-
-        if (error != null) {
-            log.info("msg:" + error);
-            model.addAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
-        }
-
-        request.getSession().setAttribute("referer", request.getHeader("referer"));
-
+        return model;
     }
-
-    @GetMapping("/LogOut")
-    public String logOut(Model model) {
-
-        log.info("Logout....");
-        model.addAttribute("msg", "로그아웃되었습니다.");
-        return "/login/signIn";
-    }
-
-    @GetMapping("/signUp")
-    public void signUp() {
-    }
-
 }

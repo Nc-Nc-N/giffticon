@@ -13,20 +13,20 @@
     <bean id="customUserDetailsService" class="com.ncncn.security.CustomUserDetailsService"></bean>
 
     <security:http>
-        <security:form-login login-page="/login/signIn" authentication-success-handler-ref="customLoginSuccess" />
+        <security:form-login login-page="/account/signIn" authentication-success-handler-ref="customLoginSuccess"/>
         <security:intercept-url pattern="/user/home" access="permitAll"/>
-        <security:intercept-url pattern="/admin/*" access='hasAuthority("001")'/>
-        <security:intercept-url pattern="/user/mypage/*" access='hasAuthority("000")'/>
+        <security:intercept-url pattern="/admin/*" access='hasAuthority("관리자")'/>
+        <security:intercept-url pattern="/user/mypage/*" access='hasAuthority("사용자")'/>
 
 
         <security:access-denied-handler ref="customAccessDenied"/>
 
-        <security:session-management invalid-session-url="/login/signIn">
-            <security:concurrency-control max-sessions="1" expired-url="/login/signOut" />
+        <security:session-management invalid-session-url="/account/signIn">
+            <security:concurrency-control max-sessions="1" expired-url="/signOut"/>
 
         </security:session-management>
 
-        <security:logout logout-url="/login/1" success-handler-ref="customLogoutSuccess" />
+        <security:logout logout-url="/account/logOut" success-handler-ref="customLogoutSuccess"/>
     </security:http>
 
     <security:authentication-manager>
@@ -36,13 +36,13 @@
     </security:authentication-manager>
 </beans>
 
-<!--
-=========로그인 할 일=========
-1.디폴트 로그인 창에서 로그인 OK
-2.member user 로그인 시 각 각 페이지로 이동 OK
-3.각 롤은 다른 페이지 접근 불가 OK
-4.csrf 설정 OK?
-6.로그인 후 리다이렉트 -> 이전에 있던 페이지로
-7.소셜로그인 추가 (추가기능으로 넘김)
-8.아이디 기억하기 쿠키 추가 OK
--->
+        <!--
+        =========로그인 할 일=========
+        1.디폴트 로그인 창에서 로그인 OK
+        2.member user 로그인 시 각 각 페이지로 이동 OK
+        3.각 롤은 다른 페이지 접근 불가 OK
+        4.csrf 설정 OK?
+        6.로그인 후 리다이렉트 -> 이전에 있던 페이지로
+        7.소셜로그인 추가 (추가기능으로 넘김)
+        8.아이디 기억하기 쿠키 추가 OK
+        -->

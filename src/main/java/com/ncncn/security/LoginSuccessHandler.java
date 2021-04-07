@@ -22,14 +22,49 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
                                         HttpServletResponse response,
                                         Authentication auth)
             throws IOException, ServerException {
-        log.warn("Login Success Handler");
+        log.warn("Login Success Handler....");
 
-        //url 저장 값
+        String url = redirectUrlSelector(request);
+        Cookie cookie = CookieFinder(request);
+        List<String> roleName = authorityFinder(auth);
+
+        response.addCookie(cookie);
+
+        //admin 로그인 시 admin_main으로 리다이렉트
+        if (roleName.contains("관리자")) {
+            log.info("관리자로 로그인 합니다.");
+            response.sendRedirect("/admin/admin_main");
+            return;
+        }
+
+        log.info("사용자로 로그인 합니다.");
+        //user 로그인 시 user/home으로 리다이렉트
+        response.sendRedirect(url);
+        return;
+    }
+
+    //아이디기억 쿠키 찾는 메서드
+    public Cookie CookieFinder(HttpServletRequest request) {
+        //아이디 기억 쿠키
+        String isRemember = request.getParameter("isRemember");
+        Cookie cookie = new Cookie("remEmail", request.getParameter("username"));
+
+        if (isRemember != null) {
+            cookie.setMaxAge(30 * 24 * 60 * 60);
+        } else {
+            cookie.setMaxAge(0);
+        }
+        return cookie;
+    }
+
+    //로그인 후 이동할 페이지 선택하는 메서드
+    public String redirectUrlSelector(HttpServletRequest request) {
+
         String redirectUrl;
+
         SavedRequest requestedUrl = (SavedRequest) request.getSession()
                 .getAttribute("SPRING_SECURITY_SAVED_REQUEST");
 
-        //1. request 된 url을 redirect 주소로 지정
         if (requestedUrl != null) {
             redirectUrl = requestedUrl.getRedirectUrl();
             request.getSession().removeAttribute("SPRING_SECURITY_SAVED_REQUEST");
@@ -40,57 +75,20 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             request.getSession().removeAttribute("referer");
         }
 
-        String url = urlArranger(redirectUrl);
-
-        Cookie cookie = CookieFinder(request);
-
-        //쿠키값 보내기
-        response.addCookie(cookie);
-
-        //로그인 대상 권한명 불러오기
-        List<String> roleName = new ArrayList<>();
-        auth.getAuthorities().forEach(authority -> {
-            roleName.add(authority.getAuthority());
-        });
-
-        log.info("role Code: " + roleName + " logined");
-
-        //admin 로그인 시 admin_main으로 리다이렉트
-        if (roleName.contains("001")) {
-
-            response.sendRedirect("/admin/admin_main");
-            return;
-        }
-
-        //user 로그인 시 user/home으로 리다이렉트
-        response.sendRedirect(url);
-        return;
-
-    }
-
-    //회원가입,pwd email 찾기 후 로그인 시 홈으로 이동
-    public String urlArranger(String redirectUrl) {
-
-        if (redirectUrl != null && redirectUrl.contains("/login")) {
+        if (redirectUrl == null || redirectUrl.contains("/account")) {
             redirectUrl = "/user/home";
         }
         return redirectUrl;
     }
-    
-    //아이디기억 쿠키 찾는 메서드
-    public Cookie CookieFinder(HttpServletRequest request){
-        //아이디 기억 쿠키
-        String isRemember = request.getParameter("isRemember");
-        Cookie cookie = new Cookie("remEmail", request.getParameter("username"));
 
-        if (isRemember != null) {
-            cookie.setMaxAge(30 * 24 * 60 * 60);
-        } else {
-            cookie.setMaxAge(0);
-        }
+    //회원 권한 조회 메서드
+    public List<String> authorityFinder(Authentication auth) {
 
-        return cookie;
+        List<String> roleName = new ArrayList<>();
+        log.info("auth 정보: " + auth.toString());
+        auth.getAuthorities().forEach(authority -> {
+            roleName.add(authority.getAuthority());
+        });
+        return roleName;
     }
-
-
 }

@@ -19,7 +19,7 @@ public class MemberMapperTests {
 
     @Test
     public void testRead(){
-        UserVO vo = mapper.readForLogin("planner26@nate.com");
+        UserVO vo = mapper.readForLogin("javahater@gmail.com");
 
         log.info(vo);
 

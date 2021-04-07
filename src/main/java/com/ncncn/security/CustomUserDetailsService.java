@@ -17,10 +17,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserMapper usermapper;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         UserVO vo = usermapper.readForLogin(email);
         log.info("CustomUserDetailService Loading....");
+        log.info("userVO:" + vo);
         return vo == null ? null : new CustomUser(vo);
     }
 

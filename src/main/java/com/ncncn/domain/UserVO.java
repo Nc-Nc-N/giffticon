@@ -24,7 +24,7 @@ public class UserVO {
 
     private String emlAuthTkn;
 
-    private String stusCode;
+    private int enabled;
 
     private String roleCode;
     
