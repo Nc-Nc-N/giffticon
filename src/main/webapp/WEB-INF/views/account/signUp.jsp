@@ -16,7 +16,7 @@
     <div class="container">
         
         <div class="imgcontainer">
-           <img src="/resources/img/logo.png">
+            <a href="#" ><img src="/resources/img/logo.png"></a>
         </div>
         <form action="#" method="POST">
         <div class="element_email">

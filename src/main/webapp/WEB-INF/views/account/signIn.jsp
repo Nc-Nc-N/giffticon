@@ -30,14 +30,18 @@
             <input type="password" class="input001" name="password" placeholder="Password">
         </div>
         <div class="element">
-            <span id="validateMsg"><i class="fas fa-exclamation-circle"></i>${msg}</span>
+            <span id="validateMsg">
+                <c:if test="${msg != null}">
+                    <i class="fas fa-exclamation-circle"></i>${msg}
+                </c:if>
+            </span>
         </div>
         <div class="element01">
             <div id="checkbox-container">
                 <input type="checkbox" class="checkbox001" name="isRemember" ${isRemember}>
                 <span>Remember ID</span>
             </div>
-            <span><a href="/login/signUp">회원가입</a></span>
+            <span><a href="/signUp">회원가입</a></span>
             <span><a href="/finduser">Email/비밀번호 찾기</a></span>
         </div>
         <div class="element" id="btn">
