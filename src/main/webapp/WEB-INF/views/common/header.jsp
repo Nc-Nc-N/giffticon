@@ -1,8 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%
-
-%>
 <!DOCTYPE html>
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 <head>
