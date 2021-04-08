@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.DnSListMapper">
+
+    <select id="getDeals" resultType="com.ncncn.domain.MyDealsDTO">
+        <![CDATA[
+            select
+                brand.name brdName, product.name prdName, product.img_path imgPath,
+                dealT.pymt_prc pymt_Prc, stusT.code_name stusCode, dealT.deal_dt dealDt,
+                dealT.id dealId, dealT.user_id userId
+            from
+                (
+                select
+                    gifticon_id, pymt_prc, deal_dt, user_id, id
+                from
+                    deal_detail
+                where
+                    user_id =
+                            (
+                            select id
+                            from user
+                            where email = #{email}
+                    )
+                ) dealT,
+                gifticon,
+                product,
+                brand,
+                (
+                    select * from cmmn_code where code_type = 'GFT_STUS'
+                ) stusT
+            where
+                dealT.gifticon_id = gifticon.id
+              and
+                gifticon.prod_code = product.code
+              and
+                product.brd_code = brand.code
+              and
+                gifticon.gft_stus_code = stusT.code
+        ]]>
+    </select>
+</mapper>
