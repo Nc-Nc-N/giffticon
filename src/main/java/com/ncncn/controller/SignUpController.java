@@ -3,6 +3,7 @@ package com.ncncn.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ncncn.domain.AgreVO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.service.SignUpService;
 import com.ncncn.util.EmailAuthCodeUtils;
@@ -34,8 +35,8 @@ public class SignUpController {
 		return "/account/signUp";
 	}
 
-	@PostMapping(value = "/signUp", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> signUp(@RequestBody UserVO user) {
+	@GetMapping(value = "/register", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> register(@RequestBody UserVO user) {
 		log.info("UserVO: " + user);
 
 		try {

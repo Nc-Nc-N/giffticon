@@ -64,6 +64,9 @@
 
 <script>
     $(document).ready(function (e) {
+        let csrfHeaderName = "${_csrf.headerName}";
+        let csrfTokenValue = "${_csrf.token}";
+
         // 인증 코드를 저장
         let emlAuthTkn = '';
         // 인증 여부를 저장
@@ -175,9 +178,12 @@
 
             $.ajax({
                 type: 'post',
-                url: '/account/signUp',
+                url: '/account/register',
                 data: JSON.stringify(user),
                 contentType: 'application/json; charset=utf-8',
+                beforeSend: function(xhr) {
+                  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                },
                 success: function () {
                     // 사용자 등록에 성공하면 로그인 페이지로 이동
                     window.location.replace("/account/signIn");
