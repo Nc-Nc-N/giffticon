@@ -30,10 +30,10 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         response.addCookie(cookie);
 
-        //admin 로그인 시 admin_main으로 리다이렉트
+        //admin 로그인 시 admin/main으로 리다이렉트
         if (roleName.contains("관리자")) {
             log.info("관리자로 로그인 합니다.");
-            response.sendRedirect("/admin/admin_main");
+            response.sendRedirect("/admin/main");
             return;
         }
 
