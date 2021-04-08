@@ -3,7 +3,6 @@ package com.ncncn.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ncncn.domain.AgreVO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.service.SignUpService;
 import com.ncncn.util.EmailAuthCodeUtils;
@@ -15,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/account/*")

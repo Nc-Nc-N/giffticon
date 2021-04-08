@@ -181,8 +181,8 @@
                 url: '/account/register',
                 data: JSON.stringify(user),
                 contentType: 'application/json; charset=utf-8',
-                beforeSend: function(xhr) {
-                  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
                 success: function () {
                     // 사용자 등록에 성공하면 로그인 페이지로 이동
