@@ -1,7 +1,5 @@
 package com.ncncn.util;
 
-import java.math.MathContext;
-
 public class EmailAuthCodeUtils {
 
 	private static final int CODE_LENGTH = 8;
@@ -23,20 +21,17 @@ public class EmailAuthCodeUtils {
 		String s = "";
 
 		switch (n) {
-			case 0: s = String.valueOf((char)((int)(Math.random() * RANDOM_RANGE) + 'a'));
-					break;
-			case 1: s = String.valueOf((char)((int)(Math.random() * RANDOM_RANGE) + 'A'));
-					break;
-			case 2: s = String.valueOf((int)(Math.random() * 10));
-					break;
+			case 0:
+				s = String.valueOf((char) ((int) (Math.random() * RANDOM_RANGE) + 'a'));
+				break;
+			case 1:
+				s = String.valueOf((char) ((int) (Math.random() * RANDOM_RANGE) + 'A'));
+				break;
+			case 2:
+				s = String.valueOf((int) (Math.random() * 10));
+				break;
 		}
 
 		return s;
 	}
-
-	public static void main(String[] args) {
-		System.out.println(getAuthCode());
-
-	}
-
 }
