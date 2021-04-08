@@ -131,10 +131,14 @@ table td{
 }
 
 /* 페이지네이션 css */
+
 .pagination {
-    display: inline-block;
-    position:relative;
-    left:32%;
+    display:flex;
+    justify-content:center;
+}
+
+.pagination li{
+    list-style:none;
 }
 
 .pagination a {
@@ -148,6 +152,12 @@ table td{
 }
 
 .pagination a.active {
+    background-color: rgb(255, 88, 93);
+    color: white;
+    border-radius: 5px;
+}
+
+.paginate_button li.active {
     background-color: rgb(255, 88, 93);
     color: white;
     border-radius: 5px;

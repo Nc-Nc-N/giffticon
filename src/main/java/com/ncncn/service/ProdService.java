@@ -1,7 +1,6 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.*;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +13,9 @@ public interface ProdService {
 	public List<BrandVO> getBrandList(String code);
 
 	// 상품 조회
-	public List<GifticonDTO> getGifti(String code, String orderby);
+	public List<GifticonDTO> getGiftiWithPaging(GiftiCriteria cri);
+
+	// 전체 데이터의 개수 처리
+	public int getTotal(GiftiCriteria cri);
 
 }

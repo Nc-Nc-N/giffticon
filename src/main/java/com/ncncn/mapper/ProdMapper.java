@@ -1,7 +1,6 @@
 package com.ncncn.mapper;
 
 import com.ncncn.domain.*;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,9 +12,10 @@ public interface ProdMapper {
 	// 브랜드 목록
 	public List<BrandVO> getBrandList(String code);
 
-	// 기프티콘 조회
-	public List<GifticonDTO> getGifti(@Param("code")String code, @Param("orderby")String orderby);
+	// 기프티콘 목록
+	public List<GifticonDTO> getGiftiWithPaging(GiftiCriteria cri);
 
-	public List<GifticonDTO> getGiftiWithPaging(Criteria cri);
+	// 전체 데이터의 개수 처리
+	public int getTotalCount(GiftiCriteria cri);
 
 }

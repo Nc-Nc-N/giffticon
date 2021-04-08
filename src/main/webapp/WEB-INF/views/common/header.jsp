@@ -33,8 +33,12 @@
         </div>
 
         <div class="search">
-            <form action="(login)" >
-                <input type="text" class="searchbar" placeholder="기쁘티콘">
+            <form id="searchForm" action="/user/prod_list" method="get">
+                <input type="text" class="searchbar" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>' />
+                <input type="hidden" name="code" value="${pageMaker.cri.code}"/>
+                <input type="hidden" name="orderby" value="best"/>
+                <input type="hidden" name="pageNum" value="1"/>
+                <input type="hidden" name="amount" value="${pageMaker.cri.amount}"/>
                 <button class="searchbutton"><i class="fas fa-search"></i> </button>
             </form>
         </div>

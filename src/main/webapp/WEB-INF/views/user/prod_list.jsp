@@ -27,9 +27,9 @@
             <nav>
                 <div class="catename"><i class="<c:out value="${category.iconPath}"/>"></i> &nbsp;<c:out value="${category.name}"/></div>
                 <ul>
-                    <a href="prod_list?code=${category.code}&orderby=best"><li>전체보기</li></a>
+                    <a href="prod_list?code=${category.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li>전체보기</li></a>
                     <c:forEach items="${brandList}" var="brandList">
-                    <a href="prod_list?code=${brandList.code}&orderby=best"><li><c:out value="${brandList.name}"/></li></a>
+                    <a href="prod_list?code=${brandList.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li><c:out value="${brandList.name}"/></li></a>
                     </c:forEach>
 
 
@@ -37,9 +37,12 @@
 
                 <%-- 정렬 방식 --%>
                 <select class="search-select">
-                    <option id="best" value="best">인기순</option>
-                    <option id="low" value="low">낮은 가격순</option>
-                    <option id="high" value="high">높은 가격순</option>
+                    <option id="best" value="best"
+                            <c:out value="${pageMaker.cri.orderby eq 'best' ? 'selected':''}"/>>인기순</option>
+                    <option id="low" value="low"
+                            <c:out value="${pageMaker.cri.orderby eq 'low' ? 'selected':''}"/>>낮은 가격순</option>
+                    <option id="high" value="high"
+                            <c:out value="${pageMaker.cri.orderby eq 'high' ? 'selected':''}"/>>높은 가격순</option>
                 </select>
             </nav>
 
@@ -79,23 +82,39 @@
                 <c:set var="i" value="${i+1}"/>
             </c:forEach>
             </table>
-
-
-
         </div>
+
+
         <div class="space"></div>
         <!-- 페이지네이션 -->
         <div class="pagination">
-            <a href="#">&lt;</a>
-            <a href="#">1</a>
-            <a href="#" class="active">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">&gt;</a>
+            <c:if test="${pageMaker.prev}">
+                <li class="paginate_button previous">
+                    <a href="${pageMaker.startPage-1}">&lt;</a>
+                </li>
+            </c:if>
+            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                <li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}">
+                    <a href="${num}">${num}</a>
+                </li>
+            </c:forEach>
+
+            <c:if test="${pageMaker.next}">
+                <li class="paginate_button next">
+                    <a href="{pageMaker.endPage+1}">&gt;</a>
+                </li>
+            </c:if>
         </div>
     </div>
+
+    <%-- 페이지 번호 -> url 이동 --%>
+    <form id="actionForm" action='/user/prod_list' method="get">
+        <input type="hidden" name="code" value="${pageMaker.cri.code}">
+        <input type="hidden" name="orderby" value="${pageMaker.cri.orderby}">
+        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+        <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
+    </form>
 
     <script type="text/javascript">
         $(document).ready(function (){
@@ -110,24 +129,39 @@
             // 현재 url의 orderby parameter value
             let selectedOrder = new_curr_url.searchParams.get("orderby");
 
-           // 상품 정렬 방식
+           // 상품 정렬 방식 이벤트 처리
            $(".search-select").on("change", function (){
+
                let orderby = $(".search-select option:selected").val();
 
-               location.href="prod_list?code="+code+"&orderby="+orderby;
+               location.href="prod_list?keyword=${pageMaker.cri.keyword}&code="+code+"&orderby="+orderby+"&pageNum=1&amount=${pageMaker.cri.amount}";
            });
 
-           // select box 선택값 유지
-            if(selectedOrder=='best'){
-                $('#best').attr('selected','selected');
-            }else if(selectedOrder=='low'){
-                $('#low').attr('selected','selected');
-            }else{
-                $('#high').attr('selected','selected');
-            }
+            // 페이지 번호 이벤트 처리
+            let actionForm = $("#actionForm");
+
+            $(".paginate_button a").on("click", function (e){
+
+                e.preventDefault();
+
+                actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+                actionForm.submit();
+            });
 
         });
 
+        // 검색 버튼 이벤트 처리
+        let searchForm = $('#searchForm');
+
+        $("#searchForm button").on("click", function (e){
+
+            if(!searchForm.find("input[name='keyword']").val()){
+                alert("검색어를 입력해주세요");
+                return false;
+            }
+
+           searchForm.submit();
+        });
     </script>
 
 </body>
