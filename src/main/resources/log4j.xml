@@ -9,7 +9,7 @@
         </layout>
     </appender>
 
-    <logger name="com.example">
+    <logger name="com.ncncn">
         <level value="info"/>
     </logger>
 

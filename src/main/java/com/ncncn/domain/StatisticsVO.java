@@ -12,4 +12,8 @@ public class StatisticsVO {
 
     private int salesRec;
 
+    private Date inDate;
+
+    private Date upDate;
+
 }

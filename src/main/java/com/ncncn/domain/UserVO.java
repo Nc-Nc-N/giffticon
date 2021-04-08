@@ -1,5 +1,10 @@
 package com.ncncn.domain;
 
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
 public class UserVO {
 
     private int id;
@@ -18,8 +23,12 @@ public class UserVO {
 
     private String emlAuthTkn;
 
-    private String stusCode;
+    private int enabled;
 
     private String roleCode;
+
+    private Date inDate;
+
+    private Date upDate;
 
 }

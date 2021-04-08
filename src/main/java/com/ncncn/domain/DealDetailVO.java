@@ -21,4 +21,8 @@ public class DealDetailVO {
 
 	private Date cmplDt;
 
+	private Date inDate;
+
+	private Date upDate;
+
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.UserMapper">
+
+    <select id="readByEmail" resultType="com.ncncn.domain.UserVO">
+        select * from user where email = #{email}
+    </select>
+
+    <insert id="insert">
+        insert into user(email, pwd, name, tel_no, in_user, up_user)
+            value (#{email}, #{pwd}, #{name}, #{telNo}, current_user , current_user)
+    </insert>
+
+    <delete id="deleteByEmail">
+        delete from user where email = #{email}
+    </delete>
+
+
+    <!-- LOGIN -->
+    <select id="readForLogin" resultType="com.ncncn.domain.UserVO">
+        select
+            email, pwd, userT.enabled, roleT.code_name as roleCode
+        from
+            (
+            select email, pwd, enabled, role_code
+            from user
+            where email = #{email}
+            ) userT,
+            (
+            select * from cmmn_code
+            where
+                code_type = "USER_ROLE"
+            ) roleT
+        where
+            userT.role_code = roleT.code
+        ;
+    </select>
+
+</mapper>
