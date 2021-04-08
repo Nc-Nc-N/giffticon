@@ -19,10 +19,8 @@
 .catename >.fas{
     color: #FF585D;
 }
-nav{
-    margin-bottom: 50px;
-}
 nav ul{
+    width: 900px;
 	background-color: white;
 	padding: 0;
 	overflow: hidden;
@@ -49,6 +47,87 @@ nav ul li:hover{
     float: right;
     margin: 10px;
     
+}
+/* 상품 목록 */
+table td{
+    padding-bottom: 50px;
+    /*border-spacing: 0px 50px;*/
+}
+.items{
+    width:225px;
+    height:100%;
+    /*background-color: #514859;*/
+}
+
+
+.itemimg{
+    width: 225px;
+    height: 70%;
+    background-color: transparent;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.itemimg > img {
+    width:80%;
+}
+
+.itemnameNprice{
+    width: 225px;
+    height: 30%;
+     /*background-color:hotpink;*/
+    display: block;
+}
+.itembrand{
+     /*background-color:burlywood;*/
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    font-size: small;
+    font-weight: bold;
+    color:rgba(70,70,70,1);
+}
+.itemname{
+     /*background-color: cornflowerblue;*/
+    width: 100%;
+    height: 25%;
+    font-size: medium;
+    font-weight: bold;
+    text-align: center;
+}
+
+.itemprice{
+     /*background-color:aquamarine;*/
+    width: 100%;
+    height: 35%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.itemprice > span{
+    font-size: medium;
+    color:crimson;
+    font-weight: bold;
+}
+
+.itemprice > span:last-child{
+    color: black
+
+}
+.itemoriginprice{
+    width: 100%;
+    height: 20%;
+    font-size: small;
+    color: gray;
+    text-align: center;
+
+}
+.itemoriginprice > span{
+    margin-right: 28%;
 }
 
 /* 페이지네이션 css */

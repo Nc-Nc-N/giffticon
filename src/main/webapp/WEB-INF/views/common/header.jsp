@@ -1,9 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 <head>
     <meta charset="UTF-8">
       <title>Document</title>
-    <link rel="stylesheet" href="header.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
     </style>
@@ -17,7 +18,7 @@
         <span><a href="#" class="login-panel">고객센터</a></span>
     </div>
     <div class="main-logo">
-        <div class="home-logo"><img src="img/기쁘티콘.png" ></a></div>
+        <div class="home-logo"><img src="/resources/img/logo.png" ></div>
     </div>
     <div class="main-bar">
         
@@ -45,9 +46,7 @@
             <span class="rightmenu">판매하기</span>
             <span class="rightmenu">마이페이지</span>
         </div>
-        
 
-      
     </div>
 </div>
 </head>

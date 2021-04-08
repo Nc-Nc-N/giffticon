@@ -15,4 +15,6 @@ public class CategoryVO {
 
     private String descn;
 
+    private String iconPath;
+
 }
