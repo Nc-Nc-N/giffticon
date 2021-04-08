@@ -14,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/account/*")
@@ -34,8 +37,8 @@ public class SignUpController {
 		return "/account/signUp";
 	}
 
-	@PostMapping(value = "/signUp", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> signUp(@RequestBody UserVO user) {
+	@GetMapping(value = "/register", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> register(@RequestBody UserVO user) {
 		log.info("UserVO: " + user);
 
 		try {
