@@ -38,7 +38,7 @@
                 <input type="checkbox" class="checkbox001" name="isRemember" ${isRemember}>
                 <span>Remember ID</span>
             </div>
-            <span><a href="/signUp">회원가입</a></span>
+            <span><a href="/account/signUp">회원가입</a></span>
             <span><a href="/finduser">Email/비밀번호 찾기</a></span>
         </div>
         <div class="element" id="btn">
