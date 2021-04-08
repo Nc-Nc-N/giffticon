@@ -26,6 +26,7 @@ public class UserMapperTest {
 		user.setName("test");
 		user.setPwd("test1234");
 		user.setTelNo("010-1234-5678");
+		user.setEmlAuthTkn("AAAAAAAA");
 
 		int result = userMapper.insert(user);
 
@@ -46,6 +47,7 @@ public class UserMapperTest {
 		user.setName("test");
 		user.setPwd("test1234");
 		user.setTelNo("010-1234-5678");
+		user.setEmlAuthTkn("AAAAAAAA");
 
 		userMapper.insert(user);
 
