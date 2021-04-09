@@ -28,7 +28,7 @@
             <span><a href="#" class="login-panel">고객센터</a></span>
         </div>
         <div class="main-logo">
-            <div class="home-logo"><img src="../../사용자/img/기쁘티콘.png" width="230px" height="100px"></a></div>
+            <div class="home-logo"><img src="../../사용자/img/기쁘티콘.png" width="230px" height="100px"></div>
         </div>
     </div>
     <!-- end header-->
@@ -45,6 +45,7 @@
                 <h2>판매요청관리</h2>
                 <h2>거래내역관리</h2>
                 <h2>포인트관리</h2>
+                <h2>고객센터</h2>
                 <h2>통계분석</h2>
             </div>
             <div id="admin-memo">
@@ -58,13 +59,13 @@
             <h2>고객센터</h2>
             <div id="menu">
                 <div>
-                    <a href="#" >공지사항</span></a>
+                    <a href="#" >공지사항</a>
                 </div>
                 <div>
-                    <a href="#" >자주묻는질문</span></a>
+                    <a href="#" >자주묻는질문</a>
                 </div>
                 <div>
-                    <a href="#" style="color: rgb(255, 88, 93);">1:1문의</span></a>
+                    <a href="#" style="color: rgb(255, 88, 93);">1:1문의</a>
                 </div>
             </div>
 

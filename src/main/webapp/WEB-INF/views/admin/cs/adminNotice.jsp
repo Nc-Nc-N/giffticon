@@ -1,30 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title></title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="/resources/css/common-css/header.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/admin/adminLayout.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/admin/cs/adminNotice.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/common-css/searchBox.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/common-css/button.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/common-css/pagination.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/admin/stat/admin_layout.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
+
+    <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice_detail.css" type="text/css">
+
 </head>
 <body>
 
 <div id="container">
     <!-- header-->
     <div class="header">
-        <div class= "top_menu">
+        <div class="top_menu">
             <span><a href="#" class="login-panel">로그인</a></span>
             <span class="header_divider">|</span>
             <span><a href="#" class="login-panel">회원가입</a></span>
             <span class="header_divider">|</span>
-            <span><a href="#" class="login-panel">고객센터</a></span>
+            <span><a href="http://localhost:8087/adminNotice" class="login-panel">고객센터</a></span>
         </div>
         <div class="main-logo">
             <div class="home-logo"><img src="/resources/img/logo.png" width="230px" height="100px"></div>
@@ -44,6 +56,7 @@
                 <h2>판매요청관리</h2>
                 <h2>거래내역관리</h2>
                 <h2>포인트관리</h2>
+                <h2>고객센터</h2>
                 <h2>통계분석</h2>
             </div>
             <div id="admin-memo">
@@ -57,15 +70,18 @@
             <h2>고객센터</h2>
             <div id="menu">
                 <div>
-                    <a href="#" style="color: rgb(255, 88, 93);">공지사항</a>
+                    <a href="http://localhost:8087/adminNotice" style="color: rgb(255, 88, 93);">공지사항</a>
                 </div>
                 <div>
-                    <a href="#">자주묻는질문</a>
+                    <a href="http://localhost:8087/adminFaq">자주묻는질문</a>
                 </div>
                 <div>
-                    <a href="#">1:1문의</a>
+                    <a href="http://localhost:8087/adminOneOnOne">1:1문의</a>
                 </div>
             </div>
+
+
+
 
             <!-- search area -->
             <div class="search-area">
@@ -76,9 +92,9 @@
                 </select>
                 <form class="search-form">
                     <div>
-                        <input type="text" class="search-input" />
+                        <input type="text" class="search-input"/>
 
-                        <button type="submit" class="search-button">
+                        <button type="submit" class="search-button" onclick="">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -86,141 +102,29 @@
             </div>
             <!-- search area end -->
 
+
             <!--accordionMenu-->
             <div class="accordionMenu">
-                <!-- 1st menu-->
-                <input type="checkbox" name="trg1" id="acc1" >
-                <label for="acc1">공지사항1
-                    <span class="no-date">2021.03.24</span>
-                    <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                    <button class= "btn-no btn-modify">수정</button>
-                </label>
-                <div class="content">
-                    <div class="inner">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis
-                            nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit
-                            dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet
-                            nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus
-                            ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing
-                            risus.
-                        </p>
+
+                <c:forEach items="${list}" var="notice" varStatus="status">
+                    <!-- 1st menu-->
+                    <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">
+                    <label for="acc<c:out value="${status.index+1}"/>"><c:out value="${notice.title}"/>
+                        <span class="no-date"><c:out value="${notice.startDt}"/></span>
+                        <button id="<c:out value='${notice.id}'/>" class="btn-no btn-erase">
+                            <i class="fas fa-minus"></i></button>
+                        <button class="btn-no btn-modify" id="<c:out value='${notice.id}'/>" onclick="">수정</button>
+                    </label>
+                    <div class="content">
+                        <div class="inner">
+                            <p><c:out value="${notice.cntnt}"/></p>
+                        </div>
+
                     </div>
-                </div>
-                <!-- 2nd menu-->
-                <input type="checkbox" name="trg1" id="acc2" >
-                <label for="acc2">공지사항2
-                    <span class="no-date">2021.03.24</span>
-                    <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                    <button class= "btn-no btn-modify">수정</button>
-                </label>
-                <div class="content">
-                    <div class="inner">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis
-                            nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit
-                            dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet
-                            nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus
-                            ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing
-                            risus.
-                        </p>
-                    </div>
-                </div>
-                <!-- 3th menu-->
-                <input type="checkbox" name="trg1" id="acc3" >
-                <label for="acc3">공지사항3
-                    <span class="no-date">2021.03.24</span>
-                    <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                    <button class= "btn-no btn-modify">수정</button>
-                </label>
-                <div class="content">
-                    <div class="inner">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis
-                        nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit
-                        dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet
-                        nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus
-                        ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing
-                        risus.
-                    </div>
-                </div>
-                <!-- 4th menu-->
-                <input type="checkbox" name="trg1" id="acc4" >
-                <label for="acc4">공지사항4
-                    <span class="no-date">2021.03.24</span>
-                    <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                    <button class= "btn-no btn-modify">수정</button>
-                </label>
-                <div class="content">
-                    <div class="inner">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis
-                            nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit
-                            dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet
-                            nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus
-                            ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing
-                            risus.
-                        </p>
-                    </div>
-                </div>
-                <!-- 5th -->
-                <input type="checkbox" name="trg1" id="acc5" >
-                <label for="acc5">공지사항5
-                    <span class="no-date">2021.03.24</span>
-                    <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                    <button class= "btn-no btn-modify">수정</button>
-                </label>
-                <div class="content">
-                    <div class="inner">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis
-                            nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit
-                            dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet
-                            nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus
-                            ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing
-                            risus.
-                        </p>
-                    </div>
-                </div>
-                <!-- 6th menu-->
-                <input type="checkbox" name="trg1" id="acc6" >
-                <label for="acc6">공지사항6
-                    <span class="no-date">2021.03.24</span>
-                    <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                    <button class= "btn-no btn-modify">수정</button>
-                </label>
-                <div class="content">
-                    <div class="inner">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis
-                            nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit
-                            dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet
-                            nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus
-                            ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing
-                            risus.
-                        </p>
-                    </div>
-                </div>
-                <!-- 7th menu-->
-                <input type="checkbox" name="trg1" id="acc7" >
-                <label for="acc7">공지사항7
-                    <span class="no-date">2021.03.24</span>
-                    <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                    <button class= "btn-no btn-modify">수정</button>
-                </label>
-                <div class="content">
-                    <div class="inner">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis
-                            nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit
-                            dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet
-                            nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus
-                            ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing
-                            risus.
-                        </p>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
             <!-- end accordionMenu-->
+
 
             <div id="notion-write">
 
@@ -228,29 +132,237 @@
 
                 <!-- pagenation-->
                 <div class="pagination">
-                    <a href="#">&lt;</a>
-                    <a href="#">1</a>
-                    <a href="#" class="active">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">&gt;</a>
+                    <c:if test="${pageMaker.prev}">
+                        <li class="paginate_button previous"><a href="${pageMaker.startPage -1}"><</a></li>
+
+                    </c:if>
+
+                    <c:forEach var="num" begin="${pageMaker.startPage}"
+                        end="${pageMaker.endPage}">
+                        <li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""} "><a href="${num}">${num}</a></li>
+                    </c:forEach>
+
+                    <c:if test="${pageMaker.next}">
+                        <li class="paginate_button next"><a href="${pageMaker.endPage + 1}">&gt;</a></li>
+                    </c:if>
+
                 </div>
                 <!-- end pagenation-->
 
             </div>
 
+            <form ID='actionForm' action="/cs/adminNotice" method="get">
+                <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+
+                <input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
+                <input type="hidden" name="amount" value='<c:out value="${cri.amount}"/>'>
+            </form>
+
+
+
+
+
         </div>
         <!--end jb-content-->
 
-
-
     </div>
-    <!-- end mycon-->
+    <!-- end content-->
 
 </div>
 <!-- end jb-container-->
 
-</body>
-</html>
+<!-- delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="delete-question" id="ModalLabel">정말 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-body">
+                <span class="search-selected"></span>
+                <span class="de-title"></span>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" id="closeModalBtn">CANCEL</button>
+                <button class="btn btn-register">OK</button>
+            </div>
+        </div>
+        <!--/.modal-content -->
+    </div>
+    <!--/.modal-dialog -->
+</div>
+<!-- end Modal -->
+
+<!-- Modify Modal -->
+<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="modifyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="search-selected" id="modifyModalLabel"></p>
+                <p class="modify-title"></p>
+
+            </div>
+            <div class="modal-body">
+
+                <span class="modify-content"></span>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" id="closeModifyModalBtn">CANCEL</button>
+                <button class="btn btn-register">OK</button>
+            </div>
+        </div>
+        <!--/.modal-content -->
+    </div>
+    <!--/.modal-dialog -->
+</div>
+<!-- end Modal -->
+
+
+<!-- register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modifyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="search-area">
+                    <select class="search-select">
+                        <option>전체</option>
+                        <option>공지</option>
+                        <option>이벤트</option>
+                    </select>
+                </div>
+                <p class="modify-title"></p>
+            </div>
+            <div class="modal-body">
+                <p class="modify-content"></p>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" id="closeRegisterModalBtn">CANCEL</button>
+                <button class="btn btn-register">OK</button>
+            </div>
+        </div>
+        <!--/.modal-content -->
+    </div>
+    <!--/.modal-dialog -->
+</div>
+<!-- end Modal -->
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var actionForm = $("#actionForm");
+
+        $(".paginate_button a").on("click", function (e){
+
+            e.preventDefault();
+
+            console.log('click');
+
+            actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+            actionForm.submit();
+        });
+
+    });
+
+
+
+    //delete
+    $(".btn-erase").on("click", function () {
+
+        console.log(this.id);
+
+        let notice = '';
+
+        $.ajax({
+            type: 'get',
+            url: '/cs/notice?id=' + this.id,
+            async: false,
+            success: function (result) {
+                notice = result;
+            },
+            error: function () {
+
+            }
+        });
+
+        // 모달창 안에 Notice 객체 값으로 채우기.
+        if (notice.csCateCode == "3") {
+
+            $(".search-selected").html("[공지]");
+
+        } else {
+
+            $(".search-selected").html("[이벤트]");
+        }
+
+        $(".de-title").html(notice.title);
+
+        $("#deleteModal").modal("show");
+
+        $("#closeModalBtn").on('click', function () {    //삭제 취소 눌렀을 떄 모달창 닫기.
+            $("#deleteModal").modal("hide");
+        })
+
+    }); //end btn-erase
+
+
+    //modify
+    $(".btn-modify").on("click", function (){
+
+        console.log(this.id);
+
+        let notice = '';
+
+        $.ajax({
+            type: 'get',
+            url: '/cs/notice?id=' + this.id,
+            async: false,
+            success: function (result) {
+                notice = result;
+            },
+            error: function () {
+
+            }
+        });
+
+        // 모달창 안에 Notice 객체 값으로 채우기.
+        if (notice.csCateCode == "3") {
+
+            $(".search-selected").html("[공지]");
+
+        } else {
+
+            $(".search-selected").html("[이벤트]");
+        }
+
+        $(".modify-title").html(notice.title);
+
+        $(".modify-content").html(notice.cntnt);
+
+        $("#modifyModal").modal("show");
+
+        $("#closeModifyModalBtn").on('click', function () {    //삭제 취소 눌렀을 떄 모달창 닫기.
+            $("#modifyModal").modal("hide");
+        });
+
+    });
+
+
+    //register
+    $(".btn-active").on("click",function (){
+
+        $("#registerModal").modal("show");
+
+        $("#closeRegisterModalBtn").on('click', function () {    //삭제 취소 눌렀을 떄 모달창 닫기.
+            $("#registerModal").modal("hide");
+        });
+    });
+
+
+</script>

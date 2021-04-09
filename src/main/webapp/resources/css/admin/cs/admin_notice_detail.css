@@ -1,3 +1,8 @@
+.modal-header{
+    display: block;
+}
+
+
 .detail-content {
     display: flex;
     flex-direction: column;
@@ -16,6 +21,7 @@
     margin-right: 15px;
     width: 80px;
 }
+
 
 .btn{
     margin: 20px;

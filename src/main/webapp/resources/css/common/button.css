@@ -10,7 +10,7 @@
 }
 
 .btn-active {
-    background-color: rgb(255, 88, 93);
+    background-color: rgb(255, 88, 93) !important;
     color: white;
 }
 

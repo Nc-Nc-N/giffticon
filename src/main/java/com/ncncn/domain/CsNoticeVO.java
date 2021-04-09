@@ -23,4 +23,7 @@ public class CsNoticeVO {
 
 	private char isFixed;
 
+	private String inUser;
+
+	private String upUser;
 }
