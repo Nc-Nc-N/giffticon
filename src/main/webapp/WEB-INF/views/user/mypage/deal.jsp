@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,56 +92,22 @@
                     </div>
                     <div class="space30"></div>
                     <div class="item">
-                        <div class='item_purdate'>2020.10.13</div>
+                        <c:forEach items="${dealList}" var="list">
+                        <div class='item_purdate'><fmt:formatDate pattern="yyyy-MM-dd" value="${list.dealDt}"/></div>
                         <div class='item_info'>
-                            <span class="item_img"><img src="../img/star_americano.png"></span>
+                            <span class="item_img"><img src="<c:out value='${list.imgPath}'/>"></span>
                             <span class="item_brdNname">
-                                <div class="item_brd">starbucks</div>
-                                <div class="item_name">아메리카노 Tall</div>
+                                <div class="item_brd"><c:out value="${list.brdName}"/></div>
+                                <div class="item_name"><c:out value="${list.prdName}"/></div>
                             </span>
-                            <span class="item_prc">3,300원</span>
-                            <span class="item_status">사용 대기</span>
+                            <span class="item_prc"><c:out value="${list.pymtPrc}"/>원</span>
+                            <span class="item_status"><c:out value="${list.stusCode}"/></span>
                             <div class="item_buttons">
                                 <button class="btn btn-active">구매 확정</button>
                                 <button class="btn btn-disabled">구매 상세</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="item">
-                            <div class='item_purdate'>2020.10.13</div>
-                            <div class='item_info'>
-                                <span class="item_img"><img src="../img/star_americano.png"></span>
-                                <span class="item_brdNname">
-                                    <div class="item_brd">starbucks</div>
-                                    <div class="item_name">아메리카노 Tall</div>
-                                </span>
-                                <span class="item_prc">3,300원</span>
-                                <span class="item_status">사용 대기</span>
-                                <div class="item_buttons">
-                                    <button class="btn btn-active">구매 확정</button>
-                                    <button class="btn btn-disabled">구매 상세</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="item">
-                            <div class='item_purdate'>2020.10.13</div>
-                            <div class='item_info'>
-                                <span class="item_img"><img src="../img/star_americano.png"></span>
-                                <span class="item_brdNname">
-                                    <div class="item_brd">starbucks</div>
-                                    <div class="item_name">아메리카노 Tall</div>
-                                </span>
-                                <span class="item_prc">3,300원</span>
-                                <span class="item_status">사용 대기</span>
-                                <div class="item_buttons">
-                                    <button class="btn btn-active">구매 확정</button>
-                                    <button class="btn btn-disabled">구매 상세</button>
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                     <div class="contentfooter">
                         <div class="pagination">

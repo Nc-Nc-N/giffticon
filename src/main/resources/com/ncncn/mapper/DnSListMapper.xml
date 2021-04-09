@@ -5,9 +5,9 @@
     <select id="getDeals" resultType="com.ncncn.domain.MyDealsDTO">
         <![CDATA[
             select
-                brand.name brdName, product.name prdName, product.img_path imgPath,
-                dealT.pymt_prc pymt_Prc, stusT.code_name stusCode, dealT.deal_dt dealDt,
-                dealT.id dealId, dealT.user_id userId
+                dealT.id dealId, dealT.user_id userId, brand.name brdName,
+                product.name prdName, product.img_path imgPath, dealT.pymt_prc pymtPrc,
+                stusT.code_name stusCode, dealT.deal_dt dealDt
             from
                 (
                 select

@@ -1,8 +1,17 @@
 package com.ncncn.domain;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class MyDealsDTO {
+
+    //from deal_detail
+    private int dealId;
+
+    //from user
+    private String userId;
 
     //from gifticon
     private String brdName;
@@ -21,11 +30,5 @@ public class MyDealsDTO {
 
     //from deal_detail
     private Date dealDt;
-
-    //from deal_detail
-    private int dealId;
-
-    //from user
-    private String userId;
 
 }
