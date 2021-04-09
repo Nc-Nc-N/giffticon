@@ -5,9 +5,10 @@
     <select id="getDeals" resultType="com.ncncn.domain.MyDealsDTO">
         <![CDATA[
             select
-                dealT.id dealId, dealT.user_id userId, brand.name brdName,
-                product.name prdName, product.img_path imgPath, dealT.pymt_prc pymtPrc,
-                stusT.code_name stusCode, dealT.deal_dt dealDt
+                dealT.id dealId, gifticon_id gftId, dealT.user_id csId, brdT.name brdName,
+                prdT.name prdName, prdT.img_path prdImgPath, dealT.pymt_prc pymtPrc,
+                stusT.code_name stusCode, dealT.deal_dt dealDt, gftT.img_path gftImgPath,
+                brcd, gftT.expir_dt exprDt
             from
                 (
                 select
@@ -22,20 +23,20 @@
                             where email = #{email}
                     )
                 ) dealT,
-                gifticon,
-                product,
-                brand,
+                gifticon gftT,
+                product prdT,
+                brand brdT,
                 (
                     select * from cmmn_code where code_type = 'GFT_STUS'
                 ) stusT
             where
-                dealT.gifticon_id = gifticon.id
+                dealT.gifticon_id = gftT.id
               and
-                gifticon.prod_code = product.code
+                gftT.prod_code = prdT.code
               and
-                product.brd_code = brand.code
+                prdT.brd_code = brdT.code
               and
-                gifticon.gft_stus_code = stusT.code
+                gftT.gft_stus_code = stusT.code
         ]]>
     </select>
 </mapper>

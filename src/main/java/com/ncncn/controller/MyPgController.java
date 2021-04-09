@@ -1,5 +1,6 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.MyDealsDTO;
 import com.ncncn.service.DnSListService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @Log4j
@@ -20,7 +23,7 @@ public class MyPgController {
 
     private DnSListService service;
 
-    @PostMapping("/deal")
+    @GetMapping("/deal")
     public void deals(Principal principal, Model model){
 
         log.info("email: " + principal.getName());
@@ -31,8 +34,10 @@ public class MyPgController {
         model.addAttribute("dealList", service.getDeals(email));
     }
 
-    @GetMapping("/dealDetail")
-    public void dealDetail(@RequestParam("giftNo") int giftno, Model model){
-        log.info("/")
+    @PostMapping("/dealDetail")
+    public void dealDetail(@RequestParam("gftData")String gftData, Model model){
+        log.info("gftData: " + gftData);
+
+        model.addAttribute("gftData", gftData);
     }
 }

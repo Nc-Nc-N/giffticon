@@ -58,7 +58,7 @@
                 <span class="rightmenu"><i class="fas fa-ticket-alt"></i></span>
 
                 <span class="rightmenu">판매하기</span>
-                <span class="rightmenu"><a href="/user/mypage/mypageDeals">마이페이지</a></span>
+                <span class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></span>
             </div>
 
 

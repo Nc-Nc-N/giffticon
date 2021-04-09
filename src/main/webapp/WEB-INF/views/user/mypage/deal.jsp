@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
     <title>Document</title>
     <style>
@@ -92,10 +92,10 @@
                     </div>
                     <div class="space30"></div>
                     <div class="item">
-                        <c:forEach items="${dealList}" var="list">
+                        <c:forEach items="${dealList}" var="list" varStatus="num">
                         <div class='item_purdate'><fmt:formatDate pattern="yyyy-MM-dd" value="${list.dealDt}"/></div>
                         <div class='item_info'>
-                            <span class="item_img"><img src="<c:out value='${list.imgPath}'/>"></span>
+                            <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
                             <span class="item_brdNname">
                                 <div class="item_brd"><c:out value="${list.brdName}"/></div>
                                 <div class="item_name"><c:out value="${list.prdName}"/></div>
@@ -104,7 +104,8 @@
                             <span class="item_status"><c:out value="${list.stusCode}"/></span>
                             <div class="item_buttons">
                                 <button class="btn btn-active">구매 확정</button>
-                                <button class="btn btn-disabled">구매 상세</button>
+                                <button name="gft-detail-btn" class="btn btn-active" onclick="">구매 상세</button>
+                                </form>
                             </div>
                         </div>
                         </c:forEach>
@@ -128,3 +129,19 @@
 
 </body>
 </html>
+<script>
+
+    $(document).ready(function (e){
+
+        let gftDetailBtn = $('button[name="gft-detail-btn');
+
+        gftDetailBtn.on('click', function(e){
+
+            let gtfData = e.target.value;
+
+
+        })
+    })
+
+
+</script>

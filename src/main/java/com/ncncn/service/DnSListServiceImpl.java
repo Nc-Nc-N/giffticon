@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.MyDealsDTO;
 import com.ncncn.mapper.DnSListMapper;
 import lombok.AllArgsConstructor;
@@ -21,4 +22,11 @@ public class DnSListServiceImpl implements DnSListService{
 
         return mapper.getDeals(email);
     }
+
+//    @Override
+//    public List<GifticonVO> getDealDetails(int gifticonId){
+//        log.info("Dns Service..... getDealDetails");
+//
+//        return mapper.getDealDetails(gifticonId);
+//    }
 }

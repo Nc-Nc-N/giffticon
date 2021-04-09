@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,11 +67,11 @@
                         </div>
                         <div class="item_nameNcode">
                             <div class="item_name">
-                                <div>상품명</div>
+                                <div>${gftData}</div>
                                 상품명 받아오기
                             </div>
                             <div class="item_code">
-                                <div>상품코드</div>
+                                <div>${gftData}</div>
                                 상품코드 받아오기
                             </div>
                         </div>

@@ -10,8 +10,17 @@ public class MyDealsDTO {
     //from deal_detail
     private int dealId;
 
+    //from gifticon
+    private int gftId;
+
+    //from gifticon
+    private String gftImgPath;
+
+    //from gifticon
+    private String brcd;
+
     //from user
-    private String userId;
+    private String csId;
 
     //from gifticon
     private String brdName;
@@ -19,8 +28,8 @@ public class MyDealsDTO {
     //from product
     private String prdName;
 
-    //from gifticon
-    private String imgPath;
+    //from product
+    private String prdImgPath;
 
     //from deal_detail
     private int pymtPrc;
@@ -30,5 +39,10 @@ public class MyDealsDTO {
 
     //from deal_detail
     private Date dealDt;
+
+    //from gifticon
+    private Date exprDt;
+
+
 
 }
