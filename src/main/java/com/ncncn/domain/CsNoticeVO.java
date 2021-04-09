@@ -23,7 +23,8 @@ public class CsNoticeVO {
 
 	private char isFixed;
 
-	private String inUser;
+	private Date inDate;
 
-	private String upUser;
+	private Date upDate;
+
 }

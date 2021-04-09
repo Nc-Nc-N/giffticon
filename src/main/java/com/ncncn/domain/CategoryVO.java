@@ -15,4 +15,10 @@ public class CategoryVO {
 
     private String descn;
 
+    private String iconPath;
+
+    private Date inDate;
+
+    private Date upDate;
+
 }
