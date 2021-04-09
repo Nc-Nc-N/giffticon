@@ -2,6 +2,7 @@ package com.ncncn.controller;
 
 import com.ncncn.domain.MyDealsDTO;
 import com.ncncn.service.DnSListService;
+import com.ncncn.service.UserCheckService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import java.util.List;
 public class MyPgController {
 
     private DnSListService service;
+    private UserCheckService userCheckService;
 
     @GetMapping("/deal")
     public void deals(Principal principal, Model model){
@@ -30,14 +32,8 @@ public class MyPgController {
 
         String email = principal.getName();
 
-//        log.info("deals loading..");
+        log.info("deals loading..");
         model.addAttribute("dealList", service.getDeals(email));
     }
 
-    @PostMapping("/dealDetail")
-    public void dealDetail(@RequestParam("gftData")String gftData, Model model){
-        log.info("gftData: " + gftData);
-
-        model.addAttribute("gftData", gftData);
-    }
 }

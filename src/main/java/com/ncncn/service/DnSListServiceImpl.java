@@ -23,10 +23,11 @@ public class DnSListServiceImpl implements DnSListService{
         return mapper.getDeals(email);
     }
 
-//    @Override
-//    public List<GifticonVO> getDealDetails(int gifticonId){
-//        log.info("Dns Service..... getDealDetails");
-//
-//        return mapper.getDealDetails(gifticonId);
-//    }
+    @Override
+    public List<MyDealsDTO> getGftDetail(int gftId){
+
+        log.info("Get Detail of gft Id: " + gftId);
+
+        return mapper.getGftDetail(gftId);
+    }
 }

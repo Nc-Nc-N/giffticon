@@ -22,4 +22,11 @@ public class DnSMapperTests {
         String email = "leehj.kk@gmail.com";
         dnsmapper.getDeals(email).forEach(board -> log.info(board));
     }
+
+    @Test
+    public void testGetGftDetail(){
+
+        int gftId = 85;
+        dnsmapper.getGftDetail(gftId);
+    }
 }

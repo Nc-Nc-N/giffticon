@@ -104,7 +104,8 @@
                             <span class="item_status"><c:out value="${list.stusCode}"/></span>
                             <div class="item_buttons">
                                 <button class="btn btn-active">구매 확정</button>
-                                <button name="gft-detail-btn" class="btn btn-active" onclick="">구매 상세</button>
+                                <button name="gft-detail-btn" class="btn btn-active"
+                                onclick="location.href='/user/mypage/dealDetail'">구매 상세</button>
                                 </form>
                             </div>
                         </div>
@@ -133,13 +134,11 @@
 
     $(document).ready(function (e){
 
-        let gftDetailBtn = $('button[name="gft-detail-btn');
+        let userId = ${principal.getName}
+        $('button[name="gft-detail-btn').on('click', function(e){
 
-        gftDetailBtn.on('click', function(e){
-
-            let gtfData = e.target.value;
-
-
+            console.log("id : " + userId);
+            return "/"
         })
     })
 

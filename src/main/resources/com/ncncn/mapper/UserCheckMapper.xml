@@ -54,4 +54,9 @@
 
         <include refid="criteria"></include>
     </select>
+    
+    <select id="specUserOnly" resultType="com.ncncn.domain.UserVO">
+        select email from user where id = #{userId}
+    </select>
+
 </mapper>

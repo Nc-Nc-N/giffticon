@@ -42,4 +42,12 @@ public class UserCheckServiceImpl implements UserCheckService {
         return mapper.getTotalCount(cri);
     }
 
+    @Override
+    public UserVO specUserOnly(int userId) {
+
+        log.info("user Checking.....");
+
+        return mapper.specUserOnly(userId);
+    }
+
 }

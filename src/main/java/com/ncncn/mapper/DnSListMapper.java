@@ -12,4 +12,5 @@ public interface DnSListMapper {
 
     public List<MyDealsDTO> getDeals(String email);
 
+    public List<MyDealsDTO> getGftDetail(int gftId);
 }

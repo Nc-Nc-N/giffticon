@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 @Log4j
 public class UserMapperTest {
 
-	@Autowired
+
 	private UserMapper userMapper;
 
 	@Test

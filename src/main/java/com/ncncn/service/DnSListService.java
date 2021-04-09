@@ -9,5 +9,5 @@ public interface DnSListService {
 
     public List<MyDealsDTO> getDeals(String email);
 
-//    public List<GifticonVO> getDealDetails(int gifticonId);
+    public List<MyDealsDTO> getGftDetail(int gftId);
 }

@@ -19,8 +19,8 @@ public class MyDealsDTO {
     //from gifticon
     private String brcd;
 
-    //from user
-    private String csId;
+    //from deal_detail
+    private int csId;
 
     //from gifticon
     private String brdName;

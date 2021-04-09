@@ -1,6 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.CriteriaCH;
+import com.ncncn.domain.UserVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -29,5 +30,13 @@ public class UserCheckServiceTests {
     public void testGetUserList() {
 
         service.getUserList(new CriteriaCH(2, 10)).forEach(user -> log.info(user));
+    }
+
+    @Test
+    public void specUserOnlyTest(){
+
+        int userId = 156;
+        service.specUserOnly(userId);
+
     }
 }

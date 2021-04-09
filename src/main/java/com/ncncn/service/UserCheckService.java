@@ -11,4 +11,6 @@ public interface UserCheckService {
     public List<UserVO> getUserList(CriteriaCH cri);
 
     public int getTotal(CriteriaCH cri);
+
+    public UserVO specUserOnly(int userId);
 }
