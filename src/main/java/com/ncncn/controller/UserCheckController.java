@@ -2,6 +2,7 @@ package com.ncncn.controller;
 
 import com.ncncn.domain.CriteriaCH;
 import com.ncncn.domain.PageDTOCH;
+import com.ncncn.domain.UserVO;
 import com.ncncn.service.UserCheckService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -30,6 +31,14 @@ public class UserCheckController {
 
         return "/admin/user/userList";
 
+    }
+
+    @GetMapping("/user-detail")
+    public String userDetailCheck(int userId, Model model) {
+        log.info("userDetailCheck...................");
+        model.addAttribute("user", service.getUserDetail(userId));
+
+        return "admin/user/userDetail";
     }
 
 }

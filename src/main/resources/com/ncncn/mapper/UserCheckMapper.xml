@@ -54,4 +54,45 @@
 
         <include refid="criteria"></include>
     </select>
+
+
+    <select id="getUserDetail" resultType="com.ncncn.domain.UserDetailCheckDTO">
+
+    <![CDATA[
+        select user.id, user.email, user.name, user.tel_no, user.in_date, bname.code_name as bankName, bank_account.acc as bankAccount,
+               phist.balance, detail.deal_count, detail.paysum, pqust.pqust_count, user.enabled, user.memo
+        from
+            user,
+            bank_account,
+            (select user_id, count(*) as deal_count, sum(pymt_prc) as paysum
+             from deal_detail
+             group by user_id
+            ) AS detail,
+    (select  code, code_name
+     from cmmn_code
+     where code_type='BANK_NAME'
+	) AS bname,
+    (select * from pnt_hist
+	 where id IN
+		(select max(id) from pnt_hist
+		group by user_id
+		)
+	) AS phist,
+    (select user_id, count(*) as pqust_count from cs_psnl_qust
+	 group by user_id
+    ) AS pqust
+        where user.id = detail.user_id
+          AND bank_account.bnk_code = bname.code
+          AND user.id = phist.user_id
+          AND user.id = pqust.user_id
+          AND user.id=#{userId}
+        ;
+    ]]>
+    </select>
+
+    <update id="updateMemo">
+        update user
+        set memo=#{memo} where id=#{id}
+    </update>
+
 </mapper>

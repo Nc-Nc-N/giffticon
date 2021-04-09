@@ -30,4 +30,10 @@ public class UserCheckServiceTests {
 
         service.getUserList(new CriteriaCH(2, 10)).forEach(user -> log.info(user));
     }
+
+    @Test
+    public void testGetUser() {
+        int userId=152;
+        service.getUserDetail(userId);
+    }
 }

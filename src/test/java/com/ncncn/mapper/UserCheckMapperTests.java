@@ -2,6 +2,7 @@ package com.ncncn.mapper;
 
 
 import com.ncncn.domain.CriteriaCH;
+import com.ncncn.domain.UserDetailCheckDTO;
 import com.ncncn.domain.UserVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -48,6 +49,15 @@ public class UserCheckMapperTests {
         List<UserVO> list = mapper.getListWithPaging(cri);
 
         list.forEach(user -> log.info(user));
+    }
+
+    @Test
+    public void testGetUser(){
+
+        int userId=152;
+        UserDetailCheckDTO user = mapper.getUserDetail(userId);
+        log.info(user);
+
     }
 
 

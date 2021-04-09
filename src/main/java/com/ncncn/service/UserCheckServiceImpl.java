@@ -1,6 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.CriteriaCH;
+import com.ncncn.domain.UserDetailCheckDTO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserCheckMapper;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,13 @@ public class UserCheckServiceImpl implements UserCheckService {
 
         log.info("get total count");
         return mapper.getTotalCount(cri);
+    }
+
+    @Override
+    public UserDetailCheckDTO getUserDetail(int userId) {
+
+        log.info("get User " + userId);
+        return mapper.getUserDetail(userId);
     }
 
 }
