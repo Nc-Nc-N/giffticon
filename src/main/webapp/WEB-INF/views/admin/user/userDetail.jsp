@@ -103,7 +103,7 @@
                             <td class="c3"><input type="button" class="btnclass" value="1:1문의 조회"></td>
                             <!-- <td class="c3"><button class="btnclass">선택</button></td> -->
                             <td class="c3">
-                                <select class="btnclass" style="background-color:rgb(245, 243, 243)">
+                                <select class="btnclass" id="statusbtn" style="background-color:rgb(245, 243, 243)">
                                     <option value="정상" selected="selected">정상</option>
                                     <option value="탈퇴">탈퇴</option>
                                 </select>
@@ -117,9 +117,13 @@
                       <div id="memo-container">
                       <!-- <span style="display: inline-block; width:175px;" id="memo-title">관리자 메모</span> <br> -->
                       <p id="memo-title">관리자 메모</p>
+
+                      <form>
                       <input id="memo-input" type="text"
                              value='<c:out value="${user.memo}"/>' style="border:solid black 1px">
+                      <input id="userId" type="hidden" value="${user.id}"/>
                       <input type="button" value="수정">
+                      </form>
                       </div>
                       
                     

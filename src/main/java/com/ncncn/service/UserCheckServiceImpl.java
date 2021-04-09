@@ -2,6 +2,7 @@ package com.ncncn.service;
 
 import com.ncncn.domain.CriteriaCH;
 import com.ncncn.domain.UserDetailCheckDTO;
+import com.ncncn.domain.UserMemoDTO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserCheckMapper;
 import lombok.AllArgsConstructor;
@@ -50,4 +51,10 @@ public class UserCheckServiceImpl implements UserCheckService {
         return mapper.getUserDetail(userId);
     }
 
+    @Override
+    public void updateMemo(UserMemoDTO memo) {
+
+        log.info("update Memo " + memo);
+        mapper.updateMemo(memo);
+    }
 }

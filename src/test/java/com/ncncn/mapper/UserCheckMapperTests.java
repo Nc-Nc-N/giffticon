@@ -60,6 +60,15 @@ public class UserCheckMapperTests {
 
     }
 
+    @Test
+    public void testUpdateMemo() {
+
+        int userId=152;
+        String memo="스파이더맨55";
+
+
+    }
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.CriteriaCH;
+import com.ncncn.domain.UserMemoDTO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -35,5 +36,14 @@ public class UserCheckServiceTests {
     public void testGetUser() {
         int userId=152;
         service.getUserDetail(userId);
+    }
+
+    @Test
+    public void testUpdateMemo() {
+        UserMemoDTO memo = new UserMemoDTO();
+        memo.setId(152);
+        memo.setMemo("Memo update test");
+
+        service.updateMemo(memo);
     }
 }
