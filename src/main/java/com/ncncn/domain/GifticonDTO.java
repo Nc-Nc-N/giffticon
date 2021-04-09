@@ -44,4 +44,6 @@ public class GifticonDTO {
 	// 판매량
 	private int soldQuty;
 
+	// 상품수
+	private int totProd;
 }

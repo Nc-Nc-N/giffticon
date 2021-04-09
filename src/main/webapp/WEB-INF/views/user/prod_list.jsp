@@ -26,13 +26,13 @@
             <!-- 카테고리바 -->
             <nav>
                 <div class="catename"><i class="<c:out value="${category.iconPath}"/>"></i> &nbsp;<c:out value="${category.name}"/></div>
+                <div class="search-result" style="display: none">총 <c:out value="${pageMaker.total}"/> 개의 상품이 검색되었습니다. </div>
                 <ul>
-                    <a href="prod_list?code=${category.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li>전체보기</li></a>
+                    <a href="prod_list?code=${category.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li class="cateAll">전체보기</li></a>
+
                     <c:forEach items="${brandList}" var="brandList">
                     <a href="prod_list?code=${brandList.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li><c:out value="${brandList.name}"/></li></a>
                     </c:forEach>
-
-
                 </ul>
 
                 <%-- 정렬 방식 --%>
@@ -109,16 +109,15 @@
 
     <%-- 페이지 번호 -> url 이동 --%>
     <form id="actionForm" action='/user/prod_list' method="get">
-        <input type="hidden" name="code" value="${pageMaker.cri.code}">
-        <input type="hidden" name="orderby" value="${pageMaker.cri.orderby}">
-        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
         <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
+        <input type="hidden" name="code" value='<c:out value="${pageMaker.cri.code}"/>'>
+        <input type="hidden" name="orderby" value='<c:out value="${pageMaker.cri.orderby}"/>'>
+        <input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"/>'>
+        <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}"/>'>
     </form>
 
     <script type="text/javascript">
         $(document).ready(function (){
-
 
             let curr_url = document.URL;
             let new_curr_url = new URL(curr_url);
@@ -128,6 +127,12 @@
 
             // 현재 url의 orderby parameter value
             let selectedOrder = new_curr_url.searchParams.get("orderby");
+
+            // 검색 후 '전체보기' 숨기기, 검색 결과
+            if(code=='0'){
+                $('.cateAll').hide();
+                $('.search-result').show();
+            }
 
            // 상품 정렬 방식 이벤트 처리
            $(".search-select").on("change", function (){
@@ -159,9 +164,9 @@
                 alert("검색어를 입력해주세요");
                 return false;
             }
-
             searchForm.submit();
         });
+
     </script>
 
 </body>

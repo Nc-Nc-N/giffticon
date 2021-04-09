@@ -13,7 +13,7 @@
 }
 
 /* 카테고리 네비게이션바 */
-.catename{
+.catename, .search-result{
     padding: 10px;
 }
 .catename >.fas{
