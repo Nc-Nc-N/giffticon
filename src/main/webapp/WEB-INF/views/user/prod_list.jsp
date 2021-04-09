@@ -160,7 +160,7 @@
                 return false;
             }
 
-           searchForm.submit();
+            searchForm.submit();
         });
     </script>
 

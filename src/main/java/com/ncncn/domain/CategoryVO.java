@@ -17,4 +17,8 @@ public class CategoryVO {
 
     private String iconPath;
 
+    private Date inDate;
+
+    private Date upDate;
+
 }
