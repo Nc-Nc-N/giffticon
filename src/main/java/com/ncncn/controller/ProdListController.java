@@ -22,7 +22,6 @@ public class ProdListController {
 
 		String code = cri.getCode();
 		int total = service.getTotal(cri);
-		log.info("total:"+ total);
 
 		model.addAttribute("category", service.getCate(code));
 		model.addAttribute("brandList", service.getBrandList(code));
@@ -30,3 +29,4 @@ public class ProdListController {
 		model.addAttribute("pageMaker", new PageDTOHY(cri, total));
 	}
 }
+
