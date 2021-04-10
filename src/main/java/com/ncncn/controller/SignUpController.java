@@ -34,8 +34,8 @@ public class SignUpController {
 		return "/account/signUp";
 	}
 
-	@PostMapping(value = "/signUp", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> signUp(@RequestBody UserVO user) {
+	@PostMapping(value = "/register", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> register(@RequestBody UserVO user) {
 		log.info("UserVO: " + user);
 
 		try {
