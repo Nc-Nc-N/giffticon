@@ -26,7 +26,7 @@
 
     <select id="getUserList" resultType="com.ncncn.domain.UserVO">
     <![CDATA[
-        select * from user;
+        select * from user
         ]]>
     </select>
 
@@ -36,11 +36,12 @@
         <![CDATA[
             select id, email, name, in_date, tel_no, enabled
             from user
-            where
+            where enabled=1 AND (
         ]]>
 
         <include refid="criteria"></include>
 
+        )
         <![CDATA[
             LIMIT #{amount}
             OFFSET ${(pageNum-1) * amount};
@@ -50,43 +51,42 @@
 
     <select id="getTotalCount" resultType="int">
         select count(*) from user
-        where
+        where enabled=1 AND (
 
         <include refid="criteria"></include>
+
+        )
     </select>
 
 
     <select id="getUserDetail" resultType="com.ncncn.domain.UserDetailCheckDTO">
 
     <![CDATA[
-        select user.id, user.email, user.name, user.tel_no, user.in_date, bname.code_name as bankName, bank_account.acc as bankAccount,
-               phist.balance, detail.deal_count, detail.paysum, pqust.pqust_count, user.enabled, user.memo
-        from
-            user,
-            bank_account,
-            (select user_id, count(*) as deal_count, sum(pymt_prc) as paysum
-             from deal_detail
-             group by user_id
-            ) AS detail,
-    (select  code, code_name
-     from cmmn_code
-     where code_type='BANK_NAME'
-	) AS bname,
-    (select * from pnt_hist
-	 where id IN
-		(select max(id) from pnt_hist
-		group by user_id
-		)
-	) AS phist,
-    (select user_id, count(*) as pqust_count from cs_psnl_qust
-	 group by user_id
-    ) AS pqust
-        where user.id = detail.user_id
-          AND bank_account.bnk_code = bname.code
-          AND user.id = phist.user_id
-          AND user.id = pqust.user_id
-          AND user.id=#{userId}
-        ;
+        select id, email, name, tel_no, in_date, enabled, memo
+        from user
+        where id=#{userId};
+
+        select bcode.code_name, bank_account.acc
+        from bank_account,
+             (select * from cmmn_code
+              where code_type='BANK_NAME'
+             ) as bcode
+        where user_id=#{userId}
+          AND bank_account.bnk_code = bcode.code;
+
+        select balance from pnt_hist
+        where user_id=#{userId}
+        order by id desc
+        LIMIT 1;
+
+        select count(*) as deal_count, sum(pymt_prc) as paysum
+        from deal_detail
+        where user_id=#{userId}
+        group by user_id;
+
+        select count(*) as pqust_count
+        from cs_psnl_qust
+        where user_id=#{userId};
     ]]>
     </select>
 

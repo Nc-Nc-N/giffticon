@@ -93,7 +93,7 @@
                           <th>회원상태</th>
                         </tr>
                         <c:forEach items="${list}" var="userL">
-                        <tr class="test11">
+                        <tr class="eachUser">
                           <td>${userL.id}</td>
                           <td>${userL.email}</td>
                           <td>${userL.name}</td>
@@ -175,5 +175,17 @@
         });
 
     }); //end of $(document).ready
+
+    $(".eachUser").on("click", function(e){
+
+        // alert(this.children[0].innerText);
+        let eachUserId=this.children[0].innerText;
+
+        // 이동시 값 비어있음
+        // self.location="http://localhost:8088/admin/user/user-detail?userId=" + eachUserId;
+
+        location.href="http://localhost:8088/admin/user/user-detail?userId=" + eachUserId;
+
+    });
 
 </script>

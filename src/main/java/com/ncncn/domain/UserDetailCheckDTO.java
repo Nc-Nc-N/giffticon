@@ -17,6 +17,10 @@ public class UserDetailCheckDTO {
 
     private Date inDate;
 
+    private int enabled;
+
+    private String memo;
+
     private String bankName;
 
     private String bankAccount;
@@ -29,7 +33,7 @@ public class UserDetailCheckDTO {
 
     private int pqustCount;
 
-    private int enabled;
 
-    private String memo;
+
+
 }
