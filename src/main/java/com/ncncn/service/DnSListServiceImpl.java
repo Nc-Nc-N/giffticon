@@ -30,4 +30,11 @@ public class DnSListServiceImpl implements DnSListService{
 
         return mapper.getGftDetail(gftId);
     }
+
+    @Override
+    public List<MyDealsDTO> getDealsWithPaging(String email, int amount, int pageNum){
+        log.info("Service of Get Deals with Paging....");
+
+        return mapper.getDealsWithPaging(email, amount, pageNum);
+    }
 }

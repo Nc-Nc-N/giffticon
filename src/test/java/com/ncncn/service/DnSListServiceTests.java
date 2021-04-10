@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.CriteriaSM;
 import com.ncncn.domain.MyDealsDTO;
 import com.ncncn.domain.UserVO;
 import lombok.Setter;
@@ -43,12 +44,23 @@ public class DnSListServiceTests {
 
     @Test
     public void testGetGftDetail(){
-        int gftid = 20;
+        int gftid = 88;
 
         int userId =  service.getGftDetail(gftid).get(0).getCsId();
         UserVO user = userCheckService.specUserOnly(userId);
 
         log.info("permited user is : " + user);
+    }
+
+    @Test
+    public void testGetDealsWithPaging(){
+
+        CriteriaSM cri = new CriteriaSM(3,3);
+        String email = "planner263@gmail.com";
+
+        service.getDealsWithPaging(email, cri.getAmount(), cri.getPageNum());
+
+        log.info("Get Deals With Paging : " + email + "," + cri.getAmount() + "," + cri.getPageNum());
     }
 
 }

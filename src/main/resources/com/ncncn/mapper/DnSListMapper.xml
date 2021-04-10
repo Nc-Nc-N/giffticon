@@ -62,4 +62,43 @@
         ]]>
     </select>
 
+    <select id="getDealsWithPaging" resultType="com.ncncn.domain.MyDealsDTO">
+        <![CDATA[
+        select
+            dealT.id dealId, dealT.gifticon_id gftId, dealT.user_id csId, brdT.name brdName,
+            prdT.name prdName, prdT.img_path prdImgPath, dealT.pymt_prc pymtPrc,
+            stusT.code_name stusCode, dealT.deal_dt dealDt
+        from
+            (
+                select
+                    gifticon_id, pymt_prc, deal_dt, user_id, id
+                from
+                    deal_detail
+                where
+                        user_id =
+                        (
+                            select id
+                            from user
+                            where email = #{email}
+                        )
+            ) dealT,
+            gifticon gftT,
+            product prdT,
+            brand brdT,
+            (
+                select * from cmmn_code where code_type = 'GFT_STUS'
+            ) stusT
+        where
+            dealT.gifticon_id = gftT.id
+          and
+            gftT.prod_code = prdT.code
+          and
+            prdT.brd_code = brdT.code
+          and
+            gftT.gft_stus_code = stusT.code
+        limit #{amount}
+        offset #{pageNum}
+        ]]>
+    </select>
+
 </mapper>

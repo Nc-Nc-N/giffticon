@@ -13,6 +13,6 @@ public interface UserCheckMapper {
 
     public int getTotalCount(CriteriaCH cri);
 
-    UserVO specUserOnly(int userId);
+    public UserVO specUserOnly(int userId);
 
 }

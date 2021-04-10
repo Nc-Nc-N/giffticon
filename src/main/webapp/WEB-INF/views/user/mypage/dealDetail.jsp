@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +14,7 @@
     <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
     <title>Document</title>
     <style>
@@ -63,16 +65,16 @@
                     </div>
                     <div class="item_info">
                         <div class="item_img">
-                            <img src="../img/star_americano.png">
+                            <img src="<c:out value="${gftInfo.prdImgPath}"/>">
                         </div>
                         <div class="item_nameNcode">
                             <div class="item_name">
-                                <div>${principal.Name}</div>
-                                상품명 받아오기
+                                <div>상품명</div>
+                                <c:out value="${gftInfo.prdName}"/>
                             </div>
                             <div class="item_code">
-                                <div>${modelUserName}</div>
-                                상품코드 받아오기
+                                <div>등록번호</div>
+                                <c:out value="${gftInfo.gftId}"/>
                             </div>
                         </div>
                         <div class="item_btn">
@@ -82,24 +84,24 @@
                     </div>
                     <div class="item_info">
                         <div class="item_img">
-                            <img src="/img/barcode.png">
+                            <img src="<c:out value='${gftInfo.gftImgPath}'/>">
                         </div>
                         <div class="item_nameNcode">
                             <div class="item_name">
-                                <div>등록일자</div>
-                                등록일자 받아오기
+                                <div>구매일자</div>
+                            <fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.dealDt}"/>
                             </div>
                             <div class="item_name">
                                 <div>유효기간</div>
-                                유효기간 받아오기
+                            <fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.exprDt}"/>
                             </div>
                             <div class="item_name">
                                 <div>바코드</div>
-                                바코드 번호 받아오기
+                            <c:out value=" ${gftInfo.brcd}"/>
                             </div>
                             <div class="item_name">
                                 <div>상태</div>
-                                상태 받아오기
+                            <c:out value="${gftInfo.stusCode}"/>
                             </div>
                             
                             

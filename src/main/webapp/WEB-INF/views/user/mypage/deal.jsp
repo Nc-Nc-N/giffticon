@@ -104,8 +104,10 @@
                             <span class="item_status"><c:out value="${list.stusCode}"/></span>
                             <div class="item_buttons">
                                 <button class="btn btn-active">구매 확정</button>
-                                <button name="gft-detail-btn" class="btn btn-active"
-                                onclick="location.href='/user/mypage/dealDetail'">구매 상세</button>
+                                <form action="/user/mypage/dealDetail" method="post">
+                                    <input type="hidden" name="gftId" value="<c:out value="${list.gftId}"/>">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <button name="gftDetailBtn" class="btn btn-active">구매 상세</button>
                                 </form>
                             </div>
                         </div>
@@ -121,7 +123,10 @@
                             <a href="#">5</a>
                             <a href="#">6</a>
                             <a href="#">&gt;</a>
-                        </div>  
+                        </div>
+                        <form id="actionForm">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -132,15 +137,29 @@
 </html>
 <script>
 
-    $(document).ready(function (e){
+    <%--$(document).ready( function() {--%>
 
-        let userId = ${principal.getName}
-        $('button[name="gft-detail-btn').on('click', function(e){
+    <%--    let getGftDetail = $("button[name='gftDetailBtn']");--%>
+    <%--    let actionForm = $("#actionForm");--%>
 
-            console.log("id : " + userId);
-            return "/"
-        })
-    })
+    <%--    let csrfHeaderName = "${_csrf.headerName}";--%>
+    <%--    let csrfTokenValue = "${_csrf.token}";--%>
 
+    <%--    getGftDetail.on("click",function(){--%>
+
+    <%--        let gftId = $(this).val();--%>
+
+    <%--        $.ajax({--%>
+    <%--            type: 'post' ,--%>
+    <%--            url: '/user/mypage/dealDetail',--%>
+    <%--            data: gftId,--%>
+    <%--            contentType: 'int',--%>
+    <%--            beforeSend: function (xhr) {--%>
+    <%--                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);--%>
+    <%--            }--%>
+    <%--        })--%>
+    <%--    });--%>
+
+    <%--});--%>
 
 </script>
