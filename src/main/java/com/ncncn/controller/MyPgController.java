@@ -1,5 +1,6 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.CriteriaSM;
 import com.ncncn.domain.MyDealsDTO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.service.DnSListService;
@@ -26,14 +27,15 @@ public class MyPgController {
     private UserCheckService userCheckService;
 
     @GetMapping("/deal")
-    public void deals(Principal principal, Model model){
+    public void deals(Principal principal, CriteriaSM cri, Model model){
 
         log.info("email: " + principal.getName());
 
         String email = principal.getName();
 
         log.info("deals loading..");
-        model.addAttribute("dealList", service.getDeals(email));
+
+        model.addAttribute("dealList", service.getDealsWithPaging(email, cri.getAmount(), cri.getPageNum()));
     }
 
     @PostMapping("/dealDetail")

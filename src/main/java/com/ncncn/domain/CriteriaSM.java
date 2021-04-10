@@ -13,7 +13,7 @@ public class CriteriaSM {
     private int amount;
 
     public CriteriaSM(){
-        this(2,3);
+        this(1,3);
     }
 
     public CriteriaSM(int pageNum, int amount){
