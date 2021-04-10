@@ -52,8 +52,7 @@
                         </div>
                     </div>
                     <br>
-                   
-                    
+
                     <table id="t1" width=100%>
                         <thead>
                           <tr>
@@ -118,12 +117,13 @@
                       <!-- <span style="display: inline-block; width:175px;" id="memo-title">관리자 메모</span> <br> -->
                       <p id="memo-title">관리자 메모</p>
 
-                      <form>
-                      <input id="memo-input" type="text"
-                             value='<c:out value="${user.memo}"/>' style="border:solid black 1px">
-                      <input id="userId" type="hidden" value="${user.id}"/>
-                      <input type="button" value="수정">
-                      </form>
+                          <form action="/admin/user/update-memo" method="post">
+                              <input id="memo-input" type="text" name="memo"
+                                     value='<c:out value="${user.memo}"/>' style="border:solid black 1px">
+<%--                                     value='testmemo' style="border:solid black 1px">--%>
+                              <input id="userId" type="hidden" name="id" value="${user.id}"/>
+                              <input type="submit" id="memochange" value="수정">
+                          </form>
                       </div>
                       
                     
@@ -137,3 +137,11 @@
         </div>
     </body>
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $("#memochange").click(function(){
+
+    });
+
+</script>

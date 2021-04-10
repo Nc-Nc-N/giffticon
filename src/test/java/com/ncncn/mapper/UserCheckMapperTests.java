@@ -3,6 +3,7 @@ package com.ncncn.mapper;
 
 import com.ncncn.domain.CriteriaCH;
 import com.ncncn.domain.UserDetailCheckDTO;
+import com.ncncn.domain.UserMemoDTO;
 import com.ncncn.domain.UserVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

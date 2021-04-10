@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @Log4j
@@ -38,18 +41,24 @@ public class UserCheckController {
     public String userDetailCheck(int userId, Model model) {
         log.info("userDetailCheck...................");
         model.addAttribute("user", service.getUserDetail(userId));
+        model.addAttribute("memo", new UserMemoDTO());
 
         return "admin/user/userDetail";
     }
 
     // user-detail 페이지에서 수정버튼 눌렀을 때 쿼리 실행해서 수정하고 다시 user-detail 페이지로 이동
     @PostMapping("/update-memo")
-    public String updateMemo(UserMemoDTO memo) {
+    public String updateMemo(HttpServletRequest request) {
         log.info("memo changed..................");
+        UserMemoDTO updateMemo = new UserMemoDTO();
 
-        service.updateMemo(memo);
+        // request.getParameter가 반환하는 문자열 값을 int로 변환해줌
+        updateMemo.setId(Integer.parseInt(request.getParameter("id")));
+        updateMemo.setMemo(request.getParameter("memo"));
 
-        return "redirect:admin/user/user-detail?userId=" + memo.getId();
+        service.updateMemo(updateMemo);
+
+        return "redirect:/admin/user/user-detail?userId=" + updateMemo.getId();
     }
 
 }
