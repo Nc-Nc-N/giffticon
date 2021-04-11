@@ -17,7 +17,7 @@ public class CriteriaSM {
     }
 
     public CriteriaSM(int pageNum, int amount){
-        this.pageNum = (pageNum - 1) * amount;
+        this.pageNum = pageNum;
         this.amount = amount;
     }
 }

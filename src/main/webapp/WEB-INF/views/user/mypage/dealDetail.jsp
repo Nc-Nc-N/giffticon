@@ -103,13 +103,16 @@
                                 <div>상태</div>
                             <c:out value="${gftInfo.stusCode}"/>
                             </div>
-                            
-                            
                         </div>
-                        <div class="item_btn">
-                        </div>
+                            
+
                     </div>
-                   
+                    <form action="/user/mypage/deal" method="get">
+                        <input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}"/> ">
+                        <input type="hidden" name="amount" value="<c:out value="${cri.amount}"/> ">
+                        <button class="btn btn-active">목록</button>
+                    </form>
+
                 </div>
             </div>
         </div>

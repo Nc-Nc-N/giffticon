@@ -2,12 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ncncn.mapper.DnSListMapper">
 
-    <select id="getDeals" resultType="com.ncncn.domain.MyDealsDTO">
+    <select id="countDealList" resultType="int">
         <![CDATA[
-            select
-                dealT.id dealId, dealT.gifticon_id gftId, dealT.user_id csId, brdT.name brdName,
-                prdT.name prdName, prdT.img_path prdImgPath, dealT.pymt_prc pymtPrc,
-                stusT.code_name stusCode, dealT.deal_dt dealDt
+            select  count(*)
             from
                 (
                 select
@@ -97,7 +94,7 @@
           and
             gftT.gft_stus_code = stusT.code
         limit #{amount}
-        offset #{pageNum}
+        offset ${(pageNum-1) * amount};
         ]]>
     </select>
 

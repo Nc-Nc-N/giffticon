@@ -12,11 +12,13 @@ import java.util.List;
 public interface DnSListMapper {
 
 
-    public List<MyDealsDTO> getDeals(String email);
+//    public List<MyDealsDTO> getDeals(String email);
 
     public List<MyDealsDTO> getGftDetail(int gftId);
 
     public List<MyDealsDTO> getDealsWithPaging(@Param("email") String email,
                                                @Param("amount") int amount,
                                                @Param("pageNum") int pageNum);
+
+    public int countDealList(String email);
 }

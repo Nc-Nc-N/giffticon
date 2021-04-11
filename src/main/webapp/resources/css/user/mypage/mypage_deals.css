@@ -7,7 +7,7 @@
     align-items: center;
     font-weight: bold;
     font-size: 14px;
-    ;
+;
 }
 
 .contentsearch{
@@ -60,7 +60,7 @@
     margin-top: 2px;
     background: rgb(245, 244, 244);
     border-radius: 40px;
-    
+
 }
 
 .cat-drop-box{
@@ -72,23 +72,23 @@
 
 .item{
     width: 100%;
-    height: 220px;
-    /* background-color: gold; */
+    height: 500px;
+    /*background-color: gold;*/
     /* border-bottom: 2px solid black; */
 }
 
 .item_purdate{
     width: 100%;
-    height: 15%;
-    /* background-color: cadetblue; */
+    height: 30px;
+    /*background-color: cadetblue;*/
     font-size: 20px;
     font-weight: bold;
 }
 
 .item_info{
     width: 100%;
-    height: 75%;
-    /* background-color: coral; */
+    height: 140px;
+    /*background-color: coral;*/
     display: flex;
     justify-content:space-between;
     align-items: center;
@@ -104,7 +104,7 @@
     width: 200px;
     height: 60px;
     /* background-color: darkgreen; */
-    
+
 
 }
 
@@ -115,7 +115,7 @@
     margin-left: 10%;
     display: flex;
     align-items: center;
-    
+
 }
 .item_name{
     width:80%;
@@ -137,7 +137,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
 .item_status{
     width: 150px;
@@ -161,5 +161,5 @@ img{
     height:60px;
     margin-top:30px;
     text-align: center;
-    /* background-color: cadetblue; */
+    /*background-color: cadetblue;*/
 }

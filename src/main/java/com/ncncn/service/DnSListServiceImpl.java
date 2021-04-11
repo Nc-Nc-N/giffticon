@@ -16,12 +16,12 @@ public class DnSListServiceImpl implements DnSListService{
 
     private DnSListMapper mapper;
 
-    @Override
-    public List<MyDealsDTO> getDeals(String email){
-        log.info("DnS Service Impl......");
-
-        return mapper.getDeals(email);
-    }
+//    @Override
+//    public List<MyDealsDTO> getDeals(String email){
+//        log.info("DnS Service Impl......");
+//
+//        return mapper.getDeals(email);
+//    }
 
     @Override
     public List<MyDealsDTO> getGftDetail(int gftId){
@@ -36,5 +36,12 @@ public class DnSListServiceImpl implements DnSListService{
         log.info("Service of Get Deals with Paging....");
 
         return mapper.getDealsWithPaging(email, amount, pageNum);
+    }
+
+    @Override
+    public int countDealList(String email){
+        log.info("Count " + email + "'s deal list....");
+
+        return mapper.countDealList(email);
     }
 }

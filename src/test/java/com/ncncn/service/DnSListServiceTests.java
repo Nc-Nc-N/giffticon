@@ -34,13 +34,13 @@ public class DnSListServiceTests {
         assertNotNull(service);
     }
 
-    @Test
-    public void testGetDeals(){
-        String email = "leehj.kk@gmail.com";
-
-        service.getDeals(email);
-        log.info("검색하신 " + email + " 의 주문 내역 입니다.");
-    }
+//    @Test
+//    public void testGetDeals(){
+//        String email = "leehj.kk@gmail.com";
+//
+//        service.getDeals(email);
+//        log.info("검색하신 " + email + " 의 주문 내역 입니다.");
+//    }
 
     @Test
     public void testGetGftDetail(){

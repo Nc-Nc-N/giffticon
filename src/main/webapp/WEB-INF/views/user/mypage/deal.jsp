@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/user/mypage/mypage_deals.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/mypage/mypage_deals.css?after" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
@@ -103,29 +103,36 @@
                             <span class="item_prc"><c:out value="${list.pymtPrc}"/>원</span>
                             <span class="item_status"><c:out value="${list.stusCode}"/></span>
                             <div class="item_buttons">
-                                <button class="btn btn-active">구매 확정</button>
-                                <form action="/user/mypage/dealDetail" method="post">
-                                    <input type="hidden" name="gftId" value="<c:out value="${list.gftId}"/>">
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <button name="gftDetailBtn" class="btn btn-active">구매 상세</button>
-                                </form>
+                                <button name="dealCmplBtn" class="btn btn-active" value="<c:out value="${list.gftId}"/>">구매 확정</button>
+<%--                                <form action="/user/mypage/dealDetail" method="post">--%>
+<%--                                    <input type="hidden" name="gftId" value="<c:out value="${list.gftId}"/>">--%>
+<%--                                    <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">--%>
+<%--                                    <input type="hidden" name="amount" value="${pageMaker.cri.amount}">--%>
+<%--                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+
+<%--                                    <button class="btn btn-active">구매 상세</button>--%>
+<%--                                </form>--%>
+                                <button name="dealDetailBtn" class="btn btn-active" value="<c:out value="${list.gftId}"/>">구매 상세</button>
                             </div>
                         </div>
                         </c:forEach>
                     </div>
                     <div class="contentfooter">
                         <div class="pagination">
-                            <a href="#">&lt;</a>
-                            <a href="#">1</a>
-                            <a href="#" class="active">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">&gt;</a>
+                            <c:if test="${pageMaker.prev}">
+                                <a class="paginate_btn prev" href="${pageMaker.startPage - 1}"><</a>
+                            </c:if>
+                            <c:forEach var="num" begin="${pageMaker.startPage}"
+                            end="${pageMaker.endPage}">
+                                <a class="paginate_btn" href="${num}">${num}</a>
+                            </c:forEach>
+                            <c:if test="${pageMaker.next}">
+                                <a class="paginate_btn next" href="${pageMaker.endPage + 1}">></a>
+                            </c:if>
                         </div>
-                        <form id="actionForm">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <form id="actionForm" action="/user/mypage/deal" method="get">
+                            <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                            <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
                         </form>
                     </div>
                 </div>
@@ -136,30 +143,35 @@
 </body>
 </html>
 <script>
+    $(document).ready(function(){
 
-    <%--$(document).ready( function() {--%>
+        var csrfName = "${_csrf.parameterName}";
+        var csrfToken = "${_csrf.token}";
+        var actionForm = $("#actionForm");
 
-    <%--    let getGftDetail = $("button[name='gftDetailBtn']");--%>
-    <%--    let actionForm = $("#actionForm");--%>
+        $(".paginate_btn").on("click", function(e){
+            e.preventDefault();
+            console.log('paginate btn clicked');
 
-    <%--    let csrfHeaderName = "${_csrf.headerName}";--%>
-    <%--    let csrfTokenValue = "${_csrf.token}";--%>
+            actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+            actionForm.submit();
+        });
 
-    <%--    getGftDetail.on("click",function(){--%>
+        $("button[name='dealDetailBtn']").on("click", function(k){
+            console.log("dealDetailBtn clicked");
+            actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
+            actionForm.append("<input type='hidden' name='" + csrfName + "' value='" + csrfToken + "'>");
+            actionForm.attr("action","/user/mypage/dealDetail").attr("method","post");
+            console.log("csrf: " + csrfName + "csrf ToKEN: " + csrfToken);
+            console.log("actionForm attr: " + actionForm.attr("action"));
+            console.log("gftId: " + $(this).attr("value") );
+            alert("상세페이지 이동");
+            actionForm.submit();
+        });
 
-    <%--        let gftId = $(this).val();--%>
+        $("button[name='dealCmplBtn']").on("click", function (i){
+            alert("구매확정하시겠습니까?" + $(this).attr("value"));
+        });
 
-    <%--        $.ajax({--%>
-    <%--            type: 'post' ,--%>
-    <%--            url: '/user/mypage/dealDetail',--%>
-    <%--            data: gftId,--%>
-    <%--            contentType: 'int',--%>
-    <%--            beforeSend: function (xhr) {--%>
-    <%--                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);--%>
-    <%--            }--%>
-    <%--        })--%>
-    <%--    });--%>
-
-    <%--});--%>
-
+    })
 </script>

@@ -20,12 +20,12 @@ public class DnSMapperTests {
     @Setter(onMethod_ = @Autowired)
     private DnSListMapper dnsmapper;
 
-    @Test
-    public void testDealList(){
-
-        String email = "leehj.kk@gmail.com";
-        dnsmapper.getDeals(email).forEach(board -> log.info(board));
-    }
+//    @Test
+//    public void testDealList(){
+//
+//        String email = "leehj.kk@gmail.com";
+//        dnsmapper.getDeals(email).forEach(board -> log.info(board));
+//    }
 
     @Test
     public void testGetGftDetail(){
