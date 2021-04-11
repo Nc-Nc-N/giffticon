@@ -7,10 +7,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml
-
-       <!-- 보안 -->
         /WEB-INF/security-context.xml</param-value>
-        <!-- 보안 -->
     </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
