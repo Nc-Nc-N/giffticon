@@ -2,6 +2,8 @@
          pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -118,6 +120,7 @@
                       <p id="memo-title">관리자 메모</p>
 
                           <form action="/admin/user/update-memo" method="post">
+                              <sec:csrfInput />
                               <input id="memo-input" type="text" name="memo"
                                      value='<c:out value="${user.memo}"/>' style="border:solid black 1px">
 <%--                                     value='testmemo' style="border:solid black 1px">--%>
