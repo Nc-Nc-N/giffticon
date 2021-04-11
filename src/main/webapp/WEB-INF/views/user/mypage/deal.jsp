@@ -170,7 +170,11 @@
         });
 
         $("button[name='dealCmplBtn']").on("click", function (i){
-            alert("구매확정하시겠습니까?" + $(this).attr("value"));
+            alert("구매확정하시겠습니까?");
+            actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
+            actionForm.append("<input type='hidden' name='" + csrfName + "' value='" + csrfToken + "'>");
+            actionForm.attr("action","/gifticon/stus005").attr("method","post");
+            actionForm.submit();
         });
 
     })

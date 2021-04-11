@@ -42,4 +42,5 @@ public class DnSMapperTests {
         List<MyDealsDTO> list = dnsmapper.getDealsWithPaging(email, amount, pageNum);
         list.forEach(board -> log.info(board));
     }
+
 }

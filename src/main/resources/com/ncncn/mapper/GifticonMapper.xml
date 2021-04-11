@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.GifticonMapper">
+
+    <update id="gftDealCmpl">
+        update gifticon set gft_stus_code = '005' where id = #{gftId}
+    </update>
+
+</mapper>
