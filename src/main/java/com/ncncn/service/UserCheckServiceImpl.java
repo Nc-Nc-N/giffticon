@@ -1,9 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaCH;
-import com.ncncn.domain.UserDetailCheckDTO;
-import com.ncncn.domain.UserMemoDTO;
-import com.ncncn.domain.UserVO;
+import com.ncncn.domain.*;
 import com.ncncn.mapper.UserCheckMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -48,8 +45,58 @@ public class UserCheckServiceImpl implements UserCheckService {
     public UserDetailCheckDTO getUserDetail(int userId) {
 
         log.info("get User " + userId);
-        return mapper.getUserDetail(userId);
+//        UserDetailCheckDTO dto = mapper.getUserDetail(userId);
+//        mapper.getPoint();
+//        mapper.getAccount(); 이런식으로 다 불러와서 userDetailCheckDTO에 합칠 것
+
+        UserDetailCheckDTOsub1 dto1 = getUserDetailSub1(userId);
+        UserDetailCheckDTOsub2 dto2 = getUserDetailSub2(userId);
+        UserDetailCheckDTOsub3 dto3 = getUserDetailSub3(userId);
+        UserDetailCheckDTOsub4 dto4 = getUserDetailSub4(userId);
+        UserDetailCheckDTOsub5 dto5 = getUserDetailSub5(userId);
+
+        return new UserDetailCheckDTO(dto1, dto2, dto3, dto4, dto5);
     }
+
+    @Override
+    public UserDetailCheckDTOsub1 getUserDetailSub1(int userId) {
+        return mapper.getUserDetailSub1(userId);
+    }
+
+    @Override
+    public UserDetailCheckDTOsub2 getUserDetailSub2(int userId) {
+       if(mapper.getUserDetailSub2(userId) == null) {
+           return new UserDetailCheckDTOsub2();
+       } else {
+           return mapper.getUserDetailSub2(userId);
+       }
+    }
+
+    @Override
+    public UserDetailCheckDTOsub3 getUserDetailSub3(int userId) {
+        if(mapper.getUserDetailSub3(userId) == null) {
+            return new UserDetailCheckDTOsub3();
+        } else {
+            return mapper.getUserDetailSub3(userId);
+        }
+
+    }
+
+    @Override
+    public UserDetailCheckDTOsub4 getUserDetailSub4(int userId) {
+        if(mapper.getUserDetailSub4(userId) == null) {
+            return new UserDetailCheckDTOsub4();
+        } else {
+            return mapper.getUserDetailSub4(userId);
+        }
+
+    }
+
+    @Override
+    public UserDetailCheckDTOsub5 getUserDetailSub5(int userId) {
+        return mapper.getUserDetailSub5(userId);
+    }
+
 
     @Override
     public void updateMemo(UserMemoDTO memo) {
@@ -57,4 +104,7 @@ public class UserCheckServiceImpl implements UserCheckService {
         log.info("update Memo " + memo);
         mapper.updateMemo(memo);
     }
+
+
+
 }
