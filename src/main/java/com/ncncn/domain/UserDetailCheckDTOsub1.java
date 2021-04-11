@@ -21,4 +21,15 @@ public class UserDetailCheckDTOsub1 {
 
     private String memo;
 
+    public UserDetailCheckDTOsub1() {
+        this.id=0;
+        this.email="";
+        this.name="";
+        this.telNo="";
+        this.inDate=new Date(99999999);
+
+        this.enabled=0;
+        this.memo="";
+    }
+
 }

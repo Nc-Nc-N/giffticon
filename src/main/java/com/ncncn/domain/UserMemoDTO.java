@@ -9,10 +9,4 @@ public class UserMemoDTO {
 
     private String memo;
 
-    public UserMemoDTO(){
-        this.id=152;
-        this.memo="Test Memo";
-
-    }
-
 }

@@ -87,7 +87,16 @@
                             <td class="c2"><c:out value="${user.dealCount}" /></td>
                             <td class="c2"><c:out value="${user.paysum}" /> 원</td>
                             <td class="c2"><c:out value="${user.pqustCount}" /></td>
-                            <td class="c2" id="ustatus"><c:out value="${user.enabled}" /></td>
+                            <td class="c2" id="ustatus">
+<%--                                <c:out value="${user.enabled}" />--%>
+                                <c:if test="${user.enabled == 1}">
+                                    <c:out value="정상"/>
+                                </c:if>
+                                <c:if test="${user.enabled == 0}">
+                                    <c:out value="탈퇴"/>
+                                </c:if>
+                            </td>
+
                             <td class="c2">ㅤ</td>
                           </tr>
                           <tr>
@@ -148,11 +157,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        let ustat = document.getElementById('ustatus').innerHTML;
+        let ustat = document.getElementById('ustatus').innerText;
 
-        if(ustat == 1) {
+        if(ustat == "정상") {
             document.getElementById('statusbtn').value = "정상";
-        } else if(ustat == 0) {
+        } else if(ustat == "탈퇴") {
             document.getElementById('statusbtn').value = "탈퇴";
         }
 
