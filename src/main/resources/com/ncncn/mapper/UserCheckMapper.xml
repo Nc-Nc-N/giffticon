@@ -136,12 +136,14 @@
         ]]>
     </select>
 
-
     <update id="updateMemo">
         update user
         set memo=#{memo} where id=#{id}
     </update>
 
-
+    <update id="updateStatus">
+        update user
+        set enabled=#{enabled} where id=#{id}
+    </update>
 
 </mapper>

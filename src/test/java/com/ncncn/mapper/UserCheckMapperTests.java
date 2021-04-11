@@ -67,7 +67,6 @@ public class UserCheckMapperTests {
         int userId=152;
         String memo="스파이더맨55";
 
-
     }
 
 

@@ -22,4 +22,6 @@ public interface UserCheckMapper {
 
     public void updateMemo(UserMemoDTO memo);
 
+    public void updateStatus(UserStatusDTO status);
+
 }

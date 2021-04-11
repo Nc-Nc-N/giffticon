@@ -87,7 +87,7 @@
                             <td class="c2"><c:out value="${user.dealCount}" /></td>
                             <td class="c2"><c:out value="${user.paysum}" /> 원</td>
                             <td class="c2"><c:out value="${user.pqustCount}" /></td>
-                            <td class="c2"><c:out value="${user.enabled}" /></td>
+                            <td class="c2" id="ustatus"><c:out value="${user.enabled}" /></td>
                             <td class="c2">ㅤ</td>
                           </tr>
                           <tr>
@@ -104,10 +104,14 @@
                             <td class="c3"><input type="button" class="btnclass" value="1:1문의 조회"></td>
                             <!-- <td class="c3"><button class="btnclass">선택</button></td> -->
                             <td class="c3">
-                                <select class="btnclass" id="statusbtn" style="background-color:rgb(245, 243, 243)">
+                                <form action="/admin/user/update-status" id="statusUpdateForm" method="post" onchange="submitStatus()">
+                                    <sec:csrfInput />
+                                <select name="statusTxt" class="btnclass" id="statusbtn" style="background-color:rgb(245, 243, 243)">
                                     <option value="정상" selected="selected">정상</option>
                                     <option value="탈퇴">탈퇴</option>
                                 </select>
+                                <input id="userId2" type="hidden" name="id" value="${user.id}"/>
+                                </form>
                             </td>
                             <td class="c3">ㅤ</td>
                           </tr>
@@ -143,8 +147,20 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-    $("#memochange").click(function(){
+    $(document).ready(function() {
+        let ustat = document.getElementById('ustatus').innerHTML;
+
+        if(ustat == 1) {
+            document.getElementById('statusbtn').value = "정상";
+        } else if(ustat == 0) {
+            document.getElementById('statusbtn').value = "탈퇴";
+        }
 
     });
+
+    let submitStatus = function() {
+        document.getElementById('statusUpdateForm').submit();
+    }
+
 
 </script>

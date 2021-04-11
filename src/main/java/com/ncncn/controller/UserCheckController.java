@@ -1,9 +1,6 @@
 package com.ncncn.controller;
 
-import com.ncncn.domain.CriteriaCH;
-import com.ncncn.domain.PageDTOCH;
-import com.ncncn.domain.UserMemoDTO;
-import com.ncncn.domain.UserVO;
+import com.ncncn.domain.*;
 import com.ncncn.service.UserCheckService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -42,7 +39,6 @@ public class UserCheckController {
     public String userDetailCheck(int userId, Model model) {
         log.info("userDetailCheck...................");
         model.addAttribute("user", service.getUserDetail(userId));
-        model.addAttribute("memo", new UserMemoDTO());
 
         return "admin/user/userDetail";
     }
@@ -60,6 +56,26 @@ public class UserCheckController {
         service.updateMemo(updateMemo);
 
         return "redirect:/admin/user/user-detail?userId=" + updateMemo.getId();
+    }
+
+    @PostMapping("/update-status")
+    public String updateStatus(HttpServletRequest request) {
+        log.info("status changed................");
+        UserStatusDTO updateStat = new UserStatusDTO();
+
+        updateStat.setId(Integer.parseInt(request.getParameter("id")));
+
+        String status = request.getParameter("statusTxt");
+        if(status.equals("정상")) {
+            updateStat.setEnabled(1);
+        } else if(status.equals("탈퇴")) {
+            updateStat.setEnabled(0);
+        }
+
+        service.updateStatus(updateStat);
+
+
+        return "redirect:/admin/user/user-detail?userId=" + updateStat.getId();
     }
 
 

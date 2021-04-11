@@ -105,6 +105,11 @@ public class UserCheckServiceImpl implements UserCheckService {
         mapper.updateMemo(memo);
     }
 
+    @Override
+    public void updateStatus(UserStatusDTO status) {
 
+        log.info("update User Status " + status);
+        mapper.updateStatus(status);
+    }
 
 }
