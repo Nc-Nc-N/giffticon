@@ -14,12 +14,6 @@ public interface UserCheckMapper {
 
     public UserDetailCheckDTO getUserDetail(int userId);
 
-    public UserDetailCheckDTOsub1 getUserDetailSub1(int userId);
-    public UserDetailCheckDTOsub2 getUserDetailSub2(int userId);
-    public UserDetailCheckDTOsub3 getUserDetailSub3(int userId);
-    public UserDetailCheckDTOsub4 getUserDetailSub4(int userId);
-    public UserDetailCheckDTOsub5 getUserDetailSub5(int userId);
-
     public void updateMemo(UserMemoDTO memo);
 
     public void updateStatus(UserStatusDTO status);

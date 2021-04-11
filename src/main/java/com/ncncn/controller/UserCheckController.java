@@ -58,6 +58,7 @@ public class UserCheckController {
         return "redirect:/admin/user/user-detail?userId=" + updateMemo.getId();
     }
 
+    // user-detail 페이지에서 회원상태 변경시 쿼리 실행해서 수정하고 다시 user-detail 페이지로 이동
     @PostMapping("/update-status")
     public String updateStatus(HttpServletRequest request) {
         log.info("status changed................");
@@ -74,11 +75,7 @@ public class UserCheckController {
 
         service.updateStatus(updateStat);
 
-
         return "redirect:/admin/user/user-detail?userId=" + updateStat.getId();
     }
-
-
-
 
 }
