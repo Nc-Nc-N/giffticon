@@ -4,7 +4,7 @@
 }
 #header{
     height: 180px;
-    
+
     border-bottom: 1px solid gainsboro;
 }
 
@@ -13,18 +13,18 @@
     display: flex;
     margin:auto;
     justify-content: flex-end;
-    
+
 }
 
 .top_menu > span {
-    
+
     margin : 0 5px;
 
 }
 .main-logo {
     height: 80px;
     text-align: center;
-    
+
 }
 
 .home-logo {
@@ -44,7 +44,7 @@
     display: flex;
     font-size: 16px;
     font-weight: bold;
-    
+
 }
 
 .bar-left{
@@ -60,7 +60,7 @@
 .category-btn{
     margin: auto 10px auto 0;
     /* background-color: burlywood; */
-    
+
 
 }
 
@@ -74,13 +74,13 @@
     text-align: end;
     display: flex;
     justify-content: flex-start;
-    
+
 }
 .leftmenu{
     margin: auto 20px auto 15px;
     /* background-color: darkseagreen; */
-    
-    
+
+
 }
 
 .search{
@@ -119,7 +119,7 @@
 .rightmenu {
     /* background-color:darkolivegreen; */
     margin: auto 0 auto 40px;
-    
+
 }
 .icons{
     text-align: left;
@@ -147,4 +147,3 @@
 }
 
 /* ------------------------아래는 바디!----------------------- */
-

@@ -1,3 +1,5 @@
+package com.ncncn.service;
+
 import com.ncncn.domain.GiftiCriteria;
 import com.ncncn.service.ProdService;
 import lombok.Setter;
@@ -19,5 +21,10 @@ public class ProdServiceTests {
 	@Test
 	public void testgetGiftiWithPaging(){
 		service.getGiftiWithPaging(new GiftiCriteria(2,10,"01","best")).forEach(prod->log.info(prod));
+	}
+
+	@Test
+	public void testgetGifti(){
+		service.getGiftiList("010101").forEach(gifti->log.info(gifti));
 	}
 }
