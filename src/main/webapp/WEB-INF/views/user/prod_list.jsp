@@ -130,7 +130,7 @@
             let selectedOrder = new_curr_url.searchParams.get("orderby");
 
             // 검색 후 '전체보기' 숨기기, 검색 결과
-            if(code=='' || code==null || code=='0'){
+            if(code==='' || code===null || code==='0'){
                 $('.cateAll').hide();
                 $('.search-result').show();
             }
