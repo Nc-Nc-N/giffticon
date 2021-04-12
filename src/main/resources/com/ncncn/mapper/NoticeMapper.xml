@@ -10,11 +10,6 @@
         ]]>
     </select>
 
-<!--    <select id="search" resultType="com.ncncn.domain.CsNoticeVO">-->
-<!--        <![CDATA[-->
-<!--            select * from cs_notice where title LIKE #{title}-->
-<!--        ]]>-->
-<!--    </select>-->
 
     <select id="read" resultType="com.ncncn.domain.CsNoticeVO">
         <![CDATA[
@@ -22,57 +17,61 @@
         ]]>
     </select>
 
-<!--    <select id="getListWithPaging" resultType="com.ncncn.domain.CsNoticeVO">-->
-<!--        <![CDATA[-->
-<!--            select A.*, @ROWNUM := @ROWNUM + 1 AS ROWNUM-->
-<!--            from-->
-<!--                (select *-->
-<!--                from cs_notice-->
-<!--                order by id desc)A, (SELECT @ROWNUM:=10) R-->
-<!--            limit #{amount} offset ${(pageNum-1) * amount}-->
-<!--        ]]>-->
-<!--    </select>-->
 
     <select id="getListWithPaging" resultType="com.ncncn.domain.CsNoticeVO">
         <![CDATA[
             select *
             from cs_notice
+            where
+        ]]>
+
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            title like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cntnt like CONCAT('%', #{keyword}, '%')
+                        </when>
+
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+
+        <![CDATA[
             order by id desc
-            limit #{amount} offset ${(pageNum-1) * amount}
+            LIMIT #{amount}
+            OFFSET ${(pageNum-1) * amount}
         ]]>
     </select>
 
 
-<!--    <select id="getListWithPaging" resultType="com.ncncn.domain.CsNoticeVO">-->
-<!--        <![CDATA[-->
-<!--            select *-->
-<!--            from user-->
-<!--            where-->
-<!--        ]]>-->
-<!--        <trim prefix="" suffix="" prefixOverrides="OR">-->
-<!--            <foreach item='type' collection="typeArr">-->
-<!--                <trim prefix="OR">-->
-<!--                    <choose>-->
-<!--                        <when test="type == 'N'.toString()">-->
-<!--                            name like CONCAT('%', #{keyword}, '%')-->
-<!--                        </when>-->
-<!--                        <when test="type == 'E'.toString()">-->
-<!--                            email like CONCAT('%', #{keyword}, '%')-->
-<!--                        </when>-->
-<!--                        <when test="type == 'T'.toString()">-->
-<!--                            tel_no like CONCAT('%', #{keyword}, '%')-->
-<!--                        </when>-->
-<!--                    </choose>-->
-<!--                </trim>-->
-<!--            </foreach>-->
-<!--        </trim>-->
 
-<!--        <![CDATA[-->
-<!--            LIMIT #{amount}-->
-<!--            OFFSET ${(pageNum-1) * amount};-->
+    <select id="getTotalCount" resultType="int">
 
-<!--        ]]>-->
-<!--    </select>-->
+       <![CDATA[
+
+        select count(*) from cs_notice
+        where
+            ]]>
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            cs_cate_code = '3' AND title like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cs_cate_code = '4' AND title like CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </select>
 
     <insert id="insert">
         <![CDATA[
@@ -80,17 +79,6 @@
             values (#{userId}, #{title}, #{cntnt}, #{csCateCode}, now(), now(), #{isFixed}, current_user, current_user )
         ]]>
     </insert>
-    
-<!--    <insert id="insertSelectKey">-->
-<!--        <![CDATA[-->
-<!--            <selectKey keyProperty="id" order="BEFORE" reseltType="long">-->
-<!--                select default from giffticon.cs_qwnotice-->
-<!--            </sselectKey>-->
-
-<!--            insert into giffticon.cs_notice (id, user_id, title, cntnt, cs_cate_code, start_dt, end_dt)-->
-<!--            values (default , #{user_id}, #{title}, #{cntnt}, #{cs_cate_code}, now(), now())-->
-<!--        ]]>-->
-<!--    </insert>-->
 
 
     <delete id="delete">

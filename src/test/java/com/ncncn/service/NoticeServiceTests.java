@@ -61,7 +61,7 @@ public class NoticeServiceTests {
 	@Test
 	public void testDelete(){
 
-		log.info("REMOVE RESULT: " + service.remove(6));
+		log.info("REMOVE RESULT: " + service.remove(107));
 	}
 
 	@Test

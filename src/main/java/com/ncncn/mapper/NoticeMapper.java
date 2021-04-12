@@ -22,4 +22,6 @@ public interface NoticeMapper {
 
 	public int update(CsNoticeVO notice);
 
+	public int getTotalCount(CriteriaCs cri);
+
 }

@@ -18,4 +18,6 @@ public interface NoticeService {
 //	public List<CsNoticeVO> getList();
 
 	public List<CsNoticeVO> getList(CriteriaCs cri);
+
+	public int getTotal(CriteriaCs cri);
 }

@@ -61,4 +61,11 @@ public class NoticeServiceImpl implements NoticeService{
 		log.info("getList with criteria: " + cri);
 		return mapper.getListWithPaging(cri);
 	}
+
+	@Override
+	public int getTotal(CriteriaCs cri) {
+
+		log.info("get total count");
+		return mapper.getTotalCount(cri);
+	}
 }

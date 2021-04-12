@@ -14,9 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Controller
 @Log4j
 @AllArgsConstructor
@@ -49,7 +46,14 @@ public class NoticeController {
 
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getList(cri));
-		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
+//		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
+
+		int total = service.getTotal(cri);
+
+		log.info("total: " + total);
+
+		model.addAttribute("pageMaker", new PageDTOCs(cri, total));
+
 		return "admin/cs/adminNotice";
 
 	}
@@ -71,24 +75,32 @@ public class NoticeController {
 	public String modify(CsNoticeVO notice, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
 
 		log.info("modify: " + notice);
-
+		service.modify(notice);
 		if(service.modify(notice)){
 			rttr.addFlashAttribute("result", "success");
 		}
 
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 
 		return "redirect:/cs/adminNotice";
 	}
 
 	@PostMapping("/adminNotice/remove")
-	public String remove(@RequestParam("id") int id, RedirectAttributes rttr){
+	public String remove(@RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+
 
 		log.info("remove...." + id);
 		if (service.remove(id)){
 			rttr.addFlashAttribute("result","success");
 		}
+
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 
 		return "redirect:/cs/adminNotice";
 	}

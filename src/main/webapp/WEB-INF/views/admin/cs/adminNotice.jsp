@@ -19,10 +19,9 @@
     <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/stat/admin_layout.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
-
+    <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice_detail.css" type="text/css">
 
 </head>
@@ -70,36 +69,46 @@
             <h2>고객센터</h2>
             <div id="menu">
                 <div>
-                    <a href="http://localhost:8087/adminNotice" style="color: rgb(255, 88, 93);">공지사항</a>
+                    <a href="http://localhost:8087/cs/adminNotice" style="color: rgb(255, 88, 93);">공지사항</a>
                 </div>
                 <div>
-                    <a href="http://localhost:8087/adminFaq">자주묻는질문</a>
+                    <a href="http://localhost:8087/cs/adminFaq">자주묻는질문</a>
                 </div>
                 <div>
-                    <a href="http://localhost:8087/adminOneOnOne">1:1문의</a>
+                    <a href="http://localhost:8087/cs/adminOneOnOne">1:1문의</a>
                 </div>
             </div>
 
 
-
-
             <!-- search area -->
-            <div class="search-area">
-                <select class="search-select">
-                    <option>전체</option>
-                    <option>공지</option>
-                    <option>이벤트</option>
-                </select>
-                <form class="search-form">
-                    <div>
-                        <input type="text" class="search-input"/>
 
-                        <button type="submit" class="search-button" onclick="">
+            <div class="search-area">
+                <form class="search-form" id='searchForm' action="/cs/adminNotice" method="get">
+                    <select class="search-select" name='type'>
+                        <option value="NE"
+                                <c:out value="${pageMaker.cri.type eq 'NE'?'selected':''}"/>>전체
+                        </option>
+                        <option value="N"
+                                <c:out value="${pageMaker.cri.type eq 'N'?'selected':''}"/>>공지
+                        </option>
+                        <option value="E"
+                                <c:out value="${pageMaker.cri.type eq 'E'?'selected':''}"/>>이벤트
+                        </option>
+                    </select>
+
+                    <div class="search-input-area">
+                        <input type="text" class="search-input" name="keyword"
+                               value='<c:out value="${pageMaker.cri.keyword}"/> '>
+                        <input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"/> '>
+                        <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}"/> '>
+                        <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/> '>
+                        <button type="submit" class="search-button">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
                 </form>
             </div>
+
             <!-- search area end -->
 
 
@@ -109,8 +118,8 @@
                 <c:forEach items="${list}" var="notice" varStatus="status">
                     <!-- 1st menu-->
                     <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">
-                    <label for="acc<c:out value="${status.index+1}"/>"><c:out value="${notice.title}"/>
-                        <span class="no-date"><c:out value="${notice.startDt}"/></span>
+                    <label for="acc<c:out value="${status.index+1}"/>"><c:out value="${notice.csCateCode == '003' ? '[공지]':'[이벤트]'}"/> <c:out value="${notice.title}"/>
+                        <span class="no-date"><fmt:formatDate value="${notice.startDt}" pattern="yyyy-MM-dd"/></span>
                         <button id="<c:out value='${notice.id}'/>" class="btn-no btn-erase">
                             <i class="fas fa-minus"></i></button>
                         <button class="btn-no btn-modify" id="<c:out value='${notice.id}'/>" onclick="">수정</button>
@@ -154,9 +163,8 @@
             <form ID='actionForm' action="/cs/adminNotice" method="get">
                 <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
                 <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-
-                <input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
-                <input type="hidden" name="amount" value='<c:out value="${cri.amount}"/>'>
+                <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
+                <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
             </form>
 
 
@@ -172,49 +180,62 @@
 </div>
 <!-- end jb-container-->
 
+
+
 <!-- delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <p class="delete-question" id="ModalLabel">정말 삭제하시겠습니까?</p>
-            </div>
-            <div class="modal-body">
-                <span class="search-selected"></span>
-                <span class="de-title"></span>
+        <form role="form" action="" method="post">
 
+            <div class="modal-content">
+                <div class="modal-header">
+                    <input class="del-id" type="hidden" name="id" value=''>
+                    <p class="delete-question" id="ModalLabel">정말 삭제하시겠습니까?</p>
+                </div>
+                <div class="modal-body">
+                    <span class="search-selected"></span>
+                    <span class="de-title"></span>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-cancel" id="closeModalBtn">CANCEL</button>
+                    <button class="btn btn-register" id="btn-delete">OK</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-cancel" id="closeModalBtn">CANCEL</button>
-                <button class="btn btn-register">OK</button>
-            </div>
-        </div>
-        <!--/.modal-content -->
+            <!--/.modal-content -->
+        </form>
     </div>
     <!--/.modal-dialog -->
 </div>
 <!-- end Modal -->
 
+
+
 <!-- Modify Modal -->
-<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="modifyModalLabel" aria-hidden="true">
+<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="modifyModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <p class="search-selected" id="modifyModalLabel"></p>
-                <p class="modify-title"></p>
+        <form role="form" action="" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="search-selected" id="modifyModalLabel"></p>
+                    <input class="modify-id" type="hidden" name="id" value=''>
+                    <input class="modify-fixed" type="hidden" name="isFixed" value=''>
+                    <textarea class="modify-title" name="title"></textarea>
 
-            </div>
-            <div class="modal-body">
+                </div>
+                <div class="modal-body">
 
-                <span class="modify-content"></span>
+                    <textarea class="modify-content" name="cntnt"></textarea>
 
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-cancel" id="closeModifyModalBtn">CANCEL</button>
+                    <button class="btn btn-register" id="btn-modify">OK</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-cancel" id="closeModifyModalBtn">CANCEL</button>
-                <button class="btn btn-register">OK</button>
-            </div>
-        </div>
-        <!--/.modal-content -->
+            <!--/.modal-content -->
+        </form>
     </div>
     <!--/.modal-dialog -->
 </div>
@@ -222,29 +243,34 @@
 
 
 <!-- register Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modifyModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="search-area">
-                    <select class="search-select">
-                        <option>전체</option>
-                        <option>공지</option>
-                        <option>이벤트</option>
-                    </select>
-                </div>
-                <p class="modify-title"></p>
-            </div>
-            <div class="modal-body">
-                <p class="modify-content"></p>
+        <form role="form" action="" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
 
+                    <div class="modal-search-area">
+                        <select class="modal-search-select" name="csCateCode">
+                            <option value="003">공지</option>
+                            <option value="004">이벤트</option>
+                        </select>
+                        <input type="checkbox" class="register-fixed" name="isFixed" checked="checked" value=''>상위 고정
+                    </div>
+                    <input class="register-user-id" type="hidden" name="userId" value=''>
+                    <textarea class="register-title" name="title"></textarea>
+                </div>
+                <div class="modal-body">
+                    <textarea class="register-content" name="cntnt"></textarea>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-cancel" id="closeRegisterModalBtn">CANCEL</button>
+                    <button class="btn btn-register" id="btn-register">OK</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-cancel" id="closeRegisterModalBtn">CANCEL</button>
-                <button class="btn btn-register">OK</button>
-            </div>
-        </div>
-        <!--/.modal-content -->
+            <!--/.modal-content -->
+        </form>
     </div>
     <!--/.modal-dialog -->
 </div>
@@ -254,8 +280,27 @@
 
 <script type="text/javascript">
 
+
+    var searchForm = $("#searchForm");
+
+    $(".search-button").on("click", function (e){
+
+        if(!searchForm.find("input[name='keyword']").val()){
+            alert("키워드를 입력하세요");
+            return false;
+        }
+
+        searchForm.find("input[name='pageNum']").val("1");
+        e.preventDefault();
+
+        searchForm.submit();
+
+    });
+
+
     $(document).ready(function () {
 
+        //page번호 클릭했을때 처
         var actionForm = $("#actionForm");
 
         $(".paginate_button a").on("click", function (e){
@@ -268,6 +313,7 @@
             actionForm.submit();
         });
 
+
     });
 
 
@@ -275,6 +321,8 @@
     //delete
     $(".btn-erase").on("click", function () {
 
+
+        var formObj = $("form");
         console.log(this.id);
 
         let notice = '';
@@ -285,13 +333,17 @@
             async: false,
             success: function (result) {
                 notice = result;
+                console.log(notice);
             },
             error: function () {
 
             }
         });
 
+
         // 모달창 안에 Notice 객체 값으로 채우기.
+        $(".del-id").val(notice.id);
+
         if (notice.csCateCode == "3") {
 
             $(".search-selected").html("[공지]");
@@ -301,13 +353,27 @@
             $(".search-selected").html("[이벤트]");
         }
 
+        $(".del-id").html(notice.id);
+
         $(".de-title").html(notice.title);
+
 
         $("#deleteModal").modal("show");
 
-        $("#closeModalBtn").on('click', function () {    //삭제 취소 눌렀을 떄 모달창 닫기.
+        $("#btn-delete").on("click",function (e){
+
+            formObj.attr("action", "/cs/adminNotice/remove");
+            formObj.submit();
+
+
+        });
+
+
+        $("#closeModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
+
+            e.preventDefault();
             $("#deleteModal").modal("hide");
-        })
+        });
 
     }); //end btn-erase
 
@@ -315,6 +381,7 @@
     //modify
     $(".btn-modify").on("click", function (){
 
+        var modifyForm = $("form");
         console.log(this.id);
 
         let notice = '';
@@ -331,7 +398,13 @@
             }
         });
 
+
         // 모달창 안에 Notice 객체 값으로 채우기.
+
+        $(".modify-id").val(notice.id);
+
+        $(".modify-fixed").val(notice.isFixed);
+
         if (notice.csCateCode == "3") {
 
             $(".search-selected").html("[공지]");
@@ -347,7 +420,18 @@
 
         $("#modifyModal").modal("show");
 
-        $("#closeModifyModalBtn").on('click', function () {    //삭제 취소 눌렀을 떄 모달창 닫기.
+
+        $('#btn-modify').on("click", function (){
+
+
+            modifyForm.attr("action", "/cs/adminNotice/modify");
+            modifyForm.submit();
+
+        });
+
+        $("#closeModifyModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
+
+            e.preventDefault();
             $("#modifyModal").modal("hide");
         });
 
@@ -357,9 +441,28 @@
     //register
     $(".btn-active").on("click",function (){
 
+        registerForm = $("form");
+
         $("#registerModal").modal("show");
 
-        $("#closeRegisterModalBtn").on('click', function () {    //삭제 취소 눌렀을 떄 모달창 닫기.
+        //register 값 채우기
+        if ($('input:checkbox[name="isFixed"]').is(":checked") ==  true){
+            $(".register-fixed").val('1');
+        }else{
+            $(".register-fixed").val('0');
+        }
+
+        $(".register-user-id").val("166");
+
+
+        $("#btn-register").on("click", function (){
+            registerForm.attr("action", "/cs/adminNotice/register");
+            registerForm.submit();
+        })
+
+        $("#closeRegisterModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
+
+            e.preventDefault();
             $("#registerModal").modal("hide");
         });
     });
