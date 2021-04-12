@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+}
+
+.header {
+    width: 1000px;
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+.admin-info {
+    display: flex;
+    margin: auto 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgb(71, 71, 71);
+}
+
+.admin-info > div {
+    margin-left: 20px;
+}
+
+.sign-link {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sign-link a, .sign-link a:visited {
+    text-decoration: none;
+    color: rgb(71, 71, 71);
+}
+
+.sign-link button {
+    border: none;
+    outline: none;
+    background-color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(71, 71, 71);
+    cursor: pointer;
+}
+
+.sign-link button:hover {
+    color: rgb(255, 88, 93);
+}
+
+#container {
+    flex-grow: 2;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar {
+    position: sticky;
+    top: 0;
+    flex-grow: 1;
+    max-width: 300px;
+    height: 950px;
+    display: block;
+    background-color: rgb(71, 71, 71);
+}
+
+.logo {
+    width: 300px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.logo img{
+    width: 110px;
+    height: 60px;
+}
+
+#admin-menu {
+    height: fit-content;
+}
+
+.fas, .far {
+    margin: 0 10px 0 0;
+    font-size: 18px;
+}
+
+#admin-menu a {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    display: block;
+    padding: 12px 12px 12px 25px;
+    text-decoration: none;
+}
+
+#admin-menu a:hover {
+    color: rgb(71, 71, 71);
+    background-color: rgb(240, 240, 240);
+}
+
+#admin-menu a.active {
+    background-color: rgb(255, 88, 93);
+    color: white;
+}
+
+#admin-memo {
+    position: sticky;
+    top: 50px;
+    margin: 10px 10px 10px 0;
+    width: 300px;
+    height: 200px;
+    padding: 10px;
+    background-color: rgb(240, 240, 240);
+}
+
+#memo {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 150px;
+    overflow: visible;
+    background-color: rgba(0, 0, 0, 0);
+    resize: none;
+}
+
+.memo-btn {
+    float: right;
+    font-size: 14px;
+    border: none;
+    outline: none;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.memo-btn:hover {
+    color: rgb(255, 88, 93);
+}
+
+#content {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+}
+
+#main {
+    min-width: 800px;
+    width: 1000px;
+    padding: 0 20px;
+    margin: 0 auto;
+    color: rgb(71, 71, 71);
+}
+
+#submenu {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+    border-bottom: 1.5px solid gainsboro;
+}
+
+#submenu div {
+    margin: 0 auto;;
+}
+
+#submenu a {
+    font-weight: 600;
+    font-size: 18px;
+    color: rgb(71, 71, 71);
+}
+
+#submenu a:link, #submenu a:visited {
+    text-decoration: none;
+}
+
+#submenu a.active {
+    color: rgb(255, 88, 93);
+}
