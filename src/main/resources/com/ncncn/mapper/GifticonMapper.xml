@@ -5,7 +5,7 @@
 <mapper namespace="com.ncncn.mapper.GifticonMapper">
 
     <select id="countNotYetApproved" resultType="int">
-        select count(*) from gifticon g join cmmn_code c on g.gft_stus_code = c.code where gft_stus_code = '001' and c.code_type = 'GFT_STUS';
+        select count(*) from gifticon g join cmmn_code c on g.gft_stus_code = c.code where gft_stus_code = '001' and c.code_type = 'GFT_STUS'
     </select>
 
 </mapper>

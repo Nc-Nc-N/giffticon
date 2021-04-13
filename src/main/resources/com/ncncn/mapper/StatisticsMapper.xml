@@ -5,7 +5,7 @@
 <mapper namespace="com.ncncn.mapper.StatisticsMapper">
 
     <select id="readByToday" resultType="com.ncncn.domain.StatisticsVO">
-        select * from statistics where date_format(dt, '%Y-%m-%d') = curdate();
+        select * from statistics where date_format(dt, '%Y-%m-%d') = curdate()
     </select>
 
 </mapper>
