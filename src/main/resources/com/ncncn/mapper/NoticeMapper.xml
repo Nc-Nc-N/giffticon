@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.NoticeMapper">
+
+    <select id="getList" resultType="com.ncncn.domain.CsNoticeVO">
+        <![CDATA[
+        select * from cs_notice
+        ]]>
+    </select>
+
+
+    <select id="read" resultType="com.ncncn.domain.CsNoticeVO">
+        <![CDATA[
+        select * from cs_notice where id = #{id}
+        ]]>
+    </select>
+
+
+    <select id="getListWithPaging" resultType="com.ncncn.domain.CsNoticeVO">
+        <![CDATA[
+            select *
+            from cs_notice
+            where
+        ]]>
+
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            title like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cntnt like CONCAT('%', #{keyword}, '%')
+                        </when>
+
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+
+        <![CDATA[
+            order by id desc
+            LIMIT #{amount}
+            OFFSET ${(pageNum-1) * amount}
+        ]]>
+    </select>
+
+
+
+    <select id="getTotalCount" resultType="int">
+
+       <![CDATA[
+
+        select count(*) from cs_notice
+        where
+            ]]>
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            cs_cate_code = '3' AND title like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cs_cate_code = '4' AND title like CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </select>
+
+    <insert id="insert">
+        <![CDATA[
+            insert into cs_notice ( user_id, title, cntnt, cs_cate_code, start_dt, end_dt, is_fixed, in_user, up_user)
+            values (#{userId}, #{title}, #{cntnt}, #{csCateCode}, now(), now(), #{isFixed}, current_user, current_user )
+        ]]>
+    </insert>
+
+
+    <delete id="delete">
+        delete from cs_notice where id = #{id}
+    </delete>
+
+
+    <update id="update">
+        update cs_notice
+        set title= #{title},
+            cntnt= #{cntnt},
+            is_fixed= #{isFixed}
+        where id = #{id}
+    </update>
+
+
+</mapper>
