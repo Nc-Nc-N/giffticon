@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="item_btn">
-                            <button class="btn btn-active">구매확정</button>
+                            <button class="btn btn-cmpl">구매확정</button>
 
                         </div>
                     </div>
@@ -104,12 +104,18 @@
                             <c:out value="${gftInfo.stusCode}"/>
                             </div>
                         </div>
-                            
+                        <div class="item_btn">
+
+                        </div>
 
                     </div>
                     <form action="/user/mypage/deal" method="get">
+                        <input type="hidden" name="dateFrom" value="<c:out value="${cri.dateFrom}"/>">
+                        <input type="hidden" name="dateTo" value="<c:out value="${cri.dateTo}"/>">
                         <input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}"/> ">
                         <input type="hidden" name="amount" value="<c:out value="${cri.amount}"/> ">
+                        <input type="hidden" name="keyword" value="<c:out value="${cri.keyword}"/>" />
+                        <input type="hidden" name="type" value="<c:out value="${cri.type}"/>" />
                         <button class="btn btn-active">목록</button>
                     </form>
 

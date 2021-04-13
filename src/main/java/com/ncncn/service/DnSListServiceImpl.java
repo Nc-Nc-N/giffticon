@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.CriteriaSM;
 import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.MyDealsDTO;
 import com.ncncn.mapper.DnSListMapper;
@@ -32,16 +33,19 @@ public class DnSListServiceImpl implements DnSListService{
     }
 
     @Override
-    public List<MyDealsDTO> getDealsWithPaging(String email, int amount, int pageNum){
+    public List<MyDealsDTO> getDealsWithPaging(String email, CriteriaSM cri){
         log.info("Service of Get Deals with Paging....");
 
-        return mapper.getDealsWithPaging(email, amount, pageNum);
+        return mapper.getDealsWithPaging(email, cri.getDateFrom(), cri.getDateTo(),
+                cri.getAmount(), cri.getPageNum(), cri.getKeyword(), cri.getType(), cri.getTypeArr());
     }
 
     @Override
-    public int countDealList(String email){
+    public int countDealList(String email, CriteriaSM cri){
         log.info("Count " + email + "'s deal list....");
 
-        return mapper.countDealList(email);
+        return mapper.countDealList(email, cri.getDateFrom(), cri.getDateTo(),
+                cri.getKeyword(), cri.getType(), cri.getTypeArr());
     }
+    
 }

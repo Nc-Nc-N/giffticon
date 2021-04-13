@@ -1,16 +1,19 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../header.css" type="text/css">
-    <link rel="stylesheet" href="templete.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-    <link rel="stylesheet" href="../../common-css/button.css" type="text/css">
-    <link rel="stylesheet" href="../../common-css/pagination.css" type="text/css">
-    <link rel="stylesheet" href="../../common-css/search-box.css" type="text/css">
-    
+    <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
     <title>Document</title>
     <style>
@@ -56,14 +59,3 @@
                         </div>
                     </div>
                     <div class="space30"></div>
-                    <div class="contentheader">
-                        <span>구매 내역</span>
-                    </div>
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>

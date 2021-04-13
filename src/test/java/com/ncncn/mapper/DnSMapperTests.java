@@ -36,11 +36,27 @@ public class DnSMapperTests {
 
     @Test
     public void testPaging(){
-        int amount = 2;
-        int pageNum = 2;
-        String email = "planner263@gmail.com";
-        List<MyDealsDTO> list = dnsmapper.getDealsWithPaging(email, amount, pageNum);
+        CriteriaSM cri = new CriteriaSM();
+        cri.setDateFrom("2020-10-22");
+        cri.setDateTo("2021-03-22");
+        cri.setPageNum(1);
+        cri.setAmount(3);
+        cri.setKeyword("");
+        cri.setType("");
+        String[] typeArr = cri.getTypeArr();
+        String email = "leehj.kk@gmail.com";
+        List<MyDealsDTO> list = dnsmapper.getDealsWithPaging(email, cri.getDateFrom(), cri.getDateTo(),
+                cri.getAmount(), cri.getPageNum(), cri.getKeyword(), cri.getType(), typeArr);
+
         list.forEach(board -> log.info(board));
+    }
+
+    @Test
+    public void testGetCount004(){
+
+        int userId = 157;
+
+        dnsmapper.countStus004(userId);
     }
 
 }

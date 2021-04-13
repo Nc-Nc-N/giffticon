@@ -58,7 +58,7 @@ public class DnSListServiceTests {
         CriteriaSM cri = new CriteriaSM(3,3);
         String email = "planner263@gmail.com";
 
-        service.getDealsWithPaging(email, cri.getAmount(), cri.getPageNum());
+        service.getDealsWithPaging(email, cri);
 
         log.info("Get Deals With Paging : " + email + "," + cri.getAmount() + "," + cri.getPageNum());
     }

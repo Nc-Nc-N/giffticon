@@ -85,9 +85,21 @@
     font-weight: bold;
 }
 
+.expr_dt{
+    /*margin-top:5px;*/
+    /*margin-right:20px;*/
+    font-size: 14px;
+    font-weight: lighter;
+    color: #333333;
+    display: flex;
+    justify-content: center;
+    /*background-color: #888888;*/
+    width: 100%;
+}
+
 .item_info{
     width: 100%;
-    height: 140px;
+    height: 160px;
     /*background-color: coral;*/
     display: flex;
     justify-content:space-between;
@@ -102,7 +114,10 @@
 
 .item_brdNname{
     width: 200px;
-    height: 60px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     /* background-color: darkgreen; */
 
 
@@ -110,7 +125,7 @@
 
 .item_brd{
     width:80%;
-    height: 40%;
+    height: 35%;
     /* background-color: darkred; */
     margin-left: 10%;
     display: flex;
@@ -119,18 +134,18 @@
 }
 .item_name{
     width:80%;
-    height: 60%;
+    height: 70%;
     /* background-color: blueviolet; */
     margin-left: 10%;
     font-size: 20px;
     font-weight: bold;
     display: flex;
-    align-items: center;
+    align-items: start;
 }
 
 .item_prc, .item_status{
     width: 100px;
-    height: 40px;
+    height: 80px;
     /* background-color: darkgrey; */
     font-size: 20px;
     font-weight: bold;
@@ -141,12 +156,23 @@
 }
 .item_status{
     width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right:20px;
+}
+
+.item_status > div {
+    text-align: center;
 }
 .item_buttons{
     width: 80px;
     height: 100px;
     /* background-color: darkolivegreen; */
     line-height:50px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around
 }
 
 
@@ -159,7 +185,56 @@ img{
 .contentfooter{
     width:100%;
     height:60px;
-    margin-top:30px;
+    margin-top:60px;
     text-align: center;
     /*background-color: cadetblue;*/
+}
+
+.search-spec{
+    /*background-color:blue;*/
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+}
+
+.btn-disabled{
+    cursor: not-allowed;
+    font-weight: bold;
+}
+
+.btn-disabled:hover{
+    cursor: not-allowed;
+}
+
+.btn-active:hover{
+    background-color: white;
+    color: rgb(255,88,93);
+    border: 1px solid rgb(255,88,93);
+
+}
+
+.btn-cmpl{
+    background-color: rgb(255, 88, 93);
+    color: white;
+    animation: heartbeat 1s 20;
+
+}
+
+.btn-cmpl:hover{
+    background-color: white;
+    color: rgb(255,88,93);
+    border: 1px solid rgb(255,88,93);
+
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1.0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1.0);
+    }
 }

@@ -33,9 +33,13 @@ public class MyPgController {
         log.info("email: " + principal.getName());
 
         String email = principal.getName();
-        int total = service.countDealList(email);
-
-        model.addAttribute("dealList", service.getDealsWithPaging(email, cri.getAmount(), cri.getPageNum()));
+        int total = service.countDealList(email, cri);
+        log.info("service done at controller");
+        log.info("keyword: " + cri.getKeyword());
+        log.info("type : " + cri.getType());
+        log.info("dateFrom : " + cri.getDateFrom());
+                log.info("dateTo : "  + cri.getDateTo());
+        model.addAttribute("dealList", service.getDealsWithPaging(email, cri));
         model.addAttribute("pageMaker", new PageDTOSM(cri, total));
 
         log.info("deals loading....");

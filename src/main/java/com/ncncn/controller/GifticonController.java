@@ -25,8 +25,7 @@ public class GifticonController {
         gifticonService.gftDealCmpl(gftId);
         log.info("gft no-" + gftId + " status changed 005");
         log.info("cri teria : " + cri.getAmount() + ",," + cri.getPageNum());
-        model.addAttribute("pageNum",cri.getPageNum());
-        model.addAttribute("amount",cri.getAmount());
+        model.addAttribute("cri",cri);
         return "redirect:/user/mypage/deal";
     }
 }
