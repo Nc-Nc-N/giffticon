@@ -9,7 +9,7 @@
 /* product_detail_top - 상품 */
 
 .product_detail_top {
-    padding: 3% 0 15% 0;
+    padding: 3% 0 6% 0;
     border-bottom: solid 1px #d5d5d5;
     
 }
@@ -18,7 +18,7 @@
 .product_detail_top .pic {
     display: inline-table;
     width: 420px;
-    height: 420px;
+    height: 543px;
     position: relative;
 }
 
