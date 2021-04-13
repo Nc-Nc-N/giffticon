@@ -18,7 +18,7 @@ import java.util.List;
 public class DnSMapperTests {
 
     @Setter(onMethod_ = @Autowired)
-    private DnSListMapper dnsmapper;
+    private DealListMapper dealListMapper;
 
 //    @Test
 //    public void testDealList(){
@@ -31,7 +31,7 @@ public class DnSMapperTests {
     public void testGetGftDetail() {
 
         int gftId = 85;
-        dnsmapper.getGftDetail(gftId);
+        dealListMapper.getGftDetail(gftId);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class DnSMapperTests {
         cri.setType("");
         String[] typeArr = cri.getTypeArr();
         String email = "leehj.kk@gmail.com";
-        List<MyDealsDTO> list = dnsmapper.getDealsWithPaging(email, cri.getDateFrom(), cri.getDateTo(),
+        List<MyDealsDTO> list = dealListMapper.getDealsWithPaging(email, cri.getDateFrom(), cri.getDateTo(),
                 cri.getAmount(), cri.getPageNum(), cri.getKeyword(), cri.getType(), typeArr);
 
         list.forEach(board -> log.info(board));
@@ -56,7 +56,7 @@ public class DnSMapperTests {
 
         int userId = 157;
 
-        dnsmapper.countStus004(userId);
+        dealListMapper.countStus004(userId);
     }
 
     @Test
@@ -64,6 +64,6 @@ public class DnSMapperTests {
 
         int userId = 5;
 
-        dnsmapper.countStus001N002(userId, "판매중");
+        dealListMapper.countStus001N002(userId, "판매중");
     }
 }

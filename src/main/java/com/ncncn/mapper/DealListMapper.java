@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface DnSListMapper {
+public interface DealListMapper {
 
 
 //    public List<MyDealsDTO> getDeals(String email);

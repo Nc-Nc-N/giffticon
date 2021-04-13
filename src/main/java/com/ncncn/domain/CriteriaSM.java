@@ -19,7 +19,7 @@ public class CriteriaSM {
     private String keyword;
 
     public CriteriaSM() {
-        this(1, 3);
+        this(1, 4);
     }
 
     public CriteriaSM(int pageNum, int amount) {

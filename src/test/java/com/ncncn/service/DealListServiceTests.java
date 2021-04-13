@@ -1,7 +1,6 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.CriteriaSM;
-import com.ncncn.domain.MyDealsDTO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserMapper;
 import lombok.Setter;
@@ -12,17 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.List;
-
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Log4j
 @ContextConfiguration("file:src/main/webapp/WEB-INF/applicationContext.xml")
-public class DnSListServiceTests {
+public class DealListServiceTests {
 
     @Setter(onMethod_ = @Autowired)
-    private DnSListService service;
+    private DealListService service;
 
     @Setter(onMethod_ = @Autowired)
     private UserCheckService userCheckService;
@@ -37,14 +34,6 @@ public class DnSListServiceTests {
 
         assertNotNull(service);
     }
-
-//    @Test
-//    public void testGetDeals(){
-//        String email = "leehj.kk@gmail.com";
-//
-//        service.getDeals(email);
-//        log.info("검색하신 " + email + " 의 주문 내역 입니다.");
-//    }
 
     @Test
     public void testGetGftDetail() {

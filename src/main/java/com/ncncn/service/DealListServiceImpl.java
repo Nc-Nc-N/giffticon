@@ -1,9 +1,8 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.CriteriaSM;
-import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.MyDealsDTO;
-import com.ncncn.mapper.DnSListMapper;
+import com.ncncn.mapper.DealListMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
@@ -13,30 +12,23 @@ import java.util.List;
 @Log4j
 @Service
 @AllArgsConstructor
-public class DnSListServiceImpl implements DnSListService {
+public class DealListServiceImpl implements DealListService {
 
-    private DnSListMapper dnSListMapper;
-
-//    @Override
-//    public List<MyDealsDTO> getDeals(String email){
-//        log.info("DnS Service Impl......");
-//
-//        return mapper.getDeals(email);
-//    }
+    private DealListMapper dealListMapper;
 
     @Override
     public List<MyDealsDTO> getGftDetail(int gftId) {
 
         log.info("Get Detail of gft Id: " + gftId);
 
-        return dnSListMapper.getGftDetail(gftId);
+        return dealListMapper.getGftDetail(gftId);
     }
 
     @Override
     public List<MyDealsDTO> getDealsWithPaging(String email, CriteriaSM cri) {
         log.info("Service of Get Deals with Paging....");
 
-        return dnSListMapper.getDealsWithPaging(email, cri.getDateFrom(), cri.getDateTo(),
+        return dealListMapper.getDealsWithPaging(email, cri.getDateFrom(), cri.getDateTo(),
                 cri.getAmount(), cri.getPageNum(), cri.getKeyword(), cri.getType(), cri.getTypeArr());
     }
 
@@ -44,7 +36,7 @@ public class DnSListServiceImpl implements DnSListService {
     public int countDealList(String email, CriteriaSM cri) {
         log.info("Count " + email + "'s deal list....");
 
-        return dnSListMapper.countDealList(email, cri.getDateFrom(), cri.getDateTo(),
+        return dealListMapper.countDealList(email, cri.getDateFrom(), cri.getDateTo(),
                 cri.getKeyword(), cri.getType(), cri.getTypeArr());
     }
 
@@ -53,7 +45,7 @@ public class DnSListServiceImpl implements DnSListService {
 
         log.info("Count status 004....");
 
-        return dnSListMapper.countStus004(userId);
+        return dealListMapper.countStus004(userId);
     }
 
     @Override
@@ -61,7 +53,7 @@ public class DnSListServiceImpl implements DnSListService {
 
         log.info("count Status = " + stusName);
 
-        return dnSListMapper.countStus001N002(userId, stusName);
+        return dealListMapper.countStus001N002(userId, stusName);
     }
 
 }
