@@ -1,6 +1,9 @@
 package com.ncncn.security;
 
+import com.ncncn.mapper.UserMapper;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -16,6 +19,8 @@ import java.util.List;
 @Log4j
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
+    @Setter(onMethod_ = @Autowired)
+    public UserMapper usermapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -29,6 +34,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         List<String> roleName = authorityFinder(auth);
 
         response.addCookie(cookie);
+
+        request.getSession().setAttribute("userId", usermapper.readByEmail(auth.getName()).getId());
 
         //admin 로그인 시 admin/main으로 리다이렉트
         if (roleName.contains("관리자")) {

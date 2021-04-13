@@ -13,9 +13,9 @@ import java.util.List;
 @Log4j
 @Service
 @AllArgsConstructor
-public class DnSListServiceImpl implements DnSListService{
+public class DnSListServiceImpl implements DnSListService {
 
-    private DnSListMapper mapper;
+    private DnSListMapper dnSListMapper;
 
 //    @Override
 //    public List<MyDealsDTO> getDeals(String email){
@@ -25,27 +25,43 @@ public class DnSListServiceImpl implements DnSListService{
 //    }
 
     @Override
-    public List<MyDealsDTO> getGftDetail(int gftId){
+    public List<MyDealsDTO> getGftDetail(int gftId) {
 
         log.info("Get Detail of gft Id: " + gftId);
 
-        return mapper.getGftDetail(gftId);
+        return dnSListMapper.getGftDetail(gftId);
     }
 
     @Override
-    public List<MyDealsDTO> getDealsWithPaging(String email, CriteriaSM cri){
+    public List<MyDealsDTO> getDealsWithPaging(String email, CriteriaSM cri) {
         log.info("Service of Get Deals with Paging....");
 
-        return mapper.getDealsWithPaging(email, cri.getDateFrom(), cri.getDateTo(),
+        return dnSListMapper.getDealsWithPaging(email, cri.getDateFrom(), cri.getDateTo(),
                 cri.getAmount(), cri.getPageNum(), cri.getKeyword(), cri.getType(), cri.getTypeArr());
     }
 
     @Override
-    public int countDealList(String email, CriteriaSM cri){
+    public int countDealList(String email, CriteriaSM cri) {
         log.info("Count " + email + "'s deal list....");
 
-        return mapper.countDealList(email, cri.getDateFrom(), cri.getDateTo(),
+        return dnSListMapper.countDealList(email, cri.getDateFrom(), cri.getDateTo(),
                 cri.getKeyword(), cri.getType(), cri.getTypeArr());
     }
-    
+
+    @Override
+    public int countStus004(int userId) {
+
+        log.info("Count status 004....");
+
+        return dnSListMapper.countStus004(userId);
+    }
+
+    @Override
+    public int countStus001N002(int userId, String stusName) {
+
+        log.info("count Status = " + stusName);
+
+        return dnSListMapper.countStus001N002(userId, stusName);
+    }
+
 }

@@ -41,24 +41,26 @@
 
     <select id="getGftDetail" resultType="com.ncncn.domain.MyDealsDTO">
         <![CDATA[
-        select brdT.name brdName, prdT.name prdName, prdT.img_path prdImgPath,
-               gftT.id gftId, gftT.img_path gftImgPath, gftT.brcd brcd,
-               dealT.user_id csId, dealT.deal_dt dealDt, gftT.expir_dt exprDt,
-               dealT.pymt_prc pymtPrc, stusT.code_name stusCode
-        from
-            product prdT,
-            brand brdT,
-            (select * from cmmn_code where code_type = 'GFT_STUS') stusT,
-            deal_detail dealT,
-            (select * from gifticon where id = #{gftId}) gftT
-        where
-            brdT.code = substr(gftT.prod_code,1,4)
-          and
-            prdT.code = gftT.prod_code
-          and
-            stusT.code = gftT.gft_stus_code
-          and
-            dealT.gifticon_id = gftT.id
+        select brdT.name       brdName,
+               prdT.name       prdName,
+               prdT.img_path   prdImgPath,
+               gftT.id         gftId,
+               gftT.img_path   gftImgPath,
+               gftT.brcd       brcd,
+               dealT.user_id   csId,
+               dealT.deal_dt   dealDt,
+               gftT.expir_dt   exprDt,
+               dealT.pymt_prc  pymtPrc,
+               stusT.code_name stusCode
+        from product prdT,
+             brand brdT,
+             (select * from cmmn_code where code_type = 'GFT_STUS') stusT,
+             deal_detail dealT,
+             (select * from gifticon where id = #{gftId}) gftT
+        where brdT.code = substr(gftT.prod_code, 1, 4)
+          and prdT.code = gftT.prod_code
+          and stusT.code = gftT.gft_stus_code
+          and dealT.gifticon_id = gftT.id
         ]]>
     </select>
 
@@ -112,15 +114,31 @@
 
         <![CDATA[
         select count(*)
-        from
-            (
-                select * from deal_detail where user_id = #{userId}
-            ) dealT,
-            gifticon gftT
+        from (
+                 select *
+                 from deal_detail
+                 where user_id = #{userId}
+             ) dealT,
+             gifticon gftT
 
         where dealT.gifticon_id = gftT.id
           and gftT.gft_stus_code = '004'
+        ]]>
 
+    </select>
+
+    <select id="countStus001N002" resultType="int">
+
+        <![CDATA[
+        select count(*)
+        from (
+                 select *
+                 from gifticon
+                 where user_id = #{userId}
+             ) gftT,
+             cmmn_code stusT
+        where gftT.gft_stus_code = stusT.code
+          and stusT.code_name = #{stusName}
         ]]>
 
     </select>
@@ -129,21 +147,21 @@
 
         <trim prefix="and">
             <if test="dateFrom != ''">
-            <if test="dateFrom != null">
-            dealT.deal_dt >= #{dateFrom}
-            </if>
+                <if test="dateFrom != null">
+                    dealT.deal_dt >= #{dateFrom}
+                </if>
             </if>
         </trim>
 
         <trim prefix="and">
             <if test="dateTo != ''">
-            <if test="dateTo != null">
-                #{dateTo} >= dealT.deal_dt
-            </if>
+                <if test="dateTo != null">
+                    #{dateTo} >= dealT.deal_dt
+                </if>
             </if>
         </trim>
 
-        <trim prefix="and ("  suffix=")" prefixOverrides="OR">
+        <trim prefix="and (" suffix=")" prefixOverrides="OR">
             <foreach item="type" collection="typeArr">
                 <trim prefix="OR">
                     <choose>

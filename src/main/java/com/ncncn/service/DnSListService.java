@@ -1,7 +1,6 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.CriteriaSM;
-import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.MyDealsDTO;
 
 import java.util.List;
@@ -16,6 +15,7 @@ public interface DnSListService {
 
     public int countDealList(String email, CriteriaSM cri);
 
-    public void countStus004(int userId);
-    }
+    public int countStus004(int userId);
+
+    public int countStus001N002(int userId, String stusName);
 }

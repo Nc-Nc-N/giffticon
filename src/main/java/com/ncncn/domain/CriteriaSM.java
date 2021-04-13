@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @ToString
@@ -20,17 +18,17 @@ public class CriteriaSM {
     private String type;
     private String keyword;
 
-    public CriteriaSM(){
-        this(1,3);
+    public CriteriaSM() {
+        this(1, 3);
     }
 
-    public CriteriaSM(int pageNum, int amount){
+    public CriteriaSM(int pageNum, int amount) {
         this.pageNum = pageNum;
         this.amount = amount;
     }
 
-    public String[] getTypeArr(){
+    public String[] getTypeArr() {
 
-        return type == null? new String[] {}: type.split("");
+        return type == null ? new String[]{} : type.split("");
     }
 }

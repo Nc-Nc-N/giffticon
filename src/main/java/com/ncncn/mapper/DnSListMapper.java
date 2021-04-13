@@ -1,13 +1,8 @@
 package com.ncncn.mapper;
 
-import com.ncncn.domain.CriteriaSM;
-import com.ncncn.domain.DealDetailVO;
-import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.MyDealsDTO;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
-import java.util.Date;
 import java.util.List;
 
 public interface DnSListMapper {
@@ -34,4 +29,7 @@ public interface DnSListMapper {
                              @Param("typeArr") String[] typeArr);
 
     public int countStus004(int userId);
+
+    public int countStus001N002(@Param("userId") int userId,
+                                @Param("stusName") String stusName);
 }

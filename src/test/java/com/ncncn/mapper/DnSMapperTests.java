@@ -28,14 +28,14 @@ public class DnSMapperTests {
 //    }
 
     @Test
-    public void testGetGftDetail(){
+    public void testGetGftDetail() {
 
         int gftId = 85;
         dnsmapper.getGftDetail(gftId);
     }
 
     @Test
-    public void testPaging(){
+    public void testPaging() {
         CriteriaSM cri = new CriteriaSM();
         cri.setDateFrom("2020-10-22");
         cri.setDateTo("2021-03-22");
@@ -52,11 +52,18 @@ public class DnSMapperTests {
     }
 
     @Test
-    public void testGetCount004(){
+    public void testGetCount004() {
 
         int userId = 157;
 
         dnsmapper.countStus004(userId);
     }
 
+    @Test
+    public void testCountStus001N002() {
+
+        int userId = 5;
+
+        dnsmapper.countStus001N002(userId, "판매중");
+    }
 }

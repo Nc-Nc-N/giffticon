@@ -42,20 +42,20 @@
                 <div class="content"><!--메인컨텐츠 (이하 각자 내용 작성)-->
                     <div class='abstracts'>
                         <div class='abs'>
-                            <div class="abs_name">사용 대기</div>
-                            <div class="abs_num">3</div>
+                            <div class="abs_name">확정 대기</div>
+                            <div class="abs_num"><c:out value="${countStus004}"/></div>
                         </div>
                         <div class='abs'>
                             <div class="abs_name">판매 대기</div>
-                            <div class="abs_num">3</div>
+                            <div class="abs_num"><c:out value="${countStus001}"/></div>
                         </div>
                         <div class='abs'>
                             <div class="abs_name">판매 중</div>
-                            <div class="abs_num">3</div>
+                            <div class="abs_num"><c:out value="${countStus002}"/></div>
                         </div>
                         <div class='abs'>
                             <div class="abs_name">현재 포인트</div>
-                            <div class="abs_pnt">10200p</div>
+                            <div class="abs_pnt"><c:out value="${userPnt}"/>p</div>
                         </div>
                     </div>
                     <div class="space30"></div>

@@ -20,12 +20,12 @@ public class GifticonController {
     GifticonService gifticonService;
 
     @PostMapping("/stus005")
-    public String gftDealCmpl(int gftId, CriteriaSM cri, Model model){
+    public String gftDealCmpl(int gftId, CriteriaSM cri, Model model) {
 
         gifticonService.gftDealCmpl(gftId);
         log.info("gft no-" + gftId + " status changed 005");
         log.info("cri teria : " + cri.getAmount() + ",," + cri.getPageNum());
-        model.addAttribute("cri",cri);
+        model.addAttribute("cri", cri);
         return "redirect:/user/mypage/deal";
     }
 }
