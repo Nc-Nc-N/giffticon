@@ -78,13 +78,15 @@ body {
 }
 
 #sidebar {
-    position: sticky;
-    top: 0;
     flex-grow: 1;
     max-width: 300px;
-    height: 950px;
-    display: block;
     background-color: rgb(71, 71, 71);
+}
+
+#sidebar div {
+    position: sticky;
+    top: 20px;
+    display: block;
 }
 
 .logo {
