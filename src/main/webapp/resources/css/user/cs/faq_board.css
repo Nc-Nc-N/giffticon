@@ -6,3 +6,13 @@
     border-left:1px solid rgb(172, 172, 172);
     border-right:1px solid rgb(172, 172, 172);
 }
+
+#searchForm{
+    display: unset;
+    width: unset;
+    height: unset;
+}
+
+li{
+    list-style: none;
+}

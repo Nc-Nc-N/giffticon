@@ -1,23 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../header.css" type="text/css">
-    <link rel="stylesheet" href="../templete.css" type="text/css">
-    <link rel="stylesheet" href="/common-css/search-box.css" type="text/css">
-    <link rel="stylesheet" href="/관리자/notice/admin_notice.css" type="text/css">
-    <link rel="stylesheet" href="/관리자/notice/admin_faq.css" type="text/css">
-    <link rel="stylesheet" href="/common-css/pagination.css" type="text/css">
-    <link rel="stylesheet" href="notice_board.css" type="text/css">
-    <link rel="stylesheet" href="faq_board.css" type="text/css">
-
-
 
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
+
+    <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/cs/notice_board.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
+
+
+
+
     <title>Document</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
@@ -29,10 +36,10 @@
             <span class="header_divider">|</span>
             <span><a href="#" class="login-panel">회원가입</a></span>
             <span class="header_divider">|</span>
-            <span><a href="#" class="login-panel">고객센터</a></span>
+            <span><a href="http://localhost:8087/cs/faqBoard" class="login-panel">고객센터</a></span>
         </div>
         <div class="main-logo">
-            <div class="home-logo"><img src="../img/기쁘티콘.png" width="80%" ></a></div>
+            <div class="home-logo"><img src="/resources/img/logo.png" width="80%" ></div>
         </div>
         <div class="main-bar">
 
@@ -80,161 +87,168 @@
             <div class="sidebarspace">
                 <div class="sidebar"> <!--사이드 바 영역 (필요한만큼 영역 세로로늘리기)-->
                     <!--필요한만큼 아래 추가해서 사용 (개당 세로크기70px)-->
-                    <a href="(메뉴이동"><div class="bar"><div >공지사항</div><i class="fas fa-chevron-right"></i></div></a>
-                    <a href="(메뉴이동"><div class="bar" style="background-color:rgb(240, 240, 240);"><div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">자주묻는 질문</div><i class="fas fa-chevron-right"></i></div></a>
-                    <a href="(메뉴이동"><div class="bar"><div>1:1문의</div><i class="fas fa-chevron-right"></i></div></a>
+                    <a href="http://localhost:8087/cs/noticeBoard">
+                        <div class="bar">
+                            <div>공지사항</div>
+                            <i class="fas fa-chevron-right"></i></div>
+                    </a>
+                    <a href="http://localhost:8087/cs/faqBoard">
+                        <div class="bar" style="background-color:rgb(240, 240, 240);">
+                            <div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">자주묻는 질문</div>
+                            <i class="fas fa-chevron-right"></i></div>
+                    </a>
+                    <a href="http://localhost:8087/cs/qnaBoard">
+                        <div class="bar">
+                            <div>1:1문의</div>
+                            <i class="fas fa-chevron-right"></i></div>
+                    </a>
 
                 </div>
             </div>
-            <div class="emptyspace">
 
-            </div>
+            <div class="emptyspace"></div>
+
             <div class="content"><!--메인컨텐츠 (이하 각자 내용 작성)-->
 
                 <h3>자주묻는 질문</h3>
-                <div class="sub-category-area">
-                    <button class="sub-category-btn-all">전체</button>
-                    <button class="sub-category-btn-notice" style="background-color: rgb(255, 88, 93); color: white;">구매</button>
-                    <button class="sub-category-btn-event">판매</button>
-                </div>
-                <!-- search area -->
-                <div class="search-area">
-                    <form class="search-form">
-                        <div>
-                            <input type="text" class="search-input" />
 
+                <div class="sub-category-area">
+                    <button class="sub sub-category-btn-all" value="NE" name="type"
+                            onclick="location.href='http://localhost:8087/cs/faqBoard?pageNum=1&amount=10&type=NE&keyword=';">
+                        전체
+                    </button>
+                    <button class="sub sub-category-btn-notice" value="N" name="type"
+                            onclick="location.href='http://localhost:8087/cs/faqBoard?pageNum=1&amount=10&type=N&keyword=';">
+                        구매
+                    </button>
+                    <button class="sub sub-category-btn-event" value="E" name="type"
+                            onclick="location.href='http://localhost:8087/cs/faqBoard?pageNum=1&amount=10&type=E&keyword=';">
+                        판매
+                    </button>
+                </div>
+
+                <!-- search area -->
+
+                <form class="search-form" id='searchForm' action="/cs/faqBoard" method="get">
+                    <div class="search-area">
+
+
+                        <div class="search-input-area">
+                            <input type="text" class="search-input" name="keyword"
+                                   value='<c:out value="${pageMaker.cri.keyword}"/>'>
+                            <input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"/>'>
+                            <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}"/>'>
+                            <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
                             <button type="submit" class="search-button">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+
                 <!-- search area end -->
 
 
                 <!--accordionMenu-->
                 <div class="accordionMenu">
-                    <!-- 1st menu-->
-                    <input type="checkbox" name="trg1" id="acc1" >
-                    <label for="acc1"><span class="qna-q">Q. </span>기쁘티콘 판매자가 직접 거래를 요청하는 경우 어떻게 하나요?
-                        <span class="faq-date">2021.03.24</span>
 
-                    </label>
-                    <div class="content">
-                        <div class="inner">
+                    <c:forEach items="${list}" var="faq" varStatus="status">
+                        <!-- 1st menu-->
+                        <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">
+                        <label for="acc<c:out value="${status.index+1}"/>">
+                            <span class="qna-q">Q. </span><c:out value="${faq.csCateCode == '001' ? '[구매]':'[판매]'}"/>
+                            <c:out value="${faq.qust}"/>
+                                <%--                            <button id="<c:out value='${faq.id}'/>" class="btn-no btn-erase">--%>
+                                <%--                                <i class="fas fa-minus"></i></button>--%>
+                                <%--                            <button class="btn-no btn-modify" id="<c:out value='${faq.id}'/>" onclick="">수정</button>--%>
+                        </label>
+                        <div class="content">
+                            <div class="inner">
+                                <p><span class="qna-a">A. </span> <c:out value="${faq.ans}"/></p>
+                            </div>
 
-                            <p><span class="qna-a">A. </span>
-                                안녕하세요. 기쁘티콘입니다. 홈페이지를 통하지 않은 거래는 기쁘티콘에서 책임지지 않습니다. <br>
-                                따라서, 판매자가 홈페이지를 통하지 않은 직접 거래를 요청하는 경우 거래에 응하지 않는 것을 권합니다.
-                            </p>
                         </div>
-                    </div>
-                    <!-- 2nd menu-->
-                    <input type="checkbox" name="trg1" id="acc2" >
-
-                    <label for="acc2"><span class="qna-q">Q. </span>분쟁처리절차는 어떻게 되나요?
-                        <span class="faq-date">2021.03.24</span>
-
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-
-                            <p><span class="qna-a">A. </span>
-                                안녕하세요. 기쁘티콘입니다. 홈페이지를 통하지 않은 거래는 기쁘티콘에서 책임지지 않습니다. <br>
-                                따라서, 판매자가 홈페이지를 통하지 않은 직접 거래를 요청하는 경우 거래에 응하지 않는 것을 권합니다.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 3th menu-->
-                    <input type="checkbox" name="trg1" id="acc3" >
-                    <label for="acc3"><span class="qna-q">Q. </span>긴급재난지원금을 기쁘티콘에서 사용 가능한가요?
-                        <span class="faq-date">2021.03.24</span>
-
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p><span class="qna-a">A. </span>
-                                안녕하세요. 기쁘티콘입니다. 홈페이지를 통하지 않은 거래는 기쁘티콘에서 책임지지 않습니다. <br>
-                                따라서, 판매자가 홈페이지를 통하지 않은 직접 거래를 요청하는 경우 거래에 응하지 않는 것을 권합니다.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 4th menu-->
-                    <input type="checkbox" name="trg1" id="acc4" >
-                    <label for="acc4"><span class="qna-q">Q. </span>환불계좌를 등록 / 변경하고 싶어요.
-                        <span class="faq-date">2021.03.24</span>
-
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p><span class="qna-a">A. </span>
-                                안녕하세요. 기쁘티콘입니다. 홈페이지를 통하지 않은 거래는 기쁘티콘에서 책임지지 않습니다. <br>
-                                따라서, 판매자가 홈페이지를 통하지 않은 직접 거래를 요청하는 경우 거래에 응하지 않는 것을 권합니다.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 5th -->
-                    <input type="checkbox" name="trg1" id="acc5" >
-                    <label for="acc5"><span class="qna-q">Q. </span>환불계좌를 등록 / 변경하고 싶어요.
-                        <span class="faq-date">2021.03.24</span>
-
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p><span class="qna-a">A. </span>
-                                안녕하세요. 기쁘티콘입니다. 홈페이지를 통하지 않은 거래는 기쁘티콘에서 책임지지 않습니다. <br>
-                                따라서, 판매자가 홈페이지를 통하지 않은 직접 거래를 요청하는 경우 거래에 응하지 않는 것을 권합니다.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 6th menu-->
-                    <input type="checkbox" name="trg1" id="acc6" >
-                    <label for="acc6"><span class="qna-q">Q. </span>환불계좌를 등록 / 변경하고 싶어요.
-                        <span class="faq-date">2021.03.24</span>
-
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p><span class="qna-a">A. </span>
-                                안녕하세요. 기쁘티콘입니다. 홈페이지를 통하지 않은 거래는 기쁘티콘에서 책임지지 않습니다. <br>
-                                따라서, 판매자가 홈페이지를 통하지 않은 직접 거래를 요청하는 경우 거래에 응하지 않는 것을 권합니다.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 7th menu-->
-                    <input type="checkbox" name="trg1" id="acc7" >
-                    <label for="acc7"><span class="qna-q">Q. </span>환불계좌를 등록 / 변경하고 싶어요.
-                        <span class="faq-date">2021.03.24</span>
-
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p><span class="qna-a">A. </span>
-                                안녕하세요. 기쁘티콘입니다. 홈페이지를 통하지 않은 거래는 기쁘티콘에서 책임지지 않습니다. <br>
-                                따라서, 판매자가 홈페이지를 통하지 않은 직접 거래를 요청하는 경우 거래에 응하지 않는 것을 권합니다.
-                            </p>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
                 <!-- end accordionMenu-->
 
+
                 <!-- pagenation-->
                 <div class="pagination">
-                    <a href="#">&lt;</a>
-                    <a href="#">1</a>
-                    <a href="#" class="active">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">&gt;</a>
+                    <c:if test="${pageMaker.prev}">
+                        <li class="paginate_button previous"><a href="${pageMaker.startPage -1}"><</a></li>
+
+                    </c:if>
+
+                    <c:forEach var="num" begin="${pageMaker.startPage}"
+                               end="${pageMaker.endPage}">
+                        <li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""} "><a
+                                href="${num}">${num}</a></li>
+                    </c:forEach>
+
+                    <c:if test="${pageMaker.next}">
+                        <li class="paginate_button next"><a href="${pageMaker.endPage + 1}">&gt;</a></li>
+                    </c:if>
+
                 </div>
                 <!-- end pagenation-->
 
+                <form ID='actionForm' action="/cs/faqBoard" method="get">
+                    <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                    <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                    <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
+                    <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
+                </form>
+
             </div>
+            <!-- end content -->
+
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+
+    //검색
+    var searchForm = $("#searchForm");
+
+    $(".search-button").on("click", function (e) {
+
+        if (!searchForm.find("input[name='keyword']").val()) {
+            // $(".search-input").val("");
+            alert("keyword null");
+        }
+
+        searchForm.find("input[name='pageNum']").val("1");
+        e.preventDefault();
+
+        searchForm.submit();
+
+    });
+
+
+    $(document).ready(function () {
+
+        //page번호 클릭했을때 처
+        var actionForm = $("#actionForm");
+
+        $(".paginate_button a").on("click", function (e) {
+
+            e.preventDefault();
+
+            console.log('click');
+
+            actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+            actionForm.submit();
+        });
+
+
+    });
+
+</script>
+
+
 
 </body>
 </html>
