@@ -11,4 +11,6 @@ public interface UserMapper {
     int deleteByEmail(String email);
 
     UserVO readForLogin(String email);
+
+    int countRecentlyInsert();
 }

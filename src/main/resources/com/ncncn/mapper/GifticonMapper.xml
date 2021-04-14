@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.GifticonMapper">
+
+    <select id="countNotYetApproved" resultType="int">
+        select count(*) from gifticon g join cmmn_code c on g.gft_stus_code = c.code where gft_stus_code = '001' and c.code_type = 'GFT_STUS'
+    </select>
+
+</mapper>
