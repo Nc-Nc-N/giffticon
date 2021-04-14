@@ -46,4 +46,7 @@ public class GifticonDTO {
 
 	// 상품수
 	private int totProd;
+
+	// 브랜드 코드
+	private String brdCode;
 }

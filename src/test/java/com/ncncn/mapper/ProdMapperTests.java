@@ -1,3 +1,5 @@
+package com.ncncn.mapper;
+
 import com.ncncn.domain.*;
 import com.ncncn.mapper.ProdMapper;
 import lombok.Setter;
@@ -60,7 +62,19 @@ public class ProdMapperTests {
 		list.forEach(gifti -> log.info(gifti));
 	}
 
+	@Test
+	public void testGetGiftiList(){
 
+		mapper.getGiftiList("010101").forEach(gifti -> log.info(gifti));
+	}
+
+	@Test
+	public void testGetGifti(){
+
+		GifticonDTO gifti = mapper.getGifti("010101");
+		log.info(gifti);
+
+	}
 
 
 }

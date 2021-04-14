@@ -29,14 +29,26 @@ public class ProdServiceImpl implements ProdService{
 
 	@Override
 	public List<GifticonDTO> getGiftiWithPaging(GiftiCriteria cri) {
+
 		return mapper.getGiftiWithPaging(cri);
 	}
 
 	@Override
 	public int getTotal(GiftiCriteria cri) {
 
-		log.info("get total count");
 		return mapper.getTotalCount(cri);
+	}
+
+	@Override
+	public List<GifticonDTO> getGiftiList(String code) {
+
+		return mapper.getGiftiList(code);
+	}
+
+	@Override
+	public GifticonDTO getGifti(String code) {
+
+		return mapper.getGifti(code);
 	}
 
 }
