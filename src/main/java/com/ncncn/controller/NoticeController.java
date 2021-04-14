@@ -25,7 +25,18 @@ public class NoticeController {
 	// 사용자
 
 	@GetMapping("/noticeBoard")
-	public String csNotice(){
+	public String csNotice(CriteriaCs cri, Model model){
+
+		log.info("list: " + cri);
+		model.addAttribute("list", service.getList(cri));
+//		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
+
+		int total = service.getTotal(cri);
+
+		log.info("total: " + total);
+
+		model.addAttribute("pageMaker", new PageDTOCs(cri, total));
+
 		return "user/cs/noticeBoard";
 	}
 
