@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class GifticonDTO {
+public class ProdListVO {
 
 	private int id;
 
@@ -25,28 +25,28 @@ public class GifticonDTO {
 
 	private String imgPath;
 
-	private char isAutoPc;
+	private char isAutoPrc;
+
+	private Date aprvDt;
 
 	private String gftStusCode;
 
-	// 브랜드 이름
 	private String bname;
 
-	// 상품 이름
 	private String pname;
 
-	// 상품 이미지
 	private String pimgPath;
 
-	// 상품 정가
 	private int prc;
 
-	// 판매량
 	private int soldQuty;
 
-	// 상품수
 	private int totProd;
 
-	// 브랜드 코드
 	private String brdCode;
+
+	private Date inDate;
+
+	private Date upDate;
+
 }

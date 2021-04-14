@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Log4j
 @Service
 @AllArgsConstructor
@@ -29,5 +31,10 @@ public class WishListServiceImpl implements WishListService{
 	public int hasWish(WishListVO wish) {
 
 		return mapper.hasWish(wish);
+	}
+
+	@Override
+	public List<WishListVO> getWishList(int userId) {
+		return mapper.getWishList(userId);
 	}
 }

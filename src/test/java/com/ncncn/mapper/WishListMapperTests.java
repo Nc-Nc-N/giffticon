@@ -51,4 +51,11 @@ public class WishListMapperTests {
 
 		mapper.deleteWish(wish);
 	}
+
+	@Test
+	public void testgetWishList(){
+
+		mapper.getWishList(156).forEach(wish -> log.info(wish));
+
+	}
 }

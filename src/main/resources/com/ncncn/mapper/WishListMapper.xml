@@ -22,4 +22,17 @@
         delete from wish_list where prod_code = #{prodCode} AND user_id = #{userId}
         ]]>
     </delete>
+
+    <select id="getWishList" resultType="com.ncncn.domain.WishListVO">
+        <![CDATA[
+        select wish.prod_code, wish.user_id, brand.name as bname, prod.name as pname, prc, min(gifti.dc_prc) as dc_prc, gifti.dc_rate, prod.img_path
+        from wish_list as wish
+                 INNER JOIN gifticon as gifti ON wish.prod_code = gifti.prod_code
+                 INNER JOIN product as prod ON gifti.prod_code = prod.code
+                 INNER JOIN brand ON prod.brd_code = brand.code
+        where wish.user_id= #{userId}
+        group by wish.prod_code;
+
+        ]]>
+    </select>
 </mapper>
