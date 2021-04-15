@@ -104,9 +104,7 @@
                         </tr>
                         </c:forEach>
 
-
                       </table>
-
 
                     </div>
                     <br><br>
@@ -178,11 +176,7 @@
 
     $(".eachUser").on("click", function(e){
 
-        // alert(this.children[0].innerText);
         let eachUserId=this.children[0].innerText;
-
-        // 이동시 값 비어있음
-        // self.location="http://localhost:8088/admin/user/user-detail?userId=" + eachUserId;
 
         location.href="http://localhost:8088/admin/user/user-detail?userId=" + eachUserId;
 

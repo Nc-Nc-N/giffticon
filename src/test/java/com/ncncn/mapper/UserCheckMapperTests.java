@@ -8,12 +8,16 @@ import com.ncncn.domain.UserVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
+import org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/applicationContext.xml")
@@ -65,7 +69,16 @@ public class UserCheckMapperTests {
     public void testUpdateMemo() {
 
         int userId=152;
-        String memo="스파이더맨55";
+        String memo="Memo Update Test";
+        UserMemoDTO updateMemo = new UserMemoDTO();
+        updateMemo.setId(userId);
+        updateMemo.setMemo(memo);
+
+        mapper.updateMemo(updateMemo);
+
+        UserDetailCheckDTO user = mapper.getUserDetail(152);
+
+        assertEquals(user.getMemo(), "Memo Update Test");
 
     }
 
