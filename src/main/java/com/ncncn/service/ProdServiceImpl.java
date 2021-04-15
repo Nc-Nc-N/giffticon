@@ -51,4 +51,9 @@ public class ProdServiceImpl implements ProdService{
 		return mapper.getGifti(code);
 	}
 
+	@Override
+	public List<ProdListVO> getBestGifti() {
+		return mapper.getBestGifti();
+	}
+
 }

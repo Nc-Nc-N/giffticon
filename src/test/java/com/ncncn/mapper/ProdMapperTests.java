@@ -75,5 +75,10 @@ public class ProdMapperTests {
 
 	}
 
+	@Test
+	public void testGetBestGifti(){
+		mapper.getBestGifti().forEach(gifti -> log.info(gifti));
+	}
+
 
 }

@@ -24,4 +24,6 @@ public interface ProdService {
 	// 기프티콘 하나
 	public ProdListVO getGifti(String code);
 
+	// 인기상품 목록
+	public List<ProdListVO> getBestGifti();
 }
