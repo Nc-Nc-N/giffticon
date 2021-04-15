@@ -1,12 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
+<jsp:include page="/WEB-INF/views/admin/adminLayout.jsp"></jsp:include>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -22,59 +18,17 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common//pagination.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/admin/admin_layout.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/admin/adminLayout.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice_detail.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
-</head>
-<body>
 
-<div id="container">
-    <!-- header-->
-    <div class="header">
-        <div class= "top_menu">
-            <span><a href="#" class="login-panel">로그인</a></span>
-            <span class="header_divider">|</span>
-            <span><a href="#" class="login-panel">회원가입</a></span>
-            <span class="header_divider">|</span>
-            <span><a href="http://localhost:8087/cs/adminNotice" class="login-panel">고객센터</a></span>
-        </div>
-        <div class="main-logo">
-            <div class="home-logo"><img src="/resources/img/logo.png" width="230px" height="100px"></div>
-        </div>
-    </div>
-    <!-- end header-->
-
-
-    <div id="content">
-
-        <!-- sidebar -->
-        <div id="sidebar">
-            <div id="admin-menu">
-                <h2>회원관리</h2>
-                <h2>상품관리</h2>
-                <h2>배너관리</h2>
-                <h2>판매요청관리</h2>
-                <h2>거래내역관리</h2>
-                <h2>포인트관리</h2>
-                <h2>고객센터</h2>
-                <h2>통계분석</h2>
-            </div>
-            <div id="admin-memo">
-                <span class="span">Memo</span>
-                <textarea id="memo">2021-03-25 관리자 메모내용</textarea>
-            </div>
-        </div>
-
-        <!-- list-->
-        <div id="main">
             <h2>고객센터</h2>
-            <div id="menu">
+            <div id="submenu">
                 <div>
                     <a href="http://localhost:8087/cs/adminNotice" >공지사항</a>
                 </div>
@@ -106,7 +60,6 @@
                                value='<c:out value="${pageMaker.cri.keyword}"/>'>
                         <input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"/>'>
                         <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}"/>'>
-                        <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
                         <button type="submit" class="search-button">
                             <i class="fas fa-search"></i>
                         </button>
@@ -171,13 +124,8 @@
                 <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
             </form>
         </div>
-        <!--end jb-content-->
+        <!--end main-->
 
-    </div>
-    <!-- end content-->
-
-</div>
-<!-- end jb-container-->
 
 
 
@@ -485,6 +433,4 @@
 
 </script>
 
-
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/admin/adminMemo.jsp"></jsp:include>
