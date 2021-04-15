@@ -191,7 +191,7 @@
                 <h3><i class="far fa-clock"></i>&nbsp;초특가! 만료 임박 상품</h3>
             </div>
             <div class="categorycontroller">
-                <a href="#" class="main-btn">전체보기</a>
+                <a href="/user/prod_list?keyword=&code=0&orderby=deadline" class="main-btn">전체보기</a>
             </div>
         </div>
         <div class="listcontent">
