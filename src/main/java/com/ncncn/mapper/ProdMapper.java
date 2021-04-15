@@ -26,4 +26,7 @@ public interface ProdMapper {
 
 	// 인기상품 목록
 	public List<ProdListVO> getBestGifti();
+
+	// 마감임박 상품 목록
+	public List<ProdListVO> getDeadlineGifti();
 }

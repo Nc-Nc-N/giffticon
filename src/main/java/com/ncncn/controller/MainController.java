@@ -31,5 +31,8 @@ public class MainController {
 		// 인기상품
 		model.addAttribute("bestList", prodService.getBestGifti());
 
+		// 마감상품
+		model.addAttribute("deadlineList", prodService.getDeadlineGifti());
+
 	}
 }

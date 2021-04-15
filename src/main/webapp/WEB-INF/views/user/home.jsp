@@ -185,7 +185,7 @@
     </div>
 
     <!-- 세번째줄 (만료임박상품)-->
-    <div class="prdlist"><!--셋째줄 (임박상품)-->
+    <div class="prdlist">
         <div class="listname">
             <div class='listnametotal'>
                 <h3><i class="far fa-clock"></i>&nbsp;초특가! 만료 임박 상품</h3>
@@ -195,89 +195,51 @@
             </div>
         </div>
         <div class="listcontent">
-            <!-- 관심상품 db값을 html태그와 함께for문으로 출력 -->
-            <div class="items"><!--상품1-->
-                <div class="itemimg">
-                    <img src="img/starbuckAme.png"><!--db에서 상품 이미지불러오기-->
-                </div>
-                <div class="itemnameNprice">
-                    <div class="itembrand">
-                        스타벅스
-                    </div>
-                    <div class="itemname">
-                        아메리카노 Tall
-                    </div>
-                    <div class="itemprice">
-                        <span>15%</span>&nbsp;&nbsp;
-                        <span>3,800원</span>
-                    </div>
-                    <div class="itemoriginprice">
-                        <span><del>5,000원</del></span>
-                    </div>
-                </div>
-            </div>
-            <div class="items"><!--상품2-->
-                <div class="itemimg">
-                    <img src="img/starbuckAme.png"><!--db에서 상품 이미지불러오기-->
-                </div>
-                <div class="itemnameNprice">
-                    <div class="itembrand">
-                        스타벅스
-                    </div>
-                    <div class="itemname">
-                        아메리카노 Tall
-                    </div>
-                    <div class="itemprice">
-                        <span>15%</span>&nbsp;&nbsp;
-                        <span>3,800원</span>
-                    </div>
-                    <div class="itemoriginprice">
-                        <span><del>5,000원</del></span>
-                    </div>
-                </div>
-            </div>
-            <div class="items"><!--상품3-->
-                <div class="itemimg">
-                    <img src="img/starbuckAme.png"><!--db에서 상품 이미지불러오기-->
-                </div>
-                <div class="itemnameNprice">
-                    <div class="itembrand">
-                        스타벅스
-                    </div>
-                    <div class="itemname">
-                        아메리카노 Tall
-                    </div>
-                    <div class="itemprice">
-                        <span>15%</span>&nbsp;&nbsp;
-                        <span>3,800원</span>
-                    </div>
-                    <div class="itemoriginprice">
-                        <span><del>5,000원</del></span>
-                    </div>
+            <div class="splide" style="width: 1000px; margin-top: 20px;">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <c:set var="i" value="0"/>
+                        <c:set var="j" value="4"/>
+                        <c:forEach items="${deadlineList}" var="DL">
+                            <c:if test="${i%j==0}">
+                                <li class="splide__slide">
+                                <table>
+                                <tr>
+                            </c:if>
+                            <td>
+                                <a href="prod_detail?code=${DL.prodCode}">
+                                    <div class="items">
+                                        <div class="itemimg">
+                                            <img src="${DL.pimgPath}">
+                                        </div>
+                                        <div class="itemnameNprice">
+                                            <div class="itembrand">
+                                                <c:out value="${DL.bname}"/>
+                                            </div>
+                                            <div class="itemname">
+                                                <c:out value="${DL.pname}"/>
+                                            </div>
+                                            <div class="itemprice">
+                                                <span><fmt:formatNumber value="${DL.dcRate}" type="percent" /></span>&nbsp;&nbsp;
+                                                <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${DL.dcPrc}" />
+                                            </div>
+                                            <div class="itemoriginprice">
+                                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${DL.prc}"/> 원</del></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </td>
+                            <c:if test="${i%j==j-1}">
+                                </tr>
+                                </table>
+                                </li>
+                            </c:if>
+                            <c:set var="i" value="${i+1}"/>
+                        </c:forEach>
+                    </ul>
                 </div>
             </div>
-            <div class="items"><!--상품4-->
-                <div class="itemimg">
-                    <img src="img/starbuckAme.png"><!--db에서 상품 이미지불러오기-->
-                </div>
-                <div class="itemnameNprice">
-                    <div class="itembrand">
-                        스타벅스
-                    </div>
-                    <div class="itemname">
-                        아메리카노 Tall
-                    </div>
-                    <div class="itemprice">
-                        <span>15%</span>&nbsp;&nbsp;
-                        <span>3,800원</span>
-                    </div>
-                    <div class="itemoriginprice">
-                        <span><del>5,000원</del></span>
-                    </div>
-                </div>
-            </div>
-            <!-- 관심상품 for문 종료 -->
-
         </div>
     </div>
 </div>

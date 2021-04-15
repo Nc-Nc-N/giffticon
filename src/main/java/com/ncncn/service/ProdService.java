@@ -26,4 +26,7 @@ public interface ProdService {
 
 	// 인기상품 목록
 	public List<ProdListVO> getBestGifti();
+
+	// 마감상품 목록
+	public List<ProdListVO> getDeadlineGifti();
 }

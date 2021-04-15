@@ -102,7 +102,7 @@
 
     <!-- 인기상품 8개 조회 -->
     <select id="getBestGifti" resultType="com.ncncn.domain.ProdListVO">
-        select gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
+        select id, user_id, prod_code, brand.name as bname, prod.name as pname, prc, sold_quty, min(dc_prc)as dc_prc, dc_rate, gft_stus_code, prod.img_path  as pimg_path
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
@@ -110,5 +110,19 @@
         group by gifti.prod_code
         order by prod.sold_quty desc
         limit 8
+    </select>
+
+    <!-- 마감임박 상품 4개 조회  -->
+    <select id="getDeadlineGifti" resultType="com.ncncn.domain.ProdListVO">
+        <![CDATA[
+        select id, user_id, prod_code, brand.name as bname, prod.name as pname, prc, expir_dt, sold_quty, min(dc_prc)as dc_prc, dc_rate, gft_stus_code,prod.img_path as pimg_path
+        from gifticon as gifti
+        INNER JOIN product as prod ON gifti.prod_code = prod.code
+        INNER JOIN brand ON prod.brd_code = brand.code
+        where gft_stus_code =002 and expir_dt-current_date() <= 7
+        group by gifti.prod_code
+        order by expir_dt,sold_quty desc
+        limit 8
+        ]]>
     </select>
 </mapper>
