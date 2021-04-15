@@ -24,5 +24,22 @@ public class GifticonMapperTests {
         mapper.gftDealCmpl(gftId);
     }
 
+    @Test
+    public void deleteGifticonTest(){
+
+        int gftId = 125;
+
+        mapper.deleteGifticon(gftId);
+    }
+
+    @Test
+    public void updateGftPrcTests(){
+
+        int gftId = 5;
+        char isAutoPrc = '1';
+        int dcPrc = 1800;
+
+        mapper.updateGftPrc(gftId, isAutoPrc, dcPrc);
+    }
 
 }

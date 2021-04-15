@@ -20,32 +20,39 @@ public class DnSMapperTests {
     @Setter(onMethod_ = @Autowired)
     private DealListMapper dealListMapper;
 
-//    @Test
-//    public void testDealList(){
-//
-//        String email = "leehj.kk@gmail.com";
-//        dnsmapper.getDeals(email).forEach(board -> log.info(board));
-//    }
+    @Setter(onMethod_ = @Autowired)
+    private SellListMapper sellListMapper;
+
+    @Test
+    public void testCountDealList(){
+
+        int userId = 41;
+        CriteriaSM cri = new CriteriaSM(1,4);
+        dealListMapper.countDealList(userId, cri.getDateFrom(), cri.getDateTo(),
+                 cri.getKeyword(), cri.getType(), cri.getTypeArr());
+    }
 
     @Test
     public void testGetGftDetail() {
 
-        int gftId = 85;
-        dealListMapper.getGftDetail(gftId);
+        int gftId = 80;
+        int userId = 157;
+
+        dealListMapper.getGftDetail(gftId, userId);
     }
 
     @Test
     public void testPaging() {
         CriteriaSM cri = new CriteriaSM();
-        cri.setDateFrom("2020-10-22");
-        cri.setDateTo("2021-03-22");
+//        cri.setDateFrom("2020-10-22");
+//        cri.setDateTo("2021-03-22");
         cri.setPageNum(1);
         cri.setAmount(3);
-        cri.setKeyword("");
-        cri.setType("");
+//        cri.setKeyword("");
+//        cri.setType("");
         String[] typeArr = cri.getTypeArr();
-        String email = "leehj.kk@gmail.com";
-        List<MyDealsDTO> list = dealListMapper.getDealsWithPaging(email, cri.getDateFrom(), cri.getDateTo(),
+        int userId = 33;
+        List<MyDealsDTO> list = dealListMapper.getDealsWithPaging(userId, cri.getDateFrom(), cri.getDateTo(),
                 cri.getAmount(), cri.getPageNum(), cri.getKeyword(), cri.getType(), typeArr);
 
         list.forEach(board -> log.info(board));
@@ -65,5 +72,32 @@ public class DnSMapperTests {
         int userId = 5;
 
         dealListMapper.countStus001N002(userId, "판매중");
+    }
+
+    @Test
+    public void testGetSellListWithPaging(){
+
+        int userId = 156;
+        CriteriaSM cri = new CriteriaSM(1,4);
+        sellListMapper.getSellsWithPaging(userId, cri.getDateFrom(), cri.getDateTo(),
+                cri.getAmount(), cri.getPageNum(), cri.getKeyword(), cri.getType(), cri.getTypeArr());
+    }
+
+    @Test
+    public void testCountSellList(){
+
+        int userId = 155;
+        CriteriaSM cri = new CriteriaSM(1,4);
+        sellListMapper.countSellList(userId, cri.getDateFrom(), cri.getDateTo(),
+                 cri.getKeyword(), cri.getType(), cri.getTypeArr());
+    }
+
+    @Test
+    public void testGetSellDetail(){
+
+        int userId = 157;
+        int gftId =  66;
+
+        sellListMapper.getSellDetail(gftId,userId);
     }
 }

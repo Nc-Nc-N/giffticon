@@ -19,4 +19,18 @@ public class GifticonServiceImpl implements GifticonService{
 
         return mapper.gftDealCmpl(gftId);
     }
+
+    @Override
+    public int deleteGifticon(int gftId){
+
+        log.info("delete GftId: " + gftId);
+
+        return mapper.deleteGifticon(gftId);
+    }
+
+    @Override
+    public int updateGftPrc(int gftId, char isAutoPrc, int dcPrc){
+
+        return mapper.updateGftPrc(gftId, isAutoPrc, dcPrc);
+    }
 }

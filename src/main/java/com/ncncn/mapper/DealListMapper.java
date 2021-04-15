@@ -10,9 +10,9 @@ public interface DealListMapper {
 
 //    public List<MyDealsDTO> getDeals(String email);
 
-    public List<MyDealsDTO> getGftDetail(int gftId);
+    public List<MyDealsDTO> getGftDetail(@Param("gftId") int gftId, @Param("userId") int userId);
 
-    public List<MyDealsDTO> getDealsWithPaging(@Param("email") String email,
+    public List<MyDealsDTO> getDealsWithPaging(@Param("userId") int userId,
                                                @Param("dateFrom") String dateFrom,
                                                @Param("dateTo") String dateTo,
                                                @Param("amount") int amount,
@@ -21,7 +21,7 @@ public interface DealListMapper {
                                                @Param("type") String type,
                                                @Param("typeArr") String[] typeArr);
 
-    public int countDealList(@Param("email") String email,
+    public int countDealList(@Param("userId") int userId,
                              @Param("dateFrom") String dateFrom,
                              @Param("dateTo") String dateTo,
                              @Param("keyword") String keyword,

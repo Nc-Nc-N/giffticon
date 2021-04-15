@@ -23,4 +23,24 @@ public class GifticonServiceTests {
 
         gifticonService.gftDealCmpl(gftId);
     }
+
+    @Test
+    public void DeleteGifticonTests(){
+
+        int gftId = 123;
+
+        String msg =  gifticonService.deleteGifticon(123) == 1 ? "delete done" : "delete failed";
+
+        log.info(msg);
+    }
+
+    @Test
+    public void UpdateGifticonTests(){
+
+        int gftId = 5;
+        char isAutoPrc = '0';
+        int dcPrc = 3000;
+
+        gifticonService.updateGftPrc(gftId, isAutoPrc, dcPrc);
+    }
 }

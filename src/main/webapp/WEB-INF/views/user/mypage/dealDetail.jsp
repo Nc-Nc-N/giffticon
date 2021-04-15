@@ -83,8 +83,6 @@
 
     $(document).ready(function () {
 
-        var csrfName = "${_csrf.parameterName}";
-        var csrfToken = "${_csrf.token}";
         var actionForm = $("#actionForm");
 
         $("button[name='dealCmplBtn']").on("click", function (i) {

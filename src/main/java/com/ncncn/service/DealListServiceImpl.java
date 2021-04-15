@@ -17,26 +17,26 @@ public class DealListServiceImpl implements DealListService {
     private DealListMapper dealListMapper;
 
     @Override
-    public List<MyDealsDTO> getGftDetail(int gftId) {
+    public List<MyDealsDTO> getGftDetail(int gftId, int userId) {
 
         log.info("Get Detail of gft Id: " + gftId);
 
-        return dealListMapper.getGftDetail(gftId);
+        return dealListMapper.getGftDetail(gftId, userId);
     }
 
     @Override
-    public List<MyDealsDTO> getDealsWithPaging(String email, CriteriaSM cri) {
+    public List<MyDealsDTO> getDealsWithPaging(int userId, CriteriaSM cri) {
         log.info("Service of Get Deals with Paging....");
 
-        return dealListMapper.getDealsWithPaging(email, cri.getDateFrom(), cri.getDateTo(),
+        return dealListMapper.getDealsWithPaging(userId, cri.getDateFrom(), cri.getDateTo(),
                 cri.getAmount(), cri.getPageNum(), cri.getKeyword(), cri.getType(), cri.getTypeArr());
     }
 
     @Override
-    public int countDealList(String email, CriteriaSM cri) {
-        log.info("Count " + email + "'s deal list....");
+    public int countDealList(int userId, CriteriaSM cri) {
+        log.info("Count " + userId + "'s deal list....");
 
-        return dealListMapper.countDealList(email, cri.getDateFrom(), cri.getDateTo(),
+        return dealListMapper.countDealList(userId, cri.getDateFrom(), cri.getDateTo(),
                 cri.getKeyword(), cri.getType(), cri.getTypeArr());
     }
 

@@ -1,6 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.CriteriaSM;
+import com.ncncn.domain.MyDealsDTO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserMapper;
 import lombok.Setter;
@@ -10,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -37,23 +40,22 @@ public class DealListServiceTests {
 
     @Test
     public void testGetGftDetail() {
-        int gftid = 88;
+        int gftid = 80;
+        int userid = 157;
+        List<MyDealsDTO> myDealsDTO = service.getGftDetail(gftid, userid);
 
-        int userId = service.getGftDetail(gftid).get(0).getCsId();
-        UserVO user = userCheckService.specUserOnly(userId);
-
-        log.info("permited user is : " + user);
+        log.info("permited user is : " + userid);
     }
 
     @Test
     public void testGetDealsWithPaging() {
 
         CriteriaSM cri = new CriteriaSM(3, 3);
-        String email = "planner263@gmail.com";
+        int userId = 55;
 
-        service.getDealsWithPaging(email, cri);
+        service.getDealsWithPaging(userId, cri);
 
-        log.info("Get Deals With Paging : " + email + "," + cri.getAmount() + "," + cri.getPageNum());
+        log.info("Get Deals With Paging : " + userId + "," + cri.getAmount() + "," + cri.getPageNum());
     }
 
     @Test

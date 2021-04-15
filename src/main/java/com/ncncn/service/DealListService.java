@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface DealListService {
 
-    public List<MyDealsDTO> getGftDetail(int gftId);
+    public List<MyDealsDTO> getGftDetail(int gftId, int userId);
 
-    public List<MyDealsDTO> getDealsWithPaging(String email, CriteriaSM cri);
+    public List<MyDealsDTO> getDealsWithPaging(int userId, CriteriaSM cri);
 
-    public int countDealList(String email, CriteriaSM cri);
+    public int countDealList(int userId, CriteriaSM cri);
 
     public int countStus004(int userId);
 

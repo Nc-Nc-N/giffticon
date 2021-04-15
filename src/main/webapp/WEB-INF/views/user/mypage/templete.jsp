@@ -35,7 +35,7 @@
                             <div>구매 내역</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
-                    <a href="(메뉴이동">
+                    <a href="/user/mypage/sells">
                         <div class="bar">
                             <div>판매 내역</div>
                             <i class="fas fa-chevron-right"></i></div>

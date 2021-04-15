@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     UserMapper userMapper;
+    SignUpService signUpService;
 
     @Override
     public UserVO readbyId(int userId) {

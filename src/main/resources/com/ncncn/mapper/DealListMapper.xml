@@ -12,12 +12,7 @@
                 from
                     deal_detail
                 where
-                    user_id =
-                            (
-                            select id
-                            from user
-                            where email = #{email}
-                    )
+                    user_id = #{userId}
                 ) dealT,
                 gifticon gftT,
                 product prdT,
@@ -55,7 +50,7 @@
         from product prdT,
              brand brdT,
              (select * from cmmn_code where code_type = 'GFT_STUS') stusT,
-             deal_detail dealT,
+             (select * from deal_detail where user_id = #{userId}) dealT,
              (select * from gifticon where id = #{gftId}) gftT
         where brdT.code = substr(gftT.prod_code, 1, 4)
           and prdT.code = gftT.prod_code
@@ -78,12 +73,7 @@
                 from
                     deal_detail
                 where
-                        user_id =
-                        (
-                            select id
-                            from user
-                            where email = #{email}
-                        )
+                        user_id = #{userId}
             ) dealT,
             gifticon gftT,
             product prdT,
@@ -156,7 +146,7 @@
         <trim prefix="and">
             <if test="dateTo != ''">
                 <if test="dateTo != null">
-                    adddate(#{dateTo}, interval 1 day) >= dealT.deal_dt
+                    adddate(#{dateTo}, interval 1 day) > dealT.deal_dt
                 </if>
             </if>
         </trim>
