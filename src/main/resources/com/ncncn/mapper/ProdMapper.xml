@@ -55,7 +55,7 @@
     <!-- 기프티콘 목록 조회(페이징 처리)   -->
     <select id="getGiftiWithPaging" resultType="com.ncncn.domain.GifticonDTO">
         <![CDATA[
-        select gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
+        select expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
@@ -70,6 +70,7 @@
             <when test="orderby=='best'">prod.sold_quty desc</when>
             <when test="orderby=='low'">dc_prc</when>
             <when test="orderby=='high'">dc_prc desc</when>
+            <when test="orderby=='deadline'">expir_dt,sold_quty desc</when>
         </choose>
         <![CDATA[
             LIMIT #{amount}
@@ -80,7 +81,7 @@
     <select id="getTotalCount" resultType="int">
         <![CDATA[
         select count(tbl.id) from(
-        select gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
+        select expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
@@ -95,6 +96,7 @@
             <when test="orderby=='best'">prod.sold_quty desc</when>
             <when test="orderby=='low'">dc_prc</when>
             <when test="orderby=='high'">dc_prc desc</when>
+            <when test="orderby=='deadline'">expir_dt,sold_quty desc</when>
         </choose>
         ) as tbl
     </select>
