@@ -1,6 +1,7 @@
 package com.ncncn.domain;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -19,6 +20,7 @@ public class CsNoticeVO {
 
 	private Date startDt;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endDt;
 
 	private char isFixed;

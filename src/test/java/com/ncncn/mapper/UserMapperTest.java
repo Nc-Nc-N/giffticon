@@ -1,6 +1,7 @@
 package com.ncncn.mapper;
 
 import com.ncncn.domain.UserVO;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 @Log4j
 public class UserMapperTest {
 
-	@Autowired
+	@Setter(onMethod_ = @Autowired)
 	private UserMapper userMapper;
 
 	@Test

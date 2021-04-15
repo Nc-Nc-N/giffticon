@@ -1,7 +1,7 @@
 .qna-q{
 
     font-weight:bold;
-    color:rgb(255, 88, 93);;
+    color:rgb(255, 88, 93);
 }
 
 .qna-a{
@@ -14,3 +14,12 @@
     color: darkgrey;
 }
 
+.modify-odrNo, .register-odrNo{
+    margin-left: 10px;
+    width: 60px;
+}
+
+.modify-enabled, .register-enabled {
+
+    margin-left: 10px;
+}
