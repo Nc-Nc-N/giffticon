@@ -1,20 +1,18 @@
 package com.ncncn.controller;
 
-import com.ncncn.domain.PageDTOHY;
 import com.ncncn.domain.GiftiCriteria;
+import com.ncncn.domain.PageDTOHY;
 import com.ncncn.domain.WishListVO;
-import com.ncncn.security.domain.CustomUser;
 import com.ncncn.service.ProdService;
 import com.ncncn.service.WishListService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @Log4j
