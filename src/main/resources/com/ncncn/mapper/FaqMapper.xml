@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.FaqMapper">
+
+    <select id="getList" resultType="com.ncncn.domain.CsFaqVO">
+        <![CDATA[
+        select * from cs_faq
+        ]]>
+    </select>
+
+
+    <select id="read" resultType="com.ncncn.domain.CsFaqVO">
+        <![CDATA[
+        select * from cs_faq where id = #{id}
+        ]]>
+    </select>
+
+<!-- 다 합치고나서 유저와 관리자 나누기 (관리자는 enabled = '0'일 때도 보여야한다.)-->
+    <select id="getListWithPaging" resultType="com.ncncn.domain.CsFaqVO">
+        <![CDATA[
+            select *
+            from cs_faq
+            where enabled = '1' AND (
+        ]]>
+
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            cs_cate_code = '001' AND qust like CONCAT('%',#{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cs_cate_code = '002' AND qust like CONCAT('%',#{keyword}, '%')
+                        </when>
+
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+
+        <![CDATA[
+            )
+            order by odr_no, id desc
+            LIMIT #{amount}
+            OFFSET ${(pageNum-1) * amount}
+        ]]>
+    </select>
+
+
+
+    <select id="getTotalCount" resultType="int">
+
+       <![CDATA[
+
+        select count(*) from cs_faq
+        where
+            ]]>
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            cs_cate_code = '001' AND qust like CONCAT('%',#{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cs_cate_code = '002' AND qust like CONCAT('%',#{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </select>
+
+
+
+
+    <insert id="insert">
+        <![CDATA[
+            insert into cs_faq (user_id, qust, ans, cs_cate_code, enabled, odr_no, in_user, up_user)
+            values (#{userId}, #{qust}, #{ans}, #{csCateCode}, #{enabled}, #{odrNo}, current_user, current_user )
+        ]]>
+    </insert>
+
+
+    <delete id="delete">
+        delete from cs_faq where id = #{id}
+    </delete>
+
+
+    <update id="update">
+        update cs_faq
+        set qust= #{qust},
+            ans= #{ans},
+            enabled= #{enabled},
+            odr_no= #{odrNo},
+            up_date= now(),
+            up_user= current_user
+        where id = #{id}
+    </update>
+
+</mapper>

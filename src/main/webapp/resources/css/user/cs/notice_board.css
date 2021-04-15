@@ -47,3 +47,11 @@
     border-top: 1px solid rgb(230, 230, 230);
 }
 
+.sub2:hover{
+    color: rgb(255, 88, 93);
+}
+
+/*.clicked{*/
+/*    background-color: rgb(255, 88, 93);*/
+/*    color: white;*/
+/*}*/
