@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -47,7 +48,24 @@
 
             <div class="bar-left">
                 <div class="category-drop">
-                    <div class="category-btn"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</div>
+                    <ul class="exo-menu">
+                        <li class="drop-down">
+                            <a href="#"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
+                            <%-- Drop Down --%>
+                            <ul class="drop-down-ul animated fadeIn">
+                                <li class="flyout-right">
+                                    <c:forEach items="${categoryList}" var="catL">
+                                        <a href="#"><c:out value="${caL.name}"/> </a>
+                                    </c:forEach>
+                                    <ul class="animated fadeIn">
+                                        <c:forEach items="${brandList}" var="brandL">
+                                            <li><a href="#"><c:out value="${brandL.name}"/> </a></li>
+                                        </c:forEach>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
                 <div class="leftmenus">
                     <div class="leftmenu">충전하기</div>
@@ -73,8 +91,5 @@
                 <span class="rightmenu">판매하기</span>
                 <span class="rightmenu"><a href="/user/mypage/mypageDeals">마이페이지</a></span>
             </div>
-          
         </div>
     </div>
-</body>
-</html>

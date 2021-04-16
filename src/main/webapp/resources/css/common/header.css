@@ -52,21 +52,132 @@
     display: flex;
 }
 .category-drop{
-    /* background-color: blue; */
+    color: #333;
     display: flex;
     width: 125px;
 }
-.category-btn{
-    margin: auto 10px auto 0;
-    /* background-color: burlywood; */
+/*전체 카테고리 menu*/
+.exo-menu{
+    height: 80%;
+    margin-left: -40px;
+    float: left;
+    position:relative;
+}
+.exo-menu > li {
+    display: inline-block;
+    float:left;
+}
 
+.exo-menu > li > a{
+    text-decoration: none;
+    text-transform: uppercase;
+    -webkit-transition: color 0.2s linear, background 0.2s linear;
+    -moz-transition: color 0.2s linear, background 0.2s linear;
+    -o-transition: color 0.2s linear, background 0.2s linear;
+    transition: color 0.2s linear, background 0.2s linear;
+}
+.exo-menu > li > a.active,
+.exo-menu > li > a:hover,
+li.drop-down ul > li > a:hover{
+    color:#FF585D;
+}
+li.drop-down,
+.flyout-right {
+    position:relative;
+}
+li.drop-down:before {
+    content: "\f103";
+    color: #fff;
+    font-style: normal;
+    display: inline;
+    position: absolute;
+    right: 6px;
+    top: 20px;
+    font-size: 14px;
+}
+li.drop-down>ul{
+    /*margin-top: 20px;*/
+    list-style: none;
+    left: 0px;
+    min-width: 109px;  /* 박스 크기 */
+
+}
+.drop-down-ul{
+    display:none;
+}
+.flyout-right>ul{
+    list-style: none;
+    top: 0;
+    min-width: 150px;
+    display: none;
+}
+
+li.drop-down>ul>li>a,
+.flyout-right ul>li>a {
+    display: block;
+    padding: 20px 22px;
+    text-decoration: none;
+    background-color: rgb(245, 244, 244);
+    -webkit-transition: color 0.2s linear, background 0.2s linear;
+    -moz-transition: color 0.2s linear, background 0.2s linear;
+    -o-transition: color 0.2s linear, background 0.2s linear;
+    transition: color 0.2s linear, background 0.2s linear;
+}
+li.drop-down{
+    height: 100%;
+}
+/*common*/
+.flyout-right ul>li>a {
+    background-color: rgb(245, 244, 244);
+}
+
+/*hover*/
+.drop-down-ul:hover,
+li.flyout-right>ul:hover,
+li.flyout-right a:hover +ul,
+li.drop-down>a:hover +.drop-down-ul{
+    display:block;
+}
+/*responsive*/
+@media (min-width:300px){
+    .flyout-right>ul, li.drop-down>ul{
+        padding-left: 0px;
+        list-style: none;
+        position:absolute;
+        font-size: 14px;
+    }
+    .flyout-right>ul{
+        left: 100%;
+    }
+}
+@media (max-width:300px){
+
+    .exo-menu {
+        min-height: 58px;
+        background-color: #fff;
+        width: 100%;
+    }
+
+    .exo-menu > li > a{
+        width:100% ;
+        display:none;
+    }
+    .exo-menu > li{
+        list-style: none;
+        width:100%;
+    }
+    .display.exo-menu > li > a{
+        display:block ;
+    }
+
+    .flyout-right>ul, li.drop-down>ul{
+        padding-left: 0px;
+        list-style: none;
+        position:relative;
+    }
 
 }
 
-.category-btn:hover{
-    /* background-color: chartreuse; */
-
-}
 .leftmenus{
     /* background-color: darkorchid; */
     width: 150px;
@@ -159,4 +270,9 @@
 .login-panel:hover{
     color: rgb(255,88,93);
 }
-/* ------------------------아래는 바디!----------------------- */
+
+a { text-decoration: none; color: #333; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
