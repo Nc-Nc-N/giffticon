@@ -31,8 +31,16 @@
                             </div>
                         </div>
                         <div class="item_btn_seller">
-                            <button id="modifyGift" class="btn btn-dark" value="<c:out value="${gftInfo.id}"/>">상품수정</button>
-                            <button  id="deleteGift" class="btn btn-dark" value="<c:out value="${gftInfo.id}"/>">내역삭제</button>
+                            <c:choose>
+                            <c:when test="${gftInfo.codeName eq '판매대기' || list.codeName eq '판매중'}">
+                                <button id="modifyGift" class="btn btn-dark" value="<c:out value="${gftInfo.id}"/>">상품수정</button>
+                                <button  id="deleteGift" class="btn btn-dark" value="<c:out value="${gftInfo.id}"/>">내역삭제</button>
+                            </c:when>
+                            <c:otherwise>
+                                <button class="btn btn-disabled">판매 완료</button>
+                                <button class="btn btn-disabled">수정 불가</button>
+                            </c:otherwise>
+                        </c:choose>
 
                         </div>
                     </div>
@@ -184,24 +192,26 @@
         var modal = $(".register-content");
         let modalAction = $("#modalAction");
 
-        $('#deleteGift').on("click", function(e){
-            alert("정말 삭제하시겠습니까? 삭제 후 복구가 불가능합니다.");
-            actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
-            actionForm.attr("action", "/gifticon/delGft").attr("method", "get");
-            actionForm.submit();
+        $('#deleteGift').on("click", function(e) {
+
+            if (confirm("정말 삭제하시겠습니까? 삭제 후 복구가 불가능합니다.") == true) {
+                actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
+                actionForm.attr("action", "/gifticon/delGft").attr("method", "get");
+                actionForm.submit();
+            }else{
+                return;
+            }
         })
 
         $("#modifyGift").on("click", function(e){
-            alert("modal on");
+
             $("#modal-fade").css("visibility","visible");
         })
 
         $("#modal-close").on("click",function(e){
+
             $("#modal-fade").css("visibility","hidden");
         })
-
-
-
 
         $("#modal-register").on("click", function(e){
 
@@ -223,15 +233,21 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(prcUpdate),
                 type: 'post',
+                dataType: 'text',
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
-                success: function(result){
-                    alert("수정 완료");
-                    $("#modal-fade").css("visibility","hidden");
+                success: function(){
+                    alert("가격이 수정되었습니다.");
+                    window.location.reload();
                 },
-                error: function(xhr, status, er){
-                    alert("수정 실패. 비밀번호를 확인하세요.");
+                error: function(request){
+
+                    if(request.status == 406){
+                        alert("비밀번호를 확인하세요.");
+                    }else{
+                        alert("가격 수정 실패. 관리자에게 문의하세요");
+                    }
                 }
             })
 

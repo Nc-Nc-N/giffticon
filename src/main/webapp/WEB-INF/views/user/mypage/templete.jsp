@@ -90,6 +90,7 @@
 
         var absSearch = $(".abs-search");
 
+        //요약 - 확정대기 검색 바로가기
         $(".stus004").on("click", function (e) {
 
             absSearch.find("input[name='keyword']").val("거래확정대기");
@@ -99,6 +100,7 @@
             absSearch.submit();
         })
 
+        //요약 - 판매대기 검색 바로가기
         $(".stus001").on("click", function(e) {
 
             absSearch.find("input[name='keyword']").val("판매대기");
@@ -109,6 +111,7 @@
             absSearch.submit();
         })
 
+        //요약 - 판매중 검색 바로가기
         $(".stus002").on("click", function(e) {
 
             absSearch.find("input[name='keyword']").val("판매중");

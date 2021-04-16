@@ -7,9 +7,6 @@ import java.util.List;
 
 public interface DealListMapper {
 
-
-//    public List<MyDealsDTO> getDeals(String email);
-
     public List<MyDealsDTO> getGftDetail(@Param("gftId") int gftId, @Param("userId") int userId);
 
     public List<MyDealsDTO> getDealsWithPaging(@Param("userId") int userId,

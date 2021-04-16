@@ -240,6 +240,13 @@ img {
     border: 1px solid rgb(255, 88, 93);
 
 }
+.btn-dark{
+    font-weight: bold;
+    color: rgb(50,50,50);
+}
+.btn-dark:hover{
+    background-color: darkgray;
+}
 
 @keyframes heartbeat {
     0% {

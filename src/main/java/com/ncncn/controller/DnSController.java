@@ -40,13 +40,6 @@ public class DnSController {
 
         int total = dealListService.countDealList(userId, cri);
 
-        log.info("service done at controller");
-        log.info("email: " + principal.getName());
-        log.info("keyword: " + cri.getKeyword());
-        log.info("type : " + cri.getType());
-        log.info("dateFrom : " + cri.getDateFrom());
-        log.info("dateTo : " + cri.getDateTo());
-
         model.addAttribute("countStus004", dealListService.countStus004(userId));
         model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
         model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
@@ -59,7 +52,7 @@ public class DnSController {
 
     @GetMapping("/dealDetail")
     public String dealDetail(HttpServletRequest request, int gftId, Model model,
-                           @ModelAttribute("cri") CriteriaSM cri)
+                             @ModelAttribute("cri") CriteriaSM cri)
             throws IOException {
 
         int userId = (int) request.getSession().getAttribute("userId");
@@ -68,7 +61,7 @@ public class DnSController {
             MyDealsDTO gftInfo = dealListService.getGftDetail(gftId, userId).get(0);
             model.addAttribute("gftInfo", gftInfo);
 
-        }catch (Exception e){
+        } catch (Exception e) { //다른 사용자의 dealDetail일 시 홈으로 이동시킴 (보안용)
 
             e.printStackTrace();
             log.info("다른 사용자의 조회페이지 입니다. 메인페이지로 이동합니다.");
@@ -86,11 +79,11 @@ public class DnSController {
     }
 
     @GetMapping("/sells")
-    public void SellList(HttpServletRequest request, CriteriaSM cri, Model model){
+    public void SellList(HttpServletRequest request, CriteriaSM cri, Model model) {
 
         int userId = (int) request.getSession().getAttribute("userId");
+
         int total = sellListService.countSellList(userId, cri);
-        log.info("loading Sell List Controller...");
 
         model.addAttribute("countStus004", dealListService.countStus004(userId));
         model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
@@ -98,26 +91,21 @@ public class DnSController {
         model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
         model.addAttribute("sellList", sellListService.getSellsWithPaging(userId, cri));
         model.addAttribute("pageMaker", new PageDTOSM(cri, total));
-
-
-        // deal Controller는 완료 sellList는 되돌리기기
     }
 
     @GetMapping("/sellDetail")
-    public String sellDetail(HttpServletRequest request,  Model model,
-                           @ModelAttribute("cri") CriteriaSM cri, Principal principal)
-            throws IOException {
+    public String sellDetail(HttpServletRequest request, Model model,
+                             @ModelAttribute("cri") CriteriaSM cri, int gftId,
+                             Principal principal) {
 
-        int gftId = 94;
-        log.info("!!!!!gftId: " + gftId);
-        int userId = (int)request.getSession().getAttribute("userId");
+        int userId = (int) request.getSession().getAttribute("userId");
 
         try {
             MySellDTO gftInfo = sellListService.getSellDetail(gftId, userId).get(0);
 
             log.info("gftINfo autoPRC : " + gftInfo.getIsAutoPrc());
             model.addAttribute("gftInfo", gftInfo);
-        }catch (Exception e){
+        } catch (Exception e) { //다른 사용자의 sellDetail이면 홈으로 이동시킴 (보안용)
             e.printStackTrace();
             log.info("다른 사용자의 조회페이지 입니다. 메인페이지로 이동합니다.");
 

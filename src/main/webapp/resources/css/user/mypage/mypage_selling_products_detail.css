@@ -78,3 +78,7 @@
     display: flex;
     justify-content: center;
 }
+
+.btn-disabled:hover {
+    cursor: not-allowed;
+}

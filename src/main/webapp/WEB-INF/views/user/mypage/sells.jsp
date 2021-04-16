@@ -11,7 +11,7 @@
                         <span>판매 내역</span>
                     </div>
                     <div class="contentinfo">
-                        판매 승인 대기 > 판매 중 > 구매 확정 대기 > 구매 확정 완료
+                        판매 대기 > 판매 중 > 거래 확정 대기 > 거래 확정 완료
                     </div>
                     <div class="contentsearch">
                         <form class="search-spec" action="/user/mypage/sells" method="get">
@@ -73,7 +73,7 @@
                                 <div class="item_buttons">
                                     <c:choose>
                                         <c:when test="${list.codeName eq '판매대기' || list.codeName eq '판매중'}">
-                                            <button name="sellCancel" class="btn btn-dark" value="<c:out value="${list.id}"/>">판매 취소
+                                            <button name="deleteGift" class="btn btn-dark" value="<c:out value="${list.id}"/>">판매 취소
                                             </button>
                                         </c:when>
                                         <c:otherwise>
@@ -141,13 +141,15 @@
             searchSpec.submit();
         })
 
-        $("button[name='sellCancel']").on("click", function(e){
+        $("button[name='deleteGift']").on("click", function(e){
 
-            alert("판매 취소하시겠습니까? 취소된 기쁘티콘은 판매내역에서 사라집니다.");
-
-            actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
-            actionForm.attr("action", "/gifticon/delGft").attr("method","get");
-            actionForm.submit();
+            if (confirm("정말 삭제하시겠습니까? 삭제 후 재등록 가능합니다.") == true) {
+                actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
+                actionForm.attr("action", "/gifticon/delGft").attr("method", "get");
+                actionForm.submit();
+            }else{
+                return;
+            }
         });
 
         $("button[name='sellDetailBtn']").on("click",function(e) {
