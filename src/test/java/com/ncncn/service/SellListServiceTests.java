@@ -44,4 +44,14 @@ public class SellListServiceTests {
 
         sellListService.getSellDetail(gftId, userId);
     }
+
+    @Test
+    public void testCountStus001N002() {
+
+        int userId = 157;
+
+        String stusName = "판매중";
+
+        sellListService.countStus001N002(userId, stusName);
+    }
 }

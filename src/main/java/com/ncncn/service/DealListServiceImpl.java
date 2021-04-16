@@ -48,12 +48,4 @@ public class DealListServiceImpl implements DealListService {
         return dealListMapper.countStus004(userId);
     }
 
-    @Override
-    public int countStus001N002(int userId, String stusName) {
-
-        log.info("count Status = " + stusName);
-
-        return dealListMapper.countStus001N002(userId, stusName);
-    }
-
 }

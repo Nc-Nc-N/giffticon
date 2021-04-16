@@ -95,9 +95,30 @@
             absSearch.find("input[name='keyword']").val("거래확정대기");
             absSearch.find("input[name='type']").val("S");
             absSearch.find("input[name='pageNum']").val("1");
-            e.preventDefault();
+
             absSearch.submit();
         })
+
+        $(".stus001").on("click", function(e) {
+
+            absSearch.find("input[name='keyword']").val("판매대기");
+            absSearch.find("input[name='type']").val("S");
+            absSearch.find("input[name='pageNum']").val("1");
+            absSearch.attr("action", "/user/mypage/sells").attr("method","get");
+
+            absSearch.submit();
+        })
+
+        $(".stus002").on("click", function(e) {
+
+            absSearch.find("input[name='keyword']").val("판매중");
+            absSearch.find("input[name='type']").val("S");
+            absSearch.find("input[name='pageNum']").val("1");
+            absSearch.attr("action", "/user/mypage/sells").attr("method","get");
+           ;
+            absSearch.submit();
+        })
+
 
     })
 </script>

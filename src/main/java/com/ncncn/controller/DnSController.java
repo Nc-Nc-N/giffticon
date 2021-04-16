@@ -48,8 +48,8 @@ public class DnSController {
         log.info("dateTo : " + cri.getDateTo());
 
         model.addAttribute("countStus004", dealListService.countStus004(userId));
-        model.addAttribute("countStus001", dealListService.countStus001N002(userId, "판매대기"));
-        model.addAttribute("countStus002", dealListService.countStus001N002(userId, "판매중"));
+        model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
+        model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
         model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
         model.addAttribute("dealList", dealListService.getDealsWithPaging(userId, cri));
         model.addAttribute("pageMaker", new PageDTOSM(cri, total));
@@ -78,8 +78,8 @@ public class DnSController {
         log.info("Get Detail of gftId: " + gftId);
 
         model.addAttribute("countStus004", dealListService.countStus004(userId));
-        model.addAttribute("countStus001", dealListService.countStus001N002(userId, "판매대기"));
-        model.addAttribute("countStus002", dealListService.countStus001N002(userId, "판매중"));
+        model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
+        model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
         model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
 
         return "/user/mypage/dealDetail";
@@ -93,8 +93,8 @@ public class DnSController {
         log.info("loading Sell List Controller...");
 
         model.addAttribute("countStus004", dealListService.countStus004(userId));
-        model.addAttribute("countStus001", dealListService.countStus001N002(userId, "판매대기"));
-        model.addAttribute("countStus002", dealListService.countStus001N002(userId, "판매중"));
+        model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
+        model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
         model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
         model.addAttribute("sellList", sellListService.getSellsWithPaging(userId, cri));
         model.addAttribute("pageMaker", new PageDTOSM(cri, total));
@@ -125,8 +125,8 @@ public class DnSController {
         }
 
         model.addAttribute("countStus004", dealListService.countStus004(userId));
-        model.addAttribute("countStus001", dealListService.countStus001N002(userId, "판매대기"));
-        model.addAttribute("countStus002", dealListService.countStus001N002(userId, "판매중"));
+        model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
+        model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
         model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
         model.addAttribute("principal", principal);
         return "/user/mypage/sellDetail";

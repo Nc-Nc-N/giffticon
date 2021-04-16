@@ -71,7 +71,7 @@ public class DnSMapperTests {
 
         int userId = 5;
 
-        dealListMapper.countStus001N002(userId, "판매중");
+        sellListMapper.countStus001N002(userId, "판매중");
     }
 
     @Test

@@ -66,14 +66,4 @@ public class DealListServiceTests {
         service.countStus004(userId);
     }
 
-    @Test
-    public void testCountStus001N002() {
-
-        int userId = 157;
-
-        String stusName = "판매중";
-
-        service.countStus001N002(userId, stusName);
-    }
-
 }

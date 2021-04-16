@@ -30,6 +30,4 @@ public interface DealListMapper {
 
     public int countStus004(int userId);
 
-    public int countStus001N002(@Param("userId") int userId,
-                                @Param("stusName") String stusName);
 }

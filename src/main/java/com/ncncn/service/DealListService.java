@@ -15,5 +15,4 @@ public interface DealListService {
 
     public int countStus004(int userId);
 
-    public int countStus001N002(int userId, String stusName);
 }

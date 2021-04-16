@@ -13,4 +13,6 @@ public interface SellListService {
 
     public List<MySellDTO> getSellDetail(int gftId, int userId);
 
+    public int countStus001N002(int userId, String stusName);
+
 }

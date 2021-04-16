@@ -25,4 +25,7 @@ public interface SellListMapper {
 
     public List<MySellDTO> getSellDetail(@Param("gftId") int gftId,
                                          @Param("userId") int userId);
+
+    public int countStus001N002(@Param("userId") int userId,
+                                @Param("stusName") String stusName);
 }

@@ -67,6 +67,22 @@
 
     </select>
 
+    <select id="countStus001N002" resultType="int">
+
+        <![CDATA[
+        select count(*)
+        from (
+                 select *
+                 from gifticon
+                 where user_id = #{userId}
+             ) gftT,
+             cmmn_code stusT
+        where gftT.gft_stus_code = stusT.code
+          and stusT.code_name = #{stusName}
+        ]]>
+
+    </select>
+
     <sql id="criteria">
 
         <trim prefix="and">

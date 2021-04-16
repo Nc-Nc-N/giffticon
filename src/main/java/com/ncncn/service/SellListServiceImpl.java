@@ -41,4 +41,12 @@ public class SellListServiceImpl implements SellListService{
 
         return sellListMapper.getSellDetail(gftId, userId);
     }
+
+    @Override
+    public int countStus001N002(int userId, String stusName) {
+
+        log.info("count Status = " + stusName);
+
+        return sellListMapper.countStus001N002(userId, stusName);
+    }
 }
