@@ -103,23 +103,50 @@
         </div>
     </div>
 
+    <script type="text/javascript" src="/resources/js/wishList.js"></script>
     <script>
+        // url 이동
         function common_goUrl(url){
             if(url != ""){
                 location.href = url;
             }
         }
 
-        // like-button
-        document.addEventListener('DOMContentLoaded', function() {
-            var likeButton = document.getElementById('like-button');
-            likeButton.addEventListener('click', function() {
-                window.lb = likeButton;
-                likeButton.classList.toggle('selected');
-            });
+        $(document).ready(function (){
+            // 관심상품으로 등록되어 있는지 확인
+            let has = ${hasWish};
 
-        }, false);
+            // '관심상품' 버튼 상태 표시
+            if(has === 1){
+                $("#like-button").addClass('selected')
+            }else{
+                $("#like-button").removeClass('selected')
+            }
+
+            // 관심 상품 버튼 클릭하면 이벤트 발생
+            $("#like-button").on("click", function (e){
+
+                if(has === 0){ // 관심상품 미등록 상태일때 추가
+                    wishListService.add(
+                        {userId: "${userId}",
+                        prodCode: "${gifticon.prodCode}"},
+                        function (result){
+                            $("#like-button").addClass('selected');
+                            has = 1;
+                            alert("관심상품으로 등록되었습니다.");
+                        });
+                }else{ // 관심상품 등록 상태일때 삭제
+                    wishListService.remove(
+                        {userId: "${userId}",
+                        prodCode: "${gifticon.prodCode}"},
+                        function (result){
+                            $("#like-button").removeClass('selected');
+                            has = 0
+                            alert("관심상품에서 삭제되었습니다.");
+                        });
+                }
+            })
+        });
 
     </script>
 </body>
-</html>

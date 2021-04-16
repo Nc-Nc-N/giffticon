@@ -1,7 +1,6 @@
 package com.ncncn.mapper;
 
 import com.ncncn.domain.*;
-import com.ncncn.mapper.ProdMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -46,7 +45,7 @@ public class ProdMapperTests {
 		prod.setCode("01");
 		prod.setOrderby("best");
 
-		List<GifticonDTO> list = mapper.getGiftiWithPaging(prod);
+		List<ProdListVO> list = mapper.getGiftiWithPaging(prod);
 		list.forEach(gifti -> log.info(gifti));
 
 	}
@@ -57,7 +56,7 @@ public class ProdMapperTests {
 
 		prod.setKeyword("아메리카노");
 
-		List<GifticonDTO> list = mapper.getGiftiWithPaging(prod);
+		List<ProdListVO> list = mapper.getGiftiWithPaging(prod);
 
 		list.forEach(gifti -> log.info(gifti));
 	}
@@ -71,10 +70,19 @@ public class ProdMapperTests {
 	@Test
 	public void testGetGifti(){
 
-		GifticonDTO gifti = mapper.getGifti("010101");
+		ProdListVO gifti = mapper.getGifti("010101");
 		log.info(gifti);
 
 	}
 
+	@Test
+	public void testGetBestGifti(){
+		mapper.getBestGifti().forEach(gifti -> log.info(gifti));
+	}
+
+	@Test
+	public void testGetDeadlineGifti(){
+		mapper.getDeadlineGifti().forEach(gifti->log.info(gifti));
+	}
 
 }

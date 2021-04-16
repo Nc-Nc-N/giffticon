@@ -13,15 +13,20 @@ public interface ProdService {
 	public List<BrandVO> getBrandList(String code);
 
 	// 기프티콘 목록(페이징 처리)
-	public List<GifticonDTO> getGiftiWithPaging(GiftiCriteria cri);
+	public List<ProdListVO> getGiftiWithPaging(GiftiCriteria cri);
 
 	// 전체 데이터의 개수 처리
 	public int getTotal(GiftiCriteria cri);
 
 	// 기프티콘 목록
-	public List<GifticonDTO> getGiftiList(String code);
+	public List<ProdListVO> getGiftiList(String code);
 
 	// 기프티콘 하나
-	public GifticonDTO getGifti(String code);
+	public ProdListVO getGifti(String code);
 
+	// 인기상품 목록
+	public List<ProdListVO> getBestGifti();
+
+	// 마감상품 목록
+	public List<ProdListVO> getDeadlineGifti();
 }

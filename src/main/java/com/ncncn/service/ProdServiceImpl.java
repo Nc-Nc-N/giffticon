@@ -28,7 +28,7 @@ public class ProdServiceImpl implements ProdService{
 	}
 
 	@Override
-	public List<GifticonDTO> getGiftiWithPaging(GiftiCriteria cri) {
+	public List<ProdListVO> getGiftiWithPaging(GiftiCriteria cri) {
 
 		return mapper.getGiftiWithPaging(cri);
 	}
@@ -40,15 +40,25 @@ public class ProdServiceImpl implements ProdService{
 	}
 
 	@Override
-	public List<GifticonDTO> getGiftiList(String code) {
+	public List<ProdListVO> getGiftiList(String code) {
 
 		return mapper.getGiftiList(code);
 	}
 
 	@Override
-	public GifticonDTO getGifti(String code) {
+	public ProdListVO getGifti(String code) {
 
 		return mapper.getGifti(code);
+	}
+
+	@Override
+	public List<ProdListVO> getBestGifti() {
+		return mapper.getBestGifti();
+	}
+
+	@Override
+	public List<ProdListVO> getDeadlineGifti() {
+		return mapper.getDeadlineGifti();
 	}
 
 }

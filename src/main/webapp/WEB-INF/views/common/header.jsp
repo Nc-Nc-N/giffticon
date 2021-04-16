@@ -56,14 +56,15 @@
               
             </div>
 
-            <div class="search">
-                <form id="searchForm" action="/user/prod_list" method="get">
-                    <input type="text" class="searchbar" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
+            <!-- search area -->
+            <div class="search-bar-container">
+                <form id="search-form" action="/user/prod_list" method="get">
+                    <input type="text" class="search-input" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
                     <input type="hidden" name="code" value="0"/>
                     <input type="hidden" name="orderby" value="best"/>
                     <input type="hidden" name="pageNum" value="1"/>
                     <input type="hidden" name="amount" value="${pageMaker.cri.amount}"/>
-                    <button class="searchbutton"><i class="fas fa-search"></i> </button>
+                    <button class="search-button"><i class="fas fa-search"></i> </button>
                 </form>
             </div>
 

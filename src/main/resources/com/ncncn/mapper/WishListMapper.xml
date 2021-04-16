@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.WishListMapper">
+
+    <insert id="insertWish">
+        <![CDATA[
+        insert into wish_list(prod_code, user_id, in_date, in_user, up_date, up_user)
+        values (#{prodCode}, #{userId}, current_time, current_user, current_time , current_user)
+        ]]>
+    </insert>
+
+    <select id="hasWish" resultType="int">
+        <![CDATA[
+        select count(*) from wish_list where prod_code = #{prodCode} AND user_id = #{userId}
+        ]]>
+    </select>
+
+    <delete id="deleteWish">
+        <![CDATA[
+        delete from wish_list where prod_code = #{prodCode} AND user_id = #{userId}
+        ]]>
+    </delete>
+
+    <select id="getWishList" resultType="com.ncncn.domain.WishListVO">
+        <![CDATA[
+        select wish.prod_code, wish.user_id, brand.name as bname, prod.name as pname, prc, min(gifti.dc_prc) as dc_prc, gifti.dc_rate, prod.img_path
+        from wish_list as wish
+                 INNER JOIN gifticon as gifti ON wish.prod_code = gifti.prod_code
+                 INNER JOIN product as prod ON gifti.prod_code = prod.code
+                 INNER JOIN brand ON prod.brd_code = brand.code
+        where wish.user_id= #{userId}
+        group by wish.prod_code;
+
+        ]]>
+    </select>
+</mapper>
