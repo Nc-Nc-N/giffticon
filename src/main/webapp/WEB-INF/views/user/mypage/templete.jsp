@@ -121,7 +121,7 @@
             absSearch.find("input[name='pageNum']").val("1");
             absSearch.find("input[name='amount']").val("4");
             absSearch.attr("action", "/user/mypage/sells").attr("method","get");
-           ;
+
             absSearch.submit();
         })
 
