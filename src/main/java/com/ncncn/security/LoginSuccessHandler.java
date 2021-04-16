@@ -1,8 +1,7 @@
 package com.ncncn.security;
 
-import com.ncncn.mapper.UserMapper;
 import com.ncncn.service.SignUpService;
-import com.ncncn.service.UserService;
+
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         response.addCookie(cookie);
 
-        request.getSession().setAttribute("userId", signUpService.findByEmail(auth.getName()).getId());
+        request.getSession().setAttribute("userId", signUpService.getByEmail(auth.getName()).getId());
+
 
         //admin 로그인 시 admin/main으로 리다이렉트
         if (roleName.contains("관리자")) {

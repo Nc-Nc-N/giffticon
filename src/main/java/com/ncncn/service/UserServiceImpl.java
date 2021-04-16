@@ -3,16 +3,17 @@ package com.ncncn.service;
 import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserMapper;
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Log
-@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    @Setter(onMethod_ = @Autowired)
     UserMapper userMapper;
-    SignUpService signUpService;
 
     @Override
     public UserVO readbyId(int userId) {
@@ -21,4 +22,8 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+	@Override
+	public int countRecentlyRegister() {
+		return userMapper.countRecentlyInsert();
+	}
 }

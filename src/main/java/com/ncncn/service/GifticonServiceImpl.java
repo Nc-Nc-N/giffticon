@@ -1,6 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.mapper.GifticonMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
@@ -10,14 +11,14 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class GifticonServiceImpl implements GifticonService{
 
-    GifticonMapper mapper;
+    GifticonMapper gifticonMapper;
 
     @Override
     public int gftDealCmpl(int gftId){
 
         log.info("Gifticon Deal Complete Service.....");
 
-        return mapper.gftDealCmpl(gftId);
+        return gifticonMapper.gftDealCmpl(gftId);
     }
 
     @Override
@@ -25,12 +26,18 @@ public class GifticonServiceImpl implements GifticonService{
 
         log.info("delete GftId: " + gftId);
 
-        return mapper.deleteGifticon(gftId);
+        return gifticonMapper.deleteGifticon(gftId);
     }
 
     @Override
     public int updateGftPrc(int gftId, char isAutoPrc, int dcPrc){
 
-        return mapper.updateGftPrc(gftId, isAutoPrc, dcPrc);
+        return gifticonMapper.updateGftPrc(gftId, isAutoPrc, dcPrc);
     }
+
+	@Override
+	public int countNotYetApproved() {
+		return gifticonMapper.countNotYetApproved();
+	}
+
 }

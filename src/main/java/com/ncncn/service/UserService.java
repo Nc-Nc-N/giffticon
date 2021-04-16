@@ -6,4 +6,6 @@ public interface UserService {
 
     public UserVO readbyId(int userId);
 
+	int countRecentlyRegister();
+
 }

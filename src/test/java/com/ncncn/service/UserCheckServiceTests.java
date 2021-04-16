@@ -1,7 +1,8 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.CriteriaCH;
-import com.ncncn.domain.UserVO;
+import com.ncncn.domain.UserDetailCheckDTO;
+import com.ncncn.domain.UserMemoDTO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,10 +35,21 @@ public class UserCheckServiceTests {
     }
 
     @Test
-    public void specUserOnlyTest(){
+    public void testGetUser() {
+        int userId=152;
+        log.info(service.getUserDetail(userId));
+    }
 
-        int userId = 156;
-        service.specUserOnly(userId);
+    @Test
+    public void testUpdateMemo() {
+        UserMemoDTO memo = new UserMemoDTO();
+        memo.setId(152);
+        memo.setMemo("Memo update test123");
 
+        service.updateMemo(memo);
+        
+
+        UserDetailCheckDTO user = service.getUserDetail(152);
+        assertEquals(user.getMemo(), "Memo update test123");
     }
 }

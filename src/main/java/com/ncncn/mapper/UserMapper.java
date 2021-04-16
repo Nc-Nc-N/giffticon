@@ -14,4 +14,6 @@ public interface UserMapper {
     UserVO readForLogin(String email);
 
     UserVO readById(@Param("userId") int userId);
+
+    int countRecentlyInsert();
 }

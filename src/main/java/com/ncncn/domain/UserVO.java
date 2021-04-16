@@ -1,5 +1,6 @@
 package com.ncncn.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;

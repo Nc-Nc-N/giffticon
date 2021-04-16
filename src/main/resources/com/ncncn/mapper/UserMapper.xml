@@ -41,10 +41,16 @@
         ;
     </select>
 
+
     <select id="readById" resultType="com.ncncn.domain.UserVO">
         select *
         from user
         where id = #{userId};
+    </select>
+
+    <!-- 3일 전부터 새로 가입한 사용자를 카운트한다. -->
+    <select id="countRecentlyInsert" resultType="int">
+        select count(*) from user where in_date between date_sub(curdate(), interval 3 day) and date_add(curdate(), interval 1 day)
     </select>
 
 </mapper>

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.ncncn.domain.UserVO;
-import com.ncncn.service.SignUpService;
+import com.ncncn.service.SignUpServiceImpl;
 import com.ncncn.util.EmailAuthCodeUtils;
 import lombok.extern.log4j.Log4j;
 
@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.*;
 @Log4j
 public class SignUpController {
 
-	private final SignUpService signUpService;
+	private final SignUpServiceImpl signUpServiceImpl;
 	private final JavaMailSender javaMailSender;
 
-	public SignUpController(SignUpService signUpService, JavaMailSender javaMailSender) {
-		this.signUpService = signUpService;
+	public SignUpController(SignUpServiceImpl signUpServiceImpl, JavaMailSender javaMailSender) {
+		this.signUpServiceImpl = signUpServiceImpl;
 		this.javaMailSender = javaMailSender;
 	}
 
@@ -39,7 +39,7 @@ public class SignUpController {
 		log.info("UserVO: " + user);
 
 		try {
-			int result = signUpService.register(user);
+			int result = signUpServiceImpl.register(user);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -52,7 +52,7 @@ public class SignUpController {
 		int isExists = 0;
 
 		try {
-			UserVO userVO = signUpService.findByEmail(email);
+			UserVO userVO = signUpServiceImpl.getByEmail(email);
 			isExists = 1;
 		} catch (Exception e) {
 			log.info("존재하지 않는 사용자 이메일입니다.");

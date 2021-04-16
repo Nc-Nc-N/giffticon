@@ -4,7 +4,7 @@
 }
 #header{
     height: 180px;
-    
+    color: #333;
     border-bottom: 1px solid gainsboro;
 }
 
@@ -13,28 +13,28 @@
     display: flex;
     margin:auto;
     justify-content: flex-end;
-    
+
 }
 
 .top_menu > span {
-    
+
     margin : 0 5px;
 
 }
 .main-logo {
-    height: 80px;
+    padding: 15px;
     text-align: center;
-    
+
 }
 
 .home-logo {
-    width: 230px;
-    height: 100px;
+    width: 140px;
+    height: 30%;
     margin: 0 auto;
 }
 
 .home-logo > a > img {
-    width: 80%;
+    width: 100%;
 }
 
 .main-bar{
@@ -44,7 +44,6 @@
     display: flex;
     font-size: 16px;
     font-weight: bold;
-    
 }
 
 .bar-left{
@@ -60,7 +59,7 @@
 .category-btn{
     margin: auto 10px auto 0;
     /* background-color: burlywood; */
-    
+
 
 }
 
@@ -74,39 +73,54 @@
     text-align: end;
     display: flex;
     justify-content: flex-start;
-    
+
 }
 .leftmenu{
     margin: auto 20px auto 15px;
     /* background-color: darkseagreen; */
-    
-    
+
+
+}
+.search-bar-container {
+    display: flex;
+    height: 35px;
+    width: 450px;
+    background: rgb(245, 244, 244);
+    border-radius: 40px;
+    margin: auto;
 }
 
-.search{
-    /* background-color: deeppink; */
-    height: 50px;
-    width: 450px;
+.search-form{
+    display:flex;
     text-align: center;
     position: relative;
+    border-radius: 40px;
 }
 
-.searchbar{
+.search-input {
+    border: none;
+    outline: none;
     width: 400px;
     height: 30px;
-    margin: 7px;
-    border-radius: 18px;
-    border: 2px solid black;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 2px 0 2px 20px;
+    float: left;
 }
 
-.searchbutton{
+.search-button {
+    float: right;
+    width: 30px;
+    height: 30px;
     border: none;
-    position: absolute;
-    top:20%;
-    right: 10.5%;
-    background-color: transparent;
-    color: black;
-    font-size: large;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    padding: 5px 10px 0 0;
+}
+
+.fa-search {
+    color: rgb(71, 71, 71);
 }
 
 .bar-right{
@@ -119,7 +133,7 @@
 .rightmenu {
     /* background-color:darkolivegreen; */
     margin: auto 0 auto 40px;
-    
+
 }
 .icons{
     text-align: left;
@@ -145,6 +159,4 @@
 .login-panel:hover{
     color: rgb(255,88,93);
 }
-
 /* ------------------------아래는 바디!----------------------- */
-
