@@ -1,7 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaCH;
-import com.ncncn.domain.UserVO;
+import com.ncncn.domain.*;
 import com.ncncn.mapper.UserCheckMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -20,12 +19,6 @@ public class UserCheckServiceImpl implements UserCheckService {
     @Setter(onMethod_ = @Autowired)
     private UserCheckMapper mapper;
 
-//    @Override
-//    public List<UserVO> getUserList(){
-//        log.info("getUserList...........");
-//        return mapper.getUserList();
-//    }
-
     // 299page
     @Override
     public List<UserVO> getUserList(CriteriaCH cri) {
@@ -40,6 +33,27 @@ public class UserCheckServiceImpl implements UserCheckService {
 
         log.info("get total count");
         return mapper.getTotalCount(cri);
+    }
+
+    @Override
+    public UserDetailCheckDTO getUserDetail(int userId) {
+
+        log.info("get User " + userId);
+        return mapper.getUserDetail(userId);
+    }
+
+    @Override
+    public void updateMemo(UserMemoDTO memo) {
+
+        log.info("update Memo " + memo);
+        mapper.updateMemo(memo);
+    }
+
+    @Override
+    public void updateStatus(UserStatusDTO status) {
+
+        log.info("update User Status " + status);
+        mapper.updateStatus(status);
     }
 
 }

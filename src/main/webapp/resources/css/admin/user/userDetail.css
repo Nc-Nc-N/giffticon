@@ -121,7 +121,8 @@ td{
     border:1px solid white;
     height:25px;
     width:155px;
-    align-items:center;;
+    align-items:center;
+
 }
 
 #memo-input{
@@ -143,6 +144,11 @@ td{
 .btnclass {
     width:100%;
     text-align:center;
+}
+
+#statusbtn {
+    width:155px;
+
 }
 
 #memo-input {
