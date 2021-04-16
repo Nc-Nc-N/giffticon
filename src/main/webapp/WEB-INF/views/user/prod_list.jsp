@@ -29,22 +29,21 @@
                 <div class="search-result" style="display: none">총 <c:out value="${pageMaker.total}"/> 개의 상품이 검색되었습니다. </div>
                 <ul>
                     <a href="prod_list?code=${category.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li class="cateAll">전체보기</li></a>
-
                     <c:forEach items="${brandList}" var="brandList">
                     <a href="prod_list?code=${brandList.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li><c:out value="${brandList.name}"/></li></a>
                     </c:forEach>
                 </ul>
-
-                <%-- 정렬 방식 --%>
-                <select class="search-select">
-                    <option id="best" value="best"
-                            <c:out value="${pageMaker.cri.orderby eq 'best' ? 'selected':''}"/>>인기순</option>
-                    <option id="low" value="low"
-                            <c:out value="${pageMaker.cri.orderby eq 'low' ? 'selected':''}"/>>낮은 가격순</option>
-                    <option id="high" value="high"
-                            <c:out value="${pageMaker.cri.orderby eq 'high' ? 'selected':''}"/>>높은 가격순</option>
-                </select>
             </nav>
+
+            <%-- 정렬 방식 --%>
+            <select class="search-select">
+                <option id="best" value="best"
+                        <c:out value="${pageMaker.cri.orderby eq 'best' ? 'selected':''}"/>>인기순</option>
+                <option id="low" value="low"
+                        <c:out value="${pageMaker.cri.orderby eq 'low' ? 'selected':''}"/>>낮은 가격순</option>
+                <option id="high" value="high"
+                        <c:out value="${pageMaker.cri.orderby eq 'high' ? 'selected':''}"/>>높은 가격순</option>
+            </select>
 
             <%-- 상품 목록 리스트 --%>
             <c:set var="i" value="0"/>
@@ -55,6 +54,7 @@
                     <tr>
                 </c:if>
                 <td>
+                    <a href="prod_detail?code=${gifti.prodCode}">
                     <div class="items">
                         <div class="itemimg">
                             <img src="${gifti.pimgPath}">
@@ -71,10 +71,11 @@
                                 <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${gifti.dcPrc}" /> 원 ~</span>
                             </div>
                             <div class="itemoriginprice">
-                                <span><del><c:out value="${gifti.prc}"/></del> 원</span>
+                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${gifti.prc}"/> 원</del></span>
                             </div>
                         </div>
                     </div>
+                    </a>
                 </td>
                 <c:if test="${i%j == j-1}">
                     </tr>
@@ -129,7 +130,7 @@
             let selectedOrder = new_curr_url.searchParams.get("orderby");
 
             // 검색 후 '전체보기' 숨기기, 검색 결과
-            if(code=='0'){
+            if(code==='' || code===null || code==='0'){
                 $('.cateAll').hide();
                 $('.search-result').show();
             }

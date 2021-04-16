@@ -25,9 +25,11 @@ public class GifticonVO {
 
     private String imgPath;
 
-    private char isAutoPc;
+    private char isAutoPrc;
 
     private String gftStusCode;
+
+    private Date aprvDt;
 
     private Date inDate;
 
