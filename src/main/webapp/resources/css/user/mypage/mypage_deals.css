@@ -243,6 +243,7 @@ img {
 .btn-dark{
     font-weight: bold;
     color: rgb(50,50,50);
+    border: 1px solid darkgrey;
 }
 .btn-dark:hover{
     background-color: darkgray;

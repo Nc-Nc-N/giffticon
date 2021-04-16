@@ -138,10 +138,13 @@
         });
 
         $("button[name='dealCmplBtn']").on("click", function (i) {
-            alert("구매확정하시겠습니까?");
-            actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
-            actionForm.attr("action", "/gifticon/stus005").attr("method", "get");
-            actionForm.submit();
+            if (confirm("구매확정하시겠습니까? 확정 후 변경 불가합니다.")) {
+                actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
+                actionForm.attr("action", "/gifticon/stus005").attr("method", "get");
+                actionForm.submit();
+            } else {
+                return;
+            }
         });
 
         var searchSpec = $(".search-spec");

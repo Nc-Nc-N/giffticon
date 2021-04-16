@@ -51,18 +51,20 @@
     <select id="getSellDetail" resultType="com.ncncn.domain.MySellDTO">
 
         <![CDATA[
-        select gftT.*, gftT.img_path brcdImgPath, gftT.prod_code prdCode, prdT.name prdName, brdT.name brdName, prdT.img_path prdImgPath, stusT.code_name
-        from
-                (select * from gifticon where user_id = #{userId} and id = #{gftId}) gftT,
-                product prdT,
-                brand brdT,
-                (select code, code_name from cmmn_code where code_type = 'GFT_STUS') stusT
-        where
-            gftT.prod_code = prdT.code
-          and
-            prdT.brd_code = brdT.code
-          and
-            gftT.gft_stus_code = stusT.code
+        select gftT.*,
+               gftT.img_path  brcdImgPath,
+               gftT.prod_code prdCode,
+               prdT.name      prdName,
+               brdT.name      brdName,
+               prdT.img_path  prdImgPath,
+               stusT.code_name
+        from (select * from gifticon where user_id = #{userId} and id = #{gftId}) gftT,
+             product prdT,
+             brand brdT,
+             (select code, code_name from cmmn_code where code_type = 'GFT_STUS') stusT
+        where gftT.prod_code = prdT.code
+          and prdT.brd_code = brdT.code
+          and gftT.gft_stus_code = stusT.code
         ]]>
 
     </select>
@@ -88,7 +90,7 @@
         <trim prefix="and">
             <if test="dateFrom != ''">
                 <if test="dateFrom != null">
-                  gftT.aprv_dt >= #{dateFrom}
+                    gftT.aprv_dt >= #{dateFrom}
                 </if>
             </if>
         </trim>

@@ -5,19 +5,25 @@
 <mapper namespace="com.ncncn.mapper.GifticonMapper">
 
     <update id="gftDealCmpl">
-        update gifticon set gft_stus_code = '005' where id = #{gftId}
+        update gifticon
+        set gft_stus_code = '005'
+        where id = #{gftId}
     </update>
 
     <delete id="deleteGifticon">
         <![CDATA[
-        delete from gifticon where id = #{gftId}
+        delete
+        from gifticon
+        where id = #{gftId}
         ]]>
    </delete>
 
     <update id="updateGftPrc">
-        update gifticon set is_auto_prc = #{isAutoPrc}, dc_prc = #{dcPrc},
-                            up_date = current_date()
-                            where id = #{gftId}
+        update gifticon
+        set is_auto_prc = #{isAutoPrc},
+            dc_prc      = #{dcPrc},
+            up_date     = current_date()
+        where id = #{gftId}
     </update>
 
 </mapper>

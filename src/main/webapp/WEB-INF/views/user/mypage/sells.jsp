@@ -143,7 +143,7 @@
 
         $("button[name='deleteGift']").on("click", function(e){
 
-            if (confirm("정말 삭제하시겠습니까? 삭제 후 재등록 가능합니다.") == true) {
+            if (confirm("삭제하시겠습니까? 삭제 후 재등록 가능합니다.")) {
                 actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
                 actionForm.attr("action", "/gifticon/delGft").attr("method", "get");
                 actionForm.submit();
@@ -153,7 +153,7 @@
         });
 
         $("button[name='sellDetailBtn']").on("click",function(e) {
-            alert("click");
+
             actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
             actionForm.attr("action", "/user/mypage/sellDetail").attr("method", "get");
 

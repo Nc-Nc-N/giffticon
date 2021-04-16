@@ -9,7 +9,6 @@ import com.ncncn.util.UserAuthCheckUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,11 +52,9 @@ public class GifticonController {
 
         model.addAttribute("cri", cri);
 
-        int isDeleted = 0;
-
         try {
             gifticonService.deleteGifticon(gftId);
-            isDeleted = 1;
+
         } catch (Exception e) {
             log.info("기프티콘 삭제에 실패했습니다.");
         }
@@ -65,9 +62,9 @@ public class GifticonController {
     }
 
     @RequestMapping(method = {RequestMethod.POST}, //기프티콘 가격 수정 컨트롤러
-                    value = "/updateGft",
-                    consumes = "application/json",
-                    produces = "application/text; charset=utf-8")
+            value = "/updateGft",
+            consumes = "application/json",
+            produces = "application/text; charset=utf-8")
     public ResponseEntity<String> updateGifticon(@RequestBody PrcUpdateDTO prcUpdate, HttpServletRequest request) {
 
         int userId = (int) request.getSession().getAttribute("userId");
@@ -84,7 +81,7 @@ public class GifticonController {
             if (isUpdated == 1) { //가격 수정 성공한 경우 success
 
                 log.info("수정완료");
-                return new ResponseEntity<>( HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.OK);
             } else { //가격 수정 실패한 경우 serverError
 
                 log.info("가격수정 실패");

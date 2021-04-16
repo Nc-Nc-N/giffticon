@@ -8,11 +8,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background-color: rgb(240, 240, 240);
+    background-color: white;
     width: 600px;
     height: 600px;
     padding: 20px;
     color: rgb(71, 71, 71);
+    border-radius: 10px;
     /* background-color: teal; */
 }
 
@@ -96,4 +97,20 @@ input{
     font-size:15px;
     background-color: rgb(255,88,93);
     color: white;
+}
+
+.btn-submit:hover{
+    background-color: white;
+    border: 1px solid rgb(255,88,93);
+    color: rgb(255,88,93);
+}
+
+.btn-dark{
+    font-weight: bold;
+    color: rgb(50,50,50);
+
+}
+
+.btn-dark:hover{
+    background-color: darkgray;
 }
