@@ -96,6 +96,7 @@
             absSearch.find("input[name='keyword']").val("거래확정대기");
             absSearch.find("input[name='type']").val("S");
             absSearch.find("input[name='pageNum']").val("1");
+            absSearch.find("input[name='amount']").val("4");
 
             absSearch.submit();
         })
@@ -106,6 +107,7 @@
             absSearch.find("input[name='keyword']").val("판매대기");
             absSearch.find("input[name='type']").val("S");
             absSearch.find("input[name='pageNum']").val("1");
+            absSearch.find("input[name='amount']").val("4");
             absSearch.attr("action", "/user/mypage/sells").attr("method","get");
 
             absSearch.submit();
@@ -117,6 +119,7 @@
             absSearch.find("input[name='keyword']").val("판매중");
             absSearch.find("input[name='type']").val("S");
             absSearch.find("input[name='pageNum']").val("1");
+            absSearch.find("input[name='amount']").val("4");
             absSearch.attr("action", "/user/mypage/sells").attr("method","get");
            ;
             absSearch.submit();
