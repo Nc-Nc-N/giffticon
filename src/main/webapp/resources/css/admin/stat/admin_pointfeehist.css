@@ -1,0 +1,260 @@
+#container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#main {
+    min-width: 800px;
+    max-width: 1000px;
+    padding: 0 20px;
+    margin: 0 auto;
+    margin-left: 5px;
+}
+
+#sidebar {
+    min-width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    margin: 0 auto;
+    margin-right: 5px;
+}
+
+#admin-menu {
+    color: white;
+    min-width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    margin: 0 auto;
+    margin-right: 5px;
+    background-color: rgb(255, 88, 93);
+}
+
+#content {
+    display: flex;
+    justify-content:space-around;
+    max-width: 100%;
+    height: 600px;
+    margin-top: 20px;
+}
+
+#sidebar h2 {
+    margin: 15px;
+}
+
+#admin-memo {
+    margin-top: 10px;
+    width: 95%;
+    min-height: 150px;
+    padding: 5px;
+    background-color: gainsboro;
+    border: none;
+    outline: none;
+}
+
+#memo {
+    border: none;
+    outline: none;
+    width: 95%;
+    height: 150px;
+    overflow: visible;
+    background-color: rgba(0, 0, 0, 0);
+    resize: none;
+}
+
+#menu {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+    border-bottom: 1.5px solid gray;
+}
+
+#menu div {
+    margin: 0 auto;;
+}
+
+#menu a {
+    font-weight: 600;
+    font-size: 18px;
+    color: rgb(71, 71, 71);
+}
+
+.inputdate {
+    margin-left:15px;
+    margin-right:15px;
+}
+
+#t1 {
+    text-align:center;
+    /* border: 1px solid black; */
+    border-collapse:collapse;
+}
+
+th {
+    background-color:rgb(189, 187, 187);
+    /* border:1px solid black;  */
+    padding:7px;
+}
+
+td {
+    border-bottom:1px solid black; 
+    padding:10px 0;
+}
+
+.pagination {
+    display: inline-block;
+    position:relative;
+    left:41%;
+    margin-top:50px;
+
+}
+
+.pagination a {
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: rgb(71, 71, 71);
+    background-color: rgb(245, 244, 244);
+    margin: 0 3px 0 3px;
+    border-radius: 5px;
+}
+
+.pagination a.active {
+    background-color: rgb(255, 88, 93);
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: rgb(255, 88, 93);
+    color: white;
+    border-radius: 5px;
+}
+
+.btn {
+    border: none;
+    width: 100px;
+    height: 35px;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-active {
+    background-color: rgb(255, 88, 93);
+    color: white;
+    margin-top:20px;
+}
+
+.btn-disabled {
+    background-color: rgb(188, 188, 188);
+    color: rgb(55, 55, 55);
+}
+
+#btn1 {
+    float:right;
+}
+
+
+
+/* Modal */
+.modal1 * {
+    margin: 0;
+    padding: 0;
+    color: rgb(71, 71, 71);
+}
+
+.modal_wrap{
+    display:none;
+    width:700px;
+    height:400px;
+    position:absolute;
+    top:50%;
+    left:43%;
+    margin:-250px 0 0 -250px;
+    background:rgb(240,240,240);
+    z-index: 2;
+}
+.black_bg{
+    display:none;
+    position:absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0, 0, 0, 0.5);
+    top:0;
+    left:0;
+    z-index: 1;
+}
+.modal_close {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: -30px;
+    right: 0;
+}
+.modal_close > a {
+    display:block;
+    width: 100%;
+    height: 100%;
+    background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+    text-indent: -9999px;
+}
+
+/* .modal-content {
+    text-align:center;
+} */
+
+.feeinput {
+    /* border-bottom:1px solid grey; */
+    padding-bottom:10px;
+    width:550px;
+}
+
+.modal-content > h2 {
+    margin:100px 0 50px 50px;
+}
+
+.inputcontainer {
+    width:80%;
+    border-bottom:1px solid grey;
+    margin-left:60px;
+
+}
+
+.feeinput {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-left:80px;
+    width:70%;
+}
+
+.feeinput input {
+    width: 90%;
+    height: 35px;
+    font-size: 15px;
+    border:1px solid grey;
+    border-radius:5px;
+}
+
+.inputtitle {
+    margin-left:80px;
+}
+
+.feeinput input {
+    height:30px;
+    width:150px;
+}
+
+.modalbtn {
+    margin:30px 220px;
+}
+
+
+
+
+
+

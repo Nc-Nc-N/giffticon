@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.UserCheckMapper">
+
+    <sql id="criteria">
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            name like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            email like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'T'.toString()">
+                            tel_no like CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
+    <select id="getUserList" resultType="com.ncncn.domain.UserVO">
+    <![CDATA[
+        select * from user;
+        ]]>
+    </select>
+
+
+
+    <select id="getListWithPaging" resultType="com.ncncn.domain.UserVO">
+        <![CDATA[
+            select id, email, name, in_date, tel_no, enabled
+            from user
+            where
+        ]]>
+
+        <include refid="criteria"></include>
+
+        <![CDATA[
+            LIMIT #{amount}
+            OFFSET ${(pageNum-1) * amount}
+
+        ]]>
+    </select>
+
+    <select id="getTotalCount" resultType="int">
+        select count(*) from user
+        where
+
+        <include refid="criteria"></include>
+    </select>
+
+    <select id="specUserOnly" resultType="com.ncncn.domain.UserVO">
+        select email from user where id = #{userId}
+    </select>
+
+</mapper>

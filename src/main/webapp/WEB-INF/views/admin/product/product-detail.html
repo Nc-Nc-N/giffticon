@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../common-css/button.css" type="text/css">
+    <link rel="stylesheet" href="../../common-css/search-box.css" type="text/css">
+    <link rel="stylesheet" href="product-register.css" type="text/css">
+    <link rel="stylesheet" href="product-detail.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+    </style>
+</head>
+<body>
+    <div id="register-content">
+        <h2>상품상세</h2>
+        <div>
+            <table id="register-table">
+                <tr id="category-tr">
+                    <td colspan="2">
+                        <label>상품분류</label>
+                        <div class="category-div">
+                            <select class="reg-select search-select">
+                                <option>대분류</option>
+                                <option selected>카페</option>
+                                <option>음식점</option>
+                            </select>
+                            <span>&gt;</span>
+                            <select class="reg-select search-select">
+                                <option>브랜드</option>
+                                <option selected>스타벅스</option>
+                                <option>커피빈</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="name-tr">
+                    <td colspan="2">
+                        <label>상품명</label>
+                        <div class="name-div">
+                            <input type="text" value="" name="productName" placeholder="상품명을 입력하세요." value="[스타벅스] 아이스 아메리카노 tall">
+                        </div>
+                    </td>
+                </tr>
+                <tr id="price-tr">
+                    <td>
+                        <label>정가</label>
+                        <div class="price-div">
+                            <input type="text" value="2500" name="productPrice">
+                            <span>원</span>
+                        </div>
+                    </td>
+                    <td>
+                        <label>할인율</label>
+                        <div class="rate-div">
+                            <input type="text" value="5" name="product-rate">
+                            <span>%</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="decs-tr">
+                    <td colspan="2">
+                        <label>상품설명</label>
+                        <div class="decs-div">
+                            <textarea id="decs-area"> 진한 에스프레소에 시원한 정수물과 얼음을 더하여 스타벅스의 깔끔하고 강렬한 에스프레소를 가장 부드럽고 시원하게 즐길 수 있는 커피</textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="img-tr">
+                    <td colspan="2">
+                        <label>상품 이미지</label>
+                        <div class="img-div">
+                            <img src="../img/starbucks_ia.jpg"><a class="remove-img" href="#"><i class="fas fa-times"></i></a>
+                            <input type="file">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="reg-btn-area">
+            <button class="btn btn-active">수정</button>
+            <button class="btn btn-disabled">취소</button>
+            <button class="btn dark">삭제</button>
+        </div>
+    </div>
+</body>
+</html>

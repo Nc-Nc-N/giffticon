@@ -1,0 +1,41 @@
+.delete-content {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(240, 240, 240);
+    width: 580px;
+    height: fit-content;
+    padding: 20px;
+    font-size: 18px;
+    
+}
+
+.delete-question{
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+.delete-content_area{
+    height: 30px;
+    margin-top: 10px;
+    
+}
+
+.delete-btn-area{
+    margin-top: 20px;
+}
+
+.search-selected, .de-title, .de-email, .btn-cancel{
+    color: gray;
+}
+
+.delete-question, .search-selected, .de-email{
+    margin-left: 20px;
+}
+
+.delete-question-area, .delete-content-area{
+
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid rgb(172, 172, 172);
+}
+

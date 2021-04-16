@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    /*color: rgb(71, 71, 71);*/
+}
+
+#register-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: white;
+    width: 600px;
+    height: 600px;
+    padding: 20px;
+    color: rgb(71, 71, 71);
+    border-radius: 10px;
+    /* background-color: teal; */
+}
+
+#content{
+    width: 100%;
+    height: 80%;
+    /* background-color:tomato; */
+}
+h2{
+    text-align: center;
+    height: 80px;
+}
+
+h3{
+    margin-left: 20px;
+    width: 180px;
+}
+
+h5{  
+    margin-top: 5px;
+    color: rgb(255,88,93);
+}
+
+.email_section{
+    display: flex;
+    height: 15%;
+}
+.info_section{
+    width: 100%;
+    height: 15%;
+    /* background-color: turquoise; */
+    /* border-bottom: 1px solid gainsboro; */
+}
+
+.info_section > div {
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+}
+
+.input_text{
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 50%;
+    height: 30px;
+    display: flex;
+}
+
+input{
+    height:30px;
+    width: 90%;
+    /* background-color:black; */
+    border: none;
+    position: relative;
+    outline: none;
+    left: 10px;
+    font-size: 15px;
+}
+
+.message{
+    /* background-color: royalblue; */
+    width: 50%;
+    margin-left: 33.5%;
+}
+
+#reg-btn-area{
+    width: 100%;
+    height: 20%;
+    /* background-color: blue; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn-submit{
+    width: 60px;
+    height: 25px;
+    border-radius: 8px;
+    margin-left: 18px;
+    font-size:15px;
+    background-color: rgb(255,88,93);
+    color: white;
+}
+
+.btn-submit:hover{
+    background-color: white;
+    border: 1px solid rgb(255,88,93);
+    color: rgb(255,88,93);
+}
+
+.btn-dark{
+    font-weight: bold;
+    color: rgb(50,50,50);
+
+}
+
+.btn-dark:hover{
+    background-color: darkgray;
+}

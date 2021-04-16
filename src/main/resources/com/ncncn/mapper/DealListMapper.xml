@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.DealListMapper">
+
+    <select id="countDealList" resultType="int">
+        <![CDATA[
+            select  count(*)
+            from
+                (
+                select
+                    gifticon_id, pymt_prc, deal_dt, user_id, id
+                from
+                    deal_detail
+                where
+                    user_id = #{userId}
+                ) dealT,
+                gifticon gftT,
+                product prdT,
+                brand brdT,
+                (
+                    select * from cmmn_code where code_type = 'GFT_STUS'
+                ) stusT
+            where
+                dealT.gifticon_id = gftT.id
+              and
+                gftT.prod_code = prdT.code
+              and
+                prdT.brd_code = brdT.code
+              and
+                gftT.gft_stus_code = stusT.code
+        ]]>
+
+        <include refid="criteria"></include>
+
+    </select>
+
+    <select id="getGftDetail" resultType="com.ncncn.domain.MyDealsDTO">
+        <![CDATA[
+        select brdT.name       brdName,
+               prdT.name       prdName,
+               prdT.img_path   prdImgPath,
+               gftT.id         gftId,
+               gftT.img_path   gftImgPath,
+               gftT.brcd       brcd,
+               dealT.user_id   csId,
+               dealT.deal_dt   dealDt,
+               gftT.expir_dt   exprDt,
+               dealT.pymt_prc  pymtPrc,
+               stusT.code_name stusCode
+        from product prdT,
+             brand brdT,
+             (select * from cmmn_code where code_type = 'GFT_STUS') stusT,
+             (select * from deal_detail where user_id = #{userId}) dealT,
+             (select * from gifticon where id = #{gftId}) gftT
+        where brdT.code = substr(gftT.prod_code, 1, 4)
+          and prdT.code = gftT.prod_code
+          and stusT.code = gftT.gft_stus_code
+          and dealT.gifticon_id = gftT.id
+        ]]>
+    </select>
+
+    <select id="getDealsWithPaging" resultType="com.ncncn.domain.MyDealsDTO">
+
+        <![CDATA[
+        select
+            dealT.id dealId, dealT.gifticon_id gftId, dealT.user_id csId, brdT.name brdName,
+            prdT.name prdName, prdT.img_path prdImgPath, dealT.pymt_prc pymtPrc,
+            stusT.code_name stusCode, dealT.deal_dt dealDt, gftT.expir_dt exprDt
+        from
+            (
+                select
+                    gifticon_id, pymt_prc, deal_dt, user_id, id
+                from
+                    deal_detail
+                where
+                        user_id = #{userId}
+            ) dealT,
+            gifticon gftT,
+            product prdT,
+            brand brdT,
+            (
+                select * from cmmn_code where code_type = 'GFT_STUS'
+            ) stusT
+        where
+            dealT.gifticon_id = gftT.id
+          and
+            gftT.prod_code = prdT.code
+          and
+            prdT.brd_code = brdT.code
+          and
+            gftT.gft_stus_code = stusT.code
+
+        ]]>
+
+        <include refid="criteria"></include>
+
+        <![CDATA[
+        limit #{amount}
+        offset ${(pageNum-1) * amount};
+        ]]>
+    </select>
+
+    <select id="countStus004" resultType="int">
+
+        <![CDATA[
+        select count(*)
+        from (
+                 select *
+                 from deal_detail
+                 where user_id = #{userId}
+             ) dealT,
+             gifticon gftT
+
+        where dealT.gifticon_id = gftT.id
+          and gftT.gft_stus_code = '004'
+        ]]>
+
+    </select>
+
+    <sql id="criteria">
+
+        <trim prefix="and">
+            <if test="dateFrom != ''">
+                <if test="dateFrom != null">
+                    dealT.deal_dt >= #{dateFrom}
+                </if>
+            </if>
+        </trim>
+
+        <trim prefix="and">
+            <if test="dateTo != ''">
+                <if test="dateTo != null">
+                    adddate(#{dateTo}, interval 1 day) > dealT.deal_dt
+                </if>
+            </if>
+        </trim>
+
+        <trim prefix="and (" suffix=")" prefixOverrides="OR">
+            <foreach item="type" collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'B'.toString()">
+                            brdT.name like CONCAT('%',#{keyword},'%')
+                        </when>
+                        <when test="type == 'P'.toString()">
+                            prdT.name like CONCAT('%',#{keyword},'%')
+                        </when>
+                        <when test="type == 'S'.toString()">
+                            stusT.code_name like CONCAT('%',#{keyword},'%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
+</mapper>
