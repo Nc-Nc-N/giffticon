@@ -64,7 +64,7 @@
             <th>회원상태</th>
         </tr>
         <c:forEach items="${list}" var="userL">
-            <tr class="test11">
+            <tr class="eachUser">
                 <td>${userL.id}</td>
                 <td>${userL.email}</td>
                 <td>${userL.name}</td>
