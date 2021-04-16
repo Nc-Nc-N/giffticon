@@ -1,42 +1,42 @@
-
 /* --------------------이하 구매내역 css (위쪽 templete css)--------------------- */
-.contentinfo{
-    height:30px;
+.contentinfo {
+    height: 30px;
     /* background-color: rgb(150, 250, 163); */
     display: flex;
     align-items: center;
     font-weight: bold;
-    font-size: 14px;
-    ;
+    font-size: 14px;;
 }
 
-.contentsearch{
-    height:50px;
+.contentsearch {
+    height: 50px;
     /* background-color: teal; */
     display: flex;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
 }
 
-.search-by-period{
+.search-by-period {
     /* background-color: chartreuse; */
     display: flex;
     width: 40%;
 }
-.search-by-period > span{
-    margin-right:10px;
-    margin-top:5px;
+
+.search-by-period > span {
+    margin-right: 10px;
+    margin-top: 5px;
     font-weight: bold;
     font-size: 13px;
 }
-.search-form-period{
-    width:100px;
+
+.search-form-period {
+    width: 100px;
     height: 30px;
     border-radius: 40px;
     background: rgb(245, 244, 244);
 }
 
-.search-input-period{
+.search-input-period {
     border: none;
     outline: none;
     width: 80px;
@@ -47,7 +47,7 @@
     float: left;
 }
 
-.search-by-text{
+.search-by-text {
     /* background-color:coral; */
     display: flex;
     justify-content: flex-end;
@@ -55,111 +55,208 @@
 
 }
 
-.search-cat{
+.search-cat {
     margin-right: 20px;
     margin-top: 2px;
     background: rgb(245, 244, 244);
     border-radius: 40px;
-    
+
 }
 
-.cat-drop-box{
+.cat-drop-box {
     background-color: rgba(0, 0, 0, 0);
     border: none;
     outline: none;
     width: 80px;
 }
 
-.item{
+.item {
     width: 100%;
-    height: 220px;
-    /* background-color: gold; */
+    height: 500px;
+    /*background-color: gold;*/
     /* border-bottom: 2px solid black; */
 }
 
-.item_purdate{
+.item_purdate {
     width: 100%;
-    height: 15%;
-    /* background-color: cadetblue; */
+    height: 30px;
+    /*background-color: cadetblue;*/
     font-size: 20px;
     font-weight: bold;
 }
 
-.item_info{
-    width: 100%;
-    height: 75%;
-    /* background-color: coral; */
+.expr_dt {
+    /*margin-top:5px;*/
+    /*margin-right:20px;*/
+    font-size: 14px;
+    font-weight: lighter;
+    color: #333333;
     display: flex;
-    justify-content:space-between;
+    justify-content: center;
+    /*background-color: #888888;*/
+    width: 100%;
+}
+
+.item_info {
+    width: 100%;
+    height: 160px;
+    /*background-color: coral;*/
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.item_img{
-    width:150px;
+.item_img {
+    width: 150px;
     height: 150px;
     /* background-color: cornflowerblue; */
 }
 
-.item_brdNname{
+.item_brdNname {
     width: 200px;
-    height: 60px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     /* background-color: darkgreen; */
-    
+
 
 }
 
-.item_brd{
-    width:80%;
-    height: 40%;
+.item_brd {
+    width: 80%;
+    height: 35%;
     /* background-color: darkred; */
     margin-left: 10%;
     display: flex;
     align-items: center;
-    
+
 }
-.item_name{
-    width:80%;
-    height: 60%;
+
+.item_name {
+    width: 80%;
+    height: 70%;
     /* background-color: blueviolet; */
     margin-left: 10%;
     font-size: 20px;
     font-weight: bold;
     display: flex;
-    align-items: center;
+    align-items: start;
 }
 
-.item_prc, .item_status{
+.item_prc, .item_status {
     width: 100px;
-    height: 40px;
+    height: 80px;
     /* background-color: darkgrey; */
     font-size: 20px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
-.item_status{
+
+.item_status {
     width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 20px;
 }
-.item_buttons{
+
+.item_status > div {
+    text-align: center;
+}
+
+.item_buttons {
     width: 80px;
     height: 100px;
     /* background-color: darkolivegreen; */
-    line-height:50px;
+    line-height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around
 }
 
 
-
-img{
+img {
     overflow: hidden;
     width: 100%;
 }
 
-.contentfooter{
-    width:100%;
-    height:60px;
-    margin-top:30px;
+.noSearchResult {
+    width: 100%;
+    height: 50px;
+    /*background-color: #333333;*/
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: large;
+    margin-top: 100px;
+}
+
+
+.contentfooter {
+    width: 100%;
+    height: 60px;
+    margin-top: 60px;
     text-align: center;
-    /* background-color: cadetblue; */
+    /*background-color: cadetblue;*/
+}
+
+.search-spec {
+    /*background-color:blue;*/
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-disabled {
+    cursor: not-allowed;
+    font-weight: bold;
+}
+
+.btn-disabled:hover {
+    cursor: not-allowed;
+}
+
+.btn-active:hover {
+    background-color: white;
+    color: rgb(255, 88, 93);
+    border: 1px solid rgb(255, 88, 93);
+
+}
+
+.btn-cmpl {
+    background-color: rgb(255, 88, 93);
+    color: white;
+    animation: heartbeat 1s 20;
+
+}
+
+.btn-cmpl:hover {
+    background-color: white;
+    color: rgb(255, 88, 93);
+    border: 1px solid rgb(255, 88, 93);
+
+}
+.btn-dark{
+    font-weight: bold;
+    color: rgb(50,50,50);
+    border: 1px solid darkgrey;
+}
+.btn-dark:hover{
+    background-color: darkgray;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1.0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1.0);
+    }
 }
