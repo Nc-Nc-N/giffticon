@@ -43,6 +43,8 @@
                         <c:out value="${pageMaker.cri.orderby eq 'low' ? 'selected':''}"/>>낮은 가격순</option>
                 <option id="high" value="high"
                         <c:out value="${pageMaker.cri.orderby eq 'high' ? 'selected':''}"/>>높은 가격순</option>
+                <option id="deadline" value="deadline"
+                        <c:out value="${pageMaker.cri.orderby eq 'deadline' ? 'selected':''}"/>>마감 임박순</option>
             </select>
 
             <%-- 상품 목록 리스트 --%>
@@ -131,6 +133,7 @@
 
             // 검색 후 '전체보기' 숨기기, 검색 결과
             if(code==='' || code===null || code==='0'){
+                code = '0';
                 $('.cateAll').hide();
                 $('.search-result').show();
             }
