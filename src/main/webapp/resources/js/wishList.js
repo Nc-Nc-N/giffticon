@@ -4,11 +4,12 @@ let wishListService = (function () {
     // 관심상품 추가
     function add(wish, callback, error) {
         console.log("insert wish....")
-
-        let csrfHeaderName ="${_csrf.headerName}";
-        let csrfTokenValue="${_csrf.token}";
+        console.log("csrfHeaderName: "+csrfHeaderName);
 
         $.ajax({
+            let csrfHeaderName ='${_csrf.headerName}';
+            let csrfTokenValue='${_csrf.token}';
+
             type: "POST",
             url: "/wishList/register",
             beforeSend: function (xhr){
@@ -32,9 +33,6 @@ let wishListService = (function () {
     function remove(wish, callback, error) {
         console.log("delete wish....")
 
-        let csrfHeaderName ="${_csrf.headerName}";
-        let csrfTokenValue="${_csrf.token}";
-
         $.ajax({
             type: "POST",
             url: "/wishList/remove",
@@ -49,6 +47,7 @@ let wishListService = (function () {
                 }
             }, error: function (xhr, status, er) {
                 if (error) {
+                    alert("error");
                     error(er);
                 }
             }

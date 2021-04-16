@@ -33,7 +33,7 @@ public class ProdController {
 		model.addAttribute("category", prodService.getCate(code)); 			// 카테고리
 		model.addAttribute("brandList", prodService.getBrandList(code)); 	// 브랜드 목록
 		model.addAttribute("gifti", prodService.getGiftiWithPaging(cri));	// 기프티콘 목록(페이징 처리 포함)
-		model.addAttribute("pageMaker", new PageDTOHY(cri, total));
+		model.addAttribute("headerPageMaker", new PageDTOHY(cri, total));
 	}
 
 	// 기프티콘 상세 페이지

@@ -24,12 +24,14 @@
             <!-- 카테고리바 -->
             <nav>
                 <div class="catename"><i class="<c:out value="${category.iconPath}"/>"></i> &nbsp;<c:out value="${category.name}"/></div>
-                <div class="search-result" style="display: none">총 <c:out value="${pageMaker.total}"/> 개의 상품이 검색되었습니다. </div>
-                <div class="noresult" style="display: none; font-size: large">'${pageMaker.cri.keyword}’ 상품을 찾지 못했습니다.</div>
+                <div class="search-result" style="display: none">총 <c:out value="${headerPageMaker.total}"/> 개의 상품이 검색되었습니다. </div>
+                <div class="noresult" style="display: none; font-size: large">'${headerPageMaker.cri.keyword}’ 상품을 찾지 못했습니다.</div>
                 <ul>
-                    <a href="prod_list?code=${category.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li class="cateAll">전체보기</li></a>
+                    <li>
+                        <a class="cateAll" href="prod_list?code=${category.code}&orderby=best&pageNum=1&amount=${headerPageMaker.cri.amount}">전체보기</a>
+                    </li>
                     <c:forEach items="${brandList}" var="brandList">
-                    <a href="prod_list?code=${brandList.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li><c:out value="${brandList.name}"/></li></a>
+                    <a class="brandList ${headerPageMaker.cri.code == brandList.code ? "active":""}" href="prod_list?code=${brandList.code}&orderby=best&pageNum=1&amount=${headerPageMaker.cri.amount}"><li><c:out value="${brandList.name}"/></li></a>
                     </c:forEach>
                 </ul>
             </nav>
@@ -37,13 +39,13 @@
             <%-- 정렬 방식 --%>
             <select class="search-select">
                 <option id="best" value="best"
-                        <c:out value="${pageMaker.cri.orderby eq 'best' ? 'selected':''}"/>>인기순</option>
+                        <c:out value="${headerPageMaker.cri.orderby eq 'best' ? 'selected':''}"/>>인기순</option>
                 <option id="low" value="low"
-                        <c:out value="${pageMaker.cri.orderby eq 'low' ? 'selected':''}"/>>낮은 가격순</option>
+                        <c:out value="${headerPageMaker.cri.orderby eq 'low' ? 'selected':''}"/>>낮은 가격순</option>
                 <option id="high" value="high"
-                        <c:out value="${pageMaker.cri.orderby eq 'high' ? 'selected':''}"/>>높은 가격순</option>
+                        <c:out value="${headerPageMaker.cri.orderby eq 'high' ? 'selected':''}"/>>높은 가격순</option>
                 <option id="deadline" value="deadline"
-                        <c:out value="${pageMaker.cri.orderby eq 'deadline' ? 'selected':''}"/>>마감 임박순</option>
+                        <c:out value="${headerPageMaker.cri.orderby eq 'deadline' ? 'selected':''}"/>>마감 임박순</option>
             </select>
 
             <%-- 재검색 안내  --%>
@@ -102,21 +104,21 @@
         <!-- 페이지네이션 -->
         <div class="pagination-container">
             <div class="pagination">
-                <c:if test="${pageMaker.prev}">
+                <c:if test="${headerPageMaker.prev}">
                     <li>
-                        <a  class="paginate_button previous" href="${pageMaker.startPage -1}">&lt;</a>
+                        <a  class="paginate_button previous" href="${headerPageMaker.startPage -1}">&lt;</a>
                     </li>
                 </c:if>
 
-                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                <c:forEach var="num" begin="${headerPageMaker.startPage}" end="${headerPageMaker.endPage}">
                     <li>
-                        <a class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}" href="${num}">${num}</a>
+                        <a class="paginate_button ${headerPageMaker.cri.pageNum == num ? "active":""}" href="${num}">${num}</a>
                     </li>
                 </c:forEach>
 
-                <c:if test="${pageMaker.next}">
+                <c:if test="${headerPageMaker.next}">
                     <li>
-                        <a class="paginate_button next" href="${pageMaker.endPage +1 }">&gt;</a>
+                        <a class="paginate_button next" href="${headerPageMaker.endPage +1 }">&gt;</a>
                     </li>
                 </c:if>
             </div>
@@ -126,11 +128,11 @@
 
     <%-- 페이지 번호 -> url 이동 --%>
     <form id="actionForm" action='/user/prod_list' method="get">
-        <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
-        <input type="hidden" name="code" value='<c:out value="${pageMaker.cri.code}"/>'>
-        <input type="hidden" name="orderby" value='<c:out value="${pageMaker.cri.orderby}"/>'>
-        <input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"/>'>
-        <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}"/>'>
+        <input type="hidden" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>'>
+        <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'>
+        <input type="hidden" name="orderby" value='<c:out value="${headerPageMaker.cri.orderby}"/>'>
+        <input type="hidden" name="pageNum" value='<c:out value="${headerPageMaker.cri.pageNum}"/>'>
+        <input type="hidden" name="amount" value='<c:out value="${headerPageMaker.cri.amount}"/>'>
     </form>
 
     <script type="text/javascript">
@@ -153,7 +155,7 @@
             }
 
             // 검색 결과가 0일 때
-            if(${pageMaker.total}===0){
+            if(${headerPageMaker.total}===0){
                 $('.search-result').hide();
                 $('.search-select').hide();
                 $('.noresult').show();
@@ -166,7 +168,7 @@
 
                let orderby = $(".search-select option:selected").val();
 
-               location.href="prod_list?keyword=${pageMaker.cri.keyword}&code="+code+"&orderby="+orderby+"&pageNum=1&amount=${pageMaker.cri.amount}";
+               location.href="prod_list?keyword=${headerPageMaker.cri.keyword}&code="+code+"&orderby="+orderby+"&pageNum=1&amount=${headerPageMaker.cri.amount}";
            });
 
             // 페이지 번호 이벤트 처리
@@ -181,6 +183,11 @@
             });
 
         });
+
+        $(".cateAll").on("click", function (e){
+            console.log("click!!!!!")
+        })
+
     </script>
 
 </body>

@@ -115,6 +115,7 @@
         $(document).ready(function (){
             // 관심상품으로 등록되어 있는지 확인
             let has = ${hasWish};
+            console.log(has)
 
             // '관심상품' 버튼 상태 표시
             if(has === 1){
