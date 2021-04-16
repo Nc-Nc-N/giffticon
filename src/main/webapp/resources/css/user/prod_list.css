@@ -173,3 +173,16 @@ td a:link{
     color: white;
     border-radius: 5px;
 }
+
+/* 재검색 안내 */
+.noresult, .noresult-tip{
+    text-align: center;
+}
+.noresult-tip{
+    margin-top: 30px;
+}
+.tip_lst{
+    font-size: small;
+    color: grey;
+    line-height: 8px;
+}

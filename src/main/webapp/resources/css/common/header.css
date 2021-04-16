@@ -90,14 +90,14 @@
     margin: auto;
 }
 
-.search-form{
+.h-search-form{
     display:flex;
     text-align: center;
     position: relative;
     border-radius: 40px;
 }
 
-.search-input {
+.h-search-input {
     border: none;
     outline: none;
     width: 400px;
@@ -108,7 +108,7 @@
     float: left;
 }
 
-.search-button {
+.h-search-button {
     float: right;
     width: 30px;
     height: 30px;
@@ -159,4 +159,3 @@
 .login-panel:hover{
     color: rgb(255,88,93);
 }
-/* ------------------------아래는 바디!----------------------- */

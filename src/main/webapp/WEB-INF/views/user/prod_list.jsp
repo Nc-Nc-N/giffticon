@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../common/header.jsp"%>
 
 <!DOCTYPE html>
@@ -27,6 +25,7 @@
             <nav>
                 <div class="catename"><i class="<c:out value="${category.iconPath}"/>"></i> &nbsp;<c:out value="${category.name}"/></div>
                 <div class="search-result" style="display: none">총 <c:out value="${pageMaker.total}"/> 개의 상품이 검색되었습니다. </div>
+                <div class="noresult" style="display: none; font-size: large">'${pageMaker.cri.keyword}’ 상품을 찾지 못했습니다.</div>
                 <ul>
                     <a href="prod_list?code=${category.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li class="cateAll">전체보기</li></a>
                     <c:forEach items="${brandList}" var="brandList">
@@ -46,6 +45,17 @@
                 <option id="deadline" value="deadline"
                         <c:out value="${pageMaker.cri.orderby eq 'deadline' ? 'selected':''}"/>>마감 임박순</option>
             </select>
+
+            <%-- 재검색 안내  --%>
+            <div class="noresult-tip" style="display: none">
+                <div class="tip_txt">
+                    <span>다시 검색해보세요.</span>
+                </div>
+                <div class="tip_lst">
+                    <p>단어의 철자가 정확한지 확인해 보세요.</p>
+                    <p>띄어쓰기 또는 넓은 의미의 단어를 사용해 보세요.</p>
+                </div>
+            </div>
 
             <%-- 상품 목록 리스트 --%>
             <c:set var="i" value="0"/>
@@ -90,23 +100,27 @@
 
         <div class="space"></div>
         <!-- 페이지네이션 -->
-        <div class="pagination">
-            <c:if test="${pageMaker.prev}">
-                <li class="paginate_button previous">
-                    <a href="${pageMaker.startPage-1}">&lt;</a>
-                </li>
-            </c:if>
-            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                <li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}">
-                    <a href="${num}">${num}</a>
-                </li>
-            </c:forEach>
+        <div class="pagination-container">
+            <div class="pagination">
+                <c:if test="${pageMaker.prev}">
+                    <li>
+                        <a  class="paginate_button previous" href="${pageMaker.startPage -1}">&lt;</a>
+                    </li>
+                </c:if>
 
-            <c:if test="${pageMaker.next}">
-                <li class="paginate_button next">
-                    <a href="{pageMaker.endPage+1}">&gt;</a>
-                </li>
-            </c:if>
+                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                    <li>
+                        <a class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}" href="${num}">${num}</a>
+                    </li>
+                </c:forEach>
+
+                <c:if test="${pageMaker.next}">
+                    <li>
+                        <a class="paginate_button next" href="${pageMaker.endPage +1 }">&gt;</a>
+                    </li>
+                </c:if>
+            </div>
+            <!-- end pagination -->
         </div>
     </div>
 
@@ -131,12 +145,21 @@
             // 현재 url의 orderby parameter value
             let selectedOrder = new_curr_url.searchParams.get("orderby");
 
-            // 검색 후 '전체보기' 숨기기, 검색 결과
+            // 검색 후 카테고리 숨기기, 검색 결과 상품수 출력
             if(code==='' || code===null || code==='0'){
                 code = '0';
                 $('.cateAll').hide();
                 $('.search-result').show();
             }
+
+            // 검색 결과가 0일 때
+            if(${pageMaker.total}===0){
+                $('.search-result').hide();
+                $('.search-select').hide();
+                $('.noresult').show();
+                $('.noresult-tip').show();
+            }
+
 
            // 상품 정렬 방식 이벤트 처리
            $(".search-select").on("change", function (){
@@ -149,7 +172,7 @@
             // 페이지 번호 이벤트 처리
             let actionForm = $("#actionForm");
 
-            $(".paginate_button a").on("click", function (e){
+            $(".paginate_button").on("click", function (e){
 
                 e.preventDefault();
 
@@ -158,20 +181,6 @@
             });
 
         });
-
-        // 검색 버튼 이벤트 처리
-        let searchForm = $('#searchForm');
-
-        $("#searchForm button").on("click", function (e){
-
-            if(!searchForm.find("input[name='keyword']").val()){
-                alert("검색어를 입력해주세요");
-                return false;
-            }
-            searchForm.submit();
-        });
-
     </script>
 
 </body>
-</html>
