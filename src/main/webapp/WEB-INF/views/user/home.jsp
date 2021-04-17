@@ -57,7 +57,6 @@
                     <a href="#" class="main-btn">전체보기</a>
                 </div>
             </div>
-
         </div>
 
         <!--카테고리 컨텐츠 삽입-->
@@ -74,12 +73,12 @@
             </div>
 
             <%-- 관심상품 --%>
-            <div class="splide" style="width: 735px; margin-left: 20px; margin-top: 20px;">
+            <div class="splide" style="width: 735px; height: 300px; margin-left: 20px; margin-top: 20px;">
                 <div class="splide__track">
-                    <ul class="splide__list">
+                    <ul class="splide__list" style="height: 300px;">
                         <c:set var="i" value="0"/>
                         <c:set var="j" value="3"/>
-                        <c:forEach items="${wishList}" var="wishList">
+                        <c:forEach items="${wishList}" var="wishList" end="5">
                             <c:if test="${i%j==0}">
                                 <li class="splide__slide">
                                 <table>

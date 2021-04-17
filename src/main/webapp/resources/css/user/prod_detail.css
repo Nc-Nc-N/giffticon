@@ -1,9 +1,13 @@
 /* titArea - 현재 위치 */
-.titArea span.nav {
+.titArea span.nav{
     float: right;
     font-size: 11px;
     color: #909090;
     font-weight: normal;
+}
+
+.titArea span.nav a{
+    color: #909090;
 }
 
 /* product_detail_top - 상품 */

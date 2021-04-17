@@ -9,6 +9,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
     <title>Document</title>
 <link rel="stylesheet" href="/resources/css/user/prod_list.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/prod_detail.css" type="text/css">

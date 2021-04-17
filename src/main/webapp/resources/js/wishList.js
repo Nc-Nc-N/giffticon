@@ -1,19 +1,19 @@
 // 관심상품
 let wishListService = (function () {
 
+    let header = $("meta[name='_csrf_header']").attr("content");
+    let token = $("meta[name='_csrf']").attr("content");
+
     // 관심상품 추가
     function add(wish, callback, error) {
         console.log("insert wish....")
-        console.log("csrfHeaderName: "+csrfHeaderName);
 
         $.ajax({
-            let csrfHeaderName ='${_csrf.headerName}';
-            let csrfTokenValue='${_csrf.token}';
 
             type: "POST",
             url: "/wishList/register",
             beforeSend: function (xhr){
-                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                xhr.setRequestHeader( header, token );
             },
             data: JSON.stringify(wish),
             contentType: "application/json; charset=utf-8",
@@ -37,7 +37,7 @@ let wishListService = (function () {
             type: "POST",
             url: "/wishList/remove",
             beforeSend: function (xhr){
-                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                xhr.setRequestHeader( header, token );
             },
             data: JSON.stringify(wish),
             contentType: "application/json; charset=utf-8",

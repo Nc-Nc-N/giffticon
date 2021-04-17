@@ -155,7 +155,7 @@
             }
 
             // 검색 결과가 0일 때
-            if(${headerPageMaker.total}===0){
+            if(${headerPageMaker.total}===0 && code==='0'){
                 $('.search-result').hide();
                 $('.search-select').hide();
                 $('.noresult').show();
