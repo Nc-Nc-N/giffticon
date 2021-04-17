@@ -1,0 +1,89 @@
+/*mypage_deals.css*/
+/* --------------------이하 구매내역 css (위쪽 templete css)--------------------- */
+
+.item_info {
+    width: 100%;
+    height: 160px;
+    /*background-color: coral;*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item_brdNname {
+    width: 300px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: darkgreen; */
+
+
+}
+
+.item_brd {
+    font-weight: bold;
+    font-size: small;
+    width: 80%;
+    height: 35%;
+    margin-left: 10%;
+    display: flex;
+    align-items: center;
+
+}
+
+.item_name {
+    margin-left: 10%;
+    font-size: medium;
+    font-weight: bold;
+    display: flex;
+    align-items: start;
+}
+
+.item_img img {
+    overflow: hidden;
+    padding-left: 10%;
+    width: 150px;
+    height: 150px;
+}
+
+.noSearchResult {
+    width: 100%;
+    height: 50px;
+    /*background-color: #333333;*/
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: large;
+    margin-top: 100px;
+}
+
+
+.contentfooter {
+    width: 100%;
+    height: 60px;
+    margin-top: 60px;
+    text-align: center;
+    /*background-color: cadetblue;*/
+}
+
+.itemprice{
+    align-items: flex-end;
+    justify-content: center;
+    padding-right: 5%;
+}
+
+.itemprice > span{
+    font-size: medium;
+    color: #FF585D;
+    font-weight: bold;
+}
+
+.itemprice > span:last-child{
+    color: black
+
+}
+.itemprice > span:nth-child(1){
+    color: gray;
+    width: 100px;
+}

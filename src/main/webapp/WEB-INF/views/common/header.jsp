@@ -62,7 +62,6 @@
 
             <!-- search area -->
             <div class="search-bar-container">
-<<<<<<< HEAD
                 <form id="h-search-form" action="/user/prod_list" method="get">
                     <input type="text" class="h-search-input" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
                     <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'/>
