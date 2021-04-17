@@ -23,11 +23,12 @@ public class MainController {
 	@GetMapping("/home")
 	public void main(HttpServletRequest request, Model model){
 
-		int userId = (int) request.getSession().getAttribute("userId");
-
-		// 관심상품
-		model.addAttribute("wishList", wishService.getWishList(userId));
-
+		try {
+			int userId = (int) request.getSession().getAttribute("userId");
+			model.addAttribute("wishList", wishService.getWishList(userId));
+		} catch (Exception e){
+			//비회원의 경우 home - wishlist 칸에 무엇을 출력할지 논의해봅시다!
+		}
 		// 인기상품
 		model.addAttribute("bestList", prodService.getBestGifti());
 
