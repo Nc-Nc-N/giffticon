@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.SellListMapper">
+
+    <select id="countSellList" resultType="int">
+
+        <![CDATA[
+        select count(*)
+        from
+        (select * from gifticon where user_id = #{userId}) gftT,
+        product prdT,
+        brand brdT,
+        (select code, code_name from cmmn_code where code_type = 'GFT_STUS') stusT
+        where
+        gftT.prod_code = prdT.code
+        and
+        prdT.brd_code = brdT.code
+        and
+        gftT.gft_stus_code = stusT.code
+        ]]>
+
+        <include refid="criteria"></include>
+
+    </select>
+    <select id="getSellsWithPaging" resultType="com.ncncn.domain.MySellDTO">
+
+        <![CDATA[
+        select gftT.*, gftT.img_path brcdImgPath, gftT.prod_code prdCode, prdT.name prdName, brdT.name brdName, prdT.img_path prdImgPath, stusT.code_name
+        from
+                (select * from gifticon where user_id = #{userId}) gftT,
+                product prdT,
+                brand brdT,
+                (select code, code_name from cmmn_code where code_type = 'GFT_STUS') stusT
+        where
+            gftT.prod_code = prdT.code
+          and
+            prdT.brd_code = brdT.code
+          and
+            gftT.gft_stus_code = stusT.code
+        ]]>
+
+        <include refid="criteria"></include>
+
+        <![CDATA[
+        limit #{amount}
+        offset ${(pageNum-1) * amount};
+        ]]>
+
+    </select>
+
+    <select id="getSellDetail" resultType="com.ncncn.domain.MySellDTO">
+
+        <![CDATA[
+        select gftT.*,
+               gftT.img_path  brcdImgPath,
+               gftT.prod_code prdCode,
+               prdT.name      prdName,
+               brdT.name      brdName,
+               prdT.img_path  prdImgPath,
+               stusT.code_name
+        from (select * from gifticon where user_id = #{userId} and id = #{gftId}) gftT,
+             product prdT,
+             brand brdT,
+             (select code, code_name from cmmn_code where code_type = 'GFT_STUS') stusT
+        where gftT.prod_code = prdT.code
+          and prdT.brd_code = brdT.code
+          and gftT.gft_stus_code = stusT.code
+        ]]>
+
+    </select>
+
+    <select id="countStus001N002" resultType="int">
+
+        <![CDATA[
+        select count(*)
+        from (
+                 select *
+                 from gifticon
+                 where user_id = #{userId}
+             ) gftT,
+             cmmn_code stusT
+        where gftT.gft_stus_code = stusT.code
+          and stusT.code_name = #{stusName}
+        ]]>
+
+    </select>
+
+    <sql id="criteria">
+
+        <trim prefix="and">
+            <if test="dateFrom != ''">
+                <if test="dateFrom != null">
+                    gftT.aprv_dt >= #{dateFrom}
+                </if>
+            </if>
+        </trim>
+
+        <trim prefix="and">
+            <if test="dateTo != ''">
+                <if test="dateTo != null">
+                    adddate(#{dateTo}, interval 1 day) > gftT.aprv_dt
+                </if>
+            </if>
+        </trim>
+
+        <trim prefix="and (" suffix=")" prefixOverrides="OR">
+            <foreach item="type" collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'B'.toString()">
+                            brdT.name like CONCAT('%',#{keyword},'%')
+                        </when>
+                        <when test="type == 'P'.toString()">
+                            prdT.name like CONCAT('%',#{keyword},'%')
+                        </when>
+                        <when test="type == 'S'.toString()">
+                            stusT.code_name like CONCAT('%',#{keyword},'%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
+</mapper>
+

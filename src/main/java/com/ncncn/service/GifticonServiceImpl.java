@@ -1,19 +1,39 @@
 package com.ncncn.service;
 
 import com.ncncn.mapper.GifticonMapper;
-import lombok.extern.log4j.Log4j;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 
-@Service
 @Log4j
-public class GifticonServiceImpl implements GifticonService {
+@Service
+@AllArgsConstructor
+public class GifticonServiceImpl implements GifticonService{
 
-	private GifticonMapper gifticonMapper;
+    GifticonMapper gifticonMapper;
 
-	public GifticonServiceImpl(GifticonMapper gifticonMapper) {
-		this.gifticonMapper = gifticonMapper;
-	}
+    @Override
+    public int gftDealCmpl(int gftId){
+
+        log.info("Gifticon Deal Complete Service.....");
+
+        return gifticonMapper.gftDealCmpl(gftId);
+    }
+
+    @Override
+    public int deleteGifticon(int gftId){
+
+        log.info("delete GftId: " + gftId);
+
+        return gifticonMapper.deleteGifticon(gftId);
+    }
+
+    @Override
+    public int updateGftPrc(int gftId, char isAutoPrc, int dcPrc){
+
+        return gifticonMapper.updateGftPrc(gftId, isAutoPrc, dcPrc);
+    }
 
 	@Override
 	public int countNotYetApproved() {

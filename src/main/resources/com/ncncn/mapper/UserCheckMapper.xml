@@ -44,7 +44,7 @@
         )
         <![CDATA[
             LIMIT #{amount}
-            OFFSET ${(pageNum-1) * amount};
+            OFFSET ${(pageNum-1) * amount}
 
         ]]>
     </select>
