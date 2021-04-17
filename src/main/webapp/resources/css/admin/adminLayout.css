@@ -24,7 +24,7 @@ body {
 }
 
 .header {
-    width: 1000px;
+    width: 1200px;
     height: 40px;
     display: flex;
     justify-content: flex-end;
@@ -180,7 +180,7 @@ body {
 
 #main {
     min-width: 800px;
-    width: 1000px;
+    width: 1200px;
     padding: 0 20px;
     margin: 0 auto;
     color: rgb(71, 71, 71);

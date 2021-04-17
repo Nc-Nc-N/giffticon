@@ -1,114 +1,116 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-#content {
-    justify-content: center;
-    min-width: fit-content;
-    height: fit-content;
-    padding: 0 20px 0 20px;
-}
-
-#main {
-    display: flex;
-    flex-direction: column;
-    width: 800px;
-    height: fit-content;
-    margin: 0 20px 0 20px;
-    padding: 0;
-}
-
-#sidebar {
-    min-width: 250px;
-    margin: 0 20px 0 20px;
-}                   
-
-#admin-memo {
-    width: 250px;
-}
-
 .search-area {
+    margin-top: 20px;
+    display: flex;
     justify-content: flex-end;
 }
 
-.request {
-    margin-top: 20px;
-    border-bottom: 1px solid gainsboro;
+#search-form {
     display: flex;
+    justify-content: center;
 }
 
-.request-img {
-    width: 120px;
-    height: 110px;
+.search-select {
+    width: 80px;
 }
 
-.request-info {
-    margin-left: 20px;
-    margin-bottom: 10px;
-    width: 60%;
+#rqust-div {
+    padding: 0 10px;
 }
 
-.p {
-    font-size: 15px;
-    margin: 2px;
-    color: rgb(71, 71, 71);
+#rqust-tb {
+    width: 100%;
+    margin: 20px 0;
+    text-align: center;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
 
-.category {
-    font-size: 13px;
-    /* font-weight: 600; */
-    color: rgb(112, 112, 112);
-}
-
-.title {
-    font-size: 16px;
+#rqust-tb thead {
+    box-shadow: 0px 1px 3px 0px rgb(188, 188, 188);
     font-weight: 600;
 }
 
-.desc-title {
-    font-size: 13px;
-    margin-top: 5px;
-    color: rgb(112, 112, 112);  
+#rqust-tb > thead > tr {
+    font-size: 16px;
+    height: 50px;
 }
 
-.desc {
-    font-size: 13px;
-    color: rgb(112, 112, 112);  
+.w15 {
+    width: 15px;
 }
 
-.price {
-    margin-top: 5px;
+.w45 {
+    width: 45px;
+}
+
+.w90 {
+    width: 90px;
+}
+
+.w100 {
+    width: 100px;
+}
+
+.w125 {
+    width: 125px;
+}
+
+.w200 {
+    width: 200px;
+}
+
+.rqust-img {
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    text-align: center;
+}
+
+.rqust-img img {
+    margin: 10px 0;
+    width: 90%;
+    height: 100px;
+}
+
+.rqust-tr {
+    height: fit-content;
+    /* border-bottom: 1.5px solid rgb(188, 188, 188); */
+    font-size: 16px;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nothing {
+    text-align: center;
 }
 
 .main-footer {
     display: flex;
-    justify-content: flex-end;
-    margin: 20px 0 40px 0;
+    justify-content: space-between;
+    margin: 30px 0 40px 0;
 }
 
-.btn {
-    cursor: default;
+.main-footer button {
+    height: 40px;
 }
 
-.request button {
-    margin: auto;
+.main-footer button:hover {
+    color: white;
+    background-color: rgb(255, 88, 93);
 }
 
 a.detail-link {
     color: rgb(71, 71, 71);
 }
 
-a.detail-link:link {
-    text-decoration: none;
-}
-
 a.detail_link:visited {
-    text-decoration: none;
     color: rgb(71, 71, 71);
 }
 
-a.detail-link:active {
-    text-decoration: none;
-    color: rgb(71, 71, 71);
+a.detail-link:hover {
+    color: rgb(255, 88, 93)
 }
