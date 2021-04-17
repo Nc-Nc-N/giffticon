@@ -1,15 +1,15 @@
-.item_info{
-    width:100%;
-    height:30%;
+.item_info {
+    width: 100%;
+    height: 20%;
     /* background-color: cornflowerblue; */
     border-bottom: 3px solid gainsboro;
     display: flex;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 
-.item_img{
-    width:40%;
+.item_img {
+    width: 40%;
     overflow: hidden;
     text-align: center;
     /* background-color: green; */
@@ -19,18 +19,18 @@
     width: 60%;
 }
 
-.item_nameNcode{
-    width:40%;
+.item_nameNcode {
+    width: 40%;
     height: auto;
     /* background-color: greenyellow; */
-    
+
 }
 
-.item_name, .item_code{
+.item_name, .item_code {
     font-size: 20px;
     font-weight: bold;
     /* background-color: hotpink; */
-    height:50px;
+    height: 50px;
     display: flex;
     align-items: center;
 }
@@ -46,10 +46,55 @@
 }
 
 
-.item_btn{
+.item_btn {
     width: 11%;
     height: 95%;
     /* background-color: grey; */
     display: flex;
 
+}
+
+.btn-disabled {
+    cursor: not-allowed;
+    font-weight: bold;
+}
+
+.btn-cmpl {
+    background-color: rgb(255, 88, 93);
+    color: white;
+    animation: heartbeat 1s 20;
+
+}
+
+.btn-cmpl:hover {
+    background-color: white;
+    color: rgb(255, 88, 93);
+    border: 1px solid rgb(255, 88, 93);
+
+}
+
+.toListbtn{
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#toListbtn:hover{
+    background-color: white;
+    color: rgb(255, 88, 93);
+    border: 1px solid rgb(255, 88, 93);
+}
+
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1.0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1.0);
+    }
 }
