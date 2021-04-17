@@ -62,11 +62,11 @@
             <!-- search area -->
             <div class="search-bar-container">
                 <form id="h-search-form" action="/user/prod_list" method="get">
-                    <input type="text" class="h-search-input" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
-                    <input type="hidden" name="code" value='<c:out value="${pageMaker.cri.code}"/>'/>
-                    <input type="hidden" name="orderby" value='<c:out value="${pageMaker.cri.orderby}"/>'/>
-                    <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"/>
-                    <input type="hidden" name="amount" value="${pageMaker.cri.amount}"/>
+                    <input type="text" class="h-search-input" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
+                    <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'/>
+                    <input type="hidden" name="orderby" value='<c:out value="${headerPageMaker.cri.orderby}"/>'/>
+                    <input type="hidden" name="pageNum" value="${headerPageMaker.cri.pageNum}"/>
+                    <input type="hidden" name="amount" value="${headerPageMaker.cri.amount}"/>
                     <button class="h-search-button"><i class="fas fa-search"></i> </button>
                 </form>
             </div>
