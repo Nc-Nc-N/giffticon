@@ -99,13 +99,4 @@ public class SaleRqustServiceTest {
 		assertEquals(1, result);
 	}
 
-	@Test
-	public void removeRqustSuccessTest() {
-		when(gifticonMapper.deleteById(anyInt())).thenReturn(1);
-
-		int result = saleRqustService.removeRqust(anyInt());
-
-		verify(gifticonMapper).deleteById(anyInt());
-		assertEquals(1, result);
-	}
 }
