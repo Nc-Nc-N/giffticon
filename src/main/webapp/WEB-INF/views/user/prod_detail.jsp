@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="/resources/js/wishList.js"></script>
+    <script type="text/javascript" src="/resources/js/user/wishList.js"></script>
     <script>
         // url 이동
         function common_goUrl(url){
