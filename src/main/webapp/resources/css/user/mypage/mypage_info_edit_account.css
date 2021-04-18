@@ -1,12 +1,9 @@
-.bank_select{
-    height: 30px;
-    border-radius: 5px;
-    border: 1px solid black;
-    
-}
+
 
 #register-content{
     height: 500px;
+    margin-left: 9%;
+    margin-top: 35%;
 
 }
 
@@ -17,4 +14,11 @@
 
 .info_section{
     height: 25%;
+}
+
+.bank_select{
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid black;
+
 }

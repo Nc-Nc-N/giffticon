@@ -34,7 +34,7 @@
                             <div><c:out value="${user.pnt}"/></div>
                         </div>
                         <div class="user_info_btn">
-                            <button class="btn btn-active">정보 수정</button>
+                            <button class="btn btn-active" id="modUserInfo">정보 수정</button>
                         </div>
                     </div>
                     <div class="contentheader">
@@ -53,13 +53,48 @@
                             <div><c:out value="${user.acc}"/></div>
                         </div>
                         <div class="user_info_btn">
-                            <button class="btn btn-active">정보 수정</button>
+                            <button class="btn btn-active" id="modAccInfo">정보 수정</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+<div class="modalOn modal_userInfo">
+    <jsp:include page="userInfo_editUser.jsp"/>
+</div>
+<div class="modalOn modal_accInfo">
+    <jsp:include page="userInfo_editAcc.jsp"/>
+</div>
 </body>
+
+
 </html>
+
+
+<script>
+
+    let modalSection = $(".modalOn");
+    let modUserInfo = $("#modUserInfo");
+    let modAccInfo = $("#modAccInfo");
+
+    $(".document").ready(function(){
+
+        modUserInfo.on("click",function (){
+
+            $(".modal_userInfo").css("visibility","visible");
+        })
+
+        modAccInfo.on("click",function(){
+
+            $(".modal_accInfo").css("visibility", "visible");
+        })
+
+        $(".cancel").on("click",function(e){
+
+            $(".modalOn").css("visibility", "hidden");
+        })
+
+
+    })
+</script>

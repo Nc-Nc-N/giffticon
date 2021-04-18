@@ -1,6 +1,6 @@
 #container {
     width: 1000px;
-    height: 1000px;
+    height: fit-content;
     /* background-color:khaki; */
     margin: auto;
 }
@@ -13,7 +13,7 @@
 
 .main {
     width: 1000px;
-    height: 935px;
+    height: fit-content;
 
     /* background-color: lightgreen; */
 }
@@ -41,7 +41,7 @@
 }
 
 .menubody {
-    height: 855px;
+    height: fit-content;
     width: 1000px;
     /* background-color:aqua; */
     display: flex;
@@ -130,7 +130,7 @@
 }
 
 .content {
-    height: 1400px;
+    height: fit-content;
     width: 750px;
     /*background-color:wheat;*/
     margin: 0 0 0 50px;

@@ -82,3 +82,15 @@
 .btn-disabled:hover {
     cursor: not-allowed;
 }
+
+.modalOn{
+    visibility: hidden;
+    height: 200%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top:0%;
+    bottom: 0%;
+    background-color: rgba(10,10,10,0.5);
+}

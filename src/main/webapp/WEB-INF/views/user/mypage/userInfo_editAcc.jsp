@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../../common-css/button.css" type="text/css">
-    <link rel="stylesheet" href="../../common-css/search-box.css" type="text/css">
-    <link rel="stylesheet" href="mypage_info_edit_user.css" type="text/css">
-    <link rel="stylesheet" href="mypage_info_edit_account.css" type="text/css">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_user.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_account.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
@@ -67,7 +62,7 @@
 
         <div id="reg-btn-area">
             <button class="btn btn-active">등록</button>
-            <button class="btn btn-disabled">취소</button>
+            <button class="btn btn-disabled cancel">취소</button>
         </div>
     </div>
 </body>
