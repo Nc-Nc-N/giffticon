@@ -414,15 +414,27 @@
     // 가격 직접 입력 시 10원단위 반올림 적용. 입력값이 100원 이상일 때만
 
     // let dcprice = document.getElementById('dcprice');
-    // $('#dcprice').on("propertychange change keyup paste input", function() {
+    // // $('#dcprice').on("propertychange change keyup paste input", function() {
+    // $('#dcprice').on("keyup", function() {
     //
+    //     roundUpDcPrice();
+    //     clearTimeout(roundUpDcPrice);
+    //
+    //     // setTimeout(function() {
+    //     //     if(parseInt(dcprice.value) > 100) {
+    //     //         dcprice.value = Math.round(dcprice.value / 10.0) * 10;
+    //     //     }
+    //     // }, 1000)
+    //
+    // });
+    //
+    // let roundUpDcPrice = function() {
     //     setTimeout(function() {
     //         if(parseInt(dcprice.value) > 100) {
     //             dcprice.value = Math.round(dcprice.value / 10.0) * 10;
     //         }
-    //     }, 500)
-    //
-    // });
+    //     }, 1000)
+    // }
 
     // product img 삭제
     let deleteProdImg = function() {
@@ -793,9 +805,7 @@
     }
 
 
-
-
-
+    
     // $("#thumbnail").on("click", function() {
     //    showImage
     // });
