@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.CriteriaSM;
 import com.ncncn.domain.WishListVO;
 import com.ncncn.mapper.WishListMapper;
 import lombok.AllArgsConstructor;
@@ -36,5 +37,15 @@ public class WishListServiceImpl implements WishListService{
 	@Override
 	public List<WishListVO> getWishList(int userId) {
 		return mapper.getWishList(userId);
+	}
+
+	@Override
+	public List<WishListVO> getWishListWithPaging(int userId, CriteriaSM cri) {
+		return mapper.getWishListWithPaging(userId, cri.getAmount(), cri.getPageNum());
+	}
+
+	@Override
+	public int getTotalCount(int userId) {
+		return mapper.getTotalCount(userId);
 	}
 }

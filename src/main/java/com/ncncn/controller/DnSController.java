@@ -4,10 +4,7 @@ import com.ncncn.domain.CriteriaSM;
 import com.ncncn.domain.MyDealsDTO;
 import com.ncncn.domain.MySellDTO;
 import com.ncncn.domain.PageDTOSM;
-import com.ncncn.service.DealListService;
-import com.ncncn.service.SellListService;
-import com.ncncn.service.UserCheckService;
-import com.ncncn.service.UserService;
+import com.ncncn.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
@@ -30,6 +27,7 @@ public class DnSController {
     private SellListService sellListService;
     private UserCheckService userCheckService;
     private UserService userService;
+    private WishListService wishService;
 
     @GetMapping("/deal")
     public void dealList(Principal principal, CriteriaSM cri, Model model, HttpServletRequest request) {
@@ -117,5 +115,20 @@ public class DnSController {
         model.addAttribute("principal", principal);
         return "/user/mypage/sellDetail";
 
+    }
+
+    // 관심 상품
+    @GetMapping("/wish")
+    public void wish(HttpServletRequest request, CriteriaSM cri, Model model){
+
+        int userId = (int) request.getSession().getAttribute("userId");
+        int total = wishService.getTotalCount(userId);
+
+        model.addAttribute("countStus004", dealListService.countStus004(userId));
+        model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
+        model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
+        model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
+        model.addAttribute("pageMaker", new PageDTOSM(cri, total));
+        model.addAttribute("wishList", wishService.getWishListWithPaging(userId, cri));
     }
 }

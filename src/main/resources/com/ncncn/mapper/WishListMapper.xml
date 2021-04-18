@@ -23,16 +23,35 @@
         ]]>
     </delete>
 
+    <!-- 관심 상품 조회 (홈) -->
     <select id="getWishList" resultType="com.ncncn.domain.WishListVO">
         <![CDATA[
-        select wish.prod_code, wish.user_id, brand.name as bname, prod.name as pname, prc, min(gifti.dc_prc) as dc_prc, gifti.dc_rate, prod.img_path
+        select wish.prod_code, wish.user_id, brand.name as bname, prod.name as pname, prc, min(gifti.dc_prc) as dc_prc, gifti.dc_rate,gft_stus_code, prod.img_path
         from wish_list as wish
                  INNER JOIN gifticon as gifti ON wish.prod_code = gifti.prod_code
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
-        where wish.user_id= #{userId}
-        group by wish.prod_code;
-
+        where wish.user_id= #{userId} and gft_stus_code = '002'
+        group by wish.prod_code
         ]]>
+    </select>
+
+    <!-- 관심 상품 조회(페이징 처리) -->
+    <select id="getWishListWithPaging" resultType="com.ncncn.domain.WishListVO">
+        <![CDATA[
+        select wish.prod_code, wish.user_id, brand.name as bname, prod.name as pname, prc, min(gifti.dc_prc) as dc_prc, gifti.dc_rate,gft_stus_code, prod.img_path
+        from wish_list as wish
+                 INNER JOIN gifticon as gifti ON wish.prod_code = gifti.prod_code
+                 INNER JOIN product as prod ON gifti.prod_code = prod.code
+                 INNER JOIN brand ON prod.brd_code = brand.code
+        where wish.user_id= #{userId} and gft_stus_code = '002'
+        group by wish.prod_code
+        LIMIT #{amount}
+        OFFSET ${(pageNum-1) * amount}
+        ]]>
+    </select>
+
+    <select id="getTotalCount" resultType="int">
+        select count(*)from wish_list where user_id= 156;
     </select>
 </mapper>

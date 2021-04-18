@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@include file="/WEB-INF/views/common/header.jsp"%>
 
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +18,6 @@
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 </style>
 
-<jsp:include page="../../common/header.jsp"/>
 
 <body>
 <div id="container">
@@ -30,6 +30,11 @@
                 <div class="menuname">MY PAGE</div><!--메뉴 이름 (사이드바 위)-->
                 <div class="sidebar"> <!--사이드 바 영역 (필요한만큼 영역 늘리기)-->
                     <!--필요한만큼 아래 추가해서 사용 (개당 간격70px)-->
+                    <a href="/user/mypage/wish">
+                        <div class="bar">
+                            <div>관심 상품</div>
+                            <i class="fas fa-chevron-right"></i></div>
+                    </a>
                     <a href="/user/mypage/deal">
                         <div class="bar">
                             <div>구매 내역</div>

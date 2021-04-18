@@ -26,7 +26,7 @@
 </head>
 
 <!--여기서부터 home body-->
-<body>
+<div id="container">
 <div class="space"></div> <!--광고 위 여백-->
 <div id="advertiser"> <!--광고판테두리-->
     <div class="advertise"> <!--광고 삽입-->
@@ -39,7 +39,7 @@
         </span>
 
 </div>
-<div id="container"> <!-- 광고 아래 메인 컨텐츠-->
+ <!-- 광고 아래 메인 컨텐츠-->
     <div class="space"></div>
 
     <!-- 첫번째줄 (지도 + 관심상품)-->
@@ -54,10 +54,9 @@
                     <h3><i class="far fa-heart"></i>&nbsp;나만의 관심상품</h3>
                 </div>
                 <div class="categorycontroller">
-                    <a href="#" class="main-btn">전체보기</a>
+                    <a href="/user/mypage/wish" class="main-btn">전체보기</a>
                 </div>
             </div>
-
         </div>
 
         <!--카테고리 컨텐츠 삽입-->
@@ -74,12 +73,12 @@
             </div>
 
             <%-- 관심상품 --%>
-            <div class="splide" style="width: 735px; margin-left: 20px; margin-top: 20px;">
+            <div class="splide" style="width: 735px; height: 300px; margin-left: 20px; margin-top: 20px;">
                 <div class="splide__track">
-                    <ul class="splide__list">
+                    <ul class="splide__list" style="height: 300px;">
                         <c:set var="i" value="0"/>
                         <c:set var="j" value="3"/>
-                        <c:forEach items="${wishList}" var="wishList">
+                        <c:forEach items="${wishList}" var="wishList" end="5">
                             <c:if test="${i%j==0}">
                                 <li class="splide__slide">
                                 <table>
