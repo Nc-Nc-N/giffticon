@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/cs/notice_board.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
 

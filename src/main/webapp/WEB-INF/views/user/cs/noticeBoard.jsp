@@ -11,9 +11,9 @@
 
     <link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/cs/notice_board.css" type="text/css">
 
 
