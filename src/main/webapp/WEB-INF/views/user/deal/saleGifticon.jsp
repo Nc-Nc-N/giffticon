@@ -714,8 +714,6 @@
     // 업로드 버튼 클릭시 동작
     $("#saleReg").on("click", function(){
 
-
-
         // alert(typeof(getAddDcRate()));   //number
         // alert(typeof($("#dcprice")[0].value));  //String
         // alert(typeof(inDcRate));
@@ -854,6 +852,27 @@
         }
         return addDcRate;
     }
+
+    
+    // 대분류 클릭시 클래스이름 추가, 삭제
+    $(".categorySelect").children(".select").on("click", function(){
+        $(".categorySelect").children(".select").removeClass('on');
+        $(this).addClass('on');
+    });
+
+    // 중분류 클릭시 클래스이름 추가, 삭제
+    $(".brandbox").on("click", $('.brandSelect' .select), function(e){
+        $(".brandSelect").children(".select").removeClass('on');
+        $(e.target).addClass('on');
+    });
+
+    // 소분류 클릭시 클래스이름 추가, 삭제
+    $(".productbox").on("click", $('.productSelect' .select), function(e){
+        $(".productSelect").children(".select").removeClass('on');
+        $(e.target).addClass('on');
+    });
+
+
 
 
 </script>

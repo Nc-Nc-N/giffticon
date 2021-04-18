@@ -431,3 +431,12 @@ button{
 .modalbtn {
     margin:30px 100px;
 }
+
+.select:hover {
+    background-color: gainsboro;
+}
+
+.select.on {
+    color:rgb(255,88,93);
+}
+
