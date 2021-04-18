@@ -15,6 +15,8 @@ public class UserInfoDTO {
 
     private String name;
 
+    private int pnt;
+
     private String acc;
 
     private String bnkCode;

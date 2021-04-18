@@ -61,11 +61,12 @@
                user.pwd,
                user.name,
                user.tel_no,
+               user.pnt,
                bnkT.acc,
                bnkT.bnk_code,
                bnkT.holder,
                bnkT.is_authed,
-               stusT.code_name
+               stusT.code_name bnkName
         from
             (
                 bank_account bnkT
