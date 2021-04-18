@@ -53,6 +53,7 @@ public class DealController {
             e.printStackTrace();
             return "redirect:/account/signIn";
         }
+
         model.addAttribute("userId", userId);
 
         log.info("userId= " + userId);

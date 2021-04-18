@@ -231,7 +231,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="/resources/js/saleGifticon.js"></script>
+<%--<script type="text/javascript" src="/resources/js/saleGifticon.js"></script>--%>
 <script type="text/javascript">
 
 
@@ -412,12 +412,16 @@
     }
 
     // 가격 직접 입력 시 10원단위 반올림 적용. 입력값이 100원 이상일 때만
+
     // let dcprice = document.getElementById('dcprice');
     // $('#dcprice').on("propertychange change keyup paste input", function() {
     //
-    //    if(parseInt(dcprice.value) > 100) {
-    //        dcprice.value = Math.round(dcprice.value / 10.0) * 10;
-    //    }
+    //     setTimeout(function() {
+    //         if(parseInt(dcprice.value) > 100) {
+    //             dcprice.value = Math.round(dcprice.value / 10.0) * 10;
+    //         }
+    //     }, 500)
+    //
     // });
 
     // product img 삭제
@@ -853,7 +857,7 @@
         return addDcRate;
     }
 
-    
+
     // 대분류 클릭시 클래스이름 추가, 삭제
     $(".categorySelect").children(".select").on("click", function(){
         $(".categorySelect").children(".select").removeClass('on');
