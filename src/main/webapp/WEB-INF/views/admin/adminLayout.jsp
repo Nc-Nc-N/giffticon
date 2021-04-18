@@ -35,7 +35,7 @@
                 <a href="#"><i class="far fa-check-circle"></i>판매요청관리</a>
                 <a href="#"><i class="fas fa-exchange-alt"></i>거래내역관리</a>
                 <a href="#"><i class="fas fa-coins"></i>포인트관리</a>
-                <a href="#"><i class="fas fa-bullhorn"></i>고객센터</a>
+                <a href="/admin/adminNotice" id="adminCs"><i class="fas fa-bullhorn"></i>고객센터</a>
                 <!-- <a href="#"><i class="fas fa-chart-pie"></i>통계</a> -->
             </div>
         </div>

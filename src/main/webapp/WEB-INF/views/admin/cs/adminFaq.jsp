@@ -252,6 +252,8 @@
 
     $(document).ready(function () {
 
+        document.getElementById("adminCs").className = 'active';
+
         //page번호 클릭했을때 처
         var actionForm = $("#actionForm");
 
