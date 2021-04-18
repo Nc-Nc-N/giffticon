@@ -2,16 +2,22 @@ package com.ncncn.mapper;
 
 
 import com.ncncn.domain.CriteriaCH;
+import com.ncncn.domain.UserDetailCheckDTO;
+import com.ncncn.domain.UserMemoDTO;
 import com.ncncn.domain.UserVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
+import org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/applicationContext.xml")
@@ -48,6 +54,32 @@ public class UserCheckMapperTests {
         List<UserVO> list = mapper.getListWithPaging(cri);
 
         list.forEach(user -> log.info(user));
+    }
+
+    @Test
+    public void testGetUser(){
+
+        int userId=152;
+        UserDetailCheckDTO user = mapper.getUserDetail(userId);
+        log.info(user);
+
+    }
+
+    @Test
+    public void testUpdateMemo() {
+
+        int userId=152;
+        String memo="Memo Update Test";
+        UserMemoDTO updateMemo = new UserMemoDTO();
+        updateMemo.setId(userId);
+        updateMemo.setMemo(memo);
+
+        mapper.updateMemo(updateMemo);
+
+        UserDetailCheckDTO user = mapper.getUserDetail(152);
+
+        assertEquals(user.getMemo(), "Memo Update Test");
+
     }
 
 

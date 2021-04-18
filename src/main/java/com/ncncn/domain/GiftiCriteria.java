@@ -12,7 +12,7 @@ public class GiftiCriteria {
 	private String keyword;
 
 	public GiftiCriteria(){
-		this(1,12,"01","best");
+		this(1,12,"0","best");
 	}
 
 	public GiftiCriteria(int pageNum, int amount, String code, String orderby){

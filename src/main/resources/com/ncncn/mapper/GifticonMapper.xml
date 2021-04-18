@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ncncn.mapper.GifticonMapper">
-
+  
     <select id="read" resultType="com.ncncn.domain.GifticonVO">
         select * from gifticon where id = #{id}
     </select>

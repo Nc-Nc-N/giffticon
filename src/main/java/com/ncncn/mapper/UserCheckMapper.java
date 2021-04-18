@@ -1,7 +1,6 @@
 package com.ncncn.mapper;
 
-import com.ncncn.domain.CriteriaCH;
-import com.ncncn.domain.UserVO;
+import com.ncncn.domain.*;
 
 import java.util.List;
 
@@ -12,5 +11,11 @@ public interface UserCheckMapper {
     public List<UserVO> getListWithPaging(CriteriaCH cri);
 
     public int getTotalCount(CriteriaCH cri);
+
+    public UserDetailCheckDTO getUserDetail(int userId);
+
+    public void updateMemo(UserMemoDTO memo);
+
+    public void updateStatus(UserStatusDTO status);
 
 }

@@ -31,12 +31,14 @@ nav ul{
 	-o-transition: max-height 0.4s;
 	transition: max-height 0.4s;
 }
-nav ul li{
+nav ul a{
+    color: #202020;
 	display: inline-block;
 	padding: 10px;
     font-size: small;
+    list-style:none;
 }
-nav ul li:hover{
+nav ul a:hover{
 	color: #FF585D
 }
 .search-select {
@@ -53,12 +55,16 @@ table td{
     padding-bottom: 50px;
     /*border-spacing: 0px 50px;*/
 }
+
+td a:link{
+    text-decoration: none;
+}
+
 .items{
     width:225px;
     height:100%;
     /*background-color: #514859;*/
 }
-
 
 .itemimg{
     width: 225px;
@@ -78,11 +84,9 @@ table td{
 .itemnameNprice{
     width: 225px;
     height: 30%;
-     /*background-color:hotpink;*/
     display: block;
 }
 .itembrand{
-     /*background-color:burlywood;*/
     width: 100%;
     height: 20%;
     text-align: center;
@@ -91,16 +95,15 @@ table td{
     color:rgba(70,70,70,1);
 }
 .itemname{
-     /*background-color: cornflowerblue;*/
     width: 100%;
     height: 25%;
     font-size: medium;
     font-weight: bold;
     text-align: center;
+    color : black;
 }
 
 .itemprice{
-     /*background-color:aquamarine;*/
     width: 100%;
     height: 35%;
     display: flex;
@@ -157,14 +160,30 @@ table td{
     border-radius: 5px;
 }
 
-.paginate_button li.active {
+.pagination a:hover {
     background-color: rgb(255, 88, 93);
     color: white;
     border-radius: 5px;
 }
 
-.pagination a:hover {
-    background-color: rgb(255, 88, 93);
-    color: white;
-    border-radius: 5px;
+/* 재검색 안내 */
+.noresult, .noresult-tip{
+    text-align: center;
+}
+.noresult-tip{
+    margin-top: 30px;
+}
+.tip_lst{
+    font-size: small;
+    color: grey;
+    line-height: 8px;
+}
+a { text-decoration: none; color: #333; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+.brandList active{
+    color: rgb(255, 88, 93);
 }

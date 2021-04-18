@@ -15,4 +15,16 @@ public class WishListVO {
 
 	private Date upDate;
 
+	private String bname;
+
+	private String pname;
+
+	private int prc;
+
+	private int dcPrc;
+
+	private double dcRate;
+
+	private String imgPath;
+
 }

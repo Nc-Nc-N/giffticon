@@ -1,6 +1,7 @@
 package com.ncncn.mapper;
 
 import com.ncncn.domain.UserVO;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
 
@@ -11,4 +12,8 @@ public interface UserMapper {
     int deleteByEmail(String email);
 
     UserVO readForLogin(String email);
+
+    UserVO readById(@Param("userId") int userId);
+
+    int countRecentlyInsert();
 }
