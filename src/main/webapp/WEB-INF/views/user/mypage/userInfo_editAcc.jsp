@@ -10,15 +10,15 @@
     </style>
 </head>
 <body>
-    <div id="register-content">
+    <div id="acc_register-content">
         <h2>계좌정보 수정</h2>
         
-        <div id="content">
+        <div id="acc_content">
             
-            <div class="info_section">
+            <div class="acc_info_section">
                 <div>
                     <h3>은행명</h3>
-                        <select class="bank_select">
+                        <select class="acc_bank_select">
                             <option value="신한">신한은행</option>
                             <option value="우리">우리은행</option>
                             <option value="국민">국민은행</option>
@@ -29,7 +29,7 @@
                 </div>
                 
             </div>
-            <div class="info_section">
+            <div class="acc_info_section">
                 <div>
                     <h3>예금주</h3>
                     <div class="input_text">
@@ -38,7 +38,7 @@
                 </div>
                 
             </div>
-            <div class="info_section">
+            <div class="acc_info_section">
                 <div>
                     <h3>계좌번호</h3>
                     <div class="input_text">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="message"><h5>게좌 확인 완료</h5></div>
             </div>
-            <div class="info_section">
+            <div class="acc_info_section">
                 <div>
                     <h3>비밀번호 입력</h3>
                     <div class="input_text">
