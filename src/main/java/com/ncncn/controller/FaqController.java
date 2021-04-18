@@ -14,20 +14,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @Log4j
 @AllArgsConstructor
-@RequestMapping("/cs/*")
 public class FaqController {
 
 	private FaqService service;
 
 	// 사용자
 
-	@GetMapping("/faqBoard")
-	public String faqBoard(CriteriaCs cri, Model model){
+	@GetMapping("/user/mypage/faqBoard")
+	public String faqBoard(HttpServletRequest request, CriteriaCs cri, Model model){
 
 		log.info("list: " + cri);
+		int userId = (int) request.getSession().getAttribute("userId");
+
 		model.addAttribute("list", service.getList(cri));
 //		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
 
@@ -46,10 +49,13 @@ public class FaqController {
 	// 관리자
 
 
-	@GetMapping("/adminFaq")
-	public  String adminFaq(CriteriaCs cri, Model model){
+	@GetMapping("admin/adminFaq")
+	public  String adminFaq(HttpServletRequest request,CriteriaCs cri, Model model){
 
 		log.info("list: " + cri);
+
+		int userId = (int) request.getSession().getAttribute("userId");
+
 		model.addAttribute("list", service.getList(cri));
 //		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
 
@@ -64,22 +70,26 @@ public class FaqController {
 	}
 
 
-	@PostMapping("/adminFaq/register")
-	public String register(CsFaqVO faq, RedirectAttributes rttr){
+	@PostMapping("/admin/adminFaq/register")
+	public String register(HttpServletRequest request, CsFaqVO faq, RedirectAttributes rttr){
 
 		log.info("register: " + faq);
+		int userId = (int) request.getSession().getAttribute("userId");
 
 		service.register(faq);
 
 		rttr.addFlashAttribute("result", faq.getId());
 
-		return "redirect:/cs/adminFaq";
+		return "redirect:/admin/adminFaq";
 	}
 
-	@PostMapping("/adminFaq/modify")
-	public String modify(CsFaqVO faq, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+	@PostMapping("/admin/adminFaq/modify")
+	public String modify(HttpServletRequest request, CsFaqVO faq, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
 
 		log.info("modify: " + faq);
+
+		int userId = (int) request.getSession().getAttribute("userId");
+
 		service.modify(faq);
 		if(service.modify(faq)){
 			rttr.addFlashAttribute("result", "success");
@@ -90,14 +100,17 @@ public class FaqController {
 		rttr.addAttribute("type", cri.getType());
 		rttr.addAttribute("keyword", cri.getKeyword());
 
-		return "redirect:/cs/adminFaq";
+		return "redirect:/admin/adminFaq";
 	}
 
-	@PostMapping("/adminFaq/remove")
-	public String remove(@RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+	@PostMapping("/admin/adminFaq/remove")
+	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
 
 
 		log.info("remove...." + id);
+
+		int userId = (int) request.getSession().getAttribute("userId");
+
 		if (service.remove(id)){
 			rttr.addFlashAttribute("result","success");
 		}
@@ -107,13 +120,13 @@ public class FaqController {
 		rttr.addAttribute("type", cri.getType());
 		rttr.addAttribute("keyword", cri.getKeyword());
 
-		return "redirect:/cs/adminFaq";
+		return "redirect:/admin/adminFaq";
 	}
 
 
 
 	//Modal에 데이터 받기위해 apax를 사용하여 객체 전달.
-	@GetMapping(value = "/faq", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/admin/faq", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CsFaqVO> getNotice(@RequestParam("id") int id) {
 
 		CsFaqVO faqVO = service.get(id);
