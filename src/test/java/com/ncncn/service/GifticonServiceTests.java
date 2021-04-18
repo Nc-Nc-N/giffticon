@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/applicationContext.xml")
 @Log4j
@@ -21,26 +23,35 @@ public class GifticonServiceTests {
 
         int gftId = 51;
 
-        gifticonService.gftDealCmpl(gftId);
+        int dealCmpl = gifticonService.gftDealCmpl(gftId);
+
+        assertEquals(dealCmpl, 1);
     }
 
     @Test
     public void DeleteGifticonTests(){
 
-        int gftId = 123;
 
         String msg =  gifticonService.deleteGifticon(123) == 1 ? "delete done" : "delete failed";
+        String msg2 =  gifticonService.deleteGifticon(0000) == 1 ? "delete done" : "delete failed";
+        String msg3 =  gifticonService.deleteGifticon(1) == 1 ? "delete done" : "delete failed";
 
         log.info(msg);
+
+        assertEquals(msg,"delete failed");
+        assertEquals(msg2,"delete failed");
+        assertEquals(msg3,"delete done");
     }
 
     @Test
     public void UpdateGifticonTests(){
 
-        int gftId = 5;
+        int gftId = 94;
         char isAutoPrc = '0';
-        int dcPrc = 3000;
+        int dcPrc = 2000;
 
-        gifticonService.updateGftPrc(gftId, isAutoPrc, dcPrc);
+        int updatedCmpl = gifticonService.updateGftPrc(gftId, isAutoPrc, dcPrc);
+
+        assertEquals(updatedCmpl, 1);
     }
 }
