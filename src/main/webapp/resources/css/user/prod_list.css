@@ -31,13 +31,14 @@ nav ul{
 	-o-transition: max-height 0.4s;
 	transition: max-height 0.4s;
 }
-nav ul li{
+nav ul a{
     color: #202020;
 	display: inline-block;
 	padding: 10px;
     font-size: small;
+    list-style:none;
 }
-nav ul li a:hover{
+nav ul a:hover{
 	color: #FF585D
 }
 .search-select {
@@ -83,11 +84,9 @@ td a:link{
 .itemnameNprice{
     width: 225px;
     height: 30%;
-     /*background-color:hotpink;*/
     display: block;
 }
 .itembrand{
-     /*background-color:burlywood;*/
     width: 100%;
     height: 20%;
     text-align: center;
@@ -105,7 +104,6 @@ td a:link{
 }
 
 .itemprice{
-     /*background-color:aquamarine;*/
     width: 100%;
     height: 35%;
     display: flex;
@@ -161,12 +159,6 @@ td a:link{
     color: white;
     border-radius: 5px;
 }
-
-/*.paginate_button li.active {*/
-/*    background-color: rgb(255, 88, 93);*/
-/*    color: white;*/
-/*    border-radius: 5px;*/
-/*}*/
 
 .pagination a:hover {
     background-color: rgb(255, 88, 93);
