@@ -37,7 +37,7 @@
 
 
             <span class="header_divider">|</span>
-            <span><a href="#" class="login-panel">고객센터</a></span>
+            <span><a href="/cs/faqBoard" class="login-panel">고객센터</a></span>
 
         </div>
 
@@ -54,8 +54,8 @@
                     <div class="category-btn"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</div>
                 </div>
                 <div class="leftmenus">
-                    <div class="leftmenu">충전하기</div>
-                    <div class="leftmenu"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="leftmenu"><a href="#">충전하기</a></div>
+                    <div class="leftmenu"><a href="#"><i class="fas fa-map-marker-alt"></i></a></div>
                 </div>
 
             </div>
@@ -73,8 +73,8 @@
             </div>
 
             <div class="bar-right">
-                <span class="rightmenu"><i class="fas fa-ticket-alt"></i></span>
-                <span class="rightmenu">판매하기</span>
+                <span class="rightmenu"><a href="#"><i class="fas fa-ticket-alt"></i></a></span>
+                <span class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></span>
                 <span class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></span>
             </div>
         </div>
