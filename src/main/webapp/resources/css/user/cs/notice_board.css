@@ -1,4 +1,6 @@
-
+*, ::after, ::before{
+    box-sizing: border-box;
+}
 
 .menuhead,.sidebar, .sidebarspace, .menubody{
     background-color: white;
@@ -15,11 +17,11 @@
 
 }
 
-
-.search-area{
-    margin-top: 10px;
+.search-form{
     float: right;
+    margin-top: 10px;
 }
+
 
 
 .sub-category-btn-all, .sub-category-btn-notice, .sub-category-btn-event{
@@ -47,11 +49,7 @@
     border-top: 1px solid rgb(230, 230, 230);
 }
 
-.sub2:hover{
+.sub:hover{
     color: rgb(255, 88, 93);
 }
 
-/*.clicked{*/
-/*    background-color: rgb(255, 88, 93);*/
-/*    color: white;*/
-/*}*/

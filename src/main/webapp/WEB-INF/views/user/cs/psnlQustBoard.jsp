@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../header.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
     <link rel="stylesheet" href="../templete.css" type="text/css">
     <link rel="stylesheet" href="/common-css/search-box.css" type="text/css">
     <link rel="stylesheet" href="/관리자/notice/admin_notice.css" type="text/css">
