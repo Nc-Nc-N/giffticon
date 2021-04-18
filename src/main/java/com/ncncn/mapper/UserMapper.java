@@ -1,5 +1,6 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,4 +17,5 @@ public interface UserMapper {
     UserVO readById(@Param("userId") int userId);
 
     int countRecentlyInsert();
-}
+
+    public UserInfoDTO getMyInfo(int userId);}

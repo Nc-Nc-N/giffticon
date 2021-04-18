@@ -53,4 +53,31 @@
         select count(*) from user where in_date between date_sub(curdate(), interval 3 day) and date_add(curdate(), interval 1 day)
     </select>
 
+    <select id="getMyInfo" resultType="com.ncncn.domain.UserInfoDTO">
+
+            <![CDATA[
+        select user.id,
+               user.email,
+               user.pwd,
+               user.name,
+               user.tel_no,
+               bnkT.acc,
+               bnkT.bnk_code,
+               bnkT.holder,
+               bnkT.is_authed,
+               stusT.code_name
+        from
+            (
+                bank_account bnkT
+                    left join
+                        (select * from cmmn_code where code_type = 'BANK_NAME' and enabled = 1) stusT
+                    on bnkT.bnk_code = stusT.code
+                )
+                right join
+                (select * from user where user.id = #{userId} and enabled = '1') user
+        on user.id = bnkT.user_Id
+        ]]>
+
+     </select>
+
 </mapper>

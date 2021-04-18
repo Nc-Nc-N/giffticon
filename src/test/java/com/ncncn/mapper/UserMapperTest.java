@@ -1,5 +1,6 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -74,5 +75,17 @@ public class UserMapperTest {
         UserVO user = userMapper.readByEmail(userEmail);
 
         log.info("userVO : " + user);
+    }
+
+    @Test
+    public void getMyInfoTest(){
+
+        int userId = 157;
+
+        UserInfoDTO user = userMapper.getMyInfo(userId);
+
+        log.info(user.toString());
+
+        assertEquals(user.getHolder(),null);
     }
 }

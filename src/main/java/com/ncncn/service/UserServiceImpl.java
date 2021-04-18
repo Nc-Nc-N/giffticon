@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserMapper;
 import lombok.AllArgsConstructor;
@@ -26,4 +27,24 @@ public class UserServiceImpl implements UserService {
 	public int countRecentlyRegister() {
 		return userMapper.countRecentlyInsert();
 	}
+
+    @Override
+    public UserInfoDTO getMyInfo(int userId){
+
+        log.info("GetMyInfo service of " + userId);
+
+        try {
+
+            UserInfoDTO user = userMapper.getMyInfo(userId);
+
+            return user;
+
+        }catch (Exception e){
+
+            log.info("해당 사용자 정보가 없습니다.");
+
+            return new UserInfoDTO();
+
+        }
+    }
 }
