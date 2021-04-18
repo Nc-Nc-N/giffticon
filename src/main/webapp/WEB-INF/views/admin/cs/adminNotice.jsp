@@ -174,7 +174,7 @@
                     <p class="search-selected" id="modifyModalLabel"></p>
                     <input class="modify-id" type="hidden" name="id" value=''>
                     <input type="checkbox" class="modify-fixed" name="isFixed" checked="checked" value=''>상위 고정
-                    <input class="modify-end-dt" type="datetime-local" name="endDt" placeholder="endDt" value=''>
+                    <input class="modify-end-dt" type="date" name="endDt" placeholder="endDt" value=''>
                     <textarea class="modify-title" name="title"></textarea>
 
                 </div>
@@ -211,7 +211,7 @@
                             <option value="004">이벤트</option>
                         </select>
                         <input type="checkbox" class="register-fixed" name="isFixed" checked="checked" value=''>상위 고정
-                        <input class="register-end-dt" type="datetime-local" name="endDt" placeholder="endDt" value=''>
+                        <input class="register-end-dt" type="date" name="endDt" placeholder="endDt" value=''>
                     </div>
                     <input class="register-user-id" type="hidden" name="userId" value=''>
                     <textarea class="register-title" name="title"></textarea>
@@ -337,6 +337,7 @@
 
         var modifyForm = $("form");
         console.log(this.id);
+        let date;
 
         let notice = '';
 
@@ -360,8 +361,14 @@
 
         $(".modify-fixed").val(notice.isFixed);
 
-        console.log(notice.endDt);
-        $(".modify-end-dt").val(notice.endDt);
+        date = new Date(notice.endDt);
+
+        $(".modify-end-dt").val(
+            date.getFullYear()+
+            "-"+("0" + (date.getMonth() + 1)).slice(-2)+
+            "-"+("0" + date.getDate()).slice(-2));
+
+
 
         if (notice.csCateCode == "003") {
 
@@ -381,9 +388,8 @@
 
         $('#btn-modify').on("click", function () {
 
-
-            modifyForm.attr("action", "/admin/adminNotice/modify");
-            modifyForm.submit();
+                modifyForm.attr("action", "/admin/adminNotice/modify");
+                modifyForm.submit();
 
         });
 
@@ -401,6 +407,8 @@
 
         registerForm = $("form");
 
+        let userId = "<c:out value="${userId}"/>";
+
         $("#registerModal").modal("show");
 
         //register 값 채우기
@@ -414,13 +422,20 @@
 
         }
 
-        $(".register-user-id").val("166");
+        $(".register-user-id").val(userId);
+
 
 
         $("#btn-register").on("click", function () {
-            registerForm.attr("action", "/admin/adminNotice/register");
-            registerForm.submit();
-        })
+
+            if($(".register-end-dt").val() == ''){
+                alert("날짜를 입력해주세요");
+                return false;
+            }else {
+                registerForm.attr("action", "/admin/adminNotice/register");
+                registerForm.submit();
+            }
+        });
 
         $("#closeRegisterModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
 

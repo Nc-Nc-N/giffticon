@@ -403,12 +403,12 @@
     $(".btn-active").on("click", function () {
 
         registerForm = $("form");
-
+        let userId = "<c:out value="${userId}"/>";
         $("#registerModal").modal("show");
 
         //register 값 채우기
 
-        $(".register-user-id").val("166");
+        $(".register-user-id").val(userId);
 
         if ($('input:checkbox[name="enabled"]').is(":checked") == true) {
 

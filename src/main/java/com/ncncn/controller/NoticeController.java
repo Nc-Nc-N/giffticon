@@ -70,6 +70,7 @@ public class NoticeController {
 		//userId 0일경우 예외처리 해줄 것
 		try {
 			userId = (int) request.getSession().getAttribute("userId");
+			model.addAttribute("userId", userId);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
@@ -86,7 +87,6 @@ public class NoticeController {
 
 		int userId = (int) request.getSession().getAttribute("userId");
 		service.register(notice);
-
 		rttr.addFlashAttribute("result", notice.getId());
 
 		return "redirect:/admin/adminNotice";
