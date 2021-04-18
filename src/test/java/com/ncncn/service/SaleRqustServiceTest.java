@@ -101,11 +101,11 @@ public class SaleRqustServiceTest {
 
 	@Test
 	public void removeRqustSuccessTest() {
-		when(gifticonMapper.deleteById(anyInt())).thenReturn(1);
+		when(gifticonMapper.deleteGifticon(anyInt())).thenReturn(1);
 
 		int result = saleRqustService.removeRqust(anyInt());
 
-		verify(gifticonMapper).deleteById(anyInt());
+		verify(gifticonMapper).deleteGifticon(anyInt());
 		assertEquals(1, result);
 	}
 }
