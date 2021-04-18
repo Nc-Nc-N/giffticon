@@ -4,7 +4,7 @@ import com.ncncn.domain.UserVO;
 
 public interface SignUpService {
 
-	UserVO findByEmail(String email);
+	UserVO getByEmail(String email);
 
 	int register(UserVO userVO);
 

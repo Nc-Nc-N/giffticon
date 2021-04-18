@@ -65,7 +65,7 @@ public class SaleRqustServiceImpl implements SaleRqustService {
 
 	@Override
 	public int removeRqust(int id) {
-		return gifticonMapper.deleteById(id);
+		return gifticonMapper.deleteGifticon(id);
 	}
 
 }

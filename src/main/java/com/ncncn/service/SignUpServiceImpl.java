@@ -19,7 +19,7 @@ public class SignUpServiceImpl implements SignUpService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public UserVO findByEmail(String email) {
+	public UserVO getByEmail(String email) {
 		if (email == null || email.length() == 0) {
 			throw new IllegalArgumentException("잘못된 사용자 이메일입니다.");
 		}

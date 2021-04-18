@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -67,10 +67,6 @@
         update gifticon set gft_stus_code = '002', aprv_dt = now(), up_user = current_user(), up_date = now() where id = #{id}
     </update>
 
-    <delete id="deleteById">
-        delete from gifticon where id = #{id}
-    </delete>
-
     <resultMap id="SaleRqust" type="java.util.HashMap">
         <result property="cateName" column="cate_name"/>
         <result property="brdName" column="brd_name"/>
@@ -91,5 +87,31 @@
         <result property="prodName" column="prod_name"/>
         <result property="requester" column="requester"/>
     </resultMap>
+
+    <update id="gftDealCmpl">
+        update gifticon
+        set gft_stus_code = '005'
+        where id = #{gftId}
+    </update>
+
+    <delete id="deleteGifticon">
+        <![CDATA[
+        delete
+        from gifticon
+        where id = #{gftId}
+        ]]>
+   </delete>
+
+    <update id="updateGftPrc">
+        update gifticon
+        set is_auto_prc = #{isAutoPrc},
+            dc_prc      = #{dcPrc},
+            up_date     = current_date()
+        where id = #{gftId}
+    </update>
+
+    <select id="countNotYetApproved" resultType="int">
+        select count(*) from gifticon g join cmmn_code c on g.gft_stus_code = c.code where gft_stus_code = '001' and c.code_type = 'GFT_STUS'
+    </select>
 
 </mapper>
