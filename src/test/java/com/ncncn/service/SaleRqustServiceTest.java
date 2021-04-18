@@ -98,5 +98,4 @@ public class SaleRqustServiceTest {
 		verify(gifticonMapper).updateStusCodeAndAprvDt(anyInt());
 		assertEquals(1, result);
 	}
-
 }

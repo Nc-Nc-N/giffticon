@@ -9,10 +9,6 @@ h2{
     line-height: unset;
 }
 
-*, ::after, ::before{
-    box-sizing: unset;
-}
-
 .search-area {
     display: flex;
     float: right;
@@ -30,7 +26,7 @@ h2{
     width: 130px;
     height: 30px;
     background-color: rgb(245, 244, 244);
-    border-radius: 5px;
+    border-radius: 40px;
     color: rgb(71, 71, 71);
 }
 
@@ -185,3 +181,6 @@ h2{
     border-radius: 5px;
 }
 
+*, ::after, ::before{
+    box-sizing: unset;
+}
