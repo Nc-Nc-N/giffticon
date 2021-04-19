@@ -77,11 +77,9 @@
                     <div class="prodInfo">
                         <div class="imgspace"> <!-- 이미지 테두리-->
                             <img id="prodImg"
-<%--                                 src="/resources/img/star_americano.png"--%>
                                  alt="">
                         </div>
-                        <textarea id="prodDescn">
-<%--                            ▶상품설명 스타벅스의 깔끔한 맛을 자랑하는 커피로, 스타벅스 파트너들이 가장 좋아하는 커피입니다. ▶유의사항 - 상기 이미지는 연출된 것으로 실제와 다를 수 있습니다.- 본 상품은 매장 재고 상황에 따라 동일 상품으로 교환이 불가능할 수 있습니다.- 동일 상품 교환이 불가능한 경우 동일 가격 이상의 다른 상품으로 교환이 가능하며 차액은 추가 지불하여야 합니다.- 정식 판매처 외의 장소나 경로를 통하여 구매하거나 기타의 방법으로 보유하신 쿠폰은 사용이 금지/제한될 수 있으니 주의하시기 바랍니다.- 해당 쿠폰과 스타벅스 카드의 복합결제 거래는 스타벅스 카드의 고유혜택인 Free Extra 적용대상이 아닌 점 이용에 참고하시기 바랍니다.- 해당 쿠폰 거래시 스타벅스 카드의 고유혜택인 별적립 적용대상이 아닌 점 이용에 참고하시기 바랍니다.--%>
+                        <textarea id="prodDescn" readonly>
                                 </textarea>
                     </div>
                 </div>
@@ -167,10 +165,10 @@
                         </div>
                         <div class="pricetype">
                             <label for="autoprice" class="auto">
-                                <input id="autoprice" name="group1" type="radio" value="0"> 자동입력
+                                <input id="autoprice" name="group1" type="radio" value="1"> 자동입력
                             </label>
                             <label for="manualprice" class="manual">
-                                <input id="manualprice" name="group1" type="radio" value="1"> 가격제시
+                                <input id="manualprice" name="group1" type="radio" value="0"> 가격제시
                             </label>
                         </div>
                     </div>
@@ -240,13 +238,13 @@
         // 가격종류 변경시 작동 함수
         $("input:radio[name=group1]").click(function() {
             let radioValue = $(this).val();
-            // alert(radioValue);    // 자동입력시 0, 가격제시시 1
-            if(radioValue == 0) {
+            // alert(radioValue);    // 자동입력시 1, 가격제시시 0
+            if(radioValue == 1) {
                 inputPriceAuto();
                 calculateDcRate();
-            } else if(radioValue == 1) {
+            } else if(radioValue == 0) {
                 dcPriceClean();
-                document.getElementById('dcrateindicator').innerText = '(할인율 : 0%)'
+                dcRateIndicatorClean();
                 $("#dcprice").attr("readonly", false);
             }
         });
@@ -411,6 +409,11 @@
         return trimmedString;
     }
 
+    // 할인율 표시 초기화 함수
+    let dcRateIndicatorClean = function() {
+        document.getElementById('dcrateindicator').innerText = '(할인율 : 0%)';
+    }
+
     // 가격 직접 입력 시 10원단위 반올림 적용. 입력값이 100원 이상일 때만
 
     // let dcprice = document.getElementById('dcprice');
@@ -472,7 +475,6 @@
     }
 
     let changeSelectedResultText = function(text) {
-        // alert(document.getElementsByClassName('showCategory')[0].innerText + text);
         document.getElementsByClassName('showCategory')[0].innerText = text;
     }
 
@@ -502,6 +504,9 @@
 
         // 대분류 클릭시 product 정보 삭제
         deleteProdInfo();
+
+        // 대분류 클릭시 할인율 초기화
+        dcRateIndicatorClean();
 
         $.ajax({
             url: '/user/getBrandAction?name=' + catName ,
@@ -552,6 +557,8 @@
             priceAllClean();
             // 중분류 클릭시 product 정보 삭제
             deleteProdInfo();
+            // 중분류 클릭시 할인율 초기화
+            dcRateIndicatorClean();
         }
         let csrfHeaderName="${_csrf.headerName}";
         let csrfTokenValue="${_csrf.token}";
@@ -613,6 +620,8 @@
             // 소분류 클릭시 판매가, 가격선택버튼 초기화
             dcPriceClean();
             priceChoiceButtonClean();
+            // 소분류 클릭시 할인율 초기화
+            dcRateIndicatorClean();
         }
         let csrfHeaderName="${_csrf.headerName}";
         let csrfTokenValue="${_csrf.token}";
@@ -722,7 +731,7 @@
         location.href="/user/home";
     });
 
-    $('#btn-to-main').on("click", function(){
+    $('#btn-to-hist').on("click", function(){
         location.href="/user/mypage/sells";
     });
 
@@ -886,12 +895,11 @@
     });
 
     // 유효기간 변경 시 가격 종류, 입력값 초기화
+    $("#end-date").change(function() {
+        dcPriceClean();
+        priceChoiceButtonClean();
+    });
 
-
-
-
-    // dcPriceClean();
-    // priceChoiceButtonClean();
 
 </script>
 </body>

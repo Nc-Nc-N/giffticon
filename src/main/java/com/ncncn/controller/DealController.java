@@ -130,7 +130,7 @@ public class DealController {
         log.info("update ajax post................");
 
         List<AttachFileDTOCH> list = new ArrayList<>();
-        String uploadFolder = "/Users/asdddq/Desktop/MyFolder/팀프로젝트/인텔리제이Git/giffticon/src/main/webapp/resources/img/barcode";
+        String uploadFolder = "/Users/asdddq/Desktop/MyFolder/팀프로젝트/Git0418/giffticon/src/main/webapp/resources/img/barcode";
 
         String uploadFolderPath = getFolder();
         //make folder --------
@@ -198,7 +198,7 @@ public class DealController {
 
         log.info("fileName: " + fileName);
 
-        File file = new File("/Users/asdddq/Desktop/MyFolder/팀프로젝트/인텔리제이Git/giffticon/src/main/webapp/resources/img/barcode" + fileName);
+        File file = new File("/Users/asdddq/Desktop/MyFolder/팀프로젝트/Git0418/giffticon/src/main/webapp/resources/img/barcode" + fileName);
 
         log.info("file: " + file);
 
