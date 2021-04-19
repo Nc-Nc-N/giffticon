@@ -26,7 +26,8 @@ public class FaqController {
 	// 사용자
 
 	@GetMapping("/user/cs/faqBoard")
-	public String faqBoard( CriteriaCs cri, Model model){
+
+	public String faqBoard(CriteriaCs cri, Model model){
 
 		log.info("list: " + cri);
 

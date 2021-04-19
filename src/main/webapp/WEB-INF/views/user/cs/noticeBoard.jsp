@@ -50,7 +50,7 @@
             <div class="emptyspace">
 
             </div>
-`            <div class="content"><!--메인컨텐츠 (이하 각자 내용 작성)-->
+            <div class="content"><!--메인컨텐츠 (이하 각자 내용 작성)-->
 
                 <h3>공지사항</h3>
                     <div class="sub-category-area">
