@@ -118,6 +118,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        document.getElementById("userAdministration").className = 'active';
+
         let actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {
