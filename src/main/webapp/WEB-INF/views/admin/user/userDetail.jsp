@@ -9,17 +9,18 @@
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/user/userList.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/user/userDetail.css" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 <%--    <head>--%>
 <%--        <meta charset="utf-8" />--%>
 <%--        <title></title>--%>
 <%--        <link rel="stylesheet" href="/resources/css/common-css/header.css" type="text/css">--%>
-        <link rel="stylesheet" href="/resources/css/admin/user/userDetail.css" type="text/css">
-<%--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>--%>
+
+
 <%--    </head>--%>
-    <body>
-        <div id="container">
+
 <%--            <div class="header">--%>
 <%--                <div class= "top_menu">--%>
 <%--                    <span><a href="#" class="login-panel">로그인</a></span>--%>
@@ -151,7 +152,7 @@
                     
                     
                 </div>
-            </div>
+
 
         </div>
     </body>
