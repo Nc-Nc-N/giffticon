@@ -19,8 +19,11 @@
 .catename >.fas{
     color: #FF585D;
 }
+table{
+    width: 1000px;
+}
 nav ul{
-    width: 900px;
+    width: 1000px;
 	background-color: white;
 	padding: 0;
 	overflow: hidden;
