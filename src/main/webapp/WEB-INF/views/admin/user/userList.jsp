@@ -148,7 +148,7 @@
 
         let eachUserId=this.children[0].innerText;
 
-        location.href="http://localhost:8088/admin/user/user-detail?userId=" + eachUserId;
+        location.href="/admin/user/user-detail?userId=" + eachUserId;
 
     });
 
