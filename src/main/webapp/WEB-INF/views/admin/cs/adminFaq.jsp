@@ -386,10 +386,19 @@
 
         $('#btn-modify').on("click", function () {
 
-
-            modifyForm.attr("action", "/admin/adminFaq/modify");
-            modifyForm.submit();
-
+            if($(".modify-odrNo").val() == ''){
+                alert("우선순위를 입력해주세요");
+                return false;
+            }else if($(".modify-title").val() == ''){
+                alert("제목을 입력해주세요");
+                return false;
+            }else if($(".modify-content").val() == ''){
+                alert("내용을 입력해주세요");
+                return false;
+            }else{
+                modifyForm.attr("action", "/admin/adminFaq/modify");
+                modifyForm.submit();
+            }
         });
 
         $("#closeModifyModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
@@ -424,9 +433,22 @@
 
 
         $("#btn-register").on("click", function () {
-            registerForm.attr("action", "/admin/adminFaq/register");
-            registerForm.submit();
-        })
+
+            if ($(".register-odrNo").val() == ''){
+                alert("우선순위를 입력해주세요");
+                return false;
+            }else if($(".register-title").val() == ''){
+                alert("제목을 입력해주세요");
+                return false;
+            }else if ($(".register-content").val() == ''){
+                alert("내용을 입력해주세요");
+                return false;
+            }else {
+                registerForm.attr("action", "/admin/adminFaq/register");
+                registerForm.submit();
+            }
+
+        });
 
         $("#closeRegisterModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
 
