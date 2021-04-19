@@ -23,10 +23,10 @@
     <div class="space"></div>
     <div class="main">
         <div class="menuhead">
-            <div class="menuname">고객센터</div><!--메뉴 이름 (사이드바 위)-->
         </div>
         <div class="menubody">
             <div class="sidebarspace">
+            <div class="menuname">고객센터</div><!--메뉴 이름 (사이드바 위)-->
                 <div class="sidebar"> <!--사이드 바 영역 (필요한만큼 영역 세로로늘리기)-->
                     <!--필요한만큼 아래 추가해서 사용 (개당 세로크기70px)-->
                     <a href="/user/cs/noticeBoard">
@@ -50,7 +50,7 @@
             <div class="emptyspace">
 
             </div>
-            <div class="content"><!--메인컨텐츠 (이하 각자 내용 작성)-->
+`            <div class="content"><!--메인컨텐츠 (이하 각자 내용 작성)-->
 
                 <h3>공지사항</h3>
                     <div class="sub-category-area">

@@ -26,7 +26,7 @@ public class NoticeController {
 	// 사용자
 
 	@GetMapping("user/cs/noticeBoard")
-	public String csNotice(HttpServletRequest request, CriteriaCs cri, Model model){
+	public String csNotice(CriteriaCs cri, Model model){
 
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getList(cri));
@@ -37,14 +37,6 @@ public class NoticeController {
 		log.info("total: " + total);
 
 		model.addAttribute("pageMaker", new PageDTOCs(cri, total));
-
-		int userId = 0;
-		//userId 0일경우 예외처리 해줄 것
-		try {
-			userId = (int) request.getSession().getAttribute("userId");
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}
 
 		return "user/cs/noticeBoard";
 	}
