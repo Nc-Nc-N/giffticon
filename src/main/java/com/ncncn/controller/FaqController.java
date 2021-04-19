@@ -26,10 +26,10 @@ public class FaqController {
 	// 사용자
 
 	@GetMapping("/user/cs/faqBoard")
-	public String faqBoard(HttpServletRequest request, CriteriaCs cri, Model model){
+	public String faqBoard(CriteriaCs cri, Model model){
 
 		log.info("list: " + cri);
-		int userId = (int) request.getSession().getAttribute("userId");
+
 
 		model.addAttribute("list", service.getList(cri));
 //		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
