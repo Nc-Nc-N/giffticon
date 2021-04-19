@@ -118,7 +118,7 @@ public class DnSController {
     }
 
     // 관심 상품
-    @GetMapping("/wish")
+    @GetMapping("/wishList")
     public void wish(HttpServletRequest request, CriteriaSM cri, Model model){
 
         int userId = (int) request.getSession().getAttribute("userId");
@@ -129,6 +129,7 @@ public class DnSController {
         model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
         model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
         model.addAttribute("pageMaker", new PageDTOSM(cri, total));
+        model.addAttribute("userId", userId);
         model.addAttribute("wishList", wishService.getWishListWithPaging(userId, cri));
     }
 }

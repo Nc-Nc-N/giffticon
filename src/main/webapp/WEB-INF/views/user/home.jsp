@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-    <script src="/resources/js/splide.min.js"></script>
+    <script src="/resources/js/user/splide.min.js"></script>
     <link rel="stylesheet" href="/resources/css/user/home.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/splide.min.css" type="text/css">
     <style>
@@ -54,7 +54,7 @@
                     <h3><i class="far fa-heart"></i>&nbsp;나만의 관심상품</h3>
                 </div>
                 <div class="categorycontroller">
-                    <a href="/user/mypage/wish" class="main-btn">전체보기</a>
+                    <a href="/user/mypage/wishList" class="main-btn">전체보기</a>
                 </div>
             </div>
         </div>

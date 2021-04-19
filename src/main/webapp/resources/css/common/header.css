@@ -159,6 +159,6 @@ a{
     color: black;
 }
 
-.login-panel:hover{
+.login-panel:hover, .leftmenu a:hover, .rightmenu a:hover{
     color: rgb(255,88,93);
 }
