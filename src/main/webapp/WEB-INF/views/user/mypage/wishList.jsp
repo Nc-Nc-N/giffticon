@@ -37,8 +37,11 @@
             </button>
 
         </div>
-
     </c:forEach>
+
+    <div class="noResult" style="display: none">
+        관심 상품이 존재하지 않습니다.
+    </div>
 </div>
 
     <div class="contentfooter">
@@ -95,5 +98,9 @@
            actionForm.find("input[name='pageNum']").val(1);
            actionForm.submit();
         })
+
+        if(${pageMaker.total}===0){
+            $('.noResult').show();
+        }
     })
 </script>

@@ -96,3 +96,8 @@
     background-color: #fff;
     color: gray;
 }
+
+.noResult{
+    margin-top: 30px;
+    text-align: center;
+}

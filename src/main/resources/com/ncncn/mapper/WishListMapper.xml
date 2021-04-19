@@ -52,6 +52,6 @@
     </select>
 
     <select id="getTotalCount" resultType="int">
-        select count(*)from wish_list where user_id= 156;
+        select count(*)from wish_list where user_id= #{userId};
     </select>
 </mapper>

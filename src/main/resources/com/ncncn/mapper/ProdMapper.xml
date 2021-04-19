@@ -86,10 +86,11 @@
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code}, '%') and gft_stus_code =002 and prod.enabled = '1'
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1'
         ]]>
         <include refid="criteria"></include>
         <![CDATA[
+        and gft_stus_code =002
         group by gifti.prod_code
         order by
         ]]>
