@@ -12,7 +12,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="/resources/css/user/deal/sale.css" type="text/css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <style>
         /*@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');*/
     </style>
@@ -105,9 +111,10 @@
                     <span>*</span>
                 </div>
                 <div class="innerblock">
-                    <input type="date" id="end-date"> <!-- datepicker로 나중에 바꿔보기-->
+<%--                    <input type="date" id="end-date"> <!-- datepicker로 나중에 바꿔보기-->--%>
+                    <input type="text" id="end-date" readonly>
                     <label>
-                        기쁘티콘에 명시된 유효기간을 입력해주세요.
+                        기프티콘에 명시된 유효기간을 입력해주세요.
                     </label>
                 </div>
             </div>
@@ -123,7 +130,6 @@
                     <div class="coupon">
                         <div class="thumbnailspace">
                             <label>
-                                <%--                                <input type="file" name="ev_display" class="file-input" accept="image/*">--%>
                                 <input type="image" src="/resources/img/thumbnailDefault2.png" id="thumbnail">
                                 <input type="file" style="display:none" id="gifticon-img-upload" name="uploadFile" class="file-input" accept="image/*">
                             </label>
@@ -226,9 +232,7 @@
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+
 <%--<script type="text/javascript" src="/resources/js/saleGifticon.js"></script>--%>
 <script type="text/javascript">
 
@@ -720,12 +724,6 @@
     });
 
 
-    // 업로드 파일 변경시 동작
-    $(document).on("change", ".file-input", function(){
-
-    });
-
-
     // 모달 버튼
     $('#btn-to-main').on("click", function(){
         location.href="/user/home";
@@ -738,10 +736,6 @@
 
     // 업로드 버튼 클릭시 동작
     $("#saleReg").on("click", function(){
-
-        // alert(typeof(getAddDcRate()));   //number
-        // alert(typeof($("#dcprice")[0].value));  //String
-        // alert(typeof(inDcRate));
 
         // 유효성검사
         if(gifticonValidate() === false) {
@@ -814,30 +808,6 @@
     }
 
 
-    // $("#thumbnail").on("click", function() {
-    //    showImage
-    // });
-    //
-    // //540page 썸네일 클릭시 원본 이미지 보여주기
-    // function showImage(fileCallPath) {
-    //     alert(fileCallPath);
-    // }
-
-
-    // 쿠폰 업로드시 파일명 보여줌
-    // $(document).on("change", ".file-input", function(){
-    //
-    //     $filename = $(this).val();
-    //
-    //     if($filename == "")
-    //         $filename = "바코드를 포함한 쿠폰을 등록해주세요.";
-    //
-    //     $(".filename").text($filename);
-    // });
-
-    // ------------------------- 이미지 업로드 --------------------
-
-
     function wrapWindowByMask() {
         var maskHeight = $(document).height();
 
@@ -898,7 +868,15 @@
     $("#end-date").change(function() {
         dcPriceClean();
         priceChoiceButtonClean();
+        dcRateIndicatorClean();
     });
+
+    // datepicker
+    $("#end-date").datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: 0
+    });
+    // datepicker
 
 
 </script>
