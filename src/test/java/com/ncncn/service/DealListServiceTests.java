@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,25 +46,40 @@ public class DealListServiceTests {
         List<MyDealsDTO> myDealsDTO = service.getGftDetail(gftid, userid);
 
         log.info("permited user is : " + userid);
+
+        assertEquals(myDealsDTO.get(0).getGftId(),80);
+        assertEquals(myDealsDTO.get(0).getBrdName(),"스타벅스");
+        assertEquals(myDealsDTO.get(0).getStusCode(), "거래확정대기");
     }
 
     @Test
     public void testGetDealsWithPaging() {
 
-        CriteriaSM cri = new CriteriaSM(3, 3);
-        int userId = 55;
 
-        service.getDealsWithPaging(userId, cri);
+        int userId = 156;
 
-        log.info("Get Deals With Paging : " + userId + "," + cri.getAmount() + "," + cri.getPageNum());
+        CriteriaSM cri = new CriteriaSM(1, 3);
+        CriteriaSM cri2 = new CriteriaSM(1, 4);
+
+        int sizeofList = service.getDealsWithPaging(userId, cri).size();
+        int sizeofList2 = service.getDealsWithPaging(userId, cri2).size();
+
+        assertEquals(sizeofList,3);
+        assertEquals(sizeofList2,4);
+
     }
 
     @Test
     public void testCountStus004() {
 
         int userId = 157;
+        int userId2 = 156;
 
-        service.countStus004(userId);
+        int count004 = service.countStus004(userId);
+        int count004_2 = service.countStus004(userId2);
+
+        assertEquals(count004, 1);
+        assertEquals(count004_2, 5);
     }
 
 }

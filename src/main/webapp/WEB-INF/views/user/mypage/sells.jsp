@@ -60,8 +60,8 @@
                                 <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
                                 <span class="item_brdNname">
                                 <div class="item_brd"><c:out value="${list.brdName}"/></div>
-                                <div class="item_name"><a href="/user/prod_detail?code="><c:out
-                                        value="${list.prdName}"/></a></div>
+                                <div class="item_name"><a href="/user/prod_detail?code=<c:out value="${list.prdCode}"/>">
+                                    <c:out value="${list.prdName}"/></a></div>
                             </span>
                                 <span class="item_prc"><c:out value="${list.dcPrc}"/>원</span>
                                 <span class="item_status">

@@ -9,6 +9,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
     <title>Document</title>
 <link rel="stylesheet" href="/resources/css/user/prod_list.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/prod_detail.css" type="text/css">
@@ -103,7 +105,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="/resources/js/wishList.js"></script>
+    <script type="text/javascript" src="/resources/js/user/wishList.js"></script>
     <script>
         // url 이동
         function common_goUrl(url){
@@ -115,6 +117,7 @@
         $(document).ready(function (){
             // 관심상품으로 등록되어 있는지 확인
             let has = ${hasWish};
+            console.log(has)
 
             // '관심상품' 버튼 상태 표시
             if(has === 1){

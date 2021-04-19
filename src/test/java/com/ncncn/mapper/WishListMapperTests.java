@@ -33,7 +33,7 @@ public class WishListMapperTests {
 	public void testSelect(){
 		WishListVO wish = new WishListVO();
 
-		wish.setUserId(1);
+		wish.setUserId(156);
 		wish.setProdCode("010101");
 
 		int hasWish = mapper.hasWish(wish);

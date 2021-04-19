@@ -28,13 +28,13 @@
             <h2>고객센터</h2>
             <div id="submenu">
                 <div class="menu-item">
-                    <a href="http://localhost:8087/cs/adminNotice" style="color: rgb(255, 88, 93);">공지사항</a>
+                    <a href="/admin/adminNotice" style="color: rgb(255, 88, 93);">공지사항</a>
                 </div>
                 <div class="menu-item">
-                    <a href="http://localhost:8087/cs/adminFaq">자주묻는질문</a>
+                    <a href="/admin/adminFaq">자주묻는질문</a>
                 </div>
                 <div class="menu-item">
-                    <a href="http://localhost:8087/cs/adminOneOnOne">1:1문의</a>
+                    <a href="/admin/adminPsnlQust">1:1문의</a>
                 </div>
             </div>
 
@@ -42,7 +42,7 @@
             <!-- search area -->
 
             <div class="search-area">
-                <form class="search-form" id='searchForm' action="/cs/adminNotice" method="get">
+                <form class="search-form" id='searchForm' action="/admin/adminNotice" method="get">
                     <select class="search-select" name='type'>
                         <option value="NE"
                                 <c:out value="${pageMaker.cri.type eq 'NE'?'selected':''}"/>>전체
@@ -100,27 +100,28 @@
 
                 <!-- pagenation-->
                 <div class="pagination">
-                    <c:if test="${pageMaker.prev}">
-                        <li class="paginate_button previous"><a href="${pageMaker.startPage -1}"><</a></li>
 
+                    <c:if test="${pageMaker.prev}">
+                        <li>
+                            <a class="paginate_button previous" href="${pageMaker.startPage -1}">&lt;</a></li>
                     </c:if>
 
-                    <c:forEach var="num" begin="${pageMaker.startPage}"
-                               end="${pageMaker.endPage}">
-                        <li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}"><a
-                                href="${num}">${num}</a></li>
+                    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                        <li>
+                            <a class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}" href="${num}">${num}</a>
+                        </li>
                     </c:forEach>
 
                     <c:if test="${pageMaker.next}">
-                        <li class="paginate_button next"><a href="${pageMaker.endPage + 1}">&gt;</a></li>
+                        <li>
+                            <a class="paginate_button next" href="${pageMaker.endPage +1 }">&gt;</a></li>
                     </c:if>
-
                 </div>
                 <!-- end pagenation-->
 
             </div>
 
-            <form ID='actionForm' action="/cs/adminNotice" method="get">
+            <form ID='actionForm' action="/admin/adminNotice" method="get">
                 <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
                 <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
                 <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
@@ -138,7 +139,7 @@
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
-
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
                     <input class="del-id" type="hidden" name="id" value=''>
@@ -167,12 +168,13 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
                     <p class="search-selected" id="modifyModalLabel"></p>
                     <input class="modify-id" type="hidden" name="id" value=''>
                     <input type="checkbox" class="modify-fixed" name="isFixed" checked="checked" value=''>상위 고정
-                    <input class="modify-end-dt" type="datetime-local" name="endDt" placeholder="endDt" value=''>
+                    <input class="modify-end-dt" type="date" name="endDt" placeholder="endDt" value=''>
                     <textarea class="modify-title" name="title"></textarea>
 
                 </div>
@@ -199,6 +201,7 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
 
@@ -208,7 +211,7 @@
                             <option value="004">이벤트</option>
                         </select>
                         <input type="checkbox" class="register-fixed" name="isFixed" checked="checked" value=''>상위 고정
-                        <input class="register-end-dt" type="datetime-local" name="endDt" placeholder="endDt" value=''>
+                        <input class="register-end-dt" type="date" name="endDt" placeholder="endDt" value=''>
                     </div>
                     <input class="register-user-id" type="hidden" name="userId" value=''>
                     <textarea class="register-title" name="title"></textarea>
@@ -252,10 +255,14 @@
 
     $(document).ready(function () {
 
+
+        document.getElementById("adminCs").className = 'active';
+
+
         //page번호 클릭했을때 처
         var actionForm = $("#actionForm");
 
-        $(".paginate_button a").on("click", function (e) {
+        $(".paginate_button").on("click", function (e) {
 
             e.preventDefault();
 
@@ -280,7 +287,7 @@
 
         $.ajax({
             type: 'get',
-            url: '/cs/notice?id=' + this.id,
+            url: '/admin/notice?id=' + this.id,
             async: false,
             success: function (result) {
                 notice = result;
@@ -313,7 +320,7 @@
 
         $("#btn-delete").on("click", function (e) {
 
-            formObj.attr("action", "/cs/adminNotice/remove");
+            formObj.attr("action", "/admin/adminNotice/remove");
             formObj.submit();
 
 
@@ -334,12 +341,13 @@
 
         var modifyForm = $("form");
         console.log(this.id);
+        let date;
 
         let notice = '';
 
         $.ajax({
             type: 'get',
-            url: '/cs/notice?id=' + this.id,
+            url: '/admin/notice?id=' + this.id,
             async: false,
             success: function (result) {
                 notice = result;
@@ -357,8 +365,14 @@
 
         $(".modify-fixed").val(notice.isFixed);
 
-        console.log(notice.endDt);
-        $(".modify-end-dt").val(notice.endDt);
+        date = new Date(notice.endDt);
+
+        $(".modify-end-dt").val(
+            date.getFullYear()+
+            "-"+("0" + (date.getMonth() + 1)).slice(-2)+
+            "-"+("0" + date.getDate()).slice(-2));
+
+
 
         if (notice.csCateCode == "003") {
 
@@ -377,11 +391,19 @@
 
 
         $('#btn-modify').on("click", function () {
-
-
-            modifyForm.attr("action", "/cs/adminNotice/modify");
-            modifyForm.submit();
-
+                if ($(".modify-end-dt").val() == ''){
+                    alert("종료날짜를 선택해주세요");
+                    return false;
+                }else if($(".modify-title").val() == ''){
+                    alert("제목을 입력해주세요");
+                    return false;
+                }else if ($(".modify-content").val() == ''){
+                    alert("내용을 입력해주세요");
+                    return false;
+                }else {
+                    modifyForm.attr("action", "/admin/adminNotice/modify");
+                    modifyForm.submit();
+                }
         });
 
         $("#closeModifyModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
@@ -398,6 +420,8 @@
 
         registerForm = $("form");
 
+        let userId = "<c:out value="${userId}"/>";
+
         $("#registerModal").modal("show");
 
         //register 값 채우기
@@ -411,13 +435,26 @@
 
         }
 
-        $(".register-user-id").val("166");
+        $(".register-user-id").val(userId);
+
 
 
         $("#btn-register").on("click", function () {
-            registerForm.attr("action", "/cs/adminNotice/register");
-            registerForm.submit();
-        })
+
+            if($(".register-end-dt").val() == ''){
+                alert("날짜를 입력해주세요");
+                return false;
+            }else if($(".register-title").val() == ''){
+                alert("제목을 입력해주세요");
+                return false;
+            }else if($(".register-content").val() == ''){
+                alert("내용을 입력해주세요");
+                return false;
+            }else {
+                registerForm.attr("action", "/admin/adminNotice/register");
+                registerForm.submit();
+            }
+        });
 
         $("#closeRegisterModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
 

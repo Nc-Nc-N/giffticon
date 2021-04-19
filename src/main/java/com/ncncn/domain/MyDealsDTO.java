@@ -31,6 +31,9 @@ public class MyDealsDTO {
     //from product
     private String prdImgPath;
 
+    //from product
+    private String prdCode;
+
     //from deal_detail
     private int pymtPrc;
 
