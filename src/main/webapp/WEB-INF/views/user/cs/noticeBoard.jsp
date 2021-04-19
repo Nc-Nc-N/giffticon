@@ -29,12 +29,12 @@
             <div class="sidebarspace">
                 <div class="sidebar"> <!--사이드 바 영역 (필요한만큼 영역 세로로늘리기)-->
                     <!--필요한만큼 아래 추가해서 사용 (개당 세로크기70px)-->
-                    <a href="/user/mypage/noticeBoard">
+                    <a href="/user/cs/noticeBoard">
                         <div class="bar" style="background-color:rgb(240, 240, 240);">
                             <div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">공지사항</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
-                    <a href="/user/mypage/faqBoard">
+                    <a href="/user/cs/faqBoard">
                         <div class="bar">
                             <div>자주묻는질문</div>
                             <i class="fas fa-chevron-right"></i></div>
@@ -55,15 +55,15 @@
                 <h3>공지사항</h3>
                     <div class="sub-category-area">
                         <button class="sub sub-category-btn-all" value="NE" name="type"
-                                onclick="location.href='/user/mypage/noticeBoard?pageNum=1&amount=10&type=NE&keyword=';">전체</button>
+                                onclick="location.href='/user/cs/noticeBoard?pageNum=1&amount=10&type=NE&keyword=';">전체</button>
                         <button class="sub sub-category-btn-notice" value="N" name="type"
-                                onclick="location.href='/user/mypage/noticeBoard?pageNum=1&amount=10&type=N&keyword=';">공지</button>
+                                onclick="location.href='/user/cs/noticeBoard?pageNum=1&amount=10&type=N&keyword=';">공지</button>
                         <button class="sub sub-category-btn-event" value="E" name="type"
-                                onclick="location.href='/user/mypage/noticeBoard?pageNum=1&amount=10&type=E&keyword=';">이벤트</button>
+                                onclick="location.href='/user/cs/noticeBoard?pageNum=1&amount=10&type=E&keyword=';">이벤트</button>
                     </div>
 
 
-                <form class="search-form" id='searchForm' action="/user/mypage/noticeBoard" method="get">
+                <form class="search-form" id='searchForm' action="/user/cs/noticeBoard" method="get">
                     <!-- search area -->
                     <div class="search-area">
 
@@ -126,7 +126,7 @@
                 </div>
                 <!-- end pagenation-->
 
-                <form ID='actionForm' action="/user/mypage/noticeBoard" method="get">
+                <form ID='actionForm' action="/user/cs/noticeBoard" method="get">
                     <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
                     <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
                     <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>

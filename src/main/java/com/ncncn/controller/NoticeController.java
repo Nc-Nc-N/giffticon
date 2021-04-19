@@ -25,7 +25,7 @@ public class NoticeController {
 
 	// 사용자
 
-	@GetMapping("user/mypage/noticeBoard")
+	@GetMapping("user/cs/noticeBoard")
 	public String csNotice(HttpServletRequest request, CriteriaCs cri, Model model){
 
 		log.info("list: " + cri);
