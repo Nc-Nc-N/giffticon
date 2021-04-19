@@ -4,50 +4,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<jsp:include page="/WEB-INF/views/admin/adminLayout.jsp"/>
 
-<!DOCTYPE html>
-<html lang="ko">
+<link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/user/userList.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/user/userDetail.css" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-    <head>
-        <meta charset="utf-8" />
-        <title></title>
-        <link rel="stylesheet" href="/resources/css/common-css/header.css" type="text/css">
-        <link rel="stylesheet" href="/resources/css/admin/user/userDetail.css" type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-    </head>
-    <body>
-        <div id="container">
-            <div class="header">
-                <div class= "top_menu">
-                    <span><a href="#" class="login-panel">로그인</a></span>
-                    <span class="header_divider">|</span>
-                    <span><a href="#" class="login-panel">회원가입</a></span>
-                    <span class="header_divider">|</span>
-                    <span><a href="#" class="login-panel">고객센터</a></span>
-                </div>
-                <div class="main-logo">
-                    <div class="home-logo"><img src="/resources/img/기쁘티콘.png" width="230px" height="100px"></div>
-                </div>      
-            </div>
-            <div id="content">
-                <!-- sidebar -->
-                <div id="sidebar">
-                  <div id="admin-menu">
-                      <h2>회원관리</h2>
-                      <h2>상품관리</h2>
-                      <h2>배너관리</h2>
-                      <h2>판매요청관리</h2>
-                      <h2>거래내역관리</h2>
-                      <h2>포인트관리</h2>
-                      <h2>통계분석</h2>
-                  </div>
-                  <div id="admin-memo">
-                      <span class="span">Memo</span>
-                      <textarea id="memo">2021-03-25 관리자 메모내용</textarea>
-                  </div>
-              </div>
-                <div id="main">
-                    <h2>회원관리</h2>
+
+                    <h1>회원관리</h1>
                     <div id="menu">
                         <div> 
                             <h3>회원상세조회</h3>
@@ -132,7 +99,7 @@
                       <!-- <span style="display: inline-block; width:175px;" id="memo-title">관리자 메모</span> <br> -->
                       <p id="memo-title">관리자 메모</p>
 
-                          <form action="/admin/user/update-memo" method="post">
+                          <form action="/admin/user/update-memo" method="post" id="submitform">
                               <sec:csrfInput />
                               <input id="memo-input" type="text" name="memo"
                                      value='<c:out value="${user.memo}"/>' style="border:solid black 1px">
@@ -142,17 +109,10 @@
                           </form>
                       </div>
                       
-                    
-                      
-                    </div>
-                    
-                    
-                </div>
-            </div>
 
         </div>
-    </body>
-</html>
+
+<jsp:include page="/WEB-INF/views/admin/adminMemo.jsp"/>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
