@@ -19,13 +19,9 @@ public class CriteriaCs {
 		this(1,10,"NE","");
 	}
 
-//	public CriteriaCs(String type){this(1,10,type,"");}
-
 	public CriteriaCs(int pageNum, int amount) {
 		this(pageNum,amount,"NE","");
 	}
-
-//	public CriteriaCs(int pageNum, int amount, String type){ this(pageNum, amount, type, ""); }
 
 	public CriteriaCs(int pageNum, int amount, String type, String keyword){
 		this.pageNum = pageNum;

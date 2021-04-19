@@ -1,12 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
+<jsp:include page="/WEB-INF/views/admin/adminLayout.jsp"></jsp:include>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -22,73 +18,31 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common//pagination.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/admin/admin_layout.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/admin/adminLayout.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice_detail.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
-</head>
-<body>
 
-<div id="container">
-    <!-- header-->
-    <div class="header">
-        <div class= "top_menu">
-            <span><a href="#" class="login-panel">로그인</a></span>
-            <span class="header_divider">|</span>
-            <span><a href="#" class="login-panel">회원가입</a></span>
-            <span class="header_divider">|</span>
-            <span><a href="http://localhost:8087/cs/adminNotice" class="login-panel">고객센터</a></span>
-        </div>
-        <div class="main-logo">
-            <div class="home-logo"><img src="/resources/img/logo.png" width="230px" height="100px"></div>
-        </div>
-    </div>
-    <!-- end header-->
-
-
-    <div id="content">
-
-        <!-- sidebar -->
-        <div id="sidebar">
-            <div id="admin-menu">
-                <h2>회원관리</h2>
-                <h2>상품관리</h2>
-                <h2>배너관리</h2>
-                <h2>판매요청관리</h2>
-                <h2>거래내역관리</h2>
-                <h2>포인트관리</h2>
-                <h2>고객센터</h2>
-                <h2>통계분석</h2>
-            </div>
-            <div id="admin-memo">
-                <span class="span">Memo</span>
-                <textarea id="memo">2021-03-25 관리자 메모내용</textarea>
-            </div>
-        </div>
-
-        <!-- list-->
-        <div id="main">
             <h2>고객센터</h2>
-            <div id="menu">
+            <div id="submenu">
                 <div>
-                    <a href="http://localhost:8087/cs/adminNotice" >공지사항</a>
+                    <a href="/admin/adminNotice" >공지사항</a>
                 </div>
                 <div>
-                    <a href="http://localhost:8087/cs/adminFaq" style="color: rgb(255, 88, 93);">자주묻는질문</a>
+                    <a href="/admin/adminFaq" style="color: rgb(255, 88, 93);">자주묻는질문</a>
                 </div>
                 <div>
-                    <a href="http://localhost:8087/cs/adminOneOnOne">1:1문의</a>
+                    <a href="/admin/adminPsnlQust">1:1문의</a>
                 </div>
             </div>
 
             <!-- search area -->
             <div class="search-area">
-                <form class="search-form" id='searchForm' action="/cs/adminFaq" method="get">
+                <form class="search-form" id='searchForm' action="/admin/adminFaq" method="get">
                     <select class="search-select" name='type'>
                         <option value="NE"
                                 <c:out value="${pageMaker.cri.type eq 'NE'?'selected':''}"/>>전체
@@ -106,7 +60,6 @@
                                value='<c:out value="${pageMaker.cri.keyword}"/>'>
                         <input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"/>'>
                         <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}"/>'>
-                        <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
                         <button type="submit" class="search-button">
                             <i class="fas fa-search"></i>
                         </button>
@@ -144,40 +97,36 @@
 
                 <!-- pagenation-->
                 <div class="pagination">
-                    <c:if test="${pageMaker.prev}">
-                        <li class="paginate_button previous"><a href="${pageMaker.startPage -1}"><</a></li>
 
+                    <c:if test="${pageMaker.prev}">
+                        <li>
+                            <a class="paginate_button previous" href="${pageMaker.startPage -1}">&lt;</a></li>
                     </c:if>
 
-                    <c:forEach var="num" begin="${pageMaker.startPage}"
-                               end="${pageMaker.endPage}">
-                        <li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}">
-                            <a href="${num}">${num}</a></li>
+                    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                        <li>
+                            <a class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}" href="${num}">${num}</a>
+                        </li>
                     </c:forEach>
 
                     <c:if test="${pageMaker.next}">
-                        <li class="paginate_button next"><a href="${pageMaker.endPage + 1}">&gt;</a></li>
+                        <li>
+                            <a class="paginate_button next" href="${pageMaker.endPage +1 }">&gt;</a></li>
                     </c:if>
-
                 </div>
                 <!-- end pagenation-->
 
             </div>
 
-            <form ID='actionForm' action="/cs/adminFaq" method="get">
+            <form ID='actionForm' action="/admin/adminFaq" method="get">
                 <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
                 <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
                 <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
                 <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
             </form>
         </div>
-        <!--end jb-content-->
+        <!--end main-->
 
-    </div>
-    <!-- end content-->
-
-</div>
-<!-- end jb-container-->
 
 
 
@@ -185,7 +134,7 @@
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
-
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
                     <input class="del-id" type="hidden" name="id" value=''>
@@ -215,6 +164,7 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
                     <p class="search-selected" id="modifyModalLabel"></p>
@@ -247,6 +197,7 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
 
@@ -301,10 +252,12 @@
 
     $(document).ready(function () {
 
+        document.getElementById("adminCs").className = 'active';
+
         //page번호 클릭했을때 처
         var actionForm = $("#actionForm");
 
-        $(".paginate_button a").on("click", function (e) {
+        $(".paginate_button").on("click", function (e) {
 
             e.preventDefault();
 
@@ -329,7 +282,7 @@
 
         $.ajax({
             type: 'get',
-            url: '/cs/faq?id=' + this.id,
+            url: '/admin/faq?id=' + this.id,
             async: false,
             success: function (result) {
                 faq = result;
@@ -362,7 +315,7 @@
 
         $("#btn-delete").on("click", function (e) {
 
-            formObj.attr("action", "/cs/adminFaq/remove");
+            formObj.attr("action", "/admin/adminFaq/remove");
             formObj.submit();
 
 
@@ -388,7 +341,7 @@
 
         $.ajax({
             type: 'get',
-            url: '/cs/faq?id=' + this.id,
+            url: '/admin/faq?id=' + this.id,
             async: false,
             success: function (result) {
                 faq = result;
@@ -433,10 +386,19 @@
 
         $('#btn-modify').on("click", function () {
 
-
-            modifyForm.attr("action", "/cs/adminFaq/modify");
-            modifyForm.submit();
-
+            if($(".modify-odrNo").val() == ''){
+                alert("우선순위를 입력해주세요");
+                return false;
+            }else if($(".modify-title").val() == ''){
+                alert("제목을 입력해주세요");
+                return false;
+            }else if($(".modify-content").val() == ''){
+                alert("내용을 입력해주세요");
+                return false;
+            }else{
+                modifyForm.attr("action", "/admin/adminFaq/modify");
+                modifyForm.submit();
+            }
         });
 
         $("#closeModifyModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
@@ -452,12 +414,12 @@
     $(".btn-active").on("click", function () {
 
         registerForm = $("form");
-
+        let userId = "<c:out value="${userId}"/>";
         $("#registerModal").modal("show");
 
         //register 값 채우기
 
-        $(".register-user-id").val("166");
+        $(".register-user-id").val(userId);
 
         if ($('input:checkbox[name="enabled"]').is(":checked") == true) {
 
@@ -471,9 +433,22 @@
 
 
         $("#btn-register").on("click", function () {
-            registerForm.attr("action", "/cs/adminFaq/register");
-            registerForm.submit();
-        })
+
+            if ($(".register-odrNo").val() == ''){
+                alert("우선순위를 입력해주세요");
+                return false;
+            }else if($(".register-title").val() == ''){
+                alert("제목을 입력해주세요");
+                return false;
+            }else if ($(".register-content").val() == ''){
+                alert("내용을 입력해주세요");
+                return false;
+            }else {
+                registerForm.attr("action", "/admin/adminFaq/register");
+                registerForm.submit();
+            }
+
+        });
 
         $("#closeRegisterModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
 
@@ -485,6 +460,4 @@
 
 </script>
 
-
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/admin/adminMemo.jsp"></jsp:include>

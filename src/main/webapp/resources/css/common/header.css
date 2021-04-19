@@ -2,6 +2,9 @@
 *{
     font-family: 'Noto Sans KR', sans-serif;
 }
+a{
+    color: #333;
+}
 #header{
     height: 180px;
     color: #333;
@@ -10,6 +13,7 @@
 
 .top_menu{
     width:1000px;
+    height: 26px;
     display: flex;
     margin:auto;
     justify-content: flex-end;
@@ -29,7 +33,6 @@
 
 .home-logo {
     width: 140px;
-    height: 80%;
     margin: 0 auto;
 }
 
@@ -201,14 +204,14 @@ li.drop-down>a:hover +.drop-down-ul{
     margin: auto;
 }
 
-.search-form{
+.h-search-form{
     display:flex;
     text-align: center;
     position: relative;
     border-radius: 40px;
 }
 
-.search-input {
+.h-search-input {
     border: none;
     outline: none;
     width: 400px;
@@ -219,7 +222,7 @@ li.drop-down>a:hover +.drop-down-ul{
     float: left;
 }
 
-.search-button {
+.h-search-button {
     float: right;
     width: 30px;
     height: 30px;
@@ -267,7 +270,7 @@ li.drop-down>a:hover +.drop-down-ul{
     color: black;
 }
 
-.login-panel:hover{
+.login-panel:hover, .leftmenu a:hover, .rightmenu a:hover{
     color: rgb(255,88,93);
 }
 
@@ -276,3 +279,4 @@ a:visited { text-decoration: none; }
 a:hover { text-decoration: none; }
 a:focus { text-decoration: none; }
 a:hover, a:active { text-decoration: none; }
+

@@ -45,5 +45,4 @@ public class SignUpServiceImpl implements SignUpService {
 
 		return userMapper.insert(userVO);
 	}
-
 }

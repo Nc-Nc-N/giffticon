@@ -4,7 +4,9 @@
 <mapper namespace="com.ncncn.mapper.UserMapper">
 
     <select id="readByEmail" resultType="com.ncncn.domain.UserVO">
-        select * from user where email = #{email}
+        select *
+        from user
+        where email = #{email}
     </select>
 
     <insert id="insert">
@@ -13,28 +15,37 @@
     </insert>
 
     <delete id="deleteByEmail">
-        delete from user where email = #{email}
+        delete
+        from user
+        where email = #{email}
     </delete>
 
 
     <!-- LOGIN -->
     <select id="readForLogin" resultType="com.ncncn.domain.UserVO">
-        select
-            email, pwd, userT.enabled, roleT.code_name as roleCode
-        from
-            (
-            select email, pwd, enabled, role_code
-            from user
-            where email = #{email}
-            ) userT,
-            (
-            select * from cmmn_code
-            where
-                code_type = "USER_ROLE"
-            ) roleT
-        where
-            userT.role_code = roleT.code
+        select email,
+               pwd,
+               userT.enabled,
+               roleT.code_name as roleCode
+        from (
+                 select email, pwd, enabled, role_code
+                 from user
+                 where email = #{email}
+             ) userT,
+             (
+                 select *
+                 from cmmn_code
+                 where code_type = "USER_ROLE"
+             ) roleT
+        where userT.role_code = roleT.code
         ;
+    </select>
+
+
+    <select id="readById" resultType="com.ncncn.domain.UserVO">
+        select *
+        from user
+        where id = #{userId};
     </select>
 
     <!-- 3일 전부터 새로 가입한 사용자를 카운트한다. -->

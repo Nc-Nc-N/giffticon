@@ -64,7 +64,7 @@
             <th>회원상태</th>
         </tr>
         <c:forEach items="${list}" var="userL">
-            <tr class="test11">
+            <tr class="eachUser">
                 <td>${userL.id}</td>
                 <td>${userL.email}</td>
                 <td>${userL.name}</td>
@@ -113,6 +113,7 @@
 
 <jsp:include page="/WEB-INF/views/admin/adminMemo.jsp"/>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -142,5 +143,13 @@
         });
 
     }); //end of $(document).ready
+
+    $(".eachUser").on("click", function(e){
+
+        let eachUserId=this.children[0].innerText;
+
+        location.href="http://localhost:8088/admin/user/user-detail?userId=" + eachUserId;
+
+    });
 
 </script>

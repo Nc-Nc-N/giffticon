@@ -1,0 +1,101 @@
+#menu {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+    border-bottom: 1.5px solid gray;
+}
+
+#menu div {
+    margin: 0 auto;;
+}
+
+#menu a {
+    font-weight: 600;
+    font-size: 18px;
+    color: rgb(71, 71, 71);
+}
+
+#menu a.active {
+    color: rgb(255, 88, 93);
+}
+
+table{
+    display:flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-collapse:collapse;
+    padding:0;
+    margin:0;
+    width:100%;
+}
+
+#t1 {
+    border:none;
+}
+    
+tbody{
+    display:flex;
+}
+
+th{
+    display:flex;
+    background-color:rgb(189,187,187);
+    border:1px solid black;
+    height:25px;
+    width:170px;
+    align-items:center;
+    text-align:center;
+}
+
+td{
+    display:flex;
+    border:1px solid black;
+    height:25px;
+    width:430px;
+    align-items:center;
+}
+
+.c3{
+    display:flex;
+    border:1px solid white;
+    height:25px;
+    width:155px;
+    align-items:center;
+
+}
+
+#memo-input{
+    width:75.2%;
+}
+
+#memo-title {
+    display:flex;
+    align-items:center;
+    width:172px;
+    height:25px;
+    background-color:rgb(189,187,187);
+    border:1px solid black;
+    margin:0;
+    font-weight:bold;
+    
+}
+
+.btnclass {
+    width:100%;
+    text-align:center;
+}
+
+#statusbtn {
+    width:155px;
+
+}
+
+#memo-input {
+    margin-bottom:100px;
+    height:25px;
+}
+
+#submitform {
+    width:800px;
+}

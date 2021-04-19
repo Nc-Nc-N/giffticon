@@ -3,6 +3,112 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ncncn.mapper.GifticonMapper">
+  
+    <select id="read" resultType="com.ncncn.domain.GifticonVO">
+        select * from gifticon where id = #{id}
+    </select>
+
+    <sql id="getRqust">
+        <![CDATA[
+            from gifticon as gft
+            join product as prod on prod.code = gft.prod_code
+            join brand as brd on brd.code = prod.brd_code
+            join category as cate on cate.code = brd.cate_code
+            join user as usr on usr.id = gft.user_id
+            where gft.gft_stus_code = '001'
+        ]]>
+    </sql>
+
+    <sql id="criteria">
+        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'E'.toString()">
+                            usr.email like concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'N'.toString()">
+                            prod.name like concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            prod.code like concat('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
+    <select id="readAllRqustWithPaging" resultMap="SaleRqusts">
+        <![CDATA[select gft.id as gft_id, gft.brcd as brcd, gft.expir_dt as expir_dt, gft.in_date as in_date, gft.img_path as img_path, gft.prod_code as prod_code,
+                    cate.name as cate_name, brd.name as brd_name, prod.name as prod_name, usr.email as requester]]>
+        <include refid="getRqust"/>
+        <include refid="criteria"/>
+        <![CDATA[
+         order by gft.id
+         limit #{amount}
+         offset ${(pageNum - 1) * amount}
+         ]]>
+    </select>
+
+    <select id="readRqustById" resultMap="SaleRqust">
+        <![CDATA[select cate.name as cate_name, brd.name as brd_name, prod.name as prod_name, convert(prod.prc, char) as prod_prc, usr.email as requester]]>
+        <include refid="getRqust"/>
+        <![CDATA[ and gft.id = #{id} ]]>
+    </select>
+
+    <select id="countAllRqust" resultType="int">
+        <![CDATA[select count(*)]]>
+        <include refid="getRqust"/>
+        <include refid="criteria"/>
+    </select>
+
+    <update id="updateStusCodeAndAprvDt">
+        update gifticon set gft_stus_code = '002', aprv_dt = now(), up_user = current_user(), up_date = now() where id = #{id}
+    </update>
+
+    <resultMap id="SaleRqust" type="java.util.HashMap">
+        <result property="cateName" column="cate_name"/>
+        <result property="brdName" column="brd_name"/>
+        <result property="prodName" column="prod_name"/>
+        <result property="prodPrc" column="prod_prc"/>
+        <result property="requester" column="requester"/>
+    </resultMap>
+
+    <resultMap id="SaleRqusts" type="com.ncncn.domain.SaleRqustVO">
+        <result property="gftId" column="gft_id"/>
+        <result property="brcd" column="brcd"/>
+        <result property="expirDt" column="expir_dt"/>
+        <result property="inDate" column="in_date"/>
+        <result property="imgPath" column="img_path"/>
+        <result property="prodCode" column="prod_code"/>
+        <result property="cateName" column="cate_name"/>
+        <result property="brdName" column="brd_name"/>
+        <result property="prodName" column="prod_name"/>
+        <result property="requester" column="requester"/>
+    </resultMap>
+
+    <update id="gftDealCmpl">
+        update gifticon
+        set gft_stus_code = '005'
+        where id = #{gftId}
+    </update>
+
+    <delete id="deleteGifticon">
+        <![CDATA[
+        delete
+        from gifticon
+        where id = #{gftId}
+        ]]>
+   </delete>
+
+    <update id="updateGftPrc">
+        update gifticon
+        set is_auto_prc = #{isAutoPrc},
+            dc_prc      = #{dcPrc},
+            up_date     = current_date()
+        where id = #{gftId}
+    </update>
 
     <select id="countNotYetApproved" resultType="int">
         select count(*) from gifticon g join cmmn_code c on g.gft_stus_code = c.code where gft_stus_code = '001' and c.code_type = 'GFT_STUS'
