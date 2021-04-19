@@ -34,11 +34,11 @@
             <th>방문자</th>
         </tr>
         <tr>
-            <td><c:out value="${main.statisticsVO.salesRec}" default="-"/></td>
-            <td><c:out value="${main.countRecentlyRegister}" default="-"/></td>
-            <td><a href="/admin/request/list"><c:out value="${main.countNotYetApproved}" default="-"/></a></td>
-            <td><a href="/admin/adminPsnlQust"><c:out value="${main.countHaveNoAns}" default="-"/></a></td>
-            <td><c:out value="${main.statisticsVO.visitrRec}" default="-"/></td>
+            <td><c:out value="${main.statisticsVO.salesRec} 원" default="-"/></td>
+            <td><c:out value="${main.countRecentlyRegister} 명" default="-"/></td>
+            <td><a href="/admin/request/list"><c:out value="${main.countNotYetApproved} 개" default="-"/></a></td>
+            <td><a href="/admin/adminPsnlQust"><c:out value="${main.countHaveNoAns} 개" default="-"/></a></td>
+            <td><c:out value="${main.statisticsVO.visitrRec} 명" default="-"/></td>
         </tr>
     </table>
 </div>
