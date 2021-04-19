@@ -111,13 +111,13 @@
     <button class="btn btn-diabled">선택삭제</button>
     <div class="pagination">
         <c:if test="${pageMaker.prev}">
-            <a class="pagination_btn prev">&lt;</a>
+            <a class="paginate_button prev" href="${pageMaker.startPage - 1}">&lt;</a>
         </c:if>
         <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
             <a class="paginate_button ${pageMaker.cri.pageNum == num ? 'active' : ''}" href="${num}">${num}</a>
         </c:forEach>
         <c:if test="${pageMaker.next}">
-            <a class="pagination_btn next">&gt;</a>
+            <a class="paginate_button next" href="${pageMaker.endPage + 1}">&gt;</a>
         </c:if>
     </div>
 </div>
