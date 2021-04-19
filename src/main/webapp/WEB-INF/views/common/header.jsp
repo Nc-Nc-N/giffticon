@@ -7,6 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -37,7 +38,7 @@
 
 
             <span class="header_divider">|</span>
-            <span><a href="/cs/faqBoard" class="login-panel">고객센터</a></span>
+            <span><a href="/user/cs/faqBoard" class="login-panel">고객센터</a></span>
 
         </div>
 
@@ -51,7 +52,20 @@
 
             <div class="bar-left">
                 <div class="category-drop">
-                    <div class="category-btn"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</div>
+                    <ul class="exo-menu">
+                        <li class="drop-down">
+                            <a href="#"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
+                            <%-- Drop Down --%>
+                            <ul class="drop-down-ul animated fadeIn">
+                                <li class="flyout-right">
+                                        <a href="#">카페</a>
+                                    <ul class="animated fadeIn">
+                                            <li><a href="#">스타벅스</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
                 <div class="leftmenus">
                     <div class="leftmenu"><a href="#">충전하기</a></div>
@@ -79,6 +93,7 @@
             </div>
         </div>
     </div>
+</body>
 
 <script>
     // 검색 버튼 이벤트 처리
@@ -100,3 +115,4 @@
         headerSearchForm.submit();
     });
 </script>
+
