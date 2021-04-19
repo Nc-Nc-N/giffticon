@@ -25,7 +25,7 @@ public class FaqController {
 
 	// 사용자
 
-	@GetMapping("/user/mypage/faqBoard")
+	@GetMapping("/user/cs/faqBoard")
 	public String faqBoard(HttpServletRequest request, CriteriaCs cri, Model model){
 
 		log.info("list: " + cri);
