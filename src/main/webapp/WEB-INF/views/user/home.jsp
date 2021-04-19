@@ -26,8 +26,6 @@
 </head>
 
 <!--여기서부터 home body-->
-<div id="container">
-<div class="space"></div> <!--광고 위 여백-->
 <div id="advertiser"> <!--광고판테두리-->
     <div class="advertise"> <!--광고 삽입-->
 
@@ -39,6 +37,8 @@
         </span>
 
 </div>
+<div id="container">
+<div class="space"></div> <!--광고 위 여백-->
  <!-- 광고 아래 메인 컨텐츠-->
     <div class="space"></div>
 

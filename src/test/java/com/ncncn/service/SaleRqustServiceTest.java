@@ -98,14 +98,4 @@ public class SaleRqustServiceTest {
 		verify(gifticonMapper).updateStusCodeAndAprvDt(anyInt());
 		assertEquals(1, result);
 	}
-
-	@Test
-	public void removeRqustSuccessTest() {
-		when(gifticonMapper.deleteGifticon(anyInt())).thenReturn(1);
-
-		int result = saleRqustService.removeRqust(anyInt());
-
-		verify(gifticonMapper).deleteGifticon(anyInt());
-		assertEquals(1, result);
-	}
 }

@@ -133,59 +133,61 @@
         <input type="hidden" name="amount" value='<c:out value="${headerPageMaker.cri.amount}"/>'>
     </form>
 
-    <script type="text/javascript">
-        $(document).ready(function (){
+</body>
+<script type="text/javascript">
+    $(document).ready(function (e){
 
-            let curr_url = document.URL;
-            let new_curr_url = new URL(curr_url);
+        let curr_url = document.URL;
+        let new_curr_url = new URL(curr_url);
 
-            // 현재 url의 code parameter value
-            let code = new_curr_url.searchParams.get("code");
+        // 현재 url의 code parameter value
+        let code = new_curr_url.searchParams.get("code");
 
-            // 현재 url의 orderby parameter value
-            let selectedOrder = new_curr_url.searchParams.get("orderby");
+        // 현재 url의 orderby parameter value
+        let selectedOrder = new_curr_url.searchParams.get("orderby");
 
-            // 검색 후 카테고리 숨기기, 검색 결과 상품수 출력
-            if(code==='' || code===null || code==='0'){
-                code = '0';
-                $('.cateAll').hide();
-                $('.search-result').show();
-            }
+        // 검색 후 카테고리 숨기기, 검색 결과 상품수 출력
+        if(code==='' || code===null || code==='0'){
+            code = '0';
+            $('.cateAll').hide();
+            $('.search-result').show();
+        }
 
-            // 검색 결과가 0일 때
-            if(${headerPageMaker.total}===0 && code==='0'){
-                $('.search-result').hide();
-                $('.search-select').hide();
-                $('.noresult').show();
-                $('.noresult-tip').show();
-            }
+        // 검색 결과가 0일 때
+        if(${headerPageMaker.total}===0 && code==='0'){
+            $('.search-result').hide();
+            $('.search-select').hide();
+            $('.noresult').show();
+            $('.noresult-tip').show();
+        }
 
+        // 상품 정렬 방식 이벤트 처리
+        $(".search-select").on("change", function (){
 
-           // 상품 정렬 방식 이벤트 처리
-           $(".search-select").on("change", function (){
+            let orderby = $(".search-select option:selected").val();
 
-               let orderby = $(".search-select option:selected").val();
-
-               location.href="prod_list?keyword=${headerPageMaker.cri.keyword}&code="+code+"&orderby="+orderby+"&pageNum=1&amount=${headerPageMaker.cri.amount}";
-           });
-
-            // 페이지 번호 이벤트 처리
-            let actionForm = $("#actionForm");
-
-            $(".paginate_button").on("click", function (e){
-
-                e.preventDefault();
-
-                actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-                actionForm.submit();
-            });
-
+            location.href="prod_list?keyword=${headerPageMaker.cri.keyword}&code="+code+"&orderby="+orderby+"&pageNum=1&amount=${headerPageMaker.cri.amount}";
         });
 
-        $(".cateAll, .brandList").on("click", function (e){
+        // 페이지 번호 이벤트 처리
+        let actionForm = $("#actionForm");
 
-        })
+        $(".paginate_button").on("click", function (e){
 
-    </script>
+            e.preventDefault();
 
-</body>
+            actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+            actionForm.submit();
+        });
+
+        // 에러 메시지 처리
+        let error = "${error}";
+
+        console.log(error)
+
+        if(error.length > 0){
+            alert("error: " + error);
+        }
+    });
+
+</script>
