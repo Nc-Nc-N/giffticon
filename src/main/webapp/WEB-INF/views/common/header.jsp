@@ -58,13 +58,9 @@
                             <%-- Drop Down --%>
                             <ul class="drop-down-ul animated fadeIn">
                                 <li class="flyout-right">
-                                    <c:forEach items="${categoryList}" var="catL">
-                                        <a href="#"><c:out value="${caL.name}"/> </a>
-                                    </c:forEach>
+                                        <a href="#">카페</a>
                                     <ul class="animated fadeIn">
-                                        <c:forEach items="${brandList}" var="brandL">
-                                            <li><a href="#"><c:out value="${brandL.name}"/> </a></li>
-                                        </c:forEach>
+                                            <li><a href="#">스타벅스</a></li>
                                     </ul>
                                 </li>
                             </ul>
