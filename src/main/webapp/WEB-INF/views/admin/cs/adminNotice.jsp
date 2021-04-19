@@ -391,10 +391,19 @@
 
 
         $('#btn-modify').on("click", function () {
-
-                modifyForm.attr("action", "/admin/adminNotice/modify");
-                modifyForm.submit();
-
+                if ($(".modify-end-dt").val() == ''){
+                    alert("종료날짜를 선택해주세요");
+                    return false;
+                }else if($(".modify-title").val() == ''){
+                    alert("제목을 입력해주세요");
+                    return false;
+                }else if ($(".modify-content").val() == ''){
+                    alert("내용을 입력해주세요");
+                    return false;
+                }else {
+                    modifyForm.attr("action", "/admin/adminNotice/modify");
+                    modifyForm.submit();
+                }
         });
 
         $("#closeModifyModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
@@ -434,6 +443,12 @@
 
             if($(".register-end-dt").val() == ''){
                 alert("날짜를 입력해주세요");
+                return false;
+            }else if($(".register-title").val() == ''){
+                alert("제목을 입력해주세요");
+                return false;
+            }else if($(".register-content").val() == ''){
+                alert("내용을 입력해주세요");
                 return false;
             }else {
                 registerForm.attr("action", "/admin/adminNotice/register");
