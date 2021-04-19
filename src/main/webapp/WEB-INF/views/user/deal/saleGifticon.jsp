@@ -711,7 +711,7 @@
     });
 
     $('#btn-to-main').on("click", function(){
-        location.href="#";
+        location.href="/user/mypage/sells";
     });
 
 
@@ -781,18 +781,16 @@
     //유효성 검사
     let gifticonValidate = function() {
         let checker = 0;
-        if(userId == 0) {checker +=1};
-        if(prodCode == "") {checker +=1};
-        if($("#dcprice")[0].value == "") {checker +=1};
-        if(inDcRate == 0) {checker +=1};
-        if($("#end-date")[0].value == "") {checker +=1};
-        if($("#barcode")[0].value == "") {checker +=1};
-        if(originPath == "") {checker +=1};
-        if($("input[name=group1]:checked")[0] == undefined) {checker +=1};
-        return checker == 0;
+        if(userId === 0) {checker +=1}
+        if(prodCode === "") {checker +=1}
+        if($("#dcprice")[0].value === "") {checker +=1}
+        if(inDcRate === 0) {checker +=1}
+        if($("#end-date")[0].value === "") {checker +=1}
+        if($("#barcode")[0].value === "") {checker +=1}
+        if(originPath === "") {checker +=1}
+        if($("input[name=group1]:checked")[0] === undefined) {checker +=1}
+        return checker === 0;
     }
-
-
 
 
 
@@ -876,8 +874,13 @@
         $(e.target).addClass('on');
     });
 
+    // 유효기간 변경 시 가격 종류, 입력값 초기화
 
 
+
+
+    // dcPriceClean();
+    // priceChoiceButtonClean();
 
 </script>
 </body>

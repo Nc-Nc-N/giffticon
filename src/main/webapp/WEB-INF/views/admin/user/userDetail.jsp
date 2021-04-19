@@ -131,5 +131,9 @@
         document.getElementById('statusUpdateForm').submit();
     }
 
+    $("#statusbtn").change(function() {
+       alert("회원상태를 변경합니다.");
+    });
+
 
 </script>
