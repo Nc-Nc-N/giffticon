@@ -38,7 +38,7 @@
 
 
             <span class="header_divider">|</span>
-            <span><a href="/user/cs/faqBoard" class="login-panel">고객센터</a></span>
+            <span><a href="/user/cs/noticeBoard" class="login-panel">고객센터</a></span>
 
         </div>
 
