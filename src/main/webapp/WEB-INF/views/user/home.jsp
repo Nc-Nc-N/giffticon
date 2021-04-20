@@ -99,7 +99,7 @@
                                                 </div>
                                                 <div class="itemprice">
                                                     <span><fmt:formatNumber value="${wishList.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                                                    <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.dcPrc}" />
+                                                    <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.dcPrc}" /> 원 ~</span>
                                                 </div>
                                                 <div class="itemoriginprice">
                                                     <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.prc}"/> 원</del></span>
@@ -161,7 +161,7 @@
                                         </div>
                                         <div class="itemprice">
                                             <span><fmt:formatNumber value="${bestList.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                                            <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${bestList.dcPrc}" />
+                                            <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${bestList.dcPrc}" /> 원 ~</span>
                                         </div>
                                         <div class="itemoriginprice">
                                             <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${bestList.prc}"/> 원</del></span>
@@ -220,7 +220,7 @@
                                             </div>
                                             <div class="itemprice">
                                                 <span><fmt:formatNumber value="${DL.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                                                <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${DL.dcPrc}" />
+                                                <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${DL.dcPrc}" /> 원 ~</span>
                                             </div>
                                             <div class="itemoriginprice">
                                                 <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${DL.prc}"/> 원</del></span>
