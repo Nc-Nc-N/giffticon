@@ -94,7 +94,7 @@
         <trim prefix="and">
             <if test="dateFrom != ''">
                 <if test="dateFrom != null">
-                    gftT.aprv_dt >= #{dateFrom}
+                    gftT.in_date >= #{dateFrom}
                 </if>
             </if>
         </trim>
@@ -102,7 +102,7 @@
         <trim prefix="and">
             <if test="dateTo != ''">
                 <if test="dateTo != null">
-                    adddate(#{dateTo}, interval 1 day) > gftT.aprv_dt
+                    adddate(#{dateTo}, interval 1 day) > gftT.in_date
                 </if>
             </if>
         </trim>
