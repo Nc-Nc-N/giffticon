@@ -71,7 +71,14 @@
                 <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
                                     value="${userL.inDate}"/></td>
                 <td>${userL.telNo}</td>
-                <td>${userL.enabled}</td>
+                <td>
+                    <c:if test="${userL.enabled == 1}">
+                        <c:out value="정상" />
+                    </c:if>
+                    <c:if test="${userL.enabled == 0}">
+                        <c:out value="탈퇴" />
+                    </c:if>
+                </td>
             </tr>
         </c:forEach>
     </table>
@@ -117,6 +124,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+
+        document.getElementById("userAdministration").className = 'active';
 
         let actionForm = $("#actionForm");
 
