@@ -26,15 +26,16 @@ public class FaqController {
 	// 사용자
 
 	@GetMapping("/user/cs/faqBoard")
+
 	public String faqBoard(CriteriaCs cri, Model model){
 
 		log.info("list: " + cri);
 
 
-		model.addAttribute("list", service.getList(cri));
+		model.addAttribute("list", service.getListUser(cri));
 //		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
 
-		int total = service.getTotal(cri);
+		int total = service.getTotalUser(cri);
 
 		log.info("total: " + total);
 

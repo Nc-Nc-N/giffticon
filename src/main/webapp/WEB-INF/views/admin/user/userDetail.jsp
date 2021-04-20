@@ -117,6 +117,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        document.getElementById("userAdministration").className = 'active';
+
         let ustat = document.getElementById('ustatus').innerText;
 
         if(ustat == "정상") {
@@ -130,6 +132,10 @@
     let submitStatus = function() {
         document.getElementById('statusUpdateForm').submit();
     }
+
+    $("#statusbtn").change(function() {
+       alert("회원상태를 변경합니다.");
+    });
 
 
 </script>
