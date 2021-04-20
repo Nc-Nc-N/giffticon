@@ -15,7 +15,7 @@
     <security:http>
         <security:form-login login-page="/account/signIn" authentication-success-handler-ref="customLoginSuccess"/>
         <security:intercept-url pattern="/user/home" access="permitAll"/>
-        <security:intercept-url pattern="/admin/*" access='hasAuthority("관리자")'/>
+        <security:intercept-url pattern="/admin/**" access='hasAuthority("관리자")'/>
         <security:intercept-url pattern="/user/mypage/*" access='hasAuthority("사용자")'/>
 
 
