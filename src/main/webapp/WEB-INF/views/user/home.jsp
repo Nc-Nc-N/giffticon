@@ -20,6 +20,7 @@
     <script src="/resources/js/user/splide.min.js"></script>
     <link rel="stylesheet" href="/resources/css/user/home.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/splide.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/prod.css" type="text/css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
     </style>
@@ -73,9 +74,9 @@
             </div>
 
             <%-- 관심상품 --%>
-            <div class="splide" style="width: 735px; height: 300px; margin-left: 20px; margin-top: 20px;">
+            <div class="splide" style="width: 735px; height: 300px; margin-left: 20px; margin-top: 3%;">
                 <div class="splide__track">
-                    <ul class="splide__list" style="height: 300px;">
+                    <ul class="splide__list">
                         <c:set var="i" value="0"/>
                         <c:set var="j" value="3"/>
                         <c:forEach items="${wishList}" var="wishList" end="5">
@@ -87,8 +88,10 @@
                                     <td>
                                         <a href="prod_detail?code=${wishList.prodCode}">
                                         <div class="items">
-                                            <div class="itemimg">
-                                                <img src="${wishList.imgPath}">
+                                            <div class="pic">
+                                                <div class="img">
+                                                    <img src="${wishList.imgPath}">
+                                                </div>
                                             </div>
                                             <div class="itemnameNprice">
                                                 <div class="itembrand">
@@ -99,7 +102,7 @@
                                                 </div>
                                                 <div class="itemprice">
                                                     <span><fmt:formatNumber value="${wishList.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                                                    <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.dcPrc}" />
+                                                    <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.dcPrc}" /> 원 ~</span>
                                                 </div>
                                                 <div class="itemoriginprice">
                                                     <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.prc}"/> 원</del></span>
@@ -129,12 +132,12 @@
                 <h3><i class="far fa-thumbs-up"></i>&nbsp;모두들 찾는 인기상품</h3>
             </div>
             <div class="categorycontroller">
-                <a href="/user/prod_list" class="main-btn">전체보기</a>
+                <a href="/user/prod_list?orderby=best" class="main-btn">전체보기</a>
             </div>
         </div>
 
         <div class="listcontent">
-            <div class="splide" style="width: 1000px; margin-top: 20px;">
+            <div class="splide" style="width: 1000px; margin-top: 3%;">
             <div class="splide__track">
                 <ul class="splide__list">
                     <c:set var="i" value="0"/>
@@ -148,9 +151,11 @@
                         <td>
                             <a href="prod_detail?code=${bestList.prodCode}">
                                 <div class="items">
-                                    <strong class="num">NO. ${i+1}</strong>
-                                    <div class="itemimg">
-                                        <img src="${bestList.pimgPath}">
+                                    <div class="pic">
+                                        <div class="img">
+                                            <p class="best">NO. ${i+1}</p>
+                                            <img src="${bestList.pimgPath}">
+                                        </div>
                                     </div>
                                     <div class="itemnameNprice">
                                         <div class="itembrand">
@@ -161,7 +166,7 @@
                                         </div>
                                         <div class="itemprice">
                                             <span><fmt:formatNumber value="${bestList.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                                            <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${bestList.dcPrc}" />
+                                            <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${bestList.dcPrc}" /> 원 ~</span>
                                         </div>
                                         <div class="itemoriginprice">
                                             <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${bestList.prc}"/> 원</del></span>
@@ -183,6 +188,10 @@
         </div>
     </div>
 
+<%--    <c:set var="today" value="<%=new java.util.Date()%>" />--%>
+<%--    <!-- 현재날짜 -->--%>
+<%--    <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>--%>
+<%--    <c:out value="${date}" />--%>
     <!-- 세번째줄 (만료임박상품)-->
     <div class="prdlist">
         <div class="listname">
@@ -194,7 +203,7 @@
             </div>
         </div>
         <div class="listcontent">
-            <div class="splide" style="width: 1000px; margin-top: 20px;">
+            <div class="splide" style="width: 1000px; margin-top: 3%;">
                 <div class="splide__track">
                     <ul class="splide__list">
                         <c:set var="i" value="0"/>
@@ -207,9 +216,13 @@
                             </c:if>
                             <td>
                                 <a href="prod_detail?code=${DL.prodCode}">
+
                                     <div class="items">
-                                        <div class="itemimg">
-                                            <img src="${DL.pimgPath}">
+                                        <div class="pic">
+                                            <div class="img">
+                                                <img src="${DL.pimgPath}">
+                                            </div>
+                                            <p class="deadline">유효기간: ~ <fmt:formatDate value="${DL.expirDt}" pattern="yyyy-MM-dd"/></p>
                                         </div>
                                         <div class="itemnameNprice">
                                             <div class="itembrand">
@@ -220,7 +233,7 @@
                                             </div>
                                             <div class="itemprice">
                                                 <span><fmt:formatNumber value="${DL.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                                                <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${DL.dcPrc}" />
+                                                <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${DL.dcPrc}" /> 원 ~</span>
                                             </div>
                                             <div class="itemoriginprice">
                                                 <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${DL.prc}"/> 원</del></span>

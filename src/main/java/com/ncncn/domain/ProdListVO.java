@@ -50,4 +50,6 @@ public class ProdListVO {
 	private Date upDate;
 
 	private int enabled;
+
+	private int dDay;
 }
