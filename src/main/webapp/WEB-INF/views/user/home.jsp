@@ -20,6 +20,7 @@
     <script src="/resources/js/user/splide.min.js"></script>
     <link rel="stylesheet" href="/resources/css/user/home.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/splide.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/prod.css" type="text/css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
     </style>
