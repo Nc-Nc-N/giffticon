@@ -69,7 +69,7 @@
                 </div>
             </div>
             <%-- 관심상품 --%>
-            <div style="width: 750px; height: 500px;">
+            <div style="width: 750px">
                 <table>
                     <tr>
                         <c:forEach items="${wishList}" var="wishList" end="2">
