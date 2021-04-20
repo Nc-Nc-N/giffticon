@@ -164,11 +164,14 @@ table{
     padding-left: 5%;
 }
 .listnamelast table{
-    padding-left: 6%;
+    /*padding-left: 6%;*/
+    margin: 3% 0;
+    display: flex;
 }
 .items{
     width:200px;
     height:100%;
+    margin-right: 30px;
 }
 
 

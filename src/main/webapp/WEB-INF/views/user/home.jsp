@@ -69,17 +69,10 @@
                 </div>
             </div>
             <%-- 관심상품 --%>
-            <div class="splide" style="margin-top: 3%;">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        <c:set var="i" value="0"/>
-                        <c:set var="j" value="3"/>
-                        <c:forEach items="${wishList}" var="wishList" end="5">
-                            <c:if test="${i%j==0}">
-                                <li class="splide__slide">
-                                <table style="pa">
-                                <tr>
-                            </c:if>
+            <div style="width: 750px; height: 500px;">
+                <table>
+                    <tr>
+                        <c:forEach items="${wishList}" var="wishList" end="2">
                             <td>
                                 <a href="prod_detail?code=${wishList.prodCode}">
                                     <div class="items">
@@ -106,15 +99,9 @@
                                     </div>
                                 </a>
                             </td>
-                            <c:if test="${i%j==j-1}">
-                                </tr>
-                                </table>
-                                </li>
-                            </c:if>
-                            <c:set var="i" value="${i+1}"/>
                         </c:forEach>
-                    </ul>
-                </div>
+                    </tr>
+                </table>
             </div>
         </div>
 
