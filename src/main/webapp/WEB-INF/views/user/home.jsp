@@ -129,7 +129,7 @@
                 <h3><i class="far fa-thumbs-up"></i>&nbsp;모두들 찾는 인기상품</h3>
             </div>
             <div class="categorycontroller">
-                <a href="/user/prod_list" class="main-btn">전체보기</a>
+                <a href="/user/prod_list?orderby=best" class="main-btn">전체보기</a>
             </div>
         </div>
 

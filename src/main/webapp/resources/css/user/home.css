@@ -1,4 +1,3 @@
-
 .space{
     height:40px;
     width:1000px;
@@ -36,10 +35,8 @@
 #container{
     width:1000px;
     height:1000px;
-    /* background-color:bisque; */
-    /* border-bottom: 2px solid gray; */
     margin: auto;
-    
+    color: #333;
 }
 .prdlist{
     width:1000px;
@@ -51,8 +48,6 @@
 .listname_first{
     width:100%;
     height:10%;
-    /* background-color: lavenderblush; */
-    /* border-bottom: 3px solid gray; */
     display: flex;
 }
 
@@ -191,25 +186,24 @@ table{
 .itemnameNprice{
     width: 225px;
     height: 30%;
-    /*background-color:hotpink;*/
     display: block;
 }
 .itembrand{
-    /*background-color:burlywood;*/
     width: 100%;
     height: 20%;
     text-align: center;
     font-size: small;
     font-weight: bold;
     color:rgba(70,70,70,1);
+    margin-top: 20px;
 }
 .itemname{
     width: 100%;
-    height: 25%;
+    height: 50px;
     font-size: medium;
     font-weight: bold;
     text-align: center;
-    color : black;
+    margin-top: 3px;
 }
 
 .itemprice{
@@ -228,8 +222,7 @@ table{
 }
 
 .itemprice > span:last-child{
-    color: black
-
+    color: #333;
 }
 .itemoriginprice{
     width: 100%;

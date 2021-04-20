@@ -60,6 +60,7 @@
             <%-- 상품 목록 리스트 --%>
             <c:set var="i" value="0"/>
             <c:set var="j" value="4"/>
+            <c:set var="k" value="1"/>
             <table>
             <c:forEach items="${gifti}" var="gifti">
                 <c:if test="${i%j==0}">
@@ -68,6 +69,10 @@
                 <td>
                     <a href="prod_detail?code=${gifti.prodCode}">
                     <div class="items">
+                        <c:if test="${k<9}">
+                            <strong class="num" style="display:none;">NO. <c:out value="${k}"/></strong>
+                        </c:if>
+                        <c:set var="k" value="${k+1}"/>
                         <div class="itemimg">
                             <img src="${gifti.pimgPath}">
                         </div>
@@ -145,6 +150,11 @@
 
         // 현재 url의 orderby parameter value
         let selectedOrder = new_curr_url.searchParams.get("orderby");
+
+        // 인기순 8위까지 보여주기
+        if(selectedOrder==='best'){
+            $('.num').show();
+        }
 
         // 검색 후 카테고리 숨기기, 검색 결과 상품수 출력
         if(code==='' || code===null || code==='0'){
