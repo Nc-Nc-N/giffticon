@@ -10,4 +10,6 @@ public interface GifticonService {
 
 	int countNotYetApproved();
 
+	int countOnselling(String prdCode);
+
 }

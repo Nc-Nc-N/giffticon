@@ -54,4 +54,14 @@ public class GifticonServiceTests {
 
         assertEquals(updatedCmpl, 1);
     }
+
+    @Test
+    public void CountOnSellingTests(){
+
+        String prdCode = "010104";
+
+        int count = gifticonService.countOnselling(prdCode);
+
+        assertEquals(count,4);
+    }
 }

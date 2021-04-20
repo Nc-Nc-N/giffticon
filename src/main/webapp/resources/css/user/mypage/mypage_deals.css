@@ -144,6 +144,11 @@
     align-items: start;
 }
 
+.item_name:hover{
+    color: rgb(255,88,93);
+    cursor: pointer;
+}
+
 .item_code{
     margin-left: 10%;
     color: #333333;

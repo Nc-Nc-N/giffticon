@@ -64,4 +64,14 @@ public class GifticonMapperTests {
 
     }
 
+    @Test
+    public void countStus002Test(){
+
+        String prodCode = "010101";
+
+        int count = mapper.countOnselling(prodCode);
+
+        assertEquals(count,3);
+    }
+
 }
