@@ -3,7 +3,6 @@ package com.ncncn.controller;
 import com.ncncn.domain.GiftiCriteria;
 import com.ncncn.domain.PageDTOHY;
 import com.ncncn.domain.WishListVO;
-import com.ncncn.security.CustomUserDetailsService;
 import com.ncncn.service.ProdService;
 import com.ncncn.service.WishListService;
 import lombok.AllArgsConstructor;
