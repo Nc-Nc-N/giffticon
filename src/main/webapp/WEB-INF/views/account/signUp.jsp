@@ -168,18 +168,16 @@
                 return;
             }
 
-            let user = {
-                email: email,
-                pwd: pwd,
-                name: name,
-                telNo: telNo,
-                emlAuthTkn: emlAuthTkn
-            };
-
             $.ajax({
                 type: 'post',
                 url: '/account/register',
-                data: JSON.stringify(user),
+                data: JSON.stringify({
+                    email: email,
+                    pwd: pwd,
+                    name: name,
+                    telNo: telNo,
+                    emlAuthTkn: emlAuthTkn
+                }),
                 contentType: 'application/json; charset=utf-8',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
@@ -211,9 +209,6 @@
             async: false,
             success: function (result) {
                 // 이미 존재하는 이메일이면 1
-                count = result;
-            },
-            error: function (result) {
                 // 사용중인 이메일이 아니면 0
                 count = result;
             }
