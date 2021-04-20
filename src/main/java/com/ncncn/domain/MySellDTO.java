@@ -13,6 +13,8 @@ public class MySellDTO {
     //판매자 id
     private int userId;
 
+    //신청날짜
+    private Date inDt;
     //승인날짜
     private Date aprvDt;
 

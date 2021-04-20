@@ -19,8 +19,8 @@
             <c:out value="${gftInfo.prdName}"/>
         </div>
         <div class="item_code">
-            <div>등록번호</div>
-            GFT<c:out value="${gftInfo.gftId}"/>
+            <div>상품 번호</div>
+            <c:out value="${gftInfo.prdCode}"/><c:out value="${gftInfo.gftId}"/>
         </div>
     </div>
     <div class="item_btn">

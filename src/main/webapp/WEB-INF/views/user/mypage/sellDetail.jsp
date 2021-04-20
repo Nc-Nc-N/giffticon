@@ -18,16 +18,16 @@
     </div>
     <div class="item_nameNcode">
         <div class="item_name">
-            <div>콘 번호</div>
-            No.<c:out value="${gftInfo.prdCode}"/><c:out value="${gftInfo.id}"/>
-        </div>
-        <div class="item_name">
             <div>브랜드</div>
             <c:out value="${gftInfo.brdName}"/>
         </div>
         <div class="item_code">
             <div>상품명</div>
             <c:out value="${gftInfo.prdName}"/>
+        </div>
+        <div class="item_name">
+            <div>상품 번호</div>
+            <c:out value="${gftInfo.prdCode}"/><c:out value="${gftInfo.id}"/>
         </div>
     </div>
     <div class="item_btn_seller">
@@ -51,7 +51,14 @@
     <div class="item_nameNcode">
         <div class="item_name">
             <div>등록일자</div>
-            <fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.aprvDt}"/>
+            <c:choose>
+                <c:when test="${gftInfo.aprvDt != null}">
+                    <fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.aprvDt}"/>
+                </c:when>
+                <c:otherwise>
+                    미승인
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="item_name">
             <div>유효기간</div>

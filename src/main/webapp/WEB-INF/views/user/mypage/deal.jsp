@@ -15,10 +15,10 @@
 
     <form class="search-spec" action="/user/mypage/deal" method="get">
         <div class="date-search">
-            <input type="date" id="dateFrom" name="dateFrom"
+            <input type="text" id="dateFrom" name="dateFrom" class="datepicker"
                    value="<c:out value="${pageMaker.cri.dateFrom}"/>">
             <span>~</span>
-            <input type="date" id="dateTo" name="dateTo"
+            <input type="text" id="dateTo" name="dateTo" class="datepicker"
                    value="<c:out value="${pageMaker.cri.dateTo}"/>">
         </div>
 
@@ -58,10 +58,11 @@
         <div class='item_info'>
             <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
             <span class="item_brdNname">
-                                <div class="item_brd"><c:out value="${list.brdName}"/></div>
-                                <div class="item_name"><a href="/user/prod_detail?code=<c:out value="${list.prdCode}"/>">
-                                    <c:out value="${list.prdName}"/></a></div>
-                            </span>
+                <div class="item_brd"><c:out value="${list.brdName}"/></div>
+                <div class="item_name"><a href="/user/prod_detail?code=<c:out value="${list.prdCode}"/>">
+                    <c:out value="${list.prdName}"/></a></div>
+                <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out value="${list.gftId}"/></div>
+            </span>
             <span class="item_prc"><c:out value="${list.pymtPrc}"/>원</span>
             <span class="item_status">
                                 <div><c:out value="${list.stusCode}"/></div>
@@ -117,6 +118,10 @@
 
 </body>
 </html>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -155,6 +160,18 @@
             e.preventDefault();
             searchSpec.submit();
         })
+
+        $("#dateFrom").datepicker({
+            dateFormat: 'yy-mm-dd',
+            maxDate:0,
+        });
+
+        $("#dateTo").datepicker({
+            dateFormat: 'yy-mm-dd',
+            maxDate:0
+        });
+
+
 
     })
 </script>

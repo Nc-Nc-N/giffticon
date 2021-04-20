@@ -25,7 +25,8 @@
     <select id="getSellsWithPaging" resultType="com.ncncn.domain.MySellDTO">
 
         <![CDATA[
-        select gftT.*, gftT.img_path brcdImgPath, gftT.prod_code prdCode, prdT.name prdName, brdT.name brdName, prdT.img_path prdImgPath, stusT.code_name
+        select gftT.*, gftT.img_path brcdImgPath, gftT.prod_code prdCode, gftT.in_date inDt,
+               prdT.name prdName, brdT.name brdName, prdT.img_path prdImgPath, stusT.code_name
         from
                 (select * from gifticon where user_id = #{userId}) gftT,
                 product prdT,

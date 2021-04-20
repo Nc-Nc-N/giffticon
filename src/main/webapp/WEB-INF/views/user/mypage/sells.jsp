@@ -54,15 +54,16 @@
                     <div class="item">
                         <c:forEach items="${sellList}" var="list" varStatus="num">
                             <div class='item_purdate'>
-                                No.<c:out value='${list.prdCode}'/><c:out value="${list.id}"/>
+                                <fmt:formatDate value="${list.inDt}"/>
                             </div>
                             <div class='item_info'>
                                 <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
                                 <span class="item_brdNname">
-                                <div class="item_brd"><c:out value="${list.brdName}"/></div>
-                                <div class="item_name"><a href="/user/prod_detail?code=<c:out value="${list.prdCode}"/>">
-                                    <c:out value="${list.prdName}"/></a></div>
-                            </span>
+                                    <div class="item_brd"><c:out value="${list.brdName}"/></div>
+                                    <div class="item_name"><a href="/user/prod_detail?code=<c:out value="${list.prdCode}"/>">
+                                        <c:out value="${list.prdName}"/></a></div>
+                                    <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out value="${list.id}"/></div>
+                                </span>
                                 <span class="item_prc"><c:out value="${list.dcPrc}"/>원</span>
                                 <span class="item_status">
                                 <div><c:out value="${list.codeName}"/></div>
