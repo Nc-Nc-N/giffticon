@@ -119,6 +119,7 @@
 </body>
 </html>
 
+<script type="text/javascript" src="/resources/js/user/calendar.js"></script>
 <script>
 
     $(".document").ready(function(){
@@ -136,9 +137,17 @@
 
         $(".search-button").on("click", function (e) {
 
-            searchSpec.find("input[name='pageNum']").val("1");
-            e.preventDefault();
-            searchSpec.submit();
+            let dateFrom = $("#dateFrom").val();
+            let dateTo = $("#dateTo").val();
+
+            if(!calendarCheck(dateFrom,dateTo)){
+                alert("날짜 선택이 올바르지 않습니다.");
+                e.preventDefault();
+            }else{
+
+                searchSpec.find("input[name='pageNum']").val("1");
+                searchSpec.submit();
+            }
         })
 
         //물품 이름 클릭 시 해당 물품의 판매중인 기프티콘 조회. 판매중 있을 시 상품상세로 이동

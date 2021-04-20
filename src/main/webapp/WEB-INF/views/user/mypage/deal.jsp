@@ -15,10 +15,10 @@
 
     <form class="search-spec" action="/user/mypage/deal" method="get">
         <div class="date-search">
-            <input type="text" id="dateFrom" name="dateFrom" class="datepicker"
+            <input type="date" id="dateFrom" name="dateFrom"
                    value="<c:out value="${pageMaker.cri.dateFrom}"/>">
             <span>~</span>
-            <input type="text" id="dateTo" name="dateTo" class="datepicker"
+            <input type="date" id="dateTo" name="dateTo"
                    value="<c:out value="${pageMaker.cri.dateTo}"/>">
         </div>
 
@@ -117,10 +117,8 @@
 
 </body>
 </html>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-
+<script type="text/javascript" src="/resources/js/user/calendar.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -177,22 +175,18 @@
 
         $(".search-button").on("click", function (e) {
 
-            searchSpec.find("input[name='pageNum']").val("1");
-            e.preventDefault();
-            searchSpec.submit();
+            let dateFrom = $("#dateFrom").val();
+            let dateTo = $("#dateTo").val();
+
+            if(!calendarCheck(dateFrom,dateTo)){
+                alert("날짜 선택이 올바르지 않습니다.");
+                e.preventDefault();
+            }else{
+
+                searchSpec.find("input[name='pageNum']").val("1");
+                searchSpec.submit();
+            }
         })
-
-        $("#dateFrom").datepicker({
-            dateFormat: 'yy-mm-dd',
-            maxDate:0,
-        });
-
-        $("#dateTo").datepicker({
-            dateFormat: 'yy-mm-dd',
-            maxDate:0
-        });
-
-
 
     })
 </script>
