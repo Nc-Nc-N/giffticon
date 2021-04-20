@@ -49,8 +49,8 @@ public class GifticonServiceTests {
         int gftId = 94;
         char isAutoPrc = '0';
         int dcPrc = 2000;
-
-        int updatedCmpl = gifticonService.updateGftPrc(gftId, isAutoPrc, dcPrc);
+        double dcRate = 0.10;
+        int updatedCmpl = gifticonService.updateGftPrc(gftId, isAutoPrc, dcPrc, dcRate);
 
         assertEquals(updatedCmpl, 1);
     }

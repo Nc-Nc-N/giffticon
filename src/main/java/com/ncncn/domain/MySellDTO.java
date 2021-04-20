@@ -42,8 +42,14 @@ public class MySellDTO {
     //자동할인여부
     private char isAutoPrc;
 
-    //할인률
-    private double dcRate;
+    //시작할인률
+    private double startDcRate;
+
+    //최종 할인률
+    private double finalDcRate;
+
+    //정가
+    private int listPrc;
 
     //할인가
     private int dcPrc;

@@ -44,8 +44,8 @@ public class GifticonMapperTests {
         int gftId = 152;
         char isAutoPrc = '1';
         int dcPrc = 5000;
-
-        int updatePrcCompl = mapper.updateGftPrc(gftId, isAutoPrc, dcPrc);
+        double dcRate = 0.20;
+        int updatePrcCompl = mapper.updateGftPrc(gftId, isAutoPrc, dcPrc, dcRate);
 
         assertEquals(updatePrcCompl, 1);
 
@@ -57,8 +57,8 @@ public class GifticonMapperTests {
         int gftId = 53;
         char isAutoPrfc = '0';
         int dcPrc = 10000;
-
-        int updatePrcCompl = mapper.updateGftPrc(gftId,isAutoPrfc,dcPrc);
+        double dcRate = 0.10;
+        int updatePrcCompl = mapper.updateGftPrc(gftId,isAutoPrfc,dcPrc,dcRate);
 
         assertEquals(updatePrcCompl, 1);
 

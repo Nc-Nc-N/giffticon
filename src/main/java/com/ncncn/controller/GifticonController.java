@@ -76,7 +76,7 @@ public class GifticonController {
 
             log.info("기프티콘 가격 수정....비밀번호 일치");
 
-            int isUpdated = gifticonService.updateGftPrc(prcUpdate.getGftId(), prcUpdate.getIsAutoPrc(), prcUpdate.getDcPrc());
+            int isUpdated = gifticonService.updateGftPrc(prcUpdate.getGftId(), prcUpdate.getIsAutoPrc(), prcUpdate.getDcPrc(), prcUpdate.getDcRate());
 
             if (isUpdated == 1) { //가격 수정 성공한 경우 success
 

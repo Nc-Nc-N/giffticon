@@ -26,7 +26,8 @@ public interface GifticonMapper {
 
 	int updateGftPrc(@Param("gftId") int gftId,
 					 @Param("isAutoPrc") char isAutoPrc,
-					 @Param("dcPrc") int dcPrc);
+					 @Param("dcPrc") int dcPrc,
+					 @Param("dcRate") double dcRate);
 
 	/* 판매요청 후 대기중인 기프티콘 개수 조회 */
 	int countNotYetApproved();

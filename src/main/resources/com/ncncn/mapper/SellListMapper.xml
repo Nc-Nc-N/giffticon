@@ -53,11 +53,14 @@
 
         <![CDATA[
         select gftT.*,
-               gftT.img_path  brcdImgPath,
-               gftT.prod_code prdCode,
-               prdT.name      prdName,
-               brdT.name      brdName,
-               prdT.img_path  prdImgPath,
+               gftT.img_path   brcdImgPath,
+               gftT.prod_code  prdCode,
+               prdT.prc        listPrc,
+               prdT.in_dc_rate startDcRate,
+               gftT.dc_rate    finalDcRate,
+               prdT.name       prdName,
+               brdT.name       brdName,
+               prdT.img_path   prdImgPath,
                stusT.code_name
         from (select * from gifticon where user_id = #{userId} and id = #{gftId}) gftT,
              product prdT,

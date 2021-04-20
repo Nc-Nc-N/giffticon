@@ -30,9 +30,9 @@ public class GifticonServiceImpl implements GifticonService{
     }
 
     @Override
-    public int updateGftPrc(int gftId, char isAutoPrc, int dcPrc){
+    public int updateGftPrc(int gftId, char isAutoPrc, int dcPrc, double dcRate){
 
-        return gifticonMapper.updateGftPrc(gftId, isAutoPrc, dcPrc);
+        return gifticonMapper.updateGftPrc(gftId, isAutoPrc, dcPrc, dcRate);
     }
 
 	@Override

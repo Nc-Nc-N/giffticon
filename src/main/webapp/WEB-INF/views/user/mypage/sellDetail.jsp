@@ -88,7 +88,7 @@
     <div class="item_prc_right">
         <div class="prc_column">
             <div class="prc_column_right">할인률</div>
-            <c:out value="${gftInfo.dcRate * 100}"/>%
+            <fmt:formatNumber value="${gftInfo.finalDcRate}" type="percent" pattern="0.0%"/>
         </div>
         <div class="prc_column">
             <div class="prc_column_right">판매가격</div>
@@ -135,9 +135,9 @@
                 </div>
             </div>
 
-            <div class="info_section">
-                <div>
+            <div class="date_section">
                     <h3>바코드 번호</h3>
+                <div class="date-search">
                     <h4><c:out value="${gftInfo.brcd}"/></h4>
                 </div>
             </div>
@@ -145,9 +145,14 @@
             <div class="date_section">
                 <h3>유효기간</h3>
                 <div class="date-search">
-                    <input type="date" id="end-date"
-                           value="<fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.expirDt}"/>"
-                           readonly="readonly">
+                    <h4><fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.expirDt}"/></h4>
+                </div>
+
+            </div>
+            <div class="date_section">
+                <h3>정가</h3>
+                <div class="date-search">
+                    <h4><c:out value="${gftInfo.listPrc}"/>원</h4>
                 </div>
 
             </div>
@@ -158,16 +163,18 @@
                     <form class="select">
 
                         <label>
-                            <input type="radio" name="price_select" class="price_select" id="prc_auto" value="1"
-                            <c:if test="${gftInfo.isAutoPrc eq '1'.charAt(0)}"> checked </c:if>
-                            >자동</label><br>
+                            <input type="radio" name="price_select" class="price_select"
+                                   id="prc_auto" value="1">자동</label><br>
                         <label>
-                            <input type="radio" name="price_select" class="price_select" id="prc_manual" value="0"
-                            <c:if test="${gftInfo.isAutoPrc eq '0'.charAt(0)}"> checked </c:if>
-                            >수동</label>
+                            <input type="radio" name="price_select" class="price_select"
+                                   id="prc_manual" value="0">수동</label>
                     </form>
-                    <div class="input_text">
+                    <div class="input_prc">
                         <input type="number" placeholder="가격표시" id="prcinput" value="<c:out value="${gftInfo.dcPrc}"/>">
+                    </div>
+                    <div class="input_rt">
+                    <input type="text" id="rateinput"
+                           value="<fmt:formatNumber value="${gftInfo.finalDcRate}" type="percent" pattern="0.0%"/>" readonly="readonly">
                     </div>
                 </div>
 
@@ -196,19 +203,14 @@
 </div>
 </html>
 
-<script>
-
+<script> //actionForm , 기프티콘 수정 및 삭제
 
     $(".document").ready(function () {
-
-        let isAutoPrc = '<c:out value="gftInfo.isAutoPrc"/>';
 
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
         var actionForm = $("#actionForm");
-        var modal = $(".register-content");
-        let modalAction = $("#modalAction");
 
         $('#deleteGift').on("click", function (e) {
 
@@ -238,13 +240,17 @@
             let gftId = "<c:out value="${gftInfo.id}"/>";
             let isAutoPrc = $("input[name='price_select']:checked").val();
             let dcPrc = $("#prcinput").val();
+            let finalDcRate = $("#rateinput").val();
+            finalDcRate = finalDcRate.slice(0,-1);
+            console.log("finalDcRate: " + finalDcRate);
 
             let prcUpdate = {
                 email: userEmail,
                 password: userPwd,
                 gftId: gftId,
                 isAutoPrc: isAutoPrc,
-                dcPrc: dcPrc
+                dcPrc: dcPrc,
+                dcRate: finalDcRate / 100
             }
 
             $.ajax({
@@ -272,22 +278,66 @@
 
         })
 
-        if ($("#prc_auto").attr("checked")) {
-            console.log("autoPrc checked");
+    })
+
+</script>
+
+<script type="text/javascript" src="/resources/js/user/autoPrc.js"></script>
+<script> //자동가격 설정 script
+
+    $(".document").ready(function () {
+
+        let prc = "<c:out value="${gftInfo.listPrc}"/>";
+        let startDcRate = "<c:out value="${gftInfo.startDcRate}"/>";
+        let finalDcRate = "<c:out value="${gftInfo.finalDcRate}"/>";
+        let expirDt = "<fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.expirDt}"/>";
+        let autoPrc = "<c:out value="${gftInfo.isAutoPrc}"/>";
+
+        let finalPnR = calAutoPrc(prc, startDcRate, expirDt);
+
+        if(autoPrc == 1){
+
+            $("#prc_auto").attr("checked", true);
             $("#prcinput").attr("readonly", true);
+
+
+        }else{
+
+            $("#prc_manual").attr("checked", true);
+            $("#prcinput").attr("readonly", false);
+
         }
 
         $("#prc_auto").on("click", function (e) {
 
-            $("#prcinput").val("<c:out value="${gftInfo.dcPrc}"/>").attr("readonly", true);
+            $("#prcinput").val(finalPnR[0]).attr("readonly", true);
+            $("#rateinput").val((finalPnR[1]*100).toFixed(2)+"%");
         })
 
         $("#prc_manual").on("click", function (e) {
 
             $("#prcinput").attr("readonly", false).val("");
+            $("#rateinput").val("");
         })
 
 
-    })
+        $("#prcinput").keyup(function(e) {
 
+            $("#rateinput").val("");
+
+            if(parseInt($("#prcinput").val())>prc){
+                alert("정가보다 높은 가격에 팔 수 없습니다.");
+                $("#prcinput").val("");
+                $("#rateinput").val("");
+            }
+            setTimeout(function(){
+
+                $("#rateinput").val(((prc - $("#prcinput").val()) / prc * 100).toFixed(2)+"%");
+            },1000)
+
+        })
+
+
+
+    })
 </script>
