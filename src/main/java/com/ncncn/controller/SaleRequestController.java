@@ -83,7 +83,6 @@ public class SaleRequestController {
 			message.setText(getMessage(rqust, rqustReject.getCause()));
 
 			javaMailSender.send(message);
-
 		} catch (Exception e) {
 			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -94,18 +93,16 @@ public class SaleRequestController {
 	private String getMessage(Map<String, String> rqust, String cause) {
 		StringBuilder message = new StringBuilder();
 
-		message.append(rqust.get("requester") + " 님, 안녕하세요. 기쁘티콘입니다.\n");
-		message.append("요청하신 \"[" + rqust.get("brdName") + "] " + rqust.get("prodName") + "\" 상품의 판매요청이 반려되어 안내메일드립니다.\n");
-		message.append("\n");
-		message.append("상품분류: " + rqust.get("cateName") + " > " + rqust.get("brdName") + "\n");
-		message.append("상품명: " + rqust.get("prodName") + "\n");
-		message.append("판매가: " + rqust.get("dcPrc") + "\n");
-		message.append("유효기간: ~ " + rqust.get("expirDt") + "\n");
-		message.append("바코드번호: " + rqust.get("brcd") + "\n");
-		message.append("요청일: " + rqust.get("inDate") + "\n");
-		message.append("\n");
-		message.append("반려사유: " + cause + "\n");
-		message.append("\n");
+		message.append(rqust.get("requester")).append(" 님, 안녕하세요. 기쁘티콘입니다.\n");
+		message.append("요청하신 \"[").append(rqust.get("brdName")).append("] ");
+		message.append(rqust.get("prodName")).append("\" 상품의 판매요청이 반려되어 안내메일드립니다.\n\n");
+		message.append("상품분류: ").append(rqust.get("cateName")).append(" > ").append(rqust.get("brdName")).append("\n");
+		message.append("상품명: ").append(rqust.get("prodName")).append("\n");
+		message.append("판매가: ").append(rqust.get("dcPrc")).append(" 원\n");
+		message.append("유효기간: ~ ").append(rqust.get("expirDt")).append("\n");
+		message.append("바코드번호: ").append(rqust.get("brcd")).append("\n");
+		message.append("요청일: ").append(rqust.get("inDate")).append("\n\n");
+		message.append("반려사유: ").append(cause).append("\n\n");
 		message.append("문의사항은 1:1문의를 통해 남겨주세요. 기쁘티콘을 이용해주셔서 감사합니다.");
 
 		return message.toString();

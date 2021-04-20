@@ -132,7 +132,7 @@
 </div>
 <!-- main content end -->
 
-<div class="modal">
+<div class="modal detail">
     <!-- detail modal -->
     <div id="detail-modal">
         <h2>판매요청상세</h2>
@@ -227,8 +227,18 @@
             <button class="btn dark rq-delete">삭제</button>
         </div>
     </div>
-    <!-- detail modal end -->
 </div>
+<!-- detail modal end -->
+
+<!-- delete loading modal -->
+<div class="modal delete">
+    <div class="loading-delete">
+        <img src="/resources/img/loading.gif"/>
+        <div>판매반려중</div>
+        <div>잠시만 기다려주세요.</div>
+    </div>
+</div>
+<!-- delete loading modal end -->
 
 <script>
     $(document).ready(function (e) {
@@ -363,18 +373,18 @@
                     let cause = prompt("요청반려 사유를 입력해주세요.");
 
                     if (cause !== null) {
+                        hideModal();
+                        $(".delete").css("visibility", "visible");
                         $.ajax({
                             type: 'delete',
                             url: '/admin/request/' + gftId,
                             contentType: "application/json",
                             data: JSON.stringify({email: rqust.requester, cause: cause}),
-                            async: false,
                             beforeSend: function (xhr) {
                                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                             },
                             success: function () {
-                                alert("삭제 완료");
-                                hideModal();
+                                $(".delete").css("visibility", "hidden");
 
                                 let pageNum = parseInt("${pageMaker.cri.pageNum}");
                                 let realEnd = getRealEnd("${pageMaker.total}", "${pageMaker.cri.amount}");
@@ -393,12 +403,12 @@
         });
 
         function showModal() {
-            $(".modal").css("visibility", "visible");
+            $(".detail").css("visibility", "visible");
             $('html').css("overflow", "hidden");
         }
 
         function hideModal() {
-            $(".modal").css("visibility", "hidden");
+            $(".detail").css("visibility", "hidden");
             $('html').css("overflow", "visible");
             // 기존 이벤트를 삭제
             aprvBtn.off();

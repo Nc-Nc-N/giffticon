@@ -87,3 +87,25 @@
     display: flex;
     justify-content: space-around;
 }
+
+.loading-delete {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 250px;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+.loading-delete > div {
+    font-weight: 600;
+    height: 30px;
+}
+
+.loading-delete > img {
+    width: 140px;
+    height: 140px;
+}
