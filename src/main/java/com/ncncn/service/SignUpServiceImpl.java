@@ -2,6 +2,7 @@ package com.ncncn.service;
 
 import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserMapper;
+import com.ncncn.util.UserValidator;
 import lombok.extern.log4j.Log4j;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,7 +37,7 @@ public class SignUpServiceImpl implements SignUpService {
 	public int register(UserVO userVO) {
 		log.info(userVO);
 
-		if (userVO == null) {
+		if (userVO == null && checkValidateUser(userVO)) {
 			throw new IllegalArgumentException("올바른 사용자 정보가 아닙니다.");
 		}
 
@@ -44,5 +45,13 @@ public class SignUpServiceImpl implements SignUpService {
 		userVO.setPwd(encodedPwd);
 
 		return userMapper.insert(userVO);
+	}
+
+	private boolean checkValidateUser(UserVO userVO) {
+		return UserValidator.checkEmail(userVO.getEmail())
+				&& UserValidator.checkPassword(userVO.getPwd())
+				&& UserValidator.checkName(userVO.getName())
+				&& UserValidator.checkTelNo(userVO.getTelNo())
+				&& UserValidator.checkEmlAuthTkn(userVO.getEmlAuthTkn());
 	}
 }
