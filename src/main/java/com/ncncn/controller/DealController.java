@@ -51,7 +51,6 @@ public class DealController {
             userId = (int) request.getSession().getAttribute("userId");
         } catch (NullPointerException e) {
             e.printStackTrace();
-            return "redirect:/account/signIn";
         }
 
         model.addAttribute("userId", userId);
