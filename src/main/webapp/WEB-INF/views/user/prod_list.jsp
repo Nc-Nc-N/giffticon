@@ -72,10 +72,10 @@
                     <div class="items">
                         <div class="pic">
                             <div class="img">
-                                <c:if test="${k<9}">
-                                    <p class="best" style="display:none;">NO. <c:out value="${k}"/></p>
-                                </c:if>
-                                <c:set var="k" value="${k+1}"/>
+<%--                                <c:if test="${k<9}">--%>
+<%--                                    <p class="best" style="display:none;">NO. <c:out value="${k}"/></p>--%>
+<%--                                </c:if>--%>
+<%--                                <c:set var="k" value="${k+1}"/>--%>
                                 <img src="${gifti.pimgPath}">
                             </div>
                         </div>
