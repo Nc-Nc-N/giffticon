@@ -58,8 +58,7 @@ public class SignUpController {
 			log.info("존재하지 않는 사용자 이메일입니다.");
 		}
 
-		return isExists == 1 ? new ResponseEntity<>(isExists, HttpStatus.OK)
-				: new ResponseEntity<>(isExists, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(isExists, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/emailConfirm", produces = MediaType.APPLICATION_JSON_VALUE)

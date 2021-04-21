@@ -9,13 +9,11 @@ import com.ncncn.util.UserAuthCheckUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -76,7 +74,7 @@ public class GifticonController {
 
             log.info("기프티콘 가격 수정....비밀번호 일치");
 
-            int isUpdated = gifticonService.updateGftPrc(prcUpdate.getGftId(), prcUpdate.getIsAutoPrc(), prcUpdate.getDcPrc());
+            int isUpdated = gifticonService.updateGftPrc(prcUpdate.getGftId(), prcUpdate.getIsAutoPrc(), prcUpdate.getDcPrc(), prcUpdate.getDcRate());
 
             if (isUpdated == 1) { //가격 수정 성공한 경우 success
 
@@ -93,5 +91,17 @@ public class GifticonController {
             log.info("비밀번호가 일치하지 않습니다.");
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
+    }
+
+    @GetMapping(value="/{prdCode}")
+    public ResponseEntity<String> countOnSelling(@PathVariable("prdCode") String prdCode){
+
+        try{
+            int count = gifticonService.countOnselling(prdCode);
+            return count > 0 ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (Exception e){
+            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

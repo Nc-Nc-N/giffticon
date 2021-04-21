@@ -170,7 +170,7 @@
                     <p class="search-selected" id="modifyModalLabel"></p>
                     <input class="modify-id" type="hidden" name="id" value=''>
                     <span><input type="checkbox" class="modify-enabled" name="enabled" checked="checked" value=''> Visible</span>
-                    <span><input type="text" class="modify-odrNo" placeholder=" odrNo" name="odrNo" value=''></span>
+                    <span><input type="number" class="modify-odrNo" placeholder=" odrNo" name="odrNo" value=''></span>
                     <textarea class="modify-title" name="qust"></textarea>
 
                 </div>
@@ -207,7 +207,9 @@
                             <option value="002">판매</option>
                         </select>
                         <span><input type="checkbox" class="register-enabled" name="enabled" checked="checked" value=''> Visible</span>
-                        <span><input class="register-odrNo" name="odrNo" placeholder="우선순위" value=''></span>
+
+                        <span><input type="number" class="register-odrNo" name="odrNo" placeholder="우선순위" value=''></span>
+
                     </div>
                     <input class="register-user-id" type="hidden" name="userId" value=''>
                     <span class="qna-q">Q. </span><textarea class="register-title" name="qust"></textarea>
@@ -236,11 +238,6 @@
     var searchForm = $("#searchForm");
 
     $(".search-button").on("click", function (e) {
-
-        if (!searchForm.find("input[name='keyword']").val()) {
-            alert("키워드를 입력하세요");
-            return false;
-        }
 
         searchForm.find("input[name='pageNum']").val("1");
         e.preventDefault();

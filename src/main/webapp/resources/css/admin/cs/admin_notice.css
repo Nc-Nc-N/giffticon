@@ -135,8 +135,11 @@ h2{
 
 .btn-modify {
     background-color: rgb(255, 88, 93);
-    width: 40px;
     color: white;
+}
+
+.btn-modify:hover{
+    color: black;
 }
 
 .btn-erase {
@@ -150,7 +153,9 @@ h2{
 
 .btn-active {
     margin-top: 13px;
+    padding: unset;
 }
+
 
 /* 페이지네이션 css */
 

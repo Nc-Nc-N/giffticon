@@ -162,10 +162,6 @@
 
     $(".search-button").on("click", function (e) {
 
-        if (!searchForm.find("input[name='keyword']").val()) {
-            // $(".search-input").val("");
-            alert("keyword null");
-        }
 
         searchForm.find("input[name='pageNum']").val("1");
         e.preventDefault();

@@ -4,10 +4,10 @@
 .item_info {
     width: 100%;
     height: 160px;
-    /*background-color: coral;*/
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid rgb(220, 220, 220);
 }
 
 .item_brdNname {
@@ -16,9 +16,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* background-color: darkgreen; */
-
-
 }
 
 .item_brd {
@@ -86,4 +83,21 @@
 .itemprice > span:nth-child(1){
     color: gray;
     width: 100px;
+}
+
+.delete-btn{
+    display: block;
+    float: none;
+    width: 60px;
+    height: 29px;
+    margin: 0 auto;
+    line-height: 27px;
+    border: 1px solid gray;
+    background-color: #fff;
+    color: gray;
+}
+
+.noResult{
+    margin-top: 30px;
+    text-align: center;
 }

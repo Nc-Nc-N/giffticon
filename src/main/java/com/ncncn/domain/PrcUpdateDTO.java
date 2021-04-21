@@ -15,4 +15,6 @@ public class PrcUpdateDTO {
 
     private int dcPrc;
 
+    private double dcRate;
+
 }

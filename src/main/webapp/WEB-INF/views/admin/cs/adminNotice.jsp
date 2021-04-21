@@ -5,7 +5,7 @@
 <jsp:include page="/WEB-INF/views/admin/adminLayout.jsp"></jsp:include>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/adminLayout.css" type="text/css">
@@ -174,7 +175,7 @@
                     <p class="search-selected" id="modifyModalLabel"></p>
                     <input class="modify-id" type="hidden" name="id" value=''>
                     <input type="checkbox" class="modify-fixed" name="isFixed" checked="checked" value=''>상위 고정
-                    <input class="modify-end-dt" type="date" name="endDt" placeholder="endDt" value=''>
+                    <input class="modify-end-dt" type="text" name="endDt" value=''>
                     <textarea class="modify-title" name="title"></textarea>
 
                 </div>
@@ -211,13 +212,13 @@
                             <option value="004">이벤트</option>
                         </select>
                         <input type="checkbox" class="register-fixed" name="isFixed" checked="checked" value=''>상위 고정
-                        <input class="register-end-dt" type="date" name="endDt" placeholder="endDt" value=''>
+                        <input class="register-end-dt" type="text" name="endDt" placeholder="종료날짜" value=''>
                     </div>
                     <input class="register-user-id" type="hidden" name="userId" value=''>
-                    <textarea class="register-title" name="title"></textarea>
+                    <textarea class="register-title" placeholder="제목" name="title"></textarea>
                 </div>
                 <div class="modal-body">
-                    <textarea class="register-content" name="cntnt"></textarea>
+                    <textarea class="register-content" placeholder="내용" name="cntnt"></textarea>
 
                 </div>
                 <div class="modal-footer">
@@ -239,11 +240,6 @@
     var searchForm = $("#searchForm");
 
     $(".search-button").on("click", function (e) {
-
-        if (!searchForm.find("input[name='keyword']").val()) {
-            alert("키워드를 입력하세요");
-            return false;
-        }
 
         searchForm.find("input[name='pageNum']").val("1");
         e.preventDefault();
@@ -367,6 +363,11 @@
 
         date = new Date(notice.endDt);
 
+        $(".modify-end-dt").datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 0
+        });
+
         $(".modify-end-dt").val(
             date.getFullYear()+
             "-"+("0" + (date.getMonth() + 1)).slice(-2)+
@@ -424,6 +425,11 @@
 
         $("#registerModal").modal("show");
 
+        $(".register-end-dt").datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 0
+        });
+
         //register 값 채우기
         if ($('input:checkbox[name="isFixed"]').is(":checked") == true) {
 
@@ -435,7 +441,9 @@
 
         }
 
+
         $(".register-user-id").val(userId);
+
 
 
 

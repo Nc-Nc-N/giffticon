@@ -25,7 +25,8 @@
     <select id="getSellsWithPaging" resultType="com.ncncn.domain.MySellDTO">
 
         <![CDATA[
-        select gftT.*, gftT.img_path brcdImgPath, gftT.prod_code prdCode, prdT.name prdName, brdT.name brdName, prdT.img_path prdImgPath, stusT.code_name
+        select gftT.*, gftT.img_path brcdImgPath, gftT.prod_code prdCode, gftT.in_date inDt,
+               prdT.name prdName, brdT.name brdName, prdT.img_path prdImgPath, stusT.code_name
         from
                 (select * from gifticon where user_id = #{userId}) gftT,
                 product prdT,
@@ -52,11 +53,14 @@
 
         <![CDATA[
         select gftT.*,
-               gftT.img_path  brcdImgPath,
-               gftT.prod_code prdCode,
-               prdT.name      prdName,
-               brdT.name      brdName,
-               prdT.img_path  prdImgPath,
+               gftT.img_path   brcdImgPath,
+               gftT.prod_code  prdCode,
+               prdT.prc        listPrc,
+               prdT.in_dc_rate startDcRate,
+               gftT.dc_rate    finalDcRate,
+               prdT.name       prdName,
+               brdT.name       brdName,
+               prdT.img_path   prdImgPath,
                stusT.code_name
         from (select * from gifticon where user_id = #{userId} and id = #{gftId}) gftT,
              product prdT,
@@ -90,7 +94,7 @@
         <trim prefix="and">
             <if test="dateFrom != ''">
                 <if test="dateFrom != null">
-                    gftT.aprv_dt >= #{dateFrom}
+                    gftT.in_date >= #{dateFrom}
                 </if>
             </if>
         </trim>
@@ -98,7 +102,7 @@
         <trim prefix="and">
             <if test="dateTo != ''">
                 <if test="dateTo != null">
-                    adddate(#{dateTo}, interval 1 day) > gftT.aprv_dt
+                    adddate(#{dateTo}, interval 1 day) > gftT.in_date
                 </if>
             </if>
         </trim>

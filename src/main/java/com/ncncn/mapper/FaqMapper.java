@@ -13,6 +13,8 @@ public interface FaqMapper {
 
 	public List<CsFaqVO> getListWithPaging(CriteriaCs cri);
 
+	public List<CsFaqVO> getListWithPagingUser(CriteriaCs cri);
+
 	public void insert(CsFaqVO notice);
 
 	public CsFaqVO read(int id);
@@ -22,5 +24,7 @@ public interface FaqMapper {
 	public int update(CsFaqVO notice);
 
 	public int getTotalCount(CriteriaCs cri);
+
+	public int getTotalCountUser(CriteriaCs cri);
 
 }

@@ -12,11 +12,9 @@
 
 <link rel="stylesheet" href="/resources/css/admin/adminMain.css" type="text/css">
 
-<!-- Step 1) Load D3.js -->
+<!-- billboard.js -->
 <script src="https://d3js.org/d3.v6.min.js"></script>
-<!-- Step 2) Load billboard.js with style -->
 <script src="/resources/js/admin/billboard.js"></script>
-<!-- Load with base style -->
 <link rel="stylesheet" href="/resources/css/admin/stat/billboard.css">
 
 <h1>Status Board</h1>
@@ -36,11 +34,11 @@
             <th>방문자</th>
         </tr>
         <tr>
-            <td><c:out value="${main.statisticsVO.salesRec}" default="-"/></td>
-            <td><c:out value="${main.countRecentlyRegister}" default="-"/></td>
-            <td><a href="/admin/prod/requests"><c:out value="${main.countNotYetApproved}" default="-"/></a></td>
-            <td><a href="/admin/cs/psnlQust"><c:out value="${main.countHaveNoAns}" default="-"/></a></td>
-            <td><c:out value="${main.statisticsVO.visitrRec}" default="-"/></td>
+            <td><c:out value="${main.statisticsVO.salesRec} 원" default="-"/></td>
+            <td><c:out value="${main.countRecentlyRegister} 명" default="-"/></td>
+            <td><a href="/admin/request/list"><c:out value="${main.countNotYetApproved} 개" default="-"/></a></td>
+            <td><a href="/admin/adminPsnlQust"><c:out value="${main.countHaveNoAns} 개" default="-"/></a></td>
+            <td><c:out value="${main.statisticsVO.visitrRec} 명" default="-"/></td>
         </tr>
     </table>
 </div>
