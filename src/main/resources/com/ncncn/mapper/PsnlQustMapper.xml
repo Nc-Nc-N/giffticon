@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.PsnlQustMapper">
+
+    <select id="getList" resultType="com.ncncn.domain.CsPsnlQustVO">
+        <![CDATA[
+        select * from cs_psnl_qust
+        ]]>
+    </select>
+
+
+    <select id="read" resultType="com.ncncn.domain.CsPsnlQustVO">
+        <![CDATA[
+        select * from cs_psnl_qust where id = #{id}
+        ]]>
+    </select>
+
+
+<!--    관리자는 모든 유저의 질문을 볼 수 있어야한다.-->
+    <select id="getListWithPaging" resultType="com.ncncn.domain.CsPsnlQustVO">
+        <![CDATA[
+            select *
+            from cs_psnl_qust
+            where
+        ]]>
+
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            cs_cate_code = '001' AND title like CONCAT('%',#{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cs_cate_code = '002' AND title like CONCAT('%',#{keyword}, '%')
+                        </when>
+
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+
+        <![CDATA[
+            order by stus_code, id desc
+            LIMIT #{amount}
+            OFFSET ${(pageNum-1) * amount}
+        ]]>
+    </select>
+
+
+
+    <select id="getTotalCount" resultType="int">
+
+       <![CDATA[
+        select count(*) from cs_psnl_qust
+        where
+            ]]>
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            cs_cate_code = '001' AND title like CONCAT('%',#{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cs_cate_code = '002' AND title like CONCAT('%',#{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </select>
+
+
+<!--    각 유저마다 자신의 질문만 보여야 한다.-->
+    <select id="getListPsnlQust" resultType="com.ncncn.domain.CsPsnlQustVO">
+        <![CDATA[
+        select *
+        from cs_psnl_qust
+        where user_id = #{userId} AND (
+        ]]>
+
+            <trim prefix="" suffix="" prefixOverrides="OR">
+                <foreach item='type' collection="typeArr">
+                    <trim prefix="OR">
+                        <choose>
+                            <when test="type == 'N'.toString()">
+                                cs_cate_code = '001' AND title like CONCAT('%',#{keyword}, '%')
+                            </when>
+                            <when test="type == 'E'.toString()">
+                                cs_cate_code = '002' AND title like CONCAT('%',#{keyword}, '%')
+                            </when>
+                        </choose>
+                    </trim>
+                </foreach>
+            </trim>
+        <![CDATA[
+        )
+        order by stus_code, id desc
+        LIMIT #{amount}
+        OFFSET ${(pageNum-1) * amount}
+        ]]>
+
+    </select>
+
+    <select id="getTotalPsnlQust" resultType="int">
+        <![CDATA[
+        select count(*)
+        from cs_psnl_qust
+        where user_id = #{userId} AND (
+        ]]>
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            cs_cate_code = '001' AND title like CONCAT('%',#{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cs_cate_code = '002' AND title like CONCAT('%',#{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+
+        )
+    </select>
+
+
+    <insert id="insert">
+        <![CDATA[
+            insert into cs_psnl_qust (user_id, title, cntnt, atch_file_path, cs_cate_code, stus_code, in_user, up_user)
+            values (#{userId}, #{title}, #{cntnt}, #{atchFilePath}, #{csCateCode}, #{stusCode}, current_user, current_user)
+        ]]>
+    </insert>
+
+
+    <delete id="delete">
+        delete from cs_psnl_qust where id = #{id}
+    </delete>
+
+<!--    <update id="updateUser">-->
+<!--        update cs_psnl_qust-->
+<!--        set -->
+<!--    </update>-->
+
+
+    <update id="update">
+        update cs_psnl_qust
+        set admin_id= ${adminId},
+            ans_cntnt= #{ansCntnt},
+            cmplt_dt= now(),
+            stus_code= #{stusCode},
+            up_date= now(),
+            up_user= current_user
+        where id = #{id}
+    </update>
+
+</mapper>

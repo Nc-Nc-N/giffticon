@@ -302,7 +302,7 @@
         // 모달창 안에 Notice 객체 값으로 채우기.
         $(".del-id").val(notice.id);
 
-        if (notice.csCateCode == "3") {
+        if (notice.csCateCode == "003") {
 
             $(".search-selected").html("[공지]");
 
