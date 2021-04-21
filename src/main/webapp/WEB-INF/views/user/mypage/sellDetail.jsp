@@ -241,8 +241,12 @@
             let isAutoPrc = $("input[name='price_select']:checked").val();
             let dcPrc = $("#prcinput").val();
             let finalDcRate = $("#rateinput").val();
+
+            if(dcPrc == null || dcPrc == ""){
+                alert("판매가격을 입력하세요");
+                return ;
+            }
             finalDcRate = finalDcRate.slice(0,-1);
-            console.log("finalDcRate: " + finalDcRate);
 
             let prcUpdate = {
                 email: userEmail,
@@ -327,6 +331,10 @@
 
             if(parseInt($("#prcinput").val())>prc){
                 alert("정가보다 높은 가격에 팔 수 없습니다.");
+                $("#prcinput").val("");
+                $("#rateinput").val("");
+            }else if(parseInt($("#prcinput").val())<=0){
+                alert("가격이 올바르지 않습니다.");
                 $("#prcinput").val("");
                 $("#rateinput").val("");
             }
