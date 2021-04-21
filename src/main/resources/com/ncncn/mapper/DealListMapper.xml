@@ -39,6 +39,7 @@
         select brdT.name       brdName,
                prdT.name       prdName,
                prdT.img_path   prdImgPath,
+               prdT.code       prdCode,
                gftT.id         gftId,
                gftT.img_path   gftImgPath,
                gftT.brcd       brcd,

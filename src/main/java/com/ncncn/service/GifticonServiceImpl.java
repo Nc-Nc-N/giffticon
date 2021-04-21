@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 @Log4j
 @Service
 @AllArgsConstructor
-public class GifticonServiceImpl implements GifticonService{
+public class GifticonServiceImpl implements GifticonService {
 
     GifticonMapper gifticonMapper;
 
     @Override
-    public int gftDealCmpl(int gftId){
+    public int gftDealCmpl(int gftId) {
 
         log.info("Gifticon Deal Complete Service.....");
 
@@ -22,7 +22,7 @@ public class GifticonServiceImpl implements GifticonService{
     }
 
     @Override
-    public int deleteGifticon(int gftId){
+    public int deleteGifticon(int gftId) {
 
         log.info("delete GftId: " + gftId);
 
@@ -30,14 +30,20 @@ public class GifticonServiceImpl implements GifticonService{
     }
 
     @Override
-    public int updateGftPrc(int gftId, char isAutoPrc, int dcPrc){
+    public int updateGftPrc(int gftId, char isAutoPrc, int dcPrc, double dcRate) {
 
-        return gifticonMapper.updateGftPrc(gftId, isAutoPrc, dcPrc);
+        return gifticonMapper.updateGftPrc(gftId, isAutoPrc, dcPrc, dcRate);
     }
 
-	@Override
-	public int countNotYetApproved() {
-		return gifticonMapper.countNotYetApproved();
-	}
+    @Override
+    public int countNotYetApproved() {
+        return gifticonMapper.countNotYetApproved();
+    }
+
+    @Override
+    public int countOnselling(String prdCode) {
+
+        return gifticonMapper.countOnselling(prdCode);
+    }
 
 }

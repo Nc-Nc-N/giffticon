@@ -58,17 +58,17 @@
         <div class='item_info'>
             <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
             <span class="item_brdNname">
-                                <div class="item_brd"><c:out value="${list.brdName}"/></div>
-                                <div class="item_name"><a href="/user/prod_detail?code=<c:out value="${list.prdCode}"/>">
-                                    <c:out value="${list.prdName}"/></a></div>
-                            </span>
+                <div class="item_brd"><c:out value="${list.brdName}"/></div>
+                <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>"><c:out value="${list.prdName}"/></div>
+                <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out value="${list.gftId}"/></div>
+            </span>
             <span class="item_prc"><c:out value="${list.pymtPrc}"/>원</span>
             <span class="item_status">
-                                <div><c:out value="${list.stusCode}"/></div>
-                                <div class="expr_dt">
-                                (유효기간: <fmt:formatDate pattern="yyyy-MM-dd" value="${list.exprDt}"/>)
-                                </div>
-                            </span>
+                <div><c:out value="${list.stusCode}"/></div>
+                <div class="expr_dt">
+                (유효기간: <fmt:formatDate pattern="yyyy-MM-dd" value="${list.exprDt}"/>)
+                </div>
+            </span>
             <div class="item_buttons">
 
                 <c:if test="${list.stusCode eq '거래확정대기'}">
@@ -117,6 +117,8 @@
 
 </body>
 </html>
+
+<script type="text/javascript" src="/resources/js/user/calendar.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -128,6 +130,28 @@
             actionForm.find("input[name='pageNum']").val($(this).attr("href"));
             actionForm.submit();
         });
+
+        //물품 이름 클릭 시 해당 물품의 판매중인 기프티콘 조회. 판매중 있을 시 상품상세로 이동
+        $(".item_name").on("click",function(e){
+            e.preventDefault();
+
+            let prdCode = $(this).attr("value");
+
+            $.ajax({
+                url: '/gifticon/'+prdCode,
+                type: 'get',
+                success: function(){
+                    if(confirm("해당 상품 판매 페이지로 이동하시겠습니까?")){
+                        location.href = "/user/prod_detail?code="+prdCode;
+                    }else{
+                        return ;
+                    }
+                },
+                error: function(){
+                    alert("해당 물품의 구매가능한 기프티콘이 없습니다.")
+                }
+            })
+        })
 
         $("button[name='dealDetailBtn']").on("click", function (k) {
 
@@ -151,9 +175,17 @@
 
         $(".search-button").on("click", function (e) {
 
-            searchSpec.find("input[name='pageNum']").val("1");
-            e.preventDefault();
-            searchSpec.submit();
+            let dateFrom = $("#dateFrom").val();
+            let dateTo = $("#dateTo").val();
+
+            if(!calendarCheck(dateFrom,dateTo)){
+                alert("날짜 선택이 올바르지 않습니다.");
+                e.preventDefault();
+            }else{
+
+                searchSpec.find("input[name='pageNum']").val("1");
+                searchSpec.submit();
+            }
         })
 
     })
