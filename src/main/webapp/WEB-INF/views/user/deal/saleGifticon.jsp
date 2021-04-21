@@ -388,10 +388,8 @@
 
     // 판매가가 정가보다 높으면 에러메세지 출력하고 판매가 초기화하는 함수
     let checkDcPrice = function() {
-        let fixedprice = 0;
-        let dcprice = 0;
-        fixedprice = parseInt(document.getElementById('fixedprice').value);
-        dcprice = parseInt(document.getElementById('dcprice').value);
+        let fixedprice = parseInt(document.getElementById('fixedprice').value);
+        let dcprice = parseInt(document.getElementById('dcprice').value);
 
         if(dcprice > fixedprice) {
             alert("정가보다 높은 가격으로 판매할 수 없습니다.");
@@ -399,11 +397,9 @@
         }
     }
 
-    // 판매가 입력창에서 문자 제거하는 함수
-    let trimDcPrice = function() {
-        let dcPrice = document.getElementById('dcprice').value;
-        let trimmedDcPrice = dcPrice.trim().replace(/[^0-9]/g,"");
-        document.getElementById('dcprice').value = trimmedDcPrice;
+    // 문자열에서 앞 0 제거하는 함수
+    let trimFrontZero = function(String) {
+        return String.replace(/(^0+)/, "");
     }
 
     // 문자열에서 숫자만 남기는 함수
@@ -712,9 +708,8 @@
     $('#dcprice').on("propertychange change keyup paste input", function() {
         checkDcPrice();
         calculateDcRate();
-        // trimDcPrice();
         let rawDcPrice = document.getElementById('dcprice').value;
-        document.getElementById('dcprice').value = trimString(rawDcPrice);
+        document.getElementById('dcprice').value = trimString(trimFrontZero(rawDcPrice));
     });
 
 
