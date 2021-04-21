@@ -188,7 +188,8 @@
                 <div class="message-title">
                     기쁘티콘에게 전달할 메시지
                 </div>
-                <textarea id="descn"></textarea>
+                <textarea id="descn" placeholder="이미지에 유효기간/바코드가 없거나 스크래치 번호 등 사용방법에 참고해야할 이야기가 있으시면 적어주세요.">
+                </textarea>
             </div>
 
             <!-- 판매 등록하기 버튼 -->
