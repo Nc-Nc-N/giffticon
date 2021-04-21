@@ -18,8 +18,9 @@
     background-color: rgb(233, 233, 233);
     font-size: 17px;
     width: 600px;
-    height: 480px;
+    height: 500px;
     padding: 30px 40px;
+    border-radius: 10px;
 }
 
 #detail-modal h2 {
@@ -28,7 +29,7 @@
 
 #detail-modal table {
     table-layout: fixed;
-    height: 340px;
+    height: 380px;
     margin: 20px 0;
     border-collapse: collapse;
 }
@@ -55,7 +56,6 @@
     width: 85px;
     font-weight: 600;
     padding-left: 10px;
-    /* background-color: rgb(180, 180, 180) */
 }
 
 .td-cntnt {
@@ -86,4 +86,26 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
+}
+
+.loading-delete {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 250px;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+.loading-delete > div {
+    font-weight: 600;
+    height: 30px;
+}
+
+.loading-delete > img {
+    width: 140px;
+    height: 140px;
 }
