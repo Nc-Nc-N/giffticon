@@ -50,83 +50,65 @@
             <div class='listnamefirst'>
                 <h3><i class="fas fa-map-marked-alt"></i>&nbsp;지도로 찾는 기쁘티콘</h3>
             </div>
-            <div class='listnamelast'>
-                <div class="wishname">
-                    <h3><i class="far fa-heart"></i>&nbsp;나만의 관심상품</h3>
-                </div>
-                <div class="categorycontroller">
-                    <a href="/user/mypage/wishList" class="main-btn">전체보기</a>
-                </div>
-            </div>
-        </div>
-
-        <!--카테고리 컨텐츠 삽입-->
-        <div class="listcontent">
-
             <!--지도 삽입-->
             <div class="maps">
                 <div class="mapicon">
-                    <a href="(위치찾기)"><p><img src="img/map.png"></p></a> <!--db에서 상품 이미지불러오기-->
+                    <a href="(위치찾기)"><p><img src="/resources/img/map.png"></p></a> <!--db에서 상품 이미지불러오기-->
                 </div>
                 <div class="mapinfo">
                     <span>현재 위치에서 기쁘티콘 찾기</span>
                 </div>
             </div>
+        </div>
 
-            <%-- 관심상품 --%>
-            <div class="splide" style="width: 735px; height: 300px; margin-left: 20px; margin-top: 3%;">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        <c:set var="i" value="0"/>
-                        <c:set var="j" value="3"/>
-                        <c:forEach items="${wishList}" var="wishList" end="5">
-                            <c:if test="${i%j==0}">
-                                <li class="splide__slide">
-                                <table>
-                                <tr>
-                            </c:if>
-                                    <td>
-                                        <a href="prod_detail?code=${wishList.prodCode}">
-                                        <div class="items">
-                                            <div class="pic">
-                                                <div class="img">
-                                                    <img src="${wishList.imgPath}">
-                                                </div>
-                                            </div>
-                                            <div class="itemnameNprice">
-                                                <div class="itembrand">
-                                                    <c:out value="${wishList.bname}"/>
-                                                </div>
-                                                <div class="itemname">
-                                                    <c:out value="${wishList.pname}"/>
-                                                </div>
-                                                <div class="itemprice">
-                                                    <span><fmt:formatNumber value="${wishList.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                                                    <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.dcPrc}" /> 원 ~</span>
-                                                </div>
-                                                <div class="itemoriginprice">
-                                                    <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.prc}"/> 원</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </a>
-                                    </td>
-                            <c:if test="${i%j==j-1}">
-                                </tr>
-                                </table>
-                                </li>
-                            </c:if>
-                            <c:set var="i" value="${i+1}"/>
-                        </c:forEach>
-                    </ul>
+        <div class='listnamelast'>
+            <div class="wishname">
+                <h3><i class="far fa-heart"></i>&nbsp;나만의 관심상품</h3>
+                <div class="categorycontroller">
+                    <a href="/user/mypage/wishList" class="main-btn">전체보기</a>
                 </div>
             </div>
-
+            <%-- 관심상품 --%>
+            <div style="width: 750px">
+                <table>
+                    <tr>
+                        <c:forEach items="${wishList}" var="wishList" end="2">
+                            <td>
+                                <a href="prod_detail?code=${wishList.prodCode}">
+                                    <div class="items">
+                                        <div class="pic">
+                                            <div class="img">
+                                                <img src="${wishList.imgPath}">
+                                            </div>
+                                        </div>
+                                        <div class="itemnameNprice">
+                                            <div class="itembrand">
+                                                <c:out value="${wishList.bname}"/>
+                                            </div>
+                                            <div class="itemname">
+                                                <c:out value="${wishList.pname}"/>
+                                            </div>
+                                            <div class="itemprice">
+                                                <span><fmt:formatNumber value="${wishList.dcRate}" type="percent" /></span>&nbsp;&nbsp;
+                                                <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.dcPrc}" /> 원 ~</span>
+                                            </div>
+                                            <div class="itemoriginprice">
+                                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.prc}"/> 원</del></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </td>
+                        </c:forEach>
+                    </tr>
+                </table>
+            </div>
         </div>
+
     </div>
 
     <!-- 두번째줄 (인기상품)-->
-    <div class="prdlist">
+    <div class="prdlists">
         <div class="listname">
             <div class='listnametotal'>
                 <h3><i class="far fa-thumbs-up"></i>&nbsp;모두들 찾는 인기상품</h3>
@@ -193,7 +175,7 @@
 <%--    <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>--%>
 <%--    <c:out value="${date}" />--%>
     <!-- 세번째줄 (만료임박상품)-->
-    <div class="prdlist">
+    <div class="prdlists">
         <div class="listname">
             <div class='listnametotal'>
                 <h3><i class="far fa-clock"></i>&nbsp;초특가! 만료 임박 상품</h3>
