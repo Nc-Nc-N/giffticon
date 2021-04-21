@@ -131,7 +131,7 @@
                         <div class="thumbnailspace">
                             <label>
                                 <input type="image" src="/resources/img/thumbnailDefault2.png" id="thumbnail">
-                                <input type="file" style="display:none" id="gifticon-img-upload" name="uploadFile" class="file-input" accept="image/*">
+                                <input type="file" style="display:none" id="gifticon-img-upload" name="uploadFile" class="file-input" accept="image/jpeg, image/jpg, image/png">
                             </label>
 
                         </div>
