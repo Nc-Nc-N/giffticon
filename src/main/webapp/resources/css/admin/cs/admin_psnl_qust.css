@@ -38,6 +38,8 @@
 .btn-ans-modify{
     border: none;
     outline: none;
+    cursor: pointer;
+    border-radius: 5px;
     color: rgb(255, 88, 93);
     background: rgb(245, 244, 244);
     text-decoration: underline;
@@ -105,6 +107,7 @@ li{
     height: 150px;
     font-size: 17px;
     resize: none;
+    border-color: #dee2e6;
 }
 
 .delete-question{

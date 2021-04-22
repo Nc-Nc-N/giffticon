@@ -1,6 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaCs;
+import com.ncncn.domain.pagination.CriteriaCs;
 import com.ncncn.domain.CsFaqVO;
 import com.ncncn.mapper.FaqMapper;
 import lombok.AllArgsConstructor;

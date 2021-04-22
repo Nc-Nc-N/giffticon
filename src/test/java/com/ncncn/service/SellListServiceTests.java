@@ -1,8 +1,7 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaSM;
+import com.ncncn.domain.pagination.CriteriaSM;
 import com.ncncn.domain.MySellDTO;
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;

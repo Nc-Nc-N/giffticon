@@ -1,6 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.*;
+import com.ncncn.domain.pagination.CriteriaCH;
 
 import java.util.List;
 

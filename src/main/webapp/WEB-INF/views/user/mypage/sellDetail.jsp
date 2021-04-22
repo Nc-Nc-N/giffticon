@@ -315,12 +315,14 @@
         $("#prc_auto").on("click", function (e) {
 
             $("#prcinput").val(finalPnR[0]).attr("readonly", true);
+            $("#prc_manual").prop("disabled",false);
             $("#rateinput").val((finalPnR[1]*100).toFixed(2)+"%");
         })
 
         $("#prc_manual").on("click", function (e) {
 
             $("#prcinput").attr("readonly", false).val("");
+            $(this).prop("disabled",true);
             $("#rateinput").val("");
         })
 

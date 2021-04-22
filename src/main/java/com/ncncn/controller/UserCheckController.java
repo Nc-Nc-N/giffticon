@@ -3,6 +3,8 @@ package com.ncncn.controller;
 
 import com.ncncn.domain.*;
 
+import com.ncncn.domain.pagination.CriteriaCH;
+import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.UserCheckService;
 import com.ncncn.service.UserService;
 import lombok.AllArgsConstructor;
@@ -33,7 +35,7 @@ public class UserCheckController {
         int total = service.getTotal(cri);
 
         log.info("total: " + total);
-        model.addAttribute("pageMaker", new PageDTOCH(cri, total));
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
 
         return "/admin/user/userList";
     }

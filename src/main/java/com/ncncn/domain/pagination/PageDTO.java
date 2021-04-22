@@ -7,31 +7,33 @@ import lombok.ToString;
 @ToString
 public class PageDTO {
 
-	private int startPage;
+    private int startPage;
+    private int endPage;
+    private boolean prev, next;
 
-	private int endPage;
+    private int total;
+    private Criteria cri;
 
-	private boolean prev, next;
+    public PageDTO(Criteria cri, int total) {
 
-	private int total;
+        this.cri = cri;
+        this.total = total;
 
-	private Criteria cri;
+        this.endPage = (int) (Math.ceil(cri.getPageNum() / 5.0)) * 5;
+        this.startPage = this.endPage - 4;
 
-	public PageDTO(Criteria cri, int total) {
-		this.cri = cri;
-		this.total = total;
+        int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
 
-		this.endPage = (int) (Math.ceil(cri.getPageNum() / 5.0)) * 5;
-		this.startPage = this.endPage - 4;
+        if(realEnd < this.endPage) {
+            this.endPage = realEnd;
+        }
 
-		int realEnd = (int) (Math.ceil(((total) * 1.0) / cri.getAmount()));
+        this.prev = this.startPage > 1;
+        this.next = this.endPage < realEnd;
 
-		if (realEnd < this.endPage) {
-			this.endPage = realEnd;
-		}
-
-		this.prev = this.startPage > 1;
-		this.next = this.endPage < realEnd;
-	}
+    }
 
 }
+
+
+

@@ -27,6 +27,8 @@ public interface PsnlQustMapper {
 
 	public int update(CsPsnlQustVO notice);
 
+	public int updateUser(CsPsnlQustVO notice);
+
 	public int getTotalCount(CriteriaCs cri);
 
 	public int getTotalPsnlQust( @Param("type") String type,

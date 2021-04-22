@@ -1,74 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
-    <link rel="stylesheet" href="../templete.css" type="text/css">
-    <link rel="stylesheet" href="/common-css/search-box.css" type="text/css">
-    <link rel="stylesheet" href="/관리자/notice/admin_notice.css" type="text/css">
-    <link rel="stylesheet" href="/관리자/notice/admin_faq.css" type="text/css">
-    <link rel="stylesheet" href="/관리자/notice/admin_one-on-one.css" type="text/css">
-    <link rel="stylesheet" href="/common-css/pagination.css" type="text/css">
-    <link rel="stylesheet" href="notice_board.css" type="text/css">
-    <link rel="stylesheet" href="faq_board.css" type="text/css">
-    <link rel="stylesheet" href="/common-css/button.css" type="text/css">
-    <link rel="stylesheet" href="qna_board.css" type="text/css">
+<%@include file="/WEB-INF/views/common/header.jsp" %>
 
+<meta charset="UTF-8">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-    <title>Document</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-    </style>
+<link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/cs/admin_psnl_qust.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/cs/notice_board.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/cs/psnl_qust_board.css" type="text/css">
 
-    <div id="header">
-        <div class= "top_menu">
-            <span><a href="#" class="login-panel">로그인</a></span>
-            <span class="header_divider">|</span>
-            <span><a href="#" class="login-panel">회원가입</a></span>
-            <span class="header_divider">|</span>
-            <span><a href="#" class="login-panel">고객센터</a></span>
-        </div>
-        <div class="main-logo">
-            <div class="home-logo"><img src="../img/기쁘티콘.png" width="80%" ></a></div>
-        </div>
-        <div class="main-bar">
+<script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 
-            <div class="bar-left">
-                <div class="category-drop">
-                    <div class="category-btn"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</div>
-                </div>
-                <div class="leftmenus">
-                    <div class="leftmenu">충전하기</div>
-                    <div class="leftmenu"><i class="fas fa-map-marker-alt"></i></div>
-                </div>
-            </div>
-
-            <div class="search">
-                <form action="(login)" >
-                    <input type="text" class="searchbar" placeholder="기쁘티콘">
-                    <button class="searchbutton"><i class="fas fa-search"></i> </button>
-                </form>
-            </div>
-
-            <div class="bar-right">
-
-                <span class="rightmenu"><i class="fas fa-ticket-alt"></i></span>
-
-                <span class="rightmenu">판매하기</span>
-                <span class="rightmenu">마이페이지</span>
-            </div>
-
-
-
-        </div>
-    </div>
-</head>
 <body>
 
 <div id="container">
@@ -76,16 +28,28 @@
     <div class="main">
 
         <div class="menuhead">
-            <div class="menuname">고객센터</div><!--메뉴 이름 (사이드바 위)-->
         </div>
 
         <div class="menubody">
             <div class="sidebarspace">
+                <div class="menuname">고객센터</div><!--메뉴 이름 (사이드바 위)-->
                 <div class="sidebar"> <!--사이드 바 영역 (필요한만큼 영역 세로로늘리기)-->
                     <!--필요한만큼 아래 추가해서 사용 (개당 세로크기70px)-->
-                    <a href="(메뉴이동"><div class="bar"><div >공지사항</div><i class="fas fa-chevron-right"></i></div></a>
-                    <a href="(메뉴이동"><div class="bar"><div>자주묻는 질문</div><i class="fas fa-chevron-right"></i></div></a>
-                    <a href="(메뉴이동"><div class="bar" style="background-color:rgb(240, 240, 240);"><div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">1:1문의</div><i class="fas fa-chevron-right"></i></div></a>
+                    <a href="/user/cs/noticeBoard">
+                        <div class="bar">
+                            <div>공지사항</div>
+                            <i class="fas fa-chevron-right"></i></div>
+                    </a>
+                    <a href="/user/cs/faqBoard">
+                        <div class="bar">
+                            <div>자주묻는질문</div>
+                            <i class="fas fa-chevron-right"></i></div>
+                    </a>
+                    <a href="/user/mypage/psnlQustBoard">
+                        <div class="bar" style="background-color:rgb(240, 240, 240);">
+                            <div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">1:1문의</div>
+                            <i class="fas fa-chevron-right"></i></div>
+                    </a>
 
                 </div>
             </div>
@@ -96,171 +60,90 @@
 
                 <h3>1:1문의</h3>
                 <div class="sub-category-area">
-                    <button class="sub-category-btn-all">전체</button>
-                    <button class="sub-category-btn-notice">구매</button>
-                    <button class="sub-category-btn-event"style="background-color: rgb(255, 88, 93); color: white;">판매</button>
+                    <button class="sub sub-category-btn-all" value="NE" name="type"
+                            onclick="location.href='/user/mypage/psnlQustBoard?pageNum=1&amount=10&type=NE&keyword=';">
+                        전체
+                    </button>
+                    <button class="sub sub-category-btn-notice" value="N" name="type"
+                            onclick="location.href='/user/mypage/psnlQustBoard?pageNum=1&amount=10&type=N&keyword=';">구매
+                    </button>
+                    <button class="sub sub-category-btn-event" value="E" name="type"
+                            onclick="location.href='/user/mypage/psnlQustBoard?pageNum=1&amount=10&type=E&keyword=';">판매
+                    </button>
                 </div>
-                <!-- search area -->
-                <div class="search-area">
-                    <form class="search-form">
-                        <div>
-                            <input type="text" class="search-input" />
 
-                            <button type="submit" class="search-button">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
                 <!-- search area end -->
-
 
                 <!--accordionMenu-->
                 <div class="accordionMenu">
-                    <!-- 1st menu-->
-                    <input type="checkbox" name="trg1" id="acc1" >
-                    <label for="acc1"><span class="qna-q">Q. </span>환불계좌를 등록 / 변경하고 싶어요.
-                        <span class="one-user-email">abcdefg@gmail.com</span>
-                        <span class="one-date">2021.03.24</span>
-                        <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                        <button class= "btn-no dark">답변완료</button>
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p class="qna-qq"><span class="qna-q">Q. </span>
-                                다른계좌로 반품받고 싶은데 어떻게 해야할까요~?</p>
-                            <p class="qna-qa"><span class="qna-a">A. </span>
-                                님 안녕하세요. 기쁘티콘입니다. <br>
-                                홈페이지를 통하지 않은 거래는 기쁘티콘에서 책임지지 않습니다. <br>
-                                따라서, 판매자가 홈페이지를 통하지 않은 직접 거래를 요청하는 경우 거래에 응하지 않는 것을 권합니다.
 
-                            </p>
+                    <c:forEach items="${list}" var="qna" varStatus="status">
+                        <!-- 1st menu-->
+                        <input type="checkbox" class="list-id" name="trg1" id="acc<c:out value="${status.index+1}"/>">
+                        <label for="acc<c:out value="${status.index+1}"/>">
+                            <span class="qna-q">Q. </span><c:out value="${qna.csCateCode == '001' ? '[구매]':'[판매]'}"/>
+                            <c:out value="${qna.title}"/>
+                            <button id="<c:out value='${qna.id}'/>" class="btn-no btn-erase">
+                                <i class="fas fa-minus"></i></button>
+                            <button class="btn-no btn-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
+                                    id="<c:out value='${qna.id}'/>">
+                                <c:out value="${qna.stusCode == '001' ? '답변완료':'답변대기'}"/>
+                            </button>
+                            <button class="btn-ans-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
+                                    id="<c:out value='${qna.id}'/>">수정
+                            </button>
+                        </label>
 
+                        <div class="content">
+                            <div class="inner">
+                                <p class="qna-a">Q. </p>
+                                <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/></p>
+
+                            </div>
+                            <div class="admin-inner">
+                                <p class="qna-a">A. </p>
+                                <p><c:out value="${qna.ansCntnt}"/></p>
+
+
+                            </div>
                         </div>
-                    </div>
-                    <!-- 2nd menu-->
-                    <input type="checkbox" name="trg1" id="acc2" >
-
-                    <label for="acc2"><span class="qna-q">Q. </span>분쟁처리절차는 어떻게 되나요?
-                        <span class="one-user-email">abcdefg@gmail.com</span>
-                        <span class="one-date">2021.03.24</span>
-                        <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                        <button class= "btn-no btn-modify">답변대기</button>
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p class="qna-qq"><span class="qna-q">Q. </span>
-                                다른계좌로 반품받고 싶은데 어떻게 해야할까요~?</p>
-                            <p><span class="qna-a">A. </span>
-
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 3th menu-->
-                    <input type="checkbox" name="trg1" id="acc3" >
-                    <label for="acc3"><span class="qna-q">Q. </span>긴급재난지원금을 기쁘티콘에서 사용 가능한가요?
-                        <span class="one-user-email">abcdefg@gmail.com</span>
-                        <span class="one-date">2021.03.24</span>
-                        <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                        <button class= "btn-no btn-modify">답변대기</button>
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p class="qna-qq"><span class="qna-q">Q. </span>
-                                다른계좌로 반품받고 싶은데 어떻게 해야할까요~?</p>
-                            <p><span class="qna-a">A. </span>
-
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 4th menu-->
-                    <input type="checkbox" name="trg1" id="acc4" >
-                    <label for="acc4"><span class="qna-q">Q. </span>환불계좌를 등록 / 변경하고 싶어요.
-                        <span class="one-user-email">abcdefg@gmail.com</span>
-                        <span class="one-date">2021.03.24</span>
-                        <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                        <button class= "btn-no btn-modify">답변대기</button>
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p class="qna-qq"><span class="qna-q">Q. </span>
-                                다른계좌로 반품받고 싶은데 어떻게 해야할까요~?</p>
-                            <p><span class="qna-a">A. </span>
-
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 5th -->
-                    <input type="checkbox" name="trg1" id="acc5" >
-                    <label for="acc5"><span class="qna-q">Q. </span>환불계좌를 등록 / 변경하고 싶어요.
-                        <span class="one-user-email">abcdefg@gmail.com</span>
-                        <span class="one-date">2021.03.24</span>
-                        <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                        <button class= "btn-no btn-modify">답변대기</button>
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p class="qna-qq"><span class="qna-q">Q. </span>
-                                다른계좌로 반품받고 싶은데 어떻게 해야할까요~?</p>
-                            <p><span class="qna-a">A. </span>
-
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 6th menu-->
-                    <input type="checkbox" name="trg1" id="acc6" >
-                    <label for="acc6"><span class="qna-q">Q. </span>환불계좌를 등록 / 변경하고 싶어요.
-                        <span class="one-user-email">abcdefg@gmail.com</span>
-                        <span class="one-date">2021.03.24</span>
-                        <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                        <button class= "btn-no btn-modify">답변대기</button>
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p class="qna-qq"><span class="qna-q">Q. </span>
-                                다른계좌로 반품받고 싶은데 어떻게 해야할까요~?</p>
-                            <p><span class="qna-a">A. </span>
-
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 7th menu-->
-                    <input type="checkbox" name="trg1" id="acc7" >
-                    <label for="acc7"><span class="qna-q">Q. </span>환불계좌를 등록 / 변경하고 싶어요.
-                        <span class="one-user-email">abcdefg@gmail.com</span>
-                        <span class="one-date">2021.03.24</span>
-                        <button class= "btn-no btn-erase"><i class="fas fa-minus"></i></button>
-                        <button class= "btn-no btn-modify">답변대기</button>
-                    </label>
-                    <div class="content">
-                        <div class="inner">
-                            <p class="qna-qq"><span class="qna-q">Q. </span>
-                                다른계좌로 반품받고 싶은데 어떻게 해야할까요~?</p>
-                            <p><span class="qna-a">A. </span>
-
-                            </p>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
                 <!-- end accordionMenu-->
 
 
                 <div id="notion-write">
 
-                    <button class="btn btn-active">글쓰기</button>
+                    <button class="btn btn-active">1:1문의</button>
 
                     <!-- pagenation-->
                     <div class="pagination">
-                        <a href="#">&lt;</a>
-                        <a href="#">1</a>
-                        <a href="#" class="active">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">&gt;</a>
+
+                        <c:if test="${pageMaker.prev}">
+                            <li>
+                                <a class="paginate_button previous" href="${pageMaker.startPage -1}">&lt;</a></li>
+                        </c:if>
+
+                        <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                            <li>
+                                <a class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}"
+                                   href="${num}">${num}</a>
+                            </li>
+                        </c:forEach>
+
+                        <c:if test="${pageMaker.next}">
+                            <li>
+                                <a class="paginate_button next" href="${pageMaker.endPage +1 }">&gt;</a></li>
+                        </c:if>
                     </div>
                     <!-- end pagenation-->
+
+                    <form ID='actionForm' action="/user/mypage/psnlQustBoard" method="get">
+                        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                        <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
+                        <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
+                    </form>
 
                 </div>
 
@@ -268,6 +151,230 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- Modify Modal -->
+<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="modifyModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <form role="form" action="" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <div class="modal-content">
+                <div class="modal-header">
+<%--                    <p class="search-selected" id="modifyModalLabe"></p>--%>
+                    <input class="modify-id" type="hidden" name="id" value=''>
+                    <textarea class="modify-title" name="title"></textarea>
+                </div>
+
+                <div class="modal-body">
+                    <textarea class="modify-content" name="cntnt"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-register" id="btn-modify">OK</button>
+                    <button class="btn btn-cancel" id="closeModifyModalBtn">CANCEL</button>
+                </div>
+            </div>
+            <!--/.modal-content -->
+        </form>
+    </div>
+    <!--/.modal-dialog -->
+</div>
+<!-- end Modal -->
+
+
+
+
+<!-- delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form role="form" action="" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <input class="del-id" type="hidden" name="id" value=''>
+                    <p class="delete-question" id="ModalLabel">정말 삭제하시겠습니까?</p>
+                </div>
+                <div class="modal-body">
+                    <span class="search-selected"></span>
+                    <span class="de-title"></span>
+                    <p class="de-cntnt"></p>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-register" id="btn-delete">OK</button>
+                    <button class="btn btn-cancel" id="closeModalBtn">CANCEL</button>
+                </div>
+            </div>
+            <!--/.modal-content -->
+        </form>
+    </div>
+    <!--/.modal-dialog -->
+</div>
+<!-- end Modal -->
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //page번호 클릭했을때 처
+        var actionForm = $("#actionForm");
+
+        $(".paginate_button").on("click", function (e) {
+
+            e.preventDefault();
+
+            console.log('click');
+
+            actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+            actionForm.submit();
+        });
+
+        //답변상태, 수정 css 변경
+        $(".finish").css({
+            "background-color": "rgb(71, 71, 71)",
+            "color": "white"
+        });
+
+
+    });
+
+    //1:1문의 register 이동
+    $(".btn-active").on("click", function () {
+        console.log("1:1문의");
+        self.location = "/user/mypage/psnlQustBoard/register";
+    });
+
+
+
+    //modify modal
+    $(".wait").on("click", function () {
+
+
+        var modifyForm = $("form");
+
+        console.log("this id:" + this.id);
+
+        let psnl = '';
+
+        $.ajax({
+            type: 'get',
+            url: '/psnl?id=' + this.id,
+            async: false,
+            success: function (result) {
+                psnl = result;
+                console.log("ajax result:" + result);
+                console.log(psnl);
+            },
+            error: function () {
+
+            }
+        });
+
+
+        // 모달창 안에 psnl 객체 값으로 채우기.
+
+        console.log("psnl.id : " + psnl.id);
+        $(".modify-id").val(psnl.id);
+
+        if (psnl.csCateCode == "001") {
+
+            $(".search-selected").html("[구매]");
+
+        } else {
+
+            $(".search-selected").html("[판매]");
+        }
+
+        $(".modify-title").html(psnl.title);
+
+        $(".modify-content").html(psnl.cntnt);
+
+        $("#modifyModal").fadeIn();
+
+
+        $('#btn-modify').on("click", function () {
+
+            modifyForm.attr("action", "/user/mypage/psnlQustBoard/modify");
+            modifyForm.submit();
+        });
+
+        $("#closeModifyModalBtn").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
+
+            e.preventDefault();
+            $("#modifyModal").fadeOut();
+        });
+
+    }); //end ans
+
+
+    //delete
+    $(".btn-erase").on("click", function () {
+
+
+        var formObj = $("form");
+        console.log(this.id);
+
+        let psnl = '';
+
+        $.ajax({
+            type: 'get',
+            url: '/psnl?id=' + this.id,
+            async: false,
+            success: function (result) {
+                psnl = result;
+                console.log(psnl);
+            },
+            error: function () {
+
+            }
+        });
+
+
+        // 모달창 안에 Notice 객체 값으로 채우기.
+        $(".del-id").val(psnl.id);
+
+        if (psnl.csCateCode == "001") {
+
+            $(".search-selected").html("[구매]");
+
+        } else {
+
+            $(".search-selected").html("[판매]");
+        }
+
+        $(".del-id").html(psnl.id);
+
+        $(".de-title").html(psnl.title);
+
+        $(".de-cntnt").html(psnl.cntnt);
+
+        $("#deleteModal").fadeIn();
+
+        $("#btn-delete").on("click", function (e) {
+
+            formObj.attr("action", "/user/mypage/psnlQustBoard/remove");
+            formObj.submit();
+
+
+        });
+
+
+        $("#closeModalBtn").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
+
+            e.preventDefault();
+            $("#deleteModal").fadeOut();
+        });
+
+    }); //end delete
+
+
+
+
+</script>
 
 </body>
 </html>

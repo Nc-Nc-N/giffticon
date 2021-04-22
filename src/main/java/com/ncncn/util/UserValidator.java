@@ -11,7 +11,7 @@ public class UserValidator {
 	}
 
 	public static boolean checkName(String name) {
-		return name != null && name.length() >= 2;
+		return name != null && name.matches("^[a-zA-Zㄱ-ㅎ가-힣 ]{2,20}$");
 	}
 
 	public static boolean checkTelNo(String telNo) {

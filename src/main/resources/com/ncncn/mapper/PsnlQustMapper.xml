@@ -31,10 +31,10 @@
                 <trim prefix="OR">
                     <choose>
                         <when test="type == 'N'.toString()">
-                            cs_cate_code = '001' AND title like CONCAT('%',#{keyword}, '%')
+                            cs_cate_code = '001' AND (title like CONCAT('%',#{keyword}, '%') OR cntnt like CONCAT('%',#{keyword}, '%'))
                         </when>
                         <when test="type == 'E'.toString()">
-                            cs_cate_code = '002' AND title like CONCAT('%',#{keyword}, '%')
+                            cs_cate_code = '002' AND (title like CONCAT('%',#{keyword}, '%') OR cntnt like CONCAT('%',#{keyword}, '%'))
                         </when>
 
                     </choose>
@@ -62,10 +62,10 @@
                 <trim prefix="OR">
                     <choose>
                         <when test="type == 'N'.toString()">
-                            cs_cate_code = '001' AND title like CONCAT('%',#{keyword}, '%')
+                            cs_cate_code = '001' AND (title like CONCAT('%',#{keyword}, '%') OR cntnt like CONCAT('%',#{keyword}, '%'))
                         </when>
                         <when test="type == 'E'.toString()">
-                            cs_cate_code = '002' AND title like CONCAT('%',#{keyword}, '%')
+                            cs_cate_code = '002' AND (title like CONCAT('%',#{keyword}, '%') OR cntnt like CONCAT('%',#{keyword}, '%'))
                         </when>
                     </choose>
                 </trim>
@@ -142,15 +142,23 @@
         delete from cs_psnl_qust where id = #{id}
     </delete>
 
-<!--    <update id="updateUser">-->
-<!--        update cs_psnl_qust-->
-<!--        set -->
-<!--    </update>-->
+
+<!--    사용자 update-->
+    <update id="updateUser">
+        update cs_psnl_qust
+        set title= #{title},
+            cntnt= #{cntnt},
+            up_date= now(),
+            up_user= current_user
+        where id= #{id}
+    </update>
 
 
+
+<!--    관리자 update-->
     <update id="update">
         update cs_psnl_qust
-        set admin_id= ${adminId},
+        set admin_id= #{adminId},
             ans_cntnt= #{ansCntnt},
             cmplt_dt= now(),
             stus_code= #{stusCode},

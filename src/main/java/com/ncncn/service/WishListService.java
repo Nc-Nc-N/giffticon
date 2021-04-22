@@ -1,8 +1,7 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaSM;
+import com.ncncn.domain.pagination.CriteriaSM;
 import com.ncncn.domain.WishListVO;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

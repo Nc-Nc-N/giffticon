@@ -1,6 +1,6 @@
 package com.ncncn.mapper;
 
-import com.ncncn.domain.CriteriaCs;
+import com.ncncn.domain.pagination.CriteriaCs;
 import com.ncncn.domain.CsNoticeVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

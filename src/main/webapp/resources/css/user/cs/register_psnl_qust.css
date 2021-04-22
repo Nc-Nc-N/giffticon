@@ -24,7 +24,7 @@ th{
     display:flex;
     background-color:rgb(230,230,230);
     border:1px solid black;
-    height:25px;
+    height:40px;
     width:170px;
     align-items:center;
     text-align:center;
@@ -32,13 +32,19 @@ th{
 }
 
 td{
+
     display:flex;
     border:1px solid black;
-    height:25px;
+    height:40px;
     width:500px;
 
 }
 
+.td-select{
+    width: 130px;
+    height: 30px;
+    margin: 2px;
+}
 
 .t15, .t25{
     height: 300px;
@@ -64,11 +70,12 @@ td{
 
 .td-file{
     margin-left: 5px;
+    margin-top: 5px;
     cursor: pointer;
 }
 
 .btn{
     position: relative;
-    left: 600px;
+    left: 590px;
     cursor: pointer;
 }
