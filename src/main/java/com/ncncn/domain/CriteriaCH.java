@@ -8,10 +8,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CriteriaCH {
+public class CriteriaCH extends Criteria{
 
-    private int pageNum;
-    private int amount;
+//    private int pageNum;
+//    private int amount;
 
     private String type;
     private String keyword;
@@ -25,8 +25,9 @@ public class CriteriaCH {
     }
 
     public CriteriaCH(int pageNum, int amount, String type, String keyword) {
-        this.pageNum = pageNum;
-        this.amount = amount;
+//        this.pageNum = pageNum;
+//        this.amount = amount;
+        super(pageNum, amount);
 
         this.type = type;
         this.keyword = keyword;

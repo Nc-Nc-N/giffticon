@@ -28,9 +28,9 @@
             <nav>
                 <div class="catename"><i class="<c:out value="${category.iconPath}"/>"></i> &nbsp;<c:out value="${category.name}"/></div>
                 <ul>
-                    <a href="prod_list?code=${category.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li class="cateAll">전체보기</li></a>
+                    <a href="prod_list?code=${category.code}&orderby=best}"><li class="cateAll">전체보기</li></a>
                     <c:forEach items="${brandList}" var="brandList">
-                        <a href="prod_list?code=${brandList.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li><c:out value="${brandList.name}"/></li></a>
+                        <a href="prod_list?code=${brandList.code}&orderby=best"><li><c:out value="${brandList.name}"/></li></a>
                     </c:forEach>
                 </ul>
             </nav>

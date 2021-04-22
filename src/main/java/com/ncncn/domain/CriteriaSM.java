@@ -7,13 +7,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CriteriaSM {
+public class CriteriaSM extends Criteria{
 
     private String dateFrom;
     private String dateTo;
 
-    private int pageNum;
-    private int amount;
+//    private int pageNum;
+//    private int amount;
 
     private String type;
     private String keyword;
@@ -23,8 +23,9 @@ public class CriteriaSM {
     }
 
     public CriteriaSM(int pageNum, int amount) {
-        this.pageNum = pageNum;
-        this.amount = amount;
+//        this.pageNum = pageNum;
+//        this.amount = amount;
+        super(pageNum, amount);
     }
 
     public String[] getTypeArr() {

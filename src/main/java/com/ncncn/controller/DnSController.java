@@ -1,9 +1,6 @@
 package com.ncncn.controller;
 
-import com.ncncn.domain.CriteriaSM;
-import com.ncncn.domain.MyDealsDTO;
-import com.ncncn.domain.MySellDTO;
-import com.ncncn.domain.PageDTOSM;
+import com.ncncn.domain.*;
 import com.ncncn.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -41,7 +38,7 @@ public class DnSController {
         model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
         model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
         model.addAttribute("dealList", dealListService.getDealsWithPaging(userId, cri));
-        model.addAttribute("pageMaker", new PageDTOSM(cri, total));
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
 
         log.info("deals loading....");
     }
@@ -86,7 +83,7 @@ public class DnSController {
         model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
         model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
         model.addAttribute("sellList", sellListService.getSellsWithPaging(userId, cri));
-        model.addAttribute("pageMaker", new PageDTOSM(cri, total));
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
     }
 
     @GetMapping("/sellDetail")
@@ -128,7 +125,7 @@ public class DnSController {
         model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
         model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
         model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
-        model.addAttribute("pageMaker", new PageDTOSM(cri, total));
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
         model.addAttribute("userId", userId);
         model.addAttribute("wishList", wishService.getWishListWithPaging(userId, cri));
     }

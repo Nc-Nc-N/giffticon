@@ -33,7 +33,7 @@ public class UserCheckController {
         int total = service.getTotal(cri);
 
         log.info("total: " + total);
-        model.addAttribute("pageMaker", new PageDTOCH(cri, total));
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
 
         return "/admin/user/userList";
     }

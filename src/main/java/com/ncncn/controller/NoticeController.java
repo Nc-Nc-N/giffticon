@@ -2,6 +2,7 @@ package com.ncncn.controller;
 
 import com.ncncn.domain.CriteriaCs;
 import com.ncncn.domain.CsNoticeVO;
+import com.ncncn.domain.PageDTO;
 import com.ncncn.domain.PageDTOCs;
 import com.ncncn.service.NoticeService;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,7 @@ public class NoticeController {
 
 		log.info("total: " + total);
 
-		model.addAttribute("pageMaker", new PageDTOCs(cri, total));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 		return "user/cs/noticeBoard";
 	}
@@ -56,7 +57,7 @@ public class NoticeController {
 
 		log.info("total: " + total);
 
-		model.addAttribute("pageMaker", new PageDTOCs(cri, total));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 		int userId = 0;
 		//userId 0일경우 예외처리 해줄 것
