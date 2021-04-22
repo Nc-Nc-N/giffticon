@@ -1,6 +1,5 @@
 package com.ncncn.domain.pagination;
 
-import com.ncncn.domain.pagination.Criteria;
 import lombok.Data;
 
 @Data

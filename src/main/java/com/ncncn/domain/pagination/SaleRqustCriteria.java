@@ -1,5 +1,8 @@
 package com.ncncn.domain.pagination;
 
+import lombok.Data;
+
+@Data
 public class SaleRqustCriteria extends Criteria {
 
 	private String type;
