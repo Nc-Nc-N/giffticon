@@ -30,7 +30,7 @@
                 <div class="menuname">MY PAGE</div><!--메뉴 이름 (사이드바 위)-->
                 <div class="sidebar"> <!--사이드 바 영역 (필요한만큼 영역 늘리기)-->
                     <!--필요한만큼 아래 추가해서 사용 (개당 간격70px)-->
-                    <a href="/user/mypage/wish">
+                    <a href="/user/mypage/wishList">
                         <div class="bar">
                             <div>관심 상품</div>
                             <i class="fas fa-chevron-right"></i></div>

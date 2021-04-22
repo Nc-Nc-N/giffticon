@@ -29,7 +29,7 @@
                 <a href="/admin/main"><img src="/resources/img/admin-logo.png"/></a>
             </div>
             <div id="admin-menu">
-                <a href="/admin/user/userlist"><i class="fas fa-user-cog"></i>회원관리</a>
+                <a href="/admin/user/userlist" id="userAdministration"><i class="fas fa-user-cog"></i>회원관리</a>
                 <a href="#"><i class="fas fa-boxes"></i>상품관리</a>
                 <a href="#"><i class="fas fa-brush"></i>배너관리</a>
                 <a name="rqust-list" href="/admin/request/list"><i class="far fa-check-circle"></i>판매요청관리</a>

@@ -18,5 +18,10 @@ public interface FaqService {
 
 	public List<CsFaqVO> getList(CriteriaCs cri);
 
+	public List<CsFaqVO> getListUser(CriteriaCs cri);
+
 	public int getTotal(CriteriaCs cri);
+
+	public int getTotalUser(CriteriaCs cri);
+
 }

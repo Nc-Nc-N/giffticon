@@ -3,14 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ncncn.mapper.GifticonMapper">
-  
+
     <select id="read" resultType="com.ncncn.domain.GifticonVO">
-        select * from gifticon where id = #{id}
+        select *
+        from gifticon
+        where id = #{id}
     </select>
 
     <sql id="getRqust">
         <![CDATA[
-            from gifticon as gft
+        from gifticon as gft
             join product as prod on prod.code = gft.prod_code
             join brand as brd on brd.code = prod.brd_code
             join category as cate on cate.code = brd.cate_code
@@ -64,7 +66,12 @@
     </select>
 
     <update id="updateStusCodeAndAprvDt">
-        update gifticon set gft_stus_code = '002', aprv_dt = now(), up_user = current_user(), up_date = now() where id = #{id}
+        update gifticon
+        set gft_stus_code = '002',
+            aprv_dt       = now(),
+            up_user       = current_user(),
+            up_date       = now()
+        where id = #{id}
     </update>
 
     <resultMap id="SaleRqust" type="java.util.HashMap">
@@ -106,12 +113,25 @@
         update gifticon
         set is_auto_prc = #{isAutoPrc},
             dc_prc      = #{dcPrc},
+            dc_rate     = #{dcRate},
             up_date     = current_date()
         where id = #{gftId}
     </update>
 
     <select id="countNotYetApproved" resultType="int">
-        select count(*) from gifticon g join cmmn_code c on g.gft_stus_code = c.code where gft_stus_code = '001' and c.code_type = 'GFT_STUS'
+        select count(*)
+        from gifticon g
+                 join cmmn_code c on g.gft_stus_code = c.code
+        where gft_stus_code = '001'
+          and c.code_type = 'GFT_STUS'
+    </select>
+
+    <select id="countOnselling" resultType="int">
+        select count(*)
+        from gifticon gftT,
+             (select * from cmmn_code where code_type = 'GFT_STUS' and code_name = '판매중' and enabled = '1') stusT
+        where prod_code = #{prdCode}
+          and gftT.gft_stus_code = stusT.code
     </select>
 
 </mapper>

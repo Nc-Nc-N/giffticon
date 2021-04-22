@@ -71,7 +71,14 @@
                 <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
                                     value="${userL.inDate}"/></td>
                 <td>${userL.telNo}</td>
-                <td>${userL.enabled}</td>
+                <td>
+                    <c:if test="${userL.enabled == 1}">
+                        <c:out value="정상" />
+                    </c:if>
+                    <c:if test="${userL.enabled == 0}">
+                        <c:out value="탈퇴" />
+                    </c:if>
+                </td>
             </tr>
         </c:forEach>
     </table>
@@ -118,6 +125,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        document.getElementById("userAdministration").className = 'active';
+
         let actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {
@@ -148,7 +157,7 @@
 
         let eachUserId=this.children[0].innerText;
 
-        location.href="http://localhost:8088/admin/user/user-detail?userId=" + eachUserId;
+        location.href="/admin/user/user-detail?userId=" + eachUserId;
 
     });
 
