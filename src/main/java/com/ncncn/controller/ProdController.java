@@ -30,12 +30,15 @@ public class ProdController {
 		String code = cri.getCode();
 		int total = prodService.getTotal(cri);
 
+		// code 값이 정수인지 판별
 		if(isInteger(code) || code==null){
 			try {
+
 				model.addAttribute("category", prodService.getCate(code));            // 카테고리
 				model.addAttribute("brandList", prodService.getBrandList(code));    // 브랜드 목록
 				model.addAttribute("gifti", prodService.getGiftiWithPaging(cri));    // 기프티콘 목록(페이징 처리 포함)
 				model.addAttribute("headerPageMaker", new PageDTO(cri, total));
+
 
 				return "/user/prod_list";
 
@@ -60,17 +63,19 @@ public class ProdController {
 		int hasWish = 0;
 		int userId = 0;
 
-		try{	// 로그인이 되어 있을 때
+		try{						// 로그인이 되어 있을 때
 			userId = (int) request.getSession().getAttribute("userId");
 			wish.setProdCode(code);
 			wish.setUserId(userId);
 
 			hasWish = wishService.hasWish(wish);
+
 		}catch (Exception e){ 		// 로그인이 안 되어 있을 때
 			hasWish = 0;
 			userId = 0;
 		}
 
+		// code 값이 정수인지 판별
 		if(isInteger(code) || code==null){
 			try {
 				model.addAttribute("category", prodService.getCate(code));			// 카테고리
@@ -94,7 +99,8 @@ public class ProdController {
 
 	}
 
-	static boolean isInteger(String s) { //정수 판별 함수
+	//정수 판별 함수
+	static boolean isInteger(String s) {
 		try {
 			Integer.parseInt(s);
 			return true;
@@ -104,5 +110,3 @@ public class ProdController {
 		}
 	}
 }
-
-

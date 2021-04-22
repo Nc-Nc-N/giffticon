@@ -320,25 +320,25 @@
 
             if (!errorFlag) {
                 // 모달에 기프티콘 정보를 출력
-                modalgftId.html(rqust.gftId);
-                modalCate.html(rqust.cateName + "&nbsp;&gt;&nbsp;" + rqust.brdName);
-                modalProdName.html(rqust.prodCode + "&nbsp;&nbsp;" + rqust.prodName);
-                modalRequester.html(rqust.requester);
-                modalDcPrc.html(rqust.dcPrc + "&nbsp;&nbsp;원");
-                modalProdPrc.html(rqust.prodPrc + "&nbsp;&nbsp;원&nbsp;&nbsp;<span class='rq-rate'>" + parseInt(parseFloat(rqust.dcRate) * 100) + "%</span>");
+                modalgftId.text(rqust.gftId);
+                modalCate.text(rqust.cateName + " > " + rqust.brdName);
+                modalProdName.text(rqust.prodCode + "  " + rqust.prodName);
+                modalRequester.text(rqust.requester);
+                modalDcPrc.text(rqust.dcPrc + "  원");
+                modalProdPrc.text(rqust.prodPrc + "  원  ").append("<span class='rq-rate'>" + parseInt(parseFloat(rqust.dcRate) * 100) + "%</span>");
                 if (rqust.isAuto === '1') {
                     modalIsAuto.prop("checked", true);
                 } else {
                     modalIsNotAuto.prop("checked", true);
                 }
-                modalExpirDt.html("~&nbsp;&nbsp;" + rqust.expirDt);
-                modalBrcd.html(rqust.brcd);
-                modalDescn.html("<p>" + rqust.descn + "</p>");
+                modalExpirDt.text("~  " + rqust.expirDt);
+                modalBrcd.text(rqust.brcd);
+                modalDescn.text(rqust.descn);
 
                 modalImgBtn.on("click", function (e) {
                     e.preventDefault();
                     // 기프티콘 이미지를 새창에 띄워줌
-                    window.open("http://localhost:8088" + rqust.imgPath, "gfticon img", "width=700, height=900");
+                    window.open(rqust.imgPath, "gfticon img", "width=700, height=900");
                 });
 
                 // modal 승인버튼을 클릭하면 실행될 함수

@@ -87,6 +87,9 @@
 
                     </div>
                 </c:forEach>
+                <c:if test="${list.size() == 0}">
+                    <div class="noSearchResult">검색 결과가 없습니다.</div>
+                </c:if>
             </div>
             <!-- end accordionMenu-->
 
@@ -207,7 +210,9 @@
                             <option value="002">판매</option>
                         </select>
                         <span><input type="checkbox" class="register-enabled" name="enabled" checked="checked" value=''> Visible</span>
-                        <span><input type="number" class="register-odrNo" name="odrNo" placeholder=" ordNo" value=''></span>
+
+                        <span><input type="number" class="register-odrNo" name="odrNo" placeholder="우선순위" value=''></span>
+
                     </div>
                     <input class="register-user-id" type="hidden" name="userId" value=''>
                     <span class="qna-q">Q. </span><textarea class="register-title" name="qust"></textarea>

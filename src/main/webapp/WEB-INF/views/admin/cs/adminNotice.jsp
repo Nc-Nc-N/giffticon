@@ -91,6 +91,9 @@
 
                     </div>
                 </c:forEach>
+                <c:if test="${list.size() == 0}">
+                    <div class="noSearchResult">검색 결과가 없습니다.</div>
+                </c:if>
             </div>
             <!-- end accordionMenu-->
 
@@ -298,7 +301,7 @@
         // 모달창 안에 Notice 객체 값으로 채우기.
         $(".del-id").val(notice.id);
 
-        if (notice.csCateCode == "3") {
+        if (notice.csCateCode == "003") {
 
             $(".search-selected").html("[공지]");
 

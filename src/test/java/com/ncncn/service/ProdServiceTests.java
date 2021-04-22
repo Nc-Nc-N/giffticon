@@ -1,29 +1,26 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.pagination.GiftiCriteria;
-import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/applicationContext.xml")
-@Log4j
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
 public class ProdServiceTests {
 
-	@Setter(onMethod_ = {@Autowired} )
-	private ProdService service;
+	@Mock
+	private ProdMapper prodMapper;
 
 	@Test
-	public void testgetGiftiWithPaging(){
-		service.getGiftiWithPaging(new GiftiCriteria(2,10,"01","best")).forEach(prod->log.info(prod));
-	}
+	public void test(){
+		ProdServiceImpl service = mock(ProdServiceImpl.class);
 
-	@Test
-	public void testgetGifti(){
-		service.getGiftiList("010101").forEach(gifti->log.info(gifti));
+		CategoryVO cate = new CategoryVO();   // mock 객체 생성
+
+		when(service.getCate("010101")).thenReturn(cate);	// getCate() 호출 시
+
 	}
 }

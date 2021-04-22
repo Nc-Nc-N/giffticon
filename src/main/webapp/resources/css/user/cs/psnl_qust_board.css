@@ -1,3 +1,19 @@
+.modal-content{
+    height: 340px;
+}
+
+.modal-header{
+    height: 70px;
+}
+
+.modal-body{
+    height: 180px;
+}
+
+.search-selected{
+    margin: 20px;
+}
+
 .btn-no{
     width: auto;
 }
@@ -14,6 +30,17 @@
     border-left: 1px solid rgb(172, 172, 172);
 }
 
-/* .qna-qq{
-    border-bottom: 1px solid rgb(172, 172, 172);
-} */
+
+.modify-title{
+    margin: 10px;
+    margin-left: 20px;
+    width: 560px;
+    height: 40px;
+    font-size: 17px;
+    resize: none;
+    border-color: #dee2e6;
+}
+
+
+
+
