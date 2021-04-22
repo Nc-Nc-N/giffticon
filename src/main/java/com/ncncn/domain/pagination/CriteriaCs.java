@@ -1,4 +1,4 @@
-package com.ncncn.domain;
+package com.ncncn.domain.pagination;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CriteriaCs {
+public class CriteriaCs extends Criteria {
 
-	private int pageNum;
-	private int amount;
+//	private int pageNum;
+//	private int amount;
 
 	private String type;
 	private String keyword;
@@ -24,8 +24,9 @@ public class CriteriaCs {
 	}
 
 	public CriteriaCs(int pageNum, int amount, String type, String keyword){
-		this.pageNum = pageNum;
-		this.amount = amount;
+//		this.pageNum = pageNum;
+//		this.amount = amount;
+		super(pageNum, amount);
 		this.type = type;
 		this.keyword = keyword;
 	}

@@ -1,7 +1,5 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CategoryVO;
-import com.ncncn.mapper.ProdMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

@@ -1,8 +1,8 @@
 package com.ncncn.controller;
 
-import com.ncncn.domain.CriteriaCs;
+import com.ncncn.domain.pagination.CriteriaCs;
 import com.ncncn.domain.CsFaqVO;
-import com.ncncn.domain.PageDTOCs;
+import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.FaqService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -39,7 +39,7 @@ public class FaqController {
 
 		log.info("total: " + total);
 
-		model.addAttribute("pageMaker", new PageDTOCs(cri, total));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 		return "user/cs/faqBoard";
 	}
@@ -64,7 +64,7 @@ public class FaqController {
 
 		log.info("total: " + total);
 
-		model.addAttribute("pageMaker", new PageDTOCs(cri, total));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 		return "admin/cs/adminFaq";
 

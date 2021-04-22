@@ -1,6 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaCs;
+import com.ncncn.domain.pagination.CriteriaCs;
 import com.ncncn.domain.CsNoticeVO;
 import com.ncncn.mapper.NoticeMapper;
 import lombok.AllArgsConstructor;

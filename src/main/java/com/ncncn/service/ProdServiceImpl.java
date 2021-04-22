@@ -1,6 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.*;
+import com.ncncn.domain.pagination.GiftiCriteria;
 import com.ncncn.mapper.ProdMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;

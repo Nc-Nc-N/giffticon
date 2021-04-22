@@ -1,6 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaSM;
+import com.ncncn.domain.pagination.CriteriaSM;
 import com.ncncn.domain.MyDealsDTO;
 
 import java.util.List;

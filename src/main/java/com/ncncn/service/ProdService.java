@@ -1,6 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.*;
+import com.ncncn.domain.pagination.GiftiCriteria;
 
 import java.util.List;
 

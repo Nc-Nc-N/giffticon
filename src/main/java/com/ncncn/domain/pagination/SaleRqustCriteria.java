@@ -1,8 +1,12 @@
 package com.ncncn.domain.pagination;
 
+import lombok.Data;
+
+@Data
 public class SaleRqustCriteria extends Criteria {
 
 	private String type;
+	private String keyword;
 
 	public SaleRqustCriteria() {
 		this(1, 5, "ENC", "");
@@ -13,8 +17,9 @@ public class SaleRqustCriteria extends Criteria {
 	}
 
 	public SaleRqustCriteria(int pageNum, int amount, String type, String keyword) {
-		this.pageNum = pageNum;
-		this.amount = amount;
+//		this.pageNum = pageNum;
+//		this.amount = amount;
+        super(pageNum, amount);
 		this.type = type;
 		this.keyword = keyword;
 	}

@@ -1,14 +1,22 @@
 package com.ncncn.domain.pagination;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class Criteria {
+    private int pageNum;
+    private int amount;
 
-	int pageNum;
+    public Criteria() {
 
-	int amount;
+    }
 
-	String keyword;
-
+    public Criteria(int pageNum, int amount) {
+        this.pageNum = pageNum;
+        this.amount = amount;
+    }
 }
