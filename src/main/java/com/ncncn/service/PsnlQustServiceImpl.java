@@ -1,13 +1,14 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaCs;
+import java.util.List;
+
 import com.ncncn.domain.CsPsnlQustVO;
+import com.ncncn.domain.pagination.CriteriaCs;
 import com.ncncn.mapper.PsnlQustMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Log4j
 @Service

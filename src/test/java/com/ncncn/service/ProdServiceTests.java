@@ -1,5 +1,7 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.CategoryVO;
+import com.ncncn.mapper.ProdMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -15,12 +17,12 @@ public class ProdServiceTests {
 	private ProdMapper prodMapper;
 
 	@Test
-	public void test(){
+	public void test() {
 		ProdServiceImpl service = mock(ProdServiceImpl.class);
 
 		CategoryVO cate = new CategoryVO();   // mock 객체 생성
 
-		when(service.getCate("010101")).thenReturn(cate);	// getCate() 호출 시
+		when(service.getCate("010101")).thenReturn(cate);    // getCate() 호출 시
 
 	}
 }

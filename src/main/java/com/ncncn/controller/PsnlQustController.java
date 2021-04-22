@@ -1,20 +1,24 @@
 package com.ncncn.controller;
 
-import com.ncncn.domain.CriteriaCs;
+import javax.servlet.http.HttpServletRequest;
+
 import com.ncncn.domain.CsPsnlQustVO;
-import com.ncncn.domain.PageDTOCs;
+import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.PsnlQustService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @Log4j
@@ -26,7 +30,7 @@ public class PsnlQustController {
 	// 사용자
 
 	@GetMapping("/user/mypage/psnlQustBoard")
-	public String faqBoard(HttpServletRequest request, CriteriaCs cri, Model model){
+	public String faqBoard(HttpServletRequest request, CriteriaCs cri, Model model) {
 
 		log.info(cri.getType());
 		log.info(cri.getTypeArr());
@@ -41,7 +45,7 @@ public class PsnlQustController {
 
 		log.info("total: " + total);
 
-		model.addAttribute("pageMaker", new PageDTOCs(cri, total));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 
 		return "user/cs/psnlQustBoard";
@@ -49,7 +53,7 @@ public class PsnlQustController {
 
 
 	@GetMapping("/user/mypage/psnlQustBoard/register")
-	public String registerPsnlQust(HttpServletRequest request){
+	public String registerPsnlQust(HttpServletRequest request) {
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
@@ -57,7 +61,7 @@ public class PsnlQustController {
 	}
 
 	@PostMapping("/user/mypage/psnlQustBoard/register")
-	public String register(HttpServletRequest request, CsPsnlQustVO qna, RedirectAttributes rttr){
+	public String register(HttpServletRequest request, CsPsnlQustVO qna, RedirectAttributes rttr) {
 
 		log.info("register: " + qna);
 
@@ -72,14 +76,14 @@ public class PsnlQustController {
 
 
 	@PostMapping("/user/mypage/psnlQustBoard/modify")
-	public String modifyUser(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+	public String modifyUser(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr) {
 
 		log.info("modify: " + qna);
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
 		service.modifyUser(qna);
-		if(service.modifyUser(qna)){
+		if (service.modifyUser(qna)) {
 			rttr.addFlashAttribute("result", "success");
 		}
 
@@ -93,15 +97,15 @@ public class PsnlQustController {
 
 
 	@PostMapping("/user/mypage/psnlQustBoard/remove")
-	public String removeUser(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+	public String removeUser(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr) {
 
 
 		log.info("remove...." + id);
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
-		if (service.remove(id)){
-			rttr.addFlashAttribute("result","success");
+		if (service.remove(id)) {
+			rttr.addFlashAttribute("result", "success");
 		}
 
 		rttr.addAttribute("pageNum", cri.getPageNum());
@@ -113,13 +117,10 @@ public class PsnlQustController {
 	}
 
 
-
-
-
 	// 관리자
 
 	@GetMapping("/admin/adminPsnlQust")
-	public  String adminFaq(HttpServletRequest request,CriteriaCs cri, Model model){
+	public String adminFaq(HttpServletRequest request, CriteriaCs cri, Model model) {
 
 		log.info("list: " + cri);
 		int userId = (int) request.getSession().getAttribute("userId");
@@ -131,21 +132,21 @@ public class PsnlQustController {
 
 		log.info("total: " + total);
 
-		model.addAttribute("pageMaker", new PageDTOCs(cri, total));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 		return "admin/cs/adminPsnlQust";
 
 	}
 
 	@PostMapping("/admin/adminPsnlQust/modify")
-	public String modify(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+	public String modify(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr) {
 
 		log.info("modify: " + qna);
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
 		service.modify(qna);
-		if(service.modify(qna)){
+		if (service.modify(qna)) {
 			rttr.addFlashAttribute("result", "success");
 		}
 
@@ -159,15 +160,15 @@ public class PsnlQustController {
 
 
 	@PostMapping("/admin/adminPsnlQust/remove")
-	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr) {
 
 
 		log.info("remove...." + id);
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
-		if (service.remove(id)){
-			rttr.addFlashAttribute("result","success");
+		if (service.remove(id)) {
+			rttr.addFlashAttribute("result", "success");
 		}
 
 		rttr.addAttribute("pageNum", cri.getPageNum());
@@ -179,14 +180,13 @@ public class PsnlQustController {
 	}
 
 
-
 	//Modal에 데이터 받기위해 apax를 사용하여 객체 전달.
 	@GetMapping(value = "/psnl", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CsPsnlQustVO> getNotice(@RequestParam("id") int id) {
 
 		CsPsnlQustVO qnaVO = service.get(id);
 
-		return new ResponseEntity<>(qnaVO,HttpStatus.OK);
+		return new ResponseEntity<>(qnaVO, HttpStatus.OK);
 	}
 
 }

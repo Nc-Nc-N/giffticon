@@ -1,9 +1,9 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaCs;
-import com.ncncn.domain.CsPsnlQustVO;
-
 import java.util.List;
+
+import com.ncncn.domain.CsPsnlQustVO;
+import com.ncncn.domain.pagination.CriteriaCs;
 
 public interface PsnlQustService {
 
@@ -23,5 +23,5 @@ public interface PsnlQustService {
 
 	public int getTotal(CriteriaCs cri);
 
-	public int getTotalPsnlQust(CriteriaCs cri,int userId);
+	public int getTotalPsnlQust(CriteriaCs cri, int userId);
 }

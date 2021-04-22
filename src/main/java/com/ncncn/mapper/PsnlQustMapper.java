@@ -1,10 +1,10 @@
 package com.ncncn.mapper;
 
-import com.ncncn.domain.CriteriaCs;
-import com.ncncn.domain.CsPsnlQustVO;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+
+import com.ncncn.domain.CsPsnlQustVO;
+import com.ncncn.domain.pagination.CriteriaCs;
+import org.apache.ibatis.annotations.Param;
 
 public interface PsnlQustMapper {
 
@@ -17,7 +17,7 @@ public interface PsnlQustMapper {
 											  @Param("type") String type,
 											  @Param("keyword") String keyword,
 											  @Param("userId") int userId,
-											  @Param("typeArr")String[] typeArr);
+											  @Param("typeArr") String[] typeArr);
 
 	public void insert(CsPsnlQustVO notice);
 
@@ -31,9 +31,9 @@ public interface PsnlQustMapper {
 
 	public int getTotalCount(CriteriaCs cri);
 
-	public int getTotalPsnlQust( @Param("type") String type,
-								 @Param("keyword") String keyword,
-								 @Param("userId") int userId,
-								 @Param("typeArr")String[] typeArr);
+	public int getTotalPsnlQust(@Param("type") String type,
+								@Param("keyword") String keyword,
+								@Param("userId") int userId,
+								@Param("typeArr") String[] typeArr);
 
 }
