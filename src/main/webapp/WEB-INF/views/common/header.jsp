@@ -30,10 +30,10 @@
             <sec:authorize access="isAuthenticated()">
             <span><form action="/account/logOut" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button type="submit" class="btn003">로그아웃</button></form>
+                <button type="submit" class="logout">로그아웃</button></form>
             </span>
                 <span class="header_divider">|</span>
-                <span><sec:authentication property="principal.username"/></span>
+                <span><a class="user-email"><sec:authentication property="principal.username"/></a></span>
             </sec:authorize>
 
 
