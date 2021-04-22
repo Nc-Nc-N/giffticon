@@ -31,3 +31,110 @@
  
     margin: 0 auto;    
 }
+.btn-modify{
+    width: 50px;
+}
+
+.btn-ans-modify{
+    border: none;
+    outline: none;
+    color: rgb(255, 88, 93);
+    background: rgb(245, 244, 244);
+    text-decoration: underline;
+}
+
+
+.accordionMenu .content .inner{
+    border-bottom: 1.5px solid gainsboro;
+}
+
+.accordionMenu .content .admin-inner{
+    font-size: 1.2rem;
+    color: rgb(71, 71, 71);
+    line-height: 1.5;
+    background: rgb(245, 244, 244);
+    padding: 20px 10px;
+}
+
+
+li{
+    list-style: none;
+}
+.ans-admin-id{
+    visibility: hidden;
+}
+
+/*모달 css*/
+
+.modal{
+    position: absolute;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0; left: 0;
+    background: rgba(80, 80, 80, 0.4);
+}
+
+.modal-content{
+    position: absolute;
+    top: calc(40vh - 100px);
+    left: calc(40vw - 200px);
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 600px;
+    height: 300px;
+
+}
+
+.modal-header{
+    height: 50px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-header h2{
+    margin: 10px;
+    font-size: 28px;
+}
+
+.modal-body textarea{
+    margin: 10px;
+    width: 560px;
+    height: 150px;
+    font-size: 17px;
+    resize: none;
+}
+
+.delete-question{
+    font-size: 25px;
+    margin: 10px;
+}
+
+.modal span, .de-cntnt{
+    font-size: 1rem;
+    margin: 10px;
+}
+
+.modal-body{
+    margin: 10px;
+    width: 580px;
+    height: 150px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+#closeModifyModalBtn, #btn-modify, #btn-delete, #closeModalBtn{
+    margin: 10px;
+    float: right;
+}
+
+#closeModifyModalBtn, #closeModalBtn{
+    color: rgb(55, 55, 55);
+}
+
+#btn-modify, #btn-delete{
+    background-color: rgb(255, 88, 93);
+    color: white;
+
+}
