@@ -3,6 +3,8 @@ package com.ncncn.controller;
 
 import com.ncncn.domain.*;
 
+import com.ncncn.domain.pagination.CriteriaCH;
+import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.UserCheckService;
 import com.ncncn.service.UserService;
 import lombok.AllArgsConstructor;

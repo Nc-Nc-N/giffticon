@@ -1,7 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.GiftiCriteria;
-import com.ncncn.service.ProdService;
+import com.ncncn.domain.pagination.GiftiCriteria;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;

@@ -1,9 +1,10 @@
-package com.ncncn.domain;
+package com.ncncn.domain.pagination;
 
+import com.ncncn.domain.pagination.Criteria;
 import lombok.Data;
 
 @Data
-public class GiftiCriteria extends Criteria{
+public class GiftiCriteria extends Criteria {
 
 //	private int pageNum;
 //	private int amount;

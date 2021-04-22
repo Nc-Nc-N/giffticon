@@ -1,7 +1,7 @@
 package com.ncncn.mapper;
 
 
-import com.ncncn.domain.CriteriaCs;
+import com.ncncn.domain.pagination.CriteriaCs;
 import com.ncncn.domain.CsFaqVO;
 
 

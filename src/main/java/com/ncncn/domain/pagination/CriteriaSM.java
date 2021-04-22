@@ -1,5 +1,6 @@
-package com.ncncn.domain;
+package com.ncncn.domain.pagination;
 
+import com.ncncn.domain.pagination.Criteria;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,7 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CriteriaSM extends Criteria{
+public class CriteriaSM extends Criteria {
 
     private String dateFrom;
     private String dateTo;

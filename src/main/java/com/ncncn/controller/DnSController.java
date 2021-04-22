@@ -1,6 +1,8 @@
 package com.ncncn.controller;
 
 import com.ncncn.domain.*;
+import com.ncncn.domain.pagination.CriteriaSM;
+import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;

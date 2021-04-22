@@ -1,6 +1,9 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.*;
+import com.ncncn.domain.pagination.CriteriaCH;
+import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.GiftiCriteria;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

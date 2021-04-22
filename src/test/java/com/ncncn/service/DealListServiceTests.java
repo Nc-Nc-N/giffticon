@@ -1,8 +1,7 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaSM;
+import com.ncncn.domain.pagination.CriteriaSM;
 import com.ncncn.domain.MyDealsDTO;
-import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

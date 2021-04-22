@@ -1,5 +1,6 @@
-package com.ncncn.domain;
+package com.ncncn.domain.pagination;
 
+import com.ncncn.domain.pagination.Criteria;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CriteriaCH extends Criteria{
+public class CriteriaCH extends Criteria {
 
 //    private int pageNum;
 //    private int amount;
