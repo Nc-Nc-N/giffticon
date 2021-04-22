@@ -7,11 +7,13 @@ import java.util.List;
 
 public interface PsnlQustService {
 
-	public void register(CsPsnlQustVO faq);
+	public void register(CsPsnlQustVO qna);
 
 	public CsPsnlQustVO get(int id);
 
-	public boolean modify(CsPsnlQustVO faq);
+	public boolean modify(CsPsnlQustVO qna);
+
+	public boolean modifyUser(CsPsnlQustVO qna);
 
 	public boolean remove(int id);
 

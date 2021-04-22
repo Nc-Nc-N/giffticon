@@ -88,10 +88,12 @@
                             <c:out value="${qna.ansCntnt}"/>
                         </p>
 
-
                     </div>
                 </div>
         </c:forEach>
+        <c:if test="${dealList.size() == 0}">
+            <div class="noSearchResult">검색 결과가 없습니다.</div>
+        </c:if>
     </div>
     <!-- end accordionMenu-->
 
@@ -250,13 +252,13 @@
 
         var ansForm = $("form");
 
-        console.log(this.id);
+        console.log("this id: " + this.id);
 
         let psnl = '';
 
         $.ajax({
             type: 'get',
-            url: '/admin/psnl?id=' + this.id,
+            url: '/psnl?id=' + this.id,
             async: false,
             success: function (result) {
                 psnl = result;
@@ -272,6 +274,7 @@
         // 모달창 안에 psnl 객체 값으로 채우기.
 
         console.log("psnl.id : " + psnl.id);
+
         $(".ans-id").val(psnl.id);
 
         $("#ansModal").fadeIn();
@@ -307,7 +310,7 @@
 
         $.ajax({
             type: 'get',
-            url: '/admin/psnl?id=' + this.id,
+            url: '/psnl?id=' + this.id,
             async: false,
             success: function (result) {
                 psnl = result;

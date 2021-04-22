@@ -41,6 +41,12 @@ public class PsnlQustServiceImpl implements PsnlQustService {
 	}
 
 	@Override
+	public boolean modifyUser(CsPsnlQustVO qna) {
+		log.info("modify...." + qna);
+		return mapper.updateUser(qna) == 1;
+	}
+
+	@Override
 	public boolean remove(int id) {
 
 		log.info("remove...." + id);
