@@ -68,7 +68,14 @@
                     <a href="/user/mypage/wishList" class="main-btn">전체보기</a>
                 </div>
             </div>
+
             <%-- 관심상품 --%>
+            <%-- 로그인이 안 되어 있을 때 --%>
+            <div class="noWish" style="display: none">
+                <p>${notice}</p>
+            </div>
+
+            <%-- 로그인이 되어 있을 때 --%>
             <div style="width: 750px">
                 <table>
                     <tr>
@@ -170,10 +177,6 @@
         </div>
     </div>
 
-<%--    <c:set var="today" value="<%=new java.util.Date()%>" />--%>
-<%--    <!-- 현재날짜 -->--%>
-<%--    <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>--%>
-<%--    <c:out value="${date}" />--%>
     <!-- 세번째줄 (만료임박상품)-->
     <div class="prdlists">
         <div class="listname">
@@ -244,6 +247,15 @@
     <%--  슬라이드바   --%>
     let elms = document.getElementsByClassName( 'splide' );
     for (let i = 0, len = elms.length; i < len; i++ ) {
-        new Splide( elms[ i ] ).mount();
+        new Splide( elms[ i ], {
+            rewind: true
+        } ).mount();
+    }
+
+    // 로그인 안 되어 있을 때 문구 출력
+    let notice = "${notice}";
+
+    if(notice.length > 0){
+        $('.noWish').show();
     }
 </script>

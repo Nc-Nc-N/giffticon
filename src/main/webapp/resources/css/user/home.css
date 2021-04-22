@@ -155,11 +155,11 @@
     height: 25%;
     float: left;
     text-align: center;
-    font-weight: bold;
 }
 table{
     width: 100%;
     padding-left: 5%;
+    display: flex;
 }
 .listnamelast table{
     /*padding-left: 6%;*/
@@ -203,4 +203,10 @@ h3{
     font-weight: 900;
     letter-spacing: 0.4px;
     background-color: #FF585D;
+}
+
+.noWish p{
+    text-align: center;
+    color: #333;
+    margin: 25%;
 }
