@@ -93,6 +93,11 @@ public class ProdMapperTests {
 	public void testGetTotalCount(){
 		GiftiCriteria prod = new GiftiCriteria();
 		prod.setCode("010101");
+
+		int total = mapper.getTotalCount(prod);
+
+
+		assertThat(total, is(1));
 	}
 
 	@Test
@@ -100,10 +105,16 @@ public class ProdMapperTests {
 		GiftiCriteria prod = new GiftiCriteria();
 
 		prod.setKeyword("아메리카노");
-
 		List<ProdListVO> list = mapper.getGiftiWithPaging(prod);
-
 		list.forEach(gifti -> log.info(gifti));
+
+		prod.setKeyword("스타");
+		List<ProdListVO> list2 = mapper.getGiftiWithPaging(prod);
+		list2.forEach(gifti -> log.info(gifti));
+
+		prod.setKeyword("sadkfjskdlfj");
+		List<ProdListVO> list3 = mapper.getGiftiWithPaging(prod);
+		list3.forEach(gifti -> log.info(gifti));
 	}
 
 	@Test
@@ -117,16 +128,17 @@ public class ProdMapperTests {
 
 		ProdListVO gifti = mapper.getGifti("010101");
 		log.info(gifti);
-
 	}
 
 	@Test
 	public void testGetBestGifti(){
+
 		mapper.getBestGifti().forEach(gifti -> log.info(gifti));
 	}
 
 	@Test
 	public void testGetDeadlineGifti(){
+
 		mapper.getDeadlineGifti().forEach(gifti->log.info(gifti));
 	}
 

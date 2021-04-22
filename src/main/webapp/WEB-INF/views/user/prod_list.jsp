@@ -196,8 +196,6 @@
         // 에러 메시지 처리
         let error = "${error}";
 
-        console.log(error)
-
         if(error.length > 0){
             alert("error: " + error);
         }
