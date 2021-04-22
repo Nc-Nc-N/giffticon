@@ -71,25 +71,46 @@ public class PsnlQustController {
 	}
 
 
-//	@PostMapping("/user/mypage/psnlQustBoard/modify")
-//	public String modify(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
-//
-//		log.info("modify: " + qna);
-//
-//		int userId = (int) request.getSession().getAttribute("userId");
-//
-//		service.modify(qna);
-//		if(service.modify(qna)){
-//			rttr.addFlashAttribute("result", "success");
-//		}
-//
-//		rttr.addAttribute("pageNum", cri.getPageNum());
-//		rttr.addAttribute("amount", cri.getAmount());
-//		rttr.addAttribute("type", cri.getType());
-//		rttr.addAttribute("keyword", cri.getKeyword());
-//
-//		return "redirect:/user/mypage/psnlQustBoard";
-//	}
+	@PostMapping("/user/mypage/psnlQustBoard/modify")
+	public String modifyUser(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+
+		log.info("modify: " + qna);
+
+		int userId = (int) request.getSession().getAttribute("userId");
+
+		service.modifyUser(qna);
+		if(service.modifyUser(qna)){
+			rttr.addFlashAttribute("result", "success");
+		}
+
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+
+		return "redirect:/user/mypage/psnlQustBoard";
+	}
+
+
+	@PostMapping("/user/mypage/psnlQustBoard/remove")
+	public String removeUser(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+
+
+		log.info("remove...." + id);
+
+		int userId = (int) request.getSession().getAttribute("userId");
+
+		if (service.remove(id)){
+			rttr.addFlashAttribute("result","success");
+		}
+
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+
+		return "redirect:/user/mypage/psnlQustBoard";
+	}
 
 
 
@@ -160,7 +181,7 @@ public class PsnlQustController {
 
 
 	//Modal에 데이터 받기위해 apax를 사용하여 객체 전달.
-	@GetMapping(value = "/admin/psnl", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/psnl", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CsPsnlQustVO> getNotice(@RequestParam("id") int id) {
 
 		CsPsnlQustVO qnaVO = service.get(id);
