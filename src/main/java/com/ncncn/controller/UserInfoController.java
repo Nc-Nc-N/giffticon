@@ -1,17 +1,23 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.PrcUpdateDTO;
 import com.ncncn.domain.UserInfoDTO;
+import com.ncncn.domain.UserVO;
 import com.ncncn.service.DealListService;
 import com.ncncn.service.SellListService;
 import com.ncncn.service.UserService;
+import com.ncncn.util.UserAuthCheckUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @Log4j
@@ -38,5 +44,22 @@ public class UserInfoController {
         model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
         model.addAttribute("user", user);
 
+    }
+
+    @RequestMapping(value = "/checkPassword",
+                method = RequestMethod.POST,
+    consumes = "application/json")
+    public ResponseEntity<String> checkPwdUserUpdate(@RequestBody UserVO checkuser,
+                                                     HttpServletRequest request) {
+        log.info("pwd confirm received : " + checkuser.getEmail() + "," + checkuser.getPwd());
+        int userId = (int) request.getSession().getAttribute("userId");
+
+        UserVO user = userService.readbyId(userId);
+
+        if(UserAuthCheckUtils.userAuthCheck(checkuser.getEmail(), checkuser.getPwd(), user)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

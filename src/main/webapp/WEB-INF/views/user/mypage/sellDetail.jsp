@@ -112,20 +112,105 @@
 </div>
 </div>
 </div>
-<div class="modalOn">
-    <jsp:include page="sellDetail_modify.jsp"/>
-</div>
 </body>
+<div id="modal-fade">
+    <div id="register-content" tabindex="-1" role="dialog" aria-hidden="true">
+        <h2>상품 정보 수정</h2>
+
+        <div id="content">
+            <div class="email_section">
+                <h3>브랜드 / 상품명</h3>
+                <h4><c:out value="${gftInfo.brdName}"/></h4>&nbsp;>&nbsp;
+                <h4><c:out value="${gftInfo.prdName}"/></h4>
+            </div>
+            <div class="img_section">
+                <h3>상품 정보</h3>
+                <div>
+                    <div class="img_container">
+                        <img class="modal-img" src="<c:out value="${gftInfo.prdImgPath}"/>">
+                    </div>
+                    <div class="img_container">
+                        <img class="modal-img" src="<c:out value="${gftInfo.brcdImgPath}"/>">
+                    </div>
+                </div>
+            </div>
+
+            <div class="date_section">
+                    <h3>바코드 번호</h3>
+                <div class="date-search">
+                    <h4><c:out value="${gftInfo.brcd}"/></h4>
+                </div>
+            </div>
+
+            <div class="date_section">
+                <h3>유효기간</h3>
+                <div class="date-search">
+                    <h4><fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.expirDt}"/></h4>
+                </div>
+
+            </div>
+            <div class="date_section">
+                <h3>정가</h3>
+                <div class="date-search">
+                    <h4><c:out value="${gftInfo.listPrc}"/>원</h4>
+                </div>
+
+            </div>
+
+            <div class="price_section">
+                <h3>가격 수정</h3>
+                <div class="price_modify">
+                    <form class="select">
+
+                        <label>
+                            <input type="radio" name="price_select" class="price_select"
+                                   id="prc_auto" value="1">자동</label><br>
+                        <label>
+                            <input type="radio" name="price_select" class="price_select"
+                                   id="prc_manual" value="0">수동</label>
+                    </form>
+                    <div class="input_prc">
+                        <input type="number" placeholder="가격표시" id="prcinput" value="<c:out value="${gftInfo.dcPrc}"/>">
+                    </div>
+                    <div class="input_rt">
+                    <input type="text" id="rateinput"
+                           value="<fmt:formatNumber value="${gftInfo.finalDcRate}" type="percent" pattern="0.0%"/>" readonly="readonly">
+                    </div>
+                </div>
+
+            </div>
+            <div class="info_section">
+                <div>
+                    <h3>비밀번호 입력</h3>
+                    <div class="input_text">
+                        <input type="password" id="userPwd" placeholder="">
+                    </div>
+                </div>
+                <div class="message"><h5></h5></div>
+            </div>
+
+        </div>
+
+        <div id="reg-btn-area">
+            <button class="btn btn-submit" id="modal-register">수정</button>
+            <button class="btn btn-dark" id="modal-close">취소</button>
+        </div>
+        <form id="modalAction">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <input type="hidden" name="gftId" value="<c:out value="${gftInfo.id}"/>">
+        </form>
+    </div>
+</div>
 </html>
 
 <script> //actionForm , 기프티콘 수정 및 삭제
 
     $(".document").ready(function () {
-
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
         var actionForm = $("#actionForm");
+
 
         $('#deleteGift').on("click", function (e) {
 
@@ -140,12 +225,12 @@
 
         $("#modifyGift").on("click", function (e) {
 
-            $(".modalOn").css("visibility", "visible");
+            $("#modal-fade").css("visibility", "visible");
         })
 
         $("#modal-close").on("click", function (e) {
 
-            $(".modalOn").css("visibility", "hidden");
+            $("#modal-fade").css("visibility", "hidden");
         })
 
         $("#modal-register").on("click", function (e) {

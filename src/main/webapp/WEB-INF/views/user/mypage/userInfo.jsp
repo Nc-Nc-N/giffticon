@@ -95,6 +95,14 @@
             $(".modalOn").css("visibility", "hidden");
         })
 
+        $(".confirmOriginPwd").on("click", function(e){
+            alert("굿");
+        })
+
 
     })
+</script>
+
+<script>
+
 </script>
