@@ -27,9 +27,6 @@ public class TotalJunitTestSM {
     FaqService faqService;
 
     @Autowired
-    ProdService prodService;
-
-    @Autowired
     NoticeService noticeService;
 
     @Autowired
@@ -40,6 +37,9 @@ public class TotalJunitTestSM {
 
     @Autowired
     SignUpService signUpService;
+
+    @Autowired
+    GifticonService giftiService;
 
     @Test
     public void FaQTest(){
@@ -129,7 +129,7 @@ public class TotalJunitTestSM {
         cri.setAmount(20);
         cri.setCode("0202");
 
-        int prodSize = prodService.getGiftiWithPaging(cri).size();
+        int prodSize = giftiService.getGiftiWithPaging(cri).size();
 
         assertEquals(prodSize,10);
     }
@@ -137,7 +137,7 @@ public class TotalJunitTestSM {
     @Test
     public void ProdTest2(){
 
-       List<ProdListVO> getList = prodService.getGiftiList("010101");
+       List<ProdListVO> getList = giftiService.getGiftiList("010101");
 
        assertEquals(getList.size(), 3);
        assertEquals(getList.get(2).getId(), 2);

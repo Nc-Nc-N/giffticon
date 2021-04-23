@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.CategoryMapper">
+
+    <select id="getCategoryList" resultType="com.ncncn.domain.CategoryVO">
+    <![CDATA[
+        select * from category
+        ]]>
+    </select>
+
+    <!-- 카테고리 하나 조회 -->
+    <select id="getCate" resultType="com.ncncn.domain.CategoryVO">
+        <![CDATA[
+        select * from category where enabled = '1' and code = substring(#{code},1,2)
+        ]]>
+    </select>
+
+</mapper>
