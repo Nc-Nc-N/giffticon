@@ -1,10 +1,8 @@
 #container{
     width:1000px;
     height:1000px;
-    /* background-color:bisque; */
-    /* border-bottom: 2px solid gray; */
     margin: auto;
-    
+    color: #333;
 }
 .space{
     height:40px;
@@ -19,8 +17,11 @@
 .catename >.fas{
     color: #FF585D;
 }
+table{
+    width: 1000px;
+}
 nav ul{
-    width: 900px;
+    width: 1000px;
 	background-color: white;
 	padding: 0;
 	overflow: hidden;
@@ -31,13 +32,14 @@ nav ul{
 	-o-transition: max-height 0.4s;
 	transition: max-height 0.4s;
 }
-nav ul li{
+nav ul a{
     color: #202020;
 	display: inline-block;
 	padding: 10px;
     font-size: small;
+    list-style:none;
 }
-nav ul li:hover{
+nav ul a:hover{
 	color: #FF585D
 }
 .search-select {
@@ -51,8 +53,8 @@ nav ul li:hover{
 }
 /* 상품 목록 */
 table td{
-    padding-bottom: 50px;
-    /*border-spacing: 0px 50px;*/
+    border-bottom: 1px solid #e6e6e6;
+    padding: 5% 2%;
 }
 
 td a:link{
@@ -60,77 +62,10 @@ td a:link{
 }
 
 .items{
-    width:225px;
+    width:200px;
     height:100%;
-    /*background-color: #514859;*/
 }
 
-.itemimg{
-    width: 225px;
-    height: 70%;
-    background-color: transparent;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.itemimg > img {
-    width:80%;
-}
-
-.itemnameNprice{
-    width: 225px;
-    height: 30%;
-     /*background-color:hotpink;*/
-    display: block;
-}
-.itembrand{
-     /*background-color:burlywood;*/
-    width: 100%;
-    height: 20%;
-    text-align: center;
-    font-size: small;
-    font-weight: bold;
-    color:rgba(70,70,70,1);
-}
-.itemname{
-    width: 100%;
-    height: 25%;
-    font-size: medium;
-    font-weight: bold;
-    text-align: center;
-    color : black;
-}
-
-.itemprice{
-     /*background-color:aquamarine;*/
-    width: 100%;
-    height: 35%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-}
-
-.itemprice > span{
-    font-size: medium;
-    color:crimson;
-    font-weight: bold;
-}
-
-.itemprice > span:last-child{
-    color: black
-
-}
-.itemoriginprice{
-    width: 100%;
-    height: 20%;
-    font-size: small;
-    color: gray;
-    text-align: center;
-
-}
 .itemoriginprice > span{
     margin-right: 28%;
 }
@@ -162,14 +97,30 @@ td a:link{
     border-radius: 5px;
 }
 
-.paginate_button li.active {
+.pagination a:hover {
     background-color: rgb(255, 88, 93);
     color: white;
     border-radius: 5px;
 }
 
-.pagination a:hover {
-    background-color: rgb(255, 88, 93);
-    color: white;
-    border-radius: 5px;
+/* 재검색 안내 */
+.noresult, .noresult-tip{
+    text-align: center;
+}
+.noresult-tip{
+    margin-top: 30px;
+}
+.tip_lst{
+    font-size: small;
+    color: grey;
+    line-height: 8px;
+}
+a { text-decoration: none; color: #333; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+.brandList active, .num{
+    color: rgb(255, 88, 93);
 }

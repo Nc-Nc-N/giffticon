@@ -1,6 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaCs;
+import com.ncncn.domain.pagination.CriteriaCs;
 import com.ncncn.domain.CsFaqVO;
 import com.ncncn.mapper.FaqMapper;
 import lombok.AllArgsConstructor;
@@ -47,13 +47,6 @@ public class FaqServiceImpl implements FaqService{
 
 	}
 
-//	@Override
-//	public List<CsNoticeVO> getList() {
-//
-//		log.info("getList.....");
-//		return mapper.getList();
-//	}
-
 	@Override
 	public List<CsFaqVO> getList(CriteriaCs cri) {
 
@@ -63,9 +56,25 @@ public class FaqServiceImpl implements FaqService{
 	}
 
 	@Override
+	public List<CsFaqVO> getListUser(CriteriaCs cri) {
+
+		log.info("getListUser with criteria: " + cri);
+
+		return mapper.getListWithPagingUser(cri);
+	}
+
+
+	@Override
 	public int getTotal(CriteriaCs cri) {
 
 		log.info("get total count");
 		return mapper.getTotalCount(cri);
+	}
+
+	@Override
+	public int getTotalUser(CriteriaCs cri) {
+
+		log.info("get total count user");
+		return mapper.getTotalCountUser(cri);
 	}
 }

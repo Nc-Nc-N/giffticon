@@ -1,6 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaCs;
+import com.ncncn.domain.pagination.CriteriaCs;
 import com.ncncn.domain.CsFaqVO;
 
 
@@ -18,5 +18,10 @@ public interface FaqService {
 
 	public List<CsFaqVO> getList(CriteriaCs cri);
 
+	public List<CsFaqVO> getListUser(CriteriaCs cri);
+
 	public int getTotal(CriteriaCs cri);
+
+	public int getTotalUser(CriteriaCs cri);
+
 }

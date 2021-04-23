@@ -144,6 +144,16 @@
     align-items: start;
 }
 
+.item_name:hover{
+    color: rgb(255,88,93);
+    cursor: pointer;
+}
+
+.item_code{
+    margin-left: 10%;
+    color: #333333;
+}
+
 .item_prc, .item_status {
     width: 100px;
     height: 80px;
@@ -247,6 +257,10 @@ img {
 }
 .btn-dark:hover{
     background-color: darkgray;
+}
+
+.datepicker{
+    background-color: white;
 }
 
 @keyframes heartbeat {

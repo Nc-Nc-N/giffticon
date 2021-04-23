@@ -1,6 +1,7 @@
 package com.ncncn.mapper;
 
 import com.ncncn.domain.*;
+import com.ncncn.domain.pagination.CriteriaCH;
 
 import java.util.List;
 

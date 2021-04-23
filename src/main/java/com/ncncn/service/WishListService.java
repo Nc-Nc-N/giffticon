@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.pagination.CriteriaSM;
 import com.ncncn.domain.WishListVO;
 
 import java.util.List;
@@ -17,5 +18,10 @@ public interface WishListService {
 
 	// 유저 - 관심상품 조회
 	public List<WishListVO> getWishList(int userId);
+
+	// 관심상품 조회(페이징 처리)
+	public List<WishListVO> getWishListWithPaging(int userId, CriteriaSM cri);
+
+	public int getTotalCount(int userId);
 
 }

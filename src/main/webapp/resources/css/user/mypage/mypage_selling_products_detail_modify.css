@@ -58,6 +58,38 @@
 .price_modify{
     display: flex;
     align-items: center;
+    /*background-color: blue;*/
+}
+
+.input_text{
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 50%;
+    height: 30px;
+    display: flex;
+}
+
+#prcinput{
+    width: 50%;
+}
+
+.input_rt{
+    width: 50px;
+    color: black;
+    font-weight: bold;
+    /*background-color: #666666;*/
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+}
+#rateinput{
+    width: 60px;
+
+    background-color: rgba(255,255,255,0);
+    /*background-color: #333333;*/
+
+    font-weight: bold;
 }
 input[type="radio"]{
     width: 15px;
@@ -79,6 +111,21 @@ label{
     margin-bottom : 30px;
 }
 
+.input_prc{
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 40%;
+    height: 30px;
+    display: flex;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .info_section{
     height: 20%;
     /* background-color: hotpink; */
@@ -91,14 +138,17 @@ label{
 }
 
 .date-search{
-    /* background-color: blueviolet; */
+    /*background-color: blueviolet;*/
     position: relative;
-    right: 10px;
+
+
 }
 
 input[type="date"]{
     background-color: white;
     border: 1px solid black;
+    position:relative;
+    right:10px;
 }
 
 #reg-btn-area{

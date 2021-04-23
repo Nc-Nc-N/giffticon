@@ -18,10 +18,6 @@
     </div>
     <div class="item_nameNcode">
         <div class="item_name">
-            <div>콘 번호</div>
-            No.<c:out value="${gftInfo.prdCode}"/><c:out value="${gftInfo.id}"/>
-        </div>
-        <div class="item_name">
             <div>브랜드</div>
             <c:out value="${gftInfo.brdName}"/>
         </div>
@@ -29,10 +25,14 @@
             <div>상품명</div>
             <c:out value="${gftInfo.prdName}"/>
         </div>
+        <div class="item_name">
+            <div>상품 번호</div>
+            <c:out value="${gftInfo.prdCode}"/><c:out value="${gftInfo.id}"/>
+        </div>
     </div>
     <div class="item_btn_seller">
         <c:choose>
-            <c:when test="${gftInfo.codeName eq '판매대기' || list.codeName eq '판매중'}">
+            <c:when test="${gftInfo.codeName == '판매대기' || gftInfo.codeName == '판매중'}">
                 <button id="modifyGift" class="btn btn-dark" value="<c:out value="${gftInfo.id}"/>">상품수정</button>
                 <button id="deleteGift" class="btn btn-dark" value="<c:out value="${gftInfo.id}"/>">내역삭제</button>
             </c:when>
@@ -51,7 +51,14 @@
     <div class="item_nameNcode">
         <div class="item_name">
             <div>등록일자</div>
-            <fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.aprvDt}"/>
+            <c:choose>
+                <c:when test="${gftInfo.aprvDt != null}">
+                    <fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.aprvDt}"/>
+                </c:when>
+                <c:otherwise>
+                    미승인
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="item_name">
             <div>유효기간</div>
@@ -81,7 +88,7 @@
     <div class="item_prc_right">
         <div class="prc_column">
             <div class="prc_column_right">할인률</div>
-            <c:out value="${gftInfo.dcRate * 100}"/>%
+            <fmt:formatNumber value="${gftInfo.finalDcRate}" type="percent" pattern="0.0%"/>
         </div>
         <div class="prc_column">
             <div class="prc_column_right">판매가격</div>
@@ -111,19 +118,14 @@
 </body>
 </html>
 
-<script>
-
+<script> //actionForm , 기프티콘 수정 및 삭제
 
     $(".document").ready(function () {
-
-        let isAutoPrc = '<c:out value="gftInfo.isAutoPrc"/>';
 
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
         var actionForm = $("#actionForm");
-        var modal = $(".register-content");
-        let modalAction = $("#modalAction");
 
         $('#deleteGift').on("click", function (e) {
 
@@ -153,13 +155,21 @@
             let gftId = "<c:out value="${gftInfo.id}"/>";
             let isAutoPrc = $("input[name='price_select']:checked").val();
             let dcPrc = $("#prcinput").val();
+            let finalDcRate = $("#rateinput").val();
+
+            if(dcPrc == null || dcPrc == ""){
+                alert("판매가격을 입력하세요");
+                return ;
+            }
+            finalDcRate = finalDcRate.slice(0,-1);
 
             let prcUpdate = {
                 email: userEmail,
                 password: userPwd,
                 gftId: gftId,
                 isAutoPrc: isAutoPrc,
-                dcPrc: dcPrc
+                dcPrc: dcPrc,
+                dcRate: finalDcRate / 100
             }
 
             $.ajax({
@@ -187,22 +197,72 @@
 
         })
 
-        if ($("#prc_auto").attr("checked")) {
-            console.log("autoPrc checked");
+    })
+
+</script>
+
+<script type="text/javascript" src="/resources/js/user/autoPrc.js"></script>
+<script> //자동가격 설정 script
+
+    $(".document").ready(function () {
+
+        let prc = "<c:out value="${gftInfo.listPrc}"/>";
+        let startDcRate = "<c:out value="${gftInfo.startDcRate}"/>";
+        let finalDcRate = "<c:out value="${gftInfo.finalDcRate}"/>";
+        let expirDt = "<fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.expirDt}"/>";
+        let autoPrc = "<c:out value="${gftInfo.isAutoPrc}"/>";
+
+        let finalPnR = calAutoPrc(prc, startDcRate, expirDt);
+
+        if(autoPrc == 1){
+
+            $("#prc_auto").attr("checked", true);
             $("#prcinput").attr("readonly", true);
+
+
+        }else{
+
+            $("#prc_manual").attr("checked", true);
+            $("#prcinput").attr("readonly", false);
+
         }
 
         $("#prc_auto").on("click", function (e) {
 
-            $("#prcinput").val("<c:out value="${gftInfo.dcPrc}"/>").attr("readonly", true);
+            $("#prcinput").val(finalPnR[0]).attr("readonly", true);
+            $("#prc_manual").prop("disabled",false);
+            $("#rateinput").val((finalPnR[1]*100).toFixed(2)+"%");
         })
 
         $("#prc_manual").on("click", function (e) {
 
             $("#prcinput").attr("readonly", false).val("");
+            $(this).prop("disabled",true);
+            $("#rateinput").val("");
         })
 
 
-    })
+        $("#prcinput").keyup(function(e) {
 
+            $("#rateinput").val("");
+
+            if(parseInt($("#prcinput").val())>prc){
+                alert("정가보다 높은 가격에 팔 수 없습니다.");
+                $("#prcinput").val("");
+                $("#rateinput").val("");
+            }else if(parseInt($("#prcinput").val())<=0){
+                alert("가격이 올바르지 않습니다.");
+                $("#prcinput").val("");
+                $("#rateinput").val("");
+            }
+            setTimeout(function(){
+
+                $("#rateinput").val(((prc - $("#prcinput").val()) / prc * 100).toFixed(2)+"%");
+            },1000)
+
+        })
+
+
+
+    })
 </script>

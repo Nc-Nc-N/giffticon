@@ -1,14 +1,14 @@
 package com.ncncn.mapper;
 
 
-import com.ncncn.domain.CriteriaCH;
+import com.ncncn.domain.pagination.CriteriaCH;
 import com.ncncn.domain.UserDetailCheckDTO;
 import com.ncncn.domain.UserMemoDTO;
 import com.ncncn.domain.UserVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
-import org.junit.Assert.*;
+import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -54,6 +54,9 @@ public class UserCheckMapperTests {
         List<UserVO> list = mapper.getListWithPaging(cri);
 
         list.forEach(user -> log.info(user));
+
+        assertTrue(list.get(0).getTelNo().contains("3333"));
+
     }
 
     @Test
@@ -62,6 +65,8 @@ public class UserCheckMapperTests {
         int userId=152;
         UserDetailCheckDTO user = mapper.getUserDetail(userId);
         log.info(user);
+        assertEquals(152, user.getId());
+        assertNotEquals(111, user.getId());
 
     }
 

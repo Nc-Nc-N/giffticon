@@ -1,26 +1,26 @@
-
-*{
+* {
     font-family: 'Noto Sans KR', sans-serif;
 }
-#header{
+
+#header {
     height: 180px;
     color: #333;
     border-bottom: 1px solid gainsboro;
 }
 
-.top_menu{
-    width:1000px;
+.top_menu {
+    width: 1000px;
+    height: 26px;
     display: flex;
-    margin:auto;
+    margin: auto;
     justify-content: flex-end;
 
 }
 
 .top_menu > span {
-
-    margin : 0 5px;
-
+    margin: 0 5px;
 }
+
 .main-logo {
     padding: 15px;
     text-align: center;
@@ -29,7 +29,6 @@
 
 .home-logo {
     width: 140px;
-    height: 30%;
     margin: 0 auto;
 }
 
@@ -37,7 +36,7 @@
     width: 100%;
 }
 
-.main-bar{
+.main-bar {
     height: 50px;
     width: 1000px;
     margin: auto;
@@ -46,41 +45,166 @@
     font-weight: bold;
 }
 
-.bar-left{
+.bar-left {
     /* background-color:yellow; */
     width: 275px;
     display: flex;
 }
-.category-drop{
-    /* background-color: blue; */
+
+.category-drop {
+    color: #333;
     display: flex;
     width: 125px;
 }
-.category-btn{
-    margin: auto 10px auto 0;
-    /* background-color: burlywood; */
 
+/*전체 카테고리 menu*/
+.exo-menu {
+    height: 80%;
+    margin: 13.5px auto 13.5px -40px;
+    float: left;
+    position: relative;
+}
+
+.exo-menu > li {
+    display: inline-block;
+    float: left;
+}
+
+.exo-menu > li > a {
+    text-decoration: none;
+    text-transform: uppercase;
+    -webkit-transition: color 0.2s linear, background 0.2s linear;
+    -moz-transition: color 0.2s linear, background 0.2s linear;
+    -o-transition: color 0.2s linear, background 0.2s linear;
+    transition: color 0.2s linear, background 0.2s linear;
+}
+
+.exo-menu > li > a.active,
+.exo-menu > li > a:hover,
+li.drop-down ul > li > a:hover {
+    color: #FF585D;
+}
+
+li.drop-down,
+.flyout-right {
+    position: relative;
+}
+
+li.drop-down:before {
+    content: "\f103";
+    color: #fff;
+    font-style: normal;
+    display: inline;
+    position: absolute;
+    right: 6px;
+    top: 20px;
+    font-size: 14px;
+}
+
+li.drop-down > ul {
+    /*margin-top: 20px;*/
+    list-style: none;
+    left: 0px;
+    min-width: 109px; /* 박스 크기 */
 
 }
 
-.category-btn:hover{
-    /* background-color: chartreuse; */
+.drop-down-ul {
+    display: none;
+}
+
+.flyout-right > ul {
+    list-style: none;
+    top: 0;
+    min-width: 150px;
+    display: none;
+}
+
+li.drop-down > ul > li > a,
+.flyout-right ul > li > a {
+    display: block;
+    padding: 20px 22px;
+    text-decoration: none;
+    background-color: rgb(245, 244, 244);
+    -webkit-transition: color 0.2s linear, background 0.2s linear;
+    -moz-transition: color 0.2s linear, background 0.2s linear;
+    -o-transition: color 0.2s linear, background 0.2s linear;
+    transition: color 0.2s linear, background 0.2s linear;
+}
+
+li.drop-down {
+    height: 100%;
+}
+
+/*common*/
+.flyout-right ul > li > a {
+    background-color: rgb(245, 244, 244);
+}
+
+/*hover*/
+.drop-down-ul:hover,
+li.flyout-right > ul:hover,
+li.flyout-right a:hover + ul,
+li.drop-down > a:hover + .drop-down-ul {
+    display: block;
+}
+
+/*responsive*/
+@media (min-width: 300px) {
+    .flyout-right > ul, li.drop-down > ul {
+        padding-left: 0px;
+        list-style: none;
+        position: absolute;
+        font-size: 14px;
+    }
+
+    .flyout-right > ul {
+        left: 100%;
+    }
+}
+
+@media (max-width: 300px) {
+
+    .exo-menu {
+        min-height: 58px;
+        background-color: #fff;
+        width: 100%;
+    }
+
+    .exo-menu > li > a {
+        width: 100%;
+        display: none;
+    }
+
+    .exo-menu > li {
+        list-style: none;
+        width: 100%;
+    }
+
+    .display.exo-menu > li > a {
+        display: block;
+    }
+
+    .flyout-right > ul, li.drop-down > ul {
+        padding-left: 0px;
+        list-style: none;
+        position: relative;
+    }
 
 }
-.leftmenus{
-    /* background-color: darkorchid; */
+
+.leftmenus {
     width: 150px;
     text-align: end;
     display: flex;
     justify-content: flex-start;
 
 }
-.leftmenu{
+
+.leftmenu {
     margin: auto 20px auto 15px;
-    /* background-color: darkseagreen; */
-
-
 }
+
 .search-bar-container {
     display: flex;
     height: 35px;
@@ -90,14 +214,14 @@
     margin: auto;
 }
 
-.search-form{
-    display:flex;
+.h-search-form {
+    display: flex;
     text-align: center;
     position: relative;
     border-radius: 40px;
 }
 
-.search-input {
+.h-search-input {
     border: none;
     outline: none;
     width: 400px;
@@ -108,7 +232,7 @@
     float: left;
 }
 
-.search-button {
+.h-search-button {
     float: right;
     width: 30px;
     height: 30px;
@@ -123,40 +247,83 @@
     color: rgb(71, 71, 71);
 }
 
-.bar-right{
-    /* background-color:burlywood; */
+.bar-right {
     width: 275px;
     display: flex;
     justify-content: flex-end;
 }
 
 .rightmenu {
-    /* background-color:darkolivegreen; */
     margin: auto 0 auto 40px;
-
 }
-.icons{
+
+.icons {
     text-align: left;
-    /* background-color: darkgreen; */
     display: flex;
 }
 
-.icon{
+.icon {
     font-size: x-large;
     margin: auto 30px auto 10px;
-    /* background-color: chocolate; */
 }
 
-.login-panel:link{
+.header_divider {
+    font-size: 14px;
+    color: #666666;
+}
+
+.user-email {
+    font-size: 14px;
+    color: #333333;
+}
+
+.login-panel {
+    font-size: 14px;
+}
+
+.login-panel:link {
     text-decoration: none;
-    color: black;
+    color: #333333;
 }
 
-.login-panel:visited{
-    color: black;
+.login-panel:visited {
+    color: #333333;
 }
 
-.login-panel:hover{
-    color: rgb(255,88,93);
+.login-panel:hover, .leftmenu a:hover, .rightmenu a:hover {
+    color: rgb(255, 88, 93);
 }
-/* ------------------------아래는 바디!----------------------- */
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:focus {
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: none;
+}
+
+.logout {
+    color: #333333;
+    border: none;
+    outline: none;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.logout:hover {
+    color: rgb(255, 88, 93);
+}

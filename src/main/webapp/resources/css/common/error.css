@@ -1,0 +1,96 @@
+body{
+    display: flex;
+    justify-content: center;
+}
+
+.error-center{
+    width: 50%;
+    height: 100%;
+}
+.error-section{
+    width: 100%;
+    height: 100%;
+    /*background-color: red;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.error-code{
+    width: 100%;
+    height: 20%;
+    /*background-color: #666666;*/
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.img_404, img_400 {
+    width: 62%;
+    height: 55%;
+
+}
+
+.img_500{
+    width: 70%;
+    height: 55%;
+    /*background-color: #514859;*/
+    text-align: center;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+}
+
+.error-msg{
+    /*background-color: yellow;*/
+    width: 62%;
+    height: fit-content;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 20%;
+    text-align: center;
+
+}
+
+.msg_line1{
+    display: flex;
+    justify-content: center;
+}
+
+.msg_line1 > span {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.msg_line1 > span:first-child{
+    font-size: 25px;
+}
+
+.btn-section{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    width: 62%;
+    /*background-color: #333333;*/
+    margin-left: 20%;
+}
+
+.btn-active{
+    width: 100px;
+}
+
+.btn-active:hover{
+    background-color: white;
+    color: rgb(255, 88, 93);
+    border: 1px solid rgb(255, 88, 93);
+}
+
+.spaceright{
+    background-color: #514859;
+    width: 50%;
+    height: 100%;
+}

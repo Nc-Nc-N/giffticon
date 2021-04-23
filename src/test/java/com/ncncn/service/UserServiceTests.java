@@ -22,11 +22,15 @@ public class UserServiceTests {
     @Test
     public void testReadById() {
 
-        int userId = 157;
+        int userId = 156;
 
         UserVO user = userService.readbyId(userId);
 
         log.info("user pnt : " + user.getPnt());
+
+        assertEquals(user.getEmail(),"planner263@gmail.com");
+        assertEquals(user.getEnabled(),1);
+        assertEquals(user.getRoleCode(),"002");
     }
 
     @Test

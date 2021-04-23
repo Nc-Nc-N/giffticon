@@ -135,7 +135,7 @@
     transform:scaleX(-1)
 }
 .splide__arrow--next {
-    right:1em
+    right:0
 }
 .splide__pagination {
     position:absolute;

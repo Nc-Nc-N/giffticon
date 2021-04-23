@@ -1,8 +1,9 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.CriteriaCH;
+import com.ncncn.domain.pagination.CriteriaCH;
 import com.ncncn.domain.UserDetailCheckDTO;
 import com.ncncn.domain.UserMemoDTO;
+import com.ncncn.domain.UserStatusDTO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -35,9 +36,10 @@ public class UserCheckServiceTests {
     }
 
     @Test
-    public void testGetUser() {
+    public void testGetUserDetail() {
         int userId=152;
         log.info(service.getUserDetail(userId));
+        assertEquals(152, service.getUserDetail(userId).getId());
     }
 
     @Test
@@ -51,5 +53,25 @@ public class UserCheckServiceTests {
 
         UserDetailCheckDTO user = service.getUserDetail(152);
         assertEquals(user.getMemo(), "Memo update test123");
+    }
+
+    @Test
+    public void testUpdateStatus() {
+        UserStatusDTO stus = new UserStatusDTO();
+        stus.setId(152);
+        stus.setEnabled(0);
+
+        service.updateStatus(stus);
+        assertEquals(0, service.getUserDetail(152).getEnabled());
+    }
+
+    @Test
+    public void testUpdateStatus2() {
+        UserStatusDTO stus = new UserStatusDTO();
+        stus.setId(152);
+        stus.setEnabled(1);
+
+        service.updateStatus(stus);
+        assertEquals(1, service.getUserDetail(152).getEnabled());
     }
 }

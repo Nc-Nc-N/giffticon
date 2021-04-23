@@ -24,7 +24,7 @@ body {
 }
 
 .header {
-    width: 1000px;
+    width: 1200px;
     height: 40px;
     display: flex;
     justify-content: flex-end;
@@ -78,17 +78,21 @@ body {
 }
 
 #sidebar {
-    position: sticky;
-    top: 0;
     flex-grow: 1;
     max-width: 300px;
-    height: 950px;
-    display: block;
     background-color: rgb(71, 71, 71);
+    line-height: 1.5;
+}
+
+#sidebar div {
+    position: sticky;
+    top: 20px;
+    display: block;
 }
 
 .logo {
     width: 300px;
+    height: 65px;
     margin: 20px 0;
     text-align: center;
 }
@@ -178,7 +182,7 @@ body {
 
 #main {
     min-width: 800px;
-    width: 1000px;
+    width: 1200px;
     padding: 0 20px;
     margin: 0 auto;
     color: rgb(71, 71, 71);

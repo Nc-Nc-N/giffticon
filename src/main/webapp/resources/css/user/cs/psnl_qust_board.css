@@ -1,0 +1,46 @@
+.modal-content{
+    height: 340px;
+}
+
+.modal-header{
+    height: 70px;
+}
+
+.modal-body{
+    height: 180px;
+}
+
+.search-selected{
+    margin: 20px;
+}
+
+.btn-no{
+    width: auto;
+}
+
+.dark, .btn-modify{
+    margin-top: 5px;
+}
+
+.sub-category-btn-notice{
+    border-right: none;
+}
+
+.sub-category-btn-event{
+    border-left: 1px solid rgb(172, 172, 172);
+}
+
+
+.modify-title{
+    margin: 10px;
+    margin-left: 20px;
+    width: 560px;
+    height: 40px;
+    font-size: 17px;
+    resize: none;
+    border-color: #dee2e6;
+}
+
+
+
+

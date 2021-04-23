@@ -9,6 +9,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
     <title>Document</title>
 <link rel="stylesheet" href="/resources/css/user/prod_list.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/prod_detail.css" type="text/css">
@@ -26,9 +28,9 @@
             <nav>
                 <div class="catename"><i class="<c:out value="${category.iconPath}"/>"></i> &nbsp;<c:out value="${category.name}"/></div>
                 <ul>
-                    <a href="prod_list?code=${category.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li class="cateAll">전체보기</li></a>
+                    <a href="prod_list?code=${category.code}&orderby=best"><li class="cateAll">전체보기</li></a>
                     <c:forEach items="${brandList}" var="brandList">
-                        <a href="prod_list?code=${brandList.code}&orderby=best&pageNum=1&amount=${pageMaker.cri.amount}"><li><c:out value="${brandList.name}"/></li></a>
+                        <a href="prod_list?code=${brandList.code}&orderby=best"><li><c:out value="${brandList.name}"/></li></a>
                     </c:forEach>
                 </ul>
             </nav>
@@ -103,7 +105,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="/resources/js/wishList.js"></script>
+    <script type="text/javascript" src="/resources/js/user/wishList.js"></script>
     <script>
         // url 이동
         function common_goUrl(url){
@@ -113,8 +115,9 @@
         }
 
         $(document).ready(function (){
-            // 관심상품으로 등록되어 있는지 확인
-            let has = ${hasWish};
+
+            let has = ${hasWish};       // 관심상품으로 등록되어 있는지 확인
+            let userId = ${userId};
 
             // '관심상품' 버튼 상태 표시
             if(has === 1){
@@ -126,25 +129,35 @@
             // 관심 상품 버튼 클릭하면 이벤트 발생
             $("#like-button").on("click", function (e){
 
-                if(has === 0){ // 관심상품 미등록 상태일때 추가
-                    wishListService.add(
-                        {userId: "${userId}",
-                        prodCode: "${gifticon.prodCode}"},
-                        function (result){
-                            $("#like-button").addClass('selected');
-                            has = 1;
-                            alert("관심상품으로 등록되었습니다.");
-                        });
-                }else{ // 관심상품 등록 상태일때 삭제
-                    wishListService.remove(
-                        {userId: "${userId}",
-                        prodCode: "${gifticon.prodCode}"},
-                        function (result){
-                            $("#like-button").removeClass('selected');
-                            has = 0
-                            alert("관심상품에서 삭제되었습니다.");
-                        });
-                }
+                console.log("userId: " +userId);
+                console.log("hasWish: " +has);
+
+
+                if(userId=== 0){    // 로그인이 안 되어 있을 때
+                    alert("로그인 후에 이용가능한 메뉴입니다.")
+                    $(location).attr('href', "/account/signIn");
+
+                }else{
+                    if(has === 0){ // 관심상품 미등록 상태일때 추가
+                        wishListService.add(
+                            {userId: userId,
+                            prodCode: "${gifticon.prodCode}"},
+                            function (result){
+                                $("#like-button").addClass('selected');
+                                has = 1;
+                                alert("관심상품으로 등록되었습니다.");
+                            });
+                    }else{ // 관심상품 등록 상태일때 삭제
+                        wishListService.remove(
+                            {userId: userId,
+                            prodCode: "${gifticon.prodCode}"},
+                            function (result){
+                                $("#like-button").removeClass('selected');
+                                has = 0
+                                alert("관심상품에서 삭제되었습니다.");
+                            });
+                        }
+                    }
             })
         });
 

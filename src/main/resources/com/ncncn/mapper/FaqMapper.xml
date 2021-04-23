@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.ncncn.mapper.FaqMapper">
 
     <select id="getList" resultType="com.ncncn.domain.CsFaqVO">
@@ -17,8 +18,65 @@
         ]]>
     </select>
 
-<!-- 다 합치고나서 유저와 관리자 나누기 (관리자는 enabled = '0'일 때도 보여야한다.)-->
+
+<!-- 관리자 -->
     <select id="getListWithPaging" resultType="com.ncncn.domain.CsFaqVO">
+        <![CDATA[
+            select *
+            from cs_faq
+            where
+        ]]>
+
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            cs_cate_code = '001' AND (qust like CONCAT('%',#{keyword}, '%') OR ans like CONCAT('%',#{keyword}, '%'))
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cs_cate_code = '002' AND (qust like CONCAT('%',#{keyword}, '%') OR ans like CONCAT('%',#{keyword}, '%'))
+                        </when>
+
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+
+        <![CDATA[
+            order by odr_no, id desc
+            LIMIT #{amount}
+            OFFSET ${(pageNum-1) * amount}
+        ]]>
+    </select>
+
+
+    <select id="getTotalCount" resultType="int">
+
+       <![CDATA[
+
+        select count(*) from cs_faq
+        where
+            ]]>
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            cs_cate_code = '001' AND (qust like CONCAT('%',#{keyword}, '%') OR ans like CONCAT('%',#{keyword}, '%'))
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            cs_cate_code = '002' AND (qust like CONCAT('%',#{keyword}, '%') OR ans like CONCAT('%',#{keyword}, '%'))
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </select>
+
+
+    <!-- 사용자 -->
+    <select id="getListWithPagingUser" resultType="com.ncncn.domain.CsFaqVO">
         <![CDATA[
             select *
             from cs_faq
@@ -30,10 +88,10 @@
                 <trim prefix="OR">
                     <choose>
                         <when test="type == 'N'.toString()">
-                            cs_cate_code = '001' AND qust like CONCAT('%',#{keyword}, '%')
+                            cs_cate_code = '001' AND (qust like CONCAT('%',#{keyword}, '%') OR ans like CONCAT('%',#{keyword}, '%'))
                         </when>
                         <when test="type == 'E'.toString()">
-                            cs_cate_code = '002' AND qust like CONCAT('%',#{keyword}, '%')
+                            cs_cate_code = '002' AND (qust like CONCAT('%',#{keyword}, '%') OR ans like CONCAT('%',#{keyword}, '%'))
                         </when>
 
                     </choose>
@@ -50,28 +108,31 @@
     </select>
 
 
+    <select id="getTotalCountUser" resultType="int">
 
-    <select id="getTotalCount" resultType="int">
-
-       <![CDATA[
+        <![CDATA[
 
         select count(*) from cs_faq
-        where
+        where enabled = '1' AND (
             ]]>
         <trim prefix="" suffix="" prefixOverrides="OR">
             <foreach item='type' collection="typeArr">
                 <trim prefix="OR">
                     <choose>
                         <when test="type == 'N'.toString()">
-                            cs_cate_code = '001' AND qust like CONCAT('%',#{keyword}, '%')
+                            cs_cate_code = '001' AND (qust like CONCAT('%',#{keyword}, '%') OR ans like CONCAT('%',#{keyword}, '%'))
                         </when>
                         <when test="type == 'E'.toString()">
-                            cs_cate_code = '002' AND qust like CONCAT('%',#{keyword}, '%')
+                            cs_cate_code = '002' AND (qust like CONCAT('%',#{keyword}, '%') OR ans like CONCAT('%',#{keyword}, '%'))
                         </when>
                     </choose>
                 </trim>
-            </foreach>
+                </foreach>
         </trim>
+        <![CDATA[
+            )
+        ]]>
+
     </select>
 
 

@@ -65,6 +65,11 @@ public class UserMapperTest {
 
         UserVO user = userMapper.readById(userId);
         log.info("pnt : " + user.getPnt());
+
+        assertEquals(user.getEmail(),"leehj.kk@gmail.com");
+        assertEquals(user.getName(),"hj");
+        assertEquals(user.getMemo(),null);
+        assertEquals(user.getEnabled(),1);
     }
 
     @Test
@@ -75,6 +80,11 @@ public class UserMapperTest {
         UserVO user = userMapper.readByEmail(userEmail);
 
         log.info("userVO : " + user);
+
+        assertEquals(user.getId(), 156);
+        assertEquals(user.getMemo(), null);
+        assertEquals(user.getEnabled(), 1);
+        assertEquals(user.getPnt(), 0);
     }
 
     @Test

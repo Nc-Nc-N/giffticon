@@ -30,19 +30,19 @@
             <h2>고객센터</h2>
             <div id="submenu">
                 <div>
-                    <a href="http://localhost:8087/cs/adminNotice" >공지사항</a>
+                    <a href="/admin/adminNotice" >공지사항</a>
                 </div>
                 <div>
-                    <a href="http://localhost:8087/cs/adminFaq" style="color: rgb(255, 88, 93);">자주묻는질문</a>
+                    <a href="/admin/adminFaq" style="color: rgb(255, 88, 93);">자주묻는질문</a>
                 </div>
                 <div>
-                    <a href="http://localhost:8087/cs/adminOneOnOne">1:1문의</a>
+                    <a href="/admin/adminPsnlQust">1:1문의</a>
                 </div>
             </div>
 
             <!-- search area -->
             <div class="search-area">
-                <form class="search-form" id='searchForm' action="/cs/adminFaq" method="get">
+                <form class="search-form" id='searchForm' action="/admin/adminFaq" method="get">
                     <select class="search-select" name='type'>
                         <option value="NE"
                                 <c:out value="${pageMaker.cri.type eq 'NE'?'selected':''}"/>>전체
@@ -87,6 +87,9 @@
 
                     </div>
                 </c:forEach>
+                <c:if test="${list.size() == 0}">
+                    <div class="noSearchResult">검색 결과가 없습니다.</div>
+                </c:if>
             </div>
             <!-- end accordionMenu-->
 
@@ -97,27 +100,28 @@
 
                 <!-- pagenation-->
                 <div class="pagination">
-                    <c:if test="${pageMaker.prev}">
-                        <li class="paginate_button previous"><a href="${pageMaker.startPage -1}"><</a></li>
 
+                    <c:if test="${pageMaker.prev}">
+                        <li>
+                            <a class="paginate_button previous" href="${pageMaker.startPage -1}">&lt;</a></li>
                     </c:if>
 
-                    <c:forEach var="num" begin="${pageMaker.startPage}"
-                               end="${pageMaker.endPage}">
-                        <li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}">
-                            <a href="${num}">${num}</a></li>
+                    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                        <li>
+                            <a class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}" href="${num}">${num}</a>
+                        </li>
                     </c:forEach>
 
                     <c:if test="${pageMaker.next}">
-                        <li class="paginate_button next"><a href="${pageMaker.endPage + 1}">&gt;</a></li>
+                        <li>
+                            <a class="paginate_button next" href="${pageMaker.endPage +1 }">&gt;</a></li>
                     </c:if>
-
                 </div>
                 <!-- end pagenation-->
 
             </div>
 
-            <form ID='actionForm' action="/cs/adminFaq" method="get">
+            <form ID='actionForm' action="/admin/adminFaq" method="get">
                 <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
                 <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
                 <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
@@ -133,7 +137,7 @@
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
-
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
                     <input class="del-id" type="hidden" name="id" value=''>
@@ -163,12 +167,13 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
                     <p class="search-selected" id="modifyModalLabel"></p>
                     <input class="modify-id" type="hidden" name="id" value=''>
                     <span><input type="checkbox" class="modify-enabled" name="enabled" checked="checked" value=''> Visible</span>
-                    <span><input type="text" class="modify-odrNo" placeholder=" odrNo" name="odrNo" value=''></span>
+                    <span><input type="number" class="modify-odrNo" placeholder=" odrNo" name="odrNo" value=''></span>
                     <textarea class="modify-title" name="qust"></textarea>
 
                 </div>
@@ -195,6 +200,7 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
 
@@ -204,7 +210,9 @@
                             <option value="002">판매</option>
                         </select>
                         <span><input type="checkbox" class="register-enabled" name="enabled" checked="checked" value=''> Visible</span>
-                        <span><input class="register-odrNo" name="odrNo" placeholder=" ordNo" value=''></span>
+
+                        <span><input type="number" class="register-odrNo" name="odrNo" placeholder="우선순위" value=''></span>
+
                     </div>
                     <input class="register-user-id" type="hidden" name="userId" value=''>
                     <span class="qna-q">Q. </span><textarea class="register-title" name="qust"></textarea>
@@ -234,11 +242,6 @@
 
     $(".search-button").on("click", function (e) {
 
-        if (!searchForm.find("input[name='keyword']").val()) {
-            alert("키워드를 입력하세요");
-            return false;
-        }
-
         searchForm.find("input[name='pageNum']").val("1");
         e.preventDefault();
 
@@ -249,10 +252,12 @@
 
     $(document).ready(function () {
 
+        document.getElementById("adminCs").className = 'active';
+
         //page번호 클릭했을때 처
         var actionForm = $("#actionForm");
 
-        $(".paginate_button a").on("click", function (e) {
+        $(".paginate_button").on("click", function (e) {
 
             e.preventDefault();
 
@@ -277,7 +282,7 @@
 
         $.ajax({
             type: 'get',
-            url: '/cs/faq?id=' + this.id,
+            url: '/admin/faq?id=' + this.id,
             async: false,
             success: function (result) {
                 faq = result;
@@ -310,7 +315,7 @@
 
         $("#btn-delete").on("click", function (e) {
 
-            formObj.attr("action", "/cs/adminFaq/remove");
+            formObj.attr("action", "/admin/adminFaq/remove");
             formObj.submit();
 
 
@@ -336,7 +341,7 @@
 
         $.ajax({
             type: 'get',
-            url: '/cs/faq?id=' + this.id,
+            url: '/admin/faq?id=' + this.id,
             async: false,
             success: function (result) {
                 faq = result;
@@ -381,10 +386,19 @@
 
         $('#btn-modify').on("click", function () {
 
-
-            modifyForm.attr("action", "/cs/adminFaq/modify");
-            modifyForm.submit();
-
+            if($(".modify-odrNo").val() == ''){
+                alert("우선순위를 입력해주세요");
+                return false;
+            }else if($(".modify-title").val() == ''){
+                alert("제목을 입력해주세요");
+                return false;
+            }else if($(".modify-content").val() == ''){
+                alert("내용을 입력해주세요");
+                return false;
+            }else{
+                modifyForm.attr("action", "/admin/adminFaq/modify");
+                modifyForm.submit();
+            }
         });
 
         $("#closeModifyModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
@@ -400,12 +414,12 @@
     $(".btn-active").on("click", function () {
 
         registerForm = $("form");
-
+        let userId = "<c:out value="${userId}"/>";
         $("#registerModal").modal("show");
 
         //register 값 채우기
 
-        $(".register-user-id").val("166");
+        $(".register-user-id").val(userId);
 
         if ($('input:checkbox[name="enabled"]').is(":checked") == true) {
 
@@ -419,9 +433,22 @@
 
 
         $("#btn-register").on("click", function () {
-            registerForm.attr("action", "/cs/adminFaq/register");
-            registerForm.submit();
-        })
+
+            if ($(".register-odrNo").val() == ''){
+                alert("우선순위를 입력해주세요");
+                return false;
+            }else if($(".register-title").val() == ''){
+                alert("제목을 입력해주세요");
+                return false;
+            }else if ($(".register-content").val() == ''){
+                alert("내용을 입력해주세요");
+                return false;
+            }else {
+                registerForm.attr("action", "/admin/adminFaq/register");
+                registerForm.submit();
+            }
+
+        });
 
         $("#closeRegisterModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
 
