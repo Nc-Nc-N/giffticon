@@ -13,10 +13,10 @@ public interface UserCheckMapper {
 
     public int getTotalCount(UserCheckCriteria cri);
 
-    public UserDetailCheckDTO getUserDetail(int userId);
+    public UserDetailCheckVO getUserDetail(int userId);
 
-    public void updateMemo(UserMemoDTO memo);
+    public void updateMemo(UserMemoVO memo);
 
-    public void updateStatus(UserStatusDTO status);
+    public void updateStatus(UserStatusVO status);
 
 }

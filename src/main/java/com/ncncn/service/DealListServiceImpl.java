@@ -1,7 +1,7 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.pagination.CriteriaSM;
-import com.ncncn.domain.MyDealsDTO;
+import com.ncncn.domain.pagination.MyPageCriteria;
+import com.ncncn.domain.MyDealsVO;
 import com.ncncn.mapper.DealListMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -17,7 +17,7 @@ public class DealListServiceImpl implements DealListService {
     private DealListMapper dealListMapper;
 
     @Override
-    public List<MyDealsDTO> getGftDetail(int gftId, int userId) {
+    public List<MyDealsVO> getGftDetail(int gftId, int userId) {
 
         log.info("Get Detail of gft Id: " + gftId);
 
@@ -25,7 +25,7 @@ public class DealListServiceImpl implements DealListService {
     }
 
     @Override
-    public List<MyDealsDTO> getDealsWithPaging(int userId, CriteriaSM cri) {
+    public List<MyDealsVO> getDealsWithPaging(int userId, MyPageCriteria cri) {
         log.info("Service of Get Deals with Paging....");
 
         return dealListMapper.getDealsWithPaging(userId, cri.getDateFrom(), cri.getDateTo(),
@@ -33,7 +33,7 @@ public class DealListServiceImpl implements DealListService {
     }
 
     @Override
-    public int countDealList(int userId, CriteriaSM cri) {
+    public int countDealList(int userId, MyPageCriteria cri) {
         log.info("Count " + userId + "'s deal list....");
 
         return dealListMapper.countDealList(userId, cri.getDateFrom(), cri.getDateTo(),

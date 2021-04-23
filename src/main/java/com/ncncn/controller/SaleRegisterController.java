@@ -1,7 +1,7 @@
 package com.ncncn.controller;
 
 
-import com.ncncn.domain.AttachFileDTOCH;
+import com.ncncn.domain.request.AttachFileDTO;
 import com.ncncn.domain.BrandVO;
 import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProductVO;
@@ -35,7 +35,7 @@ import java.util.UUID;
 @Log4j
 @RequestMapping("/user/*")
 @AllArgsConstructor
-public class DealController {
+public class SaleRegisterController {
 
     private DealService service;
 
@@ -123,12 +123,12 @@ public class DealController {
 
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public ResponseEntity<List<AttachFileDTOCH>>
+    public ResponseEntity<List<AttachFileDTO>>
     uploadAjaxPost(MultipartFile[] uploadFile) {
 
         log.info("update ajax post................");
 
-        List<AttachFileDTOCH> list = new ArrayList<>();
+        List<AttachFileDTO> list = new ArrayList<>();
         String uploadFolder = "/Users/asdddq/Desktop/MyFolder/팀프로젝트/Git0418/giffticon/src/main/webapp/resources/img/barcode";
 
         String uploadFolderPath = getFolder();
@@ -144,7 +144,7 @@ public class DealController {
 
         for(MultipartFile multipartFile : uploadFile) {
 
-            AttachFileDTOCH attachDTO = new AttachFileDTOCH();
+            AttachFileDTO attachDTO = new AttachFileDTO();
 
             log.info("---------------------------------------");
             log.info("Upload File Name: " + multipartFile.getOriginalFilename());

@@ -1,6 +1,6 @@
 package com.ncncn.mapper;
 
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.CsNoticeVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -72,7 +72,7 @@ public class NoticeMapperTests {
 	@Test
 	public void testPaging(){
 
-		CriteriaCs cri = new CriteriaCs();
+		CsCriteria cri = new CsCriteria();
 
 		cri.setPageNum(3);
 		cri.setAmount(10);

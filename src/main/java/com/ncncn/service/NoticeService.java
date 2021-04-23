@@ -1,6 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.CsNoticeVO;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public interface NoticeService {
 
 //	public List<CsNoticeVO> getList();
 
-	public List<CsNoticeVO> getList(CriteriaCs cri);
+	public List<CsNoticeVO> getList(CsCriteria cri);
 
-	public int getTotal(CriteriaCs cri);
+	public int getTotal(CsCriteria cri);
 }

@@ -1,7 +1,7 @@
 package com.ncncn.mapper;
 
 
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.CsNoticeVO;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public interface NoticeMapper {
 
 	public List<CsNoticeVO> getList();
 
-	public List<CsNoticeVO> getListWithPaging(CriteriaCs cri);
+	public List<CsNoticeVO> getListWithPaging(CsCriteria cri);
 
 	public void insert(CsNoticeVO notice);
 
@@ -22,6 +22,6 @@ public interface NoticeMapper {
 
 	public int update(CsNoticeVO notice);
 
-	public int getTotalCount(CriteriaCs cri);
+	public int getTotalCount(CsCriteria cri);
 
 }

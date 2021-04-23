@@ -1,6 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.pagination.CriteriaSM;
+import com.ncncn.domain.pagination.MyPageCriteria;
 import com.ncncn.domain.WishListVO;
 import com.ncncn.mapper.WishListMapper;
 import lombok.AllArgsConstructor;
@@ -40,7 +40,7 @@ public class WishListServiceImpl implements WishListService{
 	}
 
 	@Override
-	public List<WishListVO> getWishListWithPaging(int userId, CriteriaSM cri) {
+	public List<WishListVO> getWishListWithPaging(int userId, MyPageCriteria cri) {
 		return mapper.getWishListWithPaging(userId, cri.getAmount(), cri.getPageNum());
 	}
 

@@ -2,7 +2,7 @@ package com.ncncn.service;
 
 
 
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.CsNoticeVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -49,7 +49,7 @@ public class NoticeServiceTests {
 	@Test
 	public void testGetList(){
 //		service.getList().forEach(notice -> log.info(notice));
-		service.getList(new CriteriaCs(2,10)).forEach(notice -> log.info(notice));
+		service.getList(new CsCriteria(2,10)).forEach(notice -> log.info(notice));
 	}
 
 	@Test

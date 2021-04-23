@@ -3,7 +3,7 @@ package com.ncncn.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import com.ncncn.domain.CsPsnlQustVO;
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.PsnlQustService;
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ public class PsnlQustController {
 	// 사용자
 
 	@GetMapping("/user/mypage/psnlQustBoard")
-	public String faqBoard(HttpServletRequest request, CriteriaCs cri, Model model) {
+	public String faqBoard(HttpServletRequest request, CsCriteria cri, Model model) {
 
 		log.info(cri.getType());
 		log.info(cri.getTypeArr());
@@ -76,7 +76,7 @@ public class PsnlQustController {
 
 
 	@PostMapping("/user/mypage/psnlQustBoard/modify")
-	public String modifyUser(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr) {
+	public String modifyUser(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr) {
 
 		log.info("modify: " + qna);
 
@@ -97,7 +97,7 @@ public class PsnlQustController {
 
 
 	@PostMapping("/user/mypage/psnlQustBoard/remove")
-	public String removeUser(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr) {
+	public String removeUser(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr) {
 
 
 		log.info("remove...." + id);
@@ -120,7 +120,7 @@ public class PsnlQustController {
 	// 관리자
 
 	@GetMapping("/admin/adminPsnlQust")
-	public String adminFaq(HttpServletRequest request, CriteriaCs cri, Model model) {
+	public String adminFaq(HttpServletRequest request, CsCriteria cri, Model model) {
 
 		log.info("list: " + cri);
 		int userId = (int) request.getSession().getAttribute("userId");
@@ -139,7 +139,7 @@ public class PsnlQustController {
 	}
 
 	@PostMapping("/admin/adminPsnlQust/modify")
-	public String modify(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr) {
+	public String modify(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr) {
 
 		log.info("modify: " + qna);
 
@@ -160,7 +160,7 @@ public class PsnlQustController {
 
 
 	@PostMapping("/admin/adminPsnlQust/remove")
-	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr) {
+	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr) {
 
 
 		log.info("remove...." + id);

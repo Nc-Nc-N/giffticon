@@ -20,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/applicationContext.xml",
         "file:src/main/webapp/WEB-INF/dispatcher-servlet.xml"})
 @Log4j
-public class DealControllerTests {
+public class SaleRegisterControllerTests {
 
     @Setter(onMethod_ = {@Autowired})
     private WebApplicationContext ctx;

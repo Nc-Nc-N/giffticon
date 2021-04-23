@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class MyDealsDTO {
+public class MyDealsVO {
 
     //from deal_detail
     private int dealId;

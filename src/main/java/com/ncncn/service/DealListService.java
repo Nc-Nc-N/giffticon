@@ -1,17 +1,17 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.pagination.CriteriaSM;
-import com.ncncn.domain.MyDealsDTO;
+import com.ncncn.domain.pagination.MyPageCriteria;
+import com.ncncn.domain.MyDealsVO;
 
 import java.util.List;
 
 public interface DealListService {
 
-    public List<MyDealsDTO> getGftDetail(int gftId, int userId);
+    public List<MyDealsVO> getGftDetail(int gftId, int userId);
 
-    public List<MyDealsDTO> getDealsWithPaging(int userId, CriteriaSM cri);
+    public List<MyDealsVO> getDealsWithPaging(int userId, MyPageCriteria cri);
 
-    public int countDealList(int userId, CriteriaSM cri);
+    public int countDealList(int userId, MyPageCriteria cri);
 
     public int countStus004(int userId);
 

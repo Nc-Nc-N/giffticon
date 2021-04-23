@@ -34,7 +34,7 @@
 
     </select>
 
-    <select id="getGftDetail" resultType="com.ncncn.domain.MyDealsDTO">
+    <select id="getGftDetail" resultType="com.ncncn.domain.MyDealsVO">
         <![CDATA[
         select brdT.name       brdName,
                prdT.name       prdName,
@@ -60,7 +60,7 @@
         ]]>
     </select>
 
-    <select id="getDealsWithPaging" resultType="com.ncncn.domain.MyDealsDTO">
+    <select id="getDealsWithPaging" resultType="com.ncncn.domain.MyDealsVO">
 
         <![CDATA[
         select

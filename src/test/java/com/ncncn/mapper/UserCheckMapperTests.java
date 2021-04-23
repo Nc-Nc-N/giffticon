@@ -2,8 +2,8 @@ package com.ncncn.mapper;
 
 
 import com.ncncn.domain.pagination.UserCheckCriteria;
-import com.ncncn.domain.UserDetailCheckDTO;
-import com.ncncn.domain.UserMemoDTO;
+import com.ncncn.domain.UserDetailCheckVO;
+import com.ncncn.domain.UserMemoVO;
 import com.ncncn.domain.UserVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -63,7 +63,7 @@ public class UserCheckMapperTests {
     public void testGetUser(){
 
         int userId=152;
-        UserDetailCheckDTO user = mapper.getUserDetail(userId);
+        UserDetailCheckVO user = mapper.getUserDetail(userId);
         log.info(user);
         assertEquals(152, user.getId());
         assertNotEquals(111, user.getId());
@@ -75,13 +75,13 @@ public class UserCheckMapperTests {
 
         int userId=152;
         String memo="Memo Update Test";
-        UserMemoDTO updateMemo = new UserMemoDTO();
+        UserMemoVO updateMemo = new UserMemoVO();
         updateMemo.setId(userId);
         updateMemo.setMemo(memo);
 
         mapper.updateMemo(updateMemo);
 
-        UserDetailCheckDTO user = mapper.getUserDetail(152);
+        UserDetailCheckVO user = mapper.getUserDetail(152);
 
         assertEquals(user.getMemo(), "Memo Update Test");
 

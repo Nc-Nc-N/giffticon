@@ -60,7 +60,7 @@
     </select>
 
 
-    <select id="getUserDetail" resultType="com.ncncn.domain.UserDetailCheckDTO">
+    <select id="getUserDetail" resultType="com.ncncn.domain.UserDetailCheckVO">
 
     <![CDATA[
         select u.id, u.email, u.name, u.tel_no, u.in_date, bname.code_name as bankName, b.acc as bankAccount,
@@ -95,7 +95,6 @@
             ) AS pqust on u.id = pqust.user_id
 
         where u.id=#{userId}
-        ;
     ]]>
     </select>
 

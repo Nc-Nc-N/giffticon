@@ -1,7 +1,7 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.pagination.CriteriaSM;
-import com.ncncn.domain.MyDealsDTO;
+import com.ncncn.domain.pagination.MyPageCriteria;
+import com.ncncn.domain.MyDealsVO;
 import com.ncncn.mapper.UserMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -42,13 +42,13 @@ public class DealListServiceTests {
     public void testGetGftDetail() {
         int gftid = 80;
         int userid = 157;
-        List<MyDealsDTO> myDealsDTO = service.getGftDetail(gftid, userid);
+        List<MyDealsVO> myDealsVO = service.getGftDetail(gftid, userid);
 
         log.info("permited user is : " + userid);
 
-        assertEquals(myDealsDTO.get(0).getGftId(),80);
-        assertEquals(myDealsDTO.get(0).getBrdName(),"스타벅스");
-        assertEquals(myDealsDTO.get(0).getStusCode(), "거래확정대기");
+        assertEquals(myDealsVO.get(0).getGftId(),80);
+        assertEquals(myDealsVO.get(0).getBrdName(),"스타벅스");
+        assertEquals(myDealsVO.get(0).getStusCode(), "거래확정대기");
     }
 
     @Test
@@ -57,8 +57,8 @@ public class DealListServiceTests {
 
         int userId = 156;
 
-        CriteriaSM cri = new CriteriaSM(1, 3);
-        CriteriaSM cri2 = new CriteriaSM(1, 4);
+        MyPageCriteria cri = new MyPageCriteria(1, 3);
+        MyPageCriteria cri2 = new MyPageCriteria(1, 4);
 
         int sizeofList = service.getDealsWithPaging(userId, cri).size();
         int sizeofList2 = service.getDealsWithPaging(userId, cri2).size();

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RqustReject {
+public class RqustRejectDTO {
 
 	private String email;
 
