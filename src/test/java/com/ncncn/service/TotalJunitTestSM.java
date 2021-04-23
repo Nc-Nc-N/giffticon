@@ -1,7 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.*;
-import com.ncncn.domain.pagination.CriteriaCH;
+import com.ncncn.domain.pagination.UserCheckCriteria;
 import com.ncncn.domain.pagination.CriteriaCs;
 import com.ncncn.domain.pagination.GiftiCriteria;
 import lombok.extern.log4j.Log4j;
@@ -223,7 +223,7 @@ public class TotalJunitTestSM {
     @Test
     public void UserCheckTest1(){
 
-        CriteriaCH cri = new CriteriaCH(1,10);
+        UserCheckCriteria cri = new UserCheckCriteria(1,10);
 
         List<UserVO> userList = userCheckService.getUserList(cri);
 

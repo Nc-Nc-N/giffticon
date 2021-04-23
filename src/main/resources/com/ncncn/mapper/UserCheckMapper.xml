@@ -43,6 +43,7 @@
 
         )
         <![CDATA[
+            order by id desc
             LIMIT #{amount}
             OFFSET ${(pageNum-1) * amount}
 

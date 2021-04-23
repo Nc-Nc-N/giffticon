@@ -1,6 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.pagination.CriteriaCH;
+import com.ncncn.domain.pagination.UserCheckCriteria;
 import com.ncncn.domain.UserDetailCheckDTO;
 import com.ncncn.domain.UserMemoDTO;
 import com.ncncn.domain.UserStatusDTO;
@@ -32,7 +32,7 @@ public class UserCheckServiceTests {
     @Test
     public void testGetUserList() {
 
-        service.getUserList(new CriteriaCH(2, 10)).forEach(user -> log.info(user));
+        service.getUserList(new UserCheckCriteria(2, 10)).forEach(user -> log.info(user));
     }
 
     @Test

@@ -1,7 +1,7 @@
 package com.ncncn.mapper;
 
 
-import com.ncncn.domain.pagination.CriteriaCH;
+import com.ncncn.domain.pagination.UserCheckCriteria;
 import com.ncncn.domain.UserDetailCheckDTO;
 import com.ncncn.domain.UserMemoDTO;
 import com.ncncn.domain.UserVO;
@@ -36,7 +36,7 @@ public class UserCheckMapperTests {
     @Test
     public void tesetPaging() {
 
-        CriteriaCH cri = new CriteriaCH();
+        UserCheckCriteria cri = new UserCheckCriteria();
 
         List<UserVO> list = mapper.getListWithPaging(cri);
 
@@ -47,7 +47,7 @@ public class UserCheckMapperTests {
     @Test
     public void testSearch() {
 
-        CriteriaCH cri = new CriteriaCH();
+        UserCheckCriteria cri = new UserCheckCriteria();
         cri.setKeyword("3333");
         cri.setType("T");
 
