@@ -1,7 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.*;
-import com.ncncn.domain.pagination.CriteriaCH;
+import com.ncncn.domain.pagination.UserCheckCriteria;
 import com.ncncn.mapper.UserCheckMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -22,7 +22,7 @@ public class UserCheckServiceImpl implements UserCheckService {
 
     // 299page
     @Override
-    public List<UserVO> getUserList(CriteriaCH cri) {
+    public List<UserVO> getUserList(UserCheckCriteria cri) {
 
         log.info("get List with Criteria: " + cri);
 
@@ -30,7 +30,7 @@ public class UserCheckServiceImpl implements UserCheckService {
     }
 
     @Override
-    public int getTotal(CriteriaCH cri) {
+    public int getTotal(UserCheckCriteria cri) {
 
         log.info("get total count");
         return mapper.getTotalCount(cri);

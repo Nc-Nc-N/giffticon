@@ -3,7 +3,7 @@ package com.ncncn.controller;
 
 import com.ncncn.domain.*;
 
-import com.ncncn.domain.pagination.CriteriaCH;
+import com.ncncn.domain.pagination.UserCheckCriteria;
 import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.UserCheckService;
 import com.ncncn.service.UserService;
@@ -28,7 +28,7 @@ public class UserCheckController {
     private UserService userService;
 
     @GetMapping("/userlist")
-    public String userList(CriteriaCH cri, Model model) {
+    public String userList(UserCheckCriteria cri, Model model) {
         log.info("---------log: " + cri);
         model.addAttribute("list", service.getUserList(cri));
 

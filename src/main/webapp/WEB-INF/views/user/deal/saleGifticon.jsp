@@ -751,7 +751,7 @@
             {   id:null,
                 userId:userId,
                 prodCode:prodCode,
-                dcPrc:$("#dcprice")[0].value*1 + getAddDcRate(),
+                dcPrc:$("#dcprice")[0].value*1,
                 dcRate:inDcRate + getAddDcRate(),
                 expirDt:$("#end-date")[0].value,
                 brcd:$("#barcode")[0].value,
@@ -782,7 +782,7 @@
 
             error: function(error) {
                 console.log(error);
-                alert("오류가 발생했습니다.");
+                alert("오류가 발생했습니다. 이미 등록된 바코드번호일 수 있습니다.");
             }
 
         });
@@ -810,6 +810,7 @@
         $('.black_bg').css('display','block');
     }
 
+    
     let showFinalModal = function() {
         wrapWindowByMask();
         $('.modal_wrap').css('left', ($(window).width() - 850) * 0.5);
