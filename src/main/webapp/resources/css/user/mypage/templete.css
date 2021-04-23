@@ -14,7 +14,6 @@
 .main {
     width: 1000px;
     height: 935px;
-
     /* background-color: lightgreen; */
 }
 
@@ -48,7 +47,6 @@
 }
 
 .sidebarspace {
-
     height: 855px;
     width: 200px;
     /* background-color:coral; */
@@ -70,10 +68,6 @@
     display: flex;
     align-items: center;
     text-align: center;
-}
-
-.bar:hover {
-
 }
 
 .bar > div {
@@ -98,6 +92,7 @@
 
 .abs {
     background-color: rgb(255, 88, 93);
+    border: 1px solid white;
     width: 160px;
     height: 160px;
     color: white;
@@ -144,18 +139,17 @@
     border-bottom: 3px solid gainsboro;
 }
 
-
-a:visited {
+.sidebar > a:visited {
     text-decoration: none;
     color: black;
 }
 
-a:link {
+.sidebar > a:link {
     text-decoration: none;
     color: black;
 }
 
-a:hover {
+.sidebar > a:hover {
     color: rgb(255, 88, 93)
 }
 

@@ -13,11 +13,8 @@
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-<title>Document</title>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-</style>
 
+<title>Document</title>
 
 <body>
 <div id="container">
