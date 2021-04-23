@@ -28,16 +28,19 @@
 
 
 <!--광고 삽입-->
-<div class="splide">
-    <div class="splide__track">
-        <ul class="splide__list">
-            <li class="splide__slide">
-                <img src="/resources/img/banner002.png">
-            </li>
-            <li>
-                <img src="/resources/img/banner003.png">
-            </li>
-        </ul>
+<div id="advertiser">
+    <div class="splide" style="margin: 0px auto; width: 1400px; ">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <%-- 추가 배너는 li 태그 추가해주시면 됩니다. --%>
+                <li class="splide__slide">
+                    <img src="/resources/img/banner002.png">
+                </li>
+                <li class="splide__slide">
+                    <img src="/resources/img/banner003.png">
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
