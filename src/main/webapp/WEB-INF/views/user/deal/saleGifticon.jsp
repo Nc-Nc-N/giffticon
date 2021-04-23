@@ -239,7 +239,7 @@
 
     $(document).ready(function(){
 
-        // 가격종류 변경시 작동 함수
+        // 가격종류 변경시 동작
         $("input:radio[name=group1]").click(function() {
             let radioValue = $(this).val();
             // alert(radioValue);    // 자동입력시 1, 가격제시시 0
@@ -256,17 +256,12 @@
     // ------------------------ 파일 업로드
 
         // 이미지 등록시 자동 업로드
-
         $(document).on("change", ".file-input", function(){
             var formData = new FormData();
-
             var inputFile = $("input[name='uploadFile']");
-
             var files = inputFile[0].files;
 
             console.log(files);
-
-
 
             //add filedate to formdata
             for(var i = 0; i < files.length; i++){
@@ -297,7 +292,6 @@
 
                     showUploadedFile(result);
 
-
                 },
                 error: function(request,status,error){
                     alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -305,7 +299,6 @@
 
             });  //$.ajax
         });
-
 
     });  //end of $(document).ready()
 
@@ -414,42 +407,17 @@
         document.getElementById('dcrateindicator').innerText = '(할인율 : 0%)';
     }
 
-    // 가격 직접 입력 시 10원단위 반올림 적용. 입력값이 100원 이상일 때만
-
-    // let dcprice = document.getElementById('dcprice');
-    // // $('#dcprice').on("propertychange change keyup paste input", function() {
-    // $('#dcprice').on("keyup", function() {
-    //
-    //     roundUpDcPrice();
-    //     clearTimeout(roundUpDcPrice);
-    //
-    //     // setTimeout(function() {
-    //     //     if(parseInt(dcprice.value) > 100) {
-    //     //         dcprice.value = Math.round(dcprice.value / 10.0) * 10;
-    //     //     }
-    //     // }, 1000)
-    //
-    // });
-    //
-    // let roundUpDcPrice = function() {
-    //     setTimeout(function() {
-    //         if(parseInt(dcprice.value) > 100) {
-    //             dcprice.value = Math.round(dcprice.value / 10.0) * 10;
-    //         }
-    //     }, 1000)
-    // }
-
-    // product img 삭제
+    // product img 삭제하는 함수
     let deleteProdImg = function() {
         document.getElementById('prodImg').src = "";
     }
 
-    // product 설명 삭제
+    // product 설명 삭제하는 함수
     let deleteProdDescn = function() {
         document.getElementById('prodDescn').textContent = "";
     }
 
-    // product 이미지, 설명 삭제
+    // product 이미지, 설명 삭제하는 함수
     let deleteProdInfo = function() {
         deleteProdImg();
         deleteProdDescn();
@@ -460,7 +428,6 @@
     let selectedCatName="";
     let selectedBrdName="";
     let selectedProdName="";
-    // let selectResult="";
 
     let catSelectResultText = function() {
         return "선택한 카테고리 : " + selectedCatName;
@@ -488,12 +455,12 @@
         }
     }
 
-
+    // 대분류 클릭시 동작
     $('.categorySelect').on("click", function(){
-        // 대분류 클릭시 카테고리이름을 보내고 중분류 객체리스트를 받아온다.
-        // alert(this.innerText);
+        // 대분류 클릭시 대분류이름을 보내고 중분류 객체리스트를 받아온다.
         let catName = this.innerText;
         selectedCatName = this.innerText;
+        // 선택된 카테고리 텍스트 변경
         changeSelectedResultText(catSelectResultText());
         priceAllClean();
         let csrfHeaderName="${_csrf.headerName}";
@@ -546,9 +513,10 @@
 
     let brdName="";
 
+    // 중분류 클릭시 동작
     $('.brandbox').on("click", $('.brandSelect .select'), function(e){
-        // 중분류 클릭시 브랜드이름을 보내고 상품 객체리스트를 받아온다.
-        //     alert(e.target.innerText);
+        // 중분류 클릭시 중분류이름을 보내고 소분류 객체리스트를 받아온다.
+        // alert(e.target.innerText);
         // alert(e.target.type == "button");
         if(e.target.type == "button") {
             brdName = e.target.innerText;
@@ -610,6 +578,7 @@
     let userId = ${userId};
     let originPath = "";
 
+    // 소분류 클릭시 동작
     $('.productbox').on("click", $('.productSelect .select'), function(e){
         // alert(e.target.innerText);
         let prodName="";
@@ -617,15 +586,15 @@
             prodName=e.target.innerText;
             selectedProdName = e.target.innerText;
             changeSelectedResultText(prodSelectResultText());
-            // 소분류 클릭시 판매가, 가격선택버튼 초기화
+            // 소분류 클릭시 판매가, 가격선택버튼, 할인율 초기화
             dcPriceClean();
             priceChoiceButtonClean();
-            // 소분류 클릭시 할인율 초기화
             dcRateIndicatorClean();
         }
         let csrfHeaderName="${_csrf.headerName}";
         let csrfTokenValue="${_csrf.token}";
 
+        // 브랜드이름, 상품이름을 보내고 해당 상품에 대한 객체를 가져옴
         $.ajax({
             url: '/user/getProductObjectAction?brdName=' + brdName + '&prodName=' + prodName,
             processData: false,
@@ -642,7 +611,7 @@
 
                 // alert(result.code.substring(0,2));  //대분류 코드
                 cateCode = result.code.substring(0,2);
-                // alert(result.brdCode);  //중분류 코드
+                // alert(result.brdCode);  // 중분류 코드
                 brdCode = result.brdCode;
                 // alert(result.code);   // 소분류 코드
                 prodCode = result.code;
@@ -672,17 +641,10 @@
 
     function showUploadedFile(uploadResultArr) {
 
-        var str = "";
-
         $(uploadResultArr).each(function (i, obj) {
             // alert(obj.fileName);
-            // uploadResult.textContent = obj.fileName;      //
-            //
             var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" +
                 obj.uuid + "_" + obj.fileName);
-
-            // alert(fileCallPath);
-
 
             document.getElementById('thumbnail').src =
                 "/user/display?fileName=/" + fileCallPath;
@@ -794,6 +756,7 @@
         if(userId === 0) {checker +=1}
         if(prodCode === "") {checker +=1}
         if($("#dcprice")[0].value === "") {checker +=1}
+        if(parseInt($("#dcprice")[0].value) < 100) {checker +=1}
         if(inDcRate === 0) {checker +=1}
         if($("#end-date")[0].value === "") {checker +=1}
         if($("#barcode")[0].value === "") {checker +=1}
@@ -802,7 +765,7 @@
         return checker === 0;
     }
 
-
+    // 모달 배경처리
     function wrapWindowByMask() {
         var maskHeight = $(document).height();
 
@@ -810,7 +773,7 @@
         $('.black_bg').css('display','block');
     }
 
-    
+    // 모달창 띄워주기
     let showFinalModal = function() {
         wrapWindowByMask();
         $('.modal_wrap').css('left', ($(window).width() - 850) * 0.5);
@@ -872,7 +835,6 @@
         dateFormat: 'yy-mm-dd',
         minDate: 0
     });
-    // datepicker
 
 
 </script>
