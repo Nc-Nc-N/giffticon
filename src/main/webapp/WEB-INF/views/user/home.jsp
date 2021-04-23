@@ -26,18 +26,25 @@
     </style>
 </head>
 
-<!--여기서부터 home body-->
-<div id="advertiser"> <!--광고판테두리-->
-    <div class="advertise"> <!--광고 삽입-->
 
+<!--광고 삽입-->
+<div id="advertiser">
+    <div class="splide" style="margin: 0px auto; width: 1400px; ">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <%-- 추가 배너는 li 태그 추가해주시면 됩니다. --%>
+                <li class="splide__slide">
+                    <img src="/resources/img/banner002.png">
+                </li>
+                <li class="splide__slide">
+                    <img src="/resources/img/banner003.png">
+                </li>
+            </ul>
+        </div>
     </div>
-    <span>
-            <i class="fas fa-chevron-left"></i>
-            &nbsp;&nbsp;&nbsp;
-            <i class="fas fa-chevron-right"></i>
-        </span>
-
 </div>
+
+
 <div id="container">
 <div class="space"></div> <!--광고 위 여백-->
  <!-- 광고 아래 메인 컨텐츠-->
