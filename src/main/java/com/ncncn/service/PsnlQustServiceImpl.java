@@ -3,7 +3,7 @@ package com.ncncn.service;
 import java.util.List;
 
 import com.ncncn.domain.CsPsnlQustVO;
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.mapper.PsnlQustMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -51,27 +51,27 @@ public class PsnlQustServiceImpl implements PsnlQustService {
 	}
 
 	@Override
-	public List<CsPsnlQustVO> getList(CriteriaCs cri) {
+	public List<CsPsnlQustVO> getList(CsCriteria cri) {
 		log.info("getList with criteria: " + cri);
 
 		return mapper.getListWithPaging(cri);
 	}
 
 	@Override
-	public List<CsPsnlQustVO> getListPsnlQust(CriteriaCs cri, int userId) {
+	public List<CsPsnlQustVO> getListPsnlQust(CsCriteria cri, int userId) {
 		log.info("getList Personal Question: " + cri);
 
 		return mapper.getListPsnlQust(cri.getPageNum(), cri.getAmount(), cri.getType(), cri.getKeyword(), userId, cri.getTypeArr());
 	}
 
 	@Override
-	public int getTotal(CriteriaCs cri) {
+	public int getTotal(CsCriteria cri) {
 		log.info("get total count");
 		return mapper.getTotalCount(cri);
 	}
 
 	@Override
-	public int getTotalPsnlQust(CriteriaCs cri, int userId) {
+	public int getTotalPsnlQust(CsCriteria cri, int userId) {
 		log.info("get total pursonal Question count");
 		return mapper.getTotalPsnlQust(cri.getType(), cri.getKeyword(), userId, cri.getTypeArr());
 	}

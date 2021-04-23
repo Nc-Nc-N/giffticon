@@ -2,7 +2,7 @@ package com.ncncn.service;
 
 import com.ncncn.domain.*;
 import com.ncncn.domain.pagination.UserCheckCriteria;
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.pagination.GiftiCriteria;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -90,7 +90,7 @@ public class TotalJunitTestSM {
     @Test
     public void FaQTest5(){
 
-        CriteriaCs cri = new CriteriaCs();
+        CsCriteria cri = new CsCriteria();
 
         cri.setAmount(10);
         cri.setPageNum(1);
@@ -149,7 +149,7 @@ public class TotalJunitTestSM {
     @Test
     public void NoticeTest1(){
 
-        CriteriaCs cri = new CriteriaCs();
+        CsCriteria cri = new CsCriteria();
 
         cri.setAmount(10);
         cri.setPageNum(1);
@@ -161,7 +161,7 @@ public class TotalJunitTestSM {
     @Test
     public void NoticeTest2(){
 
-        CriteriaCs cri = new CriteriaCs();
+        CsCriteria cri = new CsCriteria();
 
         cri.setAmount(10);
         cri.setPageNum(1);
@@ -195,7 +195,7 @@ public class TotalJunitTestSM {
     @Test //total 숫자가 194가 나와야 하는데...? - db값 code 잘못 들어가서 total 79 가 맞음
     public void NoticeTest4(){
 
-        CriteriaCs cri = new CriteriaCs();
+        CsCriteria cri = new CsCriteria();
         cri.setAmount(10);
         cri.setPageNum(1);
         cri.setType("NE");
@@ -233,7 +233,7 @@ public class TotalJunitTestSM {
     @Test
     public void UserCheckTest2(){
 
-        UserDetailCheckDTO user = userCheckService.getUserDetail(156);
+        UserDetailCheckVO user = userCheckService.getUserDetail(156);
 
         assertEquals(user.getId(), 156);
         assertEquals(user.getEmail(), "planner263@gmail.com");
@@ -244,13 +244,13 @@ public class TotalJunitTestSM {
     @Test
     public void UserCheckTest3(){
 
-        UserMemoDTO memo = new UserMemoDTO();
+        UserMemoVO memo = new UserMemoVO();
         memo.setMemo("테스트용 메모입니다 유저에 메모 삽입 (user객체 에 update문 안쓰고 따로 메모 DTO 를 만드신건가요???)- SM");
         memo.setId(156);
 
         userCheckService.updateMemo(memo);
 
-        UserDetailCheckDTO user = userCheckService.getUserDetail(156);
+        UserDetailCheckVO user = userCheckService.getUserDetail(156);
 
         assertEquals(user.getMemo(),memo.getMemo());
     }
@@ -258,14 +258,14 @@ public class TotalJunitTestSM {
     @Test
     public void UserCheckTest4(){
 
-        UserStatusDTO userStus = new UserStatusDTO();
+        UserStatusVO userStus = new UserStatusVO();
 
         userStus.setEnabled('2');
         userStus.setId(44);
 
         userCheckService.updateStatus(userStus);
 
-        UserDetailCheckDTO user = userCheckService.getUserDetail(44);
+        UserDetailCheckVO user = userCheckService.getUserDetail(44);
 
         assertEquals(user.getEnabled(),'2');
     }

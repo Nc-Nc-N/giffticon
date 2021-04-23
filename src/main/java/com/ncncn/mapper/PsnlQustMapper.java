@@ -3,14 +3,14 @@ package com.ncncn.mapper;
 import java.util.List;
 
 import com.ncncn.domain.CsPsnlQustVO;
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import org.apache.ibatis.annotations.Param;
 
 public interface PsnlQustMapper {
 
 	List<CsPsnlQustVO> getList();
 
-	List<CsPsnlQustVO> getListWithPaging(CriteriaCs cri);
+	List<CsPsnlQustVO> getListWithPaging(CsCriteria cri);
 
 	List<CsPsnlQustVO> getListPsnlQust(@Param("pageNum") int pageNum,
 									   @Param("amount") int amount,
@@ -29,7 +29,7 @@ public interface PsnlQustMapper {
 
 	int updateUser(CsPsnlQustVO notice);
 
-	int getTotalCount(CriteriaCs cri);
+	int getTotalCount(CsCriteria cri);
 
 	int getTotalPsnlQust(@Param("type") String type,
 						 @Param("keyword") String keyword,

@@ -3,7 +3,7 @@ package com.ncncn.domain;
 import lombok.Data;
 
 @Data
-public class PrcUpdateDTO {
+public class PrcUpdateVO {
 
     private String email;
 

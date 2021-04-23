@@ -1,6 +1,6 @@
 package com.ncncn.controller;
 
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.CsNoticeVO;
 import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.NoticeService;
@@ -26,7 +26,7 @@ public class NoticeController {
 	// 사용자
 
 	@GetMapping("user/cs/noticeBoard")
-	public String csNotice(CriteriaCs cri, Model model){
+	public String csNotice(CsCriteria cri, Model model){
 
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getList(cri));
@@ -46,7 +46,7 @@ public class NoticeController {
 	// 관리자
 
 	@GetMapping("admin/adminNotice")
-	public  String adminNotice(HttpServletRequest request,CriteriaCs cri, Model model){
+	public  String adminNotice(HttpServletRequest request, CsCriteria cri, Model model){
 
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getList(cri));
@@ -85,7 +85,7 @@ public class NoticeController {
 	}
 
 	@PostMapping("/admin/adminNotice/modify")
-	public String modify(HttpServletRequest request, CsNoticeVO notice, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+	public String modify(HttpServletRequest request, CsNoticeVO notice, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr){
 
 		log.info("modify: " + notice);
 
@@ -105,7 +105,7 @@ public class NoticeController {
 	}
 
 	@PostMapping("/admin/adminNotice/remove")
-	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr){
 
 
 		log.info("remove...." + id);

@@ -1,8 +1,8 @@
 package com.ncncn.mapper;
 
-import com.ncncn.domain.pagination.CriteriaSM;
-import com.ncncn.domain.MyDealsDTO;
-import com.ncncn.domain.MySellDTO;
+import com.ncncn.domain.pagination.MyPageCriteria;
+import com.ncncn.domain.MyDealsVO;
+import com.ncncn.domain.MySellVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class DnSMapperTests {
     public void testCountDealList(){
 
         int userId = 156;
-        CriteriaSM cri = new CriteriaSM(1,4);
+        MyPageCriteria cri = new MyPageCriteria(1,4);
 
         assertEquals(dealListMapper.countDealList(userId, cri.getDateFrom(), cri.getDateTo(),
                 cri.getKeyword(), cri.getType(), cri.getTypeArr()), 12);
@@ -43,7 +43,7 @@ public class DnSMapperTests {
         int gftId = 80;
         int userId = 157;
 
-        MyDealsDTO dealDetail = dealListMapper.getGftDetail(gftId, userId).get(0);
+        MyDealsVO dealDetail = dealListMapper.getGftDetail(gftId, userId).get(0);
 
         assertEquals(dealDetail.getBrdName(),"스타벅스");
         assertEquals(dealDetail.getGftId(), 80);
@@ -53,7 +53,7 @@ public class DnSMapperTests {
 
     @Test
     public void testPaging() {
-        CriteriaSM cri = new CriteriaSM();
+        MyPageCriteria cri = new MyPageCriteria();
 //        cri.setDateFrom("2020-10-22");
 //        cri.setDateTo("2021-03-22");
         cri.setPageNum(1);
@@ -64,7 +64,7 @@ public class DnSMapperTests {
 
         int userId = 157;
 
-        List<MyDealsDTO> list = dealListMapper.getDealsWithPaging(userId, cri.getDateFrom(), cri.getDateTo(),
+        List<MyDealsVO> list = dealListMapper.getDealsWithPaging(userId, cri.getDateFrom(), cri.getDateTo(),
                 cri.getAmount(), cri.getPageNum(), cri.getKeyword(), cri.getType(), typeArr);
 
         assertEquals(list.size(),4);
@@ -96,17 +96,17 @@ public class DnSMapperTests {
     public void testGetSellListWithPaging(){
 
         int userId = 156;
-        CriteriaSM cri = new CriteriaSM(1,4);
-        CriteriaSM cri2 = new CriteriaSM(2,4);
-        CriteriaSM cri3 = new CriteriaSM(3,4);
+        MyPageCriteria cri = new MyPageCriteria(1,4);
+        MyPageCriteria cri2 = new MyPageCriteria(2,4);
+        MyPageCriteria cri3 = new MyPageCriteria(3,4);
 
-        List<MySellDTO> sellList = sellListMapper.getSellsWithPaging(userId, cri.getDateFrom(), cri.getDateTo(),
+        List<MySellVO> sellList = sellListMapper.getSellsWithPaging(userId, cri.getDateFrom(), cri.getDateTo(),
                 cri.getAmount(), cri.getPageNum(), cri.getKeyword(), cri.getType(), cri.getTypeArr());
 
-        List<MySellDTO> sellList2 = sellListMapper.getSellsWithPaging(userId, cri2.getDateFrom(), cri2.getDateTo(),
+        List<MySellVO> sellList2 = sellListMapper.getSellsWithPaging(userId, cri2.getDateFrom(), cri2.getDateTo(),
                 cri2.getAmount(), cri2.getPageNum(), cri2.getKeyword(), cri2.getType(), cri2.getTypeArr());
 
-        List<MySellDTO> sellList3 = sellListMapper.getSellsWithPaging(userId, cri3.getDateFrom(), cri3.getDateTo(),
+        List<MySellVO> sellList3 = sellListMapper.getSellsWithPaging(userId, cri3.getDateFrom(), cri3.getDateTo(),
                 cri3.getAmount(), cri3.getPageNum(), cri3.getKeyword(), cri3.getType(), cri3.getTypeArr());
 
         assertEquals(sellList.size(),4);
@@ -120,7 +120,7 @@ public class DnSMapperTests {
         int userId = 156;
         int userId2 = 157;
 
-        CriteriaSM cri = new CriteriaSM(1,4);
+        MyPageCriteria cri = new MyPageCriteria(1,4);
 
         int countList = sellListMapper.countSellList(userId, cri.getDateFrom(), cri.getDateTo(),
                  cri.getKeyword(), cri.getType(), cri.getTypeArr());
@@ -139,7 +139,7 @@ public class DnSMapperTests {
         int userId = 157;
         int gftId =  66;
 
-        MySellDTO sellDetail = sellListMapper.getSellDetail(gftId,userId).get(0);
+        MySellVO sellDetail = sellListMapper.getSellDetail(gftId,userId).get(0);
 
         assertEquals(sellDetail.getDcPrc(), 6000);
 //        assertEquals(sellDetail.getDcRate(),0.05d);

@@ -1,9 +1,9 @@
-package com.ncncn.domain;
+package com.ncncn.domain.request;
 
 import lombok.Data;
 
 @Data
-public class AttachFileDTOCH {
+public class AttachFileDTO {
 
     private String fileName;
     private String uploadPath;

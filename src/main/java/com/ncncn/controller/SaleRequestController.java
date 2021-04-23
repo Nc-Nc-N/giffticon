@@ -7,7 +7,7 @@ import java.util.Map;
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
-import com.ncncn.domain.request.RqustReject;
+import com.ncncn.domain.request.RqustRejectDTO;
 import com.ncncn.service.SaleRqustService;
 import lombok.extern.log4j.Log4j;
 
@@ -71,16 +71,16 @@ public class SaleRequestController {
 	}
 
 	@DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> deleteRequset(@PathVariable("id") int id, @RequestBody RqustReject rqustReject) {
+	public ResponseEntity<String> deleteRequset(@PathVariable("id") int id, @RequestBody RqustRejectDTO rqustRejectDTO) {
 		try {
 			Map<String, String> rqust = saleRqustService.getRqustById(id);
 			int result = saleRqustService.removeRqust(id);
 
 			// 반려사유 메일 전송
 			SimpleMailMessage message = new SimpleMailMessage();
-			message.setTo(rqustReject.getEmail());
+			message.setTo(rqustRejectDTO.getEmail());
 			message.setSubject("[기쁘티콘] 판매요청에 대한 안내메일입니다.");
-			message.setText(getMessage(rqust, rqustReject.getCause()));
+			message.setText(getMessage(rqust, rqustRejectDTO.getCause()));
 
 			javaMailSender.send(message);
 		} catch (Exception e) {

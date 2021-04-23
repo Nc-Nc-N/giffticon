@@ -37,21 +37,21 @@ public class UserCheckServiceImpl implements UserCheckService {
     }
 
     @Override
-    public UserDetailCheckDTO getUserDetail(int userId) {
+    public UserDetailCheckVO getUserDetail(int userId) {
 
         log.info("get User " + userId);
         return mapper.getUserDetail(userId);
     }
 
     @Override
-    public void updateMemo(UserMemoDTO memo) {
+    public void updateMemo(UserMemoVO memo) {
 
         log.info("update Memo " + memo);
         mapper.updateMemo(memo);
     }
 
     @Override
-    public void updateStatus(UserStatusDTO status) {
+    public void updateStatus(UserStatusVO status) {
 
         log.info("update User Status " + status);
         mapper.updateStatus(status);

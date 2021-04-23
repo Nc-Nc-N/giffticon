@@ -3,7 +3,7 @@ package com.ncncn.service;
 import java.util.List;
 
 import com.ncncn.domain.CsPsnlQustVO;
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 
 public interface PsnlQustService {
 
@@ -17,13 +17,13 @@ public interface PsnlQustService {
 
 	boolean remove(int id);
 
-	List<CsPsnlQustVO> getList(CriteriaCs cri);
+	List<CsPsnlQustVO> getList(CsCriteria cri);
 
-	List<CsPsnlQustVO> getListPsnlQust(CriteriaCs cri, int userId);
+	List<CsPsnlQustVO> getListPsnlQust(CsCriteria cri, int userId);
 
-	int getTotal(CriteriaCs cri);
+	int getTotal(CsCriteria cri);
 
-	int getTotalPsnlQust(CriteriaCs cri, int userId);
+	int getTotalPsnlQust(CsCriteria cri, int userId);
 
 	int countHaveNoAns();
 }

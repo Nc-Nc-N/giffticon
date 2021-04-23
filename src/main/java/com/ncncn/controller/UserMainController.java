@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @Log4j
 @RequestMapping("/user/*")
 @AllArgsConstructor
-public class MainController {
+public class UserMainController {
 
 	private WishListService wishService;
 	private ProdService prodService;
