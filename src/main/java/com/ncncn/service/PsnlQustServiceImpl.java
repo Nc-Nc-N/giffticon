@@ -5,18 +5,19 @@ import java.util.List;
 import com.ncncn.domain.CsPsnlQustVO;
 import com.ncncn.domain.pagination.CriteriaCs;
 import com.ncncn.mapper.PsnlQustMapper;
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 import org.springframework.stereotype.Service;
 
 @Log4j
 @Service
-@AllArgsConstructor
 public class PsnlQustServiceImpl implements PsnlQustService {
 
 	private PsnlQustMapper mapper;
 
+	public PsnlQustServiceImpl(PsnlQustMapper mapper) {
+		this.mapper = mapper;
+	}
 
 	@Override
 	public void register(CsPsnlQustVO qna) {
@@ -25,7 +26,6 @@ public class PsnlQustServiceImpl implements PsnlQustService {
 
 		mapper.insert(qna);
 	}
-
 
 	@Override
 	public CsPsnlQustVO get(int id) {
@@ -83,5 +83,10 @@ public class PsnlQustServiceImpl implements PsnlQustService {
 
 		log.info("get total pursonal Question count");
 		return mapper.getTotalPsnlQust(cri.getType(), cri.getKeyword(), userId, cri.getTypeArr());
+	}
+
+	@Override
+	public int countHaveNoAns() {
+		return mapper.countHaveNoAns();
 	}
 }

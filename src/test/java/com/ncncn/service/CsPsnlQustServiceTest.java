@@ -1,6 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.mapper.CsPsnlQustMapper;
+import com.ncncn.mapper.PsnlQustMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,10 +15,10 @@ import static org.mockito.Mockito.when;
 public class CsPsnlQustServiceTest {
 
 	@Mock
-	private CsPsnlQustMapper csPsnlQustMapper;
+	private PsnlQustMapper csPsnlQustMapper;
 
 	@InjectMocks
-	private CsPsnlQustServiceImpl csPsnlQustService;
+	private PsnlQustServiceImpl csPsnlQustService;
 
 	@Test
 	public void countHaveNoAnsSuccessTest() {
