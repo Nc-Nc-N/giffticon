@@ -7,21 +7,23 @@ import com.ncncn.domain.pagination.CriteriaCs;
 
 public interface PsnlQustService {
 
-	public void register(CsPsnlQustVO qna);
+	void register(CsPsnlQustVO qna);
 
-	public CsPsnlQustVO get(int id);
+	CsPsnlQustVO get(int id);
 
-	public boolean modify(CsPsnlQustVO qna);
+	boolean modify(CsPsnlQustVO qna);
 
-	public boolean modifyUser(CsPsnlQustVO qna);
+	boolean modifyUser(CsPsnlQustVO qna);
 
-	public boolean remove(int id);
+	boolean remove(int id);
 
-	public List<CsPsnlQustVO> getList(CriteriaCs cri);
+	List<CsPsnlQustVO> getList(CriteriaCs cri);
 
-	public List<CsPsnlQustVO> getListPsnlQust(CriteriaCs cri, int userId);
+	List<CsPsnlQustVO> getListPsnlQust(CriteriaCs cri, int userId);
 
-	public int getTotal(CriteriaCs cri);
+	int getTotal(CriteriaCs cri);
 
-	public int getTotalPsnlQust(CriteriaCs cri, int userId);
+	int getTotalPsnlQust(CriteriaCs cri, int userId);
+
+	int countHaveNoAns();
 }
