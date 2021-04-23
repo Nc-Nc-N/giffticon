@@ -1,6 +1,9 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.UserDetailCheckVO;
+import com.ncncn.domain.UserMemoVO;
 import com.ncncn.domain.UserVO;
+import com.ncncn.domain.pagination.UserCheckCriteria;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -10,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.assertEquals;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/applicationContext.xml")
@@ -84,5 +89,60 @@ public class UserMapperTest {
         assertEquals(user.getMemo(), null);
         assertEquals(user.getEnabled(), 1);
         assertEquals(user.getPnt(), 0);
+    }
+
+    // 295page
+    @Test
+    public void tesetPaging() {
+
+        UserCheckCriteria cri = new UserCheckCriteria();
+
+        List<UserVO> list = userMapper.getListWithPaging(cri);
+
+        list.forEach(user -> log.info(user));
+    }
+
+    //336page
+    @Test
+    public void testSearch() {
+
+        UserCheckCriteria cri = new UserCheckCriteria();
+        cri.setKeyword("3333");
+        cri.setType("T");
+
+        List<UserVO> list = userMapper.getListWithPaging(cri);
+
+        list.forEach(user -> log.info(user));
+
+        assertTrue(list.get(0).getTelNo().contains("3333"));
+
+    }
+
+    @Test
+    public void testGetUser(){
+
+        int userId=152;
+        UserDetailCheckVO user = userMapper.getUserDetail(userId);
+        log.info(user);
+        assertEquals(152, user.getId());
+        assertNotEquals(111, user.getId());
+
+    }
+
+    @Test
+    public void testUpdateMemo() {
+
+        int userId=152;
+        String memo="Memo Update Test";
+        UserMemoVO updateMemo = new UserMemoVO();
+        updateMemo.setId(userId);
+        updateMemo.setMemo(memo);
+
+        userMapper.updateMemo(updateMemo);
+
+        UserDetailCheckVO user = userMapper.getUserDetail(152);
+
+        assertEquals(user.getMemo(), "Memo Update Test");
+
     }
 }

@@ -36,7 +36,7 @@ public class TotalJunitTestSM {
     StatisticsService statisticsService;
 
     @Autowired
-    UserCheckService userCheckService;
+    UserService userService;
 
     @Autowired
     SignUpService signUpService;
@@ -225,7 +225,7 @@ public class TotalJunitTestSM {
 
         UserCheckCriteria cri = new UserCheckCriteria(1,10);
 
-        List<UserVO> userList = userCheckService.getUserList(cri);
+        List<UserVO> userList = userService.getUserList(cri);
 
         assertEquals(userList.size() , 10);
     }
@@ -233,7 +233,7 @@ public class TotalJunitTestSM {
     @Test
     public void UserCheckTest2(){
 
-        UserDetailCheckVO user = userCheckService.getUserDetail(156);
+        UserDetailCheckVO user = userService.getUserDetail(156);
 
         assertEquals(user.getId(), 156);
         assertEquals(user.getEmail(), "planner263@gmail.com");
@@ -248,9 +248,9 @@ public class TotalJunitTestSM {
         memo.setMemo("테스트용 메모입니다 유저에 메모 삽입 (user객체 에 update문 안쓰고 따로 메모 DTO 를 만드신건가요???)- SM");
         memo.setId(156);
 
-        userCheckService.updateMemo(memo);
+        userService.updateMemo(memo);
 
-        UserDetailCheckVO user = userCheckService.getUserDetail(156);
+        UserDetailCheckVO user = userService.getUserDetail(156);
 
         assertEquals(user.getMemo(),memo.getMemo());
     }
@@ -263,9 +263,9 @@ public class TotalJunitTestSM {
         userStus.setEnabled('2');
         userStus.setId(44);
 
-        userCheckService.updateStatus(userStus);
+        userService.updateStatus(userStus);
 
-        UserDetailCheckVO user = userCheckService.getUserDetail(44);
+        UserDetailCheckVO user = userService.getUserDetail(44);
 
         assertEquals(user.getEnabled(),'2');
     }

@@ -53,4 +53,103 @@
         select count(*) from user where in_date between date_sub(curdate(), interval 3 day) and date_add(curdate(), interval 1 day)
     </select>
 
+
+    <sql id="criteria">
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'N'.toString()">
+                            name like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            email like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'T'.toString()">
+                            tel_no like CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
+    <select id="getListWithPaging" resultType="com.ncncn.domain.UserVO">
+        <![CDATA[
+            select id, email, name, in_date, tel_no, enabled
+            from user
+            where enabled=1 AND (
+        ]]>
+
+        <include refid="criteria"></include>
+
+        )
+        <![CDATA[
+            order by id desc
+            LIMIT #{amount}
+            OFFSET ${(pageNum-1) * amount}
+
+        ]]>
+    </select>
+
+    <select id="getTotalCount" resultType="int">
+        select count(*) from user
+        where enabled=1 AND (
+
+        <include refid="criteria"></include>
+
+        )
+    </select>
+
+
+    <select id="getUserDetail" resultType="com.ncncn.domain.UserDetailCheckVO">
+
+    <![CDATA[
+        select u.id, u.email, u.name, u.tel_no, u.in_date, bname.code_name as bankName, b.acc as bankAccount,
+               phist.balance, detail.deal_count, detail.paysum, pqust.pqust_count, u.enabled, u.memo
+        from
+            user u left outer join
+            bank_account b on u.id = b.user_id
+
+                   left outer join
+            (select user_id, count(*) as deal_count, sum(pymt_prc) as paysum
+             from deal_detail
+             group by user_id
+            ) AS detail on u.id = detail.user_id
+
+            left outer join
+            (select  code, code_name
+            from cmmn_code
+            where code_type='BANK_NAME'
+            ) AS bname on b.bnk_code = bname.code
+
+            left outer join
+            (select * from pnt_hist
+            where id IN
+            (select max(id) from pnt_hist
+            group by user_id
+            )
+            ) AS phist on u.id = phist.user_id
+
+            left outer join
+            (select user_id, count(*) as pqust_count from cs_psnl_qust
+            group by user_id
+            ) AS pqust on u.id = pqust.user_id
+
+        where u.id=#{userId}
+        ]]>
+    </select>
+
+    <update id="updateMemo">
+        update user
+        set memo=#{memo}, up_date=current_time, up_user=current_user
+        where id=#{id}
+    </update>
+
+    <update id="updateStatus">
+        update user
+        set enabled=#{enabled}, up_date=current_time, up_user=current_user
+        where id=#{id}
+    </update>
+
 </mapper>

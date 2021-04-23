@@ -5,7 +5,6 @@ import com.ncncn.domain.*;
 
 import com.ncncn.domain.pagination.UserCheckCriteria;
 import com.ncncn.domain.pagination.PageDTO;
-import com.ncncn.service.UserCheckService;
 import com.ncncn.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -24,15 +23,14 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class UserCheckController {
 
-    private UserCheckService service;
     private UserService userService;
 
     @GetMapping("/userlist")
     public String userList(UserCheckCriteria cri, Model model) {
         log.info("---------log: " + cri);
-        model.addAttribute("list", service.getUserList(cri));
+        model.addAttribute("list", userService.getUserList(cri));
 
-        int total = service.getTotal(cri);
+        int total = userService.getTotal(cri);
 
         log.info("total: " + total);
         model.addAttribute("pageMaker", new PageDTO(cri, total));
@@ -43,7 +41,7 @@ public class UserCheckController {
     @GetMapping("/user-detail")
     public String userDetailCheck(int userId, Model model) {
         log.info("userDetailCheck...................");
-        model.addAttribute("user", service.getUserDetail(userId));
+        model.addAttribute("user", userService.getUserDetail(userId));
 
         return "admin/user/userDetail";
     }
@@ -58,7 +56,7 @@ public class UserCheckController {
         updateMemo.setId(Integer.parseInt(request.getParameter("id")));
         updateMemo.setMemo(request.getParameter("memo"));
 
-        service.updateMemo(updateMemo);
+        userService.updateMemo(updateMemo);
 
         return "redirect:/admin/user/user-detail?userId=" + updateMemo.getId();
     }
@@ -78,7 +76,7 @@ public class UserCheckController {
             updateStat.setEnabled(0);
         }
 
-        service.updateStatus(updateStat);
+        userService.updateStatus(updateStat);
 
         return "redirect:/admin/user/user-detail?userId=" + updateStat.getId();
     }

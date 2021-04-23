@@ -25,7 +25,7 @@ public class DealListServiceTests {
     private DealListService service;
 
     @Setter(onMethod_ = @Autowired)
-    private UserCheckService userCheckService;
+    private UserService userService;
 
     @Setter(onMethod_ = @Autowired)
     private UserMapper userMapper;
