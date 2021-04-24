@@ -22,7 +22,7 @@
         <include refid="criteria"></include>
 
     </select>
-    <select id="getSellsWithPaging" resultType="com.ncncn.domain.MySellDTO">
+    <select id="getSellsWithPaging" resultType="com.ncncn.domain.MySellVO">
 
         <![CDATA[
         select gftT.id,
@@ -59,7 +59,7 @@
 
     </select>
 
-    <select id="getSellDetail" resultType="com.ncncn.domain.MySellDTO">
+    <select id="getSellDetail" resultType="com.ncncn.domain.MySellVO">
 
         <![CDATA[
         select gftT.*,

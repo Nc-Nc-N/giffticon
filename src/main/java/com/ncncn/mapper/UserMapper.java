@@ -1,8 +1,14 @@
 package com.ncncn.mapper;
 
 import com.ncncn.domain.UserInfoDTO;
+import com.ncncn.domain.UserDetailCheckVO;
+import com.ncncn.domain.UserMemoVO;
+import com.ncncn.domain.UserStatusVO;
 import com.ncncn.domain.UserVO;
+import com.ncncn.domain.pagination.UserCheckCriteria;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserMapper {
 
@@ -18,4 +24,18 @@ public interface UserMapper {
 
     int countRecentlyInsert();
 
-    public UserInfoDTO getMyInfo(int userId);}
+    List<UserVO> getUserList();
+
+    List<UserVO> getListWithPaging(UserCheckCriteria cri);
+
+    int getTotalCount(UserCheckCriteria cri);
+
+    UserDetailCheckVO getUserDetail(int userId);
+
+    void updateMemo(UserMemoVO memo);
+
+    void updateStatus(UserStatusVO status);
+
+    public UserInfoDTO getMyInfo(int userId);
+}
+

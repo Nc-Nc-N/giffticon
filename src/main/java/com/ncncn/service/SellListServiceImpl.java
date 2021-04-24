@@ -1,7 +1,7 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.pagination.CriteriaSM;
-import com.ncncn.domain.MySellDTO;
+import com.ncncn.domain.pagination.MyPageCriteria;
+import com.ncncn.domain.MySellVO;
 import com.ncncn.mapper.SellListMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -17,7 +17,7 @@ public class SellListServiceImpl implements SellListService{
     SellListMapper sellListMapper;
 
     @Override
-    public int countSellList(int userId, CriteriaSM cri){
+    public int countSellList(int userId, MyPageCriteria cri){
 
         log.info("counting sellList of user = " + userId);
 
@@ -26,7 +26,7 @@ public class SellListServiceImpl implements SellListService{
     }
 
     @Override
-    public List<MySellDTO> getSellsWithPaging(int userId, CriteriaSM cri){
+    public List<MySellVO> getSellsWithPaging(int userId, MyPageCriteria cri){
 
         log.info("get Sell List of userId = " + userId);
 
@@ -35,7 +35,7 @@ public class SellListServiceImpl implements SellListService{
     }
 
     @Override
-    public List<MySellDTO> getSellDetail(int gftId, int userId){
+    public List<MySellVO> getSellDetail(int gftId, int userId){
 
         log.info("get Sell Details....");
 

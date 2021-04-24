@@ -1,7 +1,7 @@
 package com.ncncn.controller;
 
-import com.ncncn.domain.pagination.CriteriaSM;
-import com.ncncn.domain.PrcUpdateDTO;
+import com.ncncn.domain.pagination.MyPageCriteria;
+import com.ncncn.domain.PrcUpdateVO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.service.GifticonService;
 import com.ncncn.service.UserService;
@@ -26,7 +26,7 @@ public class GifticonController {
     UserService userService;
 
     @GetMapping("/stus005")
-    public String gftDealCmpl(HttpServletRequest request, int gftId, CriteriaSM cri, Model model) {
+    public String gftDealCmpl(HttpServletRequest request, int gftId, MyPageCriteria cri, Model model) {
 
         gifticonService.gftDealCmpl(gftId);
 
@@ -43,7 +43,7 @@ public class GifticonController {
     }
 
     @GetMapping("/delGft")
-    public String deleteGifticon(HttpServletRequest request, int gftId, CriteriaSM cri, Model model) {
+    public String deleteGifticon(HttpServletRequest request, int gftId, MyPageCriteria cri, Model model) {
 
         log.info("gifticon delete Controller....");
 
@@ -62,7 +62,7 @@ public class GifticonController {
             value = "/updateGft",
             consumes = "application/json",
             produces = "application/text; charset=utf-8")
-    public ResponseEntity<String> updateGifticon(@RequestBody PrcUpdateDTO prcUpdate, HttpServletRequest request) {
+    public ResponseEntity<String> updateGifticon(@RequestBody PrcUpdateVO prcUpdate, HttpServletRequest request) {
 
         int userId = (int) request.getSession().getAttribute("userId");
         UserVO user = userService.readbyId(userId);

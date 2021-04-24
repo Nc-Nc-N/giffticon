@@ -3,25 +3,27 @@ package com.ncncn.service;
 import java.util.List;
 
 import com.ncncn.domain.CsPsnlQustVO;
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 
 public interface PsnlQustService {
 
-	public void register(CsPsnlQustVO qna);
+	void register(CsPsnlQustVO qna);
 
-	public CsPsnlQustVO get(int id);
+	CsPsnlQustVO get(int id);
 
-	public boolean modify(CsPsnlQustVO qna);
+	boolean modify(CsPsnlQustVO qna);
 
-	public boolean modifyUser(CsPsnlQustVO qna);
+	boolean modifyUser(CsPsnlQustVO qna);
 
-	public boolean remove(int id);
+	boolean remove(int id);
 
-	public List<CsPsnlQustVO> getList(CriteriaCs cri);
+	List<CsPsnlQustVO> getList(CsCriteria cri);
 
-	public List<CsPsnlQustVO> getListPsnlQust(CriteriaCs cri, int userId);
+	List<CsPsnlQustVO> getListPsnlQust(CsCriteria cri, int userId);
 
-	public int getTotal(CriteriaCs cri);
+	int getTotal(CsCriteria cri);
 
-	public int getTotalPsnlQust(CriteriaCs cri, int userId);
+	int getTotalPsnlQust(CsCriteria cri, int userId);
+
+	int countHaveNoAns();
 }

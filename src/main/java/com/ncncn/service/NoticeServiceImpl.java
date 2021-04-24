@@ -1,6 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.CsNoticeVO;
 import com.ncncn.mapper.NoticeMapper;
 import lombok.AllArgsConstructor;
@@ -56,14 +56,14 @@ public class NoticeServiceImpl implements NoticeService{
 //	}
 
 	@Override
-	public List<CsNoticeVO> getList(CriteriaCs cri) {
+	public List<CsNoticeVO> getList(CsCriteria cri) {
 
 		log.info("getList with criteria: " + cri);
 		return mapper.getListWithPaging(cri);
 	}
 
 	@Override
-	public int getTotal(CriteriaCs cri) {
+	public int getTotal(CsCriteria cri) {
 
 		log.info("get total count");
 		return mapper.getTotalCount(cri);

@@ -3,7 +3,7 @@ package com.ncncn.domain;
 import lombok.Data;
 
 @Data
-public class UserStatusDTO {
+public class UserStatusVO {
 
     private int id;
 

@@ -10,13 +10,11 @@
         ]]>
     </select>
 
-
     <select id="read" resultType="com.ncncn.domain.CsPsnlQustVO">
         <![CDATA[
         select * from cs_psnl_qust where id = #{id}
         ]]>
     </select>
-
 
 <!--    관리자는 모든 유저의 질문을 볼 수 있어야한다.-->
     <select id="getListWithPaging" resultType="com.ncncn.domain.CsPsnlQustVO">
@@ -49,10 +47,7 @@
         ]]>
     </select>
 
-
-
     <select id="getTotalCount" resultType="int">
-
        <![CDATA[
         select count(*) from cs_psnl_qust
         where
@@ -72,7 +67,6 @@
             </foreach>
         </trim>
     </select>
-
 
 <!--    각 유저마다 자신의 질문만 보여야 한다.-->
     <select id="getListPsnlQust" resultType="com.ncncn.domain.CsPsnlQustVO">
@@ -102,7 +96,6 @@
         LIMIT #{amount}
         OFFSET ${(pageNum-1) * amount}
         ]]>
-
     </select>
 
     <select id="getTotalPsnlQust" resultType="int">
@@ -129,7 +122,6 @@
         )
     </select>
 
-
     <insert id="insert">
         <![CDATA[
             insert into cs_psnl_qust (user_id, title, cntnt, atch_file_path, cs_cate_code, stus_code, in_user, up_user)
@@ -137,11 +129,9 @@
         ]]>
     </insert>
 
-
     <delete id="delete">
         delete from cs_psnl_qust where id = #{id}
     </delete>
-
 
 <!--    사용자 update-->
     <update id="updateUser">
@@ -152,8 +142,6 @@
             up_user= current_user
         where id= #{id}
     </update>
-
-
 
 <!--    관리자 update-->
     <update id="update">
@@ -167,4 +155,7 @@
         where id = #{id}
     </update>
 
+    <select id="countHaveNoAns" resultType="int">
+        select count(*) from cs_psnl_qust where stus_code = '000'
+    </select>
 </mapper>

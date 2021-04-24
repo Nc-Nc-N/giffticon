@@ -1,7 +1,7 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.pagination.CriteriaSM;
-import com.ncncn.domain.MySellDTO;
+import com.ncncn.domain.pagination.MyPageCriteria;
+import com.ncncn.domain.MySellVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class SellListServiceTests {
 
         int userId = 156;
 
-        CriteriaSM cri = new CriteriaSM(1,3);
+        MyPageCriteria cri = new MyPageCriteria(1,3);
 
         int countList = sellListService.countSellList(userId, cri);
 
@@ -38,9 +38,9 @@ public class SellListServiceTests {
     public void testGetSellsWithPaging(){
 
         int userId = 156;
-        CriteriaSM cri = new CriteriaSM(2,3);
+        MyPageCriteria cri = new MyPageCriteria(2,3);
 
-        List<MySellDTO> sellList = sellListService.getSellsWithPaging(userId, cri);
+        List<MySellVO> sellList = sellListService.getSellsWithPaging(userId, cri);
 
         assertEquals(sellList.size(), 3);
     }
@@ -51,7 +51,7 @@ public class SellListServiceTests {
         int userId = 5;
         int gftId = 60;
 
-        MySellDTO sellDetail = sellListService.getSellDetail(gftId, userId).get(0);
+        MySellVO sellDetail = sellListService.getSellDetail(gftId, userId).get(0);
 
         assertEquals(sellDetail.getUserId(), 5);
         assertEquals(sellDetail.getDcPrc(), 13000);

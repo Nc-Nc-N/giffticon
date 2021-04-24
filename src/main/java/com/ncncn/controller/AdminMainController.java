@@ -1,8 +1,8 @@
 package com.ncncn.controller;
 
 import com.ncncn.domain.response.AdminMainDTO;
-import com.ncncn.service.CsPsnlQustService;
 import com.ncncn.service.GifticonService;
+import com.ncncn.service.PsnlQustService;
 import com.ncncn.service.StatisticsService;
 import com.ncncn.service.UserService;
 import lombok.extern.log4j.Log4j;
@@ -23,13 +23,13 @@ public class AdminMainController {
 
 	private GifticonService gifticonService;
 
-	private CsPsnlQustService csPsnlQustService;
+	private PsnlQustService psnlQustService;
 
-	public AdminMainController(StatisticsService statisticsService, UserService userService, GifticonService gifticonService, CsPsnlQustService csPsnlQustService) {
+	public AdminMainController(StatisticsService statisticsService, UserService userService, GifticonService gifticonService, PsnlQustService psnlQustService) {
 		this.statisticsService = statisticsService;
 		this.userService = userService;
 		this.gifticonService = gifticonService;
-		this.csPsnlQustService = csPsnlQustService;
+		this.psnlQustService = psnlQustService;
 	}
 
 	@GetMapping("/main")
@@ -41,7 +41,7 @@ public class AdminMainController {
 					statisticsService.getByToday(),
 					userService.countRecentlyRegister(),
 					gifticonService.countNotYetApproved(),
-					csPsnlQustService.countHaveNoAns()
+					psnlQustService.countHaveNoAns()
 			);
 
 			model.addAttribute("main", adminMainDTO);

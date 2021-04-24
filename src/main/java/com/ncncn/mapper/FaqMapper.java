@@ -1,7 +1,7 @@
 package com.ncncn.mapper;
 
 
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.CsFaqVO;
 
 
@@ -11,9 +11,9 @@ public interface FaqMapper {
 
 	public List<CsFaqVO> getList();
 
-	public List<CsFaqVO> getListWithPaging(CriteriaCs cri);
+	public List<CsFaqVO> getListWithPaging(CsCriteria cri);
 
-	public List<CsFaqVO> getListWithPagingUser(CriteriaCs cri);
+	public List<CsFaqVO> getListWithPagingUser(CsCriteria cri);
 
 	public void insert(CsFaqVO notice);
 
@@ -23,8 +23,8 @@ public interface FaqMapper {
 
 	public int update(CsFaqVO notice);
 
-	public int getTotalCount(CriteriaCs cri);
+	public int getTotalCount(CsCriteria cri);
 
-	public int getTotalCountUser(CriteriaCs cri);
+	public int getTotalCountUser(CsCriteria cri);
 
 }

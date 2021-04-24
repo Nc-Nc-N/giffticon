@@ -1,6 +1,6 @@
 package com.ncncn.controller;
 
-import com.ncncn.domain.pagination.CriteriaCs;
+import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.CsFaqVO;
 import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.FaqService;
@@ -27,7 +27,7 @@ public class FaqController {
 
 	@GetMapping("/user/cs/faqBoard")
 
-	public String faqBoard(CriteriaCs cri, Model model){
+	public String faqBoard(CsCriteria cri, Model model){
 
 		log.info("list: " + cri);
 
@@ -51,7 +51,7 @@ public class FaqController {
 
 
 	@GetMapping("admin/adminFaq")
-	public  String adminFaq(HttpServletRequest request,CriteriaCs cri, Model model){
+	public  String adminFaq(HttpServletRequest request, CsCriteria cri, Model model){
 
 		log.info("list: " + cri);
 
@@ -85,7 +85,7 @@ public class FaqController {
 	}
 
 	@PostMapping("/admin/adminFaq/modify")
-	public String modify(HttpServletRequest request, CsFaqVO faq, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+	public String modify(HttpServletRequest request, CsFaqVO faq, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr){
 
 		log.info("modify: " + faq);
 
@@ -105,7 +105,7 @@ public class FaqController {
 	}
 
 	@PostMapping("/admin/adminFaq/remove")
-	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CriteriaCs cri, RedirectAttributes rttr){
+	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr){
 
 
 		log.info("remove...." + id);
