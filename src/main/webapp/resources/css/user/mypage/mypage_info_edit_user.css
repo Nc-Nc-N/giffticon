@@ -12,7 +12,7 @@
     width: 600px;
     height: 600px;
     padding: 20px;
-    color: rgb(71, 71, 71);
+    color: #333333;
     border-radius: 10px;
     margin-left: 9%;
     margin-top: 35%;
@@ -31,6 +31,7 @@ h2{
 h3{
     margin-left: 20px;
     width: 180px;
+    font-weight: lighter;
 }
 
 h5{  
@@ -44,7 +45,9 @@ h5{
 }
 .info_section{
     width: 100%;
-    height: 15%;
+    height: 18%;
+    font-size: 15px;
+    font-weight: lighter;
     /* background-color: turquoise; */
     /* border-bottom: 1px solid gainsboro; */
 }
@@ -57,8 +60,8 @@ h5{
 
 .input_text{
     background-color: white;
-    border-radius: 5px;
-    border: 1px solid black;
+    border: none;
+    border-bottom: 2px solid gainsboro;
     width: 50%;
     height: 30px;
     display: flex;
@@ -114,4 +117,8 @@ input{
 
 .btn-dark:hover{
     background-color: darkgray;
+}
+
+i{
+color: rgb(255,88,93);
 }

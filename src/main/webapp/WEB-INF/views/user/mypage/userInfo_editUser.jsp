@@ -4,91 +4,94 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
-    <link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_user.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-    </style>
+<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_user.css" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+</style>
 
 
 <body>
-    <div id="register-content">
-        <h2>회원정보 수정</h2>
-        
-        <div id="content">
-            <div class="email_section">
-                <h3>Email</h3>
-                <h4><c:out value="${user.email}"/></h4>
-               
-            </div>
-            <div class="info_section">
-                <div>
-                    <h3>현재 비밀번호</h3>
-                    <div class="input_text">
-                        <input type="text" id="originPwd" placeholder="">
-                    </div>
-                    <button class="btn btn-submit" id="confirmOriginPwd">인증</button>
-                </div>
-                <div class="message">
+<div id="register-content">
+    <h2>회원정보 수정</h2>
 
-                    <input tvpe="text" id="originPwdMsg" value="" readonly="readonly"></div>
-            </div>
-            <div class="info_section">
-                <div>
-                    <h3>새 비밀번호</h3>
-                    <div class="input_text">
-                        <input type="text" class="newPwd1" placeholder="">
-                    </div>
+    <div id="content">
+        <div class="email_section">
+            <h3>Email</h3>
+            <p><c:out value="${user.email}"/></p>
+
+        </div>
+        <div class="info_section">
+            <div>
+                <h3>현재 비밀번호</h3>
+                <div class="input_text">
+                    <input type="password" class="originPwd" placeholder="기존 비밀번호를 입력해주세요">
                 </div>
-                
+                <button class="btn btn-submit" id="btn-confirmOriginPwd">인증</button>
             </div>
-            <div class="info_section">
-                <div>
-                    <h3>새 비밀번호 재입력</h3>
-                    <div class="input_text">
-                        <input type="text" class="newPwd2" placeholder="">
-                    </div>
+            <div class="message" id="msg-originPwd">
+
+            </div>
+        </div>
+        <div class="info_section">
+            <div>
+                <h3>새 비밀번호</h3>
+                <div class="input_text">
+                    <input type="password" class="insertNewPwd" placeholder="새 비밀번호를 입력해주세요" disabled>
                 </div>
-                <div class="message"></div>
             </div>
-            <div class="info_section">
-                <div>
-                    <h3>이름</h3>
-                    <div class="input_text">
-                        <input type="text" class="name" value="<c:out value="${user.name}"/>">
-                    </div>
+            <div class="message" id="msg-newPwd">
+
+            </div>
+        </div>
+        <div class="info_section">
+            <div>
+                <h3>새 비밀번호 확인</h3>
+                <div class="input_text">
+                    <input type="password" class="confirmNewPwd" placeholder="새 비밀번호를 한번 더 입력해주세요" disabled>
                 </div>
-                
             </div>
-            <div class="info_section">
-                <div>
-                    <h3>전화번호</h3>
-                    <div class="input_text">
-                        <input type="text" class="telNo" value="<c:out value="${user.telNo}"/>">
-                    </div>
-                    <button class="btn btn-submit" id="confirmTelNo">인증</button>
+            <div class="message" id="msg-confirmNewPwd">
+
+            </div>
+        </div>
+        <div class="info_section">
+            <div>
+                <h3>이름</h3>
+                <div class="input_text">
+                    <input type="text" class="name" value="<c:out value="${user.name}"/>">
                 </div>
-                <div class="message"><h5>인증 완료</h5></div>
             </div>
-            
+            <div class="message" id="msg-name">
+
+            </div>
+
+        </div>
+        <div class="info_section">
+            <div>
+                <h3>전화번호</h3>
+                <div class="input_text">
+                    <input type="text" class="telNo" value="<c:out value="${user.telNo}"/>">
+                </div>
+                <button class="btn btn-submit" id="confirmTelNo">인증</button>
+            </div>
+            <div class="message"><h5>인증 완료</h5></div>
         </div>
 
-        <div id="reg-btn-area">
-            <button class="btn btn-active">등록</button>
-            <button class="btn btn-disabled cancel">취소</button>
-        </div>
     </div>
+
+    <div id="reg-btn-area">
+        <button class="btn btn-active" id="modifyMyInfo">등록</button>
+        <button class="btn btn-disabled cancel" id="cancelMyInfo">취소</button>
+    </div>
+</div>
 </body>
 
-<!-- 휴대번호 인증 script -->
-<script>
-
-</script>
-
+<script type="text/javascript" src="/resources/js/user/userInfoValidator.js"></script>
 <script type="text/javascript">
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
@@ -97,18 +100,36 @@
         let oriName = "<c:out value="${user.name}"/>";
         let oriTelNo = "<c:out value="${user.telNo}"/>";
 
-        let NewPwd = $(".newPwd").val();
+        //[기존비밀번호, 새 비밀번호, 새 비밀번호 확인, 이름] 모두 true 가 되어야 수정 버튼 활성화
+        let checkAllConfirmed = [false, false, false, false];
 
+        //기존 비밀번호 확인 버튼
+        let btnOriginPwd = $("#btn-confirmOriginPwd");
 
-        let checkAllConfirmed = [false, false, false];
+        //input 칸
+        let insertOriginPwd = $(".originPwd");
+        let insertNewPwd = $(".insertNewPwd");
+        let confirmNewPwd = $(".confirmNewPwd");
+        let newName = $(".name");
 
-        $("#confirmOriginPwd").on("click",function(e) {
-            let oriPwd = $("#originPwd").val();
+        //msg 출력칸
+        let originPwdMsg = $("#msg-originPwd");
+        let newPwdMsg = $("#msg-newPwd");
+        let confirmNewPwdMsg = $("#msg-confirmNewPwd");
+        let newNameMsg = $("#msg-name");
+
+        //기존 비밀번호 인증
+        btnOriginPwd.on("click", function (e) {
+
             var msg = "";
+            let oriPwdVal = insertOriginPwd.val();
 
             let checkUser = {
-                        email: oriEmail,
-                        pwd: oriPwd}
+                email: oriEmail,
+                pwd: oriPwdVal
+            }
+
+            originPwdMsg.html("");
 
             $.ajax({
                 url: '/user/mypage/checkPassword',
@@ -120,19 +141,150 @@
                 },
                 success: function () {
 
-                    msg = "비밀번호가 일치합니다.";
+                    msg += "<i class='far fa-check-circle'></i>";
+                    msg += "<p>&nbsp;비밀번호가 일치합니다.</p>";
+                    originPwdMsg.html(msg);
+
+                    //기존 비밀번호 인증 시 새로운 비밀번호 입력 가능, 인증 된 비밀번호는 수정 불가
+                    insertOriginPwd.attr("readonly", true);
+                    insertNewPwd.removeAttr("disabled");
+
                     checkAllConfirmed[0] = true;
-                    $("#originPwdMsg").val(msg);
                 },
                 error: function () {
 
-                    msg = "비밀번호가 다릅니다.";
+                    msg += "<i class='fas fa-exclamation-circle'></i>";
+                    msg += "<p>&nbsp;비밀번호가 다릅니다.</p>";
+                    originPwdMsg.html(msg);
+
                     checkAllConfirmed[0] = false;
-                    $("#originPwdMsg").val(msg);
                 }
 
             })
+
+        })
+
+        //새로운 비밀번호 변경 시 메세지 출력 및 확인
+        insertNewPwd.keyup(function (e) {
+
+            checkAllConfirmed[2] = false;
+
+            let newPwdVal = insertNewPwd.val();
+            let oriPwdVal = insertOriginPwd.val();
+            let msg = "";
+            let checkCondition = false;
+
+            confirmNewPwd.val("");
+            confirmNewPwd.attr("disabled", true);
+
+            //기존 비밀번호와 동일여부 체크
+            if (newPwdVal != oriPwdVal) {
+
+                checkCondition = pwdChecker(newPwdVal);
+
+                //비밀번호 양식 일치 여부 확인
+                if (!checkCondition) {
+
+                    msg += "<i class='fas fa-exclamation-circle'></i>";
+                    msg += "<p>&nbsp;비밀번호 조건을 확인하세요</p>";
+                    newPwdMsg.html(msg);
+
+                    checkAllConfirmed[1] = false;
+                } else {
+
+                    //새로운 비밀번호가 양식에 맞으면 새로운 비밀번호 재입력 가능
+                    newPwdMsg.html("");
+                    confirmNewPwd.removeAttr("disabled");
+
+                    checkAllConfirmed[1] = true;
+                }
+            } else {
+
+                msg += "<i class='fas fa-exclamation-circle'></i>";
+                msg += "<p>&nbsp;기존과 다른 비밀번호로 설정해주세요.</p>";
+                newPwdMsg.html(msg);
+
+                checkAllConfirmed[1] = false;
+            }
+
+        })
+
+        //새로운 비밀번호 재확인
+        confirmNewPwd.keyup(function (e) {
+
+            let newPwdVal = insertNewPwd.val();
+            let confirmNewPwdVal = confirmNewPwd.val();
+            let msg = "";
+
+            if (!(newPwdVal == confirmNewPwdVal)) {
+
+                msg += "<i class='fas fa-exclamation-circle'></i>";
+                msg += "<p>&nbsp;비밀번호가 일치하지 않습니다.</p>";
+                confirmNewPwdMsg.html(msg);
+
+                checkAllConfirmed[2] = false;
+            } else {
+
+                confirmNewPwdMsg.html("");
+
+                checkAllConfirmed[2] = true;
+            }
+        })
+
+        //이름 변경시 메세지 출력 및 확인
+        newName.keyup(function (e) {
+
+            let newNameVal = newName.val();
+            let msg = "";
+
+            let checkCondition = false;
+
+            checkCondition = nameChecker(newNameVal);
+
+            if (!checkCondition) {
+                msg += "<i class='fas fa-exclamation-circle'></i>";
+                msg += "<p>&nbsp;이름이 올바르지 않습니다.</p>";
+                newNameMsg.html(msg);
+                checkAllConfirmed[3] = false;
+            } else {
+                newNameMsg.html("");
+                checkAllConfirmed[3] = true;
+            }
+        })
+
+
+        $("#modifyMyInfo").on("click", function (e) {
+
+            alert(checkAllConfirmed);
+        })
+
+        $('#cancelMyInfo').on("click", function(e){
+
+            //취소 버튼 클릭 시 모든 입력값 초기화
+
+            insertOriginPwd.val("");
+            insertNewPwd.val("");
+            confirmNewPwd.val("");
+            newName.val("");
+
+            originPwdMsg.html("");
+            newPwdMsg.html("");
+            confirmNewPwdMsg.html("");
+            newNameMsg.html("");
+
+            insertOriginPwd.removeAttr("readonly");
+            insertNewPwd.attr("disabled", true);
+            confirmNewPwd.attr("disabled", true);
+
+            checkAllConfirmed = [false, false, false, false];
+
         })
 
     })
 </script>
+
+<!-- 해야 할 일
+1. 이름 , 전화번호는 원래 값 집어넣기
+2. 수정 버튼 클릭 시 수정 완료 (전화번호는 놔두기)
+3. 수정 누를 시 수정 완료하고 모달 닫기, 새로 고침 혹은 비동기 처리 (모달은 input은 초기화)
+-->

@@ -1,6 +1,5 @@
 package com.ncncn.controller;
 
-import com.ncncn.domain.PrcUpdateDTO;
 import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.service.DealListService;
