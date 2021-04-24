@@ -1,12 +1,14 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.PrcUpdateVO;
+
 public interface GifticonService {
 
     public int gftDealCmpl(int gftId);
 
     public int deleteGifticon(int gftId);
 
-    public int updateGftPrc(int gftId, char isAutoPrc, int dcPrc, double dcRate);
+    public int updateGftPrc(PrcUpdateVO prcUpdate);
 
 	int countNotYetApproved();
 

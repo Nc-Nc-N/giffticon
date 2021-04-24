@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.PrcUpdateVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -46,11 +47,13 @@ public class GifticonServiceTests {
     @Test
     public void UpdateGifticonTests(){
 
-        int gftId = 94;
-        char isAutoPrc = '0';
-        int dcPrc = 2000;
-        double dcRate = 0.10;
-        int updatedCmpl = gifticonService.updateGftPrc(gftId, isAutoPrc, dcPrc, dcRate);
+        PrcUpdateVO prcUpdate = new PrcUpdateVO();
+        prcUpdate.setGftId(94);
+        prcUpdate.setIsAutoPrc('0');
+        prcUpdate.setDcPrc(2000);
+        prcUpdate.setDcRate(0.10);
+
+        int updatedCmpl = gifticonService.updateGftPrc(prcUpdate);
 
         assertEquals(updatedCmpl, 1);
     }
