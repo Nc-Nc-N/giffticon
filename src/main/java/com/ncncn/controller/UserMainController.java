@@ -1,6 +1,6 @@
 package com.ncncn.controller;
 
-import com.ncncn.service.ProdService;
+import com.ncncn.service.GifticonService;
 import com.ncncn.service.WishListService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserMainController {
 
 	private WishListService wishService;
-	private ProdService prodService;
+	private GifticonService giftiService;
 
 	@GetMapping("/home")
 	public void main(HttpServletRequest request, Model model){
@@ -30,10 +30,10 @@ public class UserMainController {
 			model.addAttribute("notice", "로그인 후에 이용 가능한 메뉴입니다.");
 		}
 		// 인기상품
-		model.addAttribute("bestList", prodService.getBestGifti());
+		model.addAttribute("bestList", giftiService.getBestGifti());
 
 		// 마감상품
-		model.addAttribute("deadlineList", prodService.getDeadlineGifti());
+		model.addAttribute("deadlineList", giftiService.getDeadlineGifti());
 
 	}
 }

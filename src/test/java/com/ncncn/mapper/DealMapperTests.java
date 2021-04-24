@@ -25,11 +25,20 @@ import static org.junit.Assert.assertNotEquals;
 public class DealMapperTests {
 
     @Setter(onMethod_ = @Autowired)
-    private DealMapper mapper;
+    private ProductMapper mapper;
+
+    @Setter(onMethod_ = @Autowired)
+    private CategoryMapper cateMapper;
+
+    @Setter(onMethod_ = @Autowired)
+    private BrandMapper brandMapper;
+
+    @Setter(onMethod_ = @Autowired)
+    private GifticonMapper giftiMapper;
 
     @Test
     public void testGetCategoryList() {
-        List<CategoryVO> result = mapper.getCategoryList();
+        List<CategoryVO> result = cateMapper.getCategoryList();
         log.info(result);
         assertEquals("01", result.get(0).getCode());
         assertEquals("02", result.get(1).getCode());
@@ -38,7 +47,7 @@ public class DealMapperTests {
 
     @Test
     public void testGetBrandList() {
-        List<BrandVO> result = mapper.getBrandList("카페");
+        List<BrandVO> result = brandMapper.getBrandList("카페");
         log.info(result);
         assertEquals("0101", result.get(0).getCode());
         assertEquals("0102", result.get(1).getCode());
@@ -47,7 +56,7 @@ public class DealMapperTests {
 
     @Test
     public void testGetBrandList2() {
-        List<BrandVO> result = mapper.getBrandList("편의점, 마트");
+        List<BrandVO> result = brandMapper.getBrandList("편의점, 마트");
         log.info(result);
         assertEquals("0201", result.get(0).getCode());
         assertEquals("0202", result.get(1).getCode());
@@ -120,7 +129,7 @@ public class DealMapperTests {
         gifticon.setIsAutoPrc('0');
         gifticon.setGftStusCode("001");
 
-        mapper.registerGifticon(gifticon);
+        giftiMapper.registerGifticon(gifticon);
         log.info(gifticon);
     }
 

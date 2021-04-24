@@ -1,11 +1,14 @@
 package com.ncncn.controller;
 
 
-import com.ncncn.domain.request.AttachFileDTO;
 import com.ncncn.domain.BrandVO;
 import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProductVO;
-import com.ncncn.service.DealService;
+import com.ncncn.domain.request.AttachFileDTO;
+import com.ncncn.service.BrandService;
+import com.ncncn.service.CategoryService;
+import com.ncncn.service.GifticonService;
+import com.ncncn.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -37,12 +40,15 @@ import java.util.UUID;
 @AllArgsConstructor
 public class SaleRegisterController {
 
-    private DealService service;
+    private CategoryService cateService;
+    private BrandService brandService;
+    private ProductService prodService;
+    private GifticonService giftiService;
 
     @GetMapping("/deal/saleGifticon")
     public String saleGifticon(HttpServletRequest request , Model model){
 
-        model.addAttribute("categoryList", service.getCategoryList());
+        model.addAttribute("categoryList", cateService.getCategoryList());
 
         int userId = 0;
         //userId 0일경우 예외처리 해줄 것
@@ -62,33 +68,33 @@ public class SaleRegisterController {
         return "user/deal/saleGifticon";
     }
 
-    @PostMapping(value = "/getBrandAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/getBrandAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<BrandVO>> getBrandListAjax(@RequestParam("name") String name) {
 
         log.info("get brand list from server...............");
-        List<BrandVO> blist = service.getBrandList(name);
+        List<BrandVO> blist = brandService.getBrandList(name);
 
         return new ResponseEntity<>(blist, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/getProductAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/getProductAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<ProductVO>> getProductListAjax(@RequestParam("name") String name) {
 
         log.info("get brand list from server...............");
-        List<ProductVO> plist = service.getProductList(name);
+        List<ProductVO> plist = prodService.getProductList(name);
 
         return new ResponseEntity<>(plist, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/getProductObjectAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/getProductObjectAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ProductVO> getProductObjectAjax(
             @RequestParam("brdName") String brdName, @RequestParam("prodName") String prodName) {
 
         log.info("get brand list from server...............");
-        ProductVO object = service.getProductObject(brdName, prodName);
+        ProductVO object = prodService.getProductObject(brdName, prodName);
 
         return new ResponseEntity<>(object, HttpStatus.OK);
     }
@@ -121,7 +127,7 @@ public class SaleRegisterController {
     }
 
 
-    @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<AttachFileDTO>>
     uploadAjaxPost(MultipartFile[] uploadFile) {
@@ -221,7 +227,7 @@ public class SaleRegisterController {
 //    public void registerGifticonAction(@ModelAttribute GifticonVO gifticon) {
         log.info("register Gifticon controller.............");
 
-         service.registerGifticon(gifticon);
+        giftiService.registerGifticon(gifticon);
 
     }
 

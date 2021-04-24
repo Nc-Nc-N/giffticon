@@ -1,6 +1,8 @@
 package com.ncncn.mapper;
 
-import com.ncncn.domain.*;
+import com.ncncn.domain.BrandVO;
+import com.ncncn.domain.CategoryVO;
+import com.ncncn.domain.ProdListVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -21,14 +23,21 @@ import static org.junit.Assert.assertThat;
 public class ProdMapperTests {
 
 	@Setter(onMethod_ = @Autowired)
-	private ProdMapper mapper;
+	private GifticonMapper mapper;
+
+	@Setter(onMethod_ = @Autowired)
+	private CategoryMapper cateMapper;
+
+	@Setter(onMethod_ = @Autowired)
+	private BrandMapper brandMapper;
+
 
 	@Test
 	public void testGetCate(){
 
-		CategoryVO cafe = mapper.getCate("010101");
-		CategoryVO cafe1 = mapper.getCate("0101");
-		CategoryVO cafe2 = mapper.getCate("01");
+		CategoryVO cafe = cateMapper.getCate("010101");
+		CategoryVO cafe1 = cateMapper.getCate("0101");
+		CategoryVO cafe2 = cateMapper.getCate("01");
 
 
 		// 01로 시작하는 코드는 카페
@@ -36,9 +45,9 @@ public class ProdMapperTests {
 		assertThat(cafe1.getName(), is("카페"));
 		assertThat(cafe2.getName(), is("카페"));
 
-		CategoryVO market = mapper.getCate("020201");
-		CategoryVO market1 = mapper.getCate("0201");
-		CategoryVO market2 = mapper.getCate("02");
+		CategoryVO market = cateMapper.getCate("020201");
+		CategoryVO market1 = cateMapper.getCate("0201");
+		CategoryVO market2 = cateMapper.getCate("02");
 
 		// 02로 시작하는 코드는 편의점
 		assertThat(market.getName(), is("편의점, 마트"));
@@ -49,8 +58,8 @@ public class ProdMapperTests {
 	@Test
 	public void testGetBrandList(){
 
-		List<BrandVO> cafeList = mapper.getBrandList("01");
-		List<BrandVO> marketList = mapper.getBrandList("020202");
+		List<BrandVO> cafeList = brandMapper.getBrandList("01");
+		List<BrandVO> marketList = brandMapper.getBrandList("020202");
 
 		int cafeCnt = 15;
 		int marketCnt = 6;
