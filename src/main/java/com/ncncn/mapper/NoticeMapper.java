@@ -14,8 +14,6 @@ public interface NoticeMapper {
 
 	public void insert(CsNoticeVO notice);
 
-//	public  void insertSelectKey(CsNoticeVO notice);
-
 	public CsNoticeVO read(int id);
 
 	public int delete(int id);

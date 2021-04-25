@@ -15,8 +15,6 @@ public interface NoticeService {
 
 	public boolean remove(int id);
 
-//	public List<CsNoticeVO> getList();
-
 	public List<CsNoticeVO> getList(CsCriteria cri);
 
 	public int getTotal(CsCriteria cri);

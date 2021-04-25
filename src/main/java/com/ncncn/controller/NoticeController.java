@@ -25,12 +25,11 @@ public class NoticeController {
 
 	// 사용자
 
-	@GetMapping("user/cs/noticeBoard")
+	@GetMapping("/user/cs/noticeBoard")
 	public String csNotice(CsCriteria cri, Model model){
 
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getList(cri));
-//		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
 
 		int total = service.getTotal(cri);
 
@@ -45,12 +44,11 @@ public class NoticeController {
 
 	// 관리자
 
-	@GetMapping("admin/adminNotice")
+	@GetMapping("/admin/adminNotice")
 	public  String adminNotice(HttpServletRequest request, CsCriteria cri, Model model){
 
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getList(cri));
-//		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
 
 		int total = service.getTotal(cri);
 
@@ -71,7 +69,7 @@ public class NoticeController {
 
 	}
 
-
+	//게시물 등록
 	@PostMapping("/admin/adminNotice/register")
 	public String register(HttpServletRequest request, CsNoticeVO notice, RedirectAttributes rttr){
 
@@ -84,6 +82,7 @@ public class NoticeController {
 		return "redirect:/admin/adminNotice";
 	}
 
+	//게시물 수정
 	@PostMapping("/admin/adminNotice/modify")
 	public String modify(HttpServletRequest request, CsNoticeVO notice, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr){
 
@@ -104,6 +103,7 @@ public class NoticeController {
 		return "redirect:/admin/adminNotice";
 	}
 
+	//게시물 삭제
 	@PostMapping("/admin/adminNotice/remove")
 	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr){
 
