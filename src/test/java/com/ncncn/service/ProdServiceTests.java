@@ -1,7 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.CategoryVO;
-import com.ncncn.mapper.ProdMapper;
+import com.ncncn.mapper.GifticonMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -14,15 +14,15 @@ import static org.mockito.Mockito.when;
 public class ProdServiceTests {
 
 	@Mock
-	private ProdMapper prodMapper;
+	private GifticonMapper giftiMapper;
 
 	@Test
 	public void test() {
-		ProdServiceImpl service = mock(ProdServiceImpl.class);
+		CategoryServiceImpl cateService = mock(CategoryServiceImpl.class);
 
 		CategoryVO cate = new CategoryVO();   // mock 객체 생성
 
-		when(service.getCate("010101")).thenReturn(cate);    // getCate() 호출 시
+		when(cateService.getCate("010101")).thenReturn(cate);    // getCate() 호출 시
 
 	}
 }
