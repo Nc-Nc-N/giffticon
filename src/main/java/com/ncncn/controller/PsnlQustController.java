@@ -51,7 +51,7 @@ public class PsnlQustController {
 		return "user/cs/psnlQustBoard";
 	}
 
-
+	//사용자 1:1문의 등록 page 이동
 	@GetMapping("/user/mypage/psnlQustBoard/register")
 	public String registerPsnlQust(HttpServletRequest request) {
 
@@ -60,6 +60,7 @@ public class PsnlQustController {
 		return "user/cs/registerPsnlQust";
 	}
 
+	//사용자 1:1문의 등록
 	@PostMapping("/user/mypage/psnlQustBoard/register")
 	public String register(HttpServletRequest request, CsPsnlQustVO qna, RedirectAttributes rttr) {
 
@@ -74,7 +75,7 @@ public class PsnlQustController {
 		return "redirect:/user/mypage/psnlQustBoard";
 	}
 
-
+	//사용자 1:1문의 수정
 	@PostMapping("/user/mypage/psnlQustBoard/modify")
 	public String modifyUser(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr) {
 
@@ -95,7 +96,7 @@ public class PsnlQustController {
 		return "redirect:/user/mypage/psnlQustBoard";
 	}
 
-
+	//사용자 1:1문의 삭제
 	@PostMapping("/user/mypage/psnlQustBoard/remove")
 	public String removeUser(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr) {
 
@@ -117,6 +118,9 @@ public class PsnlQustController {
 	}
 
 
+
+
+
 	// 관리자
 
 	@GetMapping("/admin/adminPsnlQust")
@@ -126,7 +130,6 @@ public class PsnlQustController {
 		int userId = (int) request.getSession().getAttribute("userId");
 		model.addAttribute("userId", userId);
 		model.addAttribute("list", service.getList(cri));
-//		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
 
 		int total = service.getTotal(cri);
 
@@ -138,6 +141,7 @@ public class PsnlQustController {
 
 	}
 
+	//관리자 1:1문의 수정(답변 달기)
 	@PostMapping("/admin/adminPsnlQust/modify")
 	public String modify(HttpServletRequest request, CsPsnlQustVO qna, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr) {
 
@@ -158,7 +162,7 @@ public class PsnlQustController {
 		return "redirect:/admin/adminPsnlQust";
 	}
 
-
+	//관리자 1:1문의 삭제
 	@PostMapping("/admin/adminPsnlQust/remove")
 	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr) {
 

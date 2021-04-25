@@ -22,7 +22,7 @@ public class NoticeServiceImpl implements NoticeService{
 
 		log.info("register....." + notice);
 
-		mapper.insert(notice);	//insertSelectKey사용하는거 아니겠지?
+		mapper.insert(notice);
 	}
 
 
@@ -47,13 +47,6 @@ public class NoticeServiceImpl implements NoticeService{
 		return mapper.delete(id) == 1;
 		//정상으로 삭제되면 1 값 반환하므로 true/false처리 가능
 	}
-
-//	@Override
-//	public List<CsNoticeVO> getList() {
-//
-//		log.info("getList.....");
-//		return mapper.getList();
-//	}
 
 	@Override
 	public List<CsNoticeVO> getList(CsCriteria cri) {
