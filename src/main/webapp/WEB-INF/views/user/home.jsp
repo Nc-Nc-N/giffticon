@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@include file="../common/header.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@include file="../common/header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +34,9 @@
             <ul class="splide__list">
                 <%-- 추가 배너는 li 태그 추가해주시면 됩니다. --%>
                 <li class="splide__slide">
+                    <img src="/resources/img/banner001.png">
+                </li>
+                <li class="splide__slide">
                     <img src="/resources/img/banner002.png">
                 </li>
                 <li class="splide__slide">
@@ -46,8 +49,8 @@
 
 
 <div id="container">
-<div class="space"></div> <!--광고 위 여백-->
- <!-- 광고 아래 메인 컨텐츠-->
+    <div class="space"></div> <!--광고 위 여백-->
+    <!-- 광고 아래 메인 컨텐츠-->
     <div class="space"></div>
 
     <!-- 첫번째줄 (지도 + 관심상품)-->
@@ -103,11 +106,14 @@
                                                 <c:out value="${wishList.pname}"/>
                                             </div>
                                             <div class="itemprice">
-                                                <span><fmt:formatNumber value="${wishList.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                                                <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.dcPrc}" /> 원 ~</span>
+                                                <span><fmt:formatNumber value="${wishList.dcRate}"
+                                                                        type="percent"/></span>&nbsp;&nbsp;
+                                                <span><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                                        value="${wishList.dcPrc}"/> 원 ~</span>
                                             </div>
                                             <div class="itemoriginprice">
-                                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${wishList.prc}"/> 원</del></span>
+                                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                                             value="${wishList.prc}"/> 원</del></span>
                                             </div>
                                         </div>
                                     </div>
@@ -134,53 +140,56 @@
 
         <div class="listcontent">
             <div class="splide" style="width: 1000px; margin-top: 3%;">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    <c:set var="i" value="0"/>
-                    <c:set var="j" value="4"/>
-                    <c:forEach items="${bestList}" var="bestList">
-                        <c:if test="${i%j==0}">
-                            <li class="splide__slide">
-                            <table>
-                            <tr>
-                        </c:if>
-                        <td>
-                            <a href="prod_detail?code=${bestList.prodCode}">
-                                <div class="items">
-                                    <div class="pic">
-                                        <div class="img">
-                                            <p class="best">NO. ${i+1}</p>
-                                            <img src="${bestList.pimgPath}">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <c:set var="i" value="0"/>
+                        <c:set var="j" value="4"/>
+                        <c:forEach items="${bestList}" var="bestList">
+                            <c:if test="${i%j==0}">
+                                <li class="splide__slide">
+                                <table>
+                                <tr>
+                            </c:if>
+                            <td>
+                                <a href="prod_detail?code=${bestList.prodCode}">
+                                    <div class="items">
+                                        <div class="pic">
+                                            <div class="img">
+                                                <p class="best">NO. ${i+1}</p>
+                                                <img src="${bestList.pimgPath}">
+                                            </div>
+                                        </div>
+                                        <div class="itemnameNprice">
+                                            <div class="itembrand">
+                                                <c:out value="${bestList.bname}"/>
+                                            </div>
+                                            <div class="itemname">
+                                                <c:out value="${bestList.pname}"/>
+                                            </div>
+                                            <div class="itemprice">
+                                                <span><fmt:formatNumber value="${bestList.dcRate}"
+                                                                        type="percent"/></span>&nbsp;&nbsp;
+                                                <span><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                                        value="${bestList.dcPrc}"/> 원 ~</span>
+                                            </div>
+                                            <div class="itemoriginprice">
+                                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                                             value="${bestList.prc}"/> 원</del></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="itemnameNprice">
-                                        <div class="itembrand">
-                                            <c:out value="${bestList.bname}"/>
-                                        </div>
-                                        <div class="itemname">
-                                            <c:out value="${bestList.pname}"/>
-                                        </div>
-                                        <div class="itemprice">
-                                            <span><fmt:formatNumber value="${bestList.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                                            <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${bestList.dcPrc}" /> 원 ~</span>
-                                        </div>
-                                        <div class="itemoriginprice">
-                                            <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${bestList.prc}"/> 원</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </td>
-                        <c:if test="${i%j==j-1}">
-                            </tr>
-                            </table>
-                            </li>
-                        </c:if>
-                        <c:set var="i" value="${i+1}"/>
-                    </c:forEach>
-                </ul>
+                                </a>
+                            </td>
+                            <c:if test="${i%j==j-1}">
+                                </tr>
+                                </table>
+                                </li>
+                            </c:if>
+                            <c:set var="i" value="${i+1}"/>
+                        </c:forEach>
+                    </ul>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
@@ -214,7 +223,8 @@
                                             <div class="img">
                                                 <img src="${DL.pimgPath}">
                                             </div>
-                                            <p class="deadline">유효기간: ~ <fmt:formatDate value="${DL.expirDt}" pattern="yyyy-MM-dd"/></p>
+                                            <p class="deadline">유효기간: ~ <fmt:formatDate value="${DL.expirDt}"
+                                                                                        pattern="yyyy-MM-dd"/></p>
                                         </div>
                                         <div class="itemnameNprice">
                                             <div class="itembrand">
@@ -224,11 +234,13 @@
                                                 <c:out value="${DL.pname}"/>
                                             </div>
                                             <div class="itemprice">
-                                                <span><fmt:formatNumber value="${DL.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                                                <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${DL.dcPrc}" /> 원 ~</span>
+                                                <span><fmt:formatNumber value="${DL.dcRate}" type="percent"/></span>&nbsp;&nbsp;
+                                                <span><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                                        value="${DL.dcPrc}"/> 원 ~</span>
                                             </div>
                                             <div class="itemoriginprice">
-                                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${DL.prc}"/> 원</del></span>
+                                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                                             value="${DL.prc}"/> 원</del></span>
                                             </div>
                                         </div>
                                     </div>
@@ -252,17 +264,17 @@
 
 <script>
     <%--  슬라이드바   --%>
-    let elms = document.getElementsByClassName( 'splide' );
-    for (let i = 0, len = elms.length; i < len; i++ ) {
-        new Splide( elms[ i ], {
+    let elms = document.getElementsByClassName('splide');
+    for (let i = 0, len = elms.length; i < len; i++) {
+        new Splide(elms[i], {
             rewind: true
-        } ).mount();
+        }).mount();
     }
 
     // 로그인 안 되어 있을 때 문구 출력
     let notice = "${notice}";
 
-    if(notice.length > 0){
+    if (notice.length > 0) {
         $('.noWish').show();
     }
 </script>

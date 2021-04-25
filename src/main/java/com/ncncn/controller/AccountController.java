@@ -71,14 +71,15 @@ public class AccountController {
     }
 
     @GetMapping(value = "/checkExists", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> getUser(@RequestParam("email") String email) {
+    public ResponseEntity<Integer> checkExists(@RequestParam("email") String email) {
         int isExists = 0;
 
         try {
             UserVO userVO = signUpServiceImpl.getByEmail(email);
-            isExists = 1;
+            if (userVO != null) isExists = 1;
         } catch (Exception e) {
-            log.info("존재하지 않는 사용자 이메일입니다.");
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return new ResponseEntity<>(isExists, HttpStatus.OK);
