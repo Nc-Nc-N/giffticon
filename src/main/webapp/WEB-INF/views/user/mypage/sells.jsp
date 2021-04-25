@@ -128,6 +128,7 @@
 
         var actionForm = $("#actionForm");
 
+        //페이지네이션
         $(".paginate_btn").on("click", function (e) {
             e.preventDefault();
 
@@ -137,6 +138,7 @@
 
         var searchSpec = $(".search-spec");
 
+        //검색버튼 클릭 시 날짜 조건 일치하면 검색 실행
         $(".search-button").on("click", function (e) {
 
             let dateFrom = $("#dateFrom").val();
@@ -174,6 +176,7 @@
             })
         })
 
+        //기프티콘 삭제 버튼
         $("button[name='deleteGift']").on("click", function (e) {
 
             if (confirm("삭제하시겠습니까? 삭제 후 재등록 가능합니다.")) {
@@ -186,6 +189,7 @@
             }
         });
 
+        //기프티콘 상세 페이지 이동
         $("button[name='sellDetailBtn']").on("click", function (e) {
 
             actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");

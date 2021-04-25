@@ -125,6 +125,7 @@
 
         var actionForm = $("#actionForm");
 
+        //페이지네이션
         $(".paginate_btn").on("click", function (e) {
             e.preventDefault();
 
@@ -154,6 +155,7 @@
             })
         })
 
+        //기프티콘 상세페이지 버튼
         $("button[name='dealDetailBtn']").on("click", function (k) {
 
             actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
@@ -162,6 +164,7 @@
             actionForm.submit();
         });
 
+        //구매확정 버튼
         $("button[name='dealCmplBtn']").on("click", function (i) {
             if (confirm("구매확정하시겠습니까? 확정 후 변경 불가합니다.")) {
                 actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
@@ -174,6 +177,7 @@
 
         var searchSpec = $(".search-spec");
 
+        //search 버튼 누를 시 날짜조건이 정확한지 체크 후 검색 실행
         $(".search-button").on("click", function (e) {
 
             let dateFrom = $("#dateFrom").val();

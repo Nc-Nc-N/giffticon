@@ -165,7 +165,6 @@
 
             absSearch.submit();
         })
-
-
+        
     })
 </script>
