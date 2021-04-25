@@ -3,6 +3,9 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 
+<%
+        int userId = (int) request.getSession().getAttribute("userId");
+%>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,19 +66,27 @@
                 <div class='abstracts'>
                     <div class='abs stus004'>
                         <div class="abs_name">확정 대기</div>
-                        <div class="abs_num"><c:out value="${countStus004}"/></div>
+                        <div class="abs_num" id="stus004">
+<%--                            <c:out value="${countStus004}"/>--%>
+                        </div>
                     </div>
                     <div class='abs stus001'>
                         <div class="abs_name">판매 대기</div>
-                        <div class="abs_num"><c:out value="${countStus001}"/></div>
+                        <div class="abs_num"id="stus001">
+<%--                            <c:out value="${countStus001}"/>--%>
+                        </div>
                     </div>
                     <div class='abs stus002'>
                         <div class="abs_name">판매 중</div>
-                        <div class="abs_num"><c:out value="${countStus002}"/></div>
+                        <div class="abs_num" id="stus002">
+<%--                            <c:out value="${countStus002}"/>--%>
+                        </div>
                     </div>
                     <div class='abs curentPnt'>
                         <div class="abs_name">현재 포인트</div>
-                        <div class="abs_pnt"><c:out value="${userPnt}"/>p</div>
+                        <div class="abs_pnt" id="userPnt">
+<%--                            <c:out value="${userPnt}"/>p--%>
+                        </div>
                     </div>
                     <form class="abs-search" action="/user/mypage/deal" method="get">
                         <input type="hidden" name="pageNum" value="<c:out value="${pageMaker.cri.pageNum}"/>">
@@ -89,6 +100,32 @@
 
 <script>
     $(document).ready(function () {
+
+        let userId = <%=userId%>;
+
+        absLoader(userId);
+        function absLoader(userId){
+
+            console.log("userId type : " + typeof (userId));
+
+            // userId 가 number 인데 controller에서 int userId 를 받지 못한다.. 왜>???? 형변환 or 컨트롤러 조건 변경????/
+            $.ajax({
+                url: '/user/mypage/absLoader',
+                type: 'get',
+                data: {userId:userId},
+                dataType: 'json',
+                success: function(result){
+                    console.log("success" + result);
+                    $("#stus004").html(result[0]);
+                    $("#stus001").html(result[1]);
+                    $("#stus002").html(result[2]);
+                    $("#userPnt").html(result[3]);
+                },
+                error: function(){
+
+                }
+            })
+        }
 
         var absSearch = $(".abs-search");
 

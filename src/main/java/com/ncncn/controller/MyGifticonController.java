@@ -1,8 +1,11 @@
 package com.ncncn.controller;
 
 import java.security.Principal;
+import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ncncn.domain.MyDealsVO;
 import com.ncncn.domain.MySellVO;
 import com.ncncn.domain.pagination.MyPageCriteria;
@@ -14,11 +17,11 @@ import com.ncncn.service.WishListService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Log4j
@@ -32,20 +35,14 @@ public class MyGifticonController {
 	private WishListService wishService;
 
 	@GetMapping("/deal")
-	public void dealList(Principal principal, MyPageCriteria cri, Model model, HttpServletRequest request) {
+	public void dealList(MyPageCriteria cri, Model model, HttpServletRequest request) {
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
 		int total = dealListService.countDealList(userId, cri);
 
-		model.addAttribute("countStus004", dealListService.countStus004(userId));
-		model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
-		model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
-		model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
 		model.addAttribute("dealList", dealListService.getDealsWithPaging(userId, cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
-
-		log.info("deals loading....");
 	}
 
 	@GetMapping("/dealDetail")
@@ -65,13 +62,6 @@ public class MyGifticonController {
 			return "redirect:/user/home";
 		}
 
-		log.info("Get Detail of gftId: " + gftId);
-
-		model.addAttribute("countStus004", dealListService.countStus004(userId));
-		model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
-		model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
-		model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
-
 		return "/user/mypage/dealDetail";
 	}
 
@@ -82,18 +72,13 @@ public class MyGifticonController {
 
 		int total = sellListService.countSellList(userId, cri);
 
-		model.addAttribute("countStus004", dealListService.countStus004(userId));
-		model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
-		model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
-		model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
 		model.addAttribute("sellList", sellListService.getSellsWithPaging(userId, cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 
 	@GetMapping("/sellDetail")
 	public String sellDetail(HttpServletRequest request, Model model,
-							 @ModelAttribute("cri") MyPageCriteria cri, int gftId,
-							 Principal principal) {
+							 @ModelAttribute("cri") MyPageCriteria cri, int gftId) {
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
@@ -109,13 +94,7 @@ public class MyGifticonController {
 			return "redirect:/user/home";
 		}
 
-		model.addAttribute("countStus004", dealListService.countStus004(userId));
-		model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
-		model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
-		model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
-		model.addAttribute("principal", principal);
 		return "/user/mypage/sellDetail";
-
 	}
 
 	// 관심 상품
@@ -125,12 +104,31 @@ public class MyGifticonController {
 		int userId = (int) request.getSession().getAttribute("userId");
 		int total = wishService.getTotalCount(userId);
 
-		model.addAttribute("countStus004", dealListService.countStus004(userId));
-		model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
-		model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
-		model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		model.addAttribute("userId", userId);
 		model.addAttribute("wishList", wishService.getWishListWithPaging(userId, cri));
+	}
+
+	@RequestMapping(value = "/absLoader", method = {RequestMethod.GET})
+	public ResponseEntity<String> absLoader(@RequestParam("userId") int userId){
+
+		try {
+			int status004 = dealListService.countStus004(userId);
+			int status001 = sellListService.countStus001N002(userId, "판매대기");
+			int status002 = sellListService.countStus001N002(userId, "판매중");
+			int userPnt = userService.readbyId(userId).getPnt();
+
+			String[] absList = {status004+"", status001+"", status002+"", userPnt+""};
+			Gson gson = new GsonBuilder().create();
+			String absListJson = gson.toJson(absList);
+
+			return new ResponseEntity<String>(absListJson, HttpStatus.OK);
+
+		}catch (Exception e){
+
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+
 	}
 }

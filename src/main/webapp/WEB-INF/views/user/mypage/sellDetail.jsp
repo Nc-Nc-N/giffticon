@@ -236,7 +236,7 @@
         $("#modal-register").on("click", function (e) {
 
             let userPwd = $("#userPwd").val();
-            let userEmail = '${principal.name}';
+            let userEmail = "<sec:authentication property="principal.username" htmlEscape="false"/>";
             let gftId = "<c:out value="${gftInfo.id}"/>";
             let isAutoPrc = $("input[name='price_select']:checked").val();
             let dcPrc = $("#prcinput").val();
