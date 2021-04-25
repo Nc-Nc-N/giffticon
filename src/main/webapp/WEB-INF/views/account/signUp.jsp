@@ -404,9 +404,9 @@
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
                 success: function () {
-                    alert("회원가입 성공");
+                    alert("회원가입에 성공했습니다");
                     // 사용자 등록에 성공하면 로그인 페이지로 이동
-                    // window.location.replace("/account/signIn");
+                    window.location.replace("/account/signIn");
                 },
                 error: function (result) {
                     alert("다시 시도해주세요.\n cause: " + result); // error 메세지 추가
@@ -434,7 +434,7 @@
 
     // 사용자가 입력한 이메일이 이미 사용중인지 확인
     function checkEmailAlreadyExists(email) {
-        let count = '';
+        let isExists = 1;
         $.ajax({
             type: 'get',
             url: '/account/checkExists?email=' + email,
@@ -442,15 +442,15 @@
             success: function (result) {
                 // 이미 존재하는 이메일이면 1
                 // 사용중인 이메일이 아니면 0
-                count = result;
+                isExists = result;
             },
             error: function (result) {
                 alert("이메일 확인중 문제가 발생했습니다. 다시 시도해주세요.");
-                count = result;
+                isExists = 1;
             }
         });
 
-        return count === 1;
+        return isExists === 1;
     }
 
     // 영어 대,소문자와 특수문자를 포함한 최소 8자리 ~ 최대 16자리 비밀번호

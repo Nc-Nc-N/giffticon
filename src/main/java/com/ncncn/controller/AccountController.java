@@ -71,7 +71,7 @@ public class AccountController {
     }
 
     @GetMapping(value = "/checkExists", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> getUser(@RequestParam("email") String email) {
+    public ResponseEntity<Integer> checkExists(@RequestParam("email") String email) {
         int isExists = 0;
 
         try {
@@ -79,7 +79,7 @@ public class AccountController {
             if (userVO != null) isExists = 1;
         } catch (Exception e) {
             log.error(e.getMessage());
-            return new ResponseEntity<>(isExists, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return new ResponseEntity<>(isExists, HttpStatus.OK);
