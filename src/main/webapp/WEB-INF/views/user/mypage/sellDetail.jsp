@@ -104,6 +104,7 @@
         <input type="hidden" name="amount" value="${cri.amount}">
         <input type="hidden" name="keyword" value="<c:out value="${cri.keyword}"/>"/>
         <input type="hidden" name="type" value="<c:out value="${cri.type}"/>"/>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button class="btn btn-active" id="toListbtn">목록</button>
     </form>
 
@@ -129,7 +130,7 @@ $(".document").ready(function () {
 
         if (confirm("삭제하시겠습니까? 삭제 후 재등록 가능합니다.")) {
             actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
-            actionForm.attr("action", "/gifticon/delGft").attr("method", "get");
+            actionForm.attr("action", "/gifticon/delGft").attr("method", "post");
             actionForm.submit();
         } else {
             return;

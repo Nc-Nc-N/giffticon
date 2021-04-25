@@ -68,6 +68,7 @@
         <input type="hidden" name="amount" value="${cri.amount}">
         <input type="hidden" name="keyword" value="<c:out value="${cri.keyword}"/>"/>
         <input type="hidden" name="type" value="<c:out value="${cri.type}"/>"/>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button class="btn btn-active" id="toListbtn">목록</button>
     </form>
 </div>
@@ -88,8 +89,8 @@
         //구매확정 버튼
         $("button[name='dealCmplBtn']").on("click", function (i) {
             if (confirm("구매확정하시겠습니까? 확정 후 변경 불가합니다.")) {
-                actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");// actionForm.append("<input type='hidden' name='" + csrfName + "' value='" + csrfToken + "'>");
-                actionForm.attr("action", "/gifticon/stus005").attr("method", "get");
+                actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
+                actionForm.attr("action", "/gifticon/stus005").attr("method", "post");
                 actionForm.submit();
             } else {
                 return;
