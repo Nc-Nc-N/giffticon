@@ -30,7 +30,8 @@ public class GifticonController {
 
         gifticonService.gftDealCmpl(gftId);
 
-        model.addAttribute("cri", cri);
+        //return redirect 시에는 페이지네이션 유지 불가 (forward 써야 하는데 이후 error catch 못함)
+        //model.addAttribute("cri", cri);
 
         if (request.getHeader("referer").contains("/dealDetail")) { //구매상세페이지에서 구매확정한 경우 구매상세로 다시 보냄
 
@@ -43,11 +44,10 @@ public class GifticonController {
     }
 
     @GetMapping("/delGft")
-    public String deleteGifticon(HttpServletRequest request, int gftId, MyPageCriteria cri, Model model) {
+    public String deleteGifticon(int gftId, MyPageCriteria cri, Model model) {
 
-        log.info("gifticon delete Controller....");
-
-        model.addAttribute("cri", cri);
+        //return redirect 시에는 페이지네이션 유지 불가 (forward 써야 하는데 이후 error catch 못함)
+        //model.addAttribute("cri", cri);
 
         try {
             gifticonService.deleteGifticon(gftId);
@@ -69,19 +69,16 @@ public class GifticonController {
 
         String msg = "";
 
+        //비밀번호 체크 후 true 이면 가격 수정 실행
         if (UserAuthCheckUtils.userAuthCheck(prcUpdate.getEmail(), prcUpdate.getPassword(), user)) {
 
-            log.info("기프티콘 가격 수정....비밀번호 일치");
-
-            int isUpdated = gifticonService.updateGftPrc(prcUpdate.getGftId(), prcUpdate.getIsAutoPrc(), prcUpdate.getDcPrc(), prcUpdate.getDcRate());
+            int isUpdated = gifticonService.updateGftPrc(prcUpdate);
 
             if (isUpdated == 1) { //가격 수정 성공한 경우 success
 
-                log.info("수정완료");
                 return new ResponseEntity<>(HttpStatus.OK);
             } else { //가격 수정 실패한 경우 serverError
 
-                log.info("가격수정 실패");
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
@@ -92,14 +89,18 @@ public class GifticonController {
         }
     }
 
-    @GetMapping(value="/{prdCode}")
-    public ResponseEntity<String> countOnSelling(@PathVariable("prdCode") String prdCode){
+    @GetMapping(value = "/{prdCode}")
+    public ResponseEntity<String> countOnSelling(@PathVariable("prdCode") String prdCode) {
 
-        try{
+        try {
+
             int count = gifticonService.countOnselling(prdCode);
+            //기프티콘 수량이 0 이 아니면 status OK 반환 없으면 error
             return count > 0 ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }catch (Exception e){
-            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            
+            //수량 체크 실패 시 error
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

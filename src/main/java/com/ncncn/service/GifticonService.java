@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.PrcUpdateVO;
 import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProdListVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
@@ -12,7 +13,7 @@ public interface GifticonService {
 
     public int deleteGifticon(int gftId);
 
-    public int updateGftPrc(int gftId, char isAutoPrc, int dcPrc, double dcRate);
+    public int updateGftPrc(PrcUpdateVO prcUpdate);
 
 	int countNotYetApproved();
 
