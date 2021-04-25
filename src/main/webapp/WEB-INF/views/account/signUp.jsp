@@ -199,9 +199,7 @@
 <script>
     $(document).ready(function (e) {
         let csrfHeaderName = "${_csrf.headerName}";
-        console.log(csrfHeaderName);
         let csrfTokenValue = "${_csrf.token}";
-        console.log(csrfTokenValue);
 
         // 전화번호 입력창 마우스 오른쪽 클릭 비활성화
         $("input[name='telNo']").on('propertychange change keyup paste input', function (e) {
@@ -260,7 +258,6 @@
                     alert("인증코드 전송에 실패했습니다. \n이메일 확인 후 다시 시도해주세요.");
                 }
             });
-
         });
 
         let authCodeInput = $("input[name='emlAuthTkn']");
