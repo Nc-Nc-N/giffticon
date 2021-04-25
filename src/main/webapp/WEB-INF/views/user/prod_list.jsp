@@ -28,12 +28,23 @@
                 <div class="search-result" style="display: none">총 <c:out value="${headerPageMaker.total}"/> 개의 상품이 검색되었습니다. </div>
                 <div class="noresult" style="display: none; font-size: large">'${headerPageMaker.cri.keyword}’ 상품을 찾지 못했습니다.</div>
                 <ul>
-                    <a class="cateAll" href="prod_list?code=${category.code}&orderby=best&pageNum=1&amount=${headerPageMaker.cri.amount}">전체보기</a>
+                    <a class="cateAll" href="prod_list?code=${category.code}&orderby=best">전체보기</a>
                     <c:forEach items="${brandList}" var="brandList">
-                    <a class="brandList ${headerPageMaker.cri.code == brandList.code ? "active":""}" href="prod_list?code=${brandList.code}&orderby=best&pageNum=1&amount=${headerPageMaker.cri.amount}"><c:out value="${brandList.name}"/></a>
+                    <a class="brandList ${headerPageMaker.cri.code == brandList.code ? "active":""}" href="prod_list?code=${brandList.code}&orderby=best"><c:out value="${brandList.name}"/></a>
                     </c:forEach>
                 </ul>
             </nav>
+
+            <%-- 재검색 안내  --%>
+            <div class="noresult-tip" style="display: none">
+                <div class="tip_txt">
+                    <span>다시 검색해보세요.</span>
+                </div>
+                <div class="tip_lst">
+                    <p>단어의 철자가 정확한지 확인해 보세요.</p>
+                    <p>띄어쓰기 또는 넓은 의미의 단어를 사용해 보세요.</p>
+                </div>
+            </div>
 
             <%-- 정렬 방식 --%>
             <select class="search-select">
@@ -46,17 +57,6 @@
                 <option id="deadline" value="deadline"
                         <c:out value="${headerPageMaker.cri.orderby eq 'deadline' ? 'selected':''}"/>>마감 임박순</option>
             </select>
-
-            <%-- 재검색 안내  --%>
-            <div class="noresult-tip" style="display: none">
-                <div class="tip_txt">
-                    <span>다시 검색해보세요.</span>
-                </div>
-                <div class="tip_lst">
-                    <p>단어의 철자가 정확한지 확인해 보세요.</p>
-                    <p>띄어쓰기 또는 넓은 의미의 단어를 사용해 보세요.</p>
-                </div>
-            </div>
 
             <%-- 상품 목록 리스트 --%>
             <c:set var="i" value="0"/>
