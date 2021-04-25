@@ -28,18 +28,22 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
                                         HttpServletResponse response,
                                         Authentication auth)
             throws IOException, ServerException {
-        log.warn("Login Success Handler....");
+        log.warn("로그인 성공....");
 
+        //로그인 이후 이동할 페이지 나눠주기
         String url = redirectUrlSelector(request);
-        Cookie cookie = CookieFinder(request);
-        List<String> roleName = authorityFinder(auth);
 
+        //쿠키 찾기
+        Cookie cookie = CookieFinder(request);
         response.addCookie(cookie);
 
+        //회원 권한 조회
+        List<String> roleName = authorityFinder(auth);
+
+        //회원 id는 세션에 저장해놓고 필요할때 꺼내 쓰기
         request.getSession().setAttribute("userId", signUpService.getByEmail(auth.getName()).getId());
 
-
-        //admin 로그인 시 admin/main으로 리다이렉트
+        //admin 로그인 시 무조건 admin/main으로 리다이렉트
         if (roleName.contains("관리자")) {
             log.info("관리자로 로그인 합니다.");
             response.sendRedirect("/admin/main");
@@ -47,7 +51,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         }
 
         log.info("사용자로 로그인 합니다.");
-        //user 로그인 시 user/home으로 리다이렉트
+
+        //user 로그인 시 조건에 따라 이동
         response.sendRedirect(url);
         return;
     }
@@ -74,16 +79,19 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         SavedRequest requestedUrl = (SavedRequest) request.getSession()
                 .getAttribute("SPRING_SECURITY_SAVED_REQUEST");
 
+        //1. 권한이 없어서 security가 로그인창으로 보낸 경우 이후 가려는 페이지로 이동
         if (requestedUrl != null) {
             redirectUrl = requestedUrl.getRedirectUrl();
             request.getSession().removeAttribute("SPRING_SECURITY_SAVED_REQUEST");
             request.getSession().removeAttribute("referer");
+
+        //2. 직접 로그인 창으로 온 경우 이전 페이지로 이동
         } else {
-            //2. 없으면 referer를 redirect할 주소로 지정
             redirectUrl = (String) request.getSession().getAttribute("referer");
             request.getSession().removeAttribute("referer");
         }
 
+        //3. 처음 왔거나 아이디/비밀번호찾기 , 회원가입 후 로그인할 시 home으로 이동
         if (redirectUrl == null || redirectUrl.contains("/account")) {
             redirectUrl = "/user/home";
         }
@@ -94,7 +102,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     public List<String> authorityFinder(Authentication auth) {
 
         List<String> roleName = new ArrayList<>();
-        log.info("auth 정보: " + auth.toString());
+
+        //auth 객체에 담긴 사용자 권한 정보를 roleName List에 담아서 반환
         auth.getAuthorities().forEach(authority -> {
             roleName.add(authority.getAuthority());
         });

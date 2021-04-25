@@ -34,22 +34,20 @@ public class AccountController {
     @GetMapping("/signIn")
     public void signIn(HttpServletRequest request, String error, Model model) {
 
-        log.info("Login Controller...");
-
         model = cookieChecker(request, model);
 
+        //로그인 실패 시
         if (error != null) {
-            log.info("msg:" + error);
             model.addAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
         }
 
+        //직접 logout 해서 로그인 창으로 왔을 시
         if (request.getSession().getAttribute("logout") != null) {
             model.addAttribute("msg", "로그아웃되었습니다.");
             request.getSession().removeAttribute("logout");
         }
 
         request.getSession().setAttribute("referer", request.getHeader("referer"));
-
     }
 
     @GetMapping("/signUp")
