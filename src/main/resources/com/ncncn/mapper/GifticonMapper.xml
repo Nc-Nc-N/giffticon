@@ -41,6 +41,14 @@
         </trim>
     </sql>
 
+    <sql id="search">
+        <trim prefix="and">
+            <if test='keyword != null and keyword neq ""'>
+                prod.name like concat('%', #{keyword}, '%') OR brand.name like concat('%', #{keyword}, '%')
+            </if>
+        </trim>
+    </sql>
+
     <select id="readAllRqustWithPaging" resultMap="SaleRqusts">
         <![CDATA[select gft.id as gft_id, gft.brcd as brcd, gft.expir_dt as expir_dt, gft.in_date as in_date, gft.img_path as img_path, gft.prod_code as prod_code,
                     cate.name as cate_name, brd.name as brd_name, prod.name as prod_name, usr.email as requester]]>
@@ -133,5 +141,114 @@
         where prod_code = #{prdCode}
           and gftT.gft_stus_code = stusT.code
     </select>
+
+    <!-- 판매중 기프티콘 목록 -->
+    <select id="getGiftiList" resultType="com.ncncn.domain.ProdListVO">
+        <![CDATA[
+        select prod.enabled, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, gifti.dc_prc, gifti.expir_dt, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
+        from gifticon as gifti
+                 INNER JOIN product as prod ON gifti.prod_code = prod.code
+                 INNER JOIN brand ON prod.brd_code = brand.code
+        where prod_code like concat(#{code},'%') and gft_stus_code =002 and prod.enabled = '1'
+        order by dc_prc
+        ]]>
+    </select>
+
+    <!-- 판매중 기프티콘 대표   -->
+    <select id="getGifti" resultType="com.ncncn.domain.ProdListVO">
+        <![CDATA[
+        select prod.enabled, gifti.id, gifti.user_id, gifti.prod_code,
+               brand.code as brdCode, brand.name as bname, prod.name as pname, prod.prc, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.descn,prod.img_path as pimg_path
+        from gifticon as gifti
+                 INNER JOIN product as prod ON gifti.prod_code = prod.code
+                 INNER JOIN brand ON prod.brd_code = brand.code
+        where prod_code like concat(#{code}, '%') and gft_stus_code =002 and prod.enabled = '1'
+        group by gifti.prod_code
+        ]]>
+    </select>
+
+
+    <!-- 판매중 기프티콘 목록 조회(페이징 처리)   -->
+    <select id="getGiftiWithPaging" resultType="com.ncncn.domain.ProdListVO">
+        <![CDATA[
+        select prod.enabled, expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
+        from gifticon as gifti
+        INNER JOIN product as prod ON gifti.prod_code = prod.code
+        INNER JOIN brand ON prod.brd_code = brand.code
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1'
+        ]]>
+        <include refid="search"></include>
+        <![CDATA[
+        and gft_stus_code =002
+        group by gifti.prod_code
+        order by
+        ]]>
+        <choose>
+            <when test="orderby=='best'">prod.sold_quty desc</when>
+            <when test="orderby=='low'">dc_prc</when>
+            <when test="orderby=='high'">dc_prc desc</when>
+            <when test="orderby=='deadline'">expir_dt,sold_quty desc</when>
+        </choose>
+        <![CDATA[
+            LIMIT #{amount}
+            OFFSET ${(pageNum-1) * amount}
+        ]]>
+    </select>
+
+    <select id="getTotalCount" resultType="int">
+        <![CDATA[
+        select count(tbl.id) from(
+        select prod.enabled, expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
+        from gifticon as gifti
+        INNER JOIN product as prod ON gifti.prod_code = prod.code
+        INNER JOIN brand ON prod.brd_code = brand.code
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1'
+        ]]>
+        <include refid="search"></include>
+        <![CDATA[
+        and gft_stus_code =002
+        group by gifti.prod_code
+        order by
+        ]]>
+        <choose>
+            <when test="orderby=='best'">prod.sold_quty desc</when>
+            <when test="orderby=='low'">dc_prc</when>
+            <when test="orderby=='high'">dc_prc desc</when>
+            <when test="orderby=='deadline'">expir_dt,sold_quty desc</when>
+        </choose>
+        ) as tbl
+    </select>
+
+    <!-- 인기상품 8개 조회 -->
+    <select id="getBestGifti" resultType="com.ncncn.domain.ProdListVO">
+        select prod.enabled, id, user_id, prod_code, brand.name as bname, prod.name as pname, prc, sold_quty, min(dc_prc)as dc_prc, dc_rate, gft_stus_code, prod.img_path  as pimg_path
+        from gifticon as gifti
+                 INNER JOIN product as prod ON gifti.prod_code = prod.code
+                 INNER JOIN brand ON prod.brd_code = brand.code
+        where gft_stus_code =002 and prod.enabled = '1'
+        group by gifti.prod_code
+        order by prod.sold_quty desc
+            limit 8
+    </select>
+
+    <!-- 마감임박 상품 8개 조회  -->
+    <select id="getDeadlineGifti" resultType="com.ncncn.domain.ProdListVO">
+        <![CDATA[
+        select expir_dt - current_date() as d_day, prod.enabled, id, user_id, prod_code, brand.name as bname, prod.name as pname, prc, expir_dt, sold_quty, min(dc_prc)as dc_prc, dc_rate, gft_stus_code,prod.img_path as pimg_path
+        from gifticon as gifti
+                 INNER JOIN product as prod ON gifti.prod_code = prod.code
+                 INNER JOIN brand ON prod.brd_code = brand.code
+        where expir_dt - current_date() <= 7 and prod.enabled = '1' and gft_stus_code =002
+        group by gifti.prod_code
+        order by expir_dt,sold_quty desc
+            limit 8
+        ]]>
+    </select>
+
+    <insert id="registerGifticon">
+        insert into gifticon
+        values (default, #{userId}, #{prodCode}, #{dcPrc}, #{dcRate}, #{expirDt}, #{brcd}, #{descn},
+                #{imgPath}, #{isAutoPrc}, '001', default, current_user(), default, current_user(), null)
+    </insert>
 
 </mapper>

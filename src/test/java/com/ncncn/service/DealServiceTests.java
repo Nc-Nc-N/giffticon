@@ -24,7 +24,17 @@ import static org.junit.Assert.*;
 public class DealServiceTests {
 
     @Setter(onMethod_ = {@Autowired})
-    private DealService service;
+    private ProductService service;
+
+    @Setter(onMethod_ = {@Autowired})
+    private CategoryService cateService;
+
+    @Setter(onMethod_ = {@Autowired})
+    private BrandService brandService;
+
+    @Setter(onMethod_ = {@Autowired})
+    private GifticonService giftiService;
+
 
     @Test
     public void testExists(){
@@ -34,7 +44,7 @@ public class DealServiceTests {
 
     @Test
     public void testGetCategoryList() {
-        List<CategoryVO> result = service.getCategoryList();
+        List<CategoryVO> result = cateService.getCategoryList();
         log.info(result);
         assertEquals("01", result.get(0).getCode());
         assertEquals("02", result.get(1).getCode());
@@ -43,7 +53,7 @@ public class DealServiceTests {
 
     @Test
     public void testGetBrandList() {
-        List<BrandVO> result = service.getBrandList("카페");
+        List<BrandVO> result = brandService.getBrandList("카페");
         log.info(result);
         assertEquals("0101", result.get(0).getCode());
         assertEquals("0102", result.get(1).getCode());
@@ -52,7 +62,7 @@ public class DealServiceTests {
 
     @Test
     public void testGetBrandList2() {
-        List<BrandVO> result = service.getBrandList("편의점, 마트");
+        List<BrandVO> result = brandService.getBrandList("편의점, 마트");
         log.info(result);
         assertEquals("0201", result.get(0).getCode());
         assertEquals("0202", result.get(1).getCode());
@@ -112,7 +122,7 @@ public class DealServiceTests {
         gifticon.setIsAutoPrc('0');
         gifticon.setGftStusCode("001");
 
-        service.registerGifticon(gifticon);
+        giftiService.registerGifticon(gifticon);
         log.info(gifticon);
     }
 
