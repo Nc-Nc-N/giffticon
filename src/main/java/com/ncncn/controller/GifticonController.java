@@ -25,7 +25,7 @@ public class GifticonController {
     GifticonService gifticonService;
     UserService userService;
 
-    @GetMapping("/stus005")
+    @PostMapping("/stus005")
     public String gftDealCmpl(HttpServletRequest request, int gftId, MyPageCriteria cri, Model model) {
 
         gifticonService.gftDealCmpl(gftId);
@@ -43,7 +43,7 @@ public class GifticonController {
         return "redirect:/user/mypage/deal";
     }
 
-    @GetMapping("/delGft")
+    @PostMapping("/delGft")
     public String deleteGifticon(int gftId, MyPageCriteria cri, Model model) {
 
         //return redirect 시에는 페이지네이션 유지 불가 (forward 써야 하는데 이후 error catch 못함)
