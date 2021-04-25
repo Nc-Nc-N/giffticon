@@ -86,12 +86,12 @@
         var actionForm = $("#actionForm");
 
         $("button[name='dealCmplBtn']").on("click", function (i) {
-            if(confirm("구매확정하시겠습니까? 확정 후 변경 불가합니다.")) {
+            if (confirm("구매확정하시겠습니까? 확정 후 변경 불가합니다.")) {
                 actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");// actionForm.append("<input type='hidden' name='" + csrfName + "' value='" + csrfToken + "'>");
                 actionForm.attr("action", "/gifticon/stus005").attr("method", "get");
                 actionForm.submit();
-            }else{
-                return ;
+            } else {
+                return;
             }
         });
 

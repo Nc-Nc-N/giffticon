@@ -59,7 +59,8 @@
             <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
             <span class="item_brdNname">
                 <div class="item_brd"><c:out value="${list.brdName}"/></div>
-                <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>"><c:out value="${list.prdName}"/></div>
+                <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>"><c:out
+                        value="${list.prdName}"/></div>
                 <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out value="${list.gftId}"/></div>
             </span>
             <span class="item_prc"><c:out value="${list.pymtPrc}"/>원</span>
@@ -132,22 +133,22 @@
         });
 
         //물품 이름 클릭 시 해당 물품의 판매중인 기프티콘 조회. 판매중 있을 시 상품상세로 이동
-        $(".item_name").on("click",function(e){
+        $(".item_name").on("click", function (e) {
             e.preventDefault();
 
             let prdCode = $(this).attr("value");
 
             $.ajax({
-                url: '/gifticon/'+prdCode,
+                url: '/gifticon/' + prdCode,
                 type: 'get',
-                success: function(){
-                    if(confirm("해당 상품 판매 페이지로 이동하시겠습니까?")){
-                        location.href = "/user/prod_detail?code="+prdCode;
-                    }else{
-                        return ;
+                success: function () {
+                    if (confirm("해당 상품 판매 페이지로 이동하시겠습니까?")) {
+                        location.href = "/user/prod_detail?code=" + prdCode;
+                    } else {
+                        return;
                     }
                 },
-                error: function(){
+                error: function () {
                     alert("해당 물품의 구매가능한 기프티콘이 없습니다.")
                 }
             })
@@ -178,10 +179,10 @@
             let dateFrom = $("#dateFrom").val();
             let dateTo = $("#dateTo").val();
 
-            if(!calendarCheck(dateFrom,dateTo)){
+            if (!calendarCheck(dateFrom, dateTo)) {
                 alert("날짜 선택이 올바르지 않습니다.");
                 e.preventDefault();
-            }else{
+            } else {
 
                 searchSpec.find("input[name='pageNum']").val("1");
                 searchSpec.submit();

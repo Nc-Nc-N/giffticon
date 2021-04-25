@@ -136,7 +136,7 @@
             </div>
 
             <div class="date_section">
-                    <h3>바코드 번호</h3>
+                <h3>바코드 번호</h3>
                 <div class="date-search">
                     <h4><c:out value="${gftInfo.brcd}"/></h4>
                 </div>
@@ -173,8 +173,9 @@
                         <input type="number" placeholder="가격표시" id="prcinput" value="<c:out value="${gftInfo.dcPrc}"/>">
                     </div>
                     <div class="input_rt">
-                    <input type="text" id="rateinput"
-                           value="<fmt:formatNumber value="${gftInfo.finalDcRate}" type="percent" pattern="0.0%"/>" readonly="readonly">
+                        <input type="text" id="rateinput"
+                               value="<fmt:formatNumber value="${gftInfo.finalDcRate}" type="percent" pattern="0.0%"/>"
+                               readonly="readonly">
                     </div>
                 </div>
 
@@ -205,149 +206,143 @@
 
 <script> //actionForm , 기프티콘 수정 및 삭제
 
-    $(".document").ready(function () {
+$(".document").ready(function () {
 
-        let csrfHeaderName = "${_csrf.headerName}";
-        let csrfTokenValue = "${_csrf.token}";
+    let csrfHeaderName = "${_csrf.headerName}";
+    let csrfTokenValue = "${_csrf.token}";
 
-        var actionForm = $("#actionForm");
+    var actionForm = $("#actionForm");
 
-        $('#deleteGift').on("click", function (e) {
+    $('#deleteGift').on("click", function (e) {
 
-            if (confirm("삭제하시겠습니까? 삭제 후 재등록 가능합니다.")) {
-                actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
-                actionForm.attr("action", "/gifticon/delGft").attr("method", "get");
-                actionForm.submit();
-            } else {
-                return;
-            }
-        })
+        if (confirm("삭제하시겠습니까? 삭제 후 재등록 가능합니다.")) {
+            actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
+            actionForm.attr("action", "/gifticon/delGft").attr("method", "get");
+            actionForm.submit();
+        } else {
+            return;
+        }
+    })
 
-        $("#modifyGift").on("click", function (e) {
+    $("#modifyGift").on("click", function (e) {
 
-            $("#modal-fade").css("visibility", "visible");
-        })
+        $("#modal-fade").css("visibility", "visible");
+    })
 
-        $("#modal-close").on("click", function (e) {
+    $("#modal-close").on("click", function (e) {
 
-            $("#modal-fade").css("visibility", "hidden");
-        })
+        $("#modal-fade").css("visibility", "hidden");
+    })
 
-        $("#modal-register").on("click", function (e) {
+    $("#modal-register").on("click", function (e) {
 
-            let userPwd = $("#userPwd").val();
-            let userEmail = "<sec:authentication property="principal.username" htmlEscape="false"/>";
-            let gftId = "<c:out value="${gftInfo.id}"/>";
-            let isAutoPrc = $("input[name='price_select']:checked").val();
-            let dcPrc = $("#prcinput").val();
-            let finalDcRate = $("#rateinput").val();
+        let userPwd = $("#userPwd").val();
+        let userEmail = "<sec:authentication property="principal.username" htmlEscape="false"/>";
+        let gftId = "<c:out value="${gftInfo.id}"/>";
+        let isAutoPrc = $("input[name='price_select']:checked").val();
+        let dcPrc = $("#prcinput").val();
+        let finalDcRate = $("#rateinput").val();
 
-            if(dcPrc == null || dcPrc == ""){
-                alert("판매가격을 입력하세요");
-                return ;
-            }
-            finalDcRate = finalDcRate.slice(0,-1);
+        if (dcPrc == null || dcPrc == "") {
+            alert("판매가격을 입력하세요");
+            return;
+        }
+        finalDcRate = finalDcRate.slice(0, -1);
 
-            let prcUpdate = {
-                email: userEmail,
-                password: userPwd,
-                gftId: gftId,
-                isAutoPrc: isAutoPrc,
-                dcPrc: dcPrc,
-                dcRate: finalDcRate / 100
-            }
+        let prcUpdate = {
+            email: userEmail,
+            password: userPwd,
+            gftId: gftId,
+            isAutoPrc: isAutoPrc,
+            dcPrc: dcPrc,
+            dcRate: finalDcRate / 100
+        }
 
-            $.ajax({
-                url: '/gifticon/updateGft',
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(prcUpdate),
-                type: 'post',
-                dataType: 'text',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                },
-                success: function () {
-                    alert("가격이 수정되었습니다.");
-                    window.location.reload();
-                },
-                error: function (request) {
+        $.ajax({
+            url: '/gifticon/updateGft',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(prcUpdate),
+            type: 'post',
+            dataType: 'text',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+            },
+            success: function () {
+                alert("가격이 수정되었습니다.");
+                window.location.reload();
+            },
+            error: function (request) {
 
-                    if (request.status == 406) {
-                        alert("비밀번호를 확인하세요.");
-                    } else {
-                        alert("가격 수정 실패. 관리자에게 문의하세요");
-                    }
+                if (request.status == 406) {
+                    alert("비밀번호를 확인하세요.");
+                } else {
+                    alert("가격 수정 실패. 관리자에게 문의하세요");
                 }
-            })
-
+            }
         })
 
     })
+
+})
 
 </script>
 
 <script type="text/javascript" src="/resources/js/user/autoPrc.js"></script>
 <script> //자동가격 설정 script
 
-    $(".document").ready(function () {
+$(".document").ready(function () {
 
-        let prc = "<c:out value="${gftInfo.listPrc}"/>";
-        let startDcRate = "<c:out value="${gftInfo.startDcRate}"/>";
-        let finalDcRate = "<c:out value="${gftInfo.finalDcRate}"/>";
-        let expirDt = "<fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.expirDt}"/>";
-        let autoPrc = "<c:out value="${gftInfo.isAutoPrc}"/>";
+    let prc = "<c:out value="${gftInfo.listPrc}"/>";
+    let startDcRate = "<c:out value="${gftInfo.startDcRate}"/>";
+    let expirDt = "<fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.expirDt}"/>";
+    let autoPrc = "<c:out value="${gftInfo.isAutoPrc}"/>";
 
-        let finalPnR = calAutoPrc(prc, startDcRate, expirDt);
+    let finalPnR = calAutoPrc(prc, startDcRate, expirDt);
 
-        if(autoPrc == 1){
+    if (autoPrc == 1) {
 
-            $("#prc_auto").attr("checked", true);
-            $("#prcinput").attr("readonly", true);
-
-
-        }else{
-
-            $("#prc_manual").attr("checked", true);
-            $("#prcinput").attr("readonly", false);
-
-        }
-
-        $("#prc_auto").on("click", function (e) {
-
-            $("#prcinput").val(finalPnR[0]).attr("readonly", true);
-            $("#prc_manual").prop("disabled",false);
-            $("#rateinput").val((finalPnR[1]*100).toFixed(2)+"%");
-        })
-
-        $("#prc_manual").on("click", function (e) {
-
-            $("#prcinput").attr("readonly", false).val("");
-            $(this).prop("disabled",true);
-            $("#rateinput").val("");
-        })
+        $("#prc_auto").attr("checked", true);
+        $("#prcinput").attr("readonly", true);
 
 
-        $("#prcinput").keyup(function(e) {
+    } else {
 
-            $("#rateinput").val("");
+        $("#prc_manual").attr("checked", true);
+        $("#prcinput").attr("readonly", false);
 
-            if(parseInt($("#prcinput").val())>prc){
-                alert("정가보다 높은 가격에 팔 수 없습니다.");
-                $("#prcinput").val("");
-                $("#rateinput").val("");
-            }else if(parseInt($("#prcinput").val())<=0){
-                alert("가격이 올바르지 않습니다.");
-                $("#prcinput").val("");
-                $("#rateinput").val("");
-            }
-            setTimeout(function(){
+    }
 
-                $("#rateinput").val(((prc - $("#prcinput").val()) / prc * 100).toFixed(2)+"%");
-            },1000)
+    $("#prc_auto").on("click", function (e) {
 
-        })
-
-
-
+        $("#prcinput").val(finalPnR[0]).attr("readonly", true);
+        $("#prc_manual").prop("disabled", false);
+        $("#rateinput").val((finalPnR[1] * 100).toFixed(2) + "%");
     })
+
+    $("#prc_manual").on("click", function (e) {
+
+        $("#prcinput").attr("readonly", false).val("");
+        $(this).prop("disabled", true);
+        $("#rateinput").val("");
+    })
+
+    $("#prcinput").keyup(function (e) {
+
+        $("#rateinput").val("");
+
+        if (parseInt($("#prcinput").val()) > prc) {
+            alert("정가보다 높은 가격에 팔 수 없습니다.");
+            $("#prcinput").val("");
+            $("#rateinput").val("");
+        } else if (parseInt($("#prcinput").val()) <= 0) {
+            alert("가격이 올바르지 않습니다.");
+            $("#prcinput").val("");
+            $("#rateinput").val("");
+        }
+        setTimeout(function () {
+            $("#rateinput").val(((prc - $("#prcinput").val()) / prc * 100).toFixed(2) + "%");
+        }, 1000)
+    })
+
+})
 </script>

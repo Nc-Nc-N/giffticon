@@ -2,10 +2,13 @@ package com.ncncn.controller;
 
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.ncncn.domain.MyDealsVO;
 import com.ncncn.domain.MySellVO;
 import com.ncncn.domain.pagination.MyPageCriteria;
@@ -66,7 +69,7 @@ public class MyGifticonController {
 	}
 
 	@GetMapping("/sells")
-	public void SellList(HttpServletRequest request, MyPageCriteria cri, Model model) {
+	public void SellList(HttpServletRequest request,@ModelAttribute("cri")  MyPageCriteria cri, Model model) {
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
@@ -113,22 +116,22 @@ public class MyGifticonController {
 	public ResponseEntity<String> absLoader(@RequestParam("userId") int userId){
 
 		try {
-			int status004 = dealListService.countStus004(userId);
-			int status001 = sellListService.countStus001N002(userId, "판매대기");
-			int status002 = sellListService.countStus001N002(userId, "판매중");
+			int stus004 = dealListService.countStus004(userId);
+			int stus001 = sellListService.countStus001N002(userId, "판매대기");
+			int stus002 = sellListService.countStus001N002(userId, "판매중");
 			int userPnt = userService.readbyId(userId).getPnt();
 
-			String[] absList = {status004+"", status001+"", status002+"", userPnt+""};
+			String[] absList = {stus004+"", stus001+"", stus002+"", userPnt+""};
+
 			Gson gson = new GsonBuilder().create();
 			String absListJson = gson.toJson(absList);
 
 			return new ResponseEntity<String>(absListJson, HttpStatus.OK);
 
 		}catch (Exception e){
-
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-
 	}
 }
+
+

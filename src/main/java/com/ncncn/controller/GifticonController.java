@@ -43,7 +43,7 @@ public class GifticonController {
     }
 
     @GetMapping("/delGft")
-    public String deleteGifticon(HttpServletRequest request, int gftId, MyPageCriteria cri, Model model) {
+    public String deleteGifticon(int gftId, MyPageCriteria cri, Model model) {
 
         log.info("gifticon delete Controller....");
 
@@ -71,17 +71,13 @@ public class GifticonController {
 
         if (UserAuthCheckUtils.userAuthCheck(prcUpdate.getEmail(), prcUpdate.getPassword(), user)) {
 
-            log.info("기프티콘 가격 수정....비밀번호 일치");
-
             int isUpdated = gifticonService.updateGftPrc(prcUpdate);
 
             if (isUpdated == 1) { //가격 수정 성공한 경우 success
 
-                log.info("수정완료");
                 return new ResponseEntity<>(HttpStatus.OK);
             } else { //가격 수정 실패한 경우 serverError
 
-                log.info("가격수정 실패");
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
@@ -92,14 +88,16 @@ public class GifticonController {
         }
     }
 
-    @GetMapping(value="/{prdCode}")
-    public ResponseEntity<String> countOnSelling(@PathVariable("prdCode") String prdCode){
+    @GetMapping(value = "/{prdCode}")
+    public ResponseEntity<String> countOnSelling(@PathVariable("prdCode") String prdCode) {
 
-        try{
+        try {
+
             int count = gifticonService.countOnselling(prdCode);
             return count > 0 ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }catch (Exception e){
-            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

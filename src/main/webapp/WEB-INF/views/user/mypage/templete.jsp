@@ -4,7 +4,7 @@
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 
 <%
-        int userId = (int) request.getSession().getAttribute("userId");
+    int userId = (int) request.getSession().getAttribute("userId");
 %>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -97,35 +97,37 @@
                 </div>
                 <div class="space50"></div>
 
-
 <script>
+    let userId = <%=userId%>;
+
+    //요약창 정보 불러오기
+    absLoader(userId);
+
+    function absLoader(userId){
+
+        console.log("userId type : " + typeof (userId));
+
+        $.ajax({
+            url: '/user/mypage/absLoader',
+            type: 'get',
+            data: {userId:userId},
+            dataType: 'json',
+            success: function(result){
+
+                $("#stus004").html(result[0]);
+                $("#stus001").html(result[1]);
+                $("#stus002").html(result[2]);
+                $("#userPnt").html(result[3]);
+            },
+            error: function(){
+                alert("요약 창 정보 불러오기에 실패했습니다.");
+            }
+        })
+    }
+</script>
+<script>
+
     $(document).ready(function () {
-
-        let userId = <%=userId%>;
-
-        absLoader(userId);
-        function absLoader(userId){
-
-            console.log("userId type : " + typeof (userId));
-
-            // userId 가 number 인데 controller에서 int userId 를 받지 못한다.. 왜>???? 형변환 or 컨트롤러 조건 변경????/
-            $.ajax({
-                url: '/user/mypage/absLoader',
-                type: 'get',
-                data: {userId:userId},
-                dataType: 'json',
-                success: function(result){
-                    console.log("success" + result);
-                    $("#stus004").html(result[0]);
-                    $("#stus001").html(result[1]);
-                    $("#stus002").html(result[2]);
-                    $("#userPnt").html(result[3]);
-                },
-                error: function(){
-
-                }
-            })
-        }
 
         var absSearch = $(".abs-search");
 
