@@ -52,38 +52,47 @@
 </div>
 <!-- search area end -->
 
-<!-- table wrapper -->
-<div id="tablewrapper">
-    <table id="t1">
-        <tr>
-            <th>회원번호</th>
-            <th>이메일</th>
-            <th>이름</th>
-            <th>가입일시</th>
-            <th>전화번호</th>
-            <th>회원상태</th>
-        </tr>
-        <c:forEach items="${quitlist}" var="quituserL">
-            <tr class="eachUser">
-                <td>${quituserL.id}</td>
-                <td>${quituserL.email}</td>
-                <td>${quituserL.name}</td>
-                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-                                    value="${quituserL.inDate}"/></td>
-                <td>${quituserL.telNo}</td>
-                <td>
-                    <c:if test="${quituserL.enabled == 1}">
-                        <c:out value="정상" />
-                    </c:if>
-                    <c:if test="${quituserL.enabled == 0}">
-                        <c:out value="탈퇴" />
-                    </c:if>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-</div>
-<!-- table wrapper end -->
+<c:choose>
+    <c:when test="${not empty quitlist}">
+        <!-- table wrapper -->
+        <div id="tablewrapper">
+            <table id="t1">
+                <tr>
+                    <th>회원번호</th>
+                    <th>이메일</th>
+                    <th>이름</th>
+                    <th>가입일시</th>
+                    <th>전화번호</th>
+                    <th>회원상태</th>
+                </tr>
+                <c:forEach items="${quitlist}" var="quituserL">
+                    <tr class="eachUser">
+                        <td>${quituserL.id}</td>
+                        <td>${quituserL.email}</td>
+                        <td>${quituserL.name}</td>
+                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+                                            value="${quituserL.inDate}"/></td>
+                        <td>${quituserL.telNo}</td>
+                        <td>
+                            <c:if test="${quituserL.enabled == 1}">
+                                <c:out value="정상"/>
+                            </c:if>
+                            <c:if test="${quituserL.enabled == 0}">
+                                <c:out value="탈퇴"/>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+        <!-- table wrapper end -->
+    </c:when>
+    <c:otherwise>
+        <div>
+            <p id="nonresultmessage">검색조건에 해당하는 회원을 찾을 수 없습니다.</p>
+        </div>
+    </c:otherwise>
+</c:choose>
 
 <!-- pagination container -->
 <div class="pagination-container">
