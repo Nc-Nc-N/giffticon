@@ -44,10 +44,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserVO> getUserListQuit(UserCheckCriteria cri) {
+
+        log.info("get Quit List with Criteria: " + cri);
+
+        return userMapper.getListWithPagingQuit(cri);
+    }
+
+    @Override
     public int getTotal(UserCheckCriteria cri) {
 
         log.info("get total count");
         return userMapper.getTotalCount(cri);
+    }
+
+    @Override
+    public int getTotalQuit(UserCheckCriteria cri) {
+
+        log.info("get total quit count");
+        return userMapper.getTotalCountQuit(cri);
     }
 
     @Override

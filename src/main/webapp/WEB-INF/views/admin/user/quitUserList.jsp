@@ -8,22 +8,22 @@
 
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/admin/user/userList.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/user/quitUserList.css" type="text/css">
 
-<h1>회원목록</h1>
+<h1>탈퇴회원목록</h1>
 
 <div id="submenu">
     <div>
-        <a href="/admin/user/userlist" class="active"><span>회원목록</span></a>
+        <a href="/admin/user/userlist" ><span>회원목록</span></a>
     </div>
     <div>
-        <a href="/admin/user/userlist-quit"><span>탈퇴회원목록</span></a>
+        <a href="/admin/user/userlist-quit" class="active"><span>탈퇴회원목록</span></a>
     </div>
 </div>
 
 <!-- search area -->
 <div class="search-area">
-    <form id='searchForm' action="/admin/user/userlist" method='get'>
+    <form id='searchForm' action="/admin/user/userlist-quit" method='get'>
         <select name='type' class="search-select">
             <option value="NET"
                     <c:out value="${pageMaker.cri.type eq 'NET'?'selected':''}"/>>전체
@@ -63,19 +63,19 @@
             <th>전화번호</th>
             <th>회원상태</th>
         </tr>
-        <c:forEach items="${list}" var="userL">
+        <c:forEach items="${quitlist}" var="quituserL">
             <tr class="eachUser">
-                <td>${userL.id}</td>
-                <td>${userL.email}</td>
-                <td>${userL.name}</td>
+                <td>${quituserL.id}</td>
+                <td>${quituserL.email}</td>
+                <td>${quituserL.name}</td>
                 <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-                                    value="${userL.inDate}"/></td>
-                <td>${userL.telNo}</td>
+                                    value="${quituserL.inDate}"/></td>
+                <td>${quituserL.telNo}</td>
                 <td>
-                    <c:if test="${userL.enabled == 1}">
+                    <c:if test="${quituserL.enabled == 1}">
                         <c:out value="정상" />
                     </c:if>
-                    <c:if test="${userL.enabled == 0}">
+                    <c:if test="${quituserL.enabled == 0}">
                         <c:out value="탈퇴" />
                     </c:if>
                 </td>
@@ -108,7 +108,7 @@
 </div>
 <!-- pagination container end -->
 
-<form id='actionForm' action="/admin/user/userlist" method='get'>
+<form id='actionForm' action="/admin/user/userlist-quit" method='get'>
     <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
     <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
     <input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type}"/>'>
