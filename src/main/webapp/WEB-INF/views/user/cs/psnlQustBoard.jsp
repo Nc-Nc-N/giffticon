@@ -98,6 +98,8 @@
                             <div class="inner">
                                 <p class="qna-a">Q. </p>
                                 <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/></p>
+                                <a href="<c:out value="${qna.atchFilePath}"/>" download="<c:out value="${qna.atchFilePath}"/>" class="atch-file" name="atchFilePath">
+                                    <c:out value="${qna.atchFilePath}"/></a>
 
                             </div>
                             <div class="admin-inner">
@@ -232,6 +234,7 @@
             actionForm.find("input[name='pageNum']").val($(this).attr("href"));
             actionForm.submit();
         });
+
 
         //답변상태, 수정 css 변경
         $(".finish").css({
