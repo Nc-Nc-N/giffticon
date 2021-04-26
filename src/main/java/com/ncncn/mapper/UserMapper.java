@@ -37,5 +37,9 @@ public interface UserMapper {
     void updateStatus(UserStatusVO status);
 
     public UserInfoDTO getMyInfo(int userId);
+
+    int updatePwd(@Param("pwd") String pwd,
+                  @Param("email") String email,
+                  @Param("userId") int userId);
 }
 

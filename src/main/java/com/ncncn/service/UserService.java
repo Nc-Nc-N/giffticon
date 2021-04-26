@@ -27,4 +27,6 @@ public interface UserService {
 
     public UserInfoDTO getMyInfo(int userId);
 
+    public int updatePwd(String pwd, String email, int userId);
+
 }

@@ -101,4 +101,22 @@ public class UserServiceTests {
         assertEquals(user.getId(), 156);
     }
 
+    @Test
+    public void updatePwdTest(){
+
+        int userId = 5;
+        String email = "test1@test.com";
+        String pwd = "343412";
+
+        int isUpdated = userService.updatePwd(pwd,email,userId);
+        if(isUpdated == 1 ){
+
+            String newPwd = userService.readbyId(5).getPwd();
+
+            assertEquals(pwd, newPwd);
+        }else{
+            assertEquals(isUpdated,0);
+        }
+    }
+
 }

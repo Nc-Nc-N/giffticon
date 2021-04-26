@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Setter(onMethod_ = @Autowired)
     UserMapper userMapper;
+
+    @Setter(onMethod_ = @Autowired)
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserVO readbyId(int userId) {
@@ -89,5 +93,16 @@ public class UserServiceImpl implements UserService {
             return new UserInfoDTO();
 
         }
+    }
+
+    @Override
+    public int updatePwd(String pwd, String email, int userId){
+
+        //새로 입력된 비밀번호 암호화
+        String encodedNewPwd = bCryptPasswordEncoder.encode(pwd);
+
+        int countUpdated = userMapper.updatePwd(encodedNewPwd, email, userId);
+
+        return countUpdated;
     }
 }

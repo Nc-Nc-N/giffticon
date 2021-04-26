@@ -158,4 +158,20 @@ public class UserMapperTest {
 
         assertEquals(user.getHolder(), null);
     }
+
+    @Test
+    public void updatePwdTest(){
+
+        int userId = 5;
+        String email = "test1@test.com";
+        String pwd = "password@@@";
+
+        int result = userMapper.updatePwd(pwd,email,userId);
+
+        assertEquals(result, 1);
+
+        String pwdconfirm = userMapper.readById(5).getPwd();
+
+        assertEquals(pwd, pwdconfirm);
+    }
 }

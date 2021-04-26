@@ -14,14 +14,9 @@
 
 <body>
 <div id="register-content">
-    <h2>회원정보 수정</h2>
+    <h2>비밀번호 변경</h2>
 
     <div id="content">
-        <div class="email_section">
-            <h3>Email</h3>
-            <p><c:out value="${user.email}"/></p>
-
-        </div>
         <div class="info_section">
             <div>
                 <h3>현재 비밀번호</h3>
@@ -56,31 +51,7 @@
 
             </div>
         </div>
-        <div class="info_section">
-            <div>
-                <h3>이름</h3>
-                <div class="input_text">
-                    <input type="text" class="name" value="<c:out value="${user.name}"/>">
-                </div>
-            </div>
-            <div class="message" id="msg-name">
-
-            </div>
-
-        </div>
-        <div class="info_section">
-            <div>
-                <h3>전화번호</h3>
-                <div class="input_text">
-                    <input type="text" class="telNo" value="<c:out value="${user.telNo}"/>">
-                </div>
-                <button class="btn btn-submit" id="confirmTelNo">인증</button>
-            </div>
-            <div class="message"><h5>인증 완료</h5></div>
-        </div>
-
     </div>
-
     <div id="reg-btn-area">
         <button class="btn btn-active" id="modifyMyInfo">등록</button>
         <button class="btn btn-disabled cancel" id="cancelMyInfo">취소</button>
@@ -97,11 +68,9 @@
         let csrfTokenValue = "${_csrf.token}";
 
         let oriEmail = "<c:out value="${user.email}"/>";
-        let oriName = "<c:out value="${user.name}"/>";
-        let oriTelNo = "<c:out value="${user.telNo}"/>";
 
-        //[기존비밀번호, 새 비밀번호, 새 비밀번호 확인, 이름] 모두 true 가 되어야 수정 버튼 활성화
-        let checkAllConfirmed = [false, false, false, false];
+        //[기존비밀번호, 새 비밀번호, 새 비밀번호 확인] 모두 true 가 되어야 수정 가능
+        let checkAllConfirmed = [false, false, false];
 
         //기존 비밀번호 확인 버튼
         let btnOriginPwd = $("#btn-confirmOriginPwd");
@@ -110,13 +79,11 @@
         let insertOriginPwd = $(".originPwd");
         let insertNewPwd = $(".insertNewPwd");
         let confirmNewPwd = $(".confirmNewPwd");
-        let newName = $(".name");
 
         //msg 출력칸
         let originPwdMsg = $("#msg-originPwd");
         let newPwdMsg = $("#msg-newPwd");
         let confirmNewPwdMsg = $("#msg-confirmNewPwd");
-        let newNameMsg = $("#msg-name");
 
         //기존 비밀번호 인증
         btnOriginPwd.on("click", function (e) {
@@ -231,52 +198,64 @@
             }
         })
 
-        //이름 변경시 메세지 출력 및 확인
-        newName.keyup(function (e) {
+        //수정 확인 버튼 클릭
+        $("#modifyMyInfo").on("click", function (e) {
 
-            let newNameVal = newName.val();
-            let msg = "";
+            //기존 비밀번호, 새 비밀번호, 새 비밀번호 확인 모두 true이면
+            if(checkAllConfirmed[0] == true &&
+                checkAllConfirmed[1] == true &&
+                checkAllConfirmed[2] == true){
 
-            let checkCondition = false;
+                //바꾸기 전에 한번 물어보자
+                if(!confirm("비밀번호를 변경하시겠습니까?")){
+                    return;
+                }
 
-            checkCondition = nameChecker(newNameVal);
+                let newPwdVal = insertNewPwd.val();
 
-            if (!checkCondition) {
-                msg += "<i class='fas fa-exclamation-circle'></i>";
-                msg += "<p>&nbsp;이름이 올바르지 않습니다.</p>";
-                newNameMsg.html(msg);
-                checkAllConfirmed[3] = false;
-            } else {
-                newNameMsg.html("");
-                checkAllConfirmed[3] = true;
+                $.ajax({
+                    url: '/user/mypage/userUpdate',
+                    method: 'post',
+                    data: {"newPwd":newPwdVal, "email":oriEmail},
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                    },
+                    success: function () {
+
+                        alert("비밀번호가 변경되었습니다.");
+                        //모달 닫고 input 정보 지우기
+                        $('#cancelMyInfo').trigger("click");
+
+                    },
+                    error: function () {
+                        alert("실패");
+                        return;
+                    }
+                })
+
+            //정보가 정확히 입력 안되었을때
+            }else{
+                alert("정보를 정확히 입력하세요");
+                return;
             }
         })
 
-
-        $("#modifyMyInfo").on("click", function (e) {
-
-            alert(checkAllConfirmed);
-        })
-
-        $('#cancelMyInfo').on("click", function(e){
-
-            //취소 버튼 클릭 시 모든 입력값 초기화
+        //취소 버튼 클릭 시 모든 입력값 초기화
+        $('#cancelMyInfo').on("click", function (e){
 
             insertOriginPwd.val("");
             insertNewPwd.val("");
             confirmNewPwd.val("");
-            newName.val("");
 
             originPwdMsg.html("");
             newPwdMsg.html("");
             confirmNewPwdMsg.html("");
-            newNameMsg.html("");
 
             insertOriginPwd.removeAttr("readonly");
             insertNewPwd.attr("disabled", true);
             confirmNewPwd.attr("disabled", true);
 
-            checkAllConfirmed = [false, false, false, false];
+            checkAllConfirmed = [false, false, false];
 
         })
 

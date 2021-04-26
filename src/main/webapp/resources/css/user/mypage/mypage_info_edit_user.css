@@ -10,7 +10,7 @@
     justify-content: space-around;
     background-color: white;
     width: 600px;
-    height: 600px;
+    height: fit-content;
     padding: 20px;
     color: #333333;
     border-radius: 10px;
@@ -45,7 +45,7 @@ h5{
 }
 .info_section{
     width: 100%;
-    height: 18%;
+    height: 70px;
     font-size: 15px;
     font-weight: lighter;
     /* background-color: turquoise; */

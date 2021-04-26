@@ -34,7 +34,8 @@
                             <div><c:out value="${user.pnt}"/></div>
                         </div>
                         <div class="user_info_btn">
-                            <button class="btn btn-active" id="modUserInfo">정보 수정</button>
+                            <button class="btn btn-active" id="modUserInfo">비밀번호 변경</button>
+                            <button class="btn btn-active" id="modTelNo">휴대전화 인증</button>
                         </div>
                     </div>
                     <div class="contentheader">
@@ -53,7 +54,7 @@
                             <div><c:out value="${user.acc}"/></div>
                         </div>
                         <div class="user_info_btn">
-                            <button class="btn btn-active" id="modAccInfo">정보 수정</button>
+                            <button class="btn btn-active" id="modAccInfo">계좌정보 수정</button>
                         </div>
                     </div>
                 </div>
@@ -62,6 +63,9 @@
     </div>
 <div class="modalOn modal_userInfo">
     <jsp:include page="userInfo_editUser.jsp"/>
+</div>
+<div class="modalOn modal_telNo">
+    <jsp:include page="userInfo_editTelNo.jsp"/>
 </div>
 <div class="modalOn modal_accInfo">
     <jsp:include page="userInfo_editAcc.jsp"/>
@@ -76,6 +80,7 @@
 
     let modalSection = $(".modalOn");
     let modUserInfo = $("#modUserInfo");
+    let modTelNo = $("#modTelNo");
     let modAccInfo = $("#modAccInfo");
 
     $(".document").ready(function(){
@@ -83,6 +88,11 @@
         modUserInfo.on("click",function (){
 
             $(".modal_userInfo").css("visibility","visible");
+        })
+
+        modTelNo.on("click", function(){
+
+            $(".modal_telNo").css("visibility","visible");
         })
 
         modAccInfo.on("click",function(){

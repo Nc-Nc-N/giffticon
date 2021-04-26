@@ -179,4 +179,8 @@
 
      </select>
 
+    <update id="updatePwd">
+        update user set pwd = #{pwd} where email = #{email} and id = #{userId}
+    </update>
+
 </mapper>

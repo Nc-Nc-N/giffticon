@@ -37,10 +37,6 @@ public class UserInfoController {
 
         UserInfoDTO user = userService.getMyInfo(userId);
 
-        model.addAttribute("countStus004", dealListService.countStus004(userId));
-        model.addAttribute("countStus001", sellListService.countStus001N002(userId, "판매대기"));
-        model.addAttribute("countStus002", sellListService.countStus001N002(userId, "판매중"));
-        model.addAttribute("userPnt", userService.readbyId(userId).getPnt());
         model.addAttribute("user", user);
 
     }
@@ -50,15 +46,34 @@ public class UserInfoController {
     consumes = "application/json")
     public ResponseEntity<String> checkPwdUserUpdate(@RequestBody UserVO checkuser,
                                                      HttpServletRequest request) {
-        log.info("pwd confirm received : " + checkuser.getEmail() + "," + checkuser.getPwd());
+
         int userId = (int) request.getSession().getAttribute("userId");
 
         UserVO user = userService.readbyId(userId);
 
+        //입력된 비밀번호가 db값과 일치여부 확인
         if(UserAuthCheckUtils.userAuthCheck(checkuser.getEmail(), checkuser.getPwd(), user)){
             return new ResponseEntity<>(HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @RequestMapping(value="/userUpdate",
+                    method = RequestMethod.POST)
+    public ResponseEntity<String> userUpdate(@RequestParam("newPwd") String newPwd,
+                                             @RequestParam("email") String email,
+                                             HttpServletRequest request){
+
+        int userId = (int) request.getSession().getAttribute("userId");
+
+        int isUpdated = userService.updatePwd(newPwd, email, userId);
+
+        if(isUpdated == 1){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }
