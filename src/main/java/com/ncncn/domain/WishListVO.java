@@ -27,4 +27,6 @@ public class WishListVO {
 
 	private String imgPath;
 
+	private String gftStusCode;
+
 }
