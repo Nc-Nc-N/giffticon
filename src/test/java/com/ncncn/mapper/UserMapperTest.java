@@ -102,6 +102,16 @@ public class UserMapperTest {
         list.forEach(user -> log.info(user));
     }
 
+    @Test
+    public void tesetPagingQuit() {
+
+        UserCheckCriteria cri = new UserCheckCriteria();
+
+        List<UserVO> list = userMapper.getListWithPagingQuit(cri);
+
+        list.forEach(user -> log.info(user));
+    }
+
     //336page
     @Test
     public void testSearch() {
@@ -115,6 +125,21 @@ public class UserMapperTest {
         list.forEach(user -> log.info(user));
 
         assertTrue(list.get(0).getTelNo().contains("3333"));
+
+    }
+
+    @Test
+    public void testSearchQuit() {
+
+        UserCheckCriteria cri = new UserCheckCriteria();
+        cri.setKeyword("1111");
+        cri.setType("T");
+
+        List<UserVO> list = userMapper.getListWithPagingQuit(cri);
+
+        list.forEach(user -> log.info(user));
+
+        assertTrue(list.get(0).getTelNo().contains("1111"));
 
     }
 

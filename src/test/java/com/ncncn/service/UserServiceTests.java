@@ -51,6 +51,12 @@ public class UserServiceTests {
     }
 
     @Test
+    public void testGetUserListQuit() {
+
+        userService.getUserListQuit(new UserCheckCriteria(1, 10)).forEach(user -> log.info(user));
+    }
+
+    @Test
     public void testGetUserDetail() {
         int userId=152;
         log.info(userService.getUserDetail(userId));
