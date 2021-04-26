@@ -51,7 +51,6 @@ public class SaleRegisterController {
         model.addAttribute("categoryList", cateService.getCategoryList());
 
         int userId = 0;
-        //userId 0일경우 예외처리 해줄 것
 
         try {
             userId = (int) request.getSession().getAttribute("userId");
@@ -224,7 +223,6 @@ public class SaleRegisterController {
     @PostMapping(value = "/registerGifticonAction", consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
     @ResponseBody
     public void registerGifticonAction(@RequestBody GifticonVO gifticon) {
-//    public void registerGifticonAction(@ModelAttribute GifticonVO gifticon) {
         log.info("register Gifticon controller.............");
 
         giftiService.registerGifticon(gifticon);
