@@ -59,7 +59,8 @@
             <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
             <span class="item_brdNname">
                 <div class="item_brd"><c:out value="${list.brdName}"/></div>
-                <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>"><c:out value="${list.prdName}"/></div>
+                <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>"><c:out
+                        value="${list.prdName}"/></div>
                 <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out value="${list.gftId}"/></div>
             </span>
             <span class="item_prc"><c:out value="${list.pymtPrc}"/>원</span>
@@ -106,6 +107,7 @@
             <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
             <input type="hidden" name="keyword" value="<c:out value="${pageMaker.cri.keyword}"/>"/>
             <input type="hidden" name="type" value="<c:out value="${pageMaker.cri.type}"/>"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
     </div>
 </div>
@@ -124,6 +126,7 @@
 
         var actionForm = $("#actionForm");
 
+        //페이지네이션
         $(".paginate_btn").on("click", function (e) {
             e.preventDefault();
 
@@ -132,27 +135,28 @@
         });
 
         //물품 이름 클릭 시 해당 물품의 판매중인 기프티콘 조회. 판매중 있을 시 상품상세로 이동
-        $(".item_name").on("click",function(e){
+        $(".item_name").on("click", function (e) {
             e.preventDefault();
 
             let prdCode = $(this).attr("value");
 
             $.ajax({
-                url: '/gifticon/'+prdCode,
+                url: '/gifticon/' + prdCode,
                 type: 'get',
-                success: function(){
-                    if(confirm("해당 상품 판매 페이지로 이동하시겠습니까?")){
-                        location.href = "/user/prod_detail?code="+prdCode;
-                    }else{
-                        return ;
+                success: function () {
+                    if (confirm("해당 상품 판매 페이지로 이동하시겠습니까?")) {
+                        location.href = "/user/prod_detail?code=" + prdCode;
+                    } else {
+                        return;
                     }
                 },
-                error: function(){
+                error: function () {
                     alert("해당 물품의 구매가능한 기프티콘이 없습니다.")
                 }
             })
         })
 
+        //기프티콘 상세페이지 버튼
         $("button[name='dealDetailBtn']").on("click", function (k) {
 
             actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
@@ -161,10 +165,11 @@
             actionForm.submit();
         });
 
+        //구매확정 버튼
         $("button[name='dealCmplBtn']").on("click", function (i) {
             if (confirm("구매확정하시겠습니까? 확정 후 변경 불가합니다.")) {
                 actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
-                actionForm.attr("action", "/gifticon/stus005").attr("method", "get");
+                actionForm.attr("action", "/gifticon/stus005").attr("method", "post");
                 actionForm.submit();
             } else {
                 return;
@@ -173,15 +178,16 @@
 
         var searchSpec = $(".search-spec");
 
+        //search 버튼 누를 시 날짜조건이 정확한지 체크 후 검색 실행
         $(".search-button").on("click", function (e) {
 
             let dateFrom = $("#dateFrom").val();
             let dateTo = $("#dateTo").val();
 
-            if(!calendarCheck(dateFrom,dateTo)){
+            if (!calendarCheck(dateFrom, dateTo)) {
                 alert("날짜 선택이 올바르지 않습니다.");
                 e.preventDefault();
-            }else{
+            } else {
 
                 searchSpec.find("input[name='pageNum']").val("1");
                 searchSpec.submit();

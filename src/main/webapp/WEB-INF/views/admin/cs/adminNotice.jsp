@@ -239,7 +239,7 @@
 
 <script type="text/javascript">
 
-
+    //검색
     var searchForm = $("#searchForm");
 
     $(".search-button").on("click", function (e) {
@@ -258,7 +258,7 @@
         document.getElementById("adminCs").className = 'active';
 
 
-        //page번호 클릭했을때 처
+        //page번호 클릭 시
         var actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {

@@ -1,9 +1,11 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.WishListVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
 import com.ncncn.domain.pagination.PageDTO;
-import com.ncncn.domain.WishListVO;
-import com.ncncn.service.ProdService;
+import com.ncncn.service.BrandService;
+import com.ncncn.service.CategoryService;
+import com.ncncn.service.GifticonService;
 import com.ncncn.service.WishListService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -20,7 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class ProdController {
 
-	private ProdService prodService;
+	private CategoryService cateService;
+
+	private BrandService brandService;
+
+	private GifticonService giftiService;
+
 	private WishListService wishService;
 
 	// 기프티콘 목록 페이지
@@ -28,15 +35,15 @@ public class ProdController {
 	public String prodList(GiftiCriteria cri, Model model){
 
 		String code = cri.getCode();
-		int total = prodService.getTotal(cri);
+		int total = giftiService.getTotal(cri);
 
 		// code 값이 정수인지 판별
 		if(isInteger(code) || code==null){
 			try {
 
-				model.addAttribute("category", prodService.getCate(code));            // 카테고리
-				model.addAttribute("brandList", prodService.getBrandList(code));    // 브랜드 목록
-				model.addAttribute("gifti", prodService.getGiftiWithPaging(cri));    // 기프티콘 목록(페이징 처리 포함)
+				model.addAttribute("category", cateService.getCate(code));            	// 카테고리
+				model.addAttribute("brandList", brandService.getBrdList(code));    		// 브랜드 목록
+				model.addAttribute("gifti", giftiService.getGiftiWithPaging(cri));    	// 기프티콘 목록(페이징 처리 포함)
 				model.addAttribute("headerPageMaker", new PageDTO(cri, total));
 
 
@@ -59,7 +66,7 @@ public class ProdController {
 	public String prodDetail(HttpServletRequest request, GiftiCriteria cri, WishListVO wish, Model model){
 
 		String code = cri.getCode();
-		int total = prodService.getTotal(cri);
+		int total = giftiService.getTotal(cri);
 		int hasWish = 0;
 		int userId = 0;
 
@@ -78,12 +85,12 @@ public class ProdController {
 		// code 값이 정수인지 판별
 		if(isInteger(code) || code==null){
 			try {
-				model.addAttribute("category", prodService.getCate(code));			// 카테고리
-				model.addAttribute("brandList", prodService.getBrandList(code));		// 브랜드 목록
-				model.addAttribute("giftiList", prodService.getGiftiList(code));		// 등록된 기프티콘 목록
-				model.addAttribute("gifticon", prodService.getGifti(code));			// 대표 기프티콘
-				model.addAttribute("userId", userId);								// 로그인한 사용자 userId
-				model.addAttribute("hasWish", wishService.hasWish(wish));			// 관심상품에 등록되어 있는지(있으면 1, 없으면 0)
+				model.addAttribute("category", cateService.getCate(code));				// 카테고리
+				model.addAttribute("brandList", brandService.getBrdList(code));			// 브랜드 목록
+				model.addAttribute("giftiList", giftiService.getGiftiList(code));		// 등록된 기프티콘 목록
+				model.addAttribute("gifticon", giftiService.getGifti(code));				// 대표 기프티콘
+				model.addAttribute("userId", userId);									// 로그인한 사용자 userId
+				model.addAttribute("hasWish", wishService.hasWish(wish));				// 관심상품에 등록되어 있는지(있으면 1, 없으면 0)
 
 				return "/user/prod_detail";
 

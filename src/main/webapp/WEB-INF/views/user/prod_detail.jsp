@@ -129,11 +129,7 @@
             // 관심 상품 버튼 클릭하면 이벤트 발생
             $("#like-button").on("click", function (e){
 
-                console.log("userId: " +userId);
-                console.log("hasWish: " +has);
-
-
-                if(userId=== 0){    // 로그인이 안 되어 있을 때
+                if(userId === 0){    // 로그인이 안 되어 있을 때
                     alert("로그인 후에 이용가능한 메뉴입니다.")
                     $(location).attr('href', "/account/signIn");
 

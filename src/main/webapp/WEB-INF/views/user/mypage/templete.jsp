@@ -3,6 +3,9 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 
+<%
+    int userId = (int) request.getSession().getAttribute("userId");
+%>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,19 +66,27 @@
                 <div class='abstracts'>
                     <div class='abs stus004'>
                         <div class="abs_name">확정 대기</div>
-                        <div class="abs_num"><c:out value="${countStus004}"/></div>
+                        <div class="abs_num" id="stus004">
+<%--                            <c:out value="${countStus004}"/>--%>
+                        </div>
                     </div>
                     <div class='abs stus001'>
                         <div class="abs_name">판매 대기</div>
-                        <div class="abs_num"><c:out value="${countStus001}"/></div>
+                        <div class="abs_num"id="stus001">
+<%--                            <c:out value="${countStus001}"/>--%>
+                        </div>
                     </div>
                     <div class='abs stus002'>
                         <div class="abs_name">판매 중</div>
-                        <div class="abs_num"><c:out value="${countStus002}"/></div>
+                        <div class="abs_num" id="stus002">
+<%--                            <c:out value="${countStus002}"/>--%>
+                        </div>
                     </div>
                     <div class='abs curentPnt'>
                         <div class="abs_name">현재 포인트</div>
-                        <div class="abs_pnt"><c:out value="${userPnt}"/>p</div>
+                        <div class="abs_pnt" id="userPnt">
+<%--                            <c:out value="${userPnt}"/>p--%>
+                        </div>
                     </div>
                     <form class="abs-search" action="/user/mypage/deal" method="get">
                         <input type="hidden" name="pageNum" value="<c:out value="${pageMaker.cri.pageNum}"/>">
@@ -86,8 +97,36 @@
                 </div>
                 <div class="space50"></div>
 
-
 <script>
+    let userId = <%=userId%>;
+
+    //요약창 정보 불러오기
+    absLoader(userId);
+
+    function absLoader(userId){
+
+        console.log("userId type : " + typeof (userId));
+
+        $.ajax({
+            url: '/user/mypage/absLoader',
+            type: 'get',
+            data: {userId:userId},
+            dataType: 'json',
+            success: function(result){
+
+                $("#stus004").html(result[0]);
+                $("#stus001").html(result[1]);
+                $("#stus002").html(result[2]);
+                $("#userPnt").html(result[3]);
+            },
+            error: function(){
+                alert("요약 창 정보 불러오기에 실패했습니다.");
+            }
+        })
+    }
+</script>
+<script>
+
     $(document).ready(function () {
 
         var absSearch = $(".abs-search");
@@ -126,7 +165,6 @@
 
             absSearch.submit();
         })
-
-
+        
     })
 </script>

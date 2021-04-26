@@ -798,8 +798,8 @@
 
         if (dateDiff > 60) {
             addDcRate = 0.0;
-        } else if (dateDiff < 60 && dateDiff > 0) {
-            addDcRate = Math.floor(Math.ceil((61 - dateDiff) / 15) * 0.05  *100)/100;
+        } else if (dateDiff <= 60 && dateDiff >= 0) {
+            addDcRate = Math.floor(Math.ceil((60 - dateDiff) / 15) * 0.05  *100)/100;
         }
         return addDcRate;
     }

@@ -18,17 +18,23 @@ public class LogOutSuccessHandler implements LogoutSuccessHandler {
                                 Authentication authentication)
             throws IOException, ServletException {
 
-        log.info("LogOutSuccessHandler...");
+        //권한 정보가 있을 경우 (로그인 한 경우)
         if (authentication != null && authentication.getDetails() != null) {
             try {
+                //세션 삭제
                 request.getSession().invalidate();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
+        log.info("로그아웃되었습니다.");
         response.setStatus(HttpServletResponse.SC_OK);
+
+        //로그아웃 메세지 띄우기용으로 저장
         request.getSession().setAttribute("logout", "logout");
+
+        //로그아웃하면 로그인창으로 보냄
         response.sendRedirect("/account/signIn");
     }
 }
