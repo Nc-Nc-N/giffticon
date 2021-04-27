@@ -13,6 +13,19 @@ h1 {
 
 
 /* 검색 css */
+#searchForm {
+    display:flex;
+    align-items:center;
+}
+
+#search-bar-container {
+    float:right;
+    width: 300px;
+    height: 30px;
+    border-radius: 40px;
+    background: rgb(245, 244, 244);
+}
+
 .search-input {
     border: none;
     outline: none;
@@ -22,13 +35,6 @@ h1 {
     font-size: 14px;
     padding: 0 0 0 20px;
     float: left;
-}
-
-.search-form {
-    width: 300px;
-    height: 30px;
-    border-radius: 40px;
-    background: rgb(245, 244, 244);
 }
 
 .search-button {
@@ -59,6 +65,16 @@ h1 {
     justify-content:space-between;
     align-items:center;
     margin-bottom:10px;
+}
+
+.period-container, .search-container {
+    display: flex;
+    align-items:center;
+}
+
+#period {
+    margin-right:20px;
+    font-size:18px;
 }
 
 .search-select {

@@ -19,6 +19,8 @@ public class AdminDealHistVO {
 
     private String prodName;
 
+    private int prc;
+
     private Date dealDt;
 
     private Date cmplDt;

@@ -10,19 +10,25 @@
                 <trim prefix="OR">
                     <choose>
                         <when test="type == 'B'.toString()">
-                            buyer_email like CONCAT('%', #{keyword}, '%')
+                            u1.email like CONCAT('%', #{keyword}, '%')
                         </when>
                         <when test="type == 'S'.toString()">
-                            seller_email like CONCAT('%', #{keyword}, '%')
+                            u2.email like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            d.id=#{keyword}
                         </when>
                         <when test="type == 'N'.toString()">
-                            tel_no like CONCAT('%', #{keyword}, '%')
+                            gifticon_id=#{keyword}
                         </when>
                         <when test="type == 'E'.toString()">
-                            prod_name like CONCAT('%', #{keyword}, '%')
+                            b.name like CONCAT('%', #{keyword}, '%')
                         </when>
                         <when test="type == 'P'.toString()">
-                            prod_name like CONCAT('%', #{keyword}, '%')
+                            p.name like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'L'.toString()">
+                            code_name like CONCAT('%', #{keyword}, '%')
                         </when>
                     </choose>
                 </trim>
@@ -32,7 +38,8 @@
 
     <select id="getAdminDealHistWithPaging" resultType="com.ncncn.domain.AdminDealHistVO">
         <![CDATA[
-        select d.id, u1.email buyer_email, u2.email seller_email, d.gifticon_id, b.name brd_name, p.name prod_name, d.deal_dt, d.cmpl_dt, cm.code_name
+        select d.id, u1.email buyer_email, u2.email seller_email, d.gifticon_id, b.name brd_name,
+               p.name prod_name, d.pymt_prc prc, d.deal_dt, d.cmpl_dt, cm.code_name
         from
             deal_detail d left outer join
             gifticon g on d.gifticon_id = g.id
@@ -54,6 +61,12 @@
              where code_type = 'GFT_STUS') cm
             on g.gft_stus_code = cm.code
 
+        where
+        ]]>
+
+        <include refid="criteria"></include>
+
+        <![CDATA[
         order by deal_dt desc
         LIMIT #{amount}
         OFFSET ${(pageNum-1) * amount}
@@ -61,9 +74,30 @@
     </select>
 
     <select id="getTotalCount" resultType="int">
-        select count(*) from deal_detail
+        select count(*)
+        from
+        deal_detail d left outer join
+        gifticon g on d.gifticon_id = g.id
 
+        left outer join
+        product p on g.prod_code = p.code
 
+        left outer join
+        brand b on p.brd_code = b.code
+
+        left outer join
+        user u1 on d.user_id = u1.id
+
+        left outer join
+        user u2 on g.user_id = u2.id
+
+        left outer join
+        (select * from cmmn_code
+        where code_type = 'GFT_STUS') cm
+        on g.gft_stus_code = cm.code
+
+        where
+        <include refid="criteria"></include>
 
     </select>
 
