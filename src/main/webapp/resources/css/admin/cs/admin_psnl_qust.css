@@ -141,3 +141,7 @@ li{
     color: white;
 
 }
+
+.inner a:link { color: #4b70fd; }
+
+.inner a:visited { color: #8c59b9; }
