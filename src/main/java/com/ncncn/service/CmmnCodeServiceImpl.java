@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.CmmnCodeVO;
 import com.ncncn.mapper.CmmnCodeMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -17,9 +18,9 @@ public class CmmnCodeServiceImpl implements CmmnCodeService{
     CmmnCodeMapper cmmnCodeMapper;
 
     @Override
-    public List<Map<String,String>> getBankList(){
+    public List<CmmnCodeVO> getBankList(){
 
-        List<Map<String, String>> bnkList = cmmnCodeMapper.getBankList();
+        List<CmmnCodeVO> bnkList = cmmnCodeMapper.getBankList();
 
         return bnkList;
     }

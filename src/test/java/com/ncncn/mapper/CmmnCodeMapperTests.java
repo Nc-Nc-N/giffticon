@@ -1,5 +1,6 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.CmmnCodeVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -26,9 +27,9 @@ public class CmmnCodeMapperTests {
     @Test
     public void getBankListTests(){
 
-        List<Map<String, String>> bnk = cmmnCodeMapper.getBankList();
+        List<CmmnCodeVO> bnk = cmmnCodeMapper.getBankList();
 
-        assertEquals(bnk.size(),5);
+       log.info("bnkList =" + bnk);
 
     }
 }

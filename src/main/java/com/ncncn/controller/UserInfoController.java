@@ -1,7 +1,9 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.CmmnCodeVO;
 import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserVO;
+import com.ncncn.service.CmmnCodeService;
 import com.ncncn.service.DealListService;
 import com.ncncn.service.SellListService;
 import com.ncncn.service.UserService;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,13 +33,19 @@ public class UserInfoController {
 
     SellListService sellListService;
 
+    CmmnCodeService cmmnCodeService;
+
     @GetMapping("/userInfo")
     public void userInfo(HttpServletRequest request, Model model) {
 
         int userId = (int) request.getSession().getAttribute("userId");
 
         UserInfoDTO user = userService.getMyInfo(userId);
+        List<CmmnCodeVO> bnkList = cmmnCodeService.getBankList();
 
+        log.info("map bnk:" + bnkList);
+
+        model.addAttribute("bnkList",bnkList);
         model.addAttribute("user", user);
 
     }

@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.CmmnCodeVO;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +24,7 @@ public class CmmnCodeServiceTests {
     @Test
     public void getBankListTest(){
 
-        List<Map<String,String>> bnkList = cmmnCodeService.getBankList();
+        List<CmmnCodeVO> bnkList = cmmnCodeService.getBankList();
 
         assertEquals(bnkList.size(),5);
     }
