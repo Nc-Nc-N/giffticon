@@ -94,7 +94,7 @@
         let accOriPwd = $(".acc-originPwd");
         let accPwdMsg = $("#msg-accPwd");
 
-        let checkAllConfirmed = [false, true];
+        let checkAllConfirmed = [false, true]; // 계좌 인증 완료 후 기본값 false로 변경해야함
 
         //기존 비밀번호 인증
         accPwdConfirm.on("click", function (e) {
@@ -130,7 +130,7 @@
                     msg += "<p>&nbsp;비밀번호가 다릅니다.</p>";
                     accPwdMsg.html(msg);
 
-                    checkAllConfirmed[0] = true;
+                    checkAllConfirmed[0] = false;
                 }
             })
         })
@@ -212,6 +212,7 @@
             account.val("");
             accOriPwd.val("");
             accPwdMsg.html("");
+            checkAllConfirmed = [false,false];
         })
     })
 </script>
