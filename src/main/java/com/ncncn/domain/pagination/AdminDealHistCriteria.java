@@ -32,7 +32,7 @@ public class AdminDealHistCriteria extends Criteria {
     }
 
     public String[] getTypeArr() {
-        return type == null ? new String[] {"B", "S", "N", "E", "P"}: type.split("");
+        return type == null ? new String[] {"B", "S", "C", "N", "E", "P", "L"}: type.split("");
     }
 
 }
