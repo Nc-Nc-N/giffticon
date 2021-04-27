@@ -51,13 +51,13 @@
     display: flex;
 }
 
+
+/*전체 카테고리 menu*/
 .category-drop {
     color: #333;
     display: flex;
     width: 125px;
 }
-
-/*전체 카테고리 menu*/
 .exo-menu {
     height: 80%;
     margin: 13.5px auto 13.5px -40px;
@@ -78,16 +78,23 @@
     -o-transition: color 0.2s linear, background 0.2s linear;
     transition: color 0.2s linear, background 0.2s linear;
 }
+.brdBox{
+    background-color: rgb(245, 244, 244);
+    position: relative;
+    top: 0px;
+}
 
 .exo-menu > li > a.active,
 .exo-menu > li > a:hover,
 li.drop-down ul > li > a:hover {
     color: #FF585D;
 }
+li.drop-down ul > li > a:hover{
+    background-color: rgb(245, 244, 244);
+}
 
 li.drop-down,
 .flyout-right {
-    position: relative;
 }
 
 li.drop-down:before {
@@ -102,34 +109,34 @@ li.drop-down:before {
 }
 
 li.drop-down > ul {
-    /*margin-top: 20px;*/
-    list-style: none;
-    left: 0px;
-    min-width: 109px; /* 박스 크기 */
-
+    left: 40px;
+    min-width: 150px; /* 박스 크기 */
+    z-index: 2;
+    padding: 18px 0;
 }
 
 .drop-down-ul {
     display: none;
 }
 
-.flyout-right > ul {
-    list-style: none;
-    top: 0;
+.flyout-right > div {
+    top: 18px;
     min-width: 150px;
     display: none;
 }
 
 li.drop-down > ul > li > a,
-.flyout-right ul > li > a {
+.flyout-right div > ul > li > a {
     display: block;
-    padding: 20px 22px;
+    padding: 15px 15px;
     text-decoration: none;
-    background-color: rgb(245, 244, 244);
+    background-color: white;
     -webkit-transition: color 0.2s linear, background 0.2s linear;
     -moz-transition: color 0.2s linear, background 0.2s linear;
     -o-transition: color 0.2s linear, background 0.2s linear;
     transition: color 0.2s linear, background 0.2s linear;
+    border: 1px solid gainsboro;
+    border-right: none;
 }
 
 li.drop-down {
@@ -138,28 +145,44 @@ li.drop-down {
 
 /*common*/
 .flyout-right ul > li > a {
-    background-color: rgb(245, 244, 244);
+    background-color: white;
 }
 
 /*hover*/
 .drop-down-ul:hover,
-li.flyout-right > ul:hover,
-li.flyout-right a:hover + ul,
+li.flyout-right > div:hover,
+li.flyout-right a:hover + div,
 li.drop-down > a:hover + .drop-down-ul {
     display: block;
+    position: absolute;
+}
+
+.brdBox > ul.on{
+    background-color: rgb(245, 244, 244);
 }
 
 /*responsive*/
 @media (min-width: 300px) {
-    .flyout-right > ul, li.drop-down > ul {
+    .flyout-right > div, li.drop-down > ul {
         padding-left: 0px;
         list-style: none;
         position: absolute;
         font-size: 14px;
     }
 
-    .flyout-right > ul {
+    .flyout-right > div {
         left: 100%;
+        height: 468px;
+        overflow-y: auto;
+
+    }
+    .brdBox > ul{
+        list-style: none;
+        left: 100%;
+        padding-left: 0px;
+    }
+    .brdBox > ul >li{
+        background-color: rgb(245, 244, 244);
     }
 }
 
@@ -167,7 +190,7 @@ li.drop-down > a:hover + .drop-down-ul {
 
     .exo-menu {
         min-height: 58px;
-        background-color: #fff;
+        background-color: white;
         width: 100%;
     }
 
@@ -185,7 +208,7 @@ li.drop-down > a:hover + .drop-down-ul {
         display: block;
     }
 
-    .flyout-right > ul, li.drop-down > ul {
+    .flyout-right > div, li.drop-down > ul {
         padding-left: 0px;
         list-style: none;
         position: relative;
