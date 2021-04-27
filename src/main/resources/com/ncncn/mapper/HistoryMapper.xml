@@ -22,6 +22,10 @@
                         <when test="type == 'N'.toString()">
                             gifticon_id=#{keyword}
                         </when>
+                        <when test="type == 'D'.toString()">
+                            b.name like CONCAT('%', TRIM(SUBSTRING_INDEX(#{keyword}, ',', 1)), '%') AND
+                            p.name like CONCAT('%', TRIM(SUBSTRING_INDEX(#{keyword}, ',', -1)), '%')
+                        </when>
                         <when test="type == 'E'.toString()">
                             b.name like CONCAT('%', #{keyword}, '%')
                         </when>
@@ -62,21 +66,20 @@
             deal_detail d left outer join
             gifticon g on d.gifticon_id = g.id
 
-                          left outer join
-            product p on g.prod_code = p.code
+            left outer join product p
+            on g.prod_code = p.code
 
-                          left outer join
-            brand b on p.brd_code = b.code
+            left outer join brand b
+            on p.brd_code = b.code
 
-                          left outer join
-            user u1 on d.user_id = u1.id
+            left outer join user u1
+            on d.user_id = u1.id
 
-                          left outer join
-            user u2 on g.user_id = u2.id
+            left outer join user u2
+            on g.user_id = u2.id
 
-                          left outer join
-            (select * from cmmn_code
-             where code_type = 'GFT_STUS') cm
+            left outer join (select * from cmmn_code
+                             where code_type = 'GFT_STUS') cm
             on g.gft_stus_code = cm.code
 
         where
@@ -97,21 +100,20 @@
         deal_detail d left outer join
         gifticon g on d.gifticon_id = g.id
 
-        left outer join
-        product p on g.prod_code = p.code
+        left outer join product p
+        on g.prod_code = p.code
 
-        left outer join
-        brand b on p.brd_code = b.code
+        left outer join brand b
+        on p.brd_code = b.code
 
-        left outer join
-        user u1 on d.user_id = u1.id
+        left outer join user u1
+        on d.user_id = u1.id
 
-        left outer join
-        user u2 on g.user_id = u2.id
+        left outer join user u2
+        on g.user_id = u2.id
 
-        left outer join
-        (select * from cmmn_code
-        where code_type = 'GFT_STUS') cm
+        left outer join (select * from cmmn_code
+                         where code_type = 'GFT_STUS') cm
         on g.gft_stus_code = cm.code
 
         where
