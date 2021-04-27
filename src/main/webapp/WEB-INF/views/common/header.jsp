@@ -137,7 +137,7 @@
             // 마우스오버한 카테고리 배경화면 색 고정
             $('.flyout-right a').removeClass('on');
             $(this).addClass('on');
-            
+
             $.ajax({
                 url: '/user/getBrand?name='+name,
                 type: 'get',
