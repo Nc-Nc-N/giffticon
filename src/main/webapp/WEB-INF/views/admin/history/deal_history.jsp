@@ -15,48 +15,48 @@
 
 <!-- search area -->
 <form id='searchForm' action="/admin/deal-history" method="get">
-<div class="search-area">
-    <div class="period-container">
-        <span id="period">거래 기간</span>
-        <div class="date-search">
-            <input type="date" id="dateFrom" name="dateFrom"
-                   value="<c:out value="${pageMaker.cri.dateFrom}"/>">
-            <span style="font-size:20px">~</span>
-            <input type="date" id="dateTo" name="dateTo"
-            value="<c:out value="${pageMaker.cri.dateTo}"/>">
+    <div class="search-area">
+        <div class="period-container">
+            <span id="period">거래 기간</span>
+            <div class="date-search">
+                <input type="date" id="dateFrom" name="dateFrom"
+                       value="<c:out value="${pageMaker.cri.dateFrom}"/>">
+                <span style="font-size:20px">~</span>
+                <input type="date" id="dateTo" name="dateTo"
+                       value="<c:out value="${pageMaker.cri.dateTo}"/>">
+            </div>
         </div>
-    </div>
-    <div class="search-container">
+        <div class="search-container">
 
-        <select name='type' class="search-select">
-            <option value="BSCNEPL"
-                    <c:out value="${pageMaker.cri.type eq 'BSCNEPL'?'selected':''}"/>>전체
-            </option>
-            <option value="B"
-                    <c:out value="${pageMaker.cri.type eq 'B'?'selected':''}"/>>구매자 Email
-            </option>
-            <option value="S"
-                    <c:out value="${pageMaker.cri.type eq 'S'?'selected':''}"/>>판매자 Email
-            </option>
-            <option value="C"
-                    <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>주문번호
-            </option>
-            <option value="N"
-                    <c:out value="${pageMaker.cri.type eq 'N'?'selected':''}"/>>상품일련번호
-            </option>
-            <option value="D"
-                    <c:out value="${pageMaker.cri.type eq 'D'?'selected':''}"/>>브랜드명, 상품명
-            </option>
-            <option value="E"
-                    <c:out value="${pageMaker.cri.type eq 'E'?'selected':''}"/>>브랜드명
-            </option>
-            <option value="P"
-                    <c:out value="${pageMaker.cri.type eq 'P'?'selected':''}"/>>상품명
-            </option>
-            <option value="L"
-                    <c:out value="${pageMaker.cri.type eq 'L'?'selected':''}"/>>상태
-            </option>
-        </select>
+            <select name='type' class="search-select">
+                <option value="BSCNEPL"
+                        <c:out value="${pageMaker.cri.type eq 'BSCNEPL'?'selected':''}"/>>전체
+                </option>
+                <option value="B"
+                        <c:out value="${pageMaker.cri.type eq 'B'?'selected':''}"/>>구매자 Email
+                </option>
+                <option value="S"
+                        <c:out value="${pageMaker.cri.type eq 'S'?'selected':''}"/>>판매자 Email
+                </option>
+                <option value="C"
+                        <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>주문번호
+                </option>
+                <option value="N"
+                        <c:out value="${pageMaker.cri.type eq 'N'?'selected':''}"/>>상품일련번호
+                </option>
+                <option value="D"
+                        <c:out value="${pageMaker.cri.type eq 'D'?'selected':''}"/>>브랜드명, 상품명
+                </option>
+                <option value="E"
+                        <c:out value="${pageMaker.cri.type eq 'E'?'selected':''}"/>>브랜드명
+                </option>
+                <option value="P"
+                        <c:out value="${pageMaker.cri.type eq 'P'?'selected':''}"/>>상품명
+                </option>
+                <option value="L"
+                        <c:out value="${pageMaker.cri.type eq 'L'?'selected':''}"/>>상태
+                </option>
+            </select>
 
             <div id='search-bar-container'>
                 <input type="text" name="keyword" class="search-input"
@@ -69,54 +69,54 @@
                 </button>
             </div>
 
+        </div>
     </div>
-</div>
 </form>
 <!-- search area end -->
 <div>
     <c:choose>
         <c:when test="${not empty list}">
-    <table id="t1" width="100%">
-        <tr>
-            <th style="width:9%">주문번호</th>
-            <th style="width:23%">
-                <p>구매자 Email</p>
-                <p>판매자 Email</p>
-            </th>
-            <th style="width:9%">상품일련번호</th>
-            <th style="width:20%">
-                <p>브랜드명</p>
-                <p>상품명</p>
-            </th>
-            <th style="width:9%">금액</th>
-            <th style="width:20%">
-                <p>구매일시</p>
-                <p>구매확정일시</p>
-            </th>
-            <th style="width:10%">상태</th>
-        </tr>
-        <c:forEach items="${list}" var="dealL">
-            <tr>
-                <td>${dealL.id}</td>
-                <td>
-                    <p>${dealL.buyerEmail}</p>
-                    <p>${dealL.sellerEmail}</p>
-                </td>
-                <td>${dealL.gifticonId}</td>
-                <td>
-                    <p>${dealL.brdName}</p>
-                    <p>${dealL.prodName}</p>
-                </td>
-                <td>${dealL.prc}</td>
-                <td>
-                    <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-                                       value="${dealL.dealDt}"/></p>
-                    <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-                                       value="${dealL.cmplDt}"/></p>
-                <td>${dealL.codeName}</td>
-            </tr>
-        </c:forEach>
-    </table>
+            <table id="t1" width="100%">
+                <tr>
+                    <th style="width:9%">주문번호</th>
+                    <th style="width:23%">
+                        <p>구매자 Email</p>
+                        <p>판매자 Email</p>
+                    </th>
+                    <th style="width:9%">상품일련번호</th>
+                    <th style="width:20%">
+                        <p>브랜드명</p>
+                        <p>상품명</p>
+                    </th>
+                    <th style="width:9%">금액</th>
+                    <th style="width:20%">
+                        <p>구매일시</p>
+                        <p>구매확정일시</p>
+                    </th>
+                    <th style="width:10%">상태</th>
+                </tr>
+                <c:forEach items="${list}" var="dealL">
+                    <tr>
+                        <td>${dealL.id}</td>
+                        <td>
+                            <p>${dealL.buyerEmail}</p>
+                            <p>${dealL.sellerEmail}</p>
+                        </td>
+                        <td>${dealL.gifticonId}</td>
+                        <td>
+                            <p>${dealL.brdName}</p>
+                            <p>${dealL.prodName}</p>
+                        </td>
+                        <td>${dealL.prc}</td>
+                        <td>
+                            <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+                                               value="${dealL.dealDt}"/></p>
+                            <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+                                               value="${dealL.cmplDt}"/></p>
+                        <td>${dealL.codeName}</td>
+                    </tr>
+                </c:forEach>
+            </table>
         </c:when>
         <c:otherwise>
             <div>
@@ -201,7 +201,6 @@
         });
 
     }); //end of $(document).ready
-
 
 
 </script>
