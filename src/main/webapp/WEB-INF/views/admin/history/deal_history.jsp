@@ -74,6 +74,8 @@
 </form>
 <!-- search area end -->
 <div>
+    <c:choose>
+        <c:when test="${not empty list}">
     <table id="t1" width="100%">
         <tr>
             <th style="width:9%">주문번호</th>
@@ -115,8 +117,13 @@
             </tr>
         </c:forEach>
     </table>
-
-
+        </c:when>
+        <c:otherwise>
+            <div>
+                <p id="nonresultmessage">검색조건에 해당하는 거래내역을 찾을 수 없습니다.</p>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <!-- pagination container -->
