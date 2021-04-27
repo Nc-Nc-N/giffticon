@@ -54,7 +54,7 @@
                 <div class="category-drop">
                     <ul class="exo-menu">
                         <li class="drop-down">
-                            <a href="#"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
+                            <a href="#none"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
                             <%-- Drop Down --%>
                             <ul class="drop-down-ul animated fadeIn">
                             <%-- ajax로 불러옴 --%>
@@ -159,9 +159,21 @@
             })
         })
 
+        // 전체 카테고리 마우스오버 색 고정
+        $('.drop-down a').mouseover(function (){
+            $(this).addClass('on');
+        })
+
+        // 전체 카테고리 글자색, 카테고리 배경화면 색 초기화
+        $('.exo-menu').mouseleave(function () {
+            $('.drop-down a').removeClass('on');
+        })
+
         $('.drop-down-ul').mouseleave(function () {
             $('.flyout-right a').removeClass('on');
         })
+
+
     })
 </script>
 

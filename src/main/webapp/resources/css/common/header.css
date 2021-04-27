@@ -167,6 +167,10 @@ li.drop-down > a:hover + .drop-down-ul {
     color: #FF585D;
 }
 
+.drop-down a.on {
+    color: #FF585D;
+}
+
 /*responsive*/
 @media (min-width: 300px) {
     .flyout-right > div, li.drop-down > ul {
