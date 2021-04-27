@@ -5,6 +5,7 @@
 <mapper namespace="com.ncncn.mapper.HistoryMapper">
 
     <sql id="criteria">
+
         <trim prefix="" suffix="" prefixOverrides="OR">
             <foreach item='type' collection="typeArr">
                 <trim prefix="OR">
@@ -32,6 +33,23 @@
                         </when>
                     </choose>
                 </trim>
+
+                <trim prefix="and">
+                    <if test="dateFrom != ''">
+                        <if test="dateFrom != null">
+                            d.deal_dt >= #{dateFrom}
+                        </if>
+                    </if>
+                </trim>
+
+                <trim prefix="and">
+                    <if test="dateTo != ''">
+                        <if test="dateTo != null">
+                            adddate(#{dateTo}, interval 1 day) > d.deal_dt
+                        </if>
+                    </if>
+                </trim>
+
             </foreach>
         </trim>
     </sql>

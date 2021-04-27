@@ -14,17 +14,20 @@
 <h1>거래내역관리</h1>
 
 <!-- search area -->
+<form id='searchForm' action="/admin/deal-history" method="get">
 <div class="search-area">
     <div class="period-container">
         <span id="period">거래 기간</span>
         <div class="date-search">
-            <input type="date" id="start-date">
+            <input type="date" id="dateFrom" name="dateFrom"
+                   value="<c:out value="${pageMaker.cri.dateFrom}"/>">
             <span style="font-size:20px">~</span>
-            <input type="date" id="end-date">
+            <input type="date" id="dateTo" name="dateTo"
+            value="<c:out value="${pageMaker.cri.dateTo}"/>">
         </div>
     </div>
     <div class="search-container">
-        <form id='searchForm' action="/admin/deal-history" method="get">
+
         <select name='type' class="search-select">
             <option value="BSCNEPL"
                     <c:out value="${pageMaker.cri.type eq 'BSCNEPL'?'selected':''}"/>>전체
@@ -63,9 +66,9 @@
                 </button>
             </div>
 
-        </form>
     </div>
 </div>
+</form>
 <!-- search area end -->
 <div>
     <table id="t1" width="100%">
@@ -137,10 +140,13 @@
 <!-- pagination container end -->
 
 <form id='actionForm' action="/admin/deal-history" method='get'>
+    <input type="hidden" name="dateFrom" value="<c:out value="${pageMaker.cri.dateFrom}"/>">
+    <input type="hidden" name="dateTo" value="<c:out value="${pageMaker.cri.dateTo}"/>">
     <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
     <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
     <input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type}"/>'>
     <input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword}"/>'>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 
 </div>
@@ -149,7 +155,7 @@
 
 <jsp:include page="/WEB-INF/views/admin/adminMemo.jsp"/>
 
-
+<script type="text/javascript" src="/resources/js/user/calendar.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -168,17 +174,24 @@
 
         });
 
-        let searchForm = $("#searchForm");
+        //search 버튼 누를 시 날짜조건이 정확한지 체크 후 검색 실행
+        $(".search-button").on("click", function (e) {
 
-        $("#searchForm button").on("click", function (e) {
+            let dateFrom = $("#dateFrom").val();
+            let dateTo = $("#dateTo").val();
 
-            searchForm.find("input[name='pageNum']").val("1");
-            e.preventDefault();
+            if (!calendarCheck(dateFrom, dateTo)) {
+                alert("날짜 선택이 올바르지 않습니다.");
+                e.preventDefault();
+            } else {
 
-            searchForm.submit();
-
+                searchForm.find("input[name='pageNum']").val("1");
+                searchForm.submit();
+            }
         });
 
     }); //end of $(document).ready
+
+
 
 </script>

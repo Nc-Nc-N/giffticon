@@ -14,20 +14,20 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-<!--    <error-page>-->
-<!--        <error-code>400</error-code>-->
-<!--        <location>/WEB-INF/views/common/error.jsp</location>-->
-<!--    </error-page>-->
+    <error-page>
+        <error-code>400</error-code>
+        <location>/WEB-INF/views/common/error.jsp</location>
+    </error-page>
 
-<!--    <error-page>-->
-<!--        <error-code>404</error-code>-->
-<!--        <location>/WEB-INF/views/common/error.jsp</location>-->
-<!--    </error-page>-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/common/error.jsp</location>
+    </error-page>
 
-<!--    <error-page>-->
-<!--        <error-code>500</error-code>-->
-<!--        <location>/WEB-INF/views/common/error.jsp</location>-->
-<!--    </error-page>-->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/common/error.jsp</location>
+    </error-page>
 
 
     <servlet>
