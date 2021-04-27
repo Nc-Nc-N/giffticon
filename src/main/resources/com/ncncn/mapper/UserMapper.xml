@@ -92,9 +92,36 @@
         ]]>
     </select>
 
+    <select id="getListWithPagingQuit" resultType="com.ncncn.domain.UserVO">
+        <![CDATA[
+            select id, email, name, in_date, tel_no, enabled
+            from user
+            where enabled=0 AND (
+        ]]>
+
+        <include refid="criteria"></include>
+
+        )
+        <![CDATA[
+            order by id desc
+            LIMIT #{amount}
+            OFFSET ${(pageNum-1) * amount}
+
+        ]]>
+    </select>
+
     <select id="getTotalCount" resultType="int">
         select count(*) from user
         where enabled=1 AND (
+
+        <include refid="criteria"></include>
+
+        )
+    </select>
+
+    <select id="getTotalCountQuit" resultType="int">
+        select count(*) from user
+        where enabled=0 AND (
 
         <include refid="criteria"></include>
 

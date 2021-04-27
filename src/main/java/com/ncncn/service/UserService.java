@@ -17,7 +17,11 @@ public interface UserService {
 
     List<UserVO> getUserList(UserCheckCriteria cri);
 
+    List<UserVO> getUserListQuit(UserCheckCriteria cri);
+
     int getTotal(UserCheckCriteria cri);
+
+    int getTotalQuit(UserCheckCriteria cri);
 
     UserDetailCheckVO getUserDetail(int userId);
 

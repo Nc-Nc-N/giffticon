@@ -55,6 +55,17 @@ public class UserCheckControllerTests {
     }
 
     @Test
+    public void testListPagingQuit() throws Exception {
+
+        log.info(mockMvc.perform(
+                MockMvcRequestBuilders.get("/admin/user/userlist-quit")
+                        .param("pageNum", "1")
+                        .param("amount", "10"))
+                .andReturn().getModelAndView().getModelMap());
+
+    }
+
+    @Test
     public void testUserDetail() throws Exception {
 
         log.info(mockMvc.perform(

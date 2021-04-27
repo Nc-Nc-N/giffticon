@@ -28,7 +28,11 @@ public interface UserMapper {
 
     List<UserVO> getListWithPaging(UserCheckCriteria cri);
 
+    List<UserVO> getListWithPagingQuit(UserCheckCriteria cri);
+
     int getTotalCount(UserCheckCriteria cri);
+
+    int getTotalCountQuit(UserCheckCriteria cri);
 
     UserDetailCheckVO getUserDetail(int userId);
 
