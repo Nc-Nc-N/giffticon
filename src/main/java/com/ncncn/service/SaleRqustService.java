@@ -10,7 +10,7 @@ public interface SaleRqustService {
 
 	List<SaleRqustVO> getAllRqust(SaleRqustCriteria cri);
 
-	Map<String, String> getRqustById(int id);
+	Map<String, Object> getRqustById(int id);
 
 	int getTotalCount(SaleRqustCriteria cri);
 

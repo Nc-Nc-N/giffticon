@@ -16,7 +16,7 @@ public interface GifticonMapper {
 
 	List<SaleRqustVO> readAllRqustWithPaging(SaleRqustCriteria cri);
 
-	Map<String, String> readRqustById(int id);
+	Map<String, Object> readRqustById(int id);
 
 	int countAllRqust(SaleRqustCriteria cri);
 

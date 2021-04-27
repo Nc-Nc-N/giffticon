@@ -61,8 +61,10 @@
          ]]>
     </select>
 
-    <select id="readRqustById" resultMap="SaleRqust">
-        <![CDATA[select cate.name as cate_name, brd.name as brd_name, prod.name as prod_name, convert(prod.prc, char) as prod_prc, usr.email as requester]]>
+    <select id="readRqustById" resultType="HashMap">
+        <![CDATA[select gft.id gftId, gft.prod_code prodCode, gft.dc_prc dcPrc, gft.dc_rate dcRate, DATE_FORMAT(gft.expir_dt, '%Y-%m-%d') expirDt,
+            gft.brcd brcd, gft.descn descn, gft.img_path imgPath, gft.is_auto_prc isAutoPrc, DATE_FORMAT(gft.in_date, '%Y-%m-%d') inDate,
+            cate.name cateName, brd.name brdName, prod.name prodName, prod.prc prodPrc, usr.email requester]]>
         <include refid="getRqust"/>
         <![CDATA[ and gft.id = #{id} ]]>
     </select>
@@ -81,14 +83,6 @@
             up_date       = now()
         where id = #{id}
     </update>
-
-    <resultMap id="SaleRqust" type="java.util.HashMap">
-        <result property="cateName" column="cate_name"/>
-        <result property="brdName" column="brd_name"/>
-        <result property="prodName" column="prod_name"/>
-        <result property="prodPrc" column="prod_prc"/>
-        <result property="requester" column="requester"/>
-    </resultMap>
 
     <resultMap id="SaleRqusts" type="com.ncncn.domain.SaleRqustVO">
         <result property="gftId" column="gft_id"/>

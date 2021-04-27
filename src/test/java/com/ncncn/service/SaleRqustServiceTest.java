@@ -42,26 +42,26 @@ public class SaleRqustServiceTest {
 	public void getRqustByIdThrowNullPointerExceptionWhenMapIsNullTest() {
 		when(gifticonMapper.readRqustById(anyInt())).thenReturn(null);
 
-		Map<String, String> saleRqust = saleRqustService.getRqustById(anyInt());
+		Map<String, Object> saleRqust = saleRqustService.getRqustById(anyInt());
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void getRqustByIdThrowNullPointerExceptionWhenIsEmptyTest() {
 		when(gifticonMapper.readRqustById(anyInt())).thenReturn(new HashMap<>());
 
-		Map<String, String> saleRqust = saleRqustService.getRqustById(anyInt());
+		Map<String, Object> saleRqust = saleRqustService.getRqustById(anyInt());
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void getRqustByIdThrowNullPointerExceptionWhenGifticonIsNullTest() {
 		when(gifticonMapper.read(anyInt())).thenReturn(null);
 
-		Map<String, String> saleRqust = saleRqustService.getRqustById(anyInt());
+		Map<String, Object> saleRqust = saleRqustService.getRqustById(anyInt());
 	}
 
 	@Test
 	public void getRqustByIdSuccessTest() {
-		Map<String, String> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
 		result.put("test", "test");
 
 		GifticonVO gifticonVO = new GifticonVO();
@@ -71,7 +71,7 @@ public class SaleRqustServiceTest {
 		when(gifticonMapper.readRqustById(anyInt())).thenReturn(result);
 		when(gifticonMapper.read(anyInt())).thenReturn(gifticonVO);
 
-		Map<String, String> saleRqust = saleRqustService.getRqustById(anyInt());
+		Map<String, Object> saleRqust = saleRqustService.getRqustById(anyInt());
 
 		verify(gifticonMapper).readRqustById(anyInt());
 		verify(gifticonMapper).read(anyInt());

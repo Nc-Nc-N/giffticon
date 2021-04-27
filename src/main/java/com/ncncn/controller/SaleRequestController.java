@@ -47,8 +47,8 @@ public class SaleRequestController {
 	}
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, String>> getRequest(@PathVariable("id") int id) {
-		Map<String, String> rqust = new HashMap<>();
+	public ResponseEntity<Map<String, Object>> getRequest(@PathVariable("id") int id) {
+		Map<String, Object> rqust = new HashMap<>();
 
 		try {
 			rqust = saleRqustService.getRqustById(id);
@@ -73,16 +73,18 @@ public class SaleRequestController {
 	@DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> deleteRequset(@PathVariable("id") int id, @RequestBody RqustRejectDTO rqustRejectDTO) {
 		try {
-			Map<String, String> rqust = saleRqustService.getRqustById(id);
-			int result = saleRqustService.removeRqust(id);
+			Map<String, Object> rqust = saleRqustService.getRqustById(id);
+//			int result = saleRqustService.removeRqust(id);
+//
+//			// 반려사유 메일 전송
+//			SimpleMailMessage message = new SimpleMailMessage();
+//			message.setTo(rqustRejectDTO.getEmail());
+//			message.setSubject("[기쁘티콘] 판매요청에 대한 안내메일입니다.");
+//			message.setText(getMessage(rqust, rqustRejectDTO.getCause()));
+//
+//			javaMailSender.send(message);
 
-			// 반려사유 메일 전송
-			SimpleMailMessage message = new SimpleMailMessage();
-			message.setTo(rqustRejectDTO.getEmail());
-			message.setSubject("[기쁘티콘] 판매요청에 대한 안내메일입니다.");
-			message.setText(getMessage(rqust, rqustRejectDTO.getCause()));
-
-			javaMailSender.send(message);
+			log.info(getMessage(rqust, rqustRejectDTO.getCause()));
 		} catch (Exception e) {
 			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -90,7 +92,7 @@ public class SaleRequestController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 
-	private String getMessage(Map<String, String> rqust, String cause) {
+	private String getMessage(Map<String, Object> rqust, String cause) {
 		StringBuilder message = new StringBuilder();
 
 		message.append(rqust.get("requester")).append(" 님, 안녕하세요. 기쁘티콘입니다.\n");
