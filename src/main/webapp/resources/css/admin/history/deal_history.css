@@ -1,65 +1,5 @@
-#container {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-#main {
-    min-width: 800px;
-    max-width: 1000px;
-    padding: 0 20px;
-    margin: 0 auto;
-    margin-left: 5px;
-}
-
-#sidebar {
-    min-width: fit-content;
-    height: fit-content;
-    padding: 20px;
-    margin: 0 auto;
-    margin-right: 5px;
-}
-
-#admin-menu {
-    color: white;
-    min-width: fit-content;
-    height: fit-content;
-    padding: 20px;
-    margin: 0 auto;
-    margin-right: 5px;
-    background-color: rgb(255, 88, 93);
-}
-
-#content {
-    display: flex;
-    justify-content:space-around;
-    max-width: 100%;
-    height: 600px;
-    margin-top: 20px;
-}
-
-#sidebar h2 {
-    margin: 15px;
-}
-
-#admin-memo {
-    margin-top: 10px;
-    width: 95%;
-    min-height: 150px;
-    padding: 5px;
-    background-color: gainsboro;
-    border: none;
-    outline: none;
-}
-
-#memo {
-    border: none;
-    outline: none;
-    width: 95%;
-    height: 150px;
-    overflow: visible;
-    background-color: rgba(0, 0, 0, 0);
-    resize: none;
+h1 {
+    margin-bottom:50px;
 }
 
 #period {
@@ -111,14 +51,14 @@
     outline: none;
     border: 1px solid rgb(170, 170, 170);
     border-radius: 5px;
-    
+
 }
 
 .search-area {
     display: flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:30px;
+    margin-bottom:10px;
 }
 
 .search-select {
@@ -148,27 +88,24 @@ th {
 }
 
 td {
-    border-bottom:1px solid black; 
+    border-bottom:1px solid black;
     padding:10px 0;
 }
 
+.pagination-container {
+    margin: 20px;
+}
+
 .pagination {
-    display: inline-block;
-    position:relative;
-    left:20%;
+    display:flex;
+    justify-content:flex-end;
 }
 
-.pagination a {
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    color: rgb(71, 71, 71);
-    background-color: rgb(245, 244, 244);
-    margin: 0 3px 0 3px;
-    border-radius: 5px;
+.pagination li{
+    list-style:none;
 }
 
-.pagination a.active {
+.paginate_button li.active {
     background-color: rgb(255, 88, 93);
     color: white;
     border-radius: 5px;
@@ -179,8 +116,6 @@ td {
     color: white;
     border-radius: 5px;
 }
-
-
 
 
 
