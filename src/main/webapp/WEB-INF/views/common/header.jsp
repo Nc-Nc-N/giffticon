@@ -134,6 +134,10 @@
             let cateName = $(this).text();
             let name = escape(encodeURIComponent(cateName));    // 한글 인코딩
 
+            // 마우스오버한 카테고리 배경화면 색 고정
+            $('.flyout-right a').removeClass('on');
+            $(this).addClass('on');
+            
             $.ajax({
                 url: '/user/getBrand?name='+name,
                 type: 'get',
@@ -146,7 +150,7 @@
 
                     // 브랜드 목록 추가
                     for(let i=0; i<result.length; i++){
-                        cate.append('<li><a href="#">'+result[i].name+'</a></li>');
+                        cate.append('<li><a href="/user/prod_list?code='+result[i].code+'">'+result[i].name+'</a></li>');
                     }
                 },
                 error: function (){

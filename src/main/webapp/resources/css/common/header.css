@@ -135,8 +135,13 @@ li.drop-down > ul > li > a,
     -moz-transition: color 0.2s linear, background 0.2s linear;
     -o-transition: color 0.2s linear, background 0.2s linear;
     transition: color 0.2s linear, background 0.2s linear;
-    border: 1px solid gainsboro;
     border-right: none;
+}
+li.drop-down > ul > li > a{
+    border: 1px solid gainsboro;
+}
+.flyout-right div > ul > li > a{
+    background-color: rgb(245, 244, 244);
 }
 
 li.drop-down {
@@ -157,8 +162,9 @@ li.drop-down > a:hover + .drop-down-ul {
     position: absolute;
 }
 
-.brdBox > ul.on{
+.flyout-right a.on{
     background-color: rgb(245, 244, 244);
+    color: #FF585D;
 }
 
 /*responsive*/
