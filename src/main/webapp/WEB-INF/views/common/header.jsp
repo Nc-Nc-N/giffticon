@@ -156,12 +156,12 @@
                 error: function (){
                     alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
                 }
-
             })
-
-
         })
 
+        $('.drop-down-ul').mouseleave(function () {
+            $('.flyout-right a').removeClass('on');
+        })
     })
 </script>
 

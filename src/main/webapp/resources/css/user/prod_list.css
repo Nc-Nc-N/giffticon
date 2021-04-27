@@ -121,6 +121,6 @@ a:hover { text-decoration: none; }
 a:focus { text-decoration: none; }
 a:hover, a:active { text-decoration: none; }
 
-.brandList.active{
+.brandList.active, .cateAll.active{
     color: rgb(255, 88, 93);
 }
