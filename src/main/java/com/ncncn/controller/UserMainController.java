@@ -1,7 +1,5 @@
 package com.ncncn.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.ncncn.domain.BrandVO;
 import com.ncncn.domain.CategoryVO;
 import com.ncncn.service.BrandService;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
