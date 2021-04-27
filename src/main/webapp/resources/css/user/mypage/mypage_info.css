@@ -55,6 +55,12 @@
     border-radius: 5px;
 }
 
+.user_info_btn > button:hover {
+    background-color: white;
+    color:rgb(255,88,93);
+    border: 1px solid rgb(255,88,93);
+}
+
 .modalOn{
 
     display: flex;
@@ -70,3 +76,4 @@
 .modal_userInfo, .modal_accInfo, .modal_telNo{
     visibility: hidden;
 }
+

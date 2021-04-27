@@ -1,12 +1,10 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.BankAccountVO;
 import com.ncncn.domain.CmmnCodeVO;
 import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserVO;
-import com.ncncn.service.CmmnCodeService;
-import com.ncncn.service.DealListService;
-import com.ncncn.service.SellListService;
-import com.ncncn.service.UserService;
+import com.ncncn.service.*;
 import com.ncncn.util.UserAuthCheckUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -17,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @Log4j
@@ -35,6 +31,8 @@ public class UserInfoController {
 
     CmmnCodeService cmmnCodeService;
 
+    PointService pointService;
+
     @GetMapping("/userInfo")
     public void userInfo(HttpServletRequest request, Model model) {
 
@@ -45,14 +43,14 @@ public class UserInfoController {
 
         log.info("map bnk:" + bnkList);
 
-        model.addAttribute("bnkList",bnkList);
+        model.addAttribute("bnkList", bnkList);
         model.addAttribute("user", user);
 
     }
 
     @RequestMapping(value = "/checkPassword",
-                method = RequestMethod.POST,
-    consumes = "application/json")
+            method = RequestMethod.POST,
+            consumes = "application/json")
     public ResponseEntity<String> checkPwdUserUpdate(@RequestBody UserVO checkuser,
                                                      HttpServletRequest request) {
 
@@ -61,28 +59,57 @@ public class UserInfoController {
         UserVO user = userService.readbyId(userId);
 
         //입력된 비밀번호가 db값과 일치여부 확인
-        if(UserAuthCheckUtils.userAuthCheck(checkuser.getEmail(), checkuser.getPwd(), user)){
+        if (UserAuthCheckUtils.userAuthCheck(checkuser.getEmail(), checkuser.getPwd(), user)) {
             return new ResponseEntity<>(HttpStatus.OK);
-        }else{
+        } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @RequestMapping(value="/userUpdate",
-                    method = RequestMethod.POST)
+    @RequestMapping(value = "/userUpdate",
+            method = RequestMethod.POST)
     public ResponseEntity<String> userUpdate(@RequestParam("newPwd") String newPwd,
                                              @RequestParam("email") String email,
-                                             HttpServletRequest request){
+                                             HttpServletRequest request) {
 
         int userId = (int) request.getSession().getAttribute("userId");
 
         int isUpdated = userService.updatePwd(newPwd, email, userId);
 
-        if(isUpdated == 1){
+        if (isUpdated == 1) {
             return new ResponseEntity<>(HttpStatus.OK);
-        }else{
+        } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
+
+    @RequestMapping(value = "/accRegister",
+            method = RequestMethod.POST)
+    public ResponseEntity<String> accRegister(@RequestBody BankAccountVO newAccount) {
+
+        boolean registered = pointService.accRegister(newAccount);
+
+        if (registered) {
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/accUpdate",
+            method = RequestMethod.POST)
+    public ResponseEntity<String> accUpdate(@RequestBody BankAccountVO newAccount) {
+
+        boolean updated = pointService.accUpdate(newAccount);
+
+        if (updated) {
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

@@ -54,7 +54,7 @@
     </div>
     <div id="reg-btn-area">
         <button class="btn btn-active" id="modifyMyInfo">등록</button>
-        <button class="btn btn-disabled cancel" id="cancelMyInfo">취소</button>
+        <button class="btn btn-dark cancel" id="cancelMyInfo">취소</button>
     </div>
 </div>
 </body>
@@ -202,12 +202,12 @@
         $("#modifyMyInfo").on("click", function (e) {
 
             //기존 비밀번호, 새 비밀번호, 새 비밀번호 확인 모두 true이면
-            if(checkAllConfirmed[0] == true &&
+            if (checkAllConfirmed[0] == true &&
                 checkAllConfirmed[1] == true &&
-                checkAllConfirmed[2] == true){
+                checkAllConfirmed[2] == true) {
 
                 //바꾸기 전에 한번 물어보자
-                if(!confirm("비밀번호를 변경하시겠습니까?")){
+                if (!confirm("비밀번호를 변경하시겠습니까?")) {
                     return;
                 }
 
@@ -216,7 +216,7 @@
                 $.ajax({
                     url: '/user/mypage/userUpdate',
                     method: 'post',
-                    data: {"newPwd":newPwdVal, "email":oriEmail},
+                    data: {"newPwd": newPwdVal, "email": oriEmail},
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                     },
@@ -233,15 +233,15 @@
                     }
                 })
 
-            //정보가 정확히 입력 안되었을때
-            }else{
+                //정보가 정확히 입력 안되었을때
+            } else {
                 alert("정보를 정확히 입력하세요");
                 return;
             }
         })
 
         //취소 버튼 클릭 시 모든 입력값 초기화
-        $('#cancelMyInfo').on("click", function (e){
+        $('#cancelMyInfo').on("click", function (e) {
 
             insertOriginPwd.val("");
             insertNewPwd.val("");
@@ -261,9 +261,3 @@
 
     })
 </script>
-
-<!-- 해야 할 일
-1. 이름 , 전화번호는 원래 값 집어넣기
-2. 수정 버튼 클릭 시 수정 완료 (전화번호는 놔두기)
-3. 수정 누를 시 수정 완료하고 모달 닫기, 새로 고침 혹은 비동기 처리 (모달은 input은 초기화)
--->

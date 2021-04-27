@@ -21,7 +21,7 @@
                     <div class="user_section">
 
                         <div class="user_info_column">
-                            <div>E-mail</div>
+                            <div>Email</div>
                             <div>이름</div>
                             <div>전화번호</div>
                             <div>보유 포인트</div>
@@ -31,7 +31,7 @@
                             <div><c:out value="${user.email}"/></div>
                             <div><c:out value="${user.name}"/></div>
                             <div><c:out value="${user.telNo}"/></div>
-                            <div><c:out value="${user.pnt}"/></div>
+                            <div><c:out value="${user.pnt}"/>p</div>
                         </div>
                         <div class="user_info_btn">
                             <button class="btn btn-active" id="modUserInfo">비밀번호 변경</button>
@@ -104,11 +104,6 @@
 
             $(".modalOn").css("visibility", "hidden");
         })
-
-        $(".confirmOriginPwd").on("click", function(e){
-            alert("굿");
-        })
-
 
     })
 </script>
