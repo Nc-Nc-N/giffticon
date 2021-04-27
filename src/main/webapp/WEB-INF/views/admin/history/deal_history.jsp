@@ -41,7 +41,6 @@
             <option value="N"
                     <c:out value="${pageMaker.cri.type eq 'N'?'selected':''}"/>>상품일련번호
             </option>
-            <option>브랜드명, 상품명</option>
             <option value="E"
                     <c:out value="${pageMaker.cri.type eq 'E'?'selected':''}"/>>브랜드명
             </option>
