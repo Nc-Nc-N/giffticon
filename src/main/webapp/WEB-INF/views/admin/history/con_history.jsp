@@ -3,6 +3,7 @@
 <%--isELIgnored="false"--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="/WEB-INF/views/admin/adminLayout.jsp"/>
 
@@ -55,16 +56,15 @@
         </div>
 
     </div>
-</form>
+
 <!-- search area end -->
-<div id="checkbutton">
-    <form>
-        <input type="checkbox">입금
-        <input type="checkbox">출금
-        <input type="checkbox">구매
-        <input type="checkbox">판매
-    </form>
+<div id="checkbox-container">
+        <input type="checkbox" id="k1" name="deposit">입금
+        <input type="checkbox" id="k2" name="withdraw">출금
+        <input type="checkbox" id="k3" name="buy">구매
+        <input type="checkbox" id="k4" name="sell">판매
 </div>
+</form>
 
 
 <br>

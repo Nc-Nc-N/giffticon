@@ -75,9 +75,14 @@
     margin:20px 0 10px 0;
 }
 
-#checkbutton {
+#checkbox-container {
     float:right;
     margin-bottom:10px;
+}
+
+#checkbox-container input {
+    width:15px;
+    height:15px;
 }
 
 .search-select {
@@ -110,6 +115,8 @@ td {
     border-bottom:1px solid black; 
     padding:10px 0;
 }
+
+
 
 .pagination-container {
     margin: 20px;

@@ -11,6 +11,10 @@ import lombok.ToString;
 public class AdminConHistCriteria extends Criteria {
     private String dateFrom;
     private String dateTo;
+    private String deposit;
+    private String withdraw;
+    private String buy;
+    private String sell;
 
     private String type;
     private String keyword;
