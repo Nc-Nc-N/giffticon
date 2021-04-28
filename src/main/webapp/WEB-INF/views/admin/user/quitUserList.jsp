@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/user/quitUserList.css" type="text/css">
 
-<h1>탈퇴회원목록</h1>
+<h1>회원관리</h1>
 
 <div id="submenu">
     <div>
