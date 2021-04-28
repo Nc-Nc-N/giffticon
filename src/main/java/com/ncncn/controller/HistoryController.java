@@ -29,4 +29,10 @@ public class HistoryController {
 
         return "/admin/history/deal_history";
     }
+
+    @GetMapping("/admin/point-history")
+    public String adminPointHistory() {
+
+        return "/admin/history/point_history";
+    }
 }
