@@ -23,17 +23,7 @@ public class SignUpServiceImpl implements SignUpService {
 	}
 
 	public UserVO getByEmail(String email) {
-		if (email == null || email.length() == 0) {
-			throw new IllegalArgumentException("잘못된 사용자 이메일입니다.");
-		}
-
-		UserVO userVO = userMapper.readByEmail(email);
-
-		if (userVO == null) {
-			throw new IllegalArgumentException("해당 이메일을 사용하는 사용자가 존재하지 않습니다.");
-		}
-
-		return userVO;
+		return userMapper.readByEmail(email);
 	}
 
 	public int register(UserVO userVO) throws IllegalArgumentException {

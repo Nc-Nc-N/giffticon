@@ -33,7 +33,6 @@ public class FaqController {
 
 
 		model.addAttribute("list", service.getListUser(cri));
-//		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
 
 		int total = service.getTotalUser(cri);
 
@@ -50,7 +49,7 @@ public class FaqController {
 	// 관리자
 
 
-	@GetMapping("admin/adminFaq")
+	@GetMapping("/admin/adminFaq")
 	public  String adminFaq(HttpServletRequest request, CsCriteria cri, Model model){
 
 		log.info("list: " + cri);
@@ -58,7 +57,6 @@ public class FaqController {
 		int userId = (int) request.getSession().getAttribute("userId");
 		model.addAttribute("userId", userId);
 		model.addAttribute("list", service.getList(cri));
-//		model.addAttribute("pageMaker", new PageDTOCs(cri, 120));
 
 		int total = service.getTotal(cri);
 
@@ -70,7 +68,7 @@ public class FaqController {
 
 	}
 
-
+	//게시물 등록
 	@PostMapping("/admin/adminFaq/register")
 	public String register(HttpServletRequest request, CsFaqVO faq, RedirectAttributes rttr){
 
@@ -84,6 +82,7 @@ public class FaqController {
 		return "redirect:/admin/adminFaq";
 	}
 
+	//게시물 수정
 	@PostMapping("/admin/adminFaq/modify")
 	public String modify(HttpServletRequest request, CsFaqVO faq, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr){
 
@@ -104,6 +103,7 @@ public class FaqController {
 		return "redirect:/admin/adminFaq";
 	}
 
+	//게시물 삭제
 	@PostMapping("/admin/adminFaq/remove")
 	public String remove(HttpServletRequest request, @RequestParam("id") int id, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr){
 

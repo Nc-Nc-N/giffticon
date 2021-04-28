@@ -30,9 +30,9 @@
 
         <div class="menubody">
             <div class="sidebarspace">
-            <div class="menuname">고객센터</div><!--메뉴 이름 (사이드바 위)-->
-                <div class="sidebar"> <!--사이드 바 영역 (필요한만큼 영역 세로로늘리기)-->
-                    <!--필요한만큼 아래 추가해서 사용 (개당 세로크기70px)-->
+            <div class="menuname">고객센터</div>
+                <div class="sidebar">
+
                     <a href="/user/cs/noticeBoard">
                         <div class="bar">
                             <div>공지사항</div>
@@ -104,9 +104,7 @@
                         <label for="acc<c:out value="${status.index+1}"/>">
                             <span class="qna-q">Q. </span><c:out value="${faq.csCateCode == '001' ? '[구매]':'[판매]'}"/>
                             <c:out value="${faq.qust}"/>
-                                <%--                            <button id="<c:out value='${faq.id}'/>" class="btn-no btn-erase">--%>
-                                <%--                                <i class="fas fa-minus"></i></button>--%>
-                                <%--                            <button class="btn-no btn-modify" id="<c:out value='${faq.id}'/>" onclick="">수정</button>--%>
+
                         </label>
                         <div class="content">
                             <div class="inner">
@@ -176,7 +174,7 @@
 
     $(document).ready(function () {
 
-        //page번호 클릭했을때 처
+        //page번호 클릭 시
         var actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {

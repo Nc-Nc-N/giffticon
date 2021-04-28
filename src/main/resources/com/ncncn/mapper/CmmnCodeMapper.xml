@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.CmmnCodeMapper">
+
+    <select id="getBankList" resultType="com.ncncn.domain.CmmnCodeVO">
+        select code, code_name
+        from cmmn_code
+        where
+              code_type = (select code_type from cmmn_code_type where code_descn = "은행")
+          and enabled = 1
+    </select>
+
+</mapper>

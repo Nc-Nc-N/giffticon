@@ -1,8 +1,10 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.PrcUpdateVO;
 import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProdListVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
+
 import com.ncncn.mapper.GifticonMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -34,9 +36,9 @@ public class GifticonServiceImpl implements GifticonService {
     }
 
     @Override
-    public int updateGftPrc(int gftId, char isAutoPrc, int dcPrc, double dcRate) {
+    public int updateGftPrc(PrcUpdateVO prcUpdate) {
 
-        return gifticonMapper.updateGftPrc(gftId, isAutoPrc, dcPrc, dcRate);
+        return gifticonMapper.updateGftPrc(prcUpdate.getGftId(),prcUpdate.getIsAutoPrc(),prcUpdate.getDcPrc(), prcUpdate.getDcRate());
     }
 
     @Override

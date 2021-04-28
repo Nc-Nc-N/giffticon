@@ -17,7 +17,7 @@
         <a href="/admin/user/userlist" class="active"><span>회원목록</span></a>
     </div>
     <div>
-        <a href="#"><span>탈퇴회원목록</span></a>
+        <a href="/admin/user/userlist-quit"><span>탈퇴회원목록</span></a>
     </div>
 </div>
 
@@ -52,38 +52,47 @@
 </div>
 <!-- search area end -->
 
-<!-- table wrapper -->
-<div id="tablewrapper">
-    <table id="t1">
-        <tr>
-            <th>회원번호</th>
-            <th>이메일</th>
-            <th>이름</th>
-            <th>가입일시</th>
-            <th>전화번호</th>
-            <th>회원상태</th>
-        </tr>
-        <c:forEach items="${list}" var="userL">
-            <tr class="eachUser">
-                <td>${userL.id}</td>
-                <td>${userL.email}</td>
-                <td>${userL.name}</td>
-                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-                                    value="${userL.inDate}"/></td>
-                <td>${userL.telNo}</td>
-                <td>
-                    <c:if test="${userL.enabled == 1}">
-                        <c:out value="정상" />
-                    </c:if>
-                    <c:if test="${userL.enabled == 0}">
-                        <c:out value="탈퇴" />
-                    </c:if>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-</div>
-<!-- table wrapper end -->
+<c:choose>
+    <c:when test="${not empty list}">
+        <!-- table wrapper -->
+        <div id="tablewrapper">
+            <table id="t1">
+                <tr>
+                    <th>회원번호</th>
+                    <th>이메일</th>
+                    <th>이름</th>
+                    <th>가입일시</th>
+                    <th>전화번호</th>
+                    <th>회원상태</th>
+                </tr>
+                <c:forEach items="${list}" var="userL">
+                    <tr class="eachUser">
+                        <td>${userL.id}</td>
+                        <td>${userL.email}</td>
+                        <td>${userL.name}</td>
+                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+                                            value="${userL.inDate}"/></td>
+                        <td>${userL.telNo}</td>
+                        <td>
+                            <c:if test="${userL.enabled == 1}">
+                                <c:out value="정상"/>
+                            </c:if>
+                            <c:if test="${userL.enabled == 0}">
+                                <c:out value="탈퇴"/>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+        <!-- table wrapper end -->
+    </c:when>
+    <c:otherwise>
+        <div>
+            <p id="nonresultmessage">검색조건에 해당하는 회원을 찾을 수 없습니다.</p>
+        </div>
+    </c:otherwise>
+</c:choose>
 
 <!-- pagination container -->
 <div class="pagination-container">

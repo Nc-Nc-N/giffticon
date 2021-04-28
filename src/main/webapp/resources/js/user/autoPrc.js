@@ -11,6 +11,7 @@ function calAutoPrc(prc, startDcRate, expirDt) {
 
     console.log("remained Dt: " + remainedDt);
 
+    //남은일자를 구간별로 나누어 할인율 상승 시킴
     if (remainedDt <= 60) {
 
         let intervalCheck = Math.ceil(remainedDt / 15);
@@ -40,6 +41,7 @@ function calAutoPrc(prc, startDcRate, expirDt) {
     return finalPnR;
 }
 
+//남은 날짜와 정가, 할인율 계산하여 현재가 할인율 return
 function dcCalculator(prc, startDcRate, slope, interval) {
 
     let finalDcRate = (parseFloat(startDcRate) + parseFloat(slope * interval)).toFixed(2);

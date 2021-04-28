@@ -23,8 +23,11 @@ import javax.servlet.http.HttpServletRequest;
 public class ProdController {
 
 	private CategoryService cateService;
+
 	private BrandService brandService;
+
 	private GifticonService giftiService;
+
 	private WishListService wishService;
 
 	// 기프티콘 목록 페이지
@@ -39,7 +42,7 @@ public class ProdController {
 			try {
 
 				model.addAttribute("category", cateService.getCate(code));            	// 카테고리
-				model.addAttribute("brandList", brandService.getBrdList(code));    	// 브랜드 목록
+				model.addAttribute("brandList", brandService.getBrdList(code));    		// 브랜드 목록
 				model.addAttribute("gifti", giftiService.getGiftiWithPaging(cri));    	// 기프티콘 목록(페이징 처리 포함)
 				model.addAttribute("headerPageMaker", new PageDTO(cri, total));
 
@@ -83,7 +86,7 @@ public class ProdController {
 		if(isInteger(code) || code==null){
 			try {
 				model.addAttribute("category", cateService.getCate(code));				// 카테고리
-				model.addAttribute("brandList", brandService.getBrdList(code));		// 브랜드 목록
+				model.addAttribute("brandList", brandService.getBrdList(code));			// 브랜드 목록
 				model.addAttribute("giftiList", giftiService.getGiftiList(code));		// 등록된 기프티콘 목록
 				model.addAttribute("gifticon", giftiService.getGifti(code));				// 대표 기프티콘
 				model.addAttribute("userId", userId);									// 로그인한 사용자 userId

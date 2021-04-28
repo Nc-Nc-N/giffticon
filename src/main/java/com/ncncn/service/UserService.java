@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserDetailCheckVO;
 import com.ncncn.domain.UserMemoVO;
 import com.ncncn.domain.UserStatusVO;
@@ -14,15 +15,22 @@ public interface UserService {
 
 	int countRecentlyRegister();
 
-
     List<UserVO> getUserList(UserCheckCriteria cri);
 
+    List<UserVO> getUserListQuit(UserCheckCriteria cri);
+
     int getTotal(UserCheckCriteria cri);
+
+    int getTotalQuit(UserCheckCriteria cri);
 
     UserDetailCheckVO getUserDetail(int userId);
 
     void updateMemo(UserMemoVO memo);
 
     void updateStatus(UserStatusVO status);
+
+    public UserInfoDTO getMyInfo(int userId);
+
+    public int updatePwd(String pwd, String email, int userId);
 
 }

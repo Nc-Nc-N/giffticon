@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/applicationContext.xml")
@@ -106,7 +107,6 @@ public class ProdMapperTests {
 
 		int total = mapper.getTotalCount(prod);
 
-
 		assertThat(total, is(1));
 	}
 
@@ -130,26 +130,53 @@ public class ProdMapperTests {
 	@Test
 	public void testGetGiftiList(){
 
-		mapper.getGiftiList("010101").forEach(gifti -> log.info(gifti));
+		String code="010102";
+		List<ProdListVO> list = mapper.getGiftiList(code);
+
+		list.forEach(gifti -> log.info(gifti));
+
+		assertThat(list.get(0).getProdCode(), is(code));
+		assertThat(list.get(1).getGftStusCode(), is("002"));
+
 	}
 
 	@Test
 	public void testGetGifti(){
-
+		List<ProdListVO> list = mapper.getGiftiList("010101");
 		ProdListVO gifti = mapper.getGifti("010101");
+		int minPrc = list.get(0).getDcPrc();
+
 		log.info(gifti);
+
+		assertThat(gifti.getDcPrc(), is(minPrc));
 	}
 
 	@Test
 	public void testGetBestGifti(){
 
-		mapper.getBestGifti().forEach(gifti -> log.info(gifti));
+		List<ProdListVO> list = mapper.getBestGifti();
+		int soldQuty1 = list.get(0).getSoldQuty();
+		int soldQuty2 = list.get(1).getSoldQuty();
+
+		list.forEach(gifti -> log.info(gifti));
+
+		assertTrue(soldQuty1>soldQuty2);
 	}
 
 	@Test
-	public void testGetDeadlineGifti(){
+	public void testGetDeadLineGifti(){
 
-		mapper.getDeadlineGifti().forEach(gifti->log.info(gifti));
+		List<ProdListVO> list = mapper.getDeadlineGifti();
+		int dDay1 = list.get(0).getDDay();
+		int dDay2 = list.get(7).getDDay();
+		String stuCode1 = list.get(3).getGftStusCode();
+
+		list.forEach(gifti->log.info(gifti));
+
+		assertTrue(dDay1<7);
+		assertTrue(dDay2<7);
+		assertThat(stuCode1, is("002"));
+
 	}
 
 }

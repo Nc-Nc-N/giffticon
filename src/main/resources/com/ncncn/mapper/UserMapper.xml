@@ -53,7 +53,6 @@
         select count(*) from user where in_date between date_sub(curdate(), interval 3 day) and date_add(curdate(), interval 1 day)
     </select>
 
-
     <sql id="criteria">
         <trim prefix="" suffix="" prefixOverrides="OR">
             <foreach item='type' collection="typeArr">
@@ -92,9 +91,36 @@
         ]]>
     </select>
 
+    <select id="getListWithPagingQuit" resultType="com.ncncn.domain.UserVO">
+        <![CDATA[
+            select id, email, name, in_date, tel_no, enabled
+            from user
+            where enabled=0 AND (
+        ]]>
+
+        <include refid="criteria"></include>
+
+        )
+        <![CDATA[
+            order by id desc
+            LIMIT #{amount}
+            OFFSET ${(pageNum-1) * amount}
+
+        ]]>
+    </select>
+
     <select id="getTotalCount" resultType="int">
         select count(*) from user
         where enabled=1 AND (
+
+        <include refid="criteria"></include>
+
+        )
+    </select>
+
+    <select id="getTotalCountQuit" resultType="int">
+        select count(*) from user
+        where enabled=0 AND (
 
         <include refid="criteria"></include>
 
@@ -150,6 +176,38 @@
         update user
         set enabled=#{enabled}, up_date=current_time, up_user=current_user
         where id=#{id}
+    </update>
+
+    <select id="getMyInfo" resultType="com.ncncn.domain.UserInfoDTO">
+
+            <![CDATA[
+        select user.id,
+               user.email,
+               user.pwd,
+               user.name,
+               user.tel_no,
+               user.pnt,
+               bnkT.acc,
+               bnkT.bnk_code,
+               bnkT.holder,
+               bnkT.is_authed,
+               stusT.code_name bnkName
+        from
+            (
+                bank_account bnkT
+                    left join
+                        (select * from cmmn_code where code_type = 'BANK_NAME' and enabled = 1) stusT
+                    on bnkT.bnk_code = stusT.code
+                )
+                right join
+                (select * from user where user.id = #{userId} and enabled = '1') user
+        on user.id = bnkT.user_Id
+        ]]>
+
+     </select>
+
+    <update id="updatePwd">
+        update user set pwd = #{pwd} where email = #{email} and id = #{userId}
     </update>
 
 </mapper>

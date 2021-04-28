@@ -1,5 +1,7 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.UserInfoDTO;
+
 import com.ncncn.domain.UserDetailCheckVO;
 import com.ncncn.domain.UserMemoVO;
 import com.ncncn.domain.UserStatusVO;
@@ -37,7 +39,6 @@ public class UserServiceTests {
         assertEquals(user.getRoleCode(),"002");
     }
 
-
     @Test
     public void testExists() {
         log.info(userService);
@@ -48,6 +49,12 @@ public class UserServiceTests {
     public void testGetUserList() {
 
         userService.getUserList(new UserCheckCriteria(2, 10)).forEach(user -> log.info(user));
+    }
+
+    @Test
+    public void testGetUserListQuit() {
+
+        userService.getUserListQuit(new UserCheckCriteria(1, 10)).forEach(user -> log.info(user));
     }
 
     @Test
@@ -88,6 +95,34 @@ public class UserServiceTests {
 
         userService.updateStatus(stus);
         assertEquals(1, userService.getUserDetail(152).getEnabled());
+    }
+
+    @Test
+    public void getMyInfotest() {
+
+        int userId = 156;
+
+        UserInfoDTO user = userService.getMyInfo(userId);
+
+        assertEquals(user.getId(), 156);
+    }
+
+    @Test
+    public void updatePwdTest(){
+
+        int userId = 5;
+        String email = "test1@test.com";
+        String pwd = "343412";
+
+        int isUpdated = userService.updatePwd(pwd,email,userId);
+        if(isUpdated == 1 ){
+
+            String newPwd = userService.readbyId(5).getPwd();
+
+            assertEquals(pwd, newPwd);
+        }else{
+            assertEquals(isUpdated,0);
+        }
     }
 
 }
