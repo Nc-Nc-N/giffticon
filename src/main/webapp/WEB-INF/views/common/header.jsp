@@ -80,9 +80,6 @@
                 </div>
 
             </div>
-
-        </div>
-
         <!-- search area -->
         <div class="search-bar-container">
             <form id="h-search-form" action="/user/prod_list" method="get">
@@ -100,6 +97,8 @@
             <span class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></span>
             <span class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></span>
         </div>
+        </div>
+
     </div>
 </div>
 </body>
