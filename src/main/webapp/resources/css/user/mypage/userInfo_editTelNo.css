@@ -18,32 +18,34 @@
     margin-top: 35%;
 }
 
-#content{
+#content {
     width: 100%;
     height: 80%;
     /* background-color:tomato; */
 }
-h2{
+
+h2 {
     text-align: center;
     height: 80px;
 }
 
-h3{
+h3 {
     margin-left: 20px;
     width: 180px;
     font-weight: lighter;
 }
 
-h5{  
+h5 {
     margin-top: 5px;
-    color: rgb(255,88,93);
+    color: rgb(255, 88, 93);
 }
 
-.email_section{
+.email_section {
     display: flex;
     height: 15%;
 }
-.info_section{
+
+.info_section {
     width: 100%;
     height: 70px;
     font-size: 15px;
@@ -55,10 +57,10 @@ h5{
 .info_section > div {
     display: flex;
     align-items: center;
-    justify-content:flex-start;
+    justify-content: flex-start;
 }
 
-.input_text{
+.input_text {
     background-color: white;
     border: none;
     border-bottom: 2px solid gainsboro;
@@ -67,8 +69,8 @@ h5{
     display: flex;
 }
 
-input{
-    height:30px;
+input {
+    height: 30px;
     width: 90%;
     /* background-color:black; */
     border: none;
@@ -78,13 +80,13 @@ input{
     font-size: 15px;
 }
 
-.message{
+.message {
     /* background-color: royalblue; */
     width: 50%;
     margin-left: 33.5%;
 }
 
-#reg-btn-area{
+#reg-btn-area {
     width: 100%;
     height: 20%;
     /* background-color: blue; */
@@ -93,40 +95,39 @@ input{
     align-items: center;
 }
 
-.btn-submit{
+.btn-submit {
     width: 60px;
     height: 25px;
     border-radius: 8px;
     margin-left: 18px;
-    font-size:15px;
-    background-color: rgb(255,88,93);
+    font-size: 15px;
+    background-color: rgb(255, 88, 93);
     color: white;
 }
 
-.btn-submit:hover{
+.btn-submit:hover {
     background-color: white;
-    border: 1px solid rgb(255,88,93);
-    color: rgb(255,88,93);
+    border: 1px solid rgb(255, 88, 93);
+    color: rgb(255, 88, 93);
 }
 
-i{
-color: rgb(255,88,93);
-}
-
-.btn-active:hover{
-    background-color: white;
-    border: 1px solid rgb(255,88,93);
-    color: rgb(255,88,93);
-}
-
-.btn-dark{
+.btn-dark {
     font-weight: bold;
-    color: rgb(50,50,50);
+    color: rgb(50, 50, 50);
     background-color: darkgray;
 
 }
 
-.btn-dark:hover{
+.btn-dark:hover {
     background-color: #989898;
 }
 
+.btn-active:hover {
+    background-color: white;
+    border: 1px solid rgb(255, 88, 93);
+    color: rgb(255, 88, 93);
+}
+
+i {
+    color: rgb(255, 88, 93);
+}

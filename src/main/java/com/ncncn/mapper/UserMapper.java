@@ -1,5 +1,6 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserDetailCheckVO;
 import com.ncncn.domain.UserMemoVO;
 import com.ncncn.domain.UserStatusVO;
@@ -23,7 +24,6 @@ public interface UserMapper {
 
     int countRecentlyInsert();
 
-
     List<UserVO> getUserList();
 
     List<UserVO> getListWithPaging(UserCheckCriteria cri);
@@ -39,4 +39,11 @@ public interface UserMapper {
     void updateMemo(UserMemoVO memo);
 
     void updateStatus(UserStatusVO status);
+
+    public UserInfoDTO getMyInfo(int userId);
+
+    int updatePwd(@Param("pwd") String pwd,
+                  @Param("email") String email,
+                  @Param("userId") int userId);
 }
+
