@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserDetailCheckVO;
 import com.ncncn.domain.UserMemoVO;
 import com.ncncn.domain.UserStatusVO;
@@ -10,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Setter(onMethod_ = @Autowired)
     UserMapper userMapper;
+
+    @Setter(onMethod_ = @Autowired)
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserVO readbyId(int userId) {
@@ -32,7 +37,6 @@ public class UserServiceImpl implements UserService {
 	public int countRecentlyRegister() {
 		return userMapper.countRecentlyInsert();
 	}
-
 
     // 299page
     @Override
@@ -84,5 +88,36 @@ public class UserServiceImpl implements UserService {
 
         log.info("update User Status " + status);
         userMapper.updateStatus(status);
+    }
+
+    @Override
+    public UserInfoDTO getMyInfo(int userId) {
+
+        log.info("GetMyInfo service of " + userId);
+
+        try {
+
+            UserInfoDTO user = userMapper.getMyInfo(userId);
+
+            return user;
+
+        } catch (Exception e) {
+
+            log.info("해당 사용자 정보가 없습니다.");
+
+            return new UserInfoDTO();
+
+        }
+    }
+
+    @Override
+    public int updatePwd(String pwd, String email, int userId){
+
+        //새로 입력된 비밀번호 암호화
+        String encodedNewPwd = bCryptPasswordEncoder.encode(pwd);
+
+        int countUpdated = userMapper.updatePwd(encodedNewPwd, email, userId);
+
+        return countUpdated;
     }
 }

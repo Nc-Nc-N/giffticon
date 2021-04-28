@@ -1,5 +1,6 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserDetailCheckVO;
 import com.ncncn.domain.UserMemoVO;
 import com.ncncn.domain.UserVO;
@@ -169,5 +170,33 @@ public class UserMapperTest {
 
         assertEquals(user.getMemo(), "Memo Update Test");
 
+    }
+
+    @Test
+    public void getMyInfoTest() {
+
+        int userId = 157;
+
+        UserInfoDTO user = userMapper.getMyInfo(userId);
+
+        log.info(user.toString());
+
+        assertEquals(user.getHolder(), null);
+    }
+
+    @Test
+    public void updatePwdTest(){
+
+        int userId = 5;
+        String email = "test1@test.com";
+        String pwd = "password@@@";
+
+        int result = userMapper.updatePwd(pwd,email,userId);
+
+        assertEquals(result, 1);
+
+        String pwdconfirm = userMapper.readById(5).getPwd();
+
+        assertEquals(pwd, pwdconfirm);
     }
 }

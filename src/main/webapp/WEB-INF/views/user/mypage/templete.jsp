@@ -45,7 +45,7 @@
                             <div>판매 내역</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
-                    <a href="(메뉴이동">
+                    <a href="/user/mypage/userInfo">
                         <div class="bar">
                             <div>회원 정보</div>
                             <i class="fas fa-chevron-right"></i></div>
