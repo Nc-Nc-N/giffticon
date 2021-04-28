@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.HistoryMapper">
+
+    <sql id="criteria">
+
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'B'.toString()">
+                            u1.email like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'S'.toString()">
+                            u2.email like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            d.id=#{keyword}
+                        </when>
+                        <when test="type == 'N'.toString()">
+                            gifticon_id=#{keyword}
+                        </when>
+                        <when test="type == 'D'.toString()">
+                            b.name like CONCAT('%', TRIM(SUBSTRING_INDEX(#{keyword}, ',', 1)), '%') AND
+                            p.name like CONCAT('%', TRIM(SUBSTRING_INDEX(#{keyword}, ',', -1)), '%')
+                        </when>
+                        <when test="type == 'E'.toString()">
+                            b.name like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'P'.toString()">
+                            p.name like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'L'.toString()">
+                            code_name like CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+
+                <trim prefix="and">
+                    <if test="dateFrom != ''">
+                        <if test="dateFrom != null">
+                            d.deal_dt >= #{dateFrom}
+                        </if>
+                    </if>
+                </trim>
+
+                <trim prefix="and">
+                    <if test="dateTo != ''">
+                        <if test="dateTo != null">
+                            adddate(#{dateTo}, interval 1 day) > d.deal_dt
+                        </if>
+                    </if>
+                </trim>
+
+            </foreach>
+        </trim>
+    </sql>
+
+    <select id="getAdminDealHistWithPaging" resultType="com.ncncn.domain.AdminDealHistVO">
+        <![CDATA[
+        select d.id, u1.email buyer_email, u2.email seller_email, d.gifticon_id, b.name brd_name,
+               p.name prod_name, d.pymt_prc prc, d.deal_dt, d.cmpl_dt, cm.code_name
+        from
+            deal_detail d left outer join
+            gifticon g on d.gifticon_id = g.id
+
+            left outer join product p
+            on g.prod_code = p.code
+
+            left outer join brand b
+            on p.brd_code = b.code
+
+            left outer join user u1
+            on d.user_id = u1.id
+
+            left outer join user u2
+            on g.user_id = u2.id
+
+            left outer join (select * from cmmn_code
+                             where code_type = 'GFT_STUS') cm
+            on g.gft_stus_code = cm.code
+
+        where
+        ]]>
+
+        <include refid="criteria"></include>
+
+        <![CDATA[
+        order by deal_dt desc
+        LIMIT #{amount}
+        OFFSET ${(pageNum-1) * amount}
+        ]]>
+    </select>
+
+    <select id="getTotalCount" resultType="int">
+        select count(*)
+        from
+        deal_detail d left outer join
+        gifticon g on d.gifticon_id = g.id
+
+        left outer join product p
+        on g.prod_code = p.code
+
+        left outer join brand b
+        on p.brd_code = b.code
+
+        left outer join user u1
+        on d.user_id = u1.id
+
+        left outer join user u2
+        on g.user_id = u2.id
+
+        left outer join (select * from cmmn_code
+                         where code_type = 'GFT_STUS') cm
+        on g.gft_stus_code = cm.code
+
+        where
+        <include refid="criteria"></include>
+
+    </select>
+
+</mapper>
