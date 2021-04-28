@@ -20,13 +20,11 @@ import org.springframework.web.context.WebApplicationContext;
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/applicationContext.xml",
         "file:src/main/webapp/WEB-INF/dispatcher-servlet.xml"})
 @Log4j
-public class UserCheckControllerTests {
+public class HistoryControllerTests {
 
     @Setter(onMethod_ = {@Autowired})
     private WebApplicationContext ctx;
-
     private MockMvc mockMvc;
-
 
     @Before
     public void setup() {
@@ -37,41 +35,21 @@ public class UserCheckControllerTests {
     public void testList() throws Exception {
 
         log.info(
-                mockMvc.perform(MockMvcRequestBuilders.get("/admin/user/userlist"))
-                .andReturn()
-                .getModelAndView()
-                .getModelMap());
+                mockMvc.perform(MockMvcRequestBuilders.get("/admin/deal-history"))
+                        .andReturn()
+                        .getModelAndView()
+                        .getModelMap());
     }
 
     @Test
     public void testListPaging() throws Exception {
 
         log.info(mockMvc.perform(
-                MockMvcRequestBuilders.get("/admin/user/userlist")
-                        .param("pageNum", "3")
+                MockMvcRequestBuilders.get("/admin/deal-history")
+                        .param("pageNum", "2")
                         .param("amount", "10"))
                 .andReturn().getModelAndView().getModelMap());
 
-    }
-
-    @Test
-    public void testListPagingQuit() throws Exception {
-
-        log.info(mockMvc.perform(
-                MockMvcRequestBuilders.get("/admin/user/userlist-quit")
-                        .param("pageNum", "1")
-                        .param("amount", "10"))
-                .andReturn().getModelAndView().getModelMap());
-
-    }
-
-    @Test
-    public void testUserDetail() throws Exception {
-
-        log.info(mockMvc.perform(
-                MockMvcRequestBuilders.get("/admin/user/user-detail")
-                        .param("userId", "152"))
-                .andReturn().getModelAndView().getModelMap());
     }
 
 }

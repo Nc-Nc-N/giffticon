@@ -28,7 +28,7 @@
                 <div class="search-result" style="display: none">총 <c:out value="${headerPageMaker.total}"/> 개의 상품이 검색되었습니다. </div>
                 <div class="noresult" style="display: none; font-size: large">'${headerPageMaker.cri.keyword}’ 상품을 찾지 못했습니다.</div>
                 <ul>
-                    <a class="cateAll" href="prod_list?code=${category.code}&orderby=best">전체보기</a>
+                    <a class="cateAll ${headerPageMaker.cri.code == category.code ? "active":""}" href="prod_list?code=${category.code}&orderby=best">전체보기</a>
                     <c:forEach items="${brandList}" var="brandList">
                     <a class="brandList ${headerPageMaker.cri.code == brandList.code ? "active":""}" href="prod_list?code=${brandList.code}&orderby=best"><c:out value="${brandList.name}"/></a>
                     </c:forEach>

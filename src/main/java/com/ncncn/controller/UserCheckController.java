@@ -38,6 +38,19 @@ public class UserCheckController {
         return "/admin/user/userList";
     }
 
+    @GetMapping("/userlist-quit")
+    public String userListQuit(UserCheckCriteria cri, Model model) {
+        log.info("---------log: " + cri);
+        model.addAttribute("quitlist", userService.getUserListQuit(cri));
+
+        int total = userService.getTotalQuit(cri);
+
+        log.info("total: " + total);
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
+
+        return "/admin/user/quitUserList";
+    }
+
     @GetMapping("/user-detail")
     public String userDetailCheck(int userId, Model model) {
         log.info("userDetailCheck...................");

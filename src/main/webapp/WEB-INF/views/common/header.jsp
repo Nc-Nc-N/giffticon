@@ -63,25 +63,22 @@
     <div class="main-bar">
 
         <div class="bar-left">
-            <div class="category-drop">
-                <ul class="exo-menu">
-                    <li class="drop-down">
-                        <a href="#"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
-                        <%-- Drop Down --%>
-                        <ul class="drop-down-ul animated fadeIn">
-                            <li class="flyout-right">
-                                <a href="#">카페</a>
-                                <ul class="animated fadeIn">
-                                    <li><a href="#">스타벅스</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="leftmenus">
-                <div class="leftmenu"><a href="#">충전하기</a></div>
-                <div class="leftmenu"><a href="#"><i class="fas fa-map-marker-alt"></i></a></div>
+                <div class="category-drop">
+                    <ul class="exo-menu">
+                        <li class="drop-down">
+                            <a href="#none"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
+                            <%-- Drop Down --%>
+                            <ul class="drop-down-ul animated fadeIn">
+                            <%-- ajax로 불러옴 --%>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="leftmenus">
+                    <div class="leftmenu"><a href="#">충전하기</a></div>
+                    <div class="leftmenu"><a href="#"><i class="fas fa-map-marker-alt"></i></a></div>
+                </div>
+
             </div>
 
         </div>
@@ -89,13 +86,9 @@
         <!-- search area -->
         <div class="search-bar-container">
             <form id="h-search-form" action="/user/prod_list" method="get">
-                <input type="text" class="h-search-input" name="keyword"
-                       value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요."/>
+                <input type="text" class="h-search-input" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
                 <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'/>
-                <input type="hidden" name="orderby" value='<c:out value="${headerPageMaker.cri.orderby}"/>'/>
-                <input type="hidden" name="pageNum" value="${headerPageMaker.cri.pageNum}"/>
-                <input type="hidden" name="amount" value="${headerPageMaker.cri.amount}"/>
-                <button class="h-search-button"><i class="fas fa-search"></i></button>
+                <button class="h-search-button"><i class="fas fa-search"></i> </button>
             </form>
         </div>
 
@@ -125,11 +118,7 @@
 
     $("#h-search-form button").on("click", function (e) {
 
-        // 다시 생각해보기
         headerSearchForm.find("input[name='code']").val("0");
-        headerSearchForm.find("input[name='orderby']").val("best");
-        headerSearchForm.find("input[name='pageNum']").val(1);
-        headerSearchForm.find("input[name='amount']").val(12);
         e.preventDefault();
 
         if (!headerSearchForm.find("input[name='keyword']").val()) {
@@ -138,6 +127,79 @@
         }
         headerSearchForm.submit();
     });
+
+    // 전체카테고리 메뉴 불러오기
+    $(document).ready(function () {
+        menuLoader();
+
+        // 카테고리
+        function menuLoader() {
+            let menu = $('.drop-down-ul');
+            $.ajax({
+                url: '/user/menuLoader',
+                type: 'get',
+                async: false,
+                success: function (result){
+
+                    for(let i=0; i<result.length; i++){
+                        menu.append('<li class="flyout-right"><a href="/user/prod_list?code='+result[i].code+'">'+result[i].name+'</a>' +
+                            '<div class="brdBox"><ul class="animated-'+result[i].code+'"></ul></div></li>');
+                    }
+                },
+                error: function (){
+                    alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
+                }
+            })
+        }
+
+        // 카테고리 마우스오버 -> 브랜드 목록
+        $('.flyout-right a').mouseover(function (){
+
+            // 마우스오버한 카테고리 이름 가져오기
+            let cateName = $(this).text();
+            let name = escape(encodeURIComponent(cateName));    // 한글 인코딩
+
+            // 마우스오버한 카테고리 배경화면 색 고정
+            $('.flyout-right a').removeClass('on');
+            $(this).addClass('on');
+
+            $.ajax({
+                url: '/user/getBrand?name='+name,
+                type: 'get',
+                contentType: "application/json; charset=UTF-8",
+                async: false,
+                success: function (result){
+
+                    let cate= $('.animated-'.concat(result[0].cateCode));
+                    cate.empty();   // 기존 브랜드 목록 지우기
+
+                    // 브랜드 목록 추가
+                    for(let i=0; i<result.length; i++){
+                        cate.append('<li><a href="/user/prod_list?code='+result[i].code+'">'+result[i].name+'</a></li>');
+                    }
+                },
+                error: function (){
+                    alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
+                }
+            })
+        })
+
+        // 전체 카테고리 마우스오버 색 고정
+        $('.drop-down a').mouseover(function (){
+            $(this).addClass('on');
+        })
+
+        // 전체 카테고리 글자색, 카테고리 배경화면 색 초기화
+        $('.exo-menu').mouseleave(function () {
+            $('.drop-down a').removeClass('on');
+        })
+
+        $('.drop-down-ul').mouseleave(function () {
+            $('.flyout-right a').removeClass('on');
+        })
+
+
+    })
 </script>
 
 <!-- 티켓 아이콘 알림 버튼 적용 스크립트 -->

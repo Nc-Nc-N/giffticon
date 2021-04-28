@@ -81,13 +81,15 @@
                     <div class="inner">
                         <p class="qna-a">Q. </p>
                         <p><c:out value="${qna.cntnt}"/></p>
+                        <br>
+                        <a href="<c:out value="${qna.atchFilePath}"/>" class="atch-file" name="atchFilePath">
+                            <c:out value="${qna.atchFilePath}"/></a>
                     </div>
                     <div class="admin-inner">
                         <p class="qna-a">A. </p>
                         <p class="ans-cntnt" name="ansCntnt" id="ans<c:out value="${status.index+1}"/>">
                             <c:out value="${qna.ansCntnt}"/>
                         </p>
-
                     </div>
                 </div>
         </c:forEach>
@@ -276,6 +278,8 @@
         console.log("psnl.id : " + psnl.id);
 
         $(".ans-id").val(psnl.id);
+
+        $(".ans-content").val(psnl.ansCntnt);
 
         $("#ansModal").fadeIn();
 
