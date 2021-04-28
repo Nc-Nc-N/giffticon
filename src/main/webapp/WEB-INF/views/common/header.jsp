@@ -3,6 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<%
+    //userId 변수명이 mypage와 겹쳐서 header 전용으로 userId 지정
+    Integer headerUid ;
+
+    try {
+        headerUid = (int) request.getSession().getAttribute("userId");
+    }catch(Exception e){
+        //비회원인경우 userId = 0으로 초기회
+        headerUid = 0;
+    }
+
+%>
 <!DOCTYPE html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
@@ -87,15 +99,26 @@
             </div>
 
             <div class="bar-right">
-                <span class="rightmenu"><a href="#"><i class="fas fa-ticket-alt"></i></a></span>
+                    <div class="bubble">거래확정!</div>
+                <span class="rightmenu" id="alarm-ticket">
+                    <i class="fas fa-ticket-alt"></i>
+                </span>
                 <span class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></span>
                 <span class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></span>
             </div>
         </div>
     </div>
 </body>
+<!-- 티켓 클릭 이동 form -->
+<form class="ticket-alarm" action="/user/mypage/deal" method="get">
+    <input type="hidden" name="pageNum" value="">
+    <input type="hidden" name="amount" value="">
+    <input type="hidden" name="keyword" value=""/>
+    <input type="hidden" name="type" value=""/>
+</form>
 
 <script>
+
     // 검색 버튼 이벤트 처리
     let headerSearchForm = $('#h-search-form');
 
@@ -116,3 +139,62 @@
     });
 </script>
 
+<!-- 티켓 아이콘 알림 버튼 적용 스크립트 -->
+<script>
+
+    $(document).ready(function(){
+
+        ticketAlarm();
+
+        $(".bubble").on("click", function (e) {
+            ticketAlarmBtn();
+        })
+
+        $("#alarm-ticket").on("click", function (e) {
+            ticketAlarmBtn();
+        })
+
+    })
+
+
+    //티켓 클릭 시 마이페이지/구매내역 + 거래확정대기 검색 이동
+    function ticketAlarmBtn(){
+
+        let ticketAlarmBtn = $(".ticket-alarm")
+
+        ticketAlarmBtn.find("input[name='keyword']").val("거래확정대기");
+        ticketAlarmBtn.find("input[name='type']").val("S");
+        ticketAlarmBtn.find("input[name='pageNum']").val("1");
+        ticketAlarmBtn.find("input[name='amount']").val("4");
+
+        ticketAlarmBtn.submit();
+    }
+
+
+    //user가 산 기프티콘 중 거래확정 대기 count, count가 0이 아니면 메세지 div 출력
+    function ticketAlarm(){
+
+        let headerUid = <%=headerUid%>;
+
+        if(headerUid == 0){
+            return;
+        }
+
+        $.ajax({
+            url: '/user/ticketAlarm',
+            type: 'get',
+            data: {userId:headerUid},
+            contentType: 'json',
+            dataType: 'json',
+            success: function(result){
+                if(result == 0){
+                }else{
+                    $(".bubble").css("visibility","visible");
+                }
+            },
+            error: function(){
+
+            }
+        })
+    }
+</script>
