@@ -1,8 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<%
+    //userId 변수명이 mypage와 겹쳐서 header 전용으로 userId 지정
+    Integer headerUid;
+
+    try {
+        headerUid = (int) request.getSession().getAttribute("userId");
+    } catch (Exception e) {
+        //비회원인경우 userId = 0으로 초기회
+        headerUid = 0;
+    }
+
+%>
 <!DOCTYPE html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
@@ -17,40 +29,40 @@
     </style>
 </head>
 <body>
-    <div id="header">
+<div id="header">
 
-        <div class="top_menu">
+    <div class="top_menu">
 
-            <sec:authorize access="isAnonymous()">
-                <span><a href="/account/signIn" class="login-panel">로그인</a></span>
-                <span class="header_divider">|</span>
-                <span><a href="/account/signUp" class="login-panel">회원가입</a></span>
-            </sec:authorize>
+        <sec:authorize access="isAnonymous()">
+            <span><a href="/account/signIn" class="login-panel">로그인</a></span>
+            <span class="header_divider">|</span>
+            <span><a href="/account/signUp" class="login-panel">회원가입</a></span>
+        </sec:authorize>
 
-            <sec:authorize access="isAuthenticated()">
+        <sec:authorize access="isAuthenticated()">
             <span><form action="/account/logOut" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="logout">로그아웃</button></form>
             </span>
-                <span class="header_divider">|</span>
-                <span><a class="user-email"><sec:authentication property="principal.username"/></a></span>
-            </sec:authorize>
-
-
             <span class="header_divider">|</span>
-            <span><a href="/user/cs/noticeBoard" class="login-panel">고객센터</a></span>
-
-        </div>
-
-
-        <div class="main-logo">
-            <div class="home-logo"><a href="/user/home"><img src="/resources/img/logo.png"></a></div>
-        </div>
+            <span><a class="user-email"><sec:authentication property="principal.username"/></a></span>
+        </sec:authorize>
 
 
-        <div class="main-bar">
+        <span class="header_divider">|</span>
+        <span><a href="/user/cs/noticeBoard" class="login-panel">고객센터</a></span>
 
-            <div class="bar-left">
+    </div>
+
+
+    <div class="main-logo">
+        <div class="home-logo"><a href="/user/home"><img src="/resources/img/logo.png"></a></div>
+    </div>
+
+
+    <div class="main-bar">
+
+        <div class="bar-left">
                 <div class="category-drop">
                     <ul class="exo-menu">
                         <li class="drop-down">
@@ -69,34 +81,47 @@
 
             </div>
 
-            <!-- search area -->
-            <div class="search-bar-container">
-                <form id="h-search-form" action="/user/prod_list" method="get">
-                    <input type="text" class="h-search-input" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
-                    <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'/>
-                    <button class="h-search-button"><i class="fas fa-search"></i> </button>
-                </form>
-            </div>
+        </div>
 
-            <div class="bar-right">
-                <span class="rightmenu"><a href="#"><i class="fas fa-ticket-alt"></i></a></span>
-                <span class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></span>
-                <span class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></span>
-            </div>
+        <!-- search area -->
+        <div class="search-bar-container">
+            <form id="h-search-form" action="/user/prod_list" method="get">
+                <input type="text" class="h-search-input" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
+                <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'/>
+                <button class="h-search-button"><i class="fas fa-search"></i> </button>
+            </form>
+        </div>
+
+        <div class="bar-right">
+            <div class="bubble">거래확정!</div>
+            <span class="rightmenu" id="alarm-ticket">
+                    <i class="fas fa-ticket-alt"></i>
+                </span>
+            <span class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></span>
+            <span class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></span>
         </div>
     </div>
+</div>
 </body>
+<!-- 티켓 클릭 이동 form -->
+<form class="ticket-alarm" action="/user/mypage/deal" method="get">
+    <input type="hidden" name="pageNum" value="">
+    <input type="hidden" name="amount" value="">
+    <input type="hidden" name="keyword" value=""/>
+    <input type="hidden" name="type" value=""/>
+</form>
 
 <script>
+
     // 검색 버튼 이벤트 처리
     let headerSearchForm = $('#h-search-form');
 
-    $("#h-search-form button").on("click", function (e){
+    $("#h-search-form button").on("click", function (e) {
 
         headerSearchForm.find("input[name='code']").val("0");
         e.preventDefault();
 
-        if(!headerSearchForm.find("input[name='keyword']").val()){
+        if (!headerSearchForm.find("input[name='keyword']").val()) {
             alert("검색어를 입력해주세요");
             return false;
         }
@@ -177,3 +202,62 @@
     })
 </script>
 
+<!-- 티켓 아이콘 알림 버튼 적용 스크립트 -->
+<script>
+
+    $(document).ready(function () {
+
+        ticketAlarm();
+
+        $(".bubble").on("click", function (e) {
+            ticketAlarmBtn();
+        })
+
+        $("#alarm-ticket").on("click", function (e) {
+            ticketAlarmBtn();
+        })
+
+    })
+
+
+    //티켓 클릭 시 마이페이지/구매내역 + 거래확정대기 검색 이동
+    function ticketAlarmBtn() {
+
+        let ticketAlarmBtn = $(".ticket-alarm")
+
+        ticketAlarmBtn.find("input[name='keyword']").val("거래확정대기");
+        ticketAlarmBtn.find("input[name='type']").val("S");
+        ticketAlarmBtn.find("input[name='pageNum']").val("1");
+        ticketAlarmBtn.find("input[name='amount']").val("4");
+
+        ticketAlarmBtn.submit();
+    }
+
+
+    //user가 산 기프티콘 중 거래확정 대기 count, count가 0이 아니면 메세지 div 출력
+    function ticketAlarm() {
+
+        let headerUid = <%=headerUid%>;
+
+        if (headerUid == 0) {
+            return;
+        }
+
+        $.ajax({
+            url: '/user/ticketAlarm',
+            type: 'get',
+            data: {userId: headerUid},
+            contentType: 'json',
+            dataType: 'json',
+            success: function (result) {
+                if (result == 0) {
+                } else {
+                    $(".bubble").css("visibility", "visible");
+                }
+            },
+            error: function () {
+
+            }
+        })
+    }
+</script>
