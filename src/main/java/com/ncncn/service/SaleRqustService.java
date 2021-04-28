@@ -14,7 +14,7 @@ public interface SaleRqustService {
 
 	int getTotalCount(SaleRqustCriteria cri);
 
-	int modifyStusCodeAndAprvDt(int id);
+	int approveRequest(int id, Map<String, String> rqust);
 
 	int removeRqust(int id);
 }

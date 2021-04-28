@@ -20,7 +20,10 @@ public interface GifticonMapper {
 
 	int countAllRqust(SaleRqustCriteria cri);
 
-	int updateStusCodeAndAprvDt(int id);
+	int updateSaleRqust(@Param("gftId") int id,
+						@Param("prodCode") String prodCode,
+						@Param("dcPrc") int dcPrc,
+						@Param("dcRate") double dcRate);
 
 	int gftDealCmpl(int gftId);
 

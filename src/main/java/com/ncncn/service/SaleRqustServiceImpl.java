@@ -13,42 +13,42 @@ import java.util.Map;
 @Log4j
 public class SaleRqustServiceImpl implements SaleRqustService {
 
-	private GifticonMapper gifticonMapper;
+    private GifticonMapper gifticonMapper;
 
-	public SaleRqustServiceImpl(GifticonMapper gifticonMapper) {
-		this.gifticonMapper = gifticonMapper;
-	}
+    public SaleRqustServiceImpl(GifticonMapper gifticonMapper) {
+        this.gifticonMapper = gifticonMapper;
+    }
 
-	@Override
-	public List<SaleRqustVO> getAllRqust(SaleRqustCriteria cri) {
-		return gifticonMapper.readAllRqustWithPaging(cri);
-	}
+    @Override
+    public List<SaleRqustVO> getAllRqust(SaleRqustCriteria cri) {
+        return gifticonMapper.readAllRqustWithPaging(cri);
+    }
 
-	@Override
-	public Map<String, Object> getRqustById(int id) {
-		Map<String, Object> saleRqust = gifticonMapper.readRqustById(id);
+    @Override
+    public Map<String, Object> getRqustById(int id) {
+        Map<String, Object> saleRqust = gifticonMapper.readRqustById(id);
 
-		if (saleRqust == null || saleRqust.size() == 0) {
-			log.warn("해당 판매요청이 존재하지 않습니다.");
-			throw new NullPointerException("해당 판매요청이 존재하지 않습니다.");
-		}
+        if (saleRqust == null || saleRqust.size() == 0) {
+            log.warn("해당 판매요청이 존재하지 않습니다.");
+            throw new NullPointerException("해당 판매요청이 존재하지 않습니다.");
+        }
 
-		return saleRqust;
-	}
+        return saleRqust;
+    }
 
-	@Override
-	public int getTotalCount(SaleRqustCriteria cri) {
-		return gifticonMapper.countAllRqust(cri);
-	}
+    @Override
+    public int getTotalCount(SaleRqustCriteria cri) {
+        return gifticonMapper.countAllRqust(cri);
+    }
 
-	@Override
-	public int modifyStusCodeAndAprvDt(int id) {
-		return gifticonMapper.updateStusCodeAndAprvDt(id);
-	}
+    @Override
+    public int approveRequest(int id, Map<String, String> rqust) {
+        return gifticonMapper.updateSaleRqust(id, rqust.get("prodCode"), Integer.parseInt(rqust.get("dcPrc")), Double.parseDouble(rqust.get("dcRate")));
+    }
 
-	@Override
-	public int removeRqust(int id) {
-		return gifticonMapper.deleteGifticon(id);
-	}
+    @Override
+    public int removeRqust(int id) {
+        return gifticonMapper.deleteGifticon(id);
+    }
 
 }

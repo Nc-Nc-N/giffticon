@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ncncn.domain.SaleRqustVO;
+import com.ncncn.domain.*;
 import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
 import com.ncncn.domain.request.RqustRejectDTO;
-import com.ncncn.service.SaleRqustService;
+import com.ncncn.service.*;
 import lombok.extern.log4j.Log4j;
 
 import org.springframework.http.HttpStatus;
@@ -27,10 +27,19 @@ public class SaleRequestController {
 
 	private SaleRqustService saleRqustService;
 
+	private CategoryService categoryService;
+
+	private BrandService brandService;
+
+	private ProductService productService;
+
 	private JavaMailSender javaMailSender;
 
-	public SaleRequestController(SaleRqustService saleRqustService, JavaMailSender javaMailSender) {
+	public SaleRequestController(SaleRqustService saleRqustService, CategoryService categoryService, BrandService brandService, ProductService productService, JavaMailSender javaMailSender) {
 		this.saleRqustService = saleRqustService;
+		this.categoryService = categoryService;
+		this.brandService = brandService;
+		this.productService = productService;
 		this.javaMailSender = javaMailSender;
 	}
 
@@ -59,10 +68,10 @@ public class SaleRequestController {
 		return new ResponseEntity<>(rqust, HttpStatus.OK);
 	}
 
-	@PatchMapping(value = "/{id}")
-	public ResponseEntity<String> approveRequest(@PathVariable("id") int id) {
+	@PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> approveRequest(@PathVariable("id") int id, @RequestBody Map<String, String> rqust) {
 		try {
-			int result = saleRqustService.modifyStusCodeAndAprvDt(id);
+			int result = saleRqustService.approveRequest(id, rqust);
 		} catch (Exception e) {
 			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -74,15 +83,15 @@ public class SaleRequestController {
 	public ResponseEntity<String> deleteRequset(@PathVariable("id") int id, @RequestBody RqustRejectDTO rqustRejectDTO) {
 		try {
 			Map<String, Object> rqust = saleRqustService.getRqustById(id);
-//			int result = saleRqustService.removeRqust(id);
-//
-//			// 반려사유 메일 전송
-//			SimpleMailMessage message = new SimpleMailMessage();
-//			message.setTo(rqustRejectDTO.getEmail());
-//			message.setSubject("[기쁘티콘] 판매요청에 대한 안내메일입니다.");
-//			message.setText(getMessage(rqust, rqustRejectDTO.getCause()));
-//
-//			javaMailSender.send(message);
+			int result = saleRqustService.removeRqust(id);
+
+			// 반려사유 메일 전송
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setTo(rqustRejectDTO.getEmail());
+			message.setSubject("[기쁘티콘] 판매요청에 대한 안내메일입니다.");
+			message.setText(getMessage(rqust, rqustRejectDTO.getCause()));
+
+			javaMailSender.send(message);
 
 			log.info(getMessage(rqust, rqustRejectDTO.getCause()));
 		} catch (Exception e) {
@@ -90,6 +99,36 @@ public class SaleRequestController {
 		}
 
 		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getCategoryList", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<CategoryVO>> getCategoryList() {
+		List<CategoryVO> categoryList = categoryService.getCategoryList();
+
+		return new ResponseEntity<>(categoryList, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getBrdList", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<BrandVO>> getBrdList(@RequestParam("code") String code) {
+		List<BrandVO> brandList = brandService.getBrdList(code);
+
+		return new ResponseEntity<>(brandList, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getProdList", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ProductVO>> getProdList(@RequestParam("brdCode") String brdCode) {
+		log.info(brdCode);
+
+		List<ProductVO> productList = productService.getAllByBrdCode(brdCode);
+
+		return new ResponseEntity<>(productList, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getProd", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ProductVO> getProd(@RequestParam("code") String code) {
+		ProductVO product = productService.getByCode(code);
+
+		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
 
 	private String getMessage(Map<String, Object> rqust, String cause) {

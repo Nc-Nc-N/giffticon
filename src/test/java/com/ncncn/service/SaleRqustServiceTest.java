@@ -13,8 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -91,11 +90,11 @@ public class SaleRqustServiceTest {
 
 	@Test
 	public void modifyStusCodeAndAprvDtSuccessTest() {
-		when(gifticonMapper.updateStusCodeAndAprvDt(anyInt())).thenReturn(1);
+		when(gifticonMapper.updateSaleRqust(anyInt(), any(), anyInt(), anyDouble())).thenReturn(1);
 
-		int result = saleRqustService.modifyStusCodeAndAprvDt(anyInt());
+		int result = saleRqustService.approveRequest(anyInt(), new HashMap<>());
 
-		verify(gifticonMapper).updateStusCodeAndAprvDt(anyInt());
+		verify(gifticonMapper).updateSaleRqust(anyInt(), any(), anyInt(), anyDouble());
 		assertEquals(1, result);
 	}
 }

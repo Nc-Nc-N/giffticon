@@ -21,4 +21,14 @@
         ]]>
     </select>
 
+    <!-- 브랜드 코드에 해당하는 상품목록 조회 -->
+    <select id="readAllByBrdCode" resultType="com.ncncn.domain.ProductVO">
+        select code, name, prc, in_dc_rate from product where brd_code = #{brdCode}
+    </select>
+
+    <!-- code 값에 해당하는 상품 조회 -->
+    <select id="readByCode" resultType="com.ncncn.domain.ProductVO">
+        select * from product where code = #{code}
+    </select>
+
 </mapper>

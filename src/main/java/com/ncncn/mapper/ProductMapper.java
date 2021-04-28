@@ -11,4 +11,7 @@ public interface ProductMapper {
 
     public ProductVO getProductObject(@Param("brdName") String brdName, @Param("prodName") String prodName);
 
+    List<ProductVO> readAllByBrdCode(String brdCode);
+
+    ProductVO readByCode(String code);
 }
