@@ -397,9 +397,7 @@
 
     // 문자열에서 숫자만 남기는 함수
     let trimString = function(string) {
-        let rawString = string;
-        let trimmedString = rawString.trim().replace(/[^0-9]/g,"");
-        return trimmedString;
+        return string.trim().replace(/[^0-9]/g,"");
     }
 
     // 할인율 표시 초기화 함수
