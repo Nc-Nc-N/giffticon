@@ -22,7 +22,7 @@
             <div class="date-search">
                 <input type="date" id="dateFrom" name="dateFrom"
                        value="<c:out value="${pageMaker.cri.dateFrom}"/>">
-                <span style="font-size:20px">~</span>
+                <span id="tilde">~</span>
                 <input type="date" id="dateTo" name="dateTo"
                        value="<c:out value="${pageMaker.cri.dateTo}"/>">
             </div>
