@@ -14,4 +14,6 @@ public interface ProductMapper {
     List<ProductVO> readAllByBrdCode(String brdCode);
 
     ProductVO readByCode(String code);
+
+    int updateRegQuty(String prodCode);
 }

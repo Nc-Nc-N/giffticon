@@ -71,7 +71,7 @@ public class SaleRequestController {
 	@PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> approveRequest(@PathVariable("id") int id, @RequestBody Map<String, String> rqust) {
 		try {
-			int result = saleRqustService.approveRequest(id, rqust);
+			saleRqustService.approveRequest(id, rqust);
 		} catch (Exception e) {
 			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
 		}

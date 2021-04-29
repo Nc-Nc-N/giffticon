@@ -3,8 +3,10 @@ package com.ncncn.service;
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
 import com.ncncn.mapper.GifticonMapper;
+import com.ncncn.mapper.ProductMapper;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -15,8 +17,11 @@ public class SaleRqustServiceImpl implements SaleRqustService {
 
     private GifticonMapper gifticonMapper;
 
-    public SaleRqustServiceImpl(GifticonMapper gifticonMapper) {
+    private ProductMapper productMapper;
+
+    public SaleRqustServiceImpl(GifticonMapper gifticonMapper, ProductMapper productMapper) {
         this.gifticonMapper = gifticonMapper;
+        this.productMapper = productMapper;
     }
 
     @Override
@@ -41,9 +46,11 @@ public class SaleRqustServiceImpl implements SaleRqustService {
         return gifticonMapper.countAllRqust(cri);
     }
 
+    @Transactional
     @Override
-    public int approveRequest(int id, Map<String, String> rqust) {
-        return gifticonMapper.updateSaleRqust(id, rqust.get("prodCode"), Integer.parseInt(rqust.get("dcPrc")), Double.parseDouble(rqust.get("dcRate")));
+    public void approveRequest(int id, Map<String, String> rqust) {
+        gifticonMapper.updateSaleRqust(id, rqust.get("prodCode"), Integer.parseInt(rqust.get("dcPrc")), Double.parseDouble(rqust.get("dcRate")));
+        productMapper.updateRegQuty(rqust.get("prodCode"));
     }
 
     @Override

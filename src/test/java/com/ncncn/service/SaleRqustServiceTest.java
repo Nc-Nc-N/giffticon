@@ -6,6 +6,7 @@ import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
 import com.ncncn.mapper.GifticonMapper;
+import com.ncncn.mapper.ProductMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,6 +23,9 @@ public class SaleRqustServiceTest {
 
 	@Mock
 	private GifticonMapper gifticonMapper;
+
+	@Mock
+	private ProductMapper productMapper;
 
 	@InjectMocks
 	private SaleRqustServiceImpl saleRqustService;
@@ -91,10 +95,16 @@ public class SaleRqustServiceTest {
 	@Test
 	public void modifyStusCodeAndAprvDtSuccessTest() {
 		when(gifticonMapper.updateSaleRqust(anyInt(), any(), anyInt(), anyDouble())).thenReturn(1);
+		when(productMapper.updateRegQuty(any())).thenReturn(1);
 
-		int result = saleRqustService.approveRequest(anyInt(), new HashMap<>());
+		Map<String, String> rqust = new HashMap<>();
+		rqust.put("prodCode", "999999");
+		rqust.put("dcPrc", "1000");
+		rqust.put("dcRate", "0.05");
+
+		saleRqustService.approveRequest(1, rqust);
 
 		verify(gifticonMapper).updateSaleRqust(anyInt(), any(), anyInt(), anyDouble());
-		assertEquals(1, result);
+		verify(productMapper).updateRegQuty(any());
 	}
 }

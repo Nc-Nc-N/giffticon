@@ -31,4 +31,7 @@
         select * from product where code = #{code}
     </select>
 
+    <update id="updateRegQuty">
+        update product set reg_quty = (reg_quty + 1) where code = #{prodCode}
+    </update>
 </mapper>
