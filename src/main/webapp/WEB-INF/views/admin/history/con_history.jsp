@@ -3,7 +3,6 @@
 <%--isELIgnored="false"--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="/WEB-INF/views/admin/adminLayout.jsp"/>
 
@@ -13,48 +12,53 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <h1>콘관리</h1>
-<div id="menu">
+<div id="submenu">
     <div>
-        <a href="/admin/con-history" style="color: rgb(255, 88, 93);">콘내역관리</a>
+        <a href="/admin/con-history" class="active"><span>콘내역관리</span></a>
     </div>
     <div>
-        <a href="#">콘수수료관리</a>
+        <a href="#"><span>콘수수료관리</span></a>
     </div>
 </div>
 
 <!-- search area -->
 <form id='searchForm' action="/admin/con-history" method="get">
     <div class="search-area">
-        <span id="period">거래 기간</span>
-        <div class="date-search">
-            <input type="date" id="dateFrom" name="dateFrom"
-                   value="<c:out value="${pageMaker.cri.dateFrom}"/>">
-            <span style="font-size:20px">~</span>
-            <input type="date" id="dateTo" name="dateTo"
-                   value="<c:out value="${pageMaker.cri.dateTo}"/>">
+        <div class="period-container">
+            <span id="period">거래 기간</span>
+            <div class="date-search">
+                <input type="date" id="dateFrom" name="dateFrom"
+                       value="<c:out value="${pageMaker.cri.dateFrom}"/>">
+                <span style="font-size:20px">~</span>
+                <input type="date" id="dateTo" name="dateTo"
+                       value="<c:out value="${pageMaker.cri.dateTo}"/>">
+            </div>
         </div>
-        <select name="type" class="search-select">
-            <option value="EN"
-            <c:out value="${pageMaker.cri.type eq 'EN'?'selected':''}"/>>전체
-            <option value="E"
-                    <c:out value="${pageMaker.cri.type eq 'E'?'selected':''}"/>>Email
-            </option>
-            <option value="N"
-                    <c:out value="${pageMaker.cri.type eq 'N'?'selected':''}"/>>주문번호
-            </option>
-        </select>
+        <div class="search-container">
+            <select name="type" class="search-select">
+                <option value="EN"
+                <c:out value="${pageMaker.cri.type eq 'EN'?'selected':''}"/>>전체
+                <option value="E"
+                        <c:out value="${pageMaker.cri.type eq 'E'?'selected':''}"/>>Email
+                </option>
+                <option value="N"
+                        <c:out value="${pageMaker.cri.type eq 'N'?'selected':''}"/>>주문번호
+                </option>
+            </select>
 
-        <div>
-            <input type="text" name="keyword" class="search-input"
-                   value='<c:out value="${pageMaker.cri.keyword}"/>'/>
-            <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
-            <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>
+            <div>
+                <div id='search-bar-container'>
+                    <input type="text" name="keyword" class="search-input"
+                           value='<c:out value="${pageMaker.cri.keyword}"/>'/>
+                    <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
+                    <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>
 
-            <button type="submit" class="search-button">
-                <i class="fas fa-search"></i>
-            </button>
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-
     </div>
 
     <!-- search area end -->

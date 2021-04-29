@@ -12,6 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <h1>거래내역관리</h1>
+<div id="submenu"></div>
 
 <!-- search area -->
 <form id='searchForm' action="/admin/deal-history" method="get">
