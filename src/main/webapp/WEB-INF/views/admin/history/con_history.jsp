@@ -57,40 +57,54 @@
 
     </div>
 
-<!-- search area end -->
-<div id="checkbox-container">
-        <input type="checkbox" id="k1" name="deposit">입금
-        <input type="checkbox" id="k2" name="withdraw">출금
-        <input type="checkbox" id="k3" name="buy">구매
-        <input type="checkbox" id="k4" name="sell">판매
-</div>
+    <!-- search area end -->
+    <div id="checkbox-container">
+        <input type="checkbox" id="k1" name="deposit"
+        <c:out value="${pageMaker.cri.deposit eq 'on'?'checked=\"checked\"':''}"/>>입금
+        <input type="checkbox" id="k2" name="withdraw"
+        <c:out value="${pageMaker.cri.withdraw eq 'on'?'checked=\"checked\"':''}"/>>출금
+        <input type="checkbox" id="k3" name="buy"
+        <c:out value="${pageMaker.cri.buy eq 'on'?'checked=\"checked\"':''}"/>>구매
+        <input type="checkbox" id="k4" name="sell"
+        <c:out value="${pageMaker.cri.sell eq 'on'?'checked=\"checked\"':''}"/>>판매
+    </div>
 </form>
 
 
 <br>
 <div>
-    <table id="t1" width="100%">
-        <tr>
-            <th style="width:26%">회원 Email</th>
-            <th style="width:12%">거래종류</th>
-            <th style="width:12%">금액</th>
-            <th style="width:15%">주문번호</th>
-            <th style="width:20%">거래일시</th>
-            <th style="width:15%">잔여 포인트</th>
-        </tr>
-        <c:forEach items="${list}" var="conL">
-            <tr>
-                <td>${conL.email}</td>
-                <td>${conL.codeName}</td>
-                <td>${conL.chgQuty}</td>
-                <td>${conL.dealId}</td>
-                <td>${conL.chgDt}</td>
-                <td>${conL.balance}</td>
-            </tr>
-        </c:forEach>
-
-    </table>
-
+    <c:choose>
+        <c:when test="${not empty list}">
+            <table id="t1" width="100%">
+                <tr>
+                    <th style="width:26%">회원 Email</th>
+                    <th style="width:12%">거래종류</th>
+                    <th style="width:12%">금액</th>
+                    <th style="width:15%">주문번호</th>
+                    <th style="width:20%">거래일시</th>
+                    <th style="width:15%">잔여 콘</th>
+                </tr>
+                <c:forEach items="${list}" var="conL">
+                    <tr>
+                        <td>${conL.email}</td>
+                        <td>${conL.codeName}</td>
+                        <td>${conL.chgQuty}</td>
+                        <td>${conL.dealId}</td>
+                        <td>
+                            <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+                                            value="${conL.chgDt}"/>
+                        </td>
+                        <td>${conL.balance}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:when>
+        <c:otherwise>
+            <div>
+                <p id="nonresultmessage">검색조건에 해당하는 콘내역을 찾을 수 없습니다.</p>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <!-- pagination container -->
@@ -123,7 +137,10 @@
     <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
     <input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type}"/>'>
     <input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword}"/>'>
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type='hidden' name='deposit' value='<c:out value="${ pageMaker.cri.deposit}"/>'>
+    <input type='hidden' name='withdraw' value='<c:out value="${ pageMaker.cri.withdraw}"/>'>
+    <input type='hidden' name='buy' value='<c:out value="${ pageMaker.cri.buy}"/>'>
+    <input type='hidden' name='sell' value='<c:out value="${ pageMaker.cri.sell}"/>'>
 </form>
 
 </div>
@@ -140,6 +157,7 @@
         document.getElementById("conAdministration").className = 'active';
 
         let actionForm = $("#actionForm");
+        let searchForm = $("#searchForm");
 
         $(".paginate_button").on("click", function (e) {
 
@@ -167,6 +185,11 @@
                 searchForm.submit();
             }
         });
+    });
+
+
+    $("#checkbox-container input").change(function () {
+        $(".search-button").click();
     });
 
 </script>

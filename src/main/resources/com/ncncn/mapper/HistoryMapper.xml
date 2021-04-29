@@ -151,23 +151,20 @@
                     </if>
                 </trim>
 
-                <trim prefix="and (" prefixOverrides="OR" suffix=")">
-                    <if test="deposit != null">
-                        OR code_name="입금"
-                    </if>
-                    <if test="withdraw != null">
-                        OR code_name="출금"
-                    </if>
-                    <if test="buy != null">
-                        OR code_name="구매"
-                    </if>
-                    <if test="sell != null">
-                        OR code_name="판매"
-                    </if>
+                <trim prefix="AND (" prefixOverrides="OR" suffix=")">
+                        <if test="deposit == 'on'.toString()">
+                            OR code_name="입금"
+                        </if>
+                        <if test="withdraw == 'on'.toString()">
+                            OR code_name="출금"
+                        </if>
+                        <if test="buy == 'on'.toString()">
+                            OR code_name="구매"
+                        </if>
+                        <if test="sell == 'on'.toString()">
+                            OR code_name="판매"
+                        </if>
                 </trim>
-
-
-
 
             </foreach>
         </trim>

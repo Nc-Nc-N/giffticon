@@ -113,6 +113,7 @@
                                                value="${dealL.dealDt}"/></p>
                             <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
                                                value="${dealL.cmplDt}"/></p>
+                        </td>
                         <td>${dealL.codeName}</td>
                     </tr>
                 </c:forEach>
