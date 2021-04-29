@@ -21,4 +21,55 @@
         ]]>
     </select>
 
+    <select id="readAllProductWithPaging" resultType="com.ncncn.domain.AdminProdListVO">
+        <![CDATA[
+            select prod.img_path as imgPath, prod.code as prodCode, cate.name as cateName,
+               brd.name as brdName, prod.name as prodName, prod.enabled as enabled
+            from product prod
+                 join brand brd on brd.code = prod.brd_code
+                 join category cate on cate.code = brd.cate_code
+            where
+        ]]>
+            <include refid="criteria"/>
+        <![CDATA[
+            order by prod.code
+            limit #{amount}
+            offset ${(pageNum - 1) * amount}
+        ]]>
+    </select>
+
+    <select id="countProductWithPaging" resultType="int">
+        <![CDATA[
+            select count(*)
+            from product prod
+                join brand brd on brd.code = prod.brd_code
+                join category cate on cate.code = brd.cate_code
+            where
+        ]]>
+        <include refid="criteria"/>
+    </select>
+
+    <sql id="criteria">
+        <trim prefix="(" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'C'.toString()">
+                            cate.name like concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'B'.toString()">
+                            brd.name like concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'P'.toString()">
+                            prod.name like concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'D'.toString()">
+                            prod.code like concat('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
 </mapper>

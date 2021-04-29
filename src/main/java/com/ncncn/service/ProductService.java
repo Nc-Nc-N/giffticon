@@ -1,14 +1,19 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.AdminProdListVO;
 import com.ncncn.domain.ProductVO;
+import com.ncncn.domain.pagination.ProdCriteria;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface ProductService {
 
-    public List<ProductVO> getProductList(String brdName);
+    List<ProductVO> getProductList(String brdName);
 
-    public ProductVO getProductObject(@Param("brdName") String brdName, @Param("prodName") String prodName);
+    ProductVO getProductObject(@Param("brdName") String brdName, @Param("prodName") String prodName);
 
+    List<AdminProdListVO> getAllProduct(ProdCriteria cri);
+
+    int countAllProd(ProdCriteria cri);
 }

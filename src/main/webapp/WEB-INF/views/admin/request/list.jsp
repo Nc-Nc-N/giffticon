@@ -246,7 +246,7 @@
         let csrfTokenValue = "${_csrf.token}";
 
         // 사이드바 판매요청관리 active 
-        $("a[name='rqust-list']").attr('class', 'active');
+        $("a[id='rqustAdministration']").attr('class', 'active');
 
         function submitAction(form, pageNum) {
             form.find("input[name='pageNum']").val(pageNum);
