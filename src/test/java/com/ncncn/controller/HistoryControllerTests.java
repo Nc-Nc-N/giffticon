@@ -52,4 +52,15 @@ public class HistoryControllerTests {
 
     }
 
+    @Test
+    public void testConListPaging() throws Exception {
+
+        log.info(mockMvc.perform(
+                MockMvcRequestBuilders.get("/admin/con-history")
+                        .param("pageNum", "1")
+                        .param("amount", "10"))
+                .andReturn().getModelAndView().getModelMap());
+
+    }
+
 }

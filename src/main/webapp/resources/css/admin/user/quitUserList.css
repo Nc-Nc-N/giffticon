@@ -55,18 +55,6 @@ td {
     list-style:none;
 }
 
-.paginate_button li.active {
-    background-color: rgb(255, 88, 93);
-    color: white;
-    border-radius: 5px;
-}
-
-.pagination a:hover {
-    background-color: rgb(255, 88, 93);
-    color: white;
-    border-radius: 5px;
-}
-
 .eachUser {
     cursor:pointer;
 }

@@ -1,5 +1,6 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.pagination.AdminConHistCriteria;
 import com.ncncn.domain.pagination.AdminDealHistCriteria;
 import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.HistoryService;
@@ -28,5 +29,19 @@ public class HistoryController {
         model.addAttribute("pageMaker", new PageDTO(cri, total));
 
         return "/admin/history/deal_history";
+    }
+
+    @GetMapping("/admin/con-history")
+    public String adminPointHistory(AdminConHistCriteria cri, Model model) {
+
+        log.info("list: " + cri);
+        model.addAttribute("list", historyService.getAdminConHist(cri));
+
+        int total = historyService.getConTotal(cri);
+
+        log.info("total: " + total);
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
+
+        return "/admin/history/con_history";
     }
 }
