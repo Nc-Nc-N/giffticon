@@ -91,7 +91,7 @@
                     <tr>
                         <c:forEach items="${wishList}" var="wishList" end="2">
                             <td>
-                                <a href="prod_detail?code=${wishList.prodCode}">
+                                <a href="gifti_detail?code=${wishList.prodCode}">
                                     <div class="items">
                                         <div class="pic">
                                             <div class="img">
@@ -134,7 +134,7 @@
                 <h3><i class="far fa-thumbs-up"></i>&nbsp;모두들 찾는 인기상품</h3>
             </div>
             <div class="categorycontroller">
-                <a href="/user/prod_list?orderby=best" class="main-btn">전체보기</a>
+                <a href="/user/gifti_list?orderby=best" class="main-btn">전체보기</a>
             </div>
         </div>
 
@@ -151,7 +151,7 @@
                                 <tr>
                             </c:if>
                             <td>
-                                <a href="prod_detail?code=${bestList.prodCode}">
+                                <a href="gifti_detail?code=${bestList.prodCode}">
                                     <div class="items">
                                         <div class="pic">
                                             <div class="img">
@@ -200,7 +200,7 @@
                 <h3><i class="far fa-clock"></i>&nbsp;초특가! 만료 임박 상품</h3>
             </div>
             <div class="categorycontroller">
-                <a href="/user/prod_list?keyword=&code=0&orderby=deadline" class="main-btn">전체보기</a>
+                <a href="/user/gifti_list?keyword=&code=0&orderby=deadline" class="main-btn">전체보기</a>
             </div>
         </div>
         <div class="listcontent">
@@ -216,7 +216,7 @@
                                 <tr>
                             </c:if>
                             <td>
-                                <a href="prod_detail?code=${DL.prodCode}">
+                                <a href="gifti_detail?code=${DL.prodCode}">
 
                                     <div class="items">
                                         <div class="pic">

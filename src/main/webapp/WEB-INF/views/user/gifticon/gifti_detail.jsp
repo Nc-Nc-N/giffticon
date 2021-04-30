@@ -1,47 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@include file="../common/header.jsp"%>
+<%@include file="../../common/header.jsp"%>
 
-<!DOCTYPE html>
-    <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <head>
-    <meta charset="UTF-8">
     <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
     <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
-    <title>Document</title>
-<link rel="stylesheet" href="/resources/css/user/prod_list.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/user/prod_detail.css" type="text/css">
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-</style>
+    <link rel="stylesheet" href="/resources/css/user/gifticon/gifti_list.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/gifticon/gifti_detail.css" type="text/css">
 </head>
-<body>
-    
-    <!-- 컨테이너 전체 -->
+
+<!-- 컨테이너 전체 -->
     <div id="container">
         <div class="space"></div>
         <div class="main">
+
             <!-- 카테고리바 -->
             <nav>
                 <div class="catename"><i class="<c:out value="${category.iconPath}"/>"></i> &nbsp;<c:out value="${category.name}"/></div>
                 <ul>
-                    <a href="prod_list?code=${category.code}&orderby=best"><li class="cateAll">전체보기</li></a>
+                    <a class="cateAll href="gifti_list?code=${category.code}&orderby=best">전체보기</a>
                     <c:forEach items="${brandList}" var="brandList">
-                        <a href="prod_list?code=${brandList.code}&orderby=best"><li><c:out value="${brandList.name}"/></li></a>
+                        <a class="brandList ${gifticon.brdCode == brandList.code ? "active":""}" href="gifti_list?code=${brandList.code}&orderby=best"><c:out value="${brandList.name}"/></a>
                     </c:forEach>
                 </ul>
             </nav>
+
             <!-- 현재 위치-->
             <h2 class="titArea">
                 <span class="nav">
                     <span class="icoHome" onclick="javascript:common_goUrl('/user/home');" style="cursor: pointer;">홈</span>
-                        &gt; <a onclick="javascript:common_goUrl('prod_list?code=${category.code}');" style="cursor: pointer;"><c:out value="${category.name}"/></a>
-                        &gt; <a onclick="javascript:common_goUrl('prod_list?code=${gifticon.brdCode}');" style="cursor: pointer;"><c:out value="${gifticon.bname}"/></a>
+                        &gt; <a onclick="javascript:common_goUrl('gifti_list?code=${category.code}');" style="cursor: pointer;"><c:out value="${category.name}"/></a>
+                        &gt; <a onclick="javascript:common_goUrl('gifti_list?code=${gifticon.brdCode}');" style="cursor: pointer;"><c:out value="${gifticon.bname}"/></a>
                         &gt; <span class="state"><c:out value="${gifticon.pname}"/></span>
-                    </span>
+                </span>
             </h2>
             <!-- 상품 -->
             <div class="product_detail_top">
