@@ -31,4 +31,14 @@ public class ProductServiceImpl implements ProductService {
         return mapper.getProductObject(brdName, prodName);
     }
 
+    @Override
+    public List<ProductVO> getAllByBrdCode(String brdCode) {
+        return mapper.readAllByBrdCode(brdCode);
+    }
+
+    @Override
+    public ProductVO getByCode(String code) {
+        return mapper.readByCode(code);
+    }
+
 }
