@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ncncn.mapper.PointMapper">
+<mapper namespace="com.ncncn.mapper.ConMapper">
 
     <insert id="accRegister">
         insert into bank_account
@@ -16,7 +16,7 @@
             now(),
             current_user (),
             now(),
-            current_user ());
+            current_user ())
     </insert>
 
     <update id="accUpdate">
@@ -28,7 +28,20 @@
             up_date = now(),
             is_authed = #{isAuthed},
             up_user = current_user()
-        where user_id = #{userId};
+        where user_id = #{userId}
     </update>
 
+    <!-- 콘 충전  -->
+    <insert id="addCon">
+        insert into pnt_hist(user_id, chg_dt, chg_quty, balance, pnt_hist_code, in_date, in_user, up_date, up_user)
+        values(#{userId}, now(), #{chgQuty}, (select pnt from user where id=#{userId})+#{chgQuty}, "001", now(), current_user (), now(), current_user ())
+
+        <selectKey keyProperty="balance" resultType="int" order="AFTER">
+            select balance from pnt_hist where user_id = #{userId} order by id desc limit 1
+        </selectKey>
+    </insert>
+
+    <update id="updateUserCon">
+        update user set pnt = #{balance} where id = #{userId}
+    </update>
 </mapper>

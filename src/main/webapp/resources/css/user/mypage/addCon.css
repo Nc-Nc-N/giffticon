@@ -1,0 +1,49 @@
+.pnt_info_section{
+    color: #333333;
+}
+table.select_pnt {
+    border-collapse: separate;
+    border-spacing: 0px;
+    text-align: center;
+    line-height: 1.5;
+    margin: 5% 5%;
+    border: 1px solid gainsboro;
+    border-collapse: collapse;
+    width: 90%;
+}
+table.select_pnt th {
+    width: 155px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    background: rgb(245, 244, 244);
+    border: 1px solid gainsboro;
+
+}
+table.select_pnt td {
+    width: 155px;
+    padding: 10px;
+    vertical-align: top;
+    border: 1px solid gainsboro;
+    text-align: right;
+}
+
+input[type="radio" i]{
+    float: left;
+}
+.select_section{
+    width: 100%;
+}
+table.select_pnt td:last-child{
+    font-size: small;
+    color: #FF585D;
+}
+
+.pnt_info_column{
+    margin: 5% 5%;
+}
+
+#charge_kakao{
+    margin-top: 5%;
+}
+
