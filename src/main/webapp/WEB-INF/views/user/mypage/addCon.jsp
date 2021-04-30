@@ -43,18 +43,22 @@
             </tr>
             </tbody>
         </table>
-        <p  style="color: grey; margin: 5% 5%;">최소 충전금액은 5,000원이며 최대 충전금액은 50,000원 입니다.</p>
+        <p  style="color: grey; margin: 5% 5%; font-size: small">최소 충전금액은 5,000원이며 최대 충전금액은 50,000원 입니다.</p>
     </div>
 
     <div class="pnt_info_column">
-        <div>현재 콘</div>
-        <div>충전 콘</div>
-        <div>충전 후 콘</div>
-        <div>총 결제 금액</div>
-
+        <div class="con_info" style="border-top: 1px solid gainsboro;"> 현재 콘 <span class="userPnt"><c:out value="${userCon}"/> 콘</span> </div>
+        <div class="con_info"> 충전 콘 <span class="addCon"></span> <span class="benefits"></span></div>
+        <div class="con_info"> 충전 후 콘 <span class="afterAdd"></span></div>
+        <div class="con_info"> 총 결제 금액
+            <span class="money">
+            </span>
+        </div>
         <div class="pnt_bought_btn_section">
             <button id="charge_kakao" class="btn btn-active">결제하기</button>
         </div>
+
+
     </div>
 </div>
 </div>
@@ -75,13 +79,39 @@
         const name = '${name}';
         const tel = '${tel}';
 
+        let userCon =${userCon};                    // 사용자 보유 콘
+
+        // 라디오 버튼 클릭시 충전 콘 정보 변경
+        $('input[name="cp_item"]').click(function (){
+
+            let money = $('input[name="cp_item"]:checked').val();
+            let benefits = 0;
+
+            $('.addCon').html(money).append(" 콘");                                   // 충전 콘
+            $('.money').html(money).append(" 원");                                   // 결제 금액
+
+            // 콘 충전 혜택
+            if(money == 10000){
+                benefits = 1000;
+            }else if(money == 20000){
+                benefits = 2500;
+            }else if(money == 50000){
+                benefits = 6000;
+            }
+
+            if(benefits>0){
+                $('.benefits').html(" +"+benefits+"콘 추가 지급!")
+            }
+
+            $('.afterAdd').html(userCon+parseInt(money)+benefits).append(" 콘");    // 충전 후 콘
+
+        })
+
         $('#charge_kakao').click(function () {
 
             // getter
             let IMP = window.IMP;
             IMP.init('imp60743034');
-            let money = $('input[name="cp_item"]:checked').val();
-            console.log(money);
 
             IMP.request_pay({
                 pg: 'kakao',
@@ -97,11 +127,8 @@
             }, function (rsp) {
                 console.log(rsp);
                 if (rsp.success) {
-                    let msg = '결제가 완료되었습니다.';
-                    msg += '고유ID : ' + rsp.imp_uid;
-                    msg += '상점 거래ID : ' + rsp.merchant_uid;
+                    var msg = '결제가 완료되었습니다. ';
                     msg += '결제 금액 : ' + rsp.paid_amount;
-                    msg += '카드 승인번호 : ' + rsp.apply_num;
                     $.ajax({
                         type: "GET",
                         url: "/user/mypage/addCon/con", //충전 금액값을 보낼 url 설정
@@ -110,7 +137,7 @@
                         },
                     });
                 } else {
-                    let msg = '결제에 실패하였습니다.';
+                    var msg = '결제에 실패하였습니다.';
                     msg += '에러내용 : ' + rsp.error_msg;
                 }
                 alert(msg);

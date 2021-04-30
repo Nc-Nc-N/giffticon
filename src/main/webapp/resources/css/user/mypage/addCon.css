@@ -34,7 +34,7 @@ input[type="radio" i]{
 .select_section{
     width: 100%;
 }
-table.select_pnt td:last-child{
+table.select_pnt td:last-child, .benefits{
     font-size: small;
     color: #FF585D;
 }
@@ -43,7 +43,20 @@ table.select_pnt td:last-child{
     margin: 5% 5%;
 }
 
-#charge_kakao{
-    margin-top: 5%;
+.con_info{
+    border-bottom: 1px solid gainsboro;
+    line-height: 60px;
+    padding-left: 3%;
 }
 
+.con_info span:first-child{
+    float: right;
+    margin-right: 20%;
+}
+.pnt_bought_btn_section{
+    float: right;
+    margin-top: 5%;
+}
+.benefits{
+    margin-left: 5%;
+}

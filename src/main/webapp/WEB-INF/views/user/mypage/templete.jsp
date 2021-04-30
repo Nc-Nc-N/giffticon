@@ -118,6 +118,7 @@
                 $("#stus001").html(result[1]);
                 $("#stus002").html(result[2]);
                 $("#userPnt").html(result[3]);
+                $("#now_con")
             },
             error: function(){
                 alert("요약 창 정보 불러오기에 실패했습니다.");

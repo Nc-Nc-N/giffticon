@@ -32,10 +32,12 @@ public class ConController {
 		String email = user.getEmail();
 		String name = user.getName();
 		String tel = user.getTelNo();
+		int userCon = userService.readbyId(userId).getPnt();
 
 		model.addAttribute("email", email);
 		model.addAttribute("name", name);
 		model.addAttribute("tel", tel);
+		model.addAttribute("userCon", userCon);
 
 	}
 
@@ -44,6 +46,15 @@ public class ConController {
 	public @ResponseBody void addCon(int amount, PntHistVO pntHistVO, HttpServletRequest request){
 
 		log.info(amount);
+
+		// 콘 충전 혜택
+		if(amount == 10000){
+			amount += 1000;
+		}else if(amount == 20000){
+			amount += 2500;
+		}else if(amount == 50000){
+			amount += 6000;
+		}
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
