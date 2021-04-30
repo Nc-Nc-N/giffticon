@@ -19,9 +19,6 @@
     <link rel="stylesheet" href="/resources/css/user/deal/sale.css" type="text/css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <style>
-        /*@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');*/
-    </style>
 </head>
 
 <body>
@@ -295,6 +292,8 @@
 
     });  //end of $(document).ready()
 
+
+    // 업로드 파일 확장자, 용량 제한
     var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
     var maxSize = 5242880; //5MB
 
@@ -476,15 +475,16 @@
         // 대분류 클릭시 할인율 초기화
         dcRateIndicatorClean();
 
+        // 해당 대분류 하위 중분류 목록 가져옴
         $.ajax({
-            url: '/user/getBrandAction?name=' + catName ,
+            url: '/user/getBrandAction?name=' + encodeURIComponent(catName),
             processData: false,
             contentType: false,
             beforeSend: function(xhr) {
                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
             data: catName,
-            type: 'POST',
+            type: 'GET',
             dataType:'json',
             success: function(result){
 
@@ -510,6 +510,10 @@
                     brbox.appendChild(li).appendChild(btn);
                 }
 
+            },
+
+            error: function (){
+                alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
             }
         }); //$.ajax
     }); // 대분류 클릭 시 동작
@@ -534,16 +538,16 @@
         let csrfHeaderName="${_csrf.headerName}";
         let csrfTokenValue="${_csrf.token}";
 
-
+        // 해당 중분류 하위 소분류 목록 가져옴
         $.ajax({
-            url: '/user/getProductAction?name=' + brdName ,
+            url: '/user/getProductAction?name=' + encodeURIComponent(brdName) ,
             processData: false,
             contentType: false,
             beforeSend: function(xhr) {
                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
             data: brdName,
-            type: 'POST',
+            type: 'GET',
             dataType:'json',
             success: function(result){
 
@@ -570,6 +574,10 @@
                 }
 
 
+            },
+
+            error: function (){
+                alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
             }
         }); //$.ajax
     }); // 중분류 클릭 시 동작
@@ -599,16 +607,17 @@
         let csrfHeaderName="${_csrf.headerName}";
         let csrfTokenValue="${_csrf.token}";
 
-        // 브랜드이름, 상품이름을 보내고 해당 상품에 대한 객체를 가져옴
+        // 브랜드이름, 상품이름을 보내고 해당 상품 객체를 가져옴
         $.ajax({
-            url: '/user/getProductObjectAction?brdName=' + brdName + '&prodName=' + prodName,
+            url: '/user/getProductObjectAction?brdName=' + encodeURIComponent(brdName) +
+                                              '&prodName=' + encodeURIComponent(prodName),
             processData: false,
             contentType: false,
             beforeSend: function(xhr) {
                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
             data: {brdName: brdName, prodName: prodName},
-            type: 'POST',
+            type: 'GET',
             dataType:'json',
             success: function(result){
 
@@ -634,6 +643,10 @@
                 document.getElementById('prodDescn').textContent = prodDescn;
                 document.getElementById('fixedprice').value = prc;
 
+            },
+
+            error: function (){
+                alert("상품 불러오기에 실패했습니다. 다시 시도해주세요.")
             }
         }); // $.ajax
     }); // 소분류 클릭 시 동작
@@ -750,7 +763,8 @@
 
             error: function(error) {
                 console.log(error);
-                alert("오류가 발생했습니다. 이미 등록된 바코드번호일 수 있습니다.");
+                alert("등록과정에서 오류가 발생했습니다. \n" +
+                      "(이미 등록된 바코드번호일 수 있습니다.)");
             }
 
         });

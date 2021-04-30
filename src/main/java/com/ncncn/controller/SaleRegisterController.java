@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,35 +68,54 @@ public class SaleRegisterController {
         return "user/deal/saleGifticon";
     }
 
-    @PostMapping(value = "/getBrandAction", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getBrandAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<BrandVO>> getBrandListAjax(@RequestParam("name") String name) {
 
-        log.info("get brand list from server...............");
-        List<BrandVO> blist = brandService.getBrandList(name);
+        try {
+            String cateName = URLDecoder.decode(name, "UTF-8");
+            List<BrandVO> blist = brandService.getBrandList(cateName);
 
-        return new ResponseEntity<>(blist, HttpStatus.OK);
+            log.info("get brand list from server...............");
+            return new ResponseEntity<>(blist, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
-    @PostMapping(value = "/getProductAction", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getProductAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<ProductVO>> getProductListAjax(@RequestParam("name") String name) {
 
-        log.info("get brand list from server...............");
-        List<ProductVO> plist = prodService.getProductList(name);
+        try {
+            String brdName = URLDecoder.decode(name, "UTF-8");
+            List<ProductVO> plist = prodService.getProductList(brdName);
 
-        return new ResponseEntity<>(plist, HttpStatus.OK);
+            log.info("get brand list from server...............");
+            return new ResponseEntity<>(plist, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
-    @PostMapping(value = "/getProductObjectAction", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getProductObjectAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ProductVO> getProductObjectAjax(
             @RequestParam("brdName") String brdName, @RequestParam("prodName") String prodName) {
 
-        log.info("get brand list from server...............");
-        ProductVO object = prodService.getProductObject(brdName, prodName);
+        try {
+            String brandName = URLDecoder.decode(brdName, "UTF-8");
+            String productName = URLDecoder.decode(prodName, "UTF-8");
 
-        return new ResponseEntity<>(object, HttpStatus.OK);
+            log.info("get product object from server...............");
+            ProductVO object = prodService.getProductObject(brandName, productName);
+
+            return new ResponseEntity<>(object, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
@@ -223,12 +243,13 @@ public class SaleRegisterController {
     @PostMapping(value = "/registerGifticonAction", consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
     @ResponseBody
     public void registerGifticonAction(@RequestBody GifticonVO gifticon) {
-        log.info("register Gifticon controller.............");
 
-        giftiService.registerGifticon(gifticon);
-
+        try {
+            giftiService.registerGifticon(gifticon);
+            log.info("registered Gifticon successfully.............");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-
 
 }
