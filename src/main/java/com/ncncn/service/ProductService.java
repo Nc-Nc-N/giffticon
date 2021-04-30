@@ -11,4 +11,7 @@ public interface ProductService {
 
     public ProductVO getProductObject(@Param("brdName") String brdName, @Param("prodName") String prodName);
 
+    List<ProductVO> getAllByBrdCode(String brdCode);
+
+    ProductVO getByCode(String code);
 }

@@ -14,11 +14,12 @@
 #detail-modal {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    background-color: rgb(233, 233, 233);
-    font-size: 17px;
+    justify-content: space-between;
+    background-color: white;
+    font-size: 14px;
+    color: rgb(71, 71, 71);
     width: 600px;
-    height: 500px;
+    height: fit-content;
     padding: 30px 40px;
     border-radius: 10px;
 }
@@ -29,13 +30,18 @@
 
 #detail-modal table {
     table-layout: fixed;
-    height: 380px;
+    height: fit-content;
     margin: 20px 0;
     border-collapse: collapse;
 }
 
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
 .prc-td {
-    width: 40%;
+    width: 35%;
     display: flex;
     justify-content: space-around;
 }
@@ -59,22 +65,66 @@
 }
 
 .td-cntnt {
+    margin: 10px 0;
     padding-left: 10px;
 }
 
 .under-line {
-    border-bottom: 1px solid rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(233, 233, 233);
 }
 
 .rq-rate {
     color: rgb(255, 88, 93);
-    /* font-weight: 600; */
+}
+
+.select-list {
+    width: 500px;
+    height: fit-content;
+    margin: 10px 0 0 10px;
+}
+
+.select-list ul {
+    width: 100%;
+    height: 150px;
+    margin: 0;
+    padding: 0;
+}
+
+.select-list li {
+    margin: 0;
+    padding: 0;
+    width: 160px;
+    height: 150px;
+    list-style: none;
+    float: left;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.select-list button {
+    background-color: white;
+    margin: 0;
+    padding: 0 5px;
+    width: 100%;
+    height: 30px;
+    border: none;
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.select-list button:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+button.active-prod-btn {
+    background-color: rgb(233, 233, 233);
 }
 
 .img-btn {
-    background-color: rgb(233, 233, 233);
     height: 40px;
-    font-size: 17px;
+    font-size: 15px;
     text-decoration: underline;
     border: none;
     outline: none;
@@ -83,7 +133,7 @@
 
 #rq-btn-area {
     width: 60%;
-    margin: 0 auto;
+    margin: 10px auto;
     display: flex;
     justify-content: space-around;
 }
@@ -108,4 +158,8 @@
 .loading-delete > img {
     width: 140px;
     height: 140px;
+}
+
+.btn-disabled {
+    background-color: rgb(233, 233, 233);
 }

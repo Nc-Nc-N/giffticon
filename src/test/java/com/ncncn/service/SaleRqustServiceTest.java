@@ -6,6 +6,7 @@ import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
 import com.ncncn.mapper.GifticonMapper;
+import com.ncncn.mapper.ProductMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,8 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,6 +23,9 @@ public class SaleRqustServiceTest {
 
 	@Mock
 	private GifticonMapper gifticonMapper;
+
+	@Mock
+	private ProductMapper productMapper;
 
 	@InjectMocks
 	private SaleRqustServiceImpl saleRqustService;
@@ -42,26 +45,26 @@ public class SaleRqustServiceTest {
 	public void getRqustByIdThrowNullPointerExceptionWhenMapIsNullTest() {
 		when(gifticonMapper.readRqustById(anyInt())).thenReturn(null);
 
-		Map<String, String> saleRqust = saleRqustService.getRqustById(anyInt());
+		Map<String, Object> saleRqust = saleRqustService.getRqustById(anyInt());
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void getRqustByIdThrowNullPointerExceptionWhenIsEmptyTest() {
 		when(gifticonMapper.readRqustById(anyInt())).thenReturn(new HashMap<>());
 
-		Map<String, String> saleRqust = saleRqustService.getRqustById(anyInt());
+		Map<String, Object> saleRqust = saleRqustService.getRqustById(anyInt());
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void getRqustByIdThrowNullPointerExceptionWhenGifticonIsNullTest() {
 		when(gifticonMapper.read(anyInt())).thenReturn(null);
 
-		Map<String, String> saleRqust = saleRqustService.getRqustById(anyInt());
+		Map<String, Object> saleRqust = saleRqustService.getRqustById(anyInt());
 	}
 
 	@Test
 	public void getRqustByIdSuccessTest() {
-		Map<String, String> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
 		result.put("test", "test");
 
 		GifticonVO gifticonVO = new GifticonVO();
@@ -71,7 +74,7 @@ public class SaleRqustServiceTest {
 		when(gifticonMapper.readRqustById(anyInt())).thenReturn(result);
 		when(gifticonMapper.read(anyInt())).thenReturn(gifticonVO);
 
-		Map<String, String> saleRqust = saleRqustService.getRqustById(anyInt());
+		Map<String, Object> saleRqust = saleRqustService.getRqustById(anyInt());
 
 		verify(gifticonMapper).readRqustById(anyInt());
 		verify(gifticonMapper).read(anyInt());
@@ -91,11 +94,17 @@ public class SaleRqustServiceTest {
 
 	@Test
 	public void modifyStusCodeAndAprvDtSuccessTest() {
-		when(gifticonMapper.updateStusCodeAndAprvDt(anyInt())).thenReturn(1);
+		when(gifticonMapper.updateSaleRqust(anyInt(), any(), anyInt(), anyDouble())).thenReturn(1);
+		when(productMapper.updateRegQuty(any())).thenReturn(1);
 
-		int result = saleRqustService.modifyStusCodeAndAprvDt(anyInt());
+		Map<String, String> rqust = new HashMap<>();
+		rqust.put("prodCode", "999999");
+		rqust.put("dcPrc", "1000");
+		rqust.put("dcRate", "0.05");
 
-		verify(gifticonMapper).updateStusCodeAndAprvDt(anyInt());
-		assertEquals(1, result);
+		saleRqustService.approveRequest(1, rqust);
+
+		verify(gifticonMapper).updateSaleRqust(anyInt(), any(), anyInt(), anyDouble());
+		verify(productMapper).updateRegQuty(any());
 	}
 }

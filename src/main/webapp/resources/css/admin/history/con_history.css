@@ -1,0 +1,97 @@
+#period {
+    font-size:14px;
+}
+
+.search-area {
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:20px 0 10px 0;
+}
+
+.period-container, .search-container {
+    display: flex;
+    align-items:center;
+}
+
+#search-bar-container {
+    float:right;
+    width: 300px;
+    height: 30px;
+    border-radius: 40px;
+    background: rgb(245, 244, 244);
+}
+
+#period {
+    margin-right:20px;
+    font-size:18px;
+}
+
+#tilde {
+    font-size:20px;
+    margin:0 10px 0 10px;
+}
+
+#checkbox-container {
+    display:flex;
+    float:right;
+    margin-bottom:10px;
+    align-items:center;
+}
+
+#checkbox-container input {
+    width:15px;
+    height:15px;
+    margin-left:5px;
+
+}
+
+.search-select {
+    padding:5px;
+    margin:0 10px;
+}
+
+.date-search input {
+    border: none;
+    width: 130px;
+    height: 30px;
+    background-color: rgb(245, 244, 244);
+    border-radius: 5px;
+    color: rgb(71, 71, 71);
+}
+
+#t1 {
+    text-align:center;
+    border-collapse:collapse;
+}
+
+th {
+    background-color:rgb(189, 187, 187);
+    padding:7px;
+}
+
+td {
+    border-bottom:1px solid black;
+    padding:10px 0;
+}
+
+.pagination-container {
+    margin: 20px;
+}
+
+.pagination {
+    display:flex;
+    justify-content:flex-end;
+}
+
+.pagination li{
+    list-style:none;
+}
+
+#nonresultmessage {
+    margin-top:100px;
+    font-size:30px;
+    text-align:center;
+}
+
+

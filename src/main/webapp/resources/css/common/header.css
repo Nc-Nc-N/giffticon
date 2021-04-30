@@ -284,10 +284,68 @@ li.drop-down > a:hover + .drop-down-ul {
     width: 275px;
     display: flex;
     justify-content: flex-end;
+    position: relative;
 }
 
 .rightmenu {
     margin: auto 0 auto 40px;
+}
+
+.bubble {
+    position: absolute;
+    right: 174px;
+    bottom: 45px;
+    width: 60px;
+    height: 20px;
+    padding: 0px;
+    background: #FFFFFF;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: #ff585d solid 5px;
+    animation: cloud 1.5s 40;
+    font-size: 12px;
+    text-align: center;
+    visibility: hidden;
+    cursor: pointer;
+}
+
+.bubble:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 6px 5px 0;
+    border-color: #FFFFFF transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    bottom: -6px;
+    left: 12px;
+}
+
+.bubble:before {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 10px 9px 0;
+    border-color: #ff585d transparent;
+    display: block;
+    width: 0;
+    z-index: 0;
+    bottom: -15px;
+    left: 8px;
+}
+
+.bubble:hover {
+    color: rgb(255, 88, 93);
+}
+
+i {
+    cursor: pointer;
+}
+
+i:hover {
+    color: rgb(255, 88, 93);
 }
 
 .icons {
@@ -359,4 +417,59 @@ a:hover, a:active {
 
 .logout:hover {
     color: rgb(255, 88, 93);
+}
+
+@keyframes cloud {
+
+    0% {
+        bottom: 45px;
+    }
+    6% {
+        bottom: 45.5px;
+    }
+    12.5% {
+        bottom: 46px;
+    }
+    19% {
+        bottom: 46.5px;
+    }
+    25% {
+        bottom: 47px;
+    }
+    31% {
+        bottom: 47.5px;
+    }
+    37.5% {
+        bottom: 48px;
+    }
+    44% {
+        bottom: 48.5px;
+    }
+    50% {
+        bottom: 49px;;
+    }
+    56% {
+        bottom: 48.5px;
+    }
+    62.5% {
+        bottom: 48px;
+    }
+    69% {
+        bottom: 47.5px;
+    }
+    75% {
+        bottom: 47px;;
+    }
+    82% {
+        bottom: 46.5px;
+    }
+    87.5% {
+        bottom: 46px;
+    }
+    94% {
+        bottom: 45.5px;
+    }
+    100% {
+        bottom: 45px;
+    }
 }
