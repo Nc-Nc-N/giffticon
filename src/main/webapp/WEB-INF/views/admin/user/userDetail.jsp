@@ -8,7 +8,6 @@
 
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/admin/user/userList.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/user/userDetail.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 
@@ -25,43 +24,44 @@
 <table id="t1" width=100%>
     <thead>
     <tr>
-        <th>회원번호</th>
-        <th>이메일</th>
-        <th>이름</th>
-        <th>휴대폰</th>
-        <th>가입일시</th>
-        <th>계좌정보 - 은행</th>
-        <th>계좌정보 - 계좌번호</th>
-        <th>현재포인트</th>
-        <th>주문횟수</th>
-        <th>총 주문금액</th>
-        <th>1:1문의횟수</th>
-        <th>회원상태</th>
-        <th>탈퇴처리일시</th>
+        <th><span>회원번호</span></th>
+        <th><span>이메일</span></th>
+        <th><span>이름</span></th>
+        <th><span>휴대폰</span></th>
+        <th><span>가입일시</span></th>
+        <th><span>계좌정보 - 은행</span></th>
+        <th><span>계좌정보 - 계좌번호</span></th>
+        <th><span>현재포인트</span></th>
+        <th><span>주문횟수</span></th>
+        <th><span>총 주문금액</span></th>
+        <th><span>1:1문의횟수</span></th>
+        <th><span>회원상태</span></th>
+        <th><span>탈퇴처리일시</span></th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td class="c2"><c:out value="${user.id}"/></td>
-        <td class="c2"><c:out value="${user.email}"/></td>
-        <td class="c2"><c:out value="${user.name}"/></td>
-        <td class="c2"><c:out value="${user.telNo}"/></td>
-        <td class="c2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-                                       value="${user.inDate}"/></td>
-        <td class="c2"><c:out value="${user.bankName}"/></td>
-        <td class="c2"><c:out value="${user.bankAccount}"/></td>
-        <td class="c2"><c:out value="${user.balance}"/> P</td>
-        <td class="c2"><c:out value="${user.dealCount}"/></td>
-        <td class="c2"><c:out value="${user.paysum}"/> 원</td>
-        <td class="c2"><c:out value="${user.pqustCount}"/></td>
+        <td class="c2"><span><c:out value="${user.id}"/></span></td>
+        <td class="c2"><span><c:out value="${user.email}"/></span></td>
+        <td class="c2"><span><c:out value="${user.name}"/></span></td>
+        <td class="c2"><span><c:out value="${user.telNo}"/></span></td>
+        <td class="c2"><span><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+                                       value="${user.inDate}"/></span></td>
+        <td class="c2"><span><c:out value="${user.bankName}"/></span></td>
+        <td class="c2"><span><c:out value="${user.bankAccount}"/></span></td>
+        <td class="c2"><span><c:out value="${user.balance}"/> P</span></td>
+        <td class="c2"><span><c:out value="${user.dealCount}"/></span></td>
+        <td class="c2"><span><c:out value="${user.paysum}"/> 원</span></td>
+        <td class="c2"><span><c:out value="${user.pqustCount}"/></span></td>
         <td class="c2" id="ustatus">
-            <%--                                <c:out value="${user.enabled}" />--%>
+            <span>
             <c:if test="${user.enabled == 1}">
                 <c:out value="정상"/>
             </c:if>
             <c:if test="${user.enabled == 0}">
                 <c:out value="탈퇴"/>
             </c:if>
+            </span>
         </td>
 
         <td class="c2">ㅤ</td>
@@ -81,7 +81,7 @@
         <td class="c3">
             <form action="/admin/user/update-status" id="statusUpdateForm" method="post" onchange="submitStatus()">
                 <sec:csrfInput/>
-                <select name="statusTxt" class="btnclass" id="statusbtn" style="background-color:rgb(245, 243, 243)">
+                <select name="statusTxt" class="btnclass" id="statusbtn">
                     <option value="정상" selected="selected">정상</option>
                     <option value="탈퇴">탈퇴</option>
                 </select>
@@ -95,7 +95,7 @@
 </table>
 <br>
 <div id="memo-container">
-    <p id="memo-title">관리자 메모</p>
+    <p id="memo-title"><span>관리자 메모</span></p>
 
     <form action="/admin/user/update-memo" method="post" id="submitform">
         <sec:csrfInput/>

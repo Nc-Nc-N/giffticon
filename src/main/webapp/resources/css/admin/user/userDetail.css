@@ -33,7 +33,7 @@ table{
 #t1 {
     border:none;
 }
-    
+
 tbody{
     display:flex;
 }
@@ -42,7 +42,7 @@ th{
     display:flex;
     background-color:rgb(189,187,187);
     border:1px solid black;
-    height:25px;
+    height:35px;
     width:170px;
     align-items:center;
     text-align:center;
@@ -51,29 +51,36 @@ th{
 td{
     display:flex;
     border:1px solid black;
-    height:25px;
-    width:430px;
+    height:35px;
+    width:450px;
     align-items:center;
+}
+
+span {
+    padding-left:10px;
 }
 
 .c3{
     display:flex;
     border:1px solid white;
-    height:25px;
+    height:35px;
     width:155px;
     align-items:center;
+}
 
+.c3 input, select {
+    height:30px;
 }
 
 #memo-input{
-    width:75.2%;
+    width:620px;
 }
 
 #memo-title {
     display:flex;
     align-items:center;
     width:172px;
-    height:25px;
+    height:35px;
     background-color:rgb(189,187,187);
     border:1px solid black;
     margin:0;
@@ -88,12 +95,22 @@ td{
 
 #statusbtn {
     width:155px;
+    text-align-last:center;
+    background-color:rgb(245, 243, 243);
+}
 
+#statusbtn option {
+    text-align:center;
 }
 
 #memo-input {
     margin-bottom:100px;
-    height:25px;
+    height:35px;
+}
+
+#memochange {
+    width:155px;
+    height:30px;
 }
 
 #submitform {
