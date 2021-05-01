@@ -19,7 +19,7 @@
             <nav>
                 <div class="catename"><i class="<c:out value="${category.iconPath}"/>"></i> &nbsp;<c:out value="${category.name}"/></div>
                 <ul>
-                    <a class="cateAll href="gifti_list?code=${category.code}&orderby=best">전체보기</a>
+                    <a class="cateAll" href="gifti_list?code=${category.code}&orderby=best">전체보기</a>
                     <c:forEach items="${brandList}" var="brandList">
                         <a class="brandList ${gifticon.brdCode == brandList.code ? "active":""}" href="gifti_list?code=${brandList.code}&orderby=best"><c:out value="${brandList.name}"/></a>
                     </c:forEach>
