@@ -149,7 +149,7 @@
         from gifticon as gifti
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code},'%') and prod.enabled = '1' and gft_stus_code =002
+        where prod_code like concat(#{code},'%') and prod.enabled = '1' and gft_stus_code ='002'
         order by dc_prc
         ]]>
     </select>
@@ -162,7 +162,7 @@
         from gifticon as gifti
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code}, '%') and prod.enabled = '1' and gft_stus_code =002
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1' and gft_stus_code ='002'
         group by gifti.prod_code
         ]]>
     </select>
@@ -174,11 +174,10 @@
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code}, '%') and prod.enabled = '1'
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1' and gft_stus_code ='002'
         ]]>
         <include refid="search"></include>
         <![CDATA[
-        and gft_stus_code =002
         group by gifti.prod_code
         order by
         ]]>
@@ -201,11 +200,10 @@
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code}, '%') and prod.enabled = '1'
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1' and gft_stus_code ='002'
         ]]>
         <include refid="search"></include>
         <![CDATA[
-        and gft_stus_code =002
         group by gifti.prod_code
         order by
         ]]>
@@ -224,7 +222,7 @@
         from gifticon as gifti
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
-        where prod.enabled = '1' and gft_stus_code =002
+        where prod.enabled = '1' and gft_stus_code ='002'
         group by gifti.prod_code
         order by prod.sold_quty desc
             limit 8
@@ -237,7 +235,7 @@
         from gifticon as gifti
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
-        where expir_dt > current_date and expir_dt - current_date() <= 7 and prod.enabled = '1' and gft_stus_code =002
+        where expir_dt > current_date and expir_dt - current_date() <= 7 and prod.enabled = '1' and gft_stus_code ='002'
         group by gifti.prod_code
         order by expir_dt,sold_quty desc
             limit 8
