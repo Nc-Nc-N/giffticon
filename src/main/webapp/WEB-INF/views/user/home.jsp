@@ -1,31 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: heeyoung
-  Date: 2021/04/12
-  Time: 11:27 오전
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="../common/header.jsp" %>
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
     <script src="/resources/js/user/splide.min.js"></script>
     <link rel="stylesheet" href="/resources/css/user/home.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/splide.min.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/user/prod.css" type="text/css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-    </style>
+    <link rel="stylesheet" href="/resources/css/user/gifticon/prod.css" type="text/css">
 </head>
-
 
 <!--광고 삽입-->
 <div id="advertiser">
@@ -134,7 +117,7 @@
                 <h3><i class="far fa-thumbs-up"></i>&nbsp;모두들 찾는 인기상품</h3>
             </div>
             <div class="categorycontroller">
-                <a href="/user/gifti_list?orderby=best" class="main-btn">전체보기</a>
+                <a href="/user/gifti_list?keyword=&code=0&orderby=best" class="main-btn">전체보기</a>
             </div>
         </div>
 
@@ -260,7 +243,7 @@
     </div>
 </div>
 </body>
-</html>
+
 
 <script>
     <%--  슬라이드바   --%>

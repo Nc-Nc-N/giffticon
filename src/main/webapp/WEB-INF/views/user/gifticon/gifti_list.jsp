@@ -145,10 +145,10 @@
         let selectedOrder = new_curr_url.searchParams.get("orderby");
 
         // 인기순 8위까지 보여주기
-        if(selectedOrder==='best'){
+        if(selectedOrder==='best' && code==='0'){
             $('.best').show();
         }
-        if(${headerPageMaker.cri.pageNum} >1){
+        if(${headerPageMaker.cri.pageNum} > 1){
             $('.best').hide();
         }
 
