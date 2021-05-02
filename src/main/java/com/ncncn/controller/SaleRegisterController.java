@@ -72,6 +72,7 @@ public class SaleRegisterController {
     @ResponseBody
     public ResponseEntity<List<BrandVO>> getBrandListAjax(@RequestParam("name") String name) {
 
+        // 선택된 카테고리에 해당하는 브랜드 목록 전송
         try {
             String cateName = URLDecoder.decode(name, "UTF-8");
             List<BrandVO> blist = brandService.getBrandList(cateName);
@@ -88,6 +89,7 @@ public class SaleRegisterController {
     @ResponseBody
     public ResponseEntity<List<ProductVO>> getProductListAjax(@RequestParam("name") String name) {
 
+        // 선택된 브랜드에 해당하는 상품 목록 전송
         try {
             String brdName = URLDecoder.decode(name, "UTF-8");
             List<ProductVO> plist = prodService.getProductList(brdName);
@@ -105,6 +107,7 @@ public class SaleRegisterController {
     public ResponseEntity<ProductVO> getProductObjectAjax(
             @RequestParam("brdName") String brdName, @RequestParam("prodName") String prodName) {
 
+        // 선택된 브랜드, 상품에 해당하는 상품 전송
         try {
             String brandName = URLDecoder.decode(brdName, "UTF-8");
             String productName = URLDecoder.decode(prodName, "UTF-8");
@@ -146,6 +149,7 @@ public class SaleRegisterController {
     }
 
 
+    // 바코드 이미지 업로드 처리
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<AttachFileDTO>>
@@ -215,7 +219,7 @@ public class SaleRegisterController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    // 526page 썸네일 이미지 데이터 전송
+    // 썸네일 이미지 데이터 전송
     @GetMapping("/display")
     @ResponseBody
     public ResponseEntity<byte[]> getFile(String fileName) {
