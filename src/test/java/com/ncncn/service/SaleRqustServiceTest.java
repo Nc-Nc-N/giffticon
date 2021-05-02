@@ -72,12 +72,10 @@ public class SaleRqustServiceTest {
 		gifticonVO.setInDate(new Date());
 
 		when(gifticonMapper.readRqustById(anyInt())).thenReturn(result);
-		when(gifticonMapper.read(anyInt())).thenReturn(gifticonVO);
 
-		Map<String, Object> saleRqust = saleRqustService.getRqustById(anyInt());
+		Map<String, Object> saleRqust = saleRqustService.getRqustById(1);
 
-		verify(gifticonMapper).readRqustById(anyInt());
-		verify(gifticonMapper).read(anyInt());
+		verify(gifticonMapper).readRqustById(1);
 		assertNotNull(saleRqust);
 		assertFalse(saleRqust.isEmpty());
 	}
