@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncncn.mapper.SoclInfoMapper">
+
+    <select id="getSocialInfo" resultType="com.ncncn.domain.SoclInfoForSessionDTO">
+        select soclT.user_id userId, soclT.socl_type_code soclCode, codeT.code_name codeName
+        from socl_auth soclT,
+             cmmn_code codeT
+        where codeT.code_type = "SOCL_TYPE"
+          and soclT.socl_type_code = codeT.code
+          and soclT.user_id = #{userId}
+    </select>
+
+    <select id="getSocialType" resultType="com.ncncn.domain.CmmnCodeVO">
+        select code_name, code
+        from cmmn_code
+        where code_type = 'SOCL_TYPE';
+    </select>
+
+</mapper>

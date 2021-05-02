@@ -1,9 +1,6 @@
 package com.ncncn.mapper;
 
-import com.ncncn.domain.UserInfoDTO;
-import com.ncncn.domain.UserDetailCheckVO;
-import com.ncncn.domain.UserMemoVO;
-import com.ncncn.domain.UserVO;
+import com.ncncn.domain.*;
 import com.ncncn.domain.pagination.UserCheckCriteria;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -11,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -26,6 +24,9 @@ public class UserMapperTest {
 
     @Setter(onMethod_ = @Autowired)
     private UserMapper userMapper;
+
+    @Setter(onMethod_ = @Autowired)
+    private SoclInfoMapper soclInfoMapper;
 
     @Test
     public void registerAndFindUserByEmailTest() {
@@ -198,5 +199,23 @@ public class UserMapperTest {
         String pwdconfirm = userMapper.readById(5).getPwd();
 
         assertEquals(pwd, pwdconfirm);
+    }
+
+    @Test
+    public void updatePwdTest2(){
+        int userId = 225;
+        String email = "planner26@nate.com";
+        String pwd = "001123qwe123";
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        String encodedPwd = bCryptPasswordEncoder.encode(pwd);
+        userMapper.updatePwd(encodedPwd,"planner26@nate.com",225);
+    }
+
+    @Test
+    public void getSocialInfoTest(){
+
+        int userId = 225;
+        SoclInfoForSessionDTO soclInfoForSessionDTO = soclInfoMapper.getSocialInfo(userId);
     }
 }

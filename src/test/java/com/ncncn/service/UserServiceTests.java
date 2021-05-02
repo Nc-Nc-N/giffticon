@@ -1,11 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.UserInfoDTO;
-
-import com.ncncn.domain.UserDetailCheckVO;
-import com.ncncn.domain.UserMemoVO;
-import com.ncncn.domain.UserStatusVO;
-import com.ncncn.domain.UserVO;
+import com.ncncn.domain.*;
 import com.ncncn.domain.pagination.UserCheckCriteria;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -34,9 +29,9 @@ public class UserServiceTests {
 
         log.info("user pnt : " + user.getPnt());
 
-        assertEquals(user.getEmail(),"planner263@gmail.com");
-        assertEquals(user.getEnabled(),1);
-        assertEquals(user.getRoleCode(),"002");
+        assertEquals(user.getEmail(), "planner263@gmail.com");
+        assertEquals(user.getEnabled(), 1);
+        assertEquals(user.getRoleCode(), "002");
     }
 
     @Test
@@ -59,7 +54,7 @@ public class UserServiceTests {
 
     @Test
     public void testGetUserDetail() {
-        int userId=152;
+        int userId = 152;
         log.info(userService.getUserDetail(userId));
         assertEquals(152, userService.getUserDetail(userId).getId());
     }
@@ -108,21 +103,29 @@ public class UserServiceTests {
     }
 
     @Test
-    public void updatePwdTest(){
+    public void updatePwdTest() {
 
         int userId = 5;
         String email = "test1@test.com";
         String pwd = "343412";
 
-        int isUpdated = userService.updatePwd(pwd,email,userId);
-        if(isUpdated == 1 ){
+        int isUpdated = userService.updatePwd(pwd, email, userId);
+        if (isUpdated == 1) {
 
             String newPwd = userService.readbyId(5).getPwd();
 
             assertEquals(pwd, newPwd);
-        }else{
-            assertEquals(isUpdated,0);
+        } else {
+            assertEquals(isUpdated, 0);
         }
+    }
+
+    @Test
+    public void readByEmailTest() {
+
+        String email = "planner263@gmail.com";
+        String soclType = "001";
+        int isRegistered = userService.soclUserReadByEmail(email, soclType);
     }
 
 }
