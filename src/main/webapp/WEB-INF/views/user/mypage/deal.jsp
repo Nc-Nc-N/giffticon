@@ -145,7 +145,7 @@
                 type: 'get',
                 success: function () {
                     if (confirm("해당 상품 판매 페이지로 이동하시겠습니까?")) {
-                        location.href = "/user/prod_detail?code=" + prdCode;
+                        location.href = "/user/gifti_detail?code=" + prdCode;
                     } else {
                         return;
                     }
