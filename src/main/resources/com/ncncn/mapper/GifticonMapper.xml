@@ -150,7 +150,7 @@
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
         where prod_code like concat(#{code},'%') and prod.enabled = '1' and gft_stus_code ='002'
-        order by dc_prc
+        order by dc_prc, expir_dt
         ]]>
     </select>
 
@@ -231,14 +231,17 @@
     <!-- 마감임박 상품 8개 조회  -->
     <select id="getDeadlineGifti" resultType="com.ncncn.domain.ProdListVO">
         <![CDATA[
-        select expir_dt - current_date() as d_day, prod.enabled, id, user_id, prod_code, brand.name as bname, prod.name as pname, prc, expir_dt, sold_quty, min(dc_prc)as dc_prc, dc_rate, gft_stus_code,prod.img_path as pimg_path
+        select tbl.*
+        from
+        (select expir_dt - current_date() as d_day, prod.enabled, id, user_id, prod_code, brand.name as bname, prod.name as pname, prc, expir_dt, sold_quty,dc_prc, dc_rate, gft_stus_code,prod.img_path as pimg_path
         from gifticon as gifti
-                 INNER JOIN product as prod ON gifti.prod_code = prod.code
-                 INNER JOIN brand ON prod.brd_code = brand.code
+            INNER JOIN product as prod ON gifti.prod_code = prod.code
+            INNER JOIN brand ON prod.brd_code = brand.code
         where expir_dt > current_date and expir_dt - current_date() <= 7 and prod.enabled = '1' and gft_stus_code ='002'
-        group by gifti.prod_code
-        order by expir_dt,sold_quty desc
-            limit 8
+        order by expir_dt, sold_quty LIMIT 18446744073709551615
+        )as tbl
+        group by tbl.prod_code
+        limit 8
         ]]>
     </select>
 
