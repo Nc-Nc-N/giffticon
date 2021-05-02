@@ -458,21 +458,23 @@
     // 대분류 클릭시 동작
     $('.categorySelect').on("click", function(){
         // 대분류 클릭시 대분류이름을 보내고 중분류 객체리스트를 받아온다.
+        // 선택퇸 카테고리 텍스트 변경, 상품 정보 삭제, 가격정보 초기화
         let catName = this.innerText;
         selectedCatName = this.innerText;
         // 선택된 카테고리 텍스트 변경
         changeSelectedResultText(catSelectResultText());
+        // 가격정보 초기화
         priceAllClean();
         let csrfHeaderName="${_csrf.headerName}";
         let csrfTokenValue="${_csrf.token}";
 
-        // 대분류 클릭시 소분류 삭제
+        // 대분류 클릭시 소분류 목록 삭제
         deleteProductList();
 
         // 대분류 클릭시 product 정보 삭제
         deleteProdInfo();
 
-        // 대분류 클릭시 할인율 초기화
+        // 대분류 클릭시 할인율 표시 초기화
         dcRateIndicatorClean();
 
         // 해당 대분류 하위 중분류 목록 가져옴
@@ -523,12 +525,15 @@
     // 중분류 클릭시 동작
     $('.brandbox').on("click", $('.brandSelect .select'), function(e){
         // 중분류 클릭시 중분류이름을 보내고 소분류 객체리스트를 받아온다.
+        // 선택퇸 카테고리 텍스트 변경, 상품 정보 삭제, 가격정보 초기화
         // alert(e.target.innerText);
         // alert(e.target.type == "button");
         if(e.target.type == "button") {
             brdName = e.target.innerText;
             selectedBrdName = e.target.innerText;
+            // 선택된 카테고리 텍스트 변경
             changeSelectedResultText( brdSelectResultText() );
+            // 가격정보 초기화
             priceAllClean();
             // 중분류 클릭시 product 정보 삭제
             deleteProdInfo();
@@ -577,7 +582,7 @@
             },
 
             error: function (){
-                alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
+                alert("브랜드 불러오기에 실패했습니다. 다시 시도해주세요.")
             }
         }); //$.ajax
     }); // 중분류 클릭 시 동작
@@ -593,21 +598,26 @@
 
     // 소분류 클릭시 동작
     $('.productbox').on("click", $('.productSelect .select'), function(e){
+        // 소분류 클릭시 중분류, 소분류 이름을 보내고 소분류 객체를 받아온다.
+        // 선택퇸 카테고리 텍스트 변경, 상품 정보 변경, 가격정보 초기화
+        // 등록요청시 전송할 GifticonVO 객체에 받아온 소분류 객체의 변수값 입력
         // alert(e.target.innerText);
         let prodName="";
         if(e.target.type == "button") {
             prodName=e.target.innerText;
             selectedProdName = e.target.innerText;
+            // 선택된 카테고리 텍스트 변경
             changeSelectedResultText(prodSelectResultText());
-            // 소분류 클릭시 판매가, 가격선택버튼, 할인율 초기화
+            // 소분류 클릭시 가격정보 초기화
             dcPriceClean();
             priceChoiceButtonClean();
+            // 할인율 표시 초기화
             dcRateIndicatorClean();
         }
         let csrfHeaderName="${_csrf.headerName}";
         let csrfTokenValue="${_csrf.token}";
 
-        // 브랜드이름, 상품이름을 보내고 해당 상품 객체를 가져옴
+        // 소분류 클릭시 중분류, 소분류 이름을 보내고 소분류 객체를 받아온다.
         $.ajax({
             url: '/user/getProductObjectAction?brdName=' + encodeURIComponent(brdName) +
                                               '&prodName=' + encodeURIComponent(prodName),
@@ -623,6 +633,7 @@
 
                 console.log(result);
 
+                // 등록요청시 전송할 GifticonVO 객체에 받아온 소분류 객체의 변수값 입력
                 // alert(result.code.substring(0,2));  //대분류 코드
                 cateCode = result.code.substring(0,2);
                 // alert(result.brdCode);  // 중분류 코드
@@ -814,6 +825,7 @@
         let addDcRate = 0.0;
         let expirDt = new Date($("#end-date")[0].value);
         let today = new Date();
+        // 만료일까지 남은 일 수 계산
         let dateDiff = Math.ceil((expirDt.getTime() - today.getTime()) / (1000 * 3600 * 24));
 
         if (dateDiff > 60) {
@@ -846,7 +858,7 @@
         $(e.target).addClass('on');
     });
 
-    // 유효기간 변경 시 가격 종류, 입력값 초기화
+    // 유효기간 변경 시 가격 종류, 입력값 초기화, 할인율 표시 초기화
     $("#end-date").change(function() {
         dcPriceClean();
         priceChoiceButtonClean();
