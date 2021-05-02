@@ -42,6 +42,6 @@
     </insert>
 
     <update id="updateUserCon">
-        update user set pnt = #{balance} where id = #{userId}
+        update user set pnt = #{balance}, up_date = now(), up_user = current_user() where id = #{userId}
     </update>
 </mapper>
