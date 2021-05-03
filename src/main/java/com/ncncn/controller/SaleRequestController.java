@@ -85,16 +85,16 @@ public class SaleRequestController {
 	}
 
 	@DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity deleteRequset(@PathVariable("id") int id, @RequestBody RqustRejectDTO rqustRejectDTO) {
+	public ResponseEntity deleteRequset(@PathVariable("id") int id, @RequestBody Map<String, String> rejectMap) {
 		try {
 			Map<String, Object> rqust = saleRqustService.getRqustById(id);
 			int result = saleRqustService.removeRqust(id);                    // id에 해당하는 판매요청중 기프티콘 삭제
 
 			// 반려사유 메일 전송
 			SimpleMailMessage message = new SimpleMailMessage();
-			message.setTo(rqustRejectDTO.getEmail());
+			message.setTo(rejectMap.get("email"));
 			message.setSubject("[기쁘티콘] 판매요청에 대한 안내메일입니다.");
-			message.setText(getMessage(rqust, rqustRejectDTO.getCause()));
+			message.setText(getMessage(rqust, rejectMap.get("cause")));
 
 			javaMailSender.send(message);
 		} catch (Exception e) {

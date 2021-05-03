@@ -6,6 +6,7 @@ import com.ncncn.mapper.GifticonMapper;
 import com.ncncn.mapper.ProductMapper;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class SaleRqustServiceImpl implements SaleRqustService {
         return gifticonMapper.countAllRqust(cri);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public void approveRequest(int id, Map<String, String> rqust) {
         // 기프티콘 상태(판매요청 -> 판매중), 상품코드, 판매가, 할인율 변경

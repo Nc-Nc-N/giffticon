@@ -201,33 +201,27 @@
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
-        // 전화번호 입력창 마우스 오른쪽 클릭 비활성화
-        $("input[name='telNo']").on('propertychange change keyup paste input', function (e) {
-            let tel = $(this).val().replace(/[^0-9]/g, '').substring(0, 11);
-            $(this).val(tel);
-        });
-
         let emlInput = $("input[name='email']");
-        let emlValidtMsg = $(".email-msg");
+        let emlValidMsg = $(".email-msg");
         let emlAuthBtn = $("button[name='email-auth-btn']");
 
-        let isRightEmail = false;       // 이메일 형식 일치
-        let isCertifiedEmail = false;   // 이메일 인증 진행
+        let isRightEmail = false;       // 이메일 형식 일치 여부
+        let isCertifiedEmail = false;   // 이메일 인증 진행 여부
 
         // 이메일 입력 값 변경될 때마다
         emlInput.on('propertychange change keyup paste input', function (e) {
-            isCertifiedEmail = false;                   // 인증여부 초기화
+            isCertifiedEmail = false;                       // 인증여부 초기화
             $(".email-exist-msg").css("display", "none");
 
-            if (checkEmail($(this).val())) {            // 값이 형식에 부합하는지 확인
-                emlValidtMsg.css("display", "none");    // 안내 메세지 hide
-                emlAuthBtn.attr("class", "btn002");     // 이메일 인증버튼 활성화
+            if (checkEmail($(this).val())) {                // 값이 형식에 부합하는지 확인
+                emlValidMsg.css("display", "none");         // 안내 메세지 hide
+                emlAuthBtn.attr("class", "btn002");         // 이메일 인증버튼 활성화
                 isRightEmail = true;
                 return;
             }
 
             // 값이 형식에 부합하지않으면
-            emlValidtMsg.css("display", "block");               // 안내 메세지 show
+            emlValidMsg.css("display", "block");               // 안내 메세지 show
             emlAuthBtn.attr("class", "btn-disabled btn002");    // 인증버튼 비활성화
             isRightEmail = false;
         });
@@ -316,6 +310,7 @@
 
         let isRightTelNo = false;
 
+        // 전화번호 유효성 검사과정
         let telInput = $("input[name='telNo']");
         telInput.on("propertychange change keyup paste input", function (e) {
             let tel = $(this).val().replace(/[^0-9]/g, '').substring(0, 11);
@@ -330,15 +325,15 @@
             isRightTelNo = false;
         });
 
+        // 약관내용 모달 visible
         $(".term").on('click', function (e) {
             e.preventDefault();
-
             $("." + $(this).attr("href")).css("visibility", "visible");
         });
 
+        // 약관내용 모달 hidden
         $("button[name='cancel']").on("click", function (e) {
             e.preventDefault();
-
             $(".modal").css("visibility", "hidden");
         });
 
@@ -371,7 +366,6 @@
         // 가입하기 -> 위 조건에 맞지않으면 모달로 안내
         $('button[type="submit"]').on('click', function (e) {
             e.preventDefault();
-
             let email = $('input[name="email"]').val();
             let pwd = $('input[name="pwd"]').val();
             let name = $('input[name="name"]').val();
@@ -401,16 +395,17 @@
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
                 success: function () {
-                    alert("회원가입에 성공했습니다");
+                    alert("기쁘티콘 가입 축하드립니다!");
                     // 사용자 등록에 성공하면 로그인 페이지로 이동
                     window.location.replace("/account/signIn");
                 },
                 error: function (result) {
-                    alert("다시 시도해주세요.\n cause: " + result); // error 메세지 추가
+                    alert("다시 시도해주세요.\n cause: " + result);     // error 메세지 추가
                 }
             });
         });
 
+        // 유효성 검사 실패시 안내 문자 출력
         function printValidateMsg(check, msg) {
             if (check) {
                 $('#validateMsg').css("display", "block");
@@ -418,7 +413,7 @@
                 return true;
             }
             $('#validateMsg').css("display", "none");
-            $('#validateMsg').html("");
+            $('#validateMsg').empty();
             return false;
         }
     });
@@ -443,7 +438,6 @@
             },
             error: function (result) {
                 alert("이메일 확인중 문제가 발생했습니다. 다시 시도해주세요.");
-                isExists = 1;
             }
         });
 
@@ -456,12 +450,13 @@
         return regExp.test(pwd);
     }
 
+    // 영문 또는 한글로 이루어진 2이상 20이하 문자열인지 확인
     function checkName(name) {
         let regExp = /^[ㄱ-ㅎ가-힣a-zA-Z ]{2,20}$/g;
         return regExp.test(name);
     }
 
-    // 휴대전화 번호 형식과 일치하는지 확인
+    // 잔화번호 유효성 검사 -> 11자리의 숫자로만 이루어진 문자인지 확인
     function checkTelNo(telNo) {
         return telNo.match(/^[0-9]{11}$/);
     }
