@@ -73,19 +73,19 @@ public class SaleRequestController {
 	}
 
 	@PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> approveRequest(@PathVariable("id") int id, @RequestBody Map<String, String> rqust) {
+	public ResponseEntity approveRequest(@PathVariable("id") int id, @RequestBody Map<String, String> rqust) {
 		try {
 			// 요청중인 기프티콘의 상태와 상품정보를 수정함
 			saleRqustService.approveRequest(id, rqust);
 		} catch (Exception e) {
-			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		return new ResponseEntity<>("success", HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> deleteRequset(@PathVariable("id") int id, @RequestBody RqustRejectDTO rqustRejectDTO) {
+	public ResponseEntity deleteRequset(@PathVariable("id") int id, @RequestBody RqustRejectDTO rqustRejectDTO) {
 		try {
 			Map<String, Object> rqust = saleRqustService.getRqustById(id);
 			int result = saleRqustService.removeRqust(id);                    // id에 해당하는 판매요청중 기프티콘 삭제
@@ -98,10 +98,10 @@ public class SaleRequestController {
 
 			javaMailSender.send(message);
 		} catch (Exception e) {
-			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		return new ResponseEntity<>("success", HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/getCateList", produces = MediaType.APPLICATION_JSON_VALUE)
