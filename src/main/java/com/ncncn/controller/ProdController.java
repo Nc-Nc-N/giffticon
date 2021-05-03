@@ -37,26 +37,20 @@ public class ProdController {
 		String code = cri.getCode();
 		int total = giftiService.getTotal(cri);
 
-		// code 값이 정수인지 판별
-		if(isInteger(code) || code==null){
-			try {
 
-				model.addAttribute("category", cateService.getCate(code));            	// 카테고리
-				model.addAttribute("brandList", brandService.getBrdList(code));    		// 브랜드 목록
-				model.addAttribute("gifti", giftiService.getGiftiWithPaging(cri));    	// 기프티콘 목록(페이징 처리 포함)
-				model.addAttribute("headerPageMaker", new PageDTO(cri, total));
+		try {
+
+			model.addAttribute("category", cateService.getCate(code));            	// 카테고리
+			model.addAttribute("brandList", brandService.getBrdList(code));    		// 브랜드 목록
+			model.addAttribute("gifti", giftiService.getGiftiWithPaging(cri));    	// 기프티콘 목록(페이징 처리 포함)
+			model.addAttribute("headerPageMaker", new PageDTO(cri, total));
 
 
-				return "/user//gifticon/gifti_list";
+			return "/user/gifticon/gifti_list";
 
-			} catch (Exception e) {
-				model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
-				return "/user/gifticon/gifti_list";
-			}
-		}
-		else{	// code에 숫자가 아닌 다른 문자가 들어갔을 때
+		} catch (Exception e) {
 			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
-			return "redirect:/user/gifti_list?code=0";
+			return "/user/gifticon/gifti_list";
 		}
 	}
 
@@ -82,38 +76,19 @@ public class ProdController {
 			userId = 0;
 		}
 
-		// code 값이 정수인지 판별
-		if(isInteger(code) || code==null){
-			try {
-				model.addAttribute("category", cateService.getCate(code));				// 카테고리
-				model.addAttribute("brandList", brandService.getBrdList(code));			// 브랜드 목록
-				model.addAttribute("giftiList", giftiService.getGiftiList(code));		// 등록된 기프티콘 목록
-				model.addAttribute("gifticon", giftiService.getGifti(code));				// 대표 기프티콘
-				model.addAttribute("userId", userId);									// 로그인한 사용자 userId
-				model.addAttribute("hasWish", wishService.hasWish(wish));				// 관심상품에 등록되어 있는지(있으면 1, 없으면 0)
-
-				return "/user/gifticon/gifti_detail";
-
-			}catch (Exception e){
-				model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
-				return "/user/gifticon/gifti_detail";
-			}
-		}
-		else {	// code에 숫자가 아닌 다른 문자가 들어갔을 때
-			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
-			return "redirect:/user/gifti_list?code=0";
-		}
-
-	}
-
-	//정수 판별 함수
-	static boolean isInteger(String s) {
 		try {
-			Integer.parseInt(s);
-			return true;
+			model.addAttribute("category", cateService.getCate(code));				// 카테고리
+			model.addAttribute("brandList", brandService.getBrdList(code));			// 브랜드 목록
+			model.addAttribute("giftiList", giftiService.getGiftiList(code));		// 등록된 기프티콘 목록
+			model.addAttribute("gifticon", giftiService.getGifti(code));				// 대표 기프티콘
+			model.addAttribute("userId", userId);									// 로그인한 사용자 userId
+			model.addAttribute("hasWish", wishService.hasWish(wish));				// 관심상품에 등록되어 있는지(있으면 1, 없으면 0)
 
-		} catch(NumberFormatException e) {  //문자열이 나타내는 숫자와 일치하지 않는 타입의 숫자로 변환 시 발생
-			return false;
+			return "/user/gifticon/gifti_detail";
+
+		}catch (Exception e){
+			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
+			return "/user/gifticon/gifti_detail";
 		}
 	}
 }
