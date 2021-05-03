@@ -149,12 +149,13 @@ public class SaleRegisterController {
     }
 
 
-    // 바코드 이미지 업로드 처리
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<AttachFileDTO>>
     uploadAjaxPost(MultipartFile[] uploadFile) {
-
+        // 바코드 이미지 업로드 처리
+        // 업로드된 파일이 이미지 종류의 파일인지 확인
+        // 이미지 파일일 경우 섬네일 이미지 생성
         log.info("update ajax post................");
 
         List<AttachFileDTO> list = new ArrayList<>();
@@ -186,18 +187,21 @@ public class SaleRegisterController {
             log.info("only file name: " + uploadFileName);
             attachDTO.setFileName(uploadFileName);
 
+            //  uuid 생성
             UUID uuid = UUID.randomUUID();
 
             uploadFileName = uuid.toString() + "_" + uploadFileName;
 
             try {
                 File saveFile = new File(uploadPath, uploadFileName);
+                // 서버에 파일 저장
                 multipartFile.transferTo(saveFile);
 
                 attachDTO.setUuid(uuid.toString());
                 attachDTO.setUploadPath(uploadFolderPath);
 
                 // check image type file
+                // 이미지 파일일 경우 섬네일 이미지 생성
                 if (checkImageType(saveFile)) {
 
                     attachDTO.setImage(true);

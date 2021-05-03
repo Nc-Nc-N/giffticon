@@ -53,11 +53,6 @@
                         <div class="innerbox">
                             <!-- <span>중분류 선택</span> -->
                             <ul class="brandbox"> <!-- 중분류 카테고리 -->
-                                <c:forEach items="${brandList}" var="brandL">
-                                    <li class="brandSelect">
-                                        <button type="button" class="select"><c:out value="${brandL.name}"/></button>
-                                    </li>
-                                </c:forEach>
 
                             </ul>
                         </div>
@@ -65,11 +60,6 @@
                         <div class="innerbox">
                             <!-- <span>소분류 선택<span> -->
                             <ul class="productbox"> <!-- 소분류 카테고리 -->
-                                <c:forEach items="${productList}" var="prodL">
-                                    <li class="productSelect">
-                                        <button type="button" class="select"><c:out value="${prodL.name}"/></button>
-                                    </li>
-                                </c:forEach>
 
                             </ul>
 
@@ -133,13 +123,18 @@
                             </label>
 
                         </div>
-                        <textarea readonly="readonly">쿠폰 등록시 유의사항  1. 반드시 쿠폰 이미지만 잘라서 올려주세요. 캡쳐 이미지에 배터리 잔여량, 통신사, 시간, 화살표 등이 표기된 경우, 저희 시스템상 바코드와 유효기간을 잘못 인식하는 경우가 많아 반려하고 있습니다. 2. 카테고리가 지정된 쿠폰이 우선적으로 검수됩니다. 해당 쿠폰의 정확한 카테고리를 지정해주세요. 3.기프티콘의 유효기간을 반드시 입력해주세요 4. 기쁘티콘 혹은 기쁘티콘 제휴사에서 구매한 쿠폰은 다시 매입하지 않습니다.
+                        <textarea readonly="readonly">[ 쿠폰 등록시 유의사항 ]
+
+1. 반드시 쿠폰 이미지만 잘라서 올려주세요. 캡쳐 이미지에 배터리 잔여량, 통신사, 시간, 화살표 등이 표기된 경우, 저희 시스템상 바코드와 유효기간을 잘못 인식하는 경우가 많아 반려하고 있습니다.
+
+2. 카테고리가 지정된 쿠폰이 우선적으로 검수됩니다. 해당 쿠폰의 정확한 카테고리를 지정해주세요.
+
+3. 기프티콘의 유효기간을 반드시 입력해주세요
+
+4. 기쁘티콘 혹은 기쁘티콘 제휴사에서 구매한 쿠폰은 다시 매입하지 않습니다.
                                 </textarea>
                         <!-- 쿠폰 파일 업로드 -->
                         <div class="box-file-input">
-
-
-                            <%--                            <button id="uploadBtn">Upload</button>--%>
 
                         </div>
                     </div>
@@ -214,9 +209,7 @@
                 </div>
                 <div class="modalbtn">
                     <button type="button" id="btn-to-main" class="btn btn-active" style="color:white">메인으로 이동</button>
-                    <button type="button" id="btn-to-hist" class="btn btn-disabled" style="margin-left:30px">판매 내역으로
-                        이동
-                    </button>
+                    <button type="button" id="btn-to-hist" class="btn btn-disabled" style="margin-left:30px">판매 내역으로 이동</button>
                 </div>
 
             </div>
@@ -255,9 +248,9 @@
 
             console.log(files);
 
-            //add filedate to formdata
             for (var i = 0; i < files.length; i++) {
 
+                // 파일 용량, 확장자 체크
                 if (!checkExtension(files[i].name, files[i].size)) {
                     return false;
                 }
@@ -664,8 +657,6 @@
         }); // $.ajax
     }); // 소분류 클릭 시 동작
 
-
-    var uploadResult = $(".filename")[0];
 
     originPath = "";
 
