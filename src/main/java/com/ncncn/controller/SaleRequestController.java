@@ -9,7 +9,6 @@ import com.ncncn.domain.ProductVO;
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
-import com.ncncn.domain.request.RqustRejectDTO;
 import com.ncncn.service.BrandService;
 import com.ncncn.service.CategoryService;
 import com.ncncn.service.ProductService;
