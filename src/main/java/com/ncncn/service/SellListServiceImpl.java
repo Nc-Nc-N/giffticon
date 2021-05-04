@@ -35,7 +35,7 @@ public class SellListServiceImpl implements SellListService{
     }
 
     @Override
-    public List<MySellVO> getSellDetail(int gftId, int userId){
+    public MySellVO getSellDetail(int gftId, int userId){
 
         log.info("get Sell Details....");
 

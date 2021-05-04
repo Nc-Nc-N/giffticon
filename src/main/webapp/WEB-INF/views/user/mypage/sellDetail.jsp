@@ -32,9 +32,13 @@
     </div>
     <div class="item_btn_seller">
         <c:choose>
-            <c:when test="${gftInfo.codeName == '판매대기' || gftInfo.codeName == '판매중'}">
+            <c:when test="${gftInfo.codeName eq '판매대기' || gftInfo.codeName eq '판매중'}">
                 <button id="modifyGift" class="btn btn-dark" value="<c:out value="${gftInfo.id}"/>">상품수정</button>
                 <button id="deleteGift" class="btn btn-dark" value="<c:out value="${gftInfo.id}"/>">내역삭제</button>
+            </c:when>
+            <c:when test="${gftInfo.codeName eq '판매불가'}">
+                <button class="btn btn-disabled">판매 불가</button>
+                <button class="btn btn-disabled">수정 불가</button>
             </c:when>
             <c:otherwise>
                 <button class="btn btn-disabled">판매 완료</button>

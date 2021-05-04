@@ -111,12 +111,14 @@
             let dcPrc = $("#prcinput").val();
             let finalDcRate = $("#rateinput").val();
 
+            //가격 입력 없이 클릭 시 alert 발생
             if (dcPrc == null || dcPrc == "") {
                 alert("판매가격을 입력하세요");
                 return;
             }
             finalDcRate = finalDcRate.slice(0, -1);
 
+            //가격할인 DTO
             let prcUpdate = {
                 email: userEmail,
                 password: userPwd,
@@ -141,8 +143,10 @@
                 },
                 error: function (request) {
 
+                    //반환된 error 코드가 406 (비밀번호 불일치)
                     if (request.status == 406) {
                         alert("비밀번호를 확인하세요.");
+                    //반환된 error 코드가 500 (가격 수정 실패)
                     } else {
                         alert("가격 수정 실패. 관리자에게 문의하세요");
                     }
@@ -194,20 +198,25 @@ $(".document").ready(function () {
         $("#rateinput").val("");
     })
 
-    //직접 가격 입력 시 할인율 계산하여 출력
+    //수동 가격 입력 시 할인율 계산하여 즉시 출력
     $("#prcinput").keyup(function (e) {
 
         $("#rateinput").val("");
 
+        //정가보다 높은 가격 입력 시 alert 출력 후 input 지우기
         if (parseInt($("#prcinput").val()) > prc) {
             alert("정가보다 높은 가격에 팔 수 없습니다.");
             $("#prcinput").val("");
             $("#rateinput").val("");
+
+        //올바르지 않은 가격 입력 시 alert 출력 후 input 지우기
         } else if (parseInt($("#prcinput").val()) <= 0) {
             alert("가격이 올바르지 않습니다.");
             $("#prcinput").val("");
             $("#rateinput").val("");
         }
+
+        //입력한 가격이 몇% 할인 된 것인지 출력
         setTimeout(function () {
             $("#rateinput").val(((prc - $("#prcinput").val()) / prc * 100).toFixed(2) + "%");
         }, 1000)

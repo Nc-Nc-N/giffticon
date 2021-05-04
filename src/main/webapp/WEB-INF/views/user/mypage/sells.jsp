@@ -78,6 +78,9 @@
                         <button name="deleteGift" class="btn btn-dark" value="<c:out value="${list.id}"/>">판매 취소
                         </button>
                     </c:when>
+                    <c:when test="${list.codeName eq '판매불가'}">
+                        <button class="btn btn-disabled">판매 불가</button>
+                    </c:when>
                     <c:otherwise>
                         <button class="btn btn-disabled">판매 완료</button>
                     </c:otherwise>

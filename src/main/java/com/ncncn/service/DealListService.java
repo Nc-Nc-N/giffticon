@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DealListService {
 
-    public List<MyDealsVO> getGftDetail(int gftId, int userId);
+    public MyDealsVO getGftDetail(int gftId, int userId);
 
     public List<MyDealsVO> getDealsWithPaging(int userId, MyPageCriteria cri);
 

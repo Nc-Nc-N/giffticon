@@ -51,7 +51,7 @@ public class SellListServiceTests {
         int userId = 5;
         int gftId = 60;
 
-        MySellVO sellDetail = sellListService.getSellDetail(gftId, userId).get(0);
+        MySellVO sellDetail = sellListService.getSellDetail(gftId, userId);
 
         assertEquals(sellDetail.getUserId(), 5);
         assertEquals(sellDetail.getDcPrc(), 13000);
