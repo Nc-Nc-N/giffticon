@@ -22,8 +22,12 @@ public class SignUpServiceImpl implements SignUpService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public UserVO getByEmail(String email) {
-		return userMapper.readByEmail(email);
+	public UserVO getUserByEmail(String email) {
+		return userMapper.readUserByEmail(email);
+	}
+
+	public boolean isEmailExists(String email) {
+		return userMapper.readUserByEmail(email) != null;
 	}
 
 	public int register(UserVO userVO) throws Exception {
@@ -34,9 +38,13 @@ public class SignUpServiceImpl implements SignUpService {
 
 		int result = 0;
 		try {
-			result = userMapper.insert(userVO);
+			result = userMapper.insertUser(userVO);
 		} catch (Exception e) {
-			throw new SQLException("가입중 문제가 발생했습니다.");
+			// e가 가진 정보를 그대로 전달
+			// 새로운 예외를 던지더라도 원인예외를 포함해야함
+			SQLException sqlException = new SQLException("회원등록중 문제가 발생했습니다.");
+			sqlException.initCause(e);        // 원인예외를 포함
+			throw sqlException;
 		}
 
 		return result;
@@ -45,6 +53,9 @@ public class SignUpServiceImpl implements SignUpService {
 	private void checkValidateUser(UserVO userVO) {
 		if (userVO == null) {
 			throw new IllegalArgumentException("유효하지 않은 사용자 정보입니다.");
+		}
+		if (isEmailExists(userVO.getEmail())) {
+			throw new IllegalArgumentException("이미 가입된 이메일입니다.");
 		}
 		if (!UserValidator.checkEmail(userVO.getEmail())) {
 			throw new IllegalArgumentException("유효하지 않은 이메일 형식입니다.");
@@ -62,4 +73,5 @@ public class SignUpServiceImpl implements SignUpService {
 			throw new IllegalArgumentException("유효하지 않은 인증코드입니다.");
 		}
 	}
+
 }

@@ -24,7 +24,7 @@ public class UserValidator {
 
 	public static boolean checkEmlAuthTkn(String emlAuthTkn) {
 		// 길이가 8자리이고, 숫자, 영문으로만 이루어져있는지 확인
-		return emlAuthTkn != null && emlAuthTkn.matches("[0-9a-zA-Z]{8}$");
+		return emlAuthTkn != null && emlAuthTkn.matches("[0-9a-z]{8}$");
 	}
 
 }

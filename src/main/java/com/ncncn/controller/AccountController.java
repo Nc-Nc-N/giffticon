@@ -11,6 +11,7 @@ import com.ncncn.service.SignUpServiceImpl;
 import com.ncncn.util.EmailAuthCodeUtils;
 import lombok.extern.log4j.Log4j;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +59,7 @@ public class AccountController {
     }
 
     // 회원 등록 요청
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/text; charset=UTF-8")
     public ResponseEntity<String> register(@RequestBody UserVO user) {
         try {
             // 사용자 등록
@@ -73,16 +74,15 @@ public class AccountController {
 
     // 이메일 중복확인
     @GetMapping(value = "/checkExists", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> checkExists(@RequestParam("email") String email) {
-        int isExists = 0;
+    public ResponseEntity<Boolean> checkExists(@RequestParam("email") String email) {
+        boolean isExists = false;
         try {
-            UserVO userVO = signUpService.getByEmail(email);
-            if (userVO != null) isExists = 1;                   // 해당 이메일을 가진 사용자가 존재하면 1
+            isExists = signUpService.isEmailExists(email);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return new ResponseEntity<>(isExists, HttpStatus.OK);   // 존재하지않으면 0 반환
+        return new ResponseEntity<>(isExists, HttpStatus.OK);
     }
 
     // 사용자가 입력한 이메일로 인증메일 전송
@@ -98,7 +98,7 @@ public class AccountController {
             message.setSubject("기쁘티콘 회원가입 이메일 인증");
             message.setText("인증 코드: " + code);
 
-            javaMailSender.send(message);           // 생성한 메일내용 전송
+            javaMailSender.send(message);           // 생성한 메일 전송
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -3,13 +3,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ncncn.mapper.UserMapper">
 
-    <select id="readByEmail" resultType="com.ncncn.domain.UserVO">
+    <select id="readUserByEmail" resultType="com.ncncn.domain.UserVO">
         select *
         from user
         where email = #{email}
     </select>
 
-    <insert id="insert">
+    <insert id="insertUser">
         insert into user(email, pwd, name, tel_no, eml_auth_tkn, in_user, up_user)
             value (#{email}, #{pwd}, #{name}, #{telNo}, #{emlAuthTkn}, current_user , current_user)
     </insert>
@@ -19,7 +19,6 @@
         from user
         where email = #{email}
     </delete>
-
 
     <!-- LOGIN -->
     <select id="readForLogin" resultType="com.ncncn.domain.UserVO">
@@ -40,7 +39,6 @@
         where userT.role_code = roleT.code
         ;
     </select>
-
 
     <select id="readById" resultType="com.ncncn.domain.UserVO">
         select *
@@ -127,9 +125,7 @@
         )
     </select>
 
-
     <select id="getUserDetail" resultType="com.ncncn.domain.UserDetailCheckVO">
-
     <![CDATA[
         select u.id, u.email, u.name, u.tel_no, u.in_date, bname.code_name as bankName, b.acc as bankAccount,
                phist.balance, detail.deal_count, detail.paysum, pqust.pqust_count, u.enabled, u.memo
@@ -179,8 +175,7 @@
     </update>
 
     <select id="getMyInfo" resultType="com.ncncn.domain.UserInfoDTO">
-
-            <![CDATA[
+        <![CDATA[
         select user.id,
                user.email,
                user.pwd,
@@ -203,7 +198,6 @@
                 (select * from user where user.id = #{userId} and enabled = '1') user
         on user.id = bnkT.user_Id
         ]]>
-
      </select>
 
     <update id="updatePwd">

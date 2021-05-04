@@ -133,12 +133,12 @@ public class SignUpServiceTest {
 		user.setTelNo("01012341234");
 		user.setEmlAuthTkn("token123");
 
-		when(userMapper.insert(any())).thenReturn(1);
+		when(userMapper.insertUser(any())).thenReturn(1);
 		when(passwordEncoder.encode(anyString())).thenReturn(anyString());
 
 		int result = signUpService.register(user);
 
-		verify(userMapper).insert(user);
+		verify(userMapper).insertUser(user);
 		verify(passwordEncoder).encode(anyString());
 		assertEquals(1, result);
 	}

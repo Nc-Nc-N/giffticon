@@ -301,7 +301,7 @@ public class TotalJunitTestSM {
 
         String email = "pla_master26@naver.com";
 
-        UserVO user = signUpService.getByEmail(email);
+        UserVO user = signUpService.getUserByEmail(email);
 
         assertEquals(user.getPnt(),0);
         assertEquals(user.getRoleCode(),"002");

@@ -12,9 +12,9 @@ import java.util.List;
 
 public interface UserMapper {
 
-    UserVO readByEmail(String email);
+    UserVO readUserByEmail(String email);
 
-    int insert(UserVO userVO);
+    int insertUser(UserVO userVO);
 
     int deleteByEmail(String email);
 
@@ -40,7 +40,7 @@ public interface UserMapper {
 
     void updateStatus(UserStatusVO status);
 
-    public UserInfoDTO getMyInfo(int userId);
+    UserInfoDTO getMyInfo(int userId);
 
     int updatePwd(@Param("pwd") String pwd,
                   @Param("email") String email,
