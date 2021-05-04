@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-    <script src="https://apis.google.com/js/api:client.js"></script>
+<%--    <script src="https://apis.google.com/js/api:client.js"></script>--%>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>Kakao.init('ac51465d91bcae237e6703842ae5d0c5');</script>
 </head>
 <body>
@@ -55,15 +55,13 @@
     </div>
     <div class="element" id="socialLogin">
         <!-- Kakao Btn -->
-        <img class="social kakao" src="/resources/img/socialLogin/kakao_login_square.png">
-        <!-- Naver Btn -->
-        <img class="social naver" src="/resources/img/socialLogin/naver_login_square.PNG">
+        <img class="social kakao" src="/resources/img/socialLogin/kakao_login_medium_wide.png">
         <!-- Google Btn -->
-        <div id="gSignInWrapper">
-            <div id="googleBtn" class="customGPlusSignIn">
-                <img class="social google" src="/resources/img/socialLogin/google_login_square.png">
-            </div>
-        </div>
+<%--        <div id="gSignInWrapper">--%>
+<%--            <div id="googleBtn" class="customGPlusSignIn">--%>
+<%--                <img class="social google" src="/resources/img/socialLogin/google_login_square.png">--%>
+<%--            </div>--%>
+<%--        </div>--%>
     </div>
 
     <!-- social login-form -->
@@ -109,7 +107,7 @@ $(document).ready(function () {
                     $("#validateMsg").html("<i class='fas fa-exclamation-circle'></i>" + "소셜 계정입니다. 해당 로그인을 이욯해주세요");
                 } else if (result == "none") {
                     $("#validateMsg").html("<i class='fas fa-exclamation-circle'></i>" + "존재하지 않는 계정입니다.");
-                } else if (result == "basic") {
+                } else if (result == "normal") {
                     $(".form-basicLogin").submit();
                 }
             }
@@ -128,18 +126,11 @@ $(".kakao").on("click", function () {
     loginWithKakao();
 })
 
-$(".google").on("click", function () {
-
-    loginWithGoogle();
-})
-
-$(".naver").on("click", function () {
-
-    let soclType = "<c:out value="${soclTypes['네이버']}"/>";
-
-    alert("soclType :" + soclType);
-})
-
+//구글로그인은 비활성화입니다.
+// $(".google").on("click", function () {
+//
+//     loginWithGoogle();
+// })
 
 </script>
 
@@ -152,17 +143,11 @@ function loginWithKakao() {
     Kakao.Auth.login({
         success: function (authObj) {
 
-            alert(authObj.access_token)
-
-            // Kakao.Auth.setAccessToken(authObj.access_token);
-            alert("accessTOKEN: " + Kakao.Auth.getAccessToken());
             Kakao.API.request({
                 url: '/v2/user/me',
                 success: function (response) {
 
                     let email = response.kakao_account.email;
-
-                    alert("email : " + email);
 
                     let soclUserInfo = {
                         email: email,
@@ -189,7 +174,8 @@ function loginWithKakao() {
 
 </script>
 
-<script>   //google login function
+<!-- 구글 로그인은 비활성화 합니다 -->
+<script>  //google login function
 //얘는 왜 header에 넣어야 하나......
 var googleUser = {};
 

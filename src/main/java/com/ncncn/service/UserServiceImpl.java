@@ -143,9 +143,9 @@ public class UserServiceImpl implements UserService {
                 log.info("role: 003");
                 String soclTypeinDB = soclInfoMapper.getSocialInfo(user.getId()).getSoclCode();
 
-                if (soclTypeinDB.equals(soclType)) {
+                if (soclTypeinDB.equals(soclType)) { //소셜로그인 정보 일치하는 경우
                     return 3;
-                } else {
+                } else { //소셜로그인 계정이지만 다른 sns로 가입된경우
                     return 4;
                 }
 
@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return "none";
         } else if (user.getRoleCode().equals("001") || user.getRoleCode().equals("002")) {
-            return "basic";
+            return "normal";
         } else {
             return "social";
         }

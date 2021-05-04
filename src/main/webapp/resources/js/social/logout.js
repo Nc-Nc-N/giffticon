@@ -1,14 +1,12 @@
 function logoutWithKakao() {
 
-    alert("카카오로그아웃 실행....");
-
     if (!Kakao.Auth.getAccessToken()) {
-        alert("Not logged in.");
+        console.log("카카오 - 이미 로그아웃 되어있습니다.")
         return;
     } else {
 
         Kakao.Auth.logout(function () {
-            alert("카카오 로그아웃합니다.");
+            console.log("카카오 - 로그아웃 실행합니다.");
             console.log("Logout Auth TKN : " + Kakao.Auth.getAccessToken());
             logoutForm.submit();
         })

@@ -1,7 +1,5 @@
 function socialLogin(email, soclType, soclUserInfo) {
 
-    alert("type in js : " + soclType);
-    alert("type in js : " + typeof (soclType));
     $.ajax({
         url: '/account/socialAccountCheck',
         method: 'get',
@@ -12,7 +10,7 @@ function socialLogin(email, soclType, soclUserInfo) {
             soclLoginPathDivider(soclUserInfo, result);
         },
         error: function () {
-            alert("실패");
+            alert("소셜로그인 실패");
         }
 
     })
@@ -33,11 +31,9 @@ function soclLoginPathDivider(soclUserInfo, result) {
         // 소셜로그인 계정 있음. 로그인 실행
         socialLoginForm.find("input[name='username']").val(soclUserInfo.email);
         socialLoginForm.find("input[name='password']").val("");
-
-        alert("소셜로그인 진행");
-
         socialLoginForm.submit();
     } else if (result == 4) {
+        //다른 sns의 소셜계정인 계정인경우
         $("#validateMsg").html("<i class='fas fa-exclamation-circle'></i>" + "다른 SNS로 가입된 계정입니다. 해당 로그인을 이용해주세요");
         return;
     }

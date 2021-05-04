@@ -284,16 +284,13 @@
 
         let soclLoginName = "<%=soclType%>";
 
-        alert("socltype: " + soclLoginName);
-
         if (soclLoginName == null) {
             logoutForm.submit();
         } else if (soclLoginName == '카카오') {
             logoutWithKakao();
-        } else {
+        } else { //향후 추가되는 소셜로그인은 여기에 차례대로 추가해주세요
             logoutForm.submit();
         }
-
     })
 
 </script>

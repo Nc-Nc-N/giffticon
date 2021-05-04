@@ -178,7 +178,7 @@ a.link:hover {
 
 #socialLogin > img{
     height: 45px;
-    width: 45px;
+    width: 100%;
 }
 
 #gSignInWrapper{
