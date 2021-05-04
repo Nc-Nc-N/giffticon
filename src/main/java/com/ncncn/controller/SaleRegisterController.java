@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,20 +49,20 @@ public class SaleRegisterController {
 
     @GetMapping("/deal/saleGifticon")
     public String saleGifticon(HttpServletRequest request , Model model){
-
-        model.addAttribute("categoryList", cateService.getCategoryList());
-
-        int userId = 0;
+        try {
+            model.addAttribute("categoryList", cateService.getCategoryList());
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("initError", "카테고리 불러오기에 실패했습니다. 다시 시도해주세요");
+        }
 
         try {
-            userId = (int) request.getSession().getAttribute("userId");
+            int userId = (int) request.getSession().getAttribute("userId");
+            model.addAttribute("userId", userId);
+            log.info("userId= " + userId);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
-        model.addAttribute("userId", userId);
-
-        log.info("userId= " + userId);
 
         log.info("saleGifticon.........");
 

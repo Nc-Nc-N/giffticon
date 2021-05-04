@@ -209,7 +209,9 @@
                 </div>
                 <div class="modalbtn">
                     <button type="button" id="btn-to-main" class="btn btn-active" style="color:white">메인으로 이동</button>
-                    <button type="button" id="btn-to-hist" class="btn btn-disabled" style="margin-left:30px">판매 내역으로 이동</button>
+                    <button type="button" id="btn-to-hist" class="btn btn-disabled" style="margin-left:30px">판매 내역으로
+                        이동
+                    </button>
                 </div>
 
             </div>
@@ -224,6 +226,11 @@
 
 
     $(document).ready(function () {
+
+        // 페이지 로딩시 카테고리 불러오기 실패하면 에러메세지 출력
+        if ("${initError}" != "") {
+            alert("${initError}");
+        }
 
         // 가격종류 변경시 동작
         $("input:radio[name=group1]").click(function () {
