@@ -17,8 +17,6 @@
 #main{
     width:1000px;
     height:935px;
-    
-    /* background-color: lightgreen; */
 }
 
 /* 판매하기 */
@@ -31,8 +29,6 @@
 #content{
     height:855px;
     width:900px;
-    /* background-color:olive; */
-    /* margin: 0 0 0 50px; */
 }
 
 /* 한 카테고리 전체 */
@@ -88,14 +84,6 @@
     height: 100%;
     padding: 0.5rem 0px;
 }
-
-/*.brandbox {*/
-/*    display:none;*/
-/*}*/
-
-/*.productbox {*/
-/*    display:none;*/
-/*}*/
 
 /* select 박스 내용 */
 .categorySelect, .brandSelect, .productSelect  {
@@ -243,11 +231,6 @@
     cursor: pointer;
 }
 
-/*.box-file-input > label, span{*/
-/*    position:relative;*/
-/*    top:75px;*/
-/*}*/
-
 #dcrateindicator {
     color:rgb(255,88,93);
     font-size:14px;
@@ -362,18 +345,11 @@ button{
     color: rgb(71, 71, 71);
 }
 
-/*  $(document).height()  */
-/*  $(window).width()     */
-
 .modal_wrap{
     display:none;
-    /*display:block;*/
     width:850px;
     height:400px;
     position:absolute;
-    /*top:55%;*/
-    /*left:36%;*/
-    /*margin:-250px 0 0 -250px;*/
     top:2050px;
     left:27%;
     background:rgb(240,240,240);

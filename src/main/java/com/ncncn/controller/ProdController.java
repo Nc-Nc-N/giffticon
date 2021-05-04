@@ -31,8 +31,8 @@ public class ProdController {
 	private WishListService wishService;
 
 	// 기프티콘 목록 페이지
-	@GetMapping(value = "/prod_list")
-	public String prodList(GiftiCriteria cri, Model model){
+	@GetMapping(value = "/gifti_list")
+	public String giftiList(GiftiCriteria cri, Model model){
 
 		String code = cri.getCode();
 		int total = giftiService.getTotal(cri);
@@ -47,23 +47,23 @@ public class ProdController {
 				model.addAttribute("headerPageMaker", new PageDTO(cri, total));
 
 
-				return "/user/prod_list";
+				return "/user//gifticon/gifti_list";
 
 			} catch (Exception e) {
 				model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
-				return "/user/prod_list";
+				return "/user/gifticon/gifti_list";
 			}
 		}
 		else{	// code에 숫자가 아닌 다른 문자가 들어갔을 때
 			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
-			return "redirect:/user/prod_list?code=0";
+			return "redirect:/user/gifti_list?code=0";
 		}
 	}
 
 
 	// 기프티콘 상세 페이지
-	@GetMapping(value = "/prod_detail")
-	public String prodDetail(HttpServletRequest request, GiftiCriteria cri, WishListVO wish, Model model){
+	@GetMapping(value = "/gifti_detail")
+	public String giftiDetail(HttpServletRequest request, GiftiCriteria cri, WishListVO wish, Model model){
 
 		String code = cri.getCode();
 		int total = giftiService.getTotal(cri);
@@ -92,16 +92,16 @@ public class ProdController {
 				model.addAttribute("userId", userId);									// 로그인한 사용자 userId
 				model.addAttribute("hasWish", wishService.hasWish(wish));				// 관심상품에 등록되어 있는지(있으면 1, 없으면 0)
 
-				return "/user/prod_detail";
+				return "/user/gifticon/gifti_detail";
 
 			}catch (Exception e){
 				model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
-				return "/user/prod_detail";
+				return "/user/gifticon/gifti_detail";
 			}
 		}
 		else {	// code에 숫자가 아닌 다른 문자가 들어갔을 때
 			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
-			return "redirect:/user/prod_list?code=0";
+			return "redirect:/user/gifti_list?code=0";
 		}
 
 	}

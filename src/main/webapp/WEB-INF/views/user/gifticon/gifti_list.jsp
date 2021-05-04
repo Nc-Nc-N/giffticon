@@ -1,36 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-<%@include file="../common/header.jsp"%>
+<%@include file="../../common/header.jsp"%>
 
-<!DOCTYPE html>
-    <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="/resources/css/user/prod_list.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/user/prod.css" type="text/css">
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-</style>
+    <link rel="stylesheet" href="/resources/css/user/gifticon/gifti_list.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/gifticon/prod.css" type="text/css">
 </head>
-<body>
 
-    
     <!-- 컨테이너 전체 -->
     <div id="container">
         <div class="space"></div>
         <div class="main">
-            
+
+            <div class="search-result" style="display: none">총 <c:out value="${headerPageMaker.total}"/> 개의 상품이 검색되었습니다. </div>
+            <div class="noresult" style="display: none; font-size: large">'${headerPageMaker.cri.keyword}’ 상품을 찾지 못했습니다.</div>
+
             <!-- 카테고리바 -->
             <nav>
                 <div class="catename"><i class="<c:out value="${category.iconPath}"/>"></i> &nbsp;<c:out value="${category.name}"/></div>
-                <div class="search-result" style="display: none">총 <c:out value="${headerPageMaker.total}"/> 개의 상품이 검색되었습니다. </div>
-                <div class="noresult" style="display: none; font-size: large">'${headerPageMaker.cri.keyword}’ 상품을 찾지 못했습니다.</div>
                 <ul>
-                    <a class="cateAll ${headerPageMaker.cri.code == category.code ? "active":""}" href="prod_list?code=${category.code}&orderby=best">전체보기</a>
+                    <a class="cateAll ${headerPageMaker.cri.code == category.code ? "active":""}" href="gifti_list?code=${category.code}&orderby=best">전체보기</a>
                     <c:forEach items="${brandList}" var="brandList">
-                    <a class="brandList ${headerPageMaker.cri.code == brandList.code ? "active":""}" href="prod_list?code=${brandList.code}&orderby=best"><c:out value="${brandList.name}"/></a>
+                    <a class="brandList ${headerPageMaker.cri.code == brandList.code ? "active":""}" href="gifti_list?code=${brandList.code}&orderby=best"><c:out value="${brandList.name}"/></a>
                     </c:forEach>
                 </ul>
             </nav>
@@ -68,7 +58,7 @@
                     <tr>
                 </c:if>
                 <td>
-                    <a href="prod_detail?code=${gifti.prodCode}">
+                    <a href="gifti_detail?code=${gifti.prodCode}">
                     <div class="items">
                         <div class="pic">
                             <div class="img">
@@ -133,7 +123,7 @@
     </div>
 
     <%-- 페이지 번호 -> url 이동 --%>
-    <form id="actionForm" action='/user/prod_list' method="get">
+    <form id="actionForm" action='/user/gifti_list' method="get">
         <input type="hidden" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>'>
         <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'>
         <input type="hidden" name="orderby" value='<c:out value="${headerPageMaker.cri.orderby}"/>'>
@@ -155,10 +145,10 @@
         let selectedOrder = new_curr_url.searchParams.get("orderby");
 
         // 인기순 8위까지 보여주기
-        if(selectedOrder==='best'){
+        if(selectedOrder==='best' && code==='0'){
             $('.best').show();
         }
-        if(${headerPageMaker.cri.pageNum} >1){
+        if(${headerPageMaker.cri.pageNum} > 1){
             $('.best').hide();
         }
 
@@ -182,7 +172,7 @@
 
             let orderby = $(".search-select option:selected").val();
 
-            location.href="prod_list?keyword=${headerPageMaker.cri.keyword}&code="+code+"&orderby="+orderby+"&pageNum=1&amount=${headerPageMaker.cri.amount}";
+            location.href="gifti_list?keyword=${headerPageMaker.cri.keyword}&code="+code+"&orderby="+orderby+"&pageNum=1&amount=${headerPageMaker.cri.amount}";
         });
 
         // 페이지 번호 이벤트 처리

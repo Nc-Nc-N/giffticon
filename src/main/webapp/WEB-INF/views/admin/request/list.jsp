@@ -135,31 +135,39 @@
 <div class="modal detail">
     <!-- detail modal -->
     <div id="detail-modal">
-        <h2>판매요청상세</h2>
+        <div class="modal-title">판매요청상세</div>
 
         <table id="rq-td">
             <tr class="under-line">
                 <td class="td-title">
                     <div>요청번호</div>
                 </td>
-                <td colspan="5" class="w90">
+                <td colspan="5">
                     <div class="td-cntnt gftId"></div>
                 </td>
             </tr>
-            <tr class="under-line">
+            <tr>
                 <td class="td-title">
-                    <div>상품분류</div>
+                    <div>상품</div>
                 </td>
-                <td colspan="5" class="w90">
-                    <div class="td-cntnt cate"></div>
+                <td colspan="5">
+                    <div class="select-list">
+                        <ul>
+                            <li class="cate-list"></li>
+                            <li class="brd-list"></li>
+                            <li class="prod-list"></li>
+                        </ul>
+                    </div>
                 </td>
             </tr>
             <tr class="under-line">
-                <td class="td-title">
-                    <div>상품명</div>
-                </td>
+                <td class="td-title">&nbsp;</td>
                 <td colspan="5">
-                    <div class="td-cntnt prodName"></div>
+                    <div class="td-cntnt">
+                        <span class="cate-name"></span>&nbsp;&nbsp;&gt;&nbsp;
+                        <span class="brd-name"></span>&nbsp;&nbsp;&gt;&nbsp;
+                        <span class="prod-name"></span>
+                    </div>
                 </td>
             </tr>
             <tr class="under-line">
@@ -187,7 +195,7 @@
             <tr class="under-line">
                 <td class="td-title">&nbsp;</td>
                 <td colspan="5">
-                    <div class="prc-td">
+                    <div class="prc-td td-cntnt">
                         <input type="radio" name="isAuto" value="1" disabled>추천가격
                         <input type="radio" name="isNotAuto" value="0" disabled>직접입력
                     </div>
@@ -216,7 +224,7 @@
             <tr>
                 <td class="td-title">&nbsp;</td>
                 <td colspan="5">
-                    <a class="img-btn">기프티콘 이미지 확인</a>
+                    <div class="td-cntnt"><a class="img-btn">기프티콘 이미지 확인</a></div>
                 </td>
             </tr>
         </table>
@@ -224,7 +232,7 @@
         <div id="rq-btn-area">
             <button class="btn btn-active rq-aprv">승인</button>
             <button class="btn btn-disabled cancel">취소</button>
-            <button class="btn dark rq-delete">삭제</button>
+            <button class="btn dark rq-delete">반려</button>
         </div>
     </div>
 </div>
@@ -240,12 +248,13 @@
 </div>
 <!-- delete loading modal end -->
 
+<script src="/resources/js/user/autoPrc.js"></script>
 <script>
     $(document).ready(function (e) {
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
-        // 사이드바 판매요청관리 active 
+        // 사이드바 판매요청관리 active
         $("a[name='rqust-list']").attr('class', 'active');
 
         function submitAction(form, pageNum) {
@@ -270,19 +279,12 @@
 
         // modal에 값을 추가하기 위한 변수
         let modal = $("#detail-modal");
-        let modalgftId = modal.find(".gftId");
-        let modalCate = modal.find(".cate");
-        let modalProdName = modal.find(".prodName");
-        let modalRequester = modal.find(".requester");
         let modalDcPrc = modal.find(".dcPrc");
         let modalProdPrc = modal.find(".prodPrc");
         let modalIsAuto = modal.find("input[name='isAuto']");
         let modalIsNotAuto = modal.find("input[name='isNotAuto']");
-        let modalExpirDt = modal.find(".expirDt");
-        let modalBrcd = modal.find(".brcd");
-        let modalDescn = modal.find(".descn");
-        let modalImgBtn = modal.find(".img-btn");
         // 모달에 포함된 버튼
+        let modalImgBtn = modal.find(".img-btn");
         let aprvBtn = modal.find(".rq-aprv");
         let deleteBtn = modal.find(".rq-delete");
         let cancleBtn = modal.find(".cancel");
@@ -297,109 +299,150 @@
             e.preventDefault();
 
             let gftId = $(this).attr("href");
-            let rqust = {};
+            let rqust = getRqust(gftId);
 
-            let errorFlag = false;
+            if (rqust === null) return;
 
-            // id에 해당하는 기프티콘 한 개를 조회
-            $.ajax({
-                type: 'get',
-                url: '/admin/request/' + gftId,
-                async: false,
-                success: function (result) {
-                    rqust = result;
-                },
-                error: function (result) {
-                    alert("다시 한 번 시도해주세요.");
+            let cateCode = rqust.prodCode.substr(0, 2);
+            let brdCode = rqust.prodCode.substr(0, 4)
 
-                    hideModal();
-                    submitAction(searchForm, "1");
-                    errorFlag = true;
+            getCategoryList();
+            $(".cate-list div button[id=" + cateCode + "]").attr("class", "active-prod-btn");
+            $(".cate-name").text(rqust.cateName);
+            $(".cate-list ").on("click", "div button", function (e) {
+                e.preventDefault();
+
+                let isChanged = confirm("상품 카테고리를 변경하시겠습니까?");
+                if (!isChanged) return;
+
+                removeBrdList();
+                removeProdList();
+                if (rqust.isAutoPrc === '1') modalDcPrc.empty();
+                modalProdPrc.empty();
+
+                $(".cate-list button.active-prod-btn").attr("class", "");
+                e.target.classList.add("active-prod-btn");
+                $(".cate-name").text(e.target.name);
+
+                getBrdList(rqust.prodCode, e.target.id);
+            });
+
+            getBrdList(rqust.prodCode, cateCode);
+            $(".brd-list div button[id=" + brdCode + "]").attr("class", "active-prod-btn");
+            $(".brd-name").text(rqust.brdName);
+            $(".brd-list ").on("click", "div button", function (e) {
+                e.preventDefault();
+
+                let isChanged = confirm("상품 브랜드를 변경하시겠습니까?");
+                if (!isChanged) return;
+
+                removeProdList();
+                if (rqust.isAutoPrc === '1') modalDcPrc.empty();
+                modalProdPrc.empty();
+
+                $(".brd-list button.active-prod-btn").attr("class", "");
+                e.target.classList.add("active-prod-btn");
+                $(".brd-name").text(e.target.name);
+
+                getProdList(rqust.prodCode, e.target.id);
+            });
+
+            getProdList(rqust.prodCode, brdCode);
+            $(".prod-list div button[id=" + rqust.prodCode + "]").attr("class", "active-prod-btn");
+            $(".prod-name").text(rqust.prodName);
+            $(".prod-list ").on("click", "div button", function (e) {
+                e.preventDefault();
+                let isChanged = confirm("상품명을 변경하시겠습니까?");
+                if (!isChanged) return;
+
+                // 이전에 선택한 버튼의 클래스 값 초기화
+                $(".prod-list button.active-prod-btn").attr("class", "");
+
+                e.target.classList.add("active-prod-btn");
+                $(".prod-name").text(e.target.name);
+
+                let prod = getProd(e.target.id);
+                if (rqust.isAutoPrc === '1') {
+                    let autoDcPrcAndRate = calAutoPrc(prod.prc, prod.inDcRate, rqust.expirDt);
+                    modalDcPrc.text(autoDcPrcAndRate[0] + "  원");
+                    modalProdPrc.text(prod.prc + "  원  ")
+                        .append("<span class='rq-rate'>" + parseInt(parseFloat(autoDcPrcAndRate[1]) * 100) + "%</span>");
+                } else {
+                    let newDcRate = (prod.prc - rqust.dcPrc) / parseFloat(prod.prc);
+                    modalProdPrc.text(prod.prc + "  원  ")
+                        .append("<span class='rq-rate'>" + parseInt(parseFloat(newDcRate) * 100) + "%</span>");
                 }
             });
 
-            if (!errorFlag) {
-                // 모달에 기프티콘 정보를 출력
-                modalgftId.text(rqust.gftId);
-                modalCate.text(rqust.cateName + " > " + rqust.brdName);
-                modalProdName.text(rqust.prodCode + "  " + rqust.prodName);
-                modalRequester.text(rqust.requester);
-                modalDcPrc.text(rqust.dcPrc + "  원");
-                modalProdPrc.text(rqust.prodPrc + "  원  ").append("<span class='rq-rate'>" + parseInt(parseFloat(rqust.dcRate) * 100) + "%</span>");
-                if (rqust.isAuto === '1') {
-                    modalIsAuto.prop("checked", true);
-                } else {
-                    modalIsNotAuto.prop("checked", true);
-                }
-                modalExpirDt.text("~  " + rqust.expirDt);
-                modalBrcd.text(rqust.brcd);
-                modalDescn.text(rqust.descn);
+            // 모달에 기프티콘 정보를 출력
+            modal.find(".gftId").text(rqust.gftId);                    // 요청번호
+            modal.find(".requester").text(rqust.requester);            // 판매자 이메일
+            modalDcPrc.text(rqust.dcPrc + "  원");           // 판매가
+            modalProdPrc.text(rqust.prodPrc + "  원  ")      // 정가, 할인율
+                .append("<span class='rq-rate'>" + parseInt(rqust.dcRate * 100) + "%</span>");
+            modal.find(".expirDt").text(rqust.expirDt + " 까지");      // 유효기간
+            modal.find(".brcd").text(rqust.brcd);                      // 바코드번호
+            modal.find(".descn").text(rqust.descn);                    // 판매자 메모
 
-                modalImgBtn.on("click", function (e) {
-                    e.preventDefault();
-                    // 기프티콘 이미지를 새창에 띄워줌
-                    window.open(rqust.imgPath, "gfticon img", "width=700, height=900");
-                });
-
-                // modal 승인버튼을 클릭하면 실행될 함수
-                aprvBtn.on("click", function (e) {
-                    e.preventDefault();
-
-                    $.ajax({
-                        type: 'patch',
-                        url: '/admin/request/' + gftId,
-                        async: false,
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                        },
-                        success: function () {
-                            alert("승인 완료");
-                            hideModal();
-
-                            let pageNum = parseInt("${pageMaker.cri.pageNum}");
-                            let realEnd = getRealEnd("${pageMaker.total}", "${pageMaker.cri.amount}");
-                            submitAction(searchForm, pageNum > realEnd ? realEnd : pageNum);
-                        },
-                        error: function () {
-                            alert("다시 한 번 시도해주세요.");
-                        }
-                    });
-                });
-
-                // 삭제버튼을 클릭하면 실행될 함수
-                deleteBtn.on("click", function (e) {
-                    e.preventDefault();
-
-                    let cause = prompt("요청반려 사유를 입력해주세요.");
-
-                    if (cause !== null) {
-                        hideModal();
-                        $(".delete").css("visibility", "visible");
-                        $.ajax({
-                            type: 'delete',
-                            url: '/admin/request/' + gftId,
-                            contentType: "application/json",
-                            data: JSON.stringify({email: rqust.requester, cause: cause}),
-                            beforeSend: function (xhr) {
-                                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                            },
-                            success: function () {
-                                $(".delete").css("visibility", "hidden");
-
-                                let pageNum = parseInt("${pageMaker.cri.pageNum}");
-                                let realEnd = getRealEnd("${pageMaker.total}", "${pageMaker.cri.amount}");
-                                submitAction(searchForm, pageNum > realEnd ? realEnd : pageNum);
-                            },
-                            error: function () {
-                                alert("다시 한 번 시도해주세요.");
-                            }
-                        });
-                    }
-                });
-
-                // 모달 show
-                showModal();
+            // 추천가격을 선택한 경우 남은 유효기간에 따라 가격변경
+            if (rqust.isAutoPrc === '1') {
+                // 정가, 기본할인율, 유효기간에 따라 할인가, 할인율을 계산
+                let autoDcPrcAndRate = calAutoPrc(rqust.prodPrc, rqust.inDcRate, rqust.expirDt);
+                modalDcPrc.text(autoDcPrcAndRate[0] + "  원");
+                modalProdPrc.text(rqust.prodPrc + "  원  ").append("<span class='rq-rate'>" + parseInt(parseFloat(autoDcPrcAndRate[1]) * 100) + "%</span>");
+                modalIsAuto.prop("checked", true);
+            } else {
+                modalIsNotAuto.prop("checked", true);
             }
+
+            modalImgBtn.on("click", function (e) {
+                e.preventDefault();
+                // 기프티콘 이미지를 새창에 띄워줌
+                window.open(rqust.imgPath, "gfticon img", "width=700, height=900");
+            });
+
+            // modal 승인버튼을 클릭하면 실행될 함수
+            aprvBtn.on("click", function (e) {
+                e.preventDefault();
+
+                let prodCode = $(".prod-list button.active-prod-btn").attr("id");
+
+                if (prodCode === undefined) {
+                    alert("상품을 선택해주세요.");
+                    return;
+                }
+                if (prodCode === "999999") {
+                    alert("기타 상품은 요청 승인 불가능합니다.");
+                    return;
+                }
+
+                let isAprv = confirm("No." + rqust.gftId + "  "
+                    + $(".cate-name").text() + " > " + $(".brd-name").text() + " > " + $(".prod-name").text() + "\n\n"
+                    + "판매 승인하시겠습니까? \n(상품명과 요청 상세를 다시 한 번 확인해주세요.)");
+
+                if (isAprv) {
+                    let newDcPrc = modalDcPrc.text().replaceAll(/[^0-9]/g, "");
+                    let newDcRate = parseInt($(".rq-rate").text().replaceAll(/[^0-9]/g, "")) * 0.01;
+                    // 서버로 승인요청 전송
+                    approveRqust(gftId, prodCode, newDcPrc, newDcRate)
+                }
+            });
+
+            // 삭제버튼을 클릭하면 실행될 함수
+            deleteBtn.on("click", function (e) {
+                e.preventDefault();
+                let cause = prompt("요청반려 사유를 입력해주세요.");
+
+                if (cause !== null) {
+                    hideModal();
+                    $(".delete").css("visibility", "visible");
+                    // 서버로 요청반려 전송
+                    deleteRqust(gftId, rqust, cause);
+                }
+            });
+
+            // 모달 show
+            showModal();
         });
 
         function showModal() {
@@ -410,7 +453,15 @@
         function hideModal() {
             $(".detail").css("visibility", "hidden");
             $('html').css("overflow", "visible");
+            // 체크박스 속성 초기화
+            modalIsAuto.prop("checked", false);
+            modalIsNotAuto.prop("checked", false);
             // 기존 이벤트를 삭제
+            $(".cate-list").off();
+            $(".cate-list div button").remove();
+            $(".brd-list").off();
+            $(".prod-list").off();
+            modalImgBtn.off();
             aprvBtn.off();
             deleteBtn.off();
         }
@@ -419,6 +470,176 @@
             let total = parseInt(t) - 1;
             let amount = parseInt(a);
             return parseInt(Math.ceil((total * 1.0) / amount));
+        }
+
+        function getCategoryList() {
+            removeBrdList();
+            removeProdList();
+
+            let cateList = [];
+
+            $.ajax({
+                type: 'get',
+                url: '/admin/request/getCategoryList',
+                async: false,
+                success: function (result) {
+                    result.forEach(item => cateList.push({code: item.code, name: item.name}));
+                },
+                error: function (result) {
+                    alert("다시 한 번 시도해주세요.");
+
+                    hideModal();
+                    submitAction(searchForm, "1");
+                }
+            });
+
+            fillList(".cate-list", cateList);
+        }
+
+        function getBrdList(prodCode, cateCode) {
+            let brdList = [];
+
+            $.ajax({
+                type: 'get',
+                url: '/admin/request/getBrdList?code=' + cateCode,
+                async: false,
+                success: function (result) {
+                    result.forEach(item => brdList.push({code: item.code, name: item.name}));
+                },
+                error: function (result) {
+                    alert("다시 한 번 시도해주세요.");
+
+                    hideModal();
+                    submitAction(searchForm, "1");
+                }
+            });
+
+            fillList(".brd-list", brdList);
+        }
+
+        function getProdList(prodCode, brdCode) {
+            let prodList = [];
+            $.ajax({
+                type: 'get',
+                url: '/admin/request/getProdList?brdCode=' + brdCode,
+                async: false,
+                success: function (result) {
+                    result.forEach(item => prodList.push(item));
+                },
+                error: function (result) {
+                    alert("다시 한 번 시도해주세요.");
+                    hideModal();
+                    submitAction(searchForm, "1");
+                }
+            });
+
+            // 상품목록을 채움
+            fillList(".prod-list", prodList);
+        }
+
+        function fillList(listClass, list) {
+            list.forEach(item => {
+                $(listClass).append(
+                    "<div><button id='" + item.code + "' name='" + item.name + "'>" + item.name + "</button></div>");
+            });
+        }
+
+        function getRqust(gftId) {
+            let rqust = null;
+
+            $.ajax({
+                type: 'get',
+                url: '/admin/request/' + gftId,
+                async: false,
+                success: function (result) {
+                    rqust = result;
+                },
+                error: function (result) {
+                    alert("다시 한 번 시도해주세요.");
+                    hideModal();
+                    submitAction(searchForm, "1");
+                }
+            });
+
+            return rqust;
+        }
+
+        function getProd(code) {
+            let prod = {};
+
+            $.ajax({
+                type: 'get',
+                url: '/admin/request/getProd?code=' + code,
+                async: false,
+                success: function (result) {
+                    prod = result;
+                },
+                error: function (result) {
+                    alert("다시 한 번 시도해주세요.");
+                    hideModal();
+                    submitAction(searchForm, "1");
+                }
+            });
+
+            return prod;
+        }
+
+        function removeBrdList() {
+            $(".brd-list div button").remove();
+            $(".brd-name").empty();
+        }
+
+        function removeProdList() {
+            $(".prod-list div button").remove();
+            $(".prod-name").empty();
+        }
+
+        function approveRqust(gftId, prodCode, newDcPrc, newDcRate) {
+            $.ajax({
+                type: 'patch',
+                url: '/admin/request/' + gftId,
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                },
+                data: JSON.stringify({
+                    prodCode: prodCode,
+                    dcPrc: newDcPrc,
+                    dcRate: newDcRate
+                }),
+                success: function (result) {
+                    alert("승인 완료");
+                    hideModal();
+                    let pageNum = parseInt("${pageMaker.cri.pageNum}");
+                    let realEnd = getRealEnd("${pageMaker.total}", "${pageMaker.cri.amount}");
+                    submitAction(searchForm, pageNum > realEnd ? realEnd : pageNum);
+                },
+                error: function (result) {
+                    alert("다시 한 번 시도해주세요.");
+                }
+            });
+        }
+
+        function deleteRqust(gftId, rqust, cause) {
+            $.ajax({
+                type: 'delete',
+                url: '/admin/request/' + gftId,
+                contentType: "application/json",
+                data: JSON.stringify({email: rqust.requester, cause: cause}),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                },
+                success: function () {
+                    $(".delete").css("visibility", "hidden");
+                    let pageNum = parseInt("${pageMaker.cri.pageNum}");
+                    let realEnd = getRealEnd("${pageMaker.total}", "${pageMaker.cri.amount}");
+                    submitAction(searchForm, pageNum > realEnd ? realEnd : pageNum);
+                },
+                error: function () {
+                    alert("다시 한 번 시도해주세요.");
+                }
+            });
         }
     });
 </script>
