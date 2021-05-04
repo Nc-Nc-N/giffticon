@@ -29,7 +29,7 @@ public class SignUpServiceTest {
 	SignUpServiceImpl signUpService;
 
 	@Test(expected = IllegalArgumentException.class)
-	public void registerFailToEmailInvalid() {
+	public void registerFailToEmailInvalid() throws Exception {
 		UserVO user = new UserVO();
 		user.setEmail("aaa");
 		user.setPwd("test1234!");
@@ -41,7 +41,7 @@ public class SignUpServiceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void registerFailToPwdInvalid1() {
+	public void registerFailToPwdInvalid1() throws Exception {
 		UserVO user = new UserVO();
 		user.setEmail("test@ncncn.com");
 		user.setPwd("test12");
@@ -53,7 +53,7 @@ public class SignUpServiceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void registerFailToPwdInvalid2() {
+	public void registerFailToPwdInvalid2() throws Exception {
 		UserVO user = new UserVO();
 		user.setEmail("test@ncncn.com");
 		user.setPwd("1234567!");
@@ -65,7 +65,7 @@ public class SignUpServiceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void registerFailToNameInvalid1() {
+	public void registerFailToNameInvalid1() throws Exception {
 		UserVO user = new UserVO();
 		user.setEmail("test@ncncn.com");
 		user.setPwd("test1234!");
@@ -77,7 +77,7 @@ public class SignUpServiceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void registerFailToNameInvalid2() {
+	public void registerFailToNameInvalid2() throws Exception {
 		UserVO user = new UserVO();
 		user.setEmail("test@ncncn.com");
 		user.setPwd("test1234!");
@@ -89,7 +89,7 @@ public class SignUpServiceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void registerFailToTelNoInvalid1() {
+	public void registerFailToTelNoInvalid1() throws Exception {
 		UserVO user = new UserVO();
 		user.setEmail("test@ncncn.com");
 		user.setPwd("test12");
@@ -101,7 +101,7 @@ public class SignUpServiceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void registerFailToTelNoInvalid2() {
+	public void registerFailToTelNoInvalid2() throws Exception {
 		UserVO user = new UserVO();
 		user.setEmail("test@ncncn.com");
 		user.setPwd("test12");
@@ -113,7 +113,7 @@ public class SignUpServiceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void registerFailToAuthTknInvalid() {
+	public void registerFailToAuthTknInvalid() throws Exception {
 		UserVO user = new UserVO();
 		user.setEmail("test@ncncn.com");
 		user.setPwd("test1234!");
@@ -125,7 +125,7 @@ public class SignUpServiceTest {
 	}
 
 	@Test
-	public void registerSuccessTest() {
+	public void registerSuccessTest() throws Exception {
 		UserVO user = new UserVO();
 		user.setEmail("test@ncncn.com");
 		user.setPwd("test1234!");

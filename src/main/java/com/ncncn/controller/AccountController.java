@@ -57,27 +57,28 @@ public class AccountController {
         return "/account/signUp";
     }
 
+    // 회원 등록 요청
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> register(@RequestBody UserVO user) {
         try {
             // 사용자 등록
             int result = signUpService.register(user);
         } catch (Exception e) {
+            // 등록 실패사유를 응답에 담아 전송
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
+    // 이메일 중복확인
     @GetMapping(value = "/checkExists", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> checkExists(@RequestParam("email") String email) {
         int isExists = 0;
-
         try {
             UserVO userVO = signUpService.getByEmail(email);
             if (userVO != null) isExists = 1;                   // 해당 이메일을 가진 사용자가 존재하면 1
         } catch (Exception e) {
-            log.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -97,12 +98,12 @@ public class AccountController {
             message.setSubject("기쁘티콘 회원가입 이메일 인증");
             message.setText("인증 코드: " + code);
 
-            javaMailSender.send(message);
+            javaMailSender.send(message);           // 생성한 메일내용 전송
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        map.put("code", code);      // 인증메일 전송에 성공하면 map에 인증코드를 담아 전달
+        map.put("code", code);                      // 인증메일 전송에 성공하면 map에 인증코드를 담아 전달
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

@@ -271,7 +271,7 @@ public class TotalJunitTestSM {
     }
 
     @Test
-    public void SignUpTest1(){
+    public void SignUpTest1() throws Exception {
 
         UserVO user = new UserVO();
 
@@ -309,7 +309,7 @@ public class TotalJunitTestSM {
     }
 
     @Test
-    public void SignUpTest3(){
+    public void SignUpTest3() throws Exception {
 
         UserVO user = new UserVO();
 

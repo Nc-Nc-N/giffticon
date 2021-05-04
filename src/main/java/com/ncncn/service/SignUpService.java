@@ -6,6 +6,6 @@ public interface SignUpService {
 
 	UserVO getByEmail(String email);
 
-	int register(UserVO userVO);
+	int register(UserVO userVO) throws Exception;
 
 }

@@ -1,5 +1,7 @@
 package com.ncncn.service;
 
+import java.sql.SQLException;
+
 import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserMapper;
 import com.ncncn.util.UserValidator;
@@ -24,7 +26,7 @@ public class SignUpServiceImpl implements SignUpService {
 		return userMapper.readByEmail(email);
 	}
 
-	public int register(UserVO userVO) throws IllegalArgumentException {
+	public int register(UserVO userVO) throws Exception {
 		checkValidateUser(userVO);
 
 		String encodedPwd = passwordEncoder.encode(userVO.getPwd());
@@ -34,7 +36,7 @@ public class SignUpServiceImpl implements SignUpService {
 		try {
 			result = userMapper.insert(userVO);
 		} catch (Exception e) {
-			throw new IllegalArgumentException("가입중 문제가 발생했습니다.");
+			throw new SQLException("가입중 문제가 발생했습니다.");
 		}
 
 		return result;
