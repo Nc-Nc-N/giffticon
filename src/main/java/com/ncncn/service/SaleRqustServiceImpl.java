@@ -1,63 +1,64 @@
 package com.ncncn.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
 import com.ncncn.mapper.GifticonMapper;
 import com.ncncn.mapper.ProductMapper;
 import lombok.extern.log4j.Log4j;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Map;
 
 @Service
 @Log4j
 public class SaleRqustServiceImpl implements SaleRqustService {
 
-    private GifticonMapper gifticonMapper;
+	private GifticonMapper gifticonMapper;
 
-    private ProductMapper productMapper;
+	private ProductMapper productMapper;
 
-    public SaleRqustServiceImpl(GifticonMapper gifticonMapper, ProductMapper productMapper) {
-        this.gifticonMapper = gifticonMapper;
-        this.productMapper = productMapper;
-    }
+	public SaleRqustServiceImpl(GifticonMapper gifticonMapper, ProductMapper productMapper) {
+		this.gifticonMapper = gifticonMapper;
+		this.productMapper = productMapper;
+	}
 
-    @Override
-    public List<SaleRqustVO> getAllRqust(SaleRqustCriteria cri) {
-        return gifticonMapper.readAllRqustWithPaging(cri);
-    }
+	@Override
+	public List<SaleRqustVO> getAllRqust(SaleRqustCriteria cri) {
+		return gifticonMapper.readAllRqustWithPaging(cri);
+	}
 
-    @Override
-    public Map<String, Object> getRqustById(int id) {
-        Map<String, Object> saleRqust = gifticonMapper.readRqustById(id);
+	@Override
+	public Map<String, Object> getRqustById(int id) {
+		Map<String, Object> saleRqust = gifticonMapper.readRqustById(id);
 
-        if (saleRqust == null || saleRqust.size() == 0) {
-            log.warn("해당 판매요청이 존재하지 않습니다.");
-            throw new NullPointerException("해당 판매요청이 존재하지 않습니다.");
-        }
+		if (saleRqust == null || saleRqust.size() == 0) {
+			log.warn("해당 판매요청이 존재하지 않습니다.");
+			throw new NullPointerException("해당 판매요청이 존재하지 않습니다.");
+		}
 
-        return saleRqust;
-    }
+		return saleRqust;
+	}
 
-    @Override
-    public int getTotalCount(SaleRqustCriteria cri) {
-        return gifticonMapper.countAllRqust(cri);
-    }
+	@Override
+	public int getTotalCount(SaleRqustCriteria cri) {
+		return gifticonMapper.countAllRqust(cri);
+	}
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
-    @Override
-    public void approveRequest(int id, Map<String, String> rqust) {
-        // 기프티콘 상태(판매요청 -> 판매중), 상품코드, 판매가, 할인율 변경
-        gifticonMapper.updateSaleRqust(id, rqust.get("prodCode"), Integer.parseInt(rqust.get("dcPrc")), Double.parseDouble(rqust.get("dcRate")));
-        productMapper.updateRegQuty(rqust.get("prodCode"));     // prodCode에 해당하는 상품의 기프티콘 개수  + 1
-    }
+	@Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+	@Override
+	public void approveRequest(int id, Map<String, String> rqust) {
+		// 기프티콘 상태(판매요청 -> 판매중), 상품코드, 판매가, 할인율 변경
+		gifticonMapper.updateSaleRqust(id, rqust.get("prodCode"), Integer.parseInt(rqust.get("dcPrc")), Double.parseDouble(rqust.get("dcRate")));
+		productMapper.updateRegQuty(rqust.get("prodCode"));     // prodCode에 해당하는 상품의 기프티콘 개수  + 1
+	}
 
-    @Override
-    public int removeRqust(int id) {
-        return gifticonMapper.deleteGifticon(id);
-    }
+	@Override
+	public int removeRqust(int id) {
+		return gifticonMapper.deleteGifticon(id);
+	}
 
 }

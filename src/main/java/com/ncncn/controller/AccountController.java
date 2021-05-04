@@ -7,11 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.ncncn.domain.UserVO;
 import com.ncncn.service.SignUpService;
-import com.ncncn.service.SignUpServiceImpl;
 import com.ncncn.util.EmailAuthCodeUtils;
 import lombok.extern.log4j.Log4j;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,99 +24,99 @@ import org.springframework.web.bind.annotation.*;
 @Log4j
 public class AccountController {
 
-    private SignUpService signUpService;
-    private JavaMailSender javaMailSender;
+	private SignUpService signUpService;
+	private JavaMailSender javaMailSender;
 
-    public AccountController(SignUpService signUpService, JavaMailSender javaMailSender) {
-        this.signUpService = signUpService;
-        this.javaMailSender = javaMailSender;
-    }
+	public AccountController(SignUpService signUpService, JavaMailSender javaMailSender) {
+		this.signUpService = signUpService;
+		this.javaMailSender = javaMailSender;
+	}
 
-    @GetMapping("/signIn")
-    public void signIn(HttpServletRequest request, String error, Model model) {
+	@GetMapping("/signIn")
+	public void signIn(HttpServletRequest request, String error, Model model) {
 
-        model = cookieChecker(request, model);
+		model = cookieChecker(request, model);
 
-        //로그인 실패 시
-        if (error != null) {
-            model.addAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
-        }
+		//로그인 실패 시
+		if (error != null) {
+			model.addAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
+		}
 
-        //직접 logout 해서 로그인 창으로 왔을 시
-        if (request.getSession().getAttribute("logout") != null) {
-            model.addAttribute("msg", "로그아웃되었습니다.");
-            request.getSession().removeAttribute("logout");
-        }
+		//직접 logout 해서 로그인 창으로 왔을 시
+		if (request.getSession().getAttribute("logout") != null) {
+			model.addAttribute("msg", "로그아웃되었습니다.");
+			request.getSession().removeAttribute("logout");
+		}
 
-        request.getSession().setAttribute("referer", request.getHeader("referer"));
-    }
+		request.getSession().setAttribute("referer", request.getHeader("referer"));
+	}
 
-    @GetMapping("/signUp")
-    public String getSignUp() {
-        return "/account/signUp";
-    }
+	@GetMapping("/signUp")
+	public String getSignUp() {
+		return "/account/signUp";
+	}
 
-    // 회원 등록 요청
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/text; charset=UTF-8")
-    public ResponseEntity<String> register(@RequestBody UserVO user) {
-        try {
-            // 사용자 등록
-            int result = signUpService.register(user);
-        } catch (Exception e) {
-            // 등록 실패사유를 응답에 담아 전송
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+	// 회원 등록 요청
+	@PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/text; charset=UTF-8")
+	public ResponseEntity<String> register(@RequestBody UserVO user) {
+		try {
+			// 사용자 등록
+			int result = signUpService.register(user);
+		} catch (Exception e) {
+			// 등록 실패사유를 응답에 담아 전송
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-        return new ResponseEntity<>("success", HttpStatus.OK);
-    }
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
 
-    // 이메일 중복확인
-    @GetMapping(value = "/checkExists", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> checkExists(@RequestParam("email") String email) {
-        boolean isExists = false;
-        try {
-            isExists = signUpService.isEmailExists(email);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+	// 이메일 중복확인
+	@GetMapping(value = "/checkExists", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> checkExists(@RequestParam("email") String email) {
+		boolean isExists = false;
+		try {
+			isExists = signUpService.isEmailExists(email);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-        return new ResponseEntity<>(isExists, HttpStatus.OK);
-    }
+		return new ResponseEntity<>(isExists, HttpStatus.OK);
+	}
 
-    // 사용자가 입력한 이메일로 인증메일 전송
-    @GetMapping(value = "/emailConfirm", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, String>> confirmEmail(@RequestParam("email") String email) {
-        Map<String, String> map = new HashMap<>();
+	// 사용자가 입력한 이메일로 인증메일 전송
+	@GetMapping(value = "/emailConfirm", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, String>> confirmEmail(@RequestParam("email") String email) {
+		Map<String, String> map = new HashMap<>();
 
-        String code = EmailAuthCodeUtils.getAuthCode();         // 인증코드 생성
-        SimpleMailMessage message = new SimpleMailMessage();
+		String code = EmailAuthCodeUtils.getAuthCode();         // 인증코드 생성
+		SimpleMailMessage message = new SimpleMailMessage();
 
-        try {
-            message.setTo(email);
-            message.setSubject("기쁘티콘 회원가입 이메일 인증");
-            message.setText("인증 코드: " + code);
+		try {
+			message.setTo(email);
+			message.setSubject("기쁘티콘 회원가입 이메일 인증");
+			message.setText("인증 코드: " + code);
 
-            javaMailSender.send(message);           // 생성한 메일 전송
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+			javaMailSender.send(message);           // 생성한 메일 전송
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-        map.put("code", code);                      // 인증메일 전송에 성공하면 map에 인증코드를 담아 전달
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
+		map.put("code", code);                      // 인증메일 전송에 성공하면 map에 인증코드를 담아 전달
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
 
-    public Model cookieChecker(HttpServletRequest request, Model model) {
+	public Model cookieChecker(HttpServletRequest request, Model model) {
 
-        Cookie[] cookies = request.getCookies();
+		Cookie[] cookies = request.getCookies();
 
-        if (cookies != null) {
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals("remEmail")) {
-                    model.addAttribute("email", cookies[i].getValue());
-                    model.addAttribute("isRemember", "checked");
-                }
-            }
-        }
-        return model;
-    }
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("remEmail")) {
+					model.addAttribute("email", cookies[i].getValue());
+					model.addAttribute("isRemember", "checked");
+				}
+			}
+		}
+		return model;
+	}
 }
