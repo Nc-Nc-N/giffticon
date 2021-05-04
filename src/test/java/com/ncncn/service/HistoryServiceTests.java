@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.pagination.AdminConHistCriteria;
 import com.ncncn.domain.pagination.AdminDealHistCriteria;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -20,5 +21,10 @@ public class HistoryServiceTests {
     @Test
     public void testGetAdminDealHist() {
         historyService.getAdminDealHist(new AdminDealHistCriteria(2, 10)).forEach(board -> log.info(board));
+    }
+
+    @Test
+    public void testGetAdminConHist() {
+        historyService.getAdminConHist(new AdminConHistCriteria()).forEach(board -> log.info(board));
     }
 }

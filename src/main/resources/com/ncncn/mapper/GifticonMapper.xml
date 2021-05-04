@@ -49,6 +49,7 @@
         </trim>
     </sql>
 
+    <!-- 상태코드가 001(판매요청)인 기프티콘 목록을 조회 -->
     <select id="readAllRqustWithPaging" resultMap="SaleRqusts">
         <![CDATA[select gft.id as gft_id, gft.brcd as brcd, gft.expir_dt as expir_dt, gft.in_date as in_date, gft.img_path as img_path, gft.prod_code as prod_code,
                     cate.name as cate_name, brd.name as brd_name, prod.name as prod_name, usr.email as requester]]>
@@ -61,8 +62,11 @@
          ]]>
     </select>
 
-    <select id="readRqustById" resultMap="SaleRqust">
-        <![CDATA[select cate.name as cate_name, brd.name as brd_name, prod.name as prod_name, convert(prod.prc, char) as prod_prc, usr.email as requester]]>
+    <!-- id 값에 해당하는 판매요청 조회 -->
+    <select id="readRqustById" resultType="HashMap">
+        <![CDATA[select gft.id gftId, gft.prod_code prodCode, gft.dc_prc dcPrc, gft.dc_rate dcRate, DATE_FORMAT(gft.expir_dt, '%Y-%m-%d') expirDt,
+            gft.brcd brcd, gft.descn descn, gft.img_path imgPath, gft.is_auto_prc isAutoPrc, DATE_FORMAT(gft.in_date, '%Y-%m-%d') inDate,
+            cate.name cateName, brd.name brdName, prod.name prodName, prod.prc prodPrc, prod.in_dc_rate inDcRate, usr.email requester]]>
         <include refid="getRqust"/>
         <![CDATA[ and gft.id = #{id} ]]>
     </select>
@@ -73,22 +77,18 @@
         <include refid="criteria"/>
     </select>
 
-    <update id="updateStusCodeAndAprvDt">
+    <!-- 판매요청 승인시 상품코드와 가격, 할인율, 상태코드, 승인날짜 업데이트 -->
+    <update id="updateSaleRqust">
         update gifticon
-        set gft_stus_code = '002',
+        set prod_code     = #{prodCode},
+            dc_prc        = #{dcPrc},
+            dc_rate       = #{dcRate},
+            gft_stus_code = '002',
             aprv_dt       = now(),
             up_user       = current_user(),
             up_date       = now()
-        where id = #{id}
+        where id = #{gftId}
     </update>
-
-    <resultMap id="SaleRqust" type="java.util.HashMap">
-        <result property="cateName" column="cate_name"/>
-        <result property="brdName" column="brd_name"/>
-        <result property="prodName" column="prod_name"/>
-        <result property="prodPrc" column="prod_prc"/>
-        <result property="requester" column="requester"/>
-    </resultMap>
 
     <resultMap id="SaleRqusts" type="com.ncncn.domain.SaleRqustVO">
         <result property="gftId" column="gft_id"/>
@@ -145,12 +145,12 @@
     <!-- 판매중 기프티콘 목록 -->
     <select id="getGiftiList" resultType="com.ncncn.domain.ProdListVO">
         <![CDATA[
-        select prod.enabled, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, gifti.dc_prc, gifti.expir_dt, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
+        select prod.enabled, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, gifti.dc_prc, gifti.expir_dt, gifti.dc_rate, gft_stus_code,prod.img_path  as pimg_path
         from gifticon as gifti
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code},'%') and gft_stus_code =002 and prod.enabled = '1'
-        order by dc_prc
+        where prod_code like concat(#{code},'%') and prod.enabled = '1' and gft_stus_code ='002'
+        order by dc_prc, expir_dt
         ]]>
     </select>
 
@@ -158,28 +158,26 @@
     <select id="getGifti" resultType="com.ncncn.domain.ProdListVO">
         <![CDATA[
         select prod.enabled, gifti.id, gifti.user_id, gifti.prod_code,
-               brand.code as brdCode, brand.name as bname, prod.name as pname, prod.prc, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.descn,prod.img_path as pimg_path
+               brand.code as brdCode, brand.name as bname, prod.name as pname, prod.prc, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gft_stus_code,prod.descn,prod.img_path as pimg_path
         from gifticon as gifti
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code}, '%') and gft_stus_code =002 and prod.enabled = '1'
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1' and gft_stus_code ='002'
         group by gifti.prod_code
         ]]>
     </select>
 
-
     <!-- 판매중 기프티콘 목록 조회(페이징 처리)   -->
     <select id="getGiftiWithPaging" resultType="com.ncncn.domain.ProdListVO">
         <![CDATA[
-        select prod.enabled, expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
+        select prod.enabled, expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gft_stus_code,prod.img_path  as pimg_path
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code}, '%') and prod.enabled = '1'
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1' and gft_stus_code ='002'
         ]]>
         <include refid="search"></include>
         <![CDATA[
-        and gft_stus_code =002
         group by gifti.prod_code
         order by
         ]]>
@@ -198,15 +196,14 @@
     <select id="getTotalCount" resultType="int">
         <![CDATA[
         select count(tbl.id) from(
-        select prod.enabled, expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gifti.gft_stus_code,prod.img_path  as pimg_path
+        select prod.enabled, expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gft_stus_code,prod.img_path  as pimg_path
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code}, '%') and prod.enabled = '1'
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1' and gft_stus_code ='002'
         ]]>
         <include refid="search"></include>
         <![CDATA[
-        and gft_stus_code =002
         group by gifti.prod_code
         order by
         ]]>
@@ -225,7 +222,7 @@
         from gifticon as gifti
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
-        where gft_stus_code =002 and prod.enabled = '1'
+        where prod.enabled = '1' and gft_stus_code ='002'
         group by gifti.prod_code
         order by prod.sold_quty desc
             limit 8
@@ -234,14 +231,17 @@
     <!-- 마감임박 상품 8개 조회  -->
     <select id="getDeadlineGifti" resultType="com.ncncn.domain.ProdListVO">
         <![CDATA[
-        select expir_dt - current_date() as d_day, prod.enabled, id, user_id, prod_code, brand.name as bname, prod.name as pname, prc, expir_dt, sold_quty, min(dc_prc)as dc_prc, dc_rate, gft_stus_code,prod.img_path as pimg_path
+        select tbl.*
+        from
+        (select expir_dt - current_date() as d_day, prod.enabled, id, user_id, prod_code, brand.name as bname, prod.name as pname, prc, expir_dt, sold_quty,dc_prc, dc_rate, gft_stus_code,prod.img_path as pimg_path
         from gifticon as gifti
-                 INNER JOIN product as prod ON gifti.prod_code = prod.code
-                 INNER JOIN brand ON prod.brd_code = brand.code
-        where expir_dt - current_date() <= 7 and prod.enabled = '1' and gft_stus_code =002
-        group by gifti.prod_code
-        order by expir_dt,sold_quty desc
-            limit 8
+            INNER JOIN product as prod ON gifti.prod_code = prod.code
+            INNER JOIN brand ON prod.brd_code = brand.code
+        where expir_dt > current_date and expir_dt - current_date() <= 7 and prod.enabled = '1' and gft_stus_code ='002'
+        order by expir_dt, sold_quty LIMIT 18446744073709551615
+        )as tbl
+        group by tbl.prod_code
+        limit 8
         ]]>
     </select>
 

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%@include file="../../common/header.jsp"%>
+<%@include file="../../common/header.jsp" %>
 
 
 <!DOCTYPE html>
@@ -19,9 +19,6 @@
     <link rel="stylesheet" href="/resources/css/user/deal/sale.css" type="text/css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <style>
-        /*@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');*/
-    </style>
 </head>
 
 <body>
@@ -45,10 +42,10 @@
                     <div class="category"> <!-- select box 3개 묶음 -->
                         <div class="innerbox"> <!-- select box 1개-->
                             <ul class="categorybox"> <!-- 대분류 카테고리 -->
-                                <c:forEach items="${categoryList}"  var="catL">
-                                <li class="categorySelect">
-                                    <button type="button" class="select"><c:out value="${catL.name}"/></button>
-                                </li>
+                                <c:forEach items="${categoryList}" var="catL">
+                                    <li class="categorySelect">
+                                        <button type="button" class="select"><c:out value="${catL.name}"/></button>
+                                    </li>
                                 </c:forEach>
 
                             </ul>
@@ -111,7 +108,7 @@
                     <span>*</span>
                 </div>
                 <div class="innerblock">
-<%--                    <input type="date" id="end-date"> <!-- datepicker로 나중에 바꿔보기-->--%>
+                    <%--                    <input type="date" id="end-date"> <!-- datepicker로 나중에 바꿔보기-->--%>
                     <input type="text" id="end-date" readonly>
                     <label>
                         기프티콘에 명시된 유효기간을 입력해주세요.
@@ -131,17 +128,18 @@
                         <div class="thumbnailspace">
                             <label>
                                 <input type="image" src="/resources/img/thumbnailDefault2.png" id="thumbnail">
-                                <input type="file" style="display:none" id="gifticon-img-upload" name="uploadFile" class="file-input" accept="image/jpeg, image/jpg, image/png">
+                                <input type="file" style="display:none" id="gifticon-img-upload" name="uploadFile"
+                                       class="file-input" accept="image/jpeg, image/jpg, image/png">
                             </label>
 
                         </div>
-                                <textarea readonly="readonly" >쿠폰 등록시 유의사항  1. 반드시 쿠폰 이미지만 잘라서 올려주세요. 캡쳐 이미지에 배터리 잔여량, 통신사, 시간, 화살표 등이 표기된 경우, 저희 시스템상 바코드와 유효기간을 잘못 인식하는 경우가 많아 반려하고 있습니다. 2. 카테고리가 지정된 쿠폰이 우선적으로 검수됩니다. 해당 쿠폰의 정확한 카테고리를 지정해주세요. 3.기프티콘의 유효기간을 반드시 입력해주세요 4. 기쁘티콘 혹은 기쁘티콘 제휴사에서 구매한 쿠폰은 다시 매입하지 않습니다.
+                        <textarea readonly="readonly">쿠폰 등록시 유의사항  1. 반드시 쿠폰 이미지만 잘라서 올려주세요. 캡쳐 이미지에 배터리 잔여량, 통신사, 시간, 화살표 등이 표기된 경우, 저희 시스템상 바코드와 유효기간을 잘못 인식하는 경우가 많아 반려하고 있습니다. 2. 카테고리가 지정된 쿠폰이 우선적으로 검수됩니다. 해당 쿠폰의 정확한 카테고리를 지정해주세요. 3.기프티콘의 유효기간을 반드시 입력해주세요 4. 기쁘티콘 혹은 기쁘티콘 제휴사에서 구매한 쿠폰은 다시 매입하지 않습니다.
                                 </textarea>
                         <!-- 쿠폰 파일 업로드 -->
                         <div class="box-file-input">
 
 
-<%--                            <button id="uploadBtn">Upload</button>--%>
+                            <%--                            <button id="uploadBtn">Upload</button>--%>
 
                         </div>
                     </div>
@@ -216,7 +214,9 @@
                 </div>
                 <div class="modalbtn">
                     <button type="button" id="btn-to-main" class="btn btn-active" style="color:white">메인으로 이동</button>
-                    <button type="button" id="btn-to-hist" class="btn btn-disabled" style="margin-left:30px">판매 내역으로 이동</button>
+                    <button type="button" id="btn-to-hist" class="btn btn-disabled" style="margin-left:30px">판매 내역으로
+                        이동
+                    </button>
                 </div>
 
             </div>
@@ -224,39 +224,31 @@
     </div>
     <!-- Modal -->
 
-
-
 </div>    <!-- end of container -->
 
 
-
-
-
-
-<%--<script type="text/javascript" src="/resources/js/saleGifticon.js"></script>--%>
 <script type="text/javascript">
 
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         // 가격종류 변경시 동작
-        $("input:radio[name=group1]").click(function() {
+        $("input:radio[name=group1]").click(function () {
             let radioValue = $(this).val();
             // alert(radioValue);    // 자동입력시 1, 가격제시시 0
-            if(radioValue == 1) {
+            if (radioValue == 1) {
                 inputPriceAuto();
-                calculateDcRate();
-            } else if(radioValue == 0) {
+                indicateCheckedDcRate();
+            } else if (radioValue == 0) {
                 dcPriceClean();
                 dcRateIndicatorClean();
                 $("#dcprice").attr("readonly", false);
             }
         });
 
-    // ------------------------ 파일 업로드
-
+        // ------------------------ 파일 업로드
         // 이미지 등록시 자동 업로드
-        $(document).on("change", ".file-input", function(){
+        $(document).on("change", ".file-input", function () {
             var formData = new FormData();
             var inputFile = $("input[name='uploadFile']");
             var files = inputFile[0].files;
@@ -264,37 +256,37 @@
             console.log(files);
 
             //add filedate to formdata
-            for(var i = 0; i < files.length; i++){
+            for (var i = 0; i < files.length; i++) {
 
-                if(!checkExtension(files[i].name, files[i].size)){
+                if (!checkExtension(files[i].name, files[i].size)) {
                     return false;
                 }
 
                 formData.append("uploadFile", files[i]);
             }
 
-            let csrfHeaderName="${_csrf.headerName}";
-            let csrfTokenValue="${_csrf.token}";
+            let csrfHeaderName = "${_csrf.headerName}";
+            let csrfTokenValue = "${_csrf.token}";
 
             $.ajax({
                 url: '/user/uploadAjaxAction',
                 processData: false,
                 contentType: false,
-                beforeSend: function(xhr) {
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
                 data: formData,
                 type: 'POST',
-                dataType:'json',
-                success: function(result) {
+                dataType: 'json',
+                success: function (result) {
 
                     console.log(result);
 
                     showUploadedFile(result);
 
                 },
-                error: function(request,status,error){
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                 }
 
             });  //$.ajax
@@ -302,17 +294,19 @@
 
     });  //end of $(document).ready()
 
+
+    // 업로드 파일 확장자, 용량 제한
     var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
     var maxSize = 5242880; //5MB
 
-    function checkExtension(fileName, fileSize){
+    function checkExtension(fileName, fileSize) {
 
-        if(fileSize >= maxSize) {
+        if (fileSize >= maxSize) {
             alert("파일 사이즈 초과");
             return false;
         }
 
-        if(regex.test(fileName)){
+        if (regex.test(fileName)) {
             alert("해당 종류의 파일은 업로드할 수 없습니다.");
             return false;
         }
@@ -320,251 +314,277 @@
     }
 
 
-    // 자동입력 선택시 작동하는 함수 - 정가에 값이 있을 때만 판매가 입력 가능, 날짜 선택 안했을시 오류메시지
-    let inputPriceAuto = function() {
+    // 자동입력 선택시 작동하는 함수 - 정가에 값이 있을 때만 판매가 입력 가능, 유효기간 선택 안했으면 오류메시지 출력
+    let inputPriceAuto = function () {
         $('#dcprice').attr('readonly', true);
         let fixedprice = document.getElementById('fixedprice').value;
 
-        if(document.getElementById('end-date').value == "") {
+        if (document.getElementById('end-date').value == "") {
             alert("유효기간을 먼저 입력해주세요.");
             dcPriceClean();
             priceChoiceButtonClean();
             return;
         }
 
-        if(fixedprice != "") {
-            document.getElementById('dcprice').value = Math.round(fixedprice * (1-(inDcRate + getAddDcRate())) / 10.0) * 10;
+        if (fixedprice != "") {
+            // 자동입력가는 할인율(기본할인율 + 날짜별 추가할인율) 적용 후 일의자리에서 반올림
+            document.getElementById('dcprice').value = Math.round(fixedprice * (1 - (inDcRate + getAddDcRate())) / 10.0) * 10;
         } else {
             dcPriceClean();
         }
     }
 
     // 정가 입력값 비우는 함수
-    let fixedPriceClean = function() {
+    let fixedPriceClean = function () {
         document.getElementById('fixedprice').value = "";
     }
 
     // 판매가 입력값 비우는 함수
-    let dcPriceClean = function() {
+    let dcPriceClean = function () {
         document.getElementById('dcprice').value = "";
     }
 
     // 가격종류 선택버튼 입력값 비우는 함수
-    let priceChoiceButtonClean = function() {
+    let priceChoiceButtonClean = function () {
         document.getElementById('autoprice').checked = false;
         document.getElementById('manualprice').checked = false;
     }
 
     // 가격정보 모두 지우는 함수
-    let priceAllClean= function() {
+    let priceAllClean = function () {
         fixedPriceClean();
         dcPriceClean();
         priceChoiceButtonClean();
     }
 
-    // 판매가 할인율 계산해서 표시해주는 함수
-    let calculateDcRate = function() {
-        let fixedprice = 0;
+    // 할인율 계산해주는 함수
+    let calculateDcRate = function () {
+        let fixedprice = parseInt(document.getElementById('fixedprice').value);
         let dcprice = 0;
-        let dcrate = 0;
-        fixedprice = parseInt(document.getElementById('fixedprice').value);
-        if(document.getElementById('dcprice').value != "") {
+        if (document.getElementById('dcprice').value != "") {
             dcprice = parseInt(document.getElementById('dcprice').value);
         }
-        // dcrate = Math.round((((fixedprice - dcprice) / fixedprice) * 100) / 100) * 100
 
-        dcrate = Math.round((fixedprice - dcprice) / fixedprice * 100);
+        return Math.round((fixedprice - dcprice) / fixedprice * 100);
+    }
 
+    // 할인율 표시해주는 함수
+    let indicateDcRate = function (dcrate) {
         document.getElementById('dcrateindicator').innerText = "(할인율 : " + dcrate + "%)"
+    }
 
+    // 할인율 체크(NaN 혹은 100이면 표시하지 않음)하고 최종적으로 화면에 표시해주는 함수
+    let indicateCheckedDcRate = function () {
+        let dcrate = "";
+        if (!(isNaN(calculateDcRate()) || calculateDcRate() == 100)) {
+            dcrate = calculateDcRate();
+        }
+        indicateDcRate(dcrate);
     }
 
     // 판매가가 정가보다 높으면 에러메세지 출력하고 판매가 초기화하는 함수
-    let checkDcPrice = function() {
+    let checkDcPrice = function () {
         let fixedprice = parseInt(document.getElementById('fixedprice').value);
         let dcprice = parseInt(document.getElementById('dcprice').value);
 
-        if(dcprice > fixedprice) {
+        if (dcprice > fixedprice) {
             alert("정가보다 높은 가격으로 판매할 수 없습니다.");
             dcPriceClean();
         }
     }
 
     // 문자열에서 앞 0 제거하는 함수
-    let trimFrontZero = function(String) {
+    let trimFrontZero = function (String) {
         return String.replace(/(^0+)/, "");
     }
 
     // 문자열에서 숫자만 남기는 함수
-    let trimString = function(string) {
-        let rawString = string;
-        let trimmedString = rawString.trim().replace(/[^0-9]/g,"");
-        return trimmedString;
+    let trimString = function (string) {
+        return string.trim().replace(/[^0-9]/g, "");
     }
 
     // 할인율 표시 초기화 함수
-    let dcRateIndicatorClean = function() {
-        document.getElementById('dcrateindicator').innerText = '(할인율 : 0%)';
+    let dcRateIndicatorClean = function () {
+        document.getElementById('dcrateindicator').innerText = '(할인율 : %)';
     }
 
     // product img 삭제하는 함수
-    let deleteProdImg = function() {
+    let deleteProdImg = function () {
         document.getElementById('prodImg').src = "";
     }
 
     // product 설명 삭제하는 함수
-    let deleteProdDescn = function() {
+    let deleteProdDescn = function () {
         document.getElementById('prodDescn').textContent = "";
     }
 
     // product 이미지, 설명 삭제하는 함수
-    let deleteProdInfo = function() {
+    let deleteProdInfo = function () {
         deleteProdImg();
         deleteProdDescn();
     }
 
 
     // 선택한 카테고리 출력용 변수
-    let selectedCatName="";
-    let selectedBrdName="";
-    let selectedProdName="";
+    let selectedCatName = "";
+    let selectedBrdName = "";
+    let selectedProdName = "";
 
-    let catSelectResultText = function() {
+    let catSelectResultText = function () {
         return "선택한 카테고리 : " + selectedCatName;
     }
 
-    let brdSelectResultText = function() {
+    let brdSelectResultText = function () {
         return "선택한 카테고리 : " + selectedCatName + " > " + selectedBrdName;
     }
 
-    let prodSelectResultText = function() {
+    let prodSelectResultText = function () {
         return "선택한 카테고리 : " + selectedCatName + " > " + selectedBrdName + " > " + selectedProdName;
     }
 
-    let changeSelectedResultText = function(text) {
+    // 선택한 카테고리 문자열 변경해주는 함수
+    let changeSelectedResultText = function (text) {
         document.getElementsByClassName('showCategory')[0].innerText = text;
     }
 
     // 소분류 삭제하는 함수
-    let deleteProductList = function() {
+    let deleteProductList = function () {
         let prodbox = document.getElementsByClassName('productbox')[0];
         let prodboxlength = prodbox.children.length;
 
-        for(let i=0; i<prodboxlength; i++) {
+        for (let i = 0; i < prodboxlength; i++) {
             prodbox.removeChild(prodbox.children[0]);
         }
     }
 
     // 대분류 클릭시 동작
-    $('.categorySelect').on("click", function(){
+    $('.categorySelect').on("click", function () {
         // 대분류 클릭시 대분류이름을 보내고 중분류 객체리스트를 받아온다.
+        // 선택퇸 카테고리 텍스트 변경, 상품 정보 삭제, 가격정보 초기화
         let catName = this.innerText;
         selectedCatName = this.innerText;
         // 선택된 카테고리 텍스트 변경
         changeSelectedResultText(catSelectResultText());
+        // 가격정보 초기화
         priceAllClean();
-        let csrfHeaderName="${_csrf.headerName}";
-        let csrfTokenValue="${_csrf.token}";
+        let csrfHeaderName = "${_csrf.headerName}";
+        let csrfTokenValue = "${_csrf.token}";
 
-        // 대분류 클릭시 소분류 삭제
+        // 대분류 클릭시 소분류 목록 삭제
         deleteProductList();
 
         // 대분류 클릭시 product 정보 삭제
         deleteProdInfo();
 
-        // 대분류 클릭시 할인율 초기화
+        // 대분류 클릭시 할인율 표시 초기화
         dcRateIndicatorClean();
 
+        // 해당 대분류 하위 중분류 목록 가져옴
         $.ajax({
-            url: '/user/getBrandAction?name=' + catName ,
+            url: '/user/getBrandAction?name=' + encodeURIComponent(catName),
             processData: false,
             contentType: false,
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
             data: catName,
-            type: 'POST',
-            dataType:'json',
-            success: function(result){
+            type: 'GET',
+            dataType: 'json',
+            success: function (result) {
 
                 // console.log(result);
                 // console.log(result.length);
                 let brbox = document.getElementsByClassName('brandbox')[0];
                 let brboxlength = brbox.children.length;
 
-                for(let i=0; i<brboxlength; i++) {
+                // 현재 중분류 목록 삭제하고
+                for (let i = 0; i < brboxlength; i++) {
                     brbox.removeChild(brbox.children[0]);
                 }
 
-                for(let i=0; i<result.length; i++) {
-                    let li=document.createElement('li');
+                // 새로 받아온 중분류 button 생성해서 연결
+                for (let i = 0; i < result.length; i++) {
+                    let li = document.createElement('li');
                     li.setAttribute('class', 'brandSelect');
-                    let btn=document.createElement('button');
+                    let btn = document.createElement('button');
                     btn.setAttribute('type', 'button');
                     btn.setAttribute('class', 'select');
-                    btn.innerText=result[i].name;
+                    btn.innerText = result[i].name;
 
                     brbox.appendChild(li).appendChild(btn);
                 }
 
+            },
+
+            error: function () {
+                alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
             }
         }); //$.ajax
     }); // 대분류 클릭 시 동작
 
-    let brdName="";
+    let brdName = "";
 
     // 중분류 클릭시 동작
-    $('.brandbox').on("click", $('.brandSelect .select'), function(e){
+    $('.brandbox').on("click", $('.brandSelect .select'), function (e) {
         // 중분류 클릭시 중분류이름을 보내고 소분류 객체리스트를 받아온다.
+        // 선택퇸 카테고리 텍스트 변경, 상품 정보 삭제, 가격정보 초기화
         // alert(e.target.innerText);
         // alert(e.target.type == "button");
-        if(e.target.type == "button") {
+        if (e.target.type == "button") {
             brdName = e.target.innerText;
             selectedBrdName = e.target.innerText;
-            changeSelectedResultText( brdSelectResultText() );
+            // 선택된 카테고리 텍스트 변경
+            changeSelectedResultText(brdSelectResultText());
+            // 가격정보 초기화
             priceAllClean();
             // 중분류 클릭시 product 정보 삭제
             deleteProdInfo();
             // 중분류 클릭시 할인율 초기화
             dcRateIndicatorClean();
         }
-        let csrfHeaderName="${_csrf.headerName}";
-        let csrfTokenValue="${_csrf.token}";
+        let csrfHeaderName = "${_csrf.headerName}";
+        let csrfTokenValue = "${_csrf.token}";
 
-
+        // 해당 중분류 하위 소분류 목록 가져옴
         $.ajax({
-            url: '/user/getProductAction?name=' + brdName ,
+            url: '/user/getProductAction?name=' + encodeURIComponent(brdName),
             processData: false,
             contentType: false,
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
             data: brdName,
-            type: 'POST',
-            dataType:'json',
-            success: function(result){
+            type: 'GET',
+            dataType: 'json',
+            success: function (result) {
 
-                console.log(result);
-                console.log(result.length);
+                // console.log(result);
+                // console.log(result.length);
                 let prodbox = document.getElementsByClassName('productbox')[0];
                 let prodboxlength = prodbox.children.length;
 
-                for(let i=0; i<prodboxlength; i++) {
+                // 현재 소분류 목록 삭제하고
+                for (let i = 0; i < prodboxlength; i++) {
                     prodbox.removeChild(prodbox.children[0]);
                 }
 
-                for(let i=0; i<result.length; i++) {
-                    let li=document.createElement('li');
+                // 새로 받아온 소분류 button 생성해서 연결
+                for (let i = 0; i < result.length; i++) {
+                    let li = document.createElement('li');
                     li.setAttribute('class', 'productSelect');
-                    let btn=document.createElement('button');
+                    let btn = document.createElement('button');
                     btn.setAttribute('type', 'button');
                     btn.setAttribute('class', 'select');
-                    btn.innerText=result[i].name;
+                    btn.innerText = result[i].name;
 
                     prodbox.appendChild(li).appendChild(btn);
                 }
 
 
+            },
+
+            error: function () {
+                alert("브랜드 불러오기에 실패했습니다. 다시 시도해주세요.")
             }
         }); //$.ajax
     }); // 중분류 클릭 시 동작
@@ -579,38 +599,45 @@
     let originPath = "";
 
     // 소분류 클릭시 동작
-    $('.productbox').on("click", $('.productSelect .select'), function(e){
+    $('.productbox').on("click", $('.productSelect .select'), function (e) {
+        // 소분류 클릭시 중분류, 소분류 이름을 보내고 소분류 객체를 받아온다.
+        // 선택퇸 카테고리 텍스트 변경, 상품 정보 변경, 가격정보 초기화
+        // 등록요청시 전송할 GifticonVO 객체에 받아온 소분류 객체의 변수값 입력
         // alert(e.target.innerText);
-        let prodName="";
-        if(e.target.type == "button") {
-            prodName=e.target.innerText;
+        let prodName = "";
+        if (e.target.type == "button") {
+            prodName = e.target.innerText;
             selectedProdName = e.target.innerText;
+            // 선택된 카테고리 텍스트 변경
             changeSelectedResultText(prodSelectResultText());
-            // 소분류 클릭시 판매가, 가격선택버튼, 할인율 초기화
+            // 소분류 클릭시 가격정보 초기화
             dcPriceClean();
             priceChoiceButtonClean();
+            // 할인율 표시 초기화
             dcRateIndicatorClean();
         }
-        let csrfHeaderName="${_csrf.headerName}";
-        let csrfTokenValue="${_csrf.token}";
+        let csrfHeaderName = "${_csrf.headerName}";
+        let csrfTokenValue = "${_csrf.token}";
 
-        // 브랜드이름, 상품이름을 보내고 해당 상품에 대한 객체를 가져옴
+        // 소분류 클릭시 중분류, 소분류 이름을 보내고 소분류 객체를 받아온다.
         $.ajax({
-            url: '/user/getProductObjectAction?brdName=' + brdName + '&prodName=' + prodName,
+            url: '/user/getProductObjectAction?brdName=' + encodeURIComponent(brdName) +
+                '&prodName=' + encodeURIComponent(prodName),
             processData: false,
             contentType: false,
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
             data: {brdName: brdName, prodName: prodName},
-            type: 'POST',
-            dataType:'json',
-            success: function(result){
+            type: 'GET',
+            dataType: 'json',
+            success: function (result) {
 
                 console.log(result);
 
+                // 등록요청시 전송할 GifticonVO 객체에 받아온 소분류 객체의 변수값 입력
                 // alert(result.code.substring(0,2));  //대분류 코드
-                cateCode = result.code.substring(0,2);
+                cateCode = result.code.substring(0, 2);
                 // alert(result.brdCode);  // 중분류 코드
                 brdCode = result.brdCode;
                 // alert(result.code);   // 소분류 코드
@@ -622,108 +649,113 @@
                 // alert(result.inDcRate);  // 기본할인율
                 inDcRate = result.inDcRate;
 
+                // 상품 이미지, 설명 변경
                 // document.getElementById('prodImg').src = "/resources/img/product/01/0101/010101.jpeg";
                 let imgSrc = "/resources/img/product/" + cateCode + "/" + brdCode + "/" + prodCode + ".jpeg";
                 document.getElementById('prodImg').src = imgSrc;
                 document.getElementById('prodDescn').textContent = prodDescn;
                 document.getElementById('fixedprice').value = prc;
 
+            },
+
+            error: function () {
+                alert("상품 불러오기에 실패했습니다. 다시 시도해주세요.")
             }
-        }); //$.ajax
-
-
+        }); // $.ajax
     }); // 소분류 클릭 시 동작
 
-    // 522page 업로드시 파일명 보여줌
+
     var uploadResult = $(".filename")[0];
 
-    originPath="";
+    originPath = "";
 
+    // 이미지 업로드시 썸네일 보여주는 함수
     function showUploadedFile(uploadResultArr) {
 
         $(uploadResultArr).each(function (i, obj) {
-            // alert(obj.fileName);
             var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" +
                 obj.uuid + "_" + obj.fileName);
 
+            // controller 호출. 썸네일 이미지 받아옴
             document.getElementById('thumbnail').src =
                 "/user/display?fileName=/" + fileCallPath;
 
+            // DB gifticon 테이블 img_path에 입력할때 사용할 originPath
             originPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;
 
             originPath = originPath.replace(new RegExp(/\\/g), "/");
-
-            // alert("originPath: " + originPath);
 
         });
 
     }
 
     // 바코드 입력시 동작
-    $('#barcode').on("propertychange change keyup paste input", function() {
-        let rawBarcode= document.getElementById('barcode').value;
+    $('#barcode').on("propertychange change keyup paste input", function () {
+        let rawBarcode = document.getElementById('barcode').value;
         document.getElementById('barcode').value = trimString(rawBarcode);
     });
 
 
     // 판매가 변경시 동작
-    $('#dcprice').on("propertychange change keyup paste input", function() {
+    $('#dcprice').on("propertychange change keyup paste input", function () {
         checkDcPrice();
-        calculateDcRate();
+        indicateCheckedDcRate();
         let rawDcPrice = document.getElementById('dcprice').value;
-        document.getElementById('dcprice').value = trimString(trimFrontZero(rawDcPrice));
+        // 문자 제거하고 앞자리 0 제거
+        document.getElementById('dcprice').value = trimFrontZero(trimString(rawDcPrice));
     });
 
 
     // 썸네일이미지 클릭시 동작
-    $("#thumbnail").on("click", function() {
-       document.getElementById('gifticon-img-upload').click();
+    $("#thumbnail").on("click", function () {
+        document.getElementById('gifticon-img-upload').click();
     });
 
 
-    // 모달 버튼
-    $('#btn-to-main').on("click", function(){
-        location.href="/user/home";
+    // 모달 버튼 클릭시 동작
+    $('#btn-to-main').on("click", function () {
+        location.href = "/user/home";
     });
 
-    $('#btn-to-hist').on("click", function(){
-        location.href="/user/mypage/sells";
+    $('#btn-to-hist').on("click", function () {
+        location.href = "/user/mypage/sells";
     });
 
 
-    // 업로드 버튼 클릭시 동작
-    $("#saleReg").on("click", function(){
+    // 판매 등록하기 버튼 클릭시 동작
+    $("#saleReg").on("click", function () {
 
         // 유효성검사
-        if(gifticonValidate() === false) {
-            alert ("유효하지 않은 입력입니다.");
+        if (gifticonValidate() === false) {
+            alert("유효하지 않은 입력입니다.");
         } else {
-        // 유효성검사 통과하면 데이터 입력
+            // 유효성검사 통과하면 데이터 입력
             insertGifticonValues();
         }
 
     });
 
     // 유효성검사 통과 시 Ajax로 DB에 Insert하는 함수
-    let insertGifticonValues = function() {
-        let csrfHeaderName="${_csrf.headerName}";
-        let csrfTokenValue="${_csrf.token}";
+    let insertGifticonValues = function () {
+        let csrfHeaderName = "${_csrf.headerName}";
+        let csrfTokenValue = "${_csrf.token}";
 
         var form =
-            {   id:null,
-                userId:userId,
-                prodCode:prodCode,
-                dcPrc:$("#dcprice")[0].value*1,
-                dcRate:inDcRate + getAddDcRate(),
-                expirDt:$("#end-date")[0].value,
-                brcd:$("#barcode")[0].value,
-                descn:$("#descn")[0].value,
-                imgPath:"/resources/img/barcode/" + originPath,
-                isAutoPrc:$("input[name=group1]:checked")[0].value,
-                gftStusCode:'001',
-                aprvDt:null,
-                inDate:null,
-                upDate:null
+            {
+                id: null,
+                userId: userId,
+                prodCode: prodCode,
+                dcPrc: $("#dcprice")[0].value * 1,
+                dcRate: inDcRate + getAddDcRate(),
+                expirDt: $("#end-date")[0].value,
+                brcd: $("#barcode")[0].value,
+                descn: $("#descn")[0].value,
+                imgPath: "/resources/img/barcode/" + originPath,
+                isAutoPrc: $("input[name=group1]:checked")[0].value,
+                gftStusCode: '001',
+                aprvDt: null,
+                inDate: null,
+                upDate: null
             }
 
         $.ajax({
@@ -732,7 +764,7 @@
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
-            data:JSON.stringify(form),
+            data: JSON.stringify(form),
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             success: function (result) {
@@ -742,26 +774,45 @@
 
             },
 
-            error: function(error) {
+            error: function (error) {
                 console.log(error);
-                alert("오류가 발생했습니다. 이미 등록된 바코드번호일 수 있습니다.");
+                alert("등록과정에서 오류가 발생했습니다. \n" +
+                    "(이미 등록된 바코드번호일 수 있습니다.)");
             }
 
         });
     }
 
     //유효성 검사
-    let gifticonValidate = function() {
+    let gifticonValidate = function () {
         let checker = 0;
-        if(userId === 0) {checker +=1}
-        if(prodCode === "") {checker +=1}
-        if($("#dcprice")[0].value === "") {checker +=1}
-        if(parseInt($("#dcprice")[0].value) < 100) {checker +=1}
-        if(inDcRate === 0) {checker +=1}
-        if($("#end-date")[0].value === "") {checker +=1}
-        if($("#barcode")[0].value === "") {checker +=1}
-        if(originPath === "") {checker +=1}
-        if($("input[name=group1]:checked")[0] === undefined) {checker +=1}
+        if (userId === 0) {
+            checker += 1
+        }
+        if (prodCode === "") {
+            checker += 1
+        }
+        if ($("#dcprice")[0].value === "") {
+            checker += 1
+        }
+        if (parseInt($("#dcprice")[0].value) < 100) {
+            checker += 1
+        }
+        if (inDcRate === 0) {
+            checker += 1
+        }
+        if ($("#end-date")[0].value === "") {
+            checker += 1
+        }
+        if ($("#barcode")[0].value === "") {
+            checker += 1
+        }
+        if (originPath === "") {
+            checker += 1
+        }
+        if ($("input[name=group1]:checked")[0] === undefined) {
+            checker += 1
+        }
         return checker === 0;
     }
 
@@ -769,15 +820,15 @@
     function wrapWindowByMask() {
         var maskHeight = $(document).height();
 
-        $('.black_bg').css('height',maskHeight);
-        $('.black_bg').css('display','block');
+        $('.black_bg').css('height', maskHeight);
+        $('.black_bg').css('display', 'block');
     }
 
     // 모달창 띄워주기
-    let showFinalModal = function() {
+    let showFinalModal = function () {
         wrapWindowByMask();
         $('.modal_wrap').css('left', ($(window).width() - 850) * 0.5);
-        $('.modal_wrap').css('display','block');
+        $('.modal_wrap').css('display', 'block');
 
         // 스크롤 고정
         $('html, body').css({'overflow': 'hidden', 'height': '100%'});
@@ -790,41 +841,48 @@
 
 
     // 날짜에 따른 추가 할인율 계산
-    let getAddDcRate = function() {
+    let getAddDcRate = function () {
         let addDcRate = 0.0;
         let expirDt = new Date($("#end-date")[0].value);
         let today = new Date();
+        // 만료일까지 남은 일 수 계산
         let dateDiff = Math.ceil((expirDt.getTime() - today.getTime()) / (1000 * 3600 * 24));
 
-        if (dateDiff > 60) {
-            addDcRate = 0.0;
-        } else if (dateDiff <= 60 && dateDiff >= 0) {
-            addDcRate = Math.floor(Math.ceil((60 - dateDiff) / 15) * 0.05  *100)/100;
+        if (dateDiff <= 60 && dateDiff >= 0) {
+            // 남은기간 60일부터 15일간격으로 할인율 변경구간 분리
+            let interval = Math.ceil((60 - dateDiff) / 15);
+            // 구간별 할인율 계산 (5%, 10%, 15%, 20%)
+            let dcRateByInterval = interval * 0.05;
+            // 소수점 2째자리 밑으로 버림(부동소수점 제거)
+            addDcRate = Math.floor(dcRateByInterval * 100) / 100;
         }
         return addDcRate;
     }
 
 
-    // 대분류 클릭시 클래스이름 추가, 삭제
-    $(".categorySelect").children(".select").on("click", function(){
+    // 대분류 클릭시 동작
+    // 선택된 대분류에만 클래스이름 추가, 나머지는 삭제
+    $(".categorySelect").children(".select").on("click", function () {
         $(".categorySelect").children(".select").removeClass('on');
         $(this).addClass('on');
     });
 
-    // 중분류 클릭시 클래스이름 추가, 삭제
-    $(".brandbox").on("click", $('.brandSelect' .select), function(e){
+    // 중분류 클릭시 동작
+    // 선택된 중분류에만 클래스이름 추가, 나머지는 삭제
+    $(".brandbox").on("click", $('.brandSelect'.select), function (e) {
         $(".brandSelect").children(".select").removeClass('on');
         $(e.target).addClass('on');
     });
 
-    // 소분류 클릭시 클래스이름 추가, 삭제
-    $(".productbox").on("click", $('.productSelect' .select), function(e){
+    // 소분류 클릭시 동작
+    // 선택된 소분류에만 클래스이름 추가, 나머지는 삭제
+    $(".productbox").on("click", $('.productSelect'.select), function (e) {
         $(".productSelect").children(".select").removeClass('on');
         $(e.target).addClass('on');
     });
 
-    // 유효기간 변경 시 가격 종류, 입력값 초기화
-    $("#end-date").change(function() {
+    // 유효기간 변경 시 가격 종류, 입력값 초기화, 할인율 표시 초기화
+    $("#end-date").change(function () {
         dcPriceClean();
         priceChoiceButtonClean();
         dcRateIndicatorClean();

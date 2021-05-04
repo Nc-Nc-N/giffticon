@@ -25,21 +25,20 @@
 #t1 {
     width: 100%;
     text-align:center;
-    border: 1px solid black;
     border-collapse:collapse;
 }
 
 tr * {
-    height:23px;
+    height:40px;
 }
 
 th {
     background-color:rgb(189, 187, 187);
-    border:1px solid black;
+    border-bottom:1px solid black;
 }
 
 td {
-    border:1px solid black;
+    border-bottom:1px solid black;
 }
 
 .pagination-container {
@@ -53,18 +52,6 @@ td {
 
 .pagination li{
     list-style:none;
-}
-
-.paginate_button li.active {
-    background-color: rgb(255, 88, 93);
-    color: white;
-    border-radius: 5px;
-}
-
-.pagination a:hover {
-    background-color: rgb(255, 88, 93);
-    color: white;
-    border-radius: 5px;
 }
 
 .eachUser {

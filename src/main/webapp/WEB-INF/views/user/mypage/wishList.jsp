@@ -21,7 +21,7 @@
             <span class="item_img"><img src="<c:out value='${list.imgPath}'/>"></span>
             <span class="item_brdNname">
                                 <div class="item_brd"><c:out value="${list.bname}"/></div>
-            <a href="/user/prod_detail?code=${list.prodCode}">
+            <a href="/user/gifti_detail?code=${list.prodCode}">
                                 <div class="item_name"><c:out value="${list.pname}"/></div>
             </a>
             </span>
