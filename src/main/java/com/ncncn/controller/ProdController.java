@@ -64,7 +64,6 @@ public class ProdController {
 		Integer userId = null;
 
 		userId = (Integer) request.getSession().getAttribute("userId");
-		log.info("userId:"+userId);
 
 		if(userId != null){			// 로그인이 되어 있을 때
 
