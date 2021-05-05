@@ -55,6 +55,7 @@ nav ul a:hover{
 table td{
     border-bottom: 1px solid #e6e6e6;
     padding: 5% 2%;
+    display: inline-block;
 }
 
 td a:link{
