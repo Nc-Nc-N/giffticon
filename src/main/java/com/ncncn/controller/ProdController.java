@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/user/*")
 @AllArgsConstructor
+@Log4j
 public class ProdController {
 
 	private CategoryService cateService;
@@ -114,5 +115,13 @@ public class ProdController {
 		} catch(NumberFormatException e) {  //문자열이 나타내는 숫자와 일치하지 않는 타입의 숫자로 변환 시 발생
 			return false;
 		}
+	}
+
+	@GetMapping("/gifticon/map")
+	public void map(HttpServletRequest request){
+
+		log.info("map search jsp..");
+
+
 	}
 }

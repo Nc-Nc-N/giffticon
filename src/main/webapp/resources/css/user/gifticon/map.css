@@ -1,0 +1,225 @@
+#container{
+    width:1000px;
+    height:1000px;
+    /* background-color:khaki; */
+    margin: auto;
+}
+.space30{
+    height:30px;
+    width:1000px;
+    background-color: white;
+}
+.main{
+    width:1000px;
+    height:935px;
+    
+    /* background-color: lightgreen; */
+}
+
+.menuhead{
+    height:150px;
+    width:1000px;
+    /* background-color:yellow; */
+    /* border: 0.5px solid gainsboro; */
+}
+
+.menuname{
+    width: 300px;
+    height: 70px;
+    /* background-color: brown; */
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+}
+
+.searchbar{
+    height: 70px;
+    border: 0.5px solid gainsboro;
+}
+
+.categorybar{
+    width: 100%;
+    height: 40px;
+    /* background-color: gray; */
+    display: flex;
+    justify-content: space-around;
+    font-size: 15px;
+    align-items: center;
+}
+
+.brandbar{
+    width: 100%;
+    height: 30px;
+    /* background-color: gray; */
+    display: flex;
+    justify-content: space-around;
+    /* border: 0.5px solid gainsboro; */
+    border-radius: 1px;
+    font-size: 13px;
+    /* background-color: gold; */
+}
+
+li{
+    list-style: none;
+}
+
+.catelist{
+    /* border: 0.5px solid gainsboro; */
+}
+
+.menubody{
+    height:855px;
+    width:1000px;
+    /* background-color:aqua; */
+    display: flex;
+}
+
+.listSpace{
+    height:750px;
+    width:300px;
+    /* background-color:coral; */
+    border: 0.5px solid gainsboro;
+    overflow-y: scroll;
+}
+
+/* 스크롤바 설정*/
+.type1::-webkit-scrollbar{
+    width: 8px;
+}
+
+/* 스크롤바 막대 설정*/
+.type1::-webkit-scrollbar-thumb{
+    height: 17%;
+    background-color: rgb(255,88,93);
+    /* 스크롤바 둥글게 설정    */
+    border-radius: 10px;    
+}
+
+/* 스크롤바 뒷 배경 설정*/
+.type1::-webkit-scrollbar-track{
+    background-color: rgba(0,0,0,0);
+}
+
+.bar{
+    height:85px;
+    width:270px;
+    background-color: white;
+    border: 0.5px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.bar:hover{
+    border: 0.5px solid rgb(255,88,93);
+
+}
+
+.bar > div {
+    margin-top: 10px;
+}
+
+.prdImg{
+    margin:0 5px 0 5px;
+    width: 70px;
+    height: 70px;
+    /* background-color: aqua; */
+}
+
+.prdImg > img {
+    width: 70px;
+    height: auto;
+    overflow: hidden;
+}
+
+.prdInfo{
+    width: 190px;
+    height: 70px;
+    /* background-color: brown; */
+}
+
+.brdName{
+    height: 12px;
+    font-size: 12px;
+    margin-left : 1px;
+}
+
+.prdName{
+    line-height: 30px;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.prcInfo{
+    width: 100%;
+    height: 20px;
+    /* background-color: crimson; */
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* .prcInfo > span{
+    line-height: 20px;
+    vertical-align:middle;
+} */
+
+.dcRate{
+    margin-left: 1px;
+    /* background-color: cyan; */
+}
+
+.dcPrc{
+    /* background-color:darkgoldenrod; */
+}
+
+.oriPrc{
+    /* background-color: darkgreen; */
+    font-size: 12px;
+    font-weight: lighter;
+    text-decoration: line-through;
+}
+.container{
+    height:700px;
+    width:750px;
+    /*background-color:wheat;*/
+    margin: 0 0 0 15px;
+    position: relative;
+}
+
+#map{
+    z-index: 1;
+    width: 700px;
+    height: 750px;
+}
+
+
+.selectedbrd{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: white;
+    border-radius: 3px;
+    opacity: 0.5;
+    height: 18px;
+    font-size: 13px;
+    color: gray;
+    z-index: 2;
+
+}
+
+a:visited{
+    text-decoration: none;
+    color: black;
+}
+
+a:link{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color:rgb(255,88,93)
+}
