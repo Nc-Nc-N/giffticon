@@ -22,24 +22,30 @@ public class WishListController {
     // 관심상품에 추가하기
     @PostMapping(value = "/register", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> register(@RequestBody WishListVO wish){
-        log.info("WishListVO: "+wish);
 
-        // 예외처리
-        int insertCount = service.insertWish(wish);
+        try{
 
-        log.info("INSERT COUNT: "+insertCount);
+            int insertCount = service.insertWish(wish);
+            return insertCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        return insertCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e){
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // 관심상품에서 삭제하기
     @PostMapping(value = "/remove", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> remove(@RequestBody WishListVO wish){
-        log.info("WishListVO: "+wish);
-        int deleteCount = service.deleteWish(wish);
 
-        log.info("DELETE COUNT: "+deleteCount);
+        try{
 
-        return deleteCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            int deleteCount = service.deleteWish(wish);
+            return deleteCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        } catch (Exception e){
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

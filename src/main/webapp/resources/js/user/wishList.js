@@ -5,7 +5,7 @@ let wishListService = (function () {
     let token = $("meta[name='_csrf']").attr("content");
 
     // 관심상품 추가
-    function add(wish, callback, error) {
+    function add(wish) {
         console.log("insert wish....")
 
         $.ajax({
@@ -17,21 +17,22 @@ let wishListService = (function () {
             },
             data: JSON.stringify(wish),
             contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                if (callback) {
-                    callback(result);
-                }
-            }, error: function (xhr, status, er) {
-                if (error) {
-                    error(er);
-                    alert("다시 시도해주세요.");
-                }
+            success: function () {
+
+                $("#like-button").addClass('selected');
+
+                alert("관심상품으로 등록되었습니다.");
+
+            }, error: function () {
+
+                alert("다시 시도해주세요.");
+
             }
         })
     }
 
     // 관심상품 삭제
-    function remove(wish, callback, error) {
+    function remove(wish) {
         console.log("delete wish....")
 
         $.ajax({
@@ -42,15 +43,15 @@ let wishListService = (function () {
             },
             data: JSON.stringify(wish),
             contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                if (callback) {
-                    callback(result);
-                }
-            }, error: function (xhr, status, er) {
-                if (error) {
-                    error(er);
-                    alert("다시 시도해주세요.");
-                }
+            success: function () {
+
+                $("#like-button").removeClass('selected');
+                alert("관심상품에서 삭제되었습니다.");
+
+            }, error: function () {
+
+                alert("다시 시도해주세요.");
+
             }
         })
     }
