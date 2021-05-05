@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @Log4j
@@ -37,14 +38,12 @@ public class ProdController {
 		String code = cri.getCode();
 		int total = giftiService.getTotal(cri);
 
-
 		try {
 
 			model.addAttribute("category", cateService.getCate(code));            	// 카테고리
 			model.addAttribute("brandList", brandService.getBrdList(code));    		// 브랜드 목록
 			model.addAttribute("gifti", giftiService.getGiftiWithPaging(cri));    	// 기프티콘 목록(페이징 처리 포함)
 			model.addAttribute("headerPageMaker", new PageDTO(cri, total));
-
 
 			return "/user/gifticon/gifti_list";
 
@@ -62,17 +61,18 @@ public class ProdController {
 		String code = cri.getCode();
 		int total = giftiService.getTotal(cri);
 		int hasWish = 0;
-		int userId = 0;
+		Integer userId = null;
 
-		try{						// 로그인이 되어 있을 때
-			userId = (int) request.getSession().getAttribute("userId");
+		userId = (Integer) request.getSession().getAttribute("userId");
+		log.info("userId:"+userId);
+
+		if(userId != null){			// 로그인이 되어 있을 때
+
 			wish.setProdCode(code);
 			wish.setUserId(userId);
 
 			hasWish = wishService.hasWish(wish);
-
-		}catch (Exception e){ 		// 로그인이 안 되어 있을 때
-			hasWish = 0;
+		}else{
 			userId = 0;
 		}
 
@@ -82,11 +82,11 @@ public class ProdController {
 			model.addAttribute("giftiList", giftiService.getGiftiList(code));		// 등록된 기프티콘 목록
 			model.addAttribute("gifticon", giftiService.getGifti(code));				// 대표 기프티콘
 			model.addAttribute("userId", userId);									// 로그인한 사용자 userId
-			model.addAttribute("hasWish", wishService.hasWish(wish));				// 관심상품에 등록되어 있는지(있으면 1, 없으면 0)
+			model.addAttribute("hasWish", hasWish);									// 관심상품에 등록되어 있는지(있으면 1, 없으면 0)
 
 			return "/user/gifticon/gifti_detail";
 
-		}catch (Exception e){
+		}catch (Exception e){ 
 			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
 			return "/user/gifticon/gifti_detail";
 		}

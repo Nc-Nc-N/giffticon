@@ -23,6 +23,8 @@ public class WishListController {
     @PostMapping(value = "/register", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> register(@RequestBody WishListVO wish){
         log.info("WishListVO: "+wish);
+
+        // 예외처리
         int insertCount = service.insertWish(wish);
 
         log.info("INSERT COUNT: "+insertCount);

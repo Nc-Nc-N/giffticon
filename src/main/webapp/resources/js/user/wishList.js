@@ -17,13 +17,14 @@ let wishListService = (function () {
             },
             data: JSON.stringify(wish),
             contentType: "application/json; charset=utf-8",
-            success: function (result, status, xhr) {
+            success: function (result) {
                 if (callback) {
                     callback(result);
                 }
             }, error: function (xhr, status, er) {
                 if (error) {
                     error(er);
+                    alert("다시 시도해주세요.");
                 }
             }
         })
@@ -41,14 +42,14 @@ let wishListService = (function () {
             },
             data: JSON.stringify(wish),
             contentType: "application/json; charset=utf-8",
-            success: function (result, status, xhr) {
+            success: function (result) {
                 if (callback) {
                     callback(result);
                 }
             }, error: function (xhr, status, er) {
                 if (error) {
-                    alert("error");
                     error(er);
+                    alert("다시 시도해주세요.");
                 }
             }
         })

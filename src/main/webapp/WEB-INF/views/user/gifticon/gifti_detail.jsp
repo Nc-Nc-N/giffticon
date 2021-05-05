@@ -109,7 +109,7 @@
         $(document).ready(function (){
 
             let has = ${hasWish};       // 관심상품으로 등록되어 있는지 확인
-            let userId = ${userId};
+            const userId = ${userId};
 
             // '관심상품' 버튼 상태 표시
             if(has === 1){
@@ -135,6 +135,7 @@
                                 has = 1;
                                 alert("관심상품으로 등록되었습니다.");
                             });
+
                     }else{ // 관심상품 등록 상태일때 삭제
                         wishListService.remove(
                             {userId: userId,
