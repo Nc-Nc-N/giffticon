@@ -123,6 +123,7 @@
                 }
 
             }
+
             // '관심상품' 버튼 상태 표시
             if(has === 1){
                 $("#like-button").addClass('selected')

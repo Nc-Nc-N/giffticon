@@ -22,9 +22,9 @@ public class WishListController {
     // 관심상품에 추가하기
     @PostMapping(value = "/register", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> register(@RequestBody WishListVO wish){
-
-        try{
-
+        
+      try{
+        
             int insertCount = service.insertWish(wish);
             return insertCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 

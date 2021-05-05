@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@Log4j
 @RequestMapping("/user/*")
 @AllArgsConstructor
 public class ProdController {
