@@ -31,7 +31,7 @@ public class UserInfoController {
 
     CmmnCodeService cmmnCodeService;
 
-    PointService pointService;
+    ConService pointService;
 
     @GetMapping("/userInfo")
     public void userInfo(HttpServletRequest request, Model model) {
