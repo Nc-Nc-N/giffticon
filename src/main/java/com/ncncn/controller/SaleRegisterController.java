@@ -159,7 +159,7 @@ public class SaleRegisterController {
         log.info("update ajax post................");
 
         List<AttachFileDTO> list = new ArrayList<>();
-        String uploadFolder = "/Users/asdddq/Desktop/MyFolder/팀프로젝트/Git0418/giffticon/src/main/webapp/resources/img/barcode";
+        String uploadFolder = "/Users/asdddq/Desktop/MyFolder/TeamProject/Git0418/giffticon/src/main/webapp/resources/img/barcode";
 
         String uploadFolderPath = getFolder();
         //make folder --------
@@ -230,8 +230,7 @@ public class SaleRegisterController {
 
         log.info("fileName: " + fileName);
 
-        // 경로 상수처리. 한글 들어가지 않게. xml에서 처리
-        File file = new File("/Users/asdddq/Desktop/MyFolder/팀프로젝트/Git0418/giffticon/src/main/webapp/resources/img/barcode" + fileName);
+        File file = new File("/Users/asdddq/Desktop/MyFolder/TeamProject/Git0418/giffticon/src/main/webapp/resources/img/barcode" + fileName);
 
         log.info("file: " + file);
 
@@ -260,7 +259,6 @@ public class SaleRegisterController {
             log.info("registered Gifticon successfully.............");
         } catch (Exception e) {
             e.printStackTrace();
-            // 에러처리 추가 할 것.
         }
     }
 
