@@ -14,6 +14,9 @@ public interface GifticonMapper {
 
 	GifticonVO read(int id);
 
+	// 구매할 기프티콘
+	ProdListVO getGifticon(int id);
+
 	List<SaleRqustVO> readAllRqustWithPaging(SaleRqustCriteria cri);
 
 	Map<String, Object> readRqustById(int id);

@@ -69,20 +69,22 @@
                                 <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M91.6 13A28.7 28.7 0 0 0 51 13l-1 1-1-1A28.7 28.7 0 0 0 8.4 53.8l1 1L50 95.3l40.5-40.6 1-1a28.6 28.6 0 0 0 0-40.6z"/></svg>
                                 관심상품
                             </button>
-                            <select class="option-select">
-                                <option> 옵션 선택하기 </option>
+
+                            <form class="opt-order" action="/user/gifti_order" method="get">
+                            <select name="gifti" class="option-select">
+                                <option value=""> 옵션 선택하기 </option>
                                 <c:forEach items="${giftiList}" var="gifti">
-                                    <option>
+                                    <option value="${gifti.id}">
                                         할인가:<fmt:formatNumber type="number" maxFractionDigits="3" value="${gifti.dcPrc}" />(<fmt:formatNumber value="${gifti.dcRate}" type="percent" />) /
                                         유효기간: <fmt:formatDate value="${gifti.expirDt}" pattern="yyyy-MM-dd"/> 까지
                                     </option>
                                 </c:forEach>
                             </select>
                         </div>
-
-                        <button type="button" class="btn-active">
+                        <button type="button" id="order-btn" class="btn-active">
                             구매하기
                         </button>
+                            </form>
 
                     </div>
                 </div>
@@ -96,9 +98,10 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="/resources/js/user/wishList.js"></script>
-    <script>
+</body>
+<script type="text/javascript" src="/resources/js/user/wishList.js"></script>
+<script>
+    $(document).ready(function (){
         // url 이동
         function common_goUrl(url){
             if(url != ""){
@@ -106,50 +109,72 @@
             }
         }
 
-        $(document).ready(function (){
+        // 에러 메시지 처리
+        let error = "${error}";
 
-            let has = ${hasWish};
-            const userId = ${userId};
+        if(error.length > 0){
+            alert("error: " + error);
+        }
+    });
+</script>
 
-            // 관심상품 등록, 삭제
-            function isWishList(has){
+<%--관심상품, 구매하기--%>
+<script>
+    $(document).ready(function (){
+        let has = ${hasWish};
+        const userId = ${userId};
 
-                let wish = {userId: userId, prodCode:"${gifticon.prodCode}"};
+        // 관심상품 등록, 삭제
+        function isWishList(has){
 
-                if($("#like-button").hasClass('selected')){
-                    wishListService.remove(wish)
-                }else{
-                    wishListService.add(wish)
-                }
+            let wish = {userId: userId, prodCode:"${gifticon.prodCode}"};
 
-            }
-
-            // '관심상품' 버튼 상태 표시
-            if(has === 1){
-                $("#like-button").addClass('selected')
+            if($("#like-button").hasClass('selected')){
+                wishListService.remove(wish)
             }else{
-                $("#like-button").removeClass('selected')
+                wishListService.add(wish)
             }
 
-            // 관심 상품 버튼 클릭하면 이벤트 발생
-            $("#like-button").on("click", function (e){
+        }
 
-                if(userId === 0){    // 로그인이 안 되어 있을 때
-                    alert("로그인 후에 이용가능한 메뉴입니다.");
+        // '관심상품' 버튼 상태 표시
+        if(has === 1){
+            $("#like-button").addClass('selected')
+        }else{
+            $("#like-button").removeClass('selected')
+        }
+
+        // '관심상품', '구매하기' 버튼 클릭하면 이벤트 발생
+        $("#like-button, #order-btn").on("click", function (e) {
+
+            // 로그인이 안 되어 있을 때
+            if(userId === 0) {
+                let result = confirm("회원전용 서비스 입니다. 로그인/회원가입 페이지로 이동하시겠습니까?");
+                if(result){
                     $(location).attr('href', "/account/signIn");
-
-                }else {
-                    isWishList(has);
                 }
-            })
 
-            // 에러 메시지 처리
-            let error = "${error}";
+            }else{
 
-            if(error.length > 0){
-                alert("error: " + error);
+                // 관심상품
+                if($(this).attr("id") ==="like-button"){
+
+                    isWishList(has);
+
+                }else{  // 구매하기
+
+                    let orderForm = $(".opt-order");
+
+                    e.preventDefault();
+
+                    if (!$(".option-select option:selected").val()) {
+                        alert("옵션을 선택해주세요");
+                        return false;
+                    }
+                    orderForm.submit();
+                }
             }
-        });
+        })
+    });
+</script>
 
-    </script>
-</body>

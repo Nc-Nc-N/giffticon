@@ -19,6 +19,12 @@ public class GifticonServiceImpl implements GifticonService {
 
     GifticonMapper gifticonMapper;
 
+
+    @Override
+    public ProdListVO getGifticon(int id) {
+        return gifticonMapper.getGifticon(id);
+    }
+
     @Override
     public int gftDealCmpl(int gftId) {
 

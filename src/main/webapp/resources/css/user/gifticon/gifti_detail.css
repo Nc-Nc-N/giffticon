@@ -133,7 +133,7 @@
     border-radius: 10px;
     padding: 0.25em 1em 0.25em;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 15px;
     display: inline-block;
     float: right;
     margin-top: 15px;
@@ -194,4 +194,8 @@
 
 .product_detail_exp > .title{
     margin-bottom: 4%;
+}
+
+.group{
+    display: flex;
 }

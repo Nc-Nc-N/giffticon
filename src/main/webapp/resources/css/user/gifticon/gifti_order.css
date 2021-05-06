@@ -164,7 +164,7 @@
     letter-spacing: -0.2px;
 }
 
-.goodsinfo_table th, .goodsinfo_table td, .money_info_table td {
+.goodsinfo_table th, .goodsinfo_table td, .money_info_table th, .money_info_table td {
     padding-top: 23px;
 }
 
@@ -215,6 +215,7 @@
 
 ul{
     list-style-type: none;
+    margin-left: -40px;
 }
 
 .agree_check > .ico{
@@ -223,7 +224,7 @@ ul{
 
 .btn_payment {
     display: block;
-    width: 240px;
+    width: 200px;
     height: 56px;
     margin: 40px auto 0;
     border: 0 none;
@@ -232,4 +233,10 @@ ul{
     font-weight: 700;
     font-size: 16px;
     color: #fff;
+    text-align: center;
+}
+
+.btn_payment:disabled{
+    background-color: #aaaaaa;
+    cursor: not-allowed;
 }

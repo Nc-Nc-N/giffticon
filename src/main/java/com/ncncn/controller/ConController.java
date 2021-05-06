@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,12 +21,12 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class ConController {
 
-	UserService userService;
-	ConService pointService;
+	private UserService userService;
+	private ConService pointService;
 
 	// 콘 충전하기 페이지
 	@GetMapping(value = "/addCon")
-	public void addConPage(HttpServletRequest request, Model model){
+	public void addConPage(HttpServletRequest request, Model model) {
 
 		int userId = (int) request.getSession().getAttribute("userId");
 		UserInfoDTO user = userService.getMyInfo(userId);
@@ -43,16 +44,17 @@ public class ConController {
 
 	// 콘 충전 저장, 사용자 보유 콘 update
 	@GetMapping("/addCon/con")
-	public @ResponseBody void addCon(int amount, PntHistVO pntHistVO, HttpServletRequest request){
+	public @ResponseBody
+	void addCon(int amount, PntHistVO pntHistVO, HttpServletRequest request) {
 
 		log.info(amount);
 
 		// 콘 충전 혜택
-		if(amount == 10000){
+		if (amount == 10000) {
 			amount += 1000;
-		}else if(amount == 20000){
+		} else if (amount == 20000) {
 			amount += 2500;
-		}else if(amount == 50000){
+		} else if (amount == 50000) {
 			amount += 6000;
 		}
 
@@ -66,5 +68,14 @@ public class ConController {
 		int balance = pntHistVO.getBalance();
 
 		pointService.updateUserCon(userId, balance);
+	}
+
+	// 콘 사용, 사용자 보유 콘 update
+	@PostMapping("/payCon")
+	public @ResponseBody
+	void payCon(int amount, PntHistVO pntHistVO, HttpServletRequest request) {
+
+		log.info("amount: "+ amount);
+		
 	}
 }

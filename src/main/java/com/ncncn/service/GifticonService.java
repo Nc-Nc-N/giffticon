@@ -8,6 +8,8 @@ import com.ncncn.domain.pagination.GiftiCriteria;
 import java.util.List;
 
 public interface GifticonService {
+	// 구매할 기프티콘
+	public ProdListVO getGifticon(int id);
 
     public int gftDealCmpl(int gftId);
 

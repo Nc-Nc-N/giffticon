@@ -10,6 +10,14 @@
         where id = #{id}
     </select>
 
+    <select id="getGifticon" resultType="com.ncncn.domain.ProdListVO">
+        select id, user_id, prod_code, dc_prc, prod.name as pname, brd.name as bname, prod.img_path
+        from gifticon as gft
+                 join product as prod on prod.code = gft.prod_code
+                 join brand as brd on brd.code = prod.brd_code
+        where id = #{id}
+    </select>
+
     <sql id="getRqust">
         <![CDATA[
         from gifticon as gft
