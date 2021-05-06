@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 
 
-    private final SignUpServiceImpl signUpServiceImpl;
+    private final SignUpService signUpService;
     private final JavaMailSender javaMailSender;
 
     @Setter(onMethod_ = @Autowired)
@@ -37,8 +37,8 @@ public class AccountController {
     @Setter(onMethod_ = @Autowired)
     SoclInfoService soclInfoService;
 
-    public AccountController(SignUpServiceImpl signUpServiceImpl, JavaMailSender javaMailSender) {
-        this.signUpServiceImpl = signUpServiceImpl;
+    public AccountController(SignUpService signUpServiceImpl, JavaMailSender javaMailSender) {
+        this.signUpService = signUpServiceImpl;
         this.javaMailSender = javaMailSender;
     }
 
