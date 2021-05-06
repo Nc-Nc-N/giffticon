@@ -57,7 +57,7 @@ public class SaleRegisterController {
         }
 
         try {
-            int userId = (int) request.getSession().getAttribute("userId");
+            int userId = (int)request.getSession().getAttribute("userId");
             model.addAttribute("userId", userId);
             log.info("userId= " + userId);
         } catch (NullPointerException e) {
@@ -71,7 +71,7 @@ public class SaleRegisterController {
 
     @GetMapping(value = "/getBrandAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<List<BrandVO>> getBrandListAjax(@RequestParam("name") String name) {
+    public ResponseEntity<List<BrandVO>> getBrandListAjax(String name) {
 
         // 선택된 카테고리에 해당하는 브랜드 목록 전송
         try {
@@ -88,7 +88,7 @@ public class SaleRegisterController {
 
     @GetMapping(value = "/getProductAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<List<ProductVO>> getProductListAjax(@RequestParam("name") String name) {
+    public ResponseEntity<List<ProductVO>> getProductListAjax(String name) {
 
         // 선택된 브랜드에 해당하는 상품 목록 전송
         try {
@@ -105,9 +105,8 @@ public class SaleRegisterController {
 
     @GetMapping(value = "/getProductObjectAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ProductVO> getProductObjectAjax(
-            @RequestParam("brdName") String brdName, @RequestParam("prodName") String prodName) {
-
+    public ResponseEntity<ProductVO> getProductObjectAjax(String brdName, String prodName) {
+        //shift+j 줄 합치기
         // 선택된 브랜드, 상품에 해당하는 상품 전송
         try {
             String brandName = URLDecoder.decode(brdName, "UTF-8");
@@ -168,7 +167,7 @@ public class SaleRegisterController {
         log.info("upload path: " + uploadPath);
 
         if(uploadPath.exists() == false) {
-            uploadPath.mkdirs();
+            uploadPath.mkdirs(); // 예외처리. 경로 만들 때 매우 조심해야 함.
         }
         // make yyyy/MM/dd folder
 
@@ -231,6 +230,7 @@ public class SaleRegisterController {
 
         log.info("fileName: " + fileName);
 
+        // 경로 상수처리. 한글 들어가지 않게. xml에서 처리
         File file = new File("/Users/asdddq/Desktop/MyFolder/팀프로젝트/Git0418/giffticon/src/main/webapp/resources/img/barcode" + fileName);
 
         log.info("file: " + file);
@@ -240,7 +240,9 @@ public class SaleRegisterController {
         try {
             HttpHeaders header= new HttpHeaders();
 
+            // MIME Type 입력
             header.add("Content-Type", Files.probeContentType(file.toPath()));
+            // 파일 전송
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
@@ -258,6 +260,7 @@ public class SaleRegisterController {
             log.info("registered Gifticon successfully.............");
         } catch (Exception e) {
             e.printStackTrace();
+            // 에러처리 추가 할 것.
         }
     }
 

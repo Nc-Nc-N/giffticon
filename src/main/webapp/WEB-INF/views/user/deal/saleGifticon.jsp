@@ -282,6 +282,7 @@
 
                     console.log(result);
 
+                    // 이미지 등록 성공시 썸네일 이미지 불러오기
                     showUploadedFile(result);
 
                 },
@@ -461,9 +462,11 @@
     $('.categorySelect').on("click", function () {
         // 대분류 클릭시 대분류이름을 보내고 중분류 객체리스트를 받아온다.
         // 선택퇸 카테고리 텍스트 변경, 상품 정보 삭제, 가격정보 초기화
+
         let catName = this.innerText;
-        selectedCatName = this.innerText;
+
         // 선택된 카테고리 텍스트 변경
+        selectedCatName = this.innerText;
         changeSelectedResultText(catSelectResultText());
         // 가격정보 초기화
         priceAllClean();
@@ -671,6 +674,7 @@
     function showUploadedFile(uploadResultArr) {
 
         $(uploadResultArr).each(function (i, obj) {
+            // fileCallPath : 썸네일 이미지 경로
             var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" +
                 obj.uuid + "_" + obj.fileName);
 
@@ -678,7 +682,7 @@
             document.getElementById('thumbnail').src =
                 "/user/display?fileName=/" + fileCallPath;
 
-            // DB gifticon 테이블 img_path에 입력할때 사용할 originPath
+            // DB gifticon 테이블 img_path에 입력할때 사용할 변수 originPath
             originPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;
 
             originPath = originPath.replace(new RegExp(/\\/g), "/");
@@ -768,6 +772,7 @@
             success: function (result) {
 
                 console.log(result);
+                // 등록 성공시 모달창 보여주기
                 showFinalModal();
 
             },
