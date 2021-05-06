@@ -7,8 +7,9 @@
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/admin/request/requestList.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/admin/product/productDetail.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/list.css" typeof="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/modal.css" typeof="text/css">
+<link rel="stylesheet" href="/resources/css/admin/product/productList.css" type="text/css">
 
 <h1>상품관리</h1>
 
@@ -43,8 +44,8 @@
 <!-- search area end -->
 
 <!-- request list -->
-<div id="rqust-div">
-    <table id="rqust-tb">
+<div id="list-div">
+    <table id="list-tb">
         <thead>
         <tr>
             <td class="w100">상품 이미지</td>
@@ -58,9 +59,9 @@
         </thead>
         <tbody>
         <c:forEach var="prod" items="${prodList}" varStatus="status">
-            <tr class="rqust-tr">
+            <tr class="list-tr">
                 <td>
-                    <div class="rqust-img"><img src="<c:out value='${prod.imgPath}'/>"></div>
+                    <div class="list-img"><img src="<c:out value='${prod.imgPath}'/>"></div>
                 </td>
                 <td>
                     <div><c:out value="${prod.prodCode}"/></div>
@@ -119,7 +120,7 @@
 
 <!-- register modal -->
 <div class="modal reg-modal">
-    <div id="detail-modal">
+    <div class="detail-modal">
         <div class="modal-title">상품등록</div>
         <form id="reg-form" action="/admin/product/register" method="post" enctype="multipart/form-data">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -168,7 +169,7 @@
                     <td></td>
                     <td colspan="5">
                         <div class="td-cntnt warn-msg">
-                            <i class="fas fa-exclamation-circle"></i>정가는 최대 99,999,999원 까지, 할인율은 최대 30% 까지 입력가능합니다.
+                            <i class="fas fa-exclamation-circle"></i>정가는 최대 99,999,999원 까지, 할인율은 최대 50% 까지 입력가능합니다.
                         </div>
                     </td>
                 </tr>
@@ -188,7 +189,7 @@
                 </tr>
             </table>
         </form>
-        <div id="detail-btn-area">
+        <div class="detail-btn-area">
             <button class="btn btn-active prod-reg">등록</button>
             <button class="btn btn-disabled cancel">취소</button>
         </div>
@@ -200,8 +201,8 @@
 <script>
     let csrfHeaderName = "${_csrf.headerName}";
     let csrfTokenValue = "${_csrf.token}";
-    $(document).ready(function (e) {
 
+    $(document).ready(function (e) {
         // 사이드바 판매요청관리 active
         $("a[id='prodAdministration']").attr('class', 'active');
 
@@ -227,7 +228,32 @@
             showRegModal();
         });
 
+        $(".detail-link").on("click", function (e) {
+            e.preventDefault();
+            let prod = getProd($(this).attr("href"));
+
+
+        });
+
     });
+
+    function getProd(prodCode) {
+        let prod = {};
+
+        $.ajax({
+            type: 'get',
+            url: '/admin/product/' + prodCode,
+            async: false,
+            success: function (result) {
+                prod = result;
+            },
+            error: function () {
+                alert("상품정보를 가져오는데 실패했습니다. 새로고침 후 다시 시도해주세요.\n문제가 반복될 경우 담당자에게 문의해주세요.");
+            }
+        });
+
+        return prod;
+    }
 
     function submitAction(form, pageNum) {
         form.find("input[name='pageNum']").val(pageNum);
@@ -255,8 +281,13 @@
         // 카테고리가 선택되면 해당 카테고리에 포함된 브랜드 목록을 불러온다.
         $(".cate-select select").on("change", function (e) {
             let cateCode = $(".cate-select option:selected").val();
+            cleanBrdSelect();
             fillBrdSelect(cateCode);
         });
+    }
+
+    function cleanBrdSelect() {
+        $(".brd-select option").remove();
     }
 
     function showRegModal() {
@@ -274,29 +305,26 @@
             // 입력한 상품정보가 유효하면 상품을 등록한다.
             if (!checkInputVale()) return;
 
-            let formData = new FormData($("#reg-form")[0]);
-
-            $.ajax({
-                type: 'post',
-                url: '/admin/product/register',
-                contentType: false,
-                processData: false,
-                enctype: 'multipart/form-data',
-                data: formData,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                },
-                success: function (result) {
-                    hideRegModal();
-                    let pageNum = parseInt("${pageMaker.cri.pageNum}");
-                    let realEnd = getRealEnd("${pageMaker.total}", "${pageMaker.cri.amount}");
-                    submitAction(searchForm, pageNum > realEnd ? realEnd : pageNum);
-                },
-                error: function (result) {
-                    alert("다시 한 번 시도해주세요.");
-                }
-            });
-
+            <%--$.ajax({--%>
+            <%--    type: 'post',--%>
+            <%--    url: '/admin/product/register',--%>
+            <%--    contentType: false,--%>
+            <%--    processData: false,--%>
+            <%--    enctype: 'multipart/form-data',--%>
+            <%--    data: formData,--%>
+            <%--    beforeSend: function (xhr) {--%>
+            <%--        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);--%>
+            <%--    },--%>
+            <%--    success: function (result) {--%>
+            <%--        hideRegModal();--%>
+            <%--        let pageNum = parseInt("${pageMaker.cri.pageNum}");--%>
+            <%--        let realEnd = getRealEnd("${pageMaker.total}", "${pageMaker.cri.amount}");--%>
+            <%--        submitAction(searchForm, pageNum > realEnd ? realEnd : pageNum);--%>
+            <%--    },--%>
+            <%--    error: function (result) {--%>
+            <%--        alert("다시 한 번 시도해주세요.");--%>
+            <%--    }--%>
+            <%--});--%>
         });
 
         // 취소버튼 이벤트 등록
@@ -329,13 +357,13 @@
     let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
     let maxSize = 5242880; //5MB
 
-    function checkExtension(fileName, fileSize){
-        if(fileSize >= maxSize) {
+    function checkExtension(fileName, fileSize) {
+        if (fileSize >= maxSize) {
             alert("파일 사이즈 초과");
             return false;
         }
 
-        if(regex.test(fileName)){
+        if (regex.test(fileName)) {
             alert("해당 종류의 파일은 업로드할 수 없습니다.");
             return false;
         }
@@ -354,7 +382,7 @@
 
     function checkInDcRate() {
         let inDcRate = $("input[name='inDcRate']").val();
-        return /^[0-9]{1,2}$/g.test(inDcRate) && (parseInt(inDcRate) > 0 && parseInt(inDcRate) <= 30);
+        return /^[0-9]{1,2}$/g.test(inDcRate) && (parseInt(inDcRate) > 0 && parseInt(inDcRate) <= 50);
     }
 
     function checkImg() {

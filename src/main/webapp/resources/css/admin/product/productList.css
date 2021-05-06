@@ -1,0 +1,66 @@
+.btn-disabled {
+    background-color: rgb(233, 233, 233);
+    color: rgb(55, 55, 55);
+}
+
+.select-div {
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px 0;
+}
+
+select {
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background-color: rgb(243, 243, 243);
+    height: 30px;
+    margin: 0 10px;
+}
+
+.brd, .cate {
+    width: 150px;
+}
+
+.text-input {
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid rgb(188, 188, 188);
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+input[type="text"] {
+    border: none;
+    outline: none;
+    height: 30px;
+}
+
+input[name="name"] {
+    width: 310px;
+}
+
+.warn-msg {
+    margin-top: 0;
+    font-size: 12px;
+}
+
+.warn-msg i {
+    color: #333333;
+    font-size: 12px;
+}
+
+.descn {
+    padding: 5px;
+}
+
+.descn > textarea {
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: scroll;
+    overflow-x: hidden;
+    width: 465px;
+    height: 80px;
+    font-size: 14px;
+}
