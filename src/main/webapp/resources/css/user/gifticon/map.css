@@ -12,12 +12,11 @@
 .main{
     width:1000px;
     height:935px;
-    
     /* background-color: lightgreen; */
 }
 
 .menuhead{
-    height:150px;
+    height:fit-content;
     width:1000px;
     /* background-color:yellow; */
     /* border: 0.5px solid gainsboro; */
@@ -35,13 +34,14 @@
 }
 
 .searchbar{
-    height: 70px;
-    border: 0.5px solid gainsboro;
+    height: fit-content;
+    /*border: 0.5px solid gainsboro;*/
 }
 
 .categorybar{
     width: 100%;
-    height: 40px;
+    height: 60px;
+    border: 0.5px solid gainsboro;
     /* background-color: gray; */
     display: flex;
     justify-content: space-around;
@@ -50,27 +50,42 @@
 }
 
 .brandbar{
-    width: 100%;
-    height: 30px;
-    /* background-color: gray; */
-    display: flex;
-    justify-content: space-around;
-    /* border: 0.5px solid gainsboro; */
+    visibility: hidden;
+    height: 40px;
+    border: 0.5px solid gainsboro;
     border-radius: 1px;
     font-size: 13px;
-    /* background-color: gold; */
+
+    display: flex;
+    align-content:start;
+    flex-wrap: wrap;
+    overflow: auto;
+    padding-inline-start: 0px;
+    width: 1000px;
+    height: fit-content;
 }
 
 li{
     list-style: none;
 }
 
-.catelist{
-    /* border: 0.5px solid gainsboro; */
+.brdList{
+    margin: 0 10px 0 10px;
+}
+
+.brd-submit{
+    margin-top:2.5px;
+    height: 15px;
+    width: auto;
+    font-size: 13px;
+
+    background-color: rgb(255,88,93);
+    border: none;
+    border-radius: 3px;
 }
 
 .menubody{
-    height:855px;
+    height:730px;
     width:1000px;
     /* background-color:aqua; */
     display: flex;
@@ -202,10 +217,10 @@ li{
     left: 10px;
     background-color: white;
     border-radius: 3px;
-    opacity: 0.5;
+    opacity: 0.7;
     height: 18px;
     font-size: 13px;
-    color: gray;
+    color: black;
     z-index: 2;
 
 }

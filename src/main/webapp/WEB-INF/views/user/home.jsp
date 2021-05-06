@@ -46,7 +46,7 @@
             <!--지도 삽입-->
             <div class="maps">
                 <div class="mapicon">
-                    <a href="(위치찾기)"><p><img src="/resources/img/map.png"></p></a> <!--db에서 상품 이미지불러오기-->
+                    <a href="/user/gifticon/map"><p><img src="/resources/img/map.png"></p></a> <!--db에서 상품 이미지불러오기-->
                 </div>
                 <div class="mapinfo">
                     <span>현재 위치에서 기쁘티콘 찾기</span>

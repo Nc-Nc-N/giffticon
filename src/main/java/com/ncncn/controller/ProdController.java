@@ -1,5 +1,6 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.CategoryVO;
 import com.ncncn.domain.WishListVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
 import com.ncncn.domain.pagination.PageDTO;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user/*")
@@ -118,10 +120,12 @@ public class ProdController {
 	}
 
 	@GetMapping("/gifticon/map")
-	public void map(HttpServletRequest request){
+	public void map(Model model) {
+		
+		List<CategoryVO> cateList = cateService.getCategoryList();
 
-		log.info("map search jsp..");
-
+		model.addAttribute("cateList", cateList);
 
 	}
+
 }

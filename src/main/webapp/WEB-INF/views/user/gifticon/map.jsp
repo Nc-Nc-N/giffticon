@@ -27,23 +27,12 @@
                 <div class="menuname"><span>지도 검색</span></div>
                 <div class="searchbar">
                     <div class="categorybar">
-                        <li class="catelist">카페</li>
-                        <li class="catelist">빵, 아이스크림</li>
-                        <li class="catelist">편의점, 마트</li>
-                        <li class="catelist">피자, 햄버거, 치킨</li>
-                        <li class="catelist">문화, 게임, 영화</li>
-                        <li class="catelist">외식, 분식</li>
-                        <li class="catelist">백화점, 주유, 뷰티</li>
+                        <c:forEach items="${cateList}" var="cate">
+                            <li class="cateList" value="<c:out value="${cate.code}"/>"><c:out value="${cate.name}"/></li>
+                        </c:forEach>
                     </div>
-                    <div class="brandbar">
-                        <li class="brdlist"><input type="checkbox" value="스타벅스">전체</li>
-                        <li class="brdlist"><input type="checkbox" value="스타벅스">스타벅스</li>
-                        <li class="brdlist"><input type="checkbox" value="스타벅스">탐앤탐스</li>
-                        <li class="brdlist"><input type="checkbox" value="스타벅스">투썸플레이스</li>
-                        <li class="brdlist"><input type="checkbox" value="스타벅스">빽다방</li>
-                        <li class="brdlist"><input type="checkbox" value="스타벅스">ㅅㅁㅇ</li>
-                        <li class="brdlist"><input type="checkbox" value="스타벅스">커피빈</li>
-                    </div>
+                    <ul class="brandbar">
+                    </ul>
                 </div>
             </div>
             <div class="menubody">
@@ -262,7 +251,7 @@
                    
                 </div>
                 <div class="container"><!--메인컨텐츠 (이하 각자 내용 작성)-->
-                <div class="selectedbrd">스타벅스</div>
+                <div class="selectedbrd"></div>
                 <div id="map"></div>
                 </div>
             </div>
@@ -271,7 +260,7 @@
 
 </body>
 </html>
-<script>
+<script> //카카오맵 로딩
     var container = document.getElementById('map');
 
     var options = {
@@ -280,4 +269,73 @@
     };
 
     var map = new kakao.maps.Map(container, options);
+</script>
+<script>
+    $(document).ready(function(){
+
+        let cateBtn = $(".cateList");
+
+        cateBtn.on("click", function(){
+
+            let cateCode = $(this).val();
+            let cateName = $(this).text();
+            cateCode = "0" + cateCode;
+
+            $.ajax({
+                url:'/user/map/getBrdList/' + cateCode,
+                type: 'get',
+                dataType: 'json',
+                success: function(result){
+
+                    let str = "";
+
+                    str += "<li class='brdList'><input type='checkbox' class='all' name='전체' id='" + cateName + " 전체" + "' value='" + cateCode+ "'>전체</li>";
+
+                    for(var key in result){
+                     str += "<li class='brdList'><input type='checkbox' class='brand' name='" + result[key] + "' value='" + key + "'>" + result[key] + "</li>";
+                    }
+
+                    $(".brandbar").html(str);
+                    $(".brandbar").css("visibility","visible");
+
+                },
+                error: function(){
+                    alert("error received");
+                }
+
+            })
+        })
+    })
+</script>
+<script> //브랜드 checkbox
+
+
+    $(".brandbar").on("click",function(){
+
+        var value = [];
+        var name = [];
+
+        $("input[class='brand']:checked").each(function(){
+            value.push($(this).val());
+            name.push($(this).attr('name'));
+
+        });
+
+        if($("input[name='전체']").is(":checked") == true){
+            $("input:checkbox[class='brand']").prop("checked",false);
+            $("input:checkbox[class='brand']").prop("disabled", true);
+
+            value = "";
+            name = "";
+
+            value = $("input[name='전체']").val();
+            name = $("input[name='전체']").attr('id');
+        }else{
+            $("input:checkbox[class='brand']").prop("disabled", false);
+        }
+
+        console.log("선택값 : " + value);
+        $('.selectedbrd').text(name);
+    });
+
 </script>
