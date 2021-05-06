@@ -54,8 +54,9 @@ public class MyGifticonController {
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
+		//로그인된 userId의 dealDetail을 가져오기 (url로 접속 방지)
 		try {
-			MyDealsVO gftInfo = dealListService.getGftDetail(gftId, userId).get(0);
+			MyDealsVO gftInfo = dealListService.getGftDetail(gftId, userId);
 			model.addAttribute("gftInfo", gftInfo);
 
 		} catch (Exception e) { //다른 사용자의 dealDetail일 시 홈으로 이동시킴 (보안용)
@@ -85,13 +86,14 @@ public class MyGifticonController {
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
+		//로그인된 userId의 sellDetail을 가져오기 (url로 접속 방지)
 		try {
-			MySellVO gftInfo = sellListService.getSellDetail(gftId, userId).get(0);
+			MySellVO gftInfo = sellListService.getSellDetail(gftId, userId);
 
 			model.addAttribute("gftInfo", gftInfo);
 
 		} catch (Exception e) { //다른 사용자의 sellDetail이면 홈으로 이동시킴 (보안용)
-			e.printStackTrace();
+
 			log.info("다른 사용자의 조회페이지 입니다. 메인페이지로 이동합니다.");
 
 			return "redirect:/user/home";
@@ -116,6 +118,7 @@ public class MyGifticonController {
 	public ResponseEntity<String> absLoader(@RequestParam("userId") int userId){
 
 		//요약에 들어가면 모든 정보를 db에서 불러옴
+
 		try {
 			int stus004 = dealListService.countStus004(userId);
 			int stus001 = sellListService.countStus001N002(userId, "판매대기");

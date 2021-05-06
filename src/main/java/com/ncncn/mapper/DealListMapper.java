@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DealListMapper {
 
-    public List<MyDealsVO> getGftDetail(@Param("gftId") int gftId, @Param("userId") int userId);
+    public MyDealsVO getGftDetail(@Param("gftId") int gftId, @Param("userId") int userId);
 
     public List<MyDealsVO> getDealsWithPaging(@Param("userId") int userId,
 											  @Param("dateFrom") String dateFrom,
