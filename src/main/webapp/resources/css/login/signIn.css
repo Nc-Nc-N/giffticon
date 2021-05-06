@@ -147,3 +147,48 @@ a.link:link {
 a.link:hover {
     color: rgb(255, 88, 93);
 }
+
+.social{
+    cursor: pointer;
+    filter: drop-shadow(1px 1px 1px grey);
+}
+
+.social:hover{
+   opacity:0.5;
+}
+
+.btn-locked{
+    background-color: grey;
+}
+
+#socialLoginHeader{
+    display: flex;
+    justify-content: center;
+    height: 30px;
+    /*background-color: #4b70fd;*/
+}
+
+#socialLogin{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    width: 270px;
+    /*background-color: grey;*/
+}
+
+#socialLogin > img{
+    height: 45px;
+    width: 100%;
+}
+
+#gSignInWrapper{
+    width: 45px;
+    height: 45px;
+
+}
+
+#googleBtn > img {
+    width: 45px;
+    height: auto;
+    filter: drop-shadow(1px 1px 1px grey);
+}
