@@ -167,7 +167,11 @@ public class SaleRegisterController {
         log.info("upload path: " + uploadPath);
 
         if(uploadPath.exists() == false) {
-            uploadPath.mkdirs(); // 예외처리. 경로 만들 때 매우 조심해야 함.
+            try {
+                uploadPath.mkdirs();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         // make yyyy/MM/dd folder
 
