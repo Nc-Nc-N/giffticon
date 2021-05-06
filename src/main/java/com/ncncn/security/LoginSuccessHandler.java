@@ -1,7 +1,7 @@
 package com.ncncn.security;
 
 import com.ncncn.service.SignUpService;
-
+import com.ncncn.service.SoclInfoService;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +23,15 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     @Setter(onMethod_ = @Autowired)
     SignUpService signUpService;
 
+    @Setter(onMethod_ = @Autowired)
+    SoclInfoService soclInfoService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication auth)
             throws IOException, ServerException {
-        log.warn("로그인 성공....");
+        log.warn("커스텀 프로바이더 로그인 성공....");
 
         //로그인 이후 이동할 페이지 나눠주기
         String url = redirectUrlSelector(request);
@@ -50,7 +53,10 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             return;
         }
 
-        log.info("사용자로 로그인 합니다.");
+        if (roleName.contains("사용자(소셜로그인)")) {
+            String soclType = soclInfoService.getSoclType(userId).getCodeName();
+            request.getSession().setAttribute("social", soclType);
+        }
 
         //user 로그인 시 조건에 따라 이동
         response.sendRedirect(url);
@@ -85,7 +91,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             request.getSession().removeAttribute("SPRING_SECURITY_SAVED_REQUEST");
             request.getSession().removeAttribute("referer");
 
-        //2. 직접 로그인 창으로 온 경우 이전 페이지로 이동
+            //2. 직접 로그인 창으로 온 경우 이전 페이지로 이동
         } else {
             redirectUrl = (String) request.getSession().getAttribute("referer");
             request.getSession().removeAttribute("referer");

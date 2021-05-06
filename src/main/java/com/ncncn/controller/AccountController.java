@@ -7,9 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.ncncn.domain.UserVO;
 import com.ncncn.service.SignUpService;
+import com.ncncn.service.SoclInfoService;
+import com.ncncn.service.UserService;
 import com.ncncn.util.EmailAuthCodeUtils;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,34 +27,43 @@ import org.springframework.web.bind.annotation.*;
 @Log4j
 public class AccountController {
 
-	private SignUpService signUpService;
-	private JavaMailSender javaMailSender;
 
-	public AccountController(SignUpService signUpService, JavaMailSender javaMailSender) {
-		this.signUpService = signUpService;
-		this.javaMailSender = javaMailSender;
-	}
+    private final SignUpServiceImpl signUpServiceImpl;
+    private final JavaMailSender javaMailSender;
 
-	@GetMapping("/signIn")
-	public void signIn(HttpServletRequest request, String error, Model model) {
+    @Setter(onMethod_ = @Autowired)
+    UserService userService;
 
-		model = cookieChecker(request, model);
+    @Setter(onMethod_ = @Autowired)
+    SoclInfoService soclInfoService;
 
-		//로그인 실패 시
-		if (error != null) {
-			model.addAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
-		}
+    public AccountController(SignUpServiceImpl signUpServiceImpl, JavaMailSender javaMailSender) {
+        this.signUpServiceImpl = signUpServiceImpl;
+        this.javaMailSender = javaMailSender;
+    }
 
-		//직접 logout 해서 로그인 창으로 왔을 시
-		if (request.getSession().getAttribute("logout") != null) {
-			model.addAttribute("msg", "로그아웃되었습니다.");
-			request.getSession().removeAttribute("logout");
-		}
+    @GetMapping("/signIn")
+    public void signIn(HttpServletRequest request, String error, Model model) {
 
-		request.getSession().setAttribute("referer", request.getHeader("referer"));
-	}
+        model = cookieChecker(request, model);
 
-	@GetMapping("/signUp")
+        //로그인 실패 시
+        if (error != null) {
+            model.addAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
+        }
+
+        //직접 logout 해서 로그인 창으로 왔을 시
+        if (request.getSession().getAttribute("logout") != null) {
+            model.addAttribute("msg", "로그아웃되었습니다.");
+            request.getSession().removeAttribute("logout");
+        }
+
+        model.addAttribute("soclTypes", soclInfoService.getSoclLoginCode());
+
+        request.getSession().setAttribute("referer", request.getHeader("referer"));
+    }
+
+    	@GetMapping("/signUp")
 	public String getSignUp() {
 		return "/account/signUp";
 	}
@@ -105,18 +117,46 @@ public class AccountController {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-	public Model cookieChecker(HttpServletRequest request, Model model) {
+    public Model cookieChecker(HttpServletRequest request, Model model) {
 
-		Cookie[] cookies = request.getCookies();
+        Cookie[] cookies = request.getCookies();
 
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("remEmail")) {
-					model.addAttribute("email", cookies[i].getValue());
-					model.addAttribute("isRemember", "checked");
-				}
-			}
-		}
-		return model;
-	}
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equals("remEmail")) {
+                    model.addAttribute("email", cookies[i].getValue());
+                    model.addAttribute("isRemember", "checked");
+                }
+            }
+        }
+        return model;
+    }
+
+    @GetMapping(value = "/socialAccountCheck")
+    public ResponseEntity<Integer> socialAccountCheck(@RequestParam("email") String email,
+                                                      @RequestParam("soclType") String soclType) {
+
+        //회원 상태에 따라 0,1,2,3 반환
+        try {
+            int isRegistered = userService.soclUserReadByEmail(email, soclType);
+            log.info("isRegistered :" + isRegistered);
+            return new ResponseEntity<Integer>(isRegistered, HttpStatus.OK);
+        } catch (Exception e) {
+            log.info("social check error");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+
+    @GetMapping(value = "/basicAccountCheck")
+    public ResponseEntity<String> ajaxLogin(@RequestParam("email") String email) {
+
+        try {
+            String usertype = userService.checkLoginCode(email);
+            return new ResponseEntity<String>(usertype, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

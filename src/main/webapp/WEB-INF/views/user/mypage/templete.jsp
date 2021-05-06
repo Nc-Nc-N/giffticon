@@ -30,11 +30,6 @@
                 <div class="menuname">MY PAGE</div><!--메뉴 이름 (사이드바 위)-->
                 <div class="sidebar"> <!--사이드 바 영역 (필요한만큼 영역 늘리기)-->
                     <!--필요한만큼 아래 추가해서 사용 (개당 간격70px)-->
-                    <a href="/user/mypage/wishList">
-                        <div class="bar">
-                            <div>관심 상품</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
                     <a href="/user/mypage/deal">
                         <div class="bar">
                             <div>구매 내역</div>
@@ -55,9 +50,14 @@
                             <div>1:1 문의</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
-                    <a href="(메뉴이동">
+                    <a href="/user/mypage/addCon">
                         <div class="bar">
-                            <div>포인트 충전</div>
+                            <div>콘 충전</div>
+                            <i class="fas fa-chevron-right"></i></div>
+                    </a>
+                    <a href="/user/mypage/wishList">
+                        <div class="bar">
+                            <div>관심 상품</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
                 </div>
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <div class='abs curentPnt'>
-                        <div class="abs_name">현재 포인트</div>
+                        <div class="abs_name">보유 콘</div>
                         <div class="abs_pnt" id="userPnt">
 <%--                            <c:out value="${userPnt}"/>p--%>
                         </div>
@@ -118,6 +118,7 @@
                 $("#stus001").html(result[1]);
                 $("#stus002").html(result[2]);
                 $("#userPnt").html(result[3]);
+                $("#now_con")
             },
             error: function(){
                 alert("요약 창 정보 불러오기에 실패했습니다.");

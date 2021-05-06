@@ -17,7 +17,7 @@ public class DealListServiceImpl implements DealListService {
     private DealListMapper dealListMapper;
 
     @Override
-    public List<MyDealsVO> getGftDetail(int gftId, int userId) {
+    public MyDealsVO getGftDetail(int gftId, int userId) {
 
         log.info("Get Detail of gft Id: " + gftId);
 
