@@ -44,7 +44,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         List<String> roleName = authorityFinder(auth);
 
         //회원 id는 세션에 저장해놓고 필요할때 꺼내 쓰기
-        request.getSession().setAttribute("userId", signUpService.getUserByEmail(auth.getName()).getId());
+        int userId = signUpService.getUserByEmail(auth.getName()).getId();
+        request.getSession().setAttribute("userId", userId);
 
         //admin 로그인 시 무조건 admin/main으로 리다이렉트
         if (roleName.contains("관리자")) {

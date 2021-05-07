@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int soclUserReadByEmail(String email, String soclType) {
 
-        UserVO user = userMapper.readByEmail(email);
+        UserVO user = userMapper.readUserByEmail(email);
 
         if (user == null) { //비회원인경우
             log.info("role: X");
@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String checkLoginCode(String email) {
 
-        UserVO user = userMapper.readByEmail(email);
+        UserVO user = userMapper.readUserByEmail(email);
 
         if (user == null) {
             return "none";
