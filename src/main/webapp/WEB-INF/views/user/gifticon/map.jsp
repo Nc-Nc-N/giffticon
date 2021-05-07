@@ -12,7 +12,7 @@
     
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ac51465d91bcae237e6703842ae5d0c5"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ac51465d91bcae237e6703842ae5d0c5&libraries=services"></script>
     <title>Document</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
@@ -260,16 +260,7 @@
 
 </body>
 </html>
-<script> //카카오맵 로딩
-    var container = document.getElementById('map');
 
-    var options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3
-    };
-
-    var map = new kakao.maps.Map(container, options);
-</script>
 <script>
     $(document).ready(function(){
 
@@ -309,33 +300,149 @@
 </script>
 <script> //브랜드 checkbox
 
+    //매장 검색용 선택 List
+    var brand = [];
 
     $(".brandbar").on("click",function(){
 
+        //
         var value = [];
+
+        //화면 출력용 선택 List
         var name = [];
 
         $("input[class='brand']:checked").each(function(){
             value.push($(this).val());
             name.push($(this).attr('name'));
 
+            brand = name;
         });
 
         if($("input[name='전체']").is(":checked") == true){
             $("input:checkbox[class='brand']").prop("checked",false);
             $("input:checkbox[class='brand']").prop("disabled", true);
 
+            brand = [];
+
             value = "";
             name = "";
 
             value = $("input[name='전체']").val();
             name = $("input[name='전체']").attr('id');
+
+            $(".brand").each(function(){
+                brand.push($(this).attr('name'));
+            })
+
         }else{
             $("input:checkbox[class='brand']").prop("disabled", false);
         }
 
-        console.log("선택값 : " + value);
         $('.selectedbrd').text(name);
+
+        console.log("brand : " + brand);
+        console.log("brand size : " + brand.length);
     });
+
+</script>
+<script>
+    var lat = 0;
+    var lon = 0;
+
+    if (navigator.geolocation) {
+        // 현재 접속 위치 얻기
+        navigator.geolocation.getCurrentPosition(function(position) {
+            lat = position.coords.latitude; // 위도
+            lon = position.coords.longitude; // 경도
+
+            lat = lat.toFixed(6);
+            lon = lon.toFixed(6);
+        });
+    } else {
+       lat = 33.450701;
+       lon = 126.570667;
+    }
+
+</script>
+<script> //카카오맵 로딩
+
+
+    $(document).ready(function(){
+
+        var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+        var container = document.getElementById('map');
+
+        var options = {
+            center: new kakao.maps.LatLng(lat, lon),
+            level: 3
+        };
+
+        //카카오맵 생성
+        var map = new kakao.maps.Map(container, options);
+
+        // 검색객체 생성
+        var places = new kakao.maps.services.Places(map);
+
+        var marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(0,0)
+        });
+
+        var markers= [];
+
+        var callback = function(result, status){
+
+            if(status === kakao.maps.services.Status.OK){
+                    displayMarker(result);
+            }
+        };
+
+        function displayMarker(result){
+
+            for(let j=0; j<result.length; j++){
+
+                marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(result[j].y,result[j].x),
+                    title: result[j].place_name
+                });
+                markers.push(marker);
+            }
+        }
+
+        function removeMarker(){
+
+            for(let j=0; j<markers.length; j++){
+                markers[j].setMap(null);
+            }
+            markers = [];
+        }
+
+
+        kakao.maps.event.addListener(map, 'dragend', function(){
+
+            var position = map.getCenter();
+            var bound = map.getBounds();
+
+            removeMarker();
+
+            for(let i in brand){
+                console.log("검색: " + brand[i]);
+
+                var searchOptions = {
+                    location: position,
+                    bounds: bound,
+                    size: 15
+                };
+
+                places.keywordSearch(brand[i],callback,searchOptions);
+            }
+
+            console.log("position: " + position);
+            console.log("bound : " + bound);
+
+        })
+
+    })
 
 </script>

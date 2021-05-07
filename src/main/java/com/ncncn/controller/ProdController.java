@@ -121,7 +121,7 @@ public class ProdController {
 
 	@GetMapping("/gifticon/map")
 	public void map(Model model) {
-		
+
 		List<CategoryVO> cateList = cateService.getCategoryList();
 
 		model.addAttribute("cateList", cateList);
