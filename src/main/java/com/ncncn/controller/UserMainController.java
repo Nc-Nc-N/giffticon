@@ -11,6 +11,7 @@ import com.ncncn.service.CategoryService;
 import com.ncncn.service.GifticonService;
 import com.ncncn.service.WishListService;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.MediaType;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.util.List;
 
+@Log4j
 @Controller
 @RequestMapping("/user/*")
 @AllArgsConstructor
