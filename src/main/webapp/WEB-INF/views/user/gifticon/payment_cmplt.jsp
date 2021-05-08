@@ -59,9 +59,9 @@
 			</tbody>
 			</table>
 		</div>
-        <div>
-            <button class="btn btn-deals">구매내역 확인</button>
-            <button class="btn btn-home">홈으로 가기</button>
+        <div class="btn-group">
+            <button class="btn" onclick="location.href='/user/mypage/deal'">구매내역 확인</button>
+            <button class="btn" onclick="location.href='/user/home'">홈으로 가기</button>
         </div>
 	</div>
 </div>
