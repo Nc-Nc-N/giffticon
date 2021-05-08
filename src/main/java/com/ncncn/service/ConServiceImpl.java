@@ -45,25 +45,30 @@ public class ConServiceImpl implements ConService {
     }
 
     @Override
-    public void addCon(PntHistVO pntHistVO) {
+    public boolean insertConHist(PntHistVO pntHistVO) {
 
         try{
-            conMapper.addCon(pntHistVO);
+            conMapper.insertConHist(pntHistVO);
             log.info("콘 충전 내역 저장 성공");
+            return true;
 
         } catch (Exception e){
             log.info("콘 충전 내역 저장 실패");
+            return false;
         }
     }
 
     @Override
-    public void updateUserCon(int userId, int balance) {
+    public boolean updateUserCon(int userId, int balance) {
 
         try{
             conMapper.updateUserCon(userId, balance);
             log.info("사용자 보유 con 수정 성공");
+            return true;
+
         } catch (Exception e){
             log.info("사용자 보유 con 수정 실패");
+            return false;
         }
     }
 }

@@ -19,8 +19,6 @@
             <!-- '구매상품'부터 전체 -->
             <div id="content">
 
-                <form id="order-form" action="/payment_cmplt" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <!-- 구매상품 -->
                     <h3 class="tit_section fst">구매상품</h3>
                     <div id="itemList" class="page_aticle order_goodslist">
@@ -40,20 +38,17 @@
                                 <th>이름</th>
                                 <td>
                                     <c:out value="${user.name}"/>
-                                    <input type="hidden" name="orderer_name" value="<c:out value="${user.name}"/>">
                                 </td>
                             </tr>
                             <tr>
                                 <th>휴대폰</th>
                                 <td>
                                     <c:out value="${user.telNo}"/>
-                                    <input type="hidden" name="orderer_phone" value="<c:out value="${user.telNo}"/>">
                                 </td>
                             </tr>
                             <tr>
                                 <th>이메일</th>
                                 <td>
-                                    <input type="hidden" id="email" name="orderer_email" value="<c:out value="${user.email}"/>" option="regEmail">
                                     <c:out value="${user.email}"/>
                                     <p class="txt_guide">
                                         <span class="txt txt_case1">이메일을 통해 주문처리과정을 보내드립니다.</span>
@@ -72,7 +67,7 @@
                             <th>전액 콘 결제</th>
                             <td class="noline" style="position:relative">
                                 <label class="label_radio checked" id="payCon" style="padding-bottom:4px;">
-                                    <input type="radio" id="con" name="settlekind" value="p">
+                                    <input type="radio" id="con" name="settlekind" value="002">
                                     현재 보유 콘 <span class="p_pink"> <c:out value="${user.pnt}"/> 콘</span>
                                 </label>
                             </td>
@@ -211,7 +206,7 @@
                                 <div class="bg_dim"></div>
                                 <div class="check type_form">
                                     <label class="agree_check">
-                                        <input type="checkbox" name="ordAgree" value="y" required="" fld_esssential="" label="결제 진행 필수 동의" msgr="결제 진행 필수 동의 내용에 동의하셔야 결제가 가능합니다.">
+                                        <input type="checkbox" name="ordAgree">
                                         <span class="ico"></span>
                                         결제 진행 필수 동의
                                     </label>
@@ -225,36 +220,47 @@
                                             <a href="#pgTerms" class="link_terms">약관보기</a>
                                         </li>
                                     </ul>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
                     </table>
 
-                    <button class="btn_payment">
+                    <form id="order-form" action="/payment_cmplt" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="hidden" name="orderer_name" value="<c:out value="${user.name}"/>"/>
+                        <input type="hidden" name="gftId" value="<c:out value="${gifticon.id}"/>"/>
+                        <input type="hidden" name="dcPrc" value="<c:out value="${gifticon.dcPrc}"/>"/>
+                        <input type="hidden" name="metdStus" value="">
+                        <button class="btn_payment">
                         결제하기
-                    </button>
-                </form>
+                        </button>
+                    </form>
             </div>
         </div>
     </div>
-
 </body>
+
 <script>
 $(document).ready(function(){
     let payBtn = $(".btn_payment");
-    let money = ${gifticon.dcPrc};
-    let con = ${user.pnt};
+    let payMetd = $('input:radio[name="settlekind"]');
+    let orderForm = $("#order-form");
 
-    // 결제방식- 콘 사용
-    $('input[name="settlekind"]').click(function (){
+    // 결제방식 클릭시 결제금액 변함
+    payMetd.click(function (){
+
+        let con = ${user.pnt};
+        let dcPrc = ${gifticon.dcPrc};
+        let money = dcPrc;
         payBtn.attr("disabled", false);
 
         if($('input:radio[id="con"]').is(':checked')){      // 콘 사용 체크시
 
             // 보유 콘으로 기프티콘을 구입할 수 있을 때
-            if(con>= money){
-                con = "- "+money+" 콘";
-                money = 0;
+            if(con>= dcPrc){
+                con = dcPrc;
+                money = dcPrc - con;
             }else{
                 con = '보유 콘이 부족합니다.'
                 $('.useCon').css("color", "#FF585D");
@@ -263,7 +269,8 @@ $(document).ready(function(){
             }
         }else{                                              // 다른 결제방식 선택
             $('.useCon').css("color", '');
-            con = "- "+0+" 콘";
+            money = dcPrc;
+            con = 0;
 
         }
         $('.useCon').html(con);
@@ -271,17 +278,48 @@ $(document).ready(function(){
     })
 
 
-    // '결제하기' 버튼 클릭시 이벤트 발생
-    payBtn.on("click", function (e){
+    // 결제
+    function order(method){
+        if(method === '002'){
+            payCon();
+        }
+    }
 
-        let payCon = ${gifticon.dcPrc};
-
-        e.preventDefault();
-        let orderForm = $("#order-form");
+    function payCon(){
+        // 다시 생각해보기..
+        let con = ${gifticon.dcPrc};
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
-        if($('input:radio[id="con"]').is(':checked') === false){
+        orderForm.find("input[name='metdStus']").val("002");
+
+        // 콘 결제
+        $.ajax({
+            type:"POST",
+            url:"/user/conUpdate",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+            },
+            data:{
+                "amount": -con,
+                "pntCode": "003"    // 구매
+            },
+            success: function (){
+                orderForm.submit();
+
+            }, error: function (){
+                alert('일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.');
+            }
+        });
+    }
+
+
+    // '결제하기' 버튼 클릭시 이벤트 발생
+    payBtn.on("click", function (e){
+
+        e.preventDefault();
+
+        if(payMetd.is(':checked') === false){
             alert("결제 진행을 위해 결제 방식을 선택해주세요.")
             return false;
         }
@@ -291,24 +329,18 @@ $(document).ready(function(){
             return false;
         }
 
-        $.ajax({
-            type:"POST",
-            url:"/user/mypage/payCon",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-            },
-            data:{
-                "amount": payCon
-            },
-            success: function (){
-                orderForm.submit();
-
-            }, error: function (){
-                alert('일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.');
-            }
-
-        })
+        // 결제 방식 확인 후 결제 진행
+        let method = $('input:radio[name="settlekind"]:checked').val();
+        order(method);
 
     });
+
+
+    // 에러 메시지 처리
+    let error = "${error}";
+
+    if(error.length > 0){
+        alert("error: " + error);
+    }
 });
 </script>

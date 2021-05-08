@@ -125,7 +125,7 @@
         const userId = ${userId};
 
         // 관심상품 등록, 삭제
-        function isWishList(has){
+        function isWishList(){
 
             let wish = {userId: userId, prodCode:"${gifticon.prodCode}"};
 
@@ -159,7 +159,7 @@
                 // 관심상품
                 if($(this).attr("id") ==="like-button"){
 
-                    isWishList(has);
+                    isWishList();
 
                 }else{  // 구매하기
 

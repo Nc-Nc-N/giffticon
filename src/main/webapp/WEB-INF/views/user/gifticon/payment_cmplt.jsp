@@ -12,6 +12,8 @@
 	<div id="space">
 	</div>
 	<div id="main">
+		<c:set var="today" value="<%=new java.util.Date()%>" />
+
 		<div class="msg">
 			<span>결제가 완료되었습니다.</span>
 			<br>
@@ -25,7 +27,8 @@
 					주문번호
 				</td>
 				<td>
-					2021031801
+					<c:set var="date"><fmt:formatDate value="${today}" pattern="yyyyMMdd" /></c:set>
+					<c:out value="${date}"/><c:out value="${gftId}"/>
 				</td>
 			</tr>
 			<tr>
@@ -33,23 +36,24 @@
 					주문 접수일
 				</td>
 				<td>
-					2021-03-18
+					<c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>
+					<c:out value="${date}"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="infotitle">
-					결제 금액
+					주문 금액
 				</td>
 				<td>
-					3,000 원
+					<fmt:formatNumber type="number" maxFractionDigits="3" value="${dcPrc}" /><span> 원</span>
 				</td>
 			</tr>
 			<tr>
 				<td class="infotitle">
-					남은 포인트
+					남은 콘
 				</td>
 				<td>
-					5,000 원
+					<fmt:formatNumber type="number" maxFractionDigits="3" value="${user.pnt}" /><span> 콘</span>
 				</td>
 			</tr>
 			</tbody>
@@ -62,3 +66,11 @@
 	</div>
 </div>
 </body>
+<script>
+	// 에러 메시지 처리
+	let error = "${error}";
+
+	if(error.length > 0){
+		alert("error: " + error);
+	}
+</script>

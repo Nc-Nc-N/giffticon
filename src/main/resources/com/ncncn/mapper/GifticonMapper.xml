@@ -259,4 +259,9 @@
                 #{imgPath}, #{isAutoPrc}, '001', default, current_user(), default, current_user(), null)
     </insert>
 
+    <!-- 기프티콘 상태 변경(판매중 -> 거래확정대기) -->
+    <update id="updateGftStus">
+        update gifticon set gft_stus_code = '004', up_date = now(), up_user = current_user() where id = #{id}
+    </update>
+
 </mapper>

@@ -83,4 +83,14 @@ public class GifticonMapperTests {
         ProdListVO gifti = mapper.getGifticon(id);
 
     }
+
+    @Test
+    public void updateGftStus(){
+        int id = 7;
+
+        Boolean result = mapper.updateGftStus(id);
+
+        assertEquals(result, true);
+
+    }
 }

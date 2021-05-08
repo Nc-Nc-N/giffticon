@@ -40,4 +40,7 @@ public interface GifticonService {
 	public List<ProdListVO> getDeadlineGifti();
 
 	public void registerGifticon(GifticonVO gifticon);
+
+	// 기프티콘 상태 변경(판매중 -> 거래확정대기)
+	public boolean updateGftStus(int id);
 }

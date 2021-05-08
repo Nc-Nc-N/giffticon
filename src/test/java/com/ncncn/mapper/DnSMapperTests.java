@@ -145,4 +145,15 @@ public class DnSMapperTests {
 //        assertEquals(sellDetail.getDcRate(),0.05d);
         assertEquals(sellDetail.getUserId(), 157);
     }
+
+    @Test
+    public void insertDealTest(){
+        int userId = 151;
+        int gftId = 235;
+        int dcPrc = 5000;
+        String metdStus = "002";
+
+        dealListMapper.insertDeal(userId, gftId, dcPrc, metdStus);
+
+    }
 }

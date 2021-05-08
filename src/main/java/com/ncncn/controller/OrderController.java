@@ -1,6 +1,8 @@
 package com.ncncn.controller;
 
 import com.ncncn.domain.UserInfoDTO;
+import com.ncncn.mapper.DealListMapper;
+import com.ncncn.service.DealListService;
 import com.ncncn.service.GifticonService;
 import com.ncncn.service.UserService;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ public class OrderController {
 
 	private GifticonService giftiService;
 	private UserService userService;
+	private DealListService dealService;
 
 	@GetMapping("/user/gifti_order")
 	public String giftiOrder(@RequestParam("gifti") int id, HttpServletRequest request,  Model model) {
@@ -31,13 +34,36 @@ public class OrderController {
 			model.addAttribute("user", user);
 
 		}catch (Exception e){
-			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
+			model.addAttribute("error", "일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.");
 		}
 		return "user/gifticon/gifti_order";
 	}
 
 	@PostMapping("/payment_cmplt")
-	public String paymentCmplt(){
+	public String paymentCmplt(int gftId, int dcPrc, String metdStus, HttpServletRequest request, Model model){
+
+		log.info("gft_id: "+gftId);
+		log.info("metdStus: "+metdStus);
+
+
+		try{
+			int userId = (int) request.getSession().getAttribute("userId");
+			UserInfoDTO user = userService.getMyInfo(userId);
+
+			// 기프티콘 상태 변경
+			giftiService.updateGftStus(gftId);
+
+			// deal_detail 추가
+			dealService.insertDeal(userId,gftId, dcPrc, metdStus);
+
+			model.addAttribute("gftId", gftId);
+			model.addAttribute("dcPrc", dcPrc);
+			model.addAttribute("user", user);
+
+		}catch (Exception e){
+			model.addAttribute("error", "일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.");
+
+		}
 
 		return "user/gifticon/payment_cmplt";
 	}
