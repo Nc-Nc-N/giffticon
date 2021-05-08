@@ -52,7 +52,7 @@ public class ConController {
 		log.info("amount: "+amount);
 		log.info("pntCode: "+pntCode);
 
-		if(pntCode=="001"){
+		if(pntCode.equals("001")){
 			// 콘 충전 혜택
 			if (amount == 10000) {
 				amount += 1000;
