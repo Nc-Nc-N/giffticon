@@ -75,7 +75,7 @@
                     str += "<li class='brdList'><input type='checkbox' class='all' name='전체' id='" + cateName + " 전체" + "' value='" + cateCode+ "'>전체</li>";
 
                     for(var key in result){
-                     str += "<li class='brdList'><input type='checkbox' class='brand' name='" + result[key] + "' value='" + key + "'>" + result[key] + "</li>";
+                     str += "<li class='brdList each'><input type='checkbox' class='brand' name='" + result[key] + "' value='" + key + "'>" + result[key] + "</li>";
                     }
 
                     $(".brandbar").html(str);
@@ -110,8 +110,9 @@
 
         if($("input[name='전체']").is(":checked") == true){
 
-            $("input:checkbox[class='brand']").prop("checked",false);
-            $("input:checkbox[class='brand']").prop("disabled", true);
+            $("input:checkbox[class='brand']").prop("checked",false).prop("disabled", true);
+            $(".each").css("color","grey");
+
 
             brand = [];
             name = [];
@@ -123,6 +124,7 @@
 
         }else{
             $("input:checkbox[class='brand']").prop("disabled", false);
+            $(".each").css("color","black");
         }
         $('.selectedbrd').text(name);
     });
