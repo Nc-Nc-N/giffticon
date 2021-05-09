@@ -12,6 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <h1>거래내역관리</h1>
+<div id="submenu"></div>
 
 <!-- search area -->
 <form id='searchForm' action="/admin/deal-history" method="get">
@@ -21,7 +22,7 @@
             <div class="date-search">
                 <input type="date" id="dateFrom" name="dateFrom"
                        value="<c:out value="${pageMaker.cri.dateFrom}"/>">
-                <span style="font-size:20px">~</span>
+                <span id="tilde">~</span>
                 <input type="date" id="dateTo" name="dateTo"
                        value="<c:out value="${pageMaker.cri.dateTo}"/>">
             </div>
@@ -113,6 +114,7 @@
                                                value="${dealL.dealDt}"/></p>
                             <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
                                                value="${dealL.cmplDt}"/></p>
+                        </td>
                         <td>${dealL.codeName}</td>
                     </tr>
                 </c:forEach>
@@ -156,7 +158,6 @@
     <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
     <input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type}"/>'>
     <input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword}"/>'>
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 
 </div>

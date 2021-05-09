@@ -14,6 +14,12 @@ public interface ProductMapper {
 
 	ProductVO getProductObject(@Param("brdName") String brdName, @Param("prodName") String prodName);
 
+	List<ProductVO> readAllByBrdCode(String brdCode);
+
+	ProductVO readByCode(String code);
+
+	int updateRegQuty(String prodCode);
+
 	List<AdminProdListVO> readAllProductWithPaging(ProdCriteria cri);
 
 	int countProductWithPaging(ProdCriteria cri);
@@ -25,4 +31,5 @@ public interface ProductMapper {
 	int updateProduct(ProdRegisterDTO product);
 
 	int updateProductWithImagePath(ProdRegisterDTO product);
+
 }

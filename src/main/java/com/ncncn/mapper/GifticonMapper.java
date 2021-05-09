@@ -16,11 +16,14 @@ public interface GifticonMapper {
 
 	List<SaleRqustVO> readAllRqustWithPaging(SaleRqustCriteria cri);
 
-	Map<String, String> readRqustById(int id);
+	Map<String, Object> readRqustById(int id);
 
 	int countAllRqust(SaleRqustCriteria cri);
 
-	int updateStusCodeAndAprvDt(int id);
+	int updateSaleRqust(@Param("gftId") int id,
+						@Param("prodCode") String prodCode,
+						@Param("dcPrc") int dcPrc,
+						@Param("dcRate") double dcRate);
 
 	int gftDealCmpl(int gftId);
 

@@ -21,6 +21,20 @@
         ]]>
     </select>
 
+    <!-- 브랜드 코드에 해당하는 상품목록 조회 -->
+    <select id="readAllByBrdCode" resultType="com.ncncn.domain.ProductVO">
+        select code, name, prc, in_dc_rate from product where brd_code = #{brdCode}
+    </select>
+
+    <!-- code 값에 해당하는 상품 조회 -->
+    <select id="readByCode" resultType="com.ncncn.domain.ProductVO">
+        select * from product where code = #{code}
+    </select>
+
+    <update id="updateRegQuty">
+        update product set reg_quty = (reg_quty + 1) where code = #{prodCode}
+    </update>
+
     <select id="readAllProductWithPaging" resultType="com.ncncn.domain.AdminProdListVO">
         <![CDATA[
             select prod.img_path as imgPath, prod.code as prodCode, cate.name as cateName,
@@ -30,7 +44,7 @@
                  join category cate on cate.code = brd.cate_code
             where
         ]]>
-            <include refid="criteria"/>
+        <include refid="criteria"/>
         <![CDATA[
             order by prod.code
             limit #{amount}
@@ -81,7 +95,7 @@
             select lpad(convert(p.code, decimal) + 1, 6, '0') code from (select * from product where brd_code = #{brdCode} order by code desc limit 1) p union all select concat(#{brdCode}, '01') code from dual limit 1;
         </selectKey>
         insert into product(code, brd_code, name, prc, in_dc_rate, descn, img_path, in_user, up_user)
-            value (LPAD(#{code}, 6, '0'), #{brdCode}, #{name}, #{prc}, #{inDcRate}, #{descn}, concat(#{imgPath}, #{code}, #{fileExtension}), current_user, current_user)
+        value (LPAD(#{code}, 6, '0'), #{brdCode}, #{name}, #{prc}, #{inDcRate}, #{descn}, concat(#{imgPath}, #{code}, #{fileExtension}), current_user, current_user)
     </insert>
 
     <update id="updateProduct">

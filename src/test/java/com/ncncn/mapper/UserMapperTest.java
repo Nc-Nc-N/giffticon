@@ -92,9 +92,8 @@ public class UserMapperTest {
         assertEquals(user.getPnt(), 0);
     }
 
-    // 295page
     @Test
-    public void tesetPaging() {
+    public void testPaging() {
 
         UserCheckCriteria cri = new UserCheckCriteria();
 
@@ -104,7 +103,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void tesetPagingQuit() {
+    public void testPagingQuit() {
 
         UserCheckCriteria cri = new UserCheckCriteria();
 
@@ -113,7 +112,6 @@ public class UserMapperTest {
         list.forEach(user -> log.info(user));
     }
 
-    //336page
     @Test
     public void testSearch() {
 

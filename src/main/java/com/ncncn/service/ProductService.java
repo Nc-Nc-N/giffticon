@@ -22,7 +22,12 @@ public interface ProductService {
 
 	String register(ProdRegisterDTO product);
 
-	int modifyProduct(ProdRegisterDTO product);
+    List<ProductVO> getAllByBrdCode(String brdCode);
+
+    ProductVO getByCode(String code);
+
+    int modifyProduct(ProdRegisterDTO product);
 
 	int modifyProductWithImagePath(ProdRegisterDTO product);
+
 }

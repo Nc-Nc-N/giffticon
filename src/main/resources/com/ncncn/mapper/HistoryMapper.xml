@@ -121,4 +121,99 @@
 
     </select>
 
+    <sql id="criteriaCon">
+        <trim prefix="" suffix="" prefixOverrides="OR">
+            <foreach item='type' collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'E'.toString()">
+                            u.email like CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'N'.toString()">
+                            p.deal_id=#{keyword}
+                        </when>
+                    </choose>
+                </trim>
+
+                <trim prefix="and">
+                    <if test="dateFrom != ''">
+                        <if test="dateFrom != null">
+                            p.chg_dt >= #{dateFrom}
+                        </if>
+                    </if>
+                </trim>
+
+                <trim prefix="and">
+                    <if test="dateTo != ''">
+                        <if test="dateTo != null">
+                            adddate(#{dateTo}, interval 1 day) > p.chg_dt
+                        </if>
+                    </if>
+                </trim>
+
+                <trim prefix="AND (" prefixOverrides="OR" suffix=")">
+                        <if test="deposit == 'on'.toString()">
+                            OR code_name="입금"
+                        </if>
+                        <if test="withdraw == 'on'.toString()">
+                            OR code_name="출금"
+                        </if>
+                        <if test="buy == 'on'.toString()">
+                            OR code_name="구매"
+                        </if>
+                        <if test="sell == 'on'.toString()">
+                            OR code_name="판매"
+                        </if>
+                </trim>
+
+            </foreach>
+        </trim>
+    </sql>
+
+    <select id="getAdminConHistWithPaging" resultMap="AdminConHistory">
+        <![CDATA[
+        select u.email, c.code_name, p.chg_quty, p.deal_id, p.chg_dt, p.balance
+            from pnt_hist p
+
+            left outer join user u
+            on p.user_id = u.id
+
+            left outer join (select * from cmmn_code
+                             where code_type='PNT_HIST') c
+            on p.pnt_hist_code = c.code
+        where
+        ]]>
+
+        <include refid="criteriaCon"></include>
+
+        <![CDATA[
+
+        order by chg_dt desc
+        LIMIT #{amount}
+        OFFSET ${(pageNum-1) * amount}
+        ]]>
+    </select>
+
+    <resultMap id="AdminConHistory" type="java.util.HashMap">
+        <result property="email" column="email"/>
+        <result property="codeName" column="code_name"/>
+        <result property="chgQuty" column="chg_quty"/>
+        <result property="dealId" column="deal_id"/>
+        <result property="chgDt" column="chg_dt"/>
+        <result property="balance" column="balance"/>
+    </resultMap>
+
+    <select id="getConTotalCount" resultType="int">
+        select count(*)
+        from pnt_hist p
+
+        left outer join user u
+        on p.user_id = u.id
+
+        left outer join (select * from cmmn_code
+                         where code_type='PNT_HIST') c
+        on p.pnt_hist_code = c.code
+        where
+        <include refid="criteriaCon"></include>
+    </select>
 </mapper>
