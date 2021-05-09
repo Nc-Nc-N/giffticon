@@ -42,13 +42,13 @@ public class DealListServiceTests {
     public void testGetGftDetail() {
         int gftid = 80;
         int userid = 157;
-        List<MyDealsVO> myDealsVO = service.getGftDetail(gftid, userid);
+        MyDealsVO myDealsVO = service.getGftDetail(gftid, userid);
 
         log.info("permited user is : " + userid);
 
-        assertEquals(myDealsVO.get(0).getGftId(),80);
-        assertEquals(myDealsVO.get(0).getBrdName(),"스타벅스");
-        assertEquals(myDealsVO.get(0).getStusCode(), "거래확정대기");
+        assertEquals(myDealsVO.getGftId(),80);
+        assertEquals(myDealsVO.getBrdName(),"스타벅스");
+        assertEquals(myDealsVO.getStusCode(), "거래확정대기");
     }
 
     @Test

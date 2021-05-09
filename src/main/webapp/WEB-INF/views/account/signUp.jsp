@@ -201,38 +201,37 @@
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
-        // 전화번호 입력창 마우스 오른쪽 클릭 비활성화
-        $("input[name='telNo']").on('propertychange change keyup paste input', function (e) {
-            let tel = $(this).val().replace(/[^0-9]/g, '').substring(0, 11);
-            $(this).val(tel);
-        });
-
         let emlInput = $("input[name='email']");
-        let emlValidtMsg = $(".email-msg");
+        let emlValidMsg = $(".email-msg");
         let emlAuthBtn = $("button[name='email-auth-btn']");
 
-        let isRightEmail = false;       // 이메일 형식 일치
-        let isCertifiedEmail = false;   // 이메일 인증 진행
+        let emlAuthCode = '';           // 이메일 인증코드
+
+        let isRightEmail = false;       // 이메일 형식 일치 여부
+        let isCertifiedEmail = false;   // 이메일 인증 진행 여부
+        let isRightPwd = false;         // 비밀번호 형식 일치 여부
+        let isEqualPwd = false;         // 비밀번호와 비밀번호 확인 값 일치 여부
+        let isRightName = false;        // 이름 형식 일치 여부
+        let isRightTelNo = false;       // 휴대전화 형식 일치 여부
+        let isAllEssnChecked = false;   // 필수 약관동의 여부
 
         // 이메일 입력 값 변경될 때마다
         emlInput.on('propertychange change keyup paste input', function (e) {
-            isCertifiedEmail = false;                   // 인증여부 초기화
+            isCertifiedEmail = false;                       // 인증여부 초기화
             $(".email-exist-msg").css("display", "none");
 
-            if (checkEmail($(this).val())) {            // 값이 형식에 부합하는지 확인
-                emlValidtMsg.css("display", "none");    // 안내 메세지 hide
-                emlAuthBtn.attr("class", "btn002");     // 이메일 인증버튼 활성화
+            if (checkEmail($(this).val())) {                // 값이 형식에 부합하는지 확인
+                emlValidMsg.css("display", "none");         // 안내 메세지 hide
+                emlAuthBtn.attr("class", "btn002");         // 이메일 인증버튼 활성화
                 isRightEmail = true;
                 return;
             }
 
             // 값이 형식에 부합하지않으면
-            emlValidtMsg.css("display", "block");               // 안내 메세지 show
+            emlValidMsg.css("display", "block");               // 안내 메세지 show
             emlAuthBtn.attr("class", "btn-disabled btn002");    // 인증버튼 비활성화
             isRightEmail = false;
         });
-
-        let emlAuthCode = '';       // 이메일 인증코드
 
         emlAuthBtn.on('click', function (e) {
             e.preventDefault();
@@ -271,8 +270,6 @@
             isCertifiedEmail = false;                   // 이메일 인증여부 false
         });
 
-        let isRightPwd = false;
-
         let pwdInput = $("input[name='pwd']");
         pwdInput.on("propertychange change keyup paste input", function (e) {
             if (checkPwd($(this).val())) {
@@ -283,8 +280,6 @@
             $(".pwd-msg").css("display", "block");
             isRightPwd = false;
         });
-
-        let isEqualPwd = false;
 
         let confirmPwdInput = $("input[name='confirmPassword']");
         confirmPwdInput.on("propertychange change keyup paste input", function (e) {
@@ -298,8 +293,6 @@
         });
 
         // 이름 길이(2~20), 정규식 체크 -> 특수문자, 숫자 불가능 + 앞뒤 공백 제거
-        let isRightName = false;
-
         let nameInput = $("input[name='name']");
         nameInput.on("focusout", function (e) {
             let name = $(this).val().trim();
@@ -314,8 +307,7 @@
             isRightName = false;
         });
 
-        let isRightTelNo = false;
-
+        // 전화번호 유효성 검사과정
         let telInput = $("input[name='telNo']");
         telInput.on("propertychange change keyup paste input", function (e) {
             let tel = $(this).val().replace(/[^0-9]/g, '').substring(0, 11);
@@ -330,19 +322,19 @@
             isRightTelNo = false;
         });
 
+        // 약관내용 모달 visible
         $(".term").on('click', function (e) {
             e.preventDefault();
-
             $("." + $(this).attr("href")).css("visibility", "visible");
         });
 
+        // 약관내용 모달 hidden
         $("button[name='cancel']").on("click", function (e) {
             e.preventDefault();
-
             $(".modal").css("visibility", "hidden");
         });
 
-        let allCheck = $("#f-all");
+        let allCheck = $("#f-all");                     // 약관 전체동의 체크박스
         let checkboxes = $("input[type='checkbox']");
 
         // 전체약관 동의 체크박스를 클릭하면 전체 체크박스 checked
@@ -354,24 +346,20 @@
             }
         });
 
-        // term 필수선택 체크
-        let isAllEssnChecked = false;
-
         checkboxes.click(function () {
-            if ($("input[name='term']:checked").length === 2) {
+            // 모든 약관에 동의한 경우 전체동의 체크박스도 선택됨
+            if ($("input[name='term']:checked").length === (checkboxes.length - 1)) {
                 allCheck.prop("checked", true);
             } else {
                 allCheck.prop("checked", false);
             }
-
             // 필수약관을 모두 체크했는지 확인
             isAllEssnChecked = $(".essn").length === $("input[class='essn']:checked").length;
         });
 
-        // 가입하기 -> 위 조건에 맞지않으면 모달로 안내
+        // 가입하기
         $('button[type="submit"]').on('click', function (e) {
             e.preventDefault();
-
             let email = $('input[name="email"]').val();
             let pwd = $('input[name="pwd"]').val();
             let name = $('input[name="name"]').val();
@@ -401,16 +389,17 @@
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
                 success: function () {
-                    alert("회원가입에 성공했습니다");
+                    alert("기쁘티콘에 가입해주셔서 감사합니다!");
                     // 사용자 등록에 성공하면 로그인 페이지로 이동
                     window.location.replace("/account/signIn");
                 },
-                error: function (result) {
-                    alert("다시 시도해주세요.\n cause: " + result); // error 메세지 추가
+                error: function (data) {
+                    alert(data.responseText);
                 }
             });
         });
 
+        // 유효성 검사 실패시 안내 문자 출력
         function printValidateMsg(check, msg) {
             if (check) {
                 $('#validateMsg').css("display", "block");
@@ -418,7 +407,7 @@
                 return true;
             }
             $('#validateMsg').css("display", "none");
-            $('#validateMsg').html("");
+            $('#validateMsg').empty();
             return false;
         }
     });
@@ -431,23 +420,21 @@
 
     // 사용자가 입력한 이메일이 이미 사용중인지 확인
     function checkEmailAlreadyExists(email) {
-        let isExists = 1;
+        let isExists = true;
         $.ajax({
             type: 'get',
             url: '/account/checkExists?email=' + email,
             async: false,
             success: function (result) {
-                // 이미 존재하는 이메일이면 1
-                // 사용중인 이메일이 아니면 0
+                // 이미 존재하는 이메일이면 true, 사용중인 이메일이 아니면 false
                 isExists = result;
             },
             error: function (result) {
                 alert("이메일 확인중 문제가 발생했습니다. 다시 시도해주세요.");
-                isExists = 1;
             }
         });
 
-        return isExists === 1;
+        return isExists;
     }
 
     // 영어 대,소문자와 특수문자를 포함한 최소 8자리 ~ 최대 16자리 비밀번호
@@ -456,12 +443,13 @@
         return regExp.test(pwd);
     }
 
+    // 영문 또는 한글로 이루어진 2이상 20이하 문자열인지 확인
     function checkName(name) {
         let regExp = /^[ㄱ-ㅎ가-힣a-zA-Z ]{2,20}$/g;
         return regExp.test(name);
     }
 
-    // 휴대전화 번호 형식과 일치하는지 확인
+    // 잔화번호 유효성 검사 -> 11자리의 숫자로만 이루어진 문자인지 확인
     function checkTelNo(telNo) {
         return telNo.match(/^[0-9]{11}$/);
     }

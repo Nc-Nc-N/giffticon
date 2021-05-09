@@ -6,6 +6,7 @@ import com.ncncn.domain.UserMemoVO;
 import com.ncncn.domain.UserStatusVO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.domain.pagination.UserCheckCriteria;
+import com.ncncn.mapper.SoclInfoMapper;
 import com.ncncn.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Setter(onMethod_ = @Autowired)
+    SoclInfoMapper soclInfoMapper;
+
+    @Setter(onMethod_ = @Autowired)
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -33,10 +37,11 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
-	@Override
-	public int countRecentlyRegister() {
-		return userMapper.countRecentlyInsert();
-	}
+
+    @Override
+    public int countRecentlyRegister() {
+        return userMapper.countRecentlyInsert();
+    }
 
     // 299page
     @Override
@@ -111,7 +116,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updatePwd(String pwd, String email, int userId){
+    public int updatePwd(String pwd, String email, int userId) {
 
         //새로 입력된 비밀번호 암호화
         String encodedNewPwd = bCryptPasswordEncoder.encode(pwd);
@@ -119,5 +124,50 @@ public class UserServiceImpl implements UserService {
         int countUpdated = userMapper.updatePwd(encodedNewPwd, email, userId);
 
         return countUpdated;
+    }
+
+    @Override
+    public int soclUserReadByEmail(String email, String soclType) {
+
+        UserVO user = userMapper.readUserByEmail(email);
+
+        if (user == null) { //비회원인경우
+            log.info("role: X");
+            return 0;
+        } else {
+            if (user.getRoleCode().equals("002")) { //일반회원계정이 있는경우
+                log.info("role: 002");
+                return 2;
+            } else if (user.getRoleCode().equals("003")) { //소셜로그인 계정이 있는경우
+
+                log.info("role: 003");
+                String soclTypeinDB = soclInfoMapper.getSocialInfo(user.getId()).getSoclCode();
+
+                if (soclTypeinDB.equals(soclType)) { //소셜로그인 정보 일치하는 경우
+                    return 3;
+                } else { //소셜로그인 계정이지만 다른 sns로 가입된경우
+                    return 4;
+                }
+
+            } else { //기타 (관리자인경우)
+                log.info("role: 001");
+                return 1;
+            }
+
+        }
+    }
+
+    @Override
+    public String checkLoginCode(String email) {
+
+        UserVO user = userMapper.readUserByEmail(email);
+
+        if (user == null) {
+            return "none";
+        } else if (user.getRoleCode().equals("001") || user.getRoleCode().equals("002")) {
+            return "normal";
+        } else {
+            return "social";
+        }
     }
 }

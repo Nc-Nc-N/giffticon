@@ -1,9 +1,18 @@
 package com.ncncn.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import com.ncncn.domain.UserVO;
-import com.ncncn.service.SignUpServiceImpl;
+import com.ncncn.service.SignUpService;
+import com.ncncn.service.SoclInfoService;
+import com.ncncn.service.UserService;
 import com.ncncn.util.EmailAuthCodeUtils;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,21 +22,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-
 @Controller
 @RequestMapping("/account/*")
 @Log4j
 public class AccountController {
 
-    private final SignUpServiceImpl signUpServiceImpl;
+
+    private final SignUpService signUpService;
     private final JavaMailSender javaMailSender;
 
-    public AccountController(SignUpServiceImpl signUpServiceImpl, JavaMailSender javaMailSender) {
-        this.signUpServiceImpl = signUpServiceImpl;
+    @Setter(onMethod_ = @Autowired)
+    UserService userService;
+
+    @Setter(onMethod_ = @Autowired)
+    SoclInfoService soclInfoService;
+
+    public AccountController(SignUpService signUpServiceImpl, JavaMailSender javaMailSender) {
+        this.signUpService = signUpServiceImpl;
         this.javaMailSender = javaMailSender;
     }
 
@@ -47,65 +58,64 @@ public class AccountController {
             request.getSession().removeAttribute("logout");
         }
 
+        model.addAttribute("soclTypes", soclInfoService.getSoclLoginCode());
+
         request.getSession().setAttribute("referer", request.getHeader("referer"));
     }
 
-    @GetMapping("/signUp")
-    public String getSignUp() {
-        return "/account/signUp";
-    }
+    	@GetMapping("/signUp")
+	public String getSignUp() {
+		return "/account/signUp";
+	}
 
-    @PostMapping(value = "/register", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-    public ResponseEntity<String> register(@RequestBody UserVO user) {
-        log.info("UserVO: " + user);
+	// 회원 등록 요청
+	@PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/text; charset=UTF-8")
+	public ResponseEntity<String> register(@RequestBody UserVO user) {
+		try {
+			// 사용자 등록
+			int result = signUpService.register(user);
+		} catch (Exception e) {
+			// 등록 실패사유를 응답에 담아 전송
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-        try {
-            int result = signUpServiceImpl.register(user);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
 
-        return new ResponseEntity<>("success", HttpStatus.OK);
-    }
+	// 이메일 중복확인
+	@GetMapping(value = "/checkExists", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> checkExists(@RequestParam("email") String email) {
+		boolean isExists = false;
+		try {
+			isExists = signUpService.isEmailExists(email);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-    @GetMapping(value = "/checkExists", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> checkExists(@RequestParam("email") String email) {
-        int isExists = 0;
+		return new ResponseEntity<>(isExists, HttpStatus.OK);
+	}
 
-        try {
-            UserVO userVO = signUpServiceImpl.getByEmail(email);
-            if (userVO != null) isExists = 1;
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+	// 사용자가 입력한 이메일로 인증메일 전송
+	@GetMapping(value = "/emailConfirm", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, String>> confirmEmail(@RequestParam("email") String email) {
+		Map<String, String> map = new HashMap<>();
 
-        return new ResponseEntity<>(isExists, HttpStatus.OK);
-    }
+		String code = EmailAuthCodeUtils.getAuthCode();         // 인증코드 생성
+		SimpleMailMessage message = new SimpleMailMessage();
 
-    @GetMapping(value = "/emailConfirm", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, String>> confirmEmail(@RequestParam("email") String email) {
-        Map<String, String> map = new HashMap<>();
+		try {
+			message.setTo(email);
+			message.setSubject("기쁘티콘 회원가입 이메일 인증");
+			message.setText("인증 코드: " + code);
 
-        String code = EmailAuthCodeUtils.getAuthCode();
+			javaMailSender.send(message);           // 생성한 메일 전송
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        try {
-            message.setTo(email);
-
-            message.setSubject("기쁘티콘 회원가입 이메일 인증");
-            message.setText("인증 코드: " + code);
-
-            javaMailSender.send(message);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        map.put("code", code);
-
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
+		map.put("code", code);                      // 인증메일 전송에 성공하면 map에 인증코드를 담아 전달
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
 
     public Model cookieChecker(HttpServletRequest request, Model model) {
 
@@ -120,5 +130,33 @@ public class AccountController {
             }
         }
         return model;
+    }
+
+    @GetMapping(value = "/socialAccountCheck")
+    public ResponseEntity<Integer> socialAccountCheck(@RequestParam("email") String email,
+                                                      @RequestParam("soclType") String soclType) {
+
+        //회원 상태에 따라 0,1,2,3 반환
+        try {
+            int isRegistered = userService.soclUserReadByEmail(email, soclType);
+            log.info("isRegistered :" + isRegistered);
+            return new ResponseEntity<Integer>(isRegistered, HttpStatus.OK);
+        } catch (Exception e) {
+            log.info("social check error");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+
+    @GetMapping(value = "/basicAccountCheck")
+    public ResponseEntity<String> ajaxLogin(@RequestParam("email") String email) {
+
+        try {
+            String usertype = userService.checkLoginCode(email);
+            return new ResponseEntity<String>(usertype, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

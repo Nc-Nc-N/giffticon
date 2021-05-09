@@ -108,10 +108,22 @@
 
         $(document).ready(function (){
 
-            let has = ${hasWish};       // 관심상품으로 등록되어 있는지 확인
-            let userId = ${userId};
+            let has = ${hasWish};
+            const userId = ${userId};
 
-            console.log(has);
+            // 관심상품 등록, 삭제
+            function isWishList(has){
+
+                let wish = {userId: userId, prodCode:"${gifticon.prodCode}"};
+
+                if($("#like-button").hasClass('selected')){
+                    wishListService.remove(wish)
+                }else{
+                    wishListService.add(wish)
+                }
+
+            }
+
             // '관심상품' 버튼 상태 표시
             if(has === 1){
                 $("#like-button").addClass('selected')
@@ -123,31 +135,20 @@
             $("#like-button").on("click", function (e){
 
                 if(userId === 0){    // 로그인이 안 되어 있을 때
-                    alert("로그인 후에 이용가능한 메뉴입니다.")
+                    alert("로그인 후에 이용가능한 메뉴입니다.");
                     $(location).attr('href', "/account/signIn");
 
-                }else{
-                    if(has === 0){ // 관심상품 미등록 상태일때 추가
-                        wishListService.add(
-                            {userId: userId,
-                            prodCode: "${gifticon.prodCode}"},
-                            function (result){
-                                $("#like-button").addClass('selected');
-                                has = 1;
-                                alert("관심상품으로 등록되었습니다.");
-                            });
-                    }else{ // 관심상품 등록 상태일때 삭제
-                        wishListService.remove(
-                            {userId: userId,
-                            prodCode: "${gifticon.prodCode}"},
-                            function (result){
-                                $("#like-button").removeClass('selected');
-                                has = 0
-                                alert("관심상품에서 삭제되었습니다.");
-                            });
-                        }
-                    }
+                }else {
+                    isWishList(has);
+                }
             })
+
+            // 에러 메시지 처리
+            let error = "${error}";
+
+            if(error.length > 0){
+                alert("error: " + error);
+            }
         });
 
     </script>

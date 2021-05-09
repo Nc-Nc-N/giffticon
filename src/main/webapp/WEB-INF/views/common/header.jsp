@@ -10,20 +10,32 @@
     try {
         headerUid = (int) request.getSession().getAttribute("userId");
     } catch (Exception e) {
-        //비회원인경우 userId = 0으로 초기회
+        //비회원인경우 userId = 0으로 초기화
         headerUid = 0;
+    }
+
+    //소셜로그인 타입으로 logout handling
+    String soclType;
+
+    try {
+        soclType = (String) request.getSession().getAttribute("social");
+        System.out.println("socltype scriptlet: " + soclType);
+    } catch (Exception e) {
+        soclType = "";
     }
 
 %>
 <!DOCTYPE html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>Kakao.init('ac51465d91bcae237e6703842ae5d0c5');</script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
     </style>
@@ -40,14 +52,15 @@
         </sec:authorize>
 
         <sec:authorize access="isAuthenticated()">
-            <span><form action="/account/logOut" method="post">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button type="submit" class="logout">로그아웃</button></form>
+            <span>
+                <button type="submit" class="logout">로그아웃</button>
+                <form class="form-logout" action="/account/logOut" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
             </span>
             <span class="header_divider">|</span>
             <span><a class="user-email"><sec:authentication property="principal.username"/></a></span>
         </sec:authorize>
-
 
         <span class="header_divider">|</span>
         <span><a href="/user/cs/noticeBoard" class="login-panel">고객센터</a></span>
@@ -63,29 +76,29 @@
     <div class="main-bar">
 
         <div class="bar-left">
-                <div class="category-drop">
-                    <ul class="exo-menu">
-                        <li class="drop-down">
-                            <a href="#none"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
-                            <%-- Drop Down --%>
-                            <ul class="drop-down-ul animated fadeIn">
+            <div class="category-drop">
+                <ul class="exo-menu">
+                    <li class="drop-down">
+                        <a href="#none"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
+                        <%-- Drop Down --%>
+                        <ul class="drop-down-ul animated fadeIn">
                             <%-- ajax로 불러옴 --%>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="leftmenus">
-                    <div class="leftmenu"><a href="#">충전하기</a></div>
-                    <div class="leftmenu"><a href="/user/gifticon/map"><i class="fas fa-map-marker-alt"></i></a></div>
-                </div>
-
+                        </ul>
+                    </li>
+                </ul>
             </div>
+            <div class="leftmenus">
+                <div class="leftmenu"><a href="#">충전하기</a></div>
+                <div class="leftmenu"><a href="/user/gifticon/map"><i class="fas fa-map-marker-alt"></i></a></div>
+            </div>
+        </div>
         <!-- search area -->
         <div class="search-bar-container">
             <form id="h-search-form" action="/user/gifti_list" method="get">
                 <input type="text" class="h-search-input" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
+
                 <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'/>
-                <button class="h-search-button"><i class="fas fa-search"></i> </button>
+                <button class="h-search-button"><i class="fas fa-search"></i></button>
             </form>
         </div>
 
@@ -97,9 +110,9 @@
             <span class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></span>
             <span class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></span>
         </div>
-        </div>
-
     </div>
+
+</div>
 </div>
 </body>
 <!-- 티켓 클릭 이동 form -->
@@ -138,21 +151,20 @@
                 url: '/user/menuLoader',
                 type: 'get',
                 async: false,
-                success: function (result){
-
+                success: function (result) {
                     for(let i=0; i<result.length; i++){
                         menu.append('<li class="flyout-right"><a href="/user/gifti_list?code='+result[i].code+'">'+result[i].name+'</a>' +
                             '<div class="brdBox"><ul class="animated-'+result[i].code+'"></ul></div></li>');
                     }
                 },
-                error: function (){
+                error: function () {
                     alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
                 }
             })
         }
 
         // 카테고리 마우스오버 -> 브랜드 목록
-        $('.flyout-right a').mouseover(function (){
+        $('.flyout-right a').mouseover(function () {
 
             // 마우스오버한 카테고리 이름 가져오기
             let cateName = $(this).text();
@@ -163,13 +175,13 @@
             $(this).addClass('on');
 
             $.ajax({
-                url: '/user/getBrand?name='+name,
+                url: '/user/getBrand?name=' + name,
                 type: 'get',
                 contentType: "application/json; charset=UTF-8",
                 async: false,
-                success: function (result){
+                success: function (result) {
 
-                    let cate= $('.animated-'.concat(result[0].cateCode));
+                    let cate = $('.animated-'.concat(result[0].cateCode));
                     cate.empty();   // 기존 브랜드 목록 지우기
 
                     // 브랜드 목록 추가
@@ -177,14 +189,14 @@
                         cate.append('<li><a href="/user/gifti_list?code='+result[i].code+'">'+result[i].name+'</a></li>');
                     }
                 },
-                error: function (){
+                error: function () {
                     alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
                 }
             })
         })
 
         // 전체 카테고리 마우스오버 색 고정
-        $('.drop-down a').mouseover(function (){
+        $('.drop-down a').mouseover(function () {
             $(this).addClass('on');
         })
 
@@ -260,3 +272,24 @@
         })
     }
 </script>
+
+<script type="text/javascript" src="/resources/js/social/logout.js"></script>
+<script>
+
+    var logoutForm = $(".form-logout");
+
+    $(".logout").on("click", function (e) {
+
+        let soclLoginName = "<%=soclType%>";
+
+        if (soclLoginName == null) {
+            logoutForm.submit();
+        } else if (soclLoginName == '카카오') {
+            logoutWithKakao();
+        } else { //향후 추가되는 소셜로그인은 여기에 차례대로 추가해주세요
+            logoutForm.submit();
+        }
+    })
+
+</script>
+

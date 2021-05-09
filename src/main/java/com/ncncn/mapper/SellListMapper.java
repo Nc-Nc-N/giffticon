@@ -23,7 +23,7 @@ public interface SellListMapper {
 											 @Param("type") String type,
 											 @Param("typeArr") String[] typeArr);
 
-    public List<MySellVO> getSellDetail(@Param("gftId") int gftId,
+    public MySellVO getSellDetail(@Param("gftId") int gftId,
 										@Param("userId") int userId);
 
     public int countStus001N002(@Param("userId") int userId,

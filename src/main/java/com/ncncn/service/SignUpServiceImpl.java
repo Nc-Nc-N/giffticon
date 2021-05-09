@@ -22,11 +22,15 @@ public class SignUpServiceImpl implements SignUpService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public UserVO getByEmail(String email) {
-		return userMapper.readByEmail(email);
+	public UserVO getUserByEmail(String email) {
+		return userMapper.readUserByEmail(email);
 	}
 
-	public int register(UserVO userVO) throws IllegalArgumentException {
+	public boolean isEmailExists(String email) {
+		return userMapper.readUserByEmail(email) != null;
+	}
+
+	public int register(UserVO userVO) throws Exception {
 		checkValidateUser(userVO);
 
 		String encodedPwd = passwordEncoder.encode(userVO.getPwd());
@@ -34,20 +38,40 @@ public class SignUpServiceImpl implements SignUpService {
 
 		int result = 0;
 		try {
-			result = userMapper.insert(userVO);
+			result = userMapper.insertUser(userVO);
 		} catch (Exception e) {
-			throw new IllegalArgumentException("가입중 문제가 발생했습니다.");
+			// e가 가진 정보를 그대로 전달
+			// 새로운 예외를 던지더라도 원인예외를 포함해야함
+			SQLException sqlException = new SQLException("회원등록중 문제가 발생했습니다.");
+			sqlException.initCause(e);        // 원인예외를 포함
+			throw sqlException;
 		}
 
 		return result;
 	}
 
 	private void checkValidateUser(UserVO userVO) {
-		if (userVO == null) throw new IllegalArgumentException("유효하지 않은 사용자 정보입니다.");
-		if (!UserValidator.checkEmail(userVO.getEmail())) throw new IllegalArgumentException("유효하지 않은 이메일 형식입니다.");
-		if (!UserValidator.checkPassword(userVO.getPwd())) throw new IllegalArgumentException("유효하지 않은 비밀번호 형식입니다.");
-		if (!UserValidator.checkName(userVO.getName())) throw new IllegalArgumentException("유효하지 않은 이름 형식입니다.");
-		if (!UserValidator.checkTelNo(userVO.getTelNo())) throw new IllegalArgumentException("유효하지 않은 휴대폰 번호 형식입니다.");
-		if (!UserValidator.checkEmlAuthTkn(userVO.getEmlAuthTkn())) throw new IllegalArgumentException("유효하지 않은 인증코드입니다.");
+		if (userVO == null) {
+			throw new IllegalArgumentException("유효하지 않은 사용자 정보입니다.");
+		}
+		if (isEmailExists(userVO.getEmail())) {
+			throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+		}
+		if (!UserValidator.checkEmail(userVO.getEmail())) {
+			throw new IllegalArgumentException("유효하지 않은 이메일 형식입니다.");
+		}
+		if (!UserValidator.checkPassword(userVO.getPwd())) {
+			throw new IllegalArgumentException("유효하지 않은 비밀번호 형식입니다.");
+		}
+		if (!UserValidator.checkName(userVO.getName())) {
+			throw new IllegalArgumentException("유효하지 않은 이름 형식입니다.");
+		}
+		if (!UserValidator.checkTelNo(userVO.getTelNo())) {
+			throw new IllegalArgumentException("유효하지 않은 휴대폰 번호 형식입니다.");
+		}
+		if (!UserValidator.checkEmlAuthTkn(userVO.getEmlAuthTkn())) {
+			throw new IllegalArgumentException("유효하지 않은 인증코드입니다.");
+		}
 	}
+
 }
