@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @ToString
 public class ProdRegisterDTO {
 
-    private String cateCode;
+    private String code;
 
     private String brdCode;
 
@@ -18,10 +18,19 @@ public class ProdRegisterDTO {
 
     private int prc;
 
-    private int inDcRate;
+    private double inDcRate;
 
     private String descn;
 
-    private MultipartFile prodImg;
+    private String imgPath;
 
+    private String fileExtension;
+
+    public void setName(String name) {
+        this.name = name.trim();
+    }
+
+    public void setInDcRate(double inDcRate) {
+        this.inDcRate = inDcRate * 0.01;
+    }
 }

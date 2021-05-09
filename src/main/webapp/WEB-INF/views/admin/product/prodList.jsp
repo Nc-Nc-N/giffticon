@@ -33,7 +33,6 @@
                        value="<c:out value='${pageMaker.cri.keyword}'/>"/>
                 <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
                 <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>
-
                 <button type="submit" class="search-button">
                     <i class="fas fa-search"></i>
                 </button>
@@ -43,7 +42,7 @@
 </div>
 <!-- search area end -->
 
-<!-- request list -->
+<!-- list -->
 <div id="list-div">
     <table id="list-tb">
         <thead>
@@ -85,9 +84,8 @@
         </c:forEach>
         </tbody>
     </table>
-
 </div>
-<!-- request list end -->
+<!-- list end -->
 
 <c:if test="${empty prodList}">
     <div class="nothing">판매요청이 없습니다.</div>
@@ -122,9 +120,9 @@
 <div class="modal reg-modal">
     <div class="detail-modal">
         <div class="modal-title">상품등록</div>
-        <form id="reg-form" action="/admin/product/register" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <table id="gft-td">
+        <form id="reg-form" method="post" action="/admin/product/register?${_csrf.parameterName}=${_csrf.token}"
+              enctype="multipart/form-data">
+            <table id="reg-td">
                 <tr class="under-line">
                     <td class="td-title">
                         <div>분류</div>
@@ -188,17 +186,104 @@
                     </td>
                 </tr>
             </table>
+            <div class="detail-btn-area">
+                <button class="btn btn-active prod-reg">등록</button>
+                <button class="btn btn-disabled cancel">취소</button>
+            </div>
         </form>
-        <div class="detail-btn-area">
-            <button class="btn btn-active prod-reg">등록</button>
-            <button class="btn btn-disabled cancel">취소</button>
-        </div>
     </div>
 </div>
 <!-- end register modal -->
 
+<!-- modify modal -->
+<div class="modal modify-modal">
+    <div class="detail-modal">
+        <div class="modal-title">상품상세</div>
+        <form id="modify-form" method="post" action="/admin/product/modify?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+            <table id="modify-td">
+                <tr class="under-line">
+                    <td class="td-title">
+                        <div>분류</div>
+                    </td>
+                    <td colspan="5">
+                        <div class="select-div">
+                            <div class="cate-select">
+                                <select class="cate" name="cateCode"></select>
+                            </div>
+                            <div class="brd-select">
+                                <select class="brd"></select>
+                            </div>
+                            <input type="hidden" name="brdCode">
+                            <input type="hidden" name="code">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="under-line">
+                    <td class="td-title">상품명</td>
+                    <td colspan="5">
+                        <div class="td-cntnt text-input"><input type="text" name="name" placeholder="상품명을 입력해주세요."/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-title">
+                        <div>정가</div>
+                    </td>
+                    <td colspan="2">
+                        <div class="td-cntnt text-input"><input type="text" name="prc" placeholder="숫자만 입력가능합니다."/>
+                        </div>
+                    </td>
+                    <td class="td-title">
+                        <div>기본 할인율</div>
+                    </td>
+                    <td colspan="2">
+                        <div class="td-cntnt text-input"><input type="text" name="inDcRate" placeholder="숫자만 입력가능합니다."/>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="under-line">
+                    <td></td>
+                    <td colspan="5">
+                        <div class="td-cntnt warn-msg">
+                            <i class="fas fa-exclamation-circle"></i>정가는 최대 99,999,999원 까지, 할인율은 최대 50% 까지 입력가능합니다.
+                        </div>
+                    </td>
+                </tr>
+                <tr class="under-line">
+                    <td class="td-title">상품설명</td>
+                    <td colspan="5">
+                        <div class="td-cntnt text-input descn">
+                            <textarea name="descn" placeholder="상품 설명을 입력해주세요."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-title">상품이미지</td>
+                    <input type="hidden" name="imgPath"/>
+                    <td colspan="5">
+                        <div class="td-cntnt">
+                            <input type="file" name="prodImg"/>
+                            <div class="modal-img"><img src=""/></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="detail-btn-area">
+                <button type="submit" class="btn btn-active prod-modify">수정</button>
+                <button class="btn btn-disabled cancel">취소</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- end modify modal -->
+
 <script src="/resources/js/admin/product/prodList.js"></script>
 <script>
+    let error = "${error}";
+    if (error.length > 0) {
+        alert(error);
+    }
+
     let csrfHeaderName = "${_csrf.headerName}";
     let csrfTokenValue = "${_csrf.token}";
 
@@ -228,13 +313,39 @@
             showRegModal();
         });
 
+        // 상세버튼
         $(".detail-link").on("click", function (e) {
             e.preventDefault();
             let prod = getProd($(this).attr("href"));
 
+            $(".modify-modal input[name='brdCode']").val(prod.brdCode);
+            $(".modify-modal input[name='code']").val(prod.code);
+            $(".modify-modal .cate option[value='" + prod.brdCode.substring(0, 2) + "']").prop("selected", "true");
+            $(".modify-modal select").prop("disabled", "true");
+            fillBrdSelect(prod.brdCode.substring(0, 2));
+            $(".modify-modal .brd option[value='" + prod.brdCode + "']").prop("selected", "true");
+            $(".modify-modal input[name='name']").val(prod.name);
+            $(".modify-modal input[name='prc']").val(prod.prc);
+            $(".modify-modal input[name='inDcRate']").val(parseInt(parseFloat(prod.inDcRate) * 100));
+            $(".modify-modal textarea[name='descn']").val(prod.descn);
+            $(".modal-img img").attr("src", prod.imgPath);
+            $(".modify-modal input[name='imgPath']").val(prod.imgPath);
 
+            $(".modify-modal").css("visibility", "visible");
         });
 
+        // 취소버튼 이벤트 등록
+        $(".modify-modal .cancel").on("click", function (e) {
+            e.preventDefault();
+            $(".brd-select option").remove();
+            $(".modify-modal").css("visibility", "hidden");
+        });
+
+        // 취소버튼 이벤트 등록
+        $(".reg-modal .cancel").on("click", function (e) {
+            e.preventDefault();
+            hideRegModal();
+        });
     });
 
     function getProd(prodCode) {
@@ -301,35 +412,12 @@
         });
 
         // 등록버튼 이벤트 등록
-        $(".prod-reg").on("click", function (e) {
+        $("prod-reg").on("click", function (e) {
+            e.preventDefault();
             // 입력한 상품정보가 유효하면 상품을 등록한다.
             if (!checkInputVale()) return;
 
-            <%--$.ajax({--%>
-            <%--    type: 'post',--%>
-            <%--    url: '/admin/product/register',--%>
-            <%--    contentType: false,--%>
-            <%--    processData: false,--%>
-            <%--    enctype: 'multipart/form-data',--%>
-            <%--    data: formData,--%>
-            <%--    beforeSend: function (xhr) {--%>
-            <%--        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);--%>
-            <%--    },--%>
-            <%--    success: function (result) {--%>
-            <%--        hideRegModal();--%>
-            <%--        let pageNum = parseInt("${pageMaker.cri.pageNum}");--%>
-            <%--        let realEnd = getRealEnd("${pageMaker.total}", "${pageMaker.cri.amount}");--%>
-            <%--        submitAction(searchForm, pageNum > realEnd ? realEnd : pageNum);--%>
-            <%--    },--%>
-            <%--    error: function (result) {--%>
-            <%--        alert("다시 한 번 시도해주세요.");--%>
-            <%--    }--%>
-            <%--});--%>
-        });
-
-        // 취소버튼 이벤트 등록
-        $(".cancel").on("click", function (e) {
-            hideRegModal();
+            $(".prod-reg").submit();
         });
 
         // 모달 visibility visible
@@ -341,7 +429,7 @@
         $(".prod-reg").off();
         // select, input remove
         $(".cate-select select option:selected").prop("selected", false);
-        $(".brd-select select option").remove();
+        cleanBrdSelect();
         $(".reg-modal input[type='text']").val("");
         $(".reg-modal textarea").val("");
         // 모달 hidden
@@ -354,7 +442,7 @@
         return parseInt(Math.ceil((total * 1.0) / amount));
     }
 
-    let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+    let regex = new RegExp("(.*?)\.(jpg|jpeg|png|JPEG)$");
     let maxSize = 5242880; //5MB
 
     function checkExtension(fileName, fileSize) {
@@ -363,8 +451,8 @@
             return false;
         }
 
-        if (regex.test(fileName)) {
-            alert("해당 종류의 파일은 업로드할 수 없습니다.");
+        if (!regex.test(fileName)) {
+            alert("이미지 파일만 업로드 가능합니다.");
             return false;
         }
         return true;
@@ -404,7 +492,7 @@
             return false;
         }
         if (!checkInDcRate()) {
-            alert("기본 할인율을 입력해주세요.\n할인율은 1이상 30이하 숫자여야합니다.");
+            alert("기본 할인율을 입력해주세요.\n할인율은 1이상 50이하 숫자여야합니다.");
             return false;
         }
         if (!checkImg()) {

@@ -72,4 +72,38 @@
         </trim>
     </sql>
 
+    <select id="getProdByCode" resultType="com.ncncn.domain.ProductVO">
+        select * from product where code = #{code}
+    </select>
+
+    <insert id="insert" keyProperty="code">
+        <selectKey keyProperty="code" resultType="String" order="BEFORE">
+            select lpad(convert(p.code, decimal) + 1, 6, '0') code from (select * from product where brd_code = #{brdCode} order by code desc limit 1) p union all select concat(#{brdCode}, '01') code from dual limit 1;
+        </selectKey>
+        insert into product(code, brd_code, name, prc, in_dc_rate, descn, img_path, in_user, up_user)
+            value (LPAD(#{code}, 6, '0'), #{brdCode}, #{name}, #{prc}, #{inDcRate}, #{descn}, concat(#{imgPath}, #{code}, #{fileExtension}), current_user, current_user)
+    </insert>
+
+    <update id="updateProduct">
+        update product
+        set name = #{name},
+            prc = #{prc},
+            in_dc_rate = #{inDcRate},
+            descn = #{descn},
+            up_date = now(),
+            up_user = current_user()
+        where code = #{code}
+    </update>
+
+    <update id="updateProductWithImagePath">
+        update product
+        set name = #{name},
+            prc = #{prc},
+            in_dc_rate = #{inDcRate},
+            descn = #{descn},
+            img_path = concat(#{imgPath}, #{code}, #{fileExtension}),
+            up_date = now(),
+            up_user = current_user()
+        where code = #{code}
+    </update>
 </mapper>

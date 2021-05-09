@@ -3,7 +3,9 @@ package com.ncncn.mapper;
 import com.ncncn.domain.BrandVO;
 import com.ncncn.domain.CategoryVO;
 import com.ncncn.domain.ProdListVO;
+import com.ncncn.domain.ProductVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
+import com.ncncn.domain.request.ProdRegisterDTO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -32,6 +34,8 @@ public class ProdMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private BrandMapper brandMapper;
 
+	@Setter(onMethod_ = @Autowired)
+	private ProductMapper productMapper;
 
 	@Test
 	public void testGetCate(){
@@ -177,6 +181,22 @@ public class ProdMapperTests {
 		assertTrue(dDay2<7);
 		assertThat(stuCode1, is("002"));
 
+	}
+
+	@Test
+	public void test() {
+		ProdRegisterDTO prodRegisterDTO = new ProdRegisterDTO();
+		prodRegisterDTO.setBrdCode("0701");
+		prodRegisterDTO.setName("test");
+		prodRegisterDTO.setPrc(1234);
+		prodRegisterDTO.setInDcRate(0.05);
+		prodRegisterDTO.setDescn("test");
+		prodRegisterDTO.setImgPath("path");
+		prodRegisterDTO.setFileExtension(".png");
+
+		productMapper.insert(prodRegisterDTO);
+
+		log.info(prodRegisterDTO.getCode());
 	}
 
 }

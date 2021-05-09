@@ -3,6 +3,7 @@ package com.ncncn.service;
 import com.ncncn.domain.AdminProdListVO;
 import com.ncncn.domain.ProductVO;
 import com.ncncn.domain.pagination.ProdCriteria;
+import com.ncncn.domain.request.ProdRegisterDTO;
 import com.ncncn.mapper.ProductMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -41,6 +42,29 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int countAllProd(ProdCriteria cri) {
         return mapper.countProductWithPaging(cri);
+    }
+
+    @Override
+    public ProductVO getProdByCode(String code) {
+        return mapper.getProdByCode(code);
+    }
+
+    @Override
+    public String register(ProdRegisterDTO product) {
+
+        mapper.insert(product);
+
+        return product.getCode();
+    }
+
+    @Override
+    public int modifyProduct(ProdRegisterDTO product) {
+        return mapper.updateProduct(product);
+    }
+
+    @Override
+    public int modifyProductWithImagePath(ProdRegisterDTO product) {
+        return mapper.updateProductWithImagePath(product);
     }
 
 }

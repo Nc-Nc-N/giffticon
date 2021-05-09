@@ -60,3 +60,16 @@
     display: flex;
     justify-content: space-around;
 }
+
+.modal-img {
+    margin-top: 10px;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+}
+
+.modal-img img {
+    width: 120px;
+    height: 120px;
+    border: 1px solid rgb(188, 188, 188);
+}

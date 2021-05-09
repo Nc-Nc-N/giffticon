@@ -3,6 +3,7 @@ package com.ncncn.service;
 import com.ncncn.domain.AdminProdListVO;
 import com.ncncn.domain.ProductVO;
 import com.ncncn.domain.pagination.ProdCriteria;
+import com.ncncn.domain.request.ProdRegisterDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,4 +17,12 @@ public interface ProductService {
     List<AdminProdListVO> getAllProduct(ProdCriteria cri);
 
     int countAllProd(ProdCriteria cri);
+
+    ProductVO getProdByCode(String code);
+
+	String register(ProdRegisterDTO product);
+
+	int modifyProduct(ProdRegisterDTO product);
+
+	int modifyProductWithImagePath(ProdRegisterDTO product);
 }
