@@ -1,24 +1,24 @@
 package com.ncncn.service;
 
+import java.util.List;
+
 import com.ncncn.domain.AdminProdListVO;
 import com.ncncn.domain.ProductVO;
 import com.ncncn.domain.pagination.ProdCriteria;
 import com.ncncn.domain.request.ProdRegisterDTO;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 public interface ProductService {
 
-    List<ProductVO> getProductList(String brdName);
+	List<ProductVO> getProductList(String brdName);
 
-    ProductVO getProductObject(@Param("brdName") String brdName, @Param("prodName") String prodName);
+	ProductVO getProductObject(@Param("brdName") String brdName, @Param("prodName") String prodName);
 
-    List<AdminProdListVO> getAllProduct(ProdCriteria cri);
+	List<AdminProdListVO> getAllProduct(ProdCriteria cri);
 
-    int countAllProd(ProdCriteria cri);
+	int countAllProd(ProdCriteria cri);
 
-    ProductVO getProdByCode(String code);
+	ProductVO getProdByCode(String code);
 
 	String register(ProdRegisterDTO product);
 
