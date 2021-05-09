@@ -1,10 +1,6 @@
 package com.ncncn.service;
 
-import com.ncncn.domain.UserInfoDTO;
-import com.ncncn.domain.UserDetailCheckVO;
-import com.ncncn.domain.UserMemoVO;
-import com.ncncn.domain.UserStatusVO;
-import com.ncncn.domain.UserVO;
+import com.ncncn.domain.*;
 import com.ncncn.domain.pagination.UserCheckCriteria;
 
 import java.util.List;
@@ -13,7 +9,7 @@ public interface UserService {
 
     UserVO readbyId(int userId);
 
-	int countRecentlyRegister();
+    int countRecentlyRegister();
 
     List<UserVO> getUserList(UserCheckCriteria cri);
 
@@ -32,5 +28,9 @@ public interface UserService {
     public UserInfoDTO getMyInfo(int userId);
 
     public int updatePwd(String pwd, String email, int userId);
+
+    int soclUserReadByEmail(String email, String soclType);
+
+    String checkLoginCode(String email);
 
 }

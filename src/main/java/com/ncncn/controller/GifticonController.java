@@ -26,15 +26,13 @@ public class GifticonController {
     UserService userService;
 
     @PostMapping("/stus005")
-    public String gftDealCmpl(HttpServletRequest request, int gftId, MyPageCriteria cri, Model model) {
+    public String gftDealCmpl(HttpServletRequest request, int gftId, Model model) {
 
+        //기프티콘 상태 구매확정대기 -> 구매 확정 변경
         gifticonService.gftDealCmpl(gftId);
 
-        //return redirect 시에는 페이지네이션 유지 불가 (forward 써야 하는데 이후 error catch 못함)
-        //model.addAttribute("cri", cri);
-
-        if (request.getHeader("referer").contains("/dealDetail")) { //구매상세페이지에서 구매확정한 경우 구매상세로 다시 보냄
-
+        //구매상세페이지에서 구매확정한 경우 구매상세로 다시 보냄
+        if (request.getHeader("referer").contains("/dealDetail")) {
             model.addAttribute("gftId", gftId);
             return "redirect:/user/mypage/dealDetail";
         }
@@ -44,17 +42,14 @@ public class GifticonController {
     }
 
     @PostMapping("/delGft")
-    public String deleteGifticon(int gftId, MyPageCriteria cri, Model model) {
-
-        //return redirect 시에는 페이지네이션 유지 불가 (forward 써야 하는데 이후 error catch 못함)
-        //model.addAttribute("cri", cri);
-
+    public String deleteGifticon(int gftId) {
+        //성공실패 메세지
         try {
             gifticonService.deleteGifticon(gftId);
-
-        } catch (Exception e) {
-            log.info("기프티콘 삭제에 실패했습니다.");
+        }catch(Exception e){
+            log.info("기프티콘 삭제 오류 발생");
         }
+
         return "redirect:/user/mypage/sells";
     }
 
@@ -65,25 +60,24 @@ public class GifticonController {
     public ResponseEntity<String> updateGifticon(@RequestBody PrcUpdateVO prcUpdate, HttpServletRequest request) {
 
         int userId = (int) request.getSession().getAttribute("userId");
+
+        //세션에 담긴 user의 정보 불러오기
         UserVO user = userService.readbyId(userId);
 
-        String msg = "";
-
-        //비밀번호 체크 후 true 이면 가격 수정 실행
+        // 제출한 비밀번호와 db유저비밀번호를 비교 후 true 이면 가격 수정 실행
         if (UserAuthCheckUtils.userAuthCheck(prcUpdate.getEmail(), prcUpdate.getPassword(), user)) {
 
             int isUpdated = gifticonService.updateGftPrc(prcUpdate);
 
-            if (isUpdated == 1) { //가격 수정 성공한 경우 success
-
+            //가격 수정 성공한 경우 success
+            if (isUpdated == 1) {
                 return new ResponseEntity<>(HttpStatus.OK);
-            } else { //가격 수정 실패한 경우 serverError
-
+            //가격 수정 실패한 경우 serverError
+            } else {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-
-        } else { //비밀번호 일치하지 않는 경우 serverError
-
+        //비밀번호 일치하지 않는 경우 serverError
+        } else {
             log.info("비밀번호가 일치하지 않습니다.");
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -94,13 +88,16 @@ public class GifticonController {
 
         try {
 
+            //해당 상품의 판매중인 기프티콘 수량 체크
             int count = gifticonService.countOnselling(prdCode);
-            //기프티콘 수량이 0 이 아니면 status OK 반환 없으면 error
+            //판매중인 기프티콘 수량이 0 이 아니면 status OK 반환 없으면 error
             return count > 0 ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
         } catch (Exception e) {
-            
-            //수량 체크 실패 시 error
+
+            //서버 에러 시 error
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
 
     }

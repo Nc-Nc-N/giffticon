@@ -4,8 +4,10 @@ import com.ncncn.domain.UserVO;
 
 public interface SignUpService {
 
-	UserVO getByEmail(String email);
+	UserVO getUserByEmail(String email);
 
-	int register(UserVO userVO);
+	boolean isEmailExists(String email);
+
+	int register(UserVO userVO) throws Exception;
 
 }
