@@ -38,4 +38,7 @@ public interface GifticonService {
 	public List<ProdListVO> getDeadlineGifti();
 
 	public void registerGifticon(GifticonVO gifticon);
+
+	//map 출력용 대표 기프티콘
+	public List<ProdListVO> getMainGftByBrandName(String brdName);
 }

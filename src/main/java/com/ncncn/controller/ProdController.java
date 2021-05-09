@@ -124,6 +124,9 @@ public class ProdController {
 
 		List<CategoryVO> cateList = cateService.getCategoryList();
 
+		log.info("category... : " + cateList);
+		cateList.remove(cateList.size()-1);
+
 		model.addAttribute("cateList", cateList);
 
 	}

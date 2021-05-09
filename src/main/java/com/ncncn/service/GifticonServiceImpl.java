@@ -93,4 +93,11 @@ public class GifticonServiceImpl implements GifticonService {
         gifticonMapper.registerGifticon(gifticon);
     }
 
+    @Override
+    public List<ProdListVO> getMainGftByBrandName(String brdName){
+
+        List<ProdListVO> mainGftList = gifticonMapper.getMainGftByBrandName(brdName);
+
+        return mainGftList;
+    }
 }

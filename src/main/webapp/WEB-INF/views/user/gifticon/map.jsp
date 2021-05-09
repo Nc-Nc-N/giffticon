@@ -37,218 +37,7 @@
             </div>
             <div class="menubody">
                 <div class="listSpace type1">
-                        
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="(메뉴이동">
-                        <div class="bar">
-                            <div class="prdImg"><img src="img/star_americano.png"></div>
-                            <div class="prdInfo">
-                                <div class="brdName">스타벅스</div>
-                                <div class="prdName">부드러운 디저트 세트</div>
-                                <div class="prcInfo">
-                                    <span class="dcRate">70%</span>
-                                    <span class="dcPrc"> 5200원</span>
-                                    <span class="oriPrc"> 7000원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                   
+                    <div class="mapUsingGuide"><span>브랜드 선택 후 매장을 찾아주세요.</span></div>
                 </div>
                 <div class="container"><!--메인컨텐츠 (이하 각자 내용 작성)-->
                 <div class="selectedbrd"></div>
@@ -267,6 +56,9 @@
         let cateBtn = $(".cateList");
 
         cateBtn.on("click", function(){
+
+            $(".cateList").css("color", "black");
+            $(this).css( "color", "rgb(255,88,93)" );
 
             let cateCode = $(this).val();
             let cateName = $(this).text();
@@ -305,29 +97,24 @@
 
     $(".brandbar").on("click",function(){
 
-        //
-        var value = [];
+        brand = [];
 
         //화면 출력용 선택 List
         var name = [];
 
         $("input[class='brand']:checked").each(function(){
-            value.push($(this).val());
-            name.push($(this).attr('name'));
 
+            name.push($(this).attr('name'));
             brand = name;
         });
 
         if($("input[name='전체']").is(":checked") == true){
+
             $("input:checkbox[class='brand']").prop("checked",false);
             $("input:checkbox[class='brand']").prop("disabled", true);
 
             brand = [];
-
-            value = "";
-            name = "";
-
-            value = $("input[name='전체']").val();
+            name = [];
             name = $("input[name='전체']").attr('id');
 
             $(".brand").each(function(){
@@ -337,11 +124,7 @@
         }else{
             $("input:checkbox[class='brand']").prop("disabled", false);
         }
-
         $('.selectedbrd').text(name);
-
-        console.log("brand : " + brand);
-        console.log("brand size : " + brand.length);
     });
 
 </script>
@@ -369,14 +152,11 @@
 
     $(document).ready(function(){
 
-        var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-
         var container = document.getElementById('map');
 
-        var options = {
-            center: new kakao.maps.LatLng(lat, lon),
-            level: 3
-        };
+        //최초 지도 로딩 설정
+        var options = {center: new kakao.maps.LatLng(lat, lon),
+                        level: 3};
 
         //카카오맵 생성
         var map = new kakao.maps.Map(container, options);
@@ -384,19 +164,15 @@
         // 검색객체 생성
         var places = new kakao.maps.services.Places(map);
 
+        //최초 마커 생성
         var marker = new kakao.maps.Marker({
             position: new kakao.maps.LatLng(0,0)
         });
 
+        //검색 결과 출력용 마커 배열
         var markers= [];
 
-        var callback = function(result, status){
-
-            if(status === kakao.maps.services.Status.OK){
-                    displayMarker(result);
-            }
-        };
-
+        //마커 표시 함수
         function displayMarker(result){
 
             for(let j=0; j<result.length; j++){
@@ -410,6 +186,7 @@
             }
         }
 
+        //마커 삭제 함수
         function removeMarker(){
 
             for(let j=0; j<markers.length; j++){
@@ -418,14 +195,96 @@
             markers = [];
         }
 
+        //검색 결과 callback 함수
+        function callback (result, status){
 
+            //검색 결과 있을 시
+            if(status === kakao.maps.services.Status.OK){
+                searchGifticon(result[0].category_name);
+                displayMarker(result);
+            }else{
+                //다중 브랜드 검색 시, total 검색 결과에 따라 not Found 추가 또는 삭제
+                if($(".searchedGft").length == 0){
+                    let notFound = "";
+                    notFound += '<div class="mapUsingGuide notFound"><span>검색된 매장이 없습니다.</span></div>';
+                    $(".listSpace").html(notFound);
+                }
+            }
+
+        };
+
+        //카카오 키워드 검색
+        function searchGifticon(cateString){
+
+            //검색 결과의 카테고리에서 문자열 splicing
+            let categories = cateString.split(' > ');
+
+            //검색 결과 중 브랜드 이름만 출력
+            let brdName = categories.reverse()[0];
+
+            $.ajax({
+                url:'/user/map/getMainGfts/' + brdName,
+                type: 'get',
+                dataType: 'json',
+                success: function(result){
+
+                    let str = "";
+
+                    for (let i = 0; i < result.length; i++) {
+                        str += '<a class="searchedGft" href="/user/gifti_detail?code=' + result[i].prodCode + '">';
+                        str += '<div class="bar ' + result[i].prodCode + '">';
+                        str += '<div class="prdImg"><img src="' + result[i].pimgPath + '"></div>';
+                        str += '<div class="prdInfo">';
+                        str += '<div class="brdName">' + result[i].bname + '</div>';
+
+                        if(result[i].pname.length >= 14){
+                            str += '<div class="prdName small">' + result[i].pname + '</div>';
+                        }else{
+                            str += '<div class="prdName medium">' + result[i].pname + '</div>';
+                        }
+
+                        str += '<div class="prcInfo">';
+                        str += '<span class="dcRate">' + Math.round(result[i].dcRate * 100) + '%' + '</span>';
+                        str += '<span class="dcPrc">' + result[i].dcPrc + '원' + '</span>';
+                        str += '<span class="oriPrc">' + result[i].prc + '원' + '</span>';
+                        str += '    </div>';
+                        str += '   </div>';
+                        str += '   </div>';
+                        str += '  </a>';
+                    }
+
+                    $(".listSpace").append(str);
+
+                    //다중 브랜드 검색 시, total 검색 결과에 따라 not Found 추가 또는 삭제
+                    if($(".searchedGft").length == 0){
+                        let notFound = "";
+                        notFound += '<div class="mapUsingGuide notFound"><span>판매중인 기프티콘이 없습니다.</span></div>';
+                        $(".listSpace").html(notFound);
+                    }else{
+                        $(".notFound").remove();
+                    }
+                },
+                error: function(error){
+                    alert("error received");
+
+                }
+            })
+        }
+
+        //맵 drag 할 때 검색 실행
         kakao.maps.event.addListener(map, 'dragend', function(){
 
+            //지도 위치 기준으로 검색 설정
             var position = map.getCenter();
             var bound = map.getBounds();
 
+            //이전 출력 마커 삭제 후 진행
             removeMarker();
 
+            //이전 기프티콘 리스트 삭제 후 진행
+            $(".listSpace").html("");
+
+            //검색 브랜드 리스트에서 검색 실행
             for(let i in brand){
                 console.log("검색: " + brand[i]);
 
@@ -434,15 +293,9 @@
                     bounds: bound,
                     size: 15
                 };
-
-                places.keywordSearch(brand[i],callback,searchOptions);
+                places.keywordSearch(brand[i], callback, searchOptions);
             }
-
-            console.log("position: " + position);
-            console.log("bound : " + bound);
-
         })
-
     })
 
 </script>

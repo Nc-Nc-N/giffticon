@@ -2,7 +2,9 @@ package com.ncncn.controller;
 
 import com.ncncn.domain.BrandVO;
 import com.ncncn.domain.CategoryVO;
+import com.ncncn.domain.ProdListVO;
 import com.ncncn.service.BrandService;
+import com.ncncn.service.GifticonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,8 @@ public class MapController {
 
     BrandService brandService;
 
+    GifticonService gifticonService;
+
     @GetMapping(value="/getBrdList/{cateCode}")
     public ResponseEntity<Map<String,String>> getBrdList(@PathVariable String cateCode){
 
@@ -36,8 +40,6 @@ public class MapController {
 
             Map<String, String> brdMap = new HashMap<>();
 
-//            brdMap.put("전체","00");
-
             for(int i=0; i<brdList.size(); i++){
                 brdMap.put(brdList.get(i).getCode(),brdList.get(i).getName());
             }
@@ -46,6 +48,20 @@ public class MapController {
 
             return new ResponseEntity<Map<String,String>>(brdMap, HttpStatus.OK);
         }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @GetMapping(value="/getMainGfts/{brdName}")
+    public ResponseEntity<List<ProdListVO>> getMainGfts(@PathVariable String brdName){
+        log.info("brdName :" + brdName);
+        try{
+            List<ProdListVO> mainGftList = gifticonService.getMainGftByBrandName(brdName);
+
+            return new ResponseEntity<List<ProdListVO>>(mainGftList, HttpStatus.OK);
+        }catch (Exception e){
+
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

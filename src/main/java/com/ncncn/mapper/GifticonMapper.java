@@ -59,4 +59,7 @@ public interface GifticonMapper {
 
 	public void registerGifticon(GifticonVO gifticon);
 
+	//지도 - 메인기프티콘
+	public List<ProdListVO> getMainGftByBrandName(String brdName);
+
 }
