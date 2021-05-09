@@ -1,0 +1,62 @@
+.pnt_info_section{
+    color: #333333;
+}
+table.select_pnt {
+    border-collapse: separate;
+    border-spacing: 0px;
+    text-align: center;
+    line-height: 1.5;
+    margin: 5% 5%;
+    border: 1px solid gainsboro;
+    border-collapse: collapse;
+    width: 90%;
+}
+table.select_pnt th {
+    width: 155px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    background: rgb(245, 244, 244);
+    border: 1px solid gainsboro;
+
+}
+table.select_pnt td {
+    width: 155px;
+    padding: 10px;
+    vertical-align: top;
+    border: 1px solid gainsboro;
+    text-align: right;
+}
+
+input[type="radio" i]{
+    float: left;
+}
+.select_section{
+    width: 100%;
+}
+table.select_pnt td:last-child, .benefits{
+    font-size: small;
+    color: #FF585D;
+}
+
+.pnt_info_column{
+    margin: 5% 5%;
+}
+
+.con_info{
+    border-bottom: 1px solid gainsboro;
+    line-height: 60px;
+    padding-left: 3%;
+}
+
+.con_info span:first-child{
+    float: right;
+    margin-right: 20%;
+}
+.pnt_bought_btn_section{
+    float: right;
+    margin-top: 5%;
+}
+.benefits{
+    margin-left: 5%;
+}

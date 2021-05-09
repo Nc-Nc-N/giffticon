@@ -1,6 +1,7 @@
 package com.ncncn.mapper;
 
 import com.ncncn.domain.BankAccountVO;
+import com.ncncn.domain.PntHistVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -14,10 +15,10 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/applicationContext.xml")
 @Log4j
-public class PointMapperTests {
+public class ConMapperTests {
 
     @Setter(onMethod_ = @Autowired)
-    PointMapper pointMapper;
+    ConMapper conMapper;
 
     @Test
     public void accRegister() {
@@ -30,7 +31,7 @@ public class PointMapperTests {
         bankAccountVO.setIsAuthed('1');
         bankAccountVO.setAccStus("001");
 
-        pointMapper.accRegister(bankAccountVO);
+        conMapper.accRegister(bankAccountVO);
 
     }
 
@@ -45,9 +46,23 @@ public class PointMapperTests {
         bankAccountVO.setIsAuthed('5');
         bankAccountVO.setAccStus("001");
 
-        int updated = pointMapper.accUpdate(bankAccountVO);
+        int updated = conMapper.accUpdate(bankAccountVO);
 
         assertEquals(updated, 1);
+
+    }
+
+    @Test
+    public void testAddCon(){
+
+        PntHistVO pntHistVO = new PntHistVO();
+        pntHistVO.setUserId(156);
+        pntHistVO.setChgQuty(5000);
+
+        conMapper.addCon(pntHistVO);
+        int balance = pntHistVO.getBalance();
+
+        conMapper.updateUserCon(156, balance);
 
     }
 

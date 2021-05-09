@@ -271,7 +271,7 @@ public class TotalJunitTestSM {
     }
 
     @Test
-    public void SignUpTest1(){
+    public void SignUpTest1() throws Exception {
 
         UserVO user = new UserVO();
 
@@ -301,7 +301,7 @@ public class TotalJunitTestSM {
 
         String email = "pla_master26@naver.com";
 
-        UserVO user = signUpService.getByEmail(email);
+        UserVO user = signUpService.getUserByEmail(email);
 
         assertEquals(user.getPnt(),0);
         assertEquals(user.getRoleCode(),"002");
@@ -309,7 +309,7 @@ public class TotalJunitTestSM {
     }
 
     @Test
-    public void SignUpTest3(){
+    public void SignUpTest3() throws Exception {
 
         UserVO user = new UserVO();
 

@@ -43,7 +43,7 @@ public class DnSMapperTests {
         int gftId = 80;
         int userId = 157;
 
-        MyDealsVO dealDetail = dealListMapper.getGftDetail(gftId, userId).get(0);
+        MyDealsVO dealDetail = dealListMapper.getGftDetail(gftId, userId);
 
         assertEquals(dealDetail.getBrdName(),"스타벅스");
         assertEquals(dealDetail.getGftId(), 80);
@@ -139,7 +139,7 @@ public class DnSMapperTests {
         int userId = 157;
         int gftId =  66;
 
-        MySellVO sellDetail = sellListMapper.getSellDetail(gftId,userId).get(0);
+        MySellVO sellDetail = sellListMapper.getSellDetail(gftId,userId);
 
         assertEquals(sellDetail.getDcPrc(), 6000);
 //        assertEquals(sellDetail.getDcRate(),0.05d);

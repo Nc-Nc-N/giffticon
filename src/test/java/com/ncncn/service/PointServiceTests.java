@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class PointServiceTests {
 
     @Setter(onMethod_ = @Autowired)
-    PointService pointService;
+	ConService pointService;
 
     @Test
     public void accRegisterTest() {

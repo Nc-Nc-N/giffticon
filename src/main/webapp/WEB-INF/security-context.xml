@@ -11,14 +11,14 @@
     <bean id="customAccessDenied" class="com.ncncn.security.CustomAccessDeniedHandler"></bean>
     <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
     <bean id="customUserDetailsService" class="com.ncncn.security.CustomUserDetailsService"></bean>
+    <bean id="CustomAuthenticationProvider" class="com.ncncn.security.CustomAuthenticationProvider"></bean>
 
     <security:http>
         <security:form-login login-page="/account/signIn" authentication-success-handler-ref="customLoginSuccess"/>
         <security:intercept-url pattern="/user/home" access="permitAll"/>
         <security:intercept-url pattern="/admin/**" access='hasAuthority("관리자")'/>
-        <security:intercept-url pattern="/user/mypage/*" access='hasAuthority("사용자")'/>
-        <security:intercept-url pattern="/user/deal/saleGifticon" access='hasAuthority("사용자")'/>
-
+        <security:intercept-url pattern="/user/mypage/*" access='hasAnyAuthority("사용자","사용자(소셜로그인)")'/>
+        <security:intercept-url pattern="/user/deal/saleGifticon" access='hasAnyAuthority("사용자","사용자(소셜로그인)")'/>
 
         <security:access-denied-handler ref="customAccessDenied"/>
 
@@ -30,7 +30,8 @@
         <security:logout logout-url="/account/logOut" success-handler-ref="customLogoutSuccess"/>
     </security:http>
 
-    <security:authentication-manager>
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider ref="CustomAuthenticationProvider"/>
         <security:authentication-provider user-service-ref="customUserDetailsService">
             <security:password-encoder ref="bcryptPasswordEncoder"/>
         </security:authentication-provider>

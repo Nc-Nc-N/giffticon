@@ -11,7 +11,7 @@ public interface SellListService {
 
     public List<MySellVO> getSellsWithPaging(int userId, MyPageCriteria cri);
 
-    public List<MySellVO> getSellDetail(int gftId, int userId);
+    public MySellVO getSellDetail(int gftId, int userId);
 
     public int countStus001N002(int userId, String stusName);
 

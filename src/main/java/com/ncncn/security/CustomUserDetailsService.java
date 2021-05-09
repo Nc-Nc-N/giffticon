@@ -21,6 +21,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         UserVO vo = usermapper.readForLogin(email);
 
+        //나중에 소셜로그인 회원가입 받을 때 null 아닌 "" 처리로 변경 후 삭제
+        try {
+            if (vo.getPwd() == null) {
+                vo.setPwd("");
+            }
+        } catch (NullPointerException e) {
+
+        }
         //db에서 email로 사용자 정보를 불러오고, 해당 사용자를 customUser 객체에 담아서 반환
         return vo == null ? null : new CustomUser(vo);
     }

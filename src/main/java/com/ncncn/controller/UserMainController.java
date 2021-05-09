@@ -25,8 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.util.List;
 
-@Controller
 @Log4j
+@Controller
 @RequestMapping("/user/*")
 @AllArgsConstructor
 public class UserMainController {
@@ -44,20 +44,28 @@ public class UserMainController {
 	@GetMapping("/home")
 	public void main(HttpServletRequest request, Model model){
 
-        try {                        // 로그인 되어 있을 때
-            int userId = (int) request.getSession().getAttribute("userId");
-            model.addAttribute("wishList", wishService.getWishList(userId));
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
 
-        } catch (Exception e) {        // 로그인 안 되어 있을 때
+		if(userId == null){
             model.addAttribute("notice", "로그인 후에 이용 가능한 메뉴입니다.");
-        }
-        // 인기상품
-        model.addAttribute("bestList", giftiService.getBestGifti());
 
-        // 마감상품
-        model.addAttribute("deadlineList", giftiService.getDeadlineGifti());
+		}else {
+			try {
+				model.addAttribute("wishList", wishService.getWishList(userId));			// 관심상품
 
-  }
+			}catch (Exception e) {
+				model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
+			}
+		}
+
+		try{
+			model.addAttribute("bestList", giftiService.getBestGifti());				// 인기상품
+			model.addAttribute("deadlineList", giftiService.getDeadlineGifti());		// 마감상품
+
+		}catch (Exception e){
+			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
+		}
+	}
 
   //메인 - 거래확정대기 수량 받아오기 (헤더 티켓아이콘)
   @RequestMapping(value = "/ticketAlarm",

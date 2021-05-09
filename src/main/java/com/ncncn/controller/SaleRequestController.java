@@ -1,14 +1,18 @@
 package com.ncncn.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ncncn.domain.*;
+import com.ncncn.domain.BrandVO;
+import com.ncncn.domain.CategoryVO;
+import com.ncncn.domain.ProductVO;
+import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
-import com.ncncn.domain.request.RqustRejectDTO;
-import com.ncncn.service.*;
+import com.ncncn.service.BrandService;
+import com.ncncn.service.CategoryService;
+import com.ncncn.service.ProductService;
+import com.ncncn.service.SaleRqustService;
 import lombok.extern.log4j.Log4j;
 
 import org.springframework.http.HttpStatus;
@@ -46,8 +50,8 @@ public class SaleRequestController {
 	@GetMapping("/list")
 	public void getRequestList(SaleRqustCriteria cri, Model model) {
 		try {
-			List<SaleRqustVO> rqustList = saleRqustService.getAllRqust(cri);
-			int total = saleRqustService.getTotalCount(cri);
+			List<SaleRqustVO> rqustList = saleRqustService.getAllRqust(cri);                // 조건을 만족하는 판매요청 목록 조회
+			int total = saleRqustService.getTotalCount(cri);                                // 페이징을 위한 조건을 만족하는 판매요청 개수
 			model.addAttribute("rqustList", rqustList);
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
 		} catch (Exception e) {
@@ -57,77 +61,89 @@ public class SaleRequestController {
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Object>> getRequest(@PathVariable("id") int id) {
-		Map<String, Object> rqust = new HashMap<>();
+		Map<String, Object> rqust;
 
 		try {
-			rqust = saleRqustService.getRqustById(id);
+			rqust = saleRqustService.getRqustById(id);        // map 객체에 판매요청 상태인 기프티콘 상세정보 조회 후 저장
 		} catch (Exception e) {
-			rqust.put("error", e.getMessage());
-			return new ResponseEntity<>(rqust, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(rqust, HttpStatus.OK);
 	}
 
 	@PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> approveRequest(@PathVariable("id") int id, @RequestBody Map<String, String> rqust) {
+	public ResponseEntity approveRequest(@PathVariable("id") int id, @RequestBody Map<String, String> rqust) {
 		try {
+			// 요청중인 기프티콘의 상태와 상품정보를 수정함
 			saleRqustService.approveRequest(id, rqust);
 		} catch (Exception e) {
-			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		return new ResponseEntity<>("success", HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> deleteRequset(@PathVariable("id") int id, @RequestBody RqustRejectDTO rqustRejectDTO) {
+	public ResponseEntity deleteRequset(@PathVariable("id") int id, @RequestBody Map<String, String> rejectMap) {
 		try {
 			Map<String, Object> rqust = saleRqustService.getRqustById(id);
-			int result = saleRqustService.removeRqust(id);
+			int result = saleRqustService.removeRqust(id);                    // id에 해당하는 판매요청중 기프티콘 삭제
 
 			// 반려사유 메일 전송
 			SimpleMailMessage message = new SimpleMailMessage();
-			message.setTo(rqustRejectDTO.getEmail());
+			message.setTo(rejectMap.get("email"));
 			message.setSubject("[기쁘티콘] 판매요청에 대한 안내메일입니다.");
-			message.setText(getMessage(rqust, rqustRejectDTO.getCause()));
+			message.setText(getMessage(rqust, rejectMap.get("cause")));
 
 			javaMailSender.send(message);
-
-			log.info(getMessage(rqust, rqustRejectDTO.getCause()));
 		} catch (Exception e) {
-			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		return new ResponseEntity<>("success", HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/getCategoryList", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<CategoryVO>> getCategoryList() {
-		List<CategoryVO> categoryList = categoryService.getCategoryList();
-
+	@GetMapping(value = "/getCateList", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<CategoryVO>> getCateList() {
+		List<CategoryVO> categoryList;
+		try {
+			categoryList = categoryService.getCategoryList();
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		return new ResponseEntity<>(categoryList, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/getBrdList", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<BrandVO>> getBrdList(@RequestParam("code") String code) {
-		List<BrandVO> brandList = brandService.getBrdList(code);
-
+	public ResponseEntity<List<BrandVO>> getBrdList(@RequestParam("cateCode") String cateCode) {
+		List<BrandVO> brandList;
+		try {
+			brandList = brandService.getBrdList(cateCode);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		return new ResponseEntity<>(brandList, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/getProdList", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductVO>> getProdList(@RequestParam("brdCode") String brdCode) {
-		log.info(brdCode);
-
-		List<ProductVO> productList = productService.getAllByBrdCode(brdCode);
-
+		List<ProductVO> productList;
+		try {
+			productList = productService.getAllByBrdCode(brdCode);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		return new ResponseEntity<>(productList, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/getProd", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductVO> getProd(@RequestParam("code") String code) {
-		ProductVO product = productService.getByCode(code);
-
+		ProductVO product;
+		try {
+			product = productService.getByCode(code);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
 
