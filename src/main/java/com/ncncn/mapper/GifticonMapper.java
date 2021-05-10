@@ -62,4 +62,8 @@ public interface GifticonMapper {
 
 	public List<AutoPriceVO> getAutoPricedGifticon();
 
+	public List<GifticonVO> getOnSaleGifticon();
+
+	public void disableExpiredGifticon(int id);
+
 }

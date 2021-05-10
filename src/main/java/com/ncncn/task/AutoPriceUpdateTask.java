@@ -33,7 +33,7 @@ public class AutoPriceUpdateTask {
         return 0;
     }
 
-    @Scheduled(cron="0 * * * * *")
+    @Scheduled(cron="* * 23 * * *")
     public void updatePrices() throws Exception {
 
         List<AutoPriceVO> list = gifticonMapper.getAutoPricedGifticon();
