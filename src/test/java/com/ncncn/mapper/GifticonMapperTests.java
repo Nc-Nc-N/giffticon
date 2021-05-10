@@ -1,5 +1,6 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProdListVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -85,6 +86,24 @@ public class GifticonMapperTests {
         List<ProdListVO> mainGftList = mapper.getMainGftByBrandName(brdName);
 
         assertEquals(mainGftList.size(), 25);
+    }
+
+    @Test
+    public void readTest(){
+        int id = 102;
+
+        ProdListVO gifti = mapper.getGifticon(id);
+
+    }
+
+    @Test
+    public void updateGftStus(){
+        int id = 7;
+
+        Boolean result = mapper.updateGftStus(id);
+
+        assertEquals(result, true);
+
     }
 
 }

@@ -1,3 +1,8 @@
+#container{
+    width:1000px;
+    margin: auto;
+    color: #333333;
+}
 .msg {
     margin-top: 30px;
     margin-bottom:8%;
@@ -29,19 +34,17 @@
 .btn {
     background-color: rgb(255, 88, 93);
     color: white;
-    width:150px;
+    width:110px;
     height:50px;
-    font-size:20px;
+    font-size:15px;
     border-radius:5px;
     border:none;
-}
-.btn-deals{
-    float: left;
-    margin-left: 34%;
-    margin-right: 10px;
+    font-weight: bold;
+    margin-right: 3%;
 }
 
-.btn-home{
-    float: left;
+.btn-group{
+    display: flex;
+    justify-content: center;
 }
 

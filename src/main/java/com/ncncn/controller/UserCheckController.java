@@ -28,33 +28,48 @@ public class UserCheckController {
     @GetMapping("/userlist")
     public String userList(UserCheckCriteria cri, Model model) {
         log.info("---------log: " + cri);
-        model.addAttribute("list", userService.getUserList(cri));
 
-        int total = userService.getTotal(cri);
+        try {
+            model.addAttribute("list", userService.getUserList(cri));
 
-        log.info("total: " + total);
-        model.addAttribute("pageMaker", new PageDTO(cri, total));
+            int total = userService.getTotal(cri);
 
+            log.info("total: " + total);
+            model.addAttribute("pageMaker", new PageDTO(cri, total));
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("initError", "회원정보 불러오기에 실패했습니다. 다시 시도해주세요");
+        }
         return "/admin/user/userList";
     }
 
     @GetMapping("/userlist-quit")
     public String userListQuit(UserCheckCriteria cri, Model model) {
         log.info("---------log: " + cri);
-        model.addAttribute("quitlist", userService.getUserListQuit(cri));
 
-        int total = userService.getTotalQuit(cri);
+        try {
+            model.addAttribute("quitlist", userService.getUserListQuit(cri));
 
-        log.info("total: " + total);
-        model.addAttribute("pageMaker", new PageDTO(cri, total));
+            int total = userService.getTotalQuit(cri);
 
+            log.info("total: " + total);
+            model.addAttribute("pageMaker", new PageDTO(cri, total));
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("initError", "회원정보 불러오기에 실패했습니다. 다시 시도해주세요");
+        }
         return "/admin/user/quitUserList";
     }
 
     @GetMapping("/user-detail")
     public String userDetailCheck(int userId, Model model) {
         log.info("userDetailCheck...................");
-        model.addAttribute("user", userService.getUserDetail(userId));
+        try {
+            model.addAttribute("user", userService.getUserDetail(userId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("initError", "회원 상세정보 불러오기에 실패했습니다. 다시 시도해주세요");
+        }
 
         return "admin/user/userDetail";
     }

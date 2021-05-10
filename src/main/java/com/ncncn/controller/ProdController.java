@@ -47,12 +47,10 @@ public class ProdController {
 			model.addAttribute("gifti", giftiService.getGiftiWithPaging(cri));    	// 기프티콘 목록(페이징 처리 포함)
 			model.addAttribute("headerPageMaker", new PageDTO(cri, total));
 
-			return "/user/gifticon/gifti_list";
-
 		} catch (Exception e) {
 			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
-			return "/user/gifticon/gifti_list";
 		}
+			return "/user/gifticon/gifti_list";
 	}
 
 
@@ -85,12 +83,10 @@ public class ProdController {
 			model.addAttribute("userId", userId);									// 로그인한 사용자 userId
 			model.addAttribute("hasWish", hasWish);									// 관심상품에 등록되어 있는지(있으면 1, 없으면 0)
 
-			return "/user/gifticon/gifti_detail";
-
-		}catch (Exception e){ 
+		}catch (Exception e){
 			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
-			return "/user/gifticon/gifti_detail";
 		}
+			return "/user/gifticon/gifti_detail";
 	}
 
 	@GetMapping("/gifticon/map")

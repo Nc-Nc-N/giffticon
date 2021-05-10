@@ -88,7 +88,7 @@
                 </ul>
             </div>
             <div class="leftmenus">
-                <div class="leftmenu"><a href="#">충전하기</a></div>
+                <div class="leftmenu"><a href="/user/mypage/addCon">충전하기</a></div>
                 <div class="leftmenu"><a href="/user/gifticon/map"><i class="fas fa-map-marker-alt"></i></a></div>
             </div>
         </div>

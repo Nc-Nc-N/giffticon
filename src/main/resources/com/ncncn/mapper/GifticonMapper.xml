@@ -10,6 +10,14 @@
         where id = #{id}
     </select>
 
+    <select id="getGifticon" resultType="com.ncncn.domain.ProdListVO">
+        select id, user_id, prod_code, dc_prc, prod.name as pname, brd.name as bname, prod.img_path
+        from gifticon as gft
+                 join product as prod on prod.code = gft.prod_code
+                 join brand as brd on brd.code = prod.brd_code
+        where id = #{id}
+    </select>
+
     <sql id="getRqust">
         <![CDATA[
         from gifticon as gft
@@ -169,7 +177,7 @@
 
     <!-- 판매중 기프티콘 대표   -->
     <select id="getGifti" resultType="com.ncncn.domain.ProdListVO">
-        <![CDATA[
+        <![CDATA[        
         select prod.enabled,
                gifti.id,
                gifti.user_id,
@@ -179,7 +187,7 @@
                prod.name         as pname,
                prod.prc,
                min(gifti.dc_prc) as dc_prc,
-               gifti.dc_rate,
+               max(dc_rate) as dc_rate,
                gft_stus_code,
                prod.descn,
                prod.img_path     as pimg_path
@@ -196,7 +204,7 @@
     <!-- 판매중 기프티콘 목록 조회(페이징 처리)   -->
     <select id="getGiftiWithPaging" resultType="com.ncncn.domain.ProdListVO">
         <![CDATA[
-        select prod.enabled, expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gft_stus_code,prod.img_path  as pimg_path
+        select prod.enabled, expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(dc_prc)as dc_prc, max(dc_rate) as dc_rate, gft_stus_code,prod.img_path  as pimg_path
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
@@ -222,7 +230,7 @@
     <select id="getTotalCount" resultType="int">
         <![CDATA[
         select count(tbl.id) from(
-        select prod.enabled, expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(gifti.dc_prc)as dc_prc, gifti.dc_rate, gft_stus_code,prod.img_path  as pimg_path
+        select prod.enabled, expir_dt, gifti.id, gifti.user_id, gifti.prod_code, brand.name as bname, prod.name as pname, prod.prc, prod.sold_quty, min(dc_prc)as dc_prc, max(dc_rate) as dc_rate, gft_stus_code,prod.img_path  as pimg_path
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
@@ -253,7 +261,7 @@
                prc,
                sold_quty,
                min(dc_prc)   as dc_prc,
-               dc_rate,
+               max(dc_rate) as dc_rate,
                gft_stus_code,
                prod.img_path as pimg_path
         from gifticon as gifti
@@ -302,6 +310,7 @@
                 #{imgPath}, #{isAutoPrc}, '001', default, current_user(), default, current_user(), null)
     </insert>
 
+
     <select id="getMainGftByBrandName" resultType="com.ncncn.domain.ProdListVO">
         select prdT.img_path pimgPath,
                brdT.name bname,
@@ -319,5 +328,10 @@
           and gftT.gft_stus_code = stusT.code
         group by gftT.prod_code;
     </select>
+
+    <!-- 기프티콘 상태 변경(판매중 -> 거래확정대기) -->
+    <update id="updateGftStus">
+        update gifticon set gft_stus_code = '004', up_date = now(), up_user = current_user() where id = #{id}
+    </update>
 
 </mapper>
