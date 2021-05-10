@@ -251,4 +251,11 @@
                 #{imgPath}, #{isAutoPrc}, '001', default, current_user(), default, current_user(), null)
     </insert>
 
+    <select id="getAutoPricedGifticon" resultType="com.ncncn.domain.AutoPriceVO">
+        select g.id, g.prod_code, p.prc, g.dc_prc, p.in_dc_rate, g.dc_rate, g.expir_dt, g.gft_stus_code stus_code
+        from gifticon g
+                 left outer join product p on g.prod_code = p.code
+        where g.is_auto_prc=1 and (g.gft_stus_code='001' or g.gft_stus_code='002')
+    </select>
+
 </mapper>

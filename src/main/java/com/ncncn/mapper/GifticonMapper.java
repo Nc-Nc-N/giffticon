@@ -1,5 +1,6 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.AutoPriceVO;
 import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProdListVO;
 import com.ncncn.domain.SaleRqustVO;
@@ -58,5 +59,7 @@ public interface GifticonMapper {
 	public List<ProdListVO> getDeadlineGifti();
 
 	public void registerGifticon(GifticonVO gifticon);
+
+	public List<AutoPriceVO> getAutoPricedGifticon();
 
 }
