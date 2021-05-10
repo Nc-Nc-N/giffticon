@@ -245,6 +245,14 @@
       <version>0.4.8</version>
     </dependency>
 
+    <!-- FILE UPLOAD -->
+    <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
+    </dependency>
+
   </dependencies>
 
   <build>
