@@ -80,11 +80,12 @@
         const tel = '${tel}';
 
         let userCon =${userCon};                    // 사용자 보유 콘
+        let money = 0;
 
         // 라디오 버튼 클릭시 충전 콘 정보 변경
         $('input[name="cp_item"]').click(function (){
 
-            let money = $('input[name="cp_item"]:checked').val();
+            money = $('input[name="cp_item"]:checked').val();
             let benefits = 0;
 
             $('.addCon').html(money).append(" 콘");                                   // 충전 콘
@@ -108,6 +109,7 @@
         })
 
         $('#charge_kakao').click(function () {
+            console.log("money: "+money);
 
             // getter
             let IMP = window.IMP;
@@ -129,12 +131,18 @@
                 if (rsp.success) {
                     var msg = '결제가 완료되었습니다. ';
                     msg += '결제 금액 : ' + rsp.paid_amount;
+
                     $.ajax({
-                        type: "GET",
-                        url: "/user/mypage/addCon/con", //충전 금액값을 보낼 url 설정
-                        data: {
-                            "amount": money
+                        type: "POST",
+                        url: "/user/conUpdate", //충전 금액값을 보낼 url 설정
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                         },
+                        data: {
+                            "amount": money,
+                            "pntCode": "001"        // 충전
+                        }
+
                     });
                 } else {
                     var msg = '결제에 실패하였습니다.';

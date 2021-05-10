@@ -29,6 +29,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/user/*")
 @AllArgsConstructor
+@Log4j
 public class UserMainController {
 
 	private CategoryService cateService;

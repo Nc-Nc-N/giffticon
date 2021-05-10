@@ -1,5 +1,7 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.GifticonVO;
+import com.ncncn.domain.ProdListVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -74,4 +76,21 @@ public class GifticonMapperTests {
         assertEquals(count,3);
     }
 
+    @Test
+    public void readTest(){
+        int id = 102;
+
+        ProdListVO gifti = mapper.getGifticon(id);
+
+    }
+
+    @Test
+    public void updateGftStus(){
+        int id = 7;
+
+        Boolean result = mapper.updateGftStus(id);
+
+        assertEquals(result, true);
+
+    }
 }
