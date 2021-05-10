@@ -4,6 +4,7 @@ import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProdListVO;
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
+import com.ncncn.domain.pagination.SaleGftCriteria;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
 import org.apache.ibatis.annotations.Param;
 
@@ -64,5 +65,11 @@ public interface GifticonMapper {
 
 	// 기프티콘 상태 변경(판매중 -> 거래확정대기)
 	public boolean updateGftStus(int id);
+
+	List<Map<String, Object>> getAllSaleGifticon(SaleGftCriteria cri);
+
+	Map<String, Object> getSaleGifticon(int gftId);
+
+	int countAllSaleGft(SaleGftCriteria cri);
 
 }

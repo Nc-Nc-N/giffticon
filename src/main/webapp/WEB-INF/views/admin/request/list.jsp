@@ -20,7 +20,14 @@
 <h1>판매요청관리</h1>
 
 <!-- menu -->
-<div id="submenu"></div>
+<div id="submenu">
+    <div>
+        <a href="/admin/request/list" class="active"><span>판매요청관리</span></a>
+    </div>
+    <div>
+        <a href="/admin/gifticon/list"><span>기프티콘관리</span></a>
+    </div>
+</div>
 <!-- menu end -->
 
 <!-- search area -->
@@ -259,7 +266,7 @@
         let csrfTokenValue = "${_csrf.token}";
 
         // 사이드바 판매요청관리 active
-        $("a[name='rqust-list']").attr('class', 'active');
+        $("#gifticonAdministration").attr('class', 'active');
 
         function submitAction(form, pageNum) {
             form.find("input[name='pageNum']").val(pageNum);

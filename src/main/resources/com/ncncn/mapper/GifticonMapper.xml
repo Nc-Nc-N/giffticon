@@ -264,4 +264,80 @@
         update gifticon set gft_stus_code = '004', up_date = now(), up_user = current_user() where id = #{id}
     </update>
 
+    <sql id="getSaleGft">
+        <![CDATA[
+        from gifticon as gft
+            join product as prod on prod.code = gft.prod_code
+            join brand as brd on brd.code = prod.brd_code
+            join category as cate on cate.code = brd.cate_code
+	        join user as usr on usr.id = gft.user_id
+        where gft.gft_stus_code != '001'
+        ]]>
+    </sql>
+
+    <sql id="saleGftCriteria">
+        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'E'.toString()">
+                            usr.email like concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'N'.toString()">
+                            prod.name like concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            prod.code like concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'G'.toString()">
+                            gft.id = #{keyword}
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+            <foreach collection="orderArr" item="order">
+                <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+                    <if test="order == 'S'.toString()">
+                        OR gft.gft_stus_code = '002'
+                    </if>
+                    <if test="order == 'J'.toString()">
+                        OR gft.gft_stus_code = '003'
+                    </if>
+                    <if test="order == 'W'.toString()">
+                        OR gft.gft_stus_code = '004'
+                    </if>
+                    <if test="order == 'C'.toString()">
+                        OR gft.gft_stus_code = '005'
+                    </if>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
+    <select id="getAllSaleGifticon" resultType="HashMap">
+        <![CDATA[select gft.id as gftId, gft.prod_code as prodCode, cate.name as cateName, brd.name as brdName, prod.name as prodName, usr.email as requester,
+	gft.brcd as brcd, DATE_FORMAT(gft.expir_dt, '%Y-%m-%d') as expirDt, (select code_name from cmmn_code where code_type = 'GFT_STUS' and code = gft.gft_stus_code) gftStus, gft.img_path as imgPath]]>
+        <include refid="getSaleGft"/>
+        <include refid="saleGftCriteria"/>
+        <![CDATA[
+         order by prod.code, gft_stus_code, gft.expir_dt
+         limit #{amount}
+         offset ${(pageNum - 1) * amount}
+         ]]>
+    </select>
+
+    <!-- id 값에 해당하는 판매요청 조회 -->
+    <select id="getSaleGifticon" resultType="HashMap">
+        <![CDATA[select gft.id gftId, gft.prod_code prodCode, gft.dc_prc dcPrc, gft.dc_rate dcRate, DATE_FORMAT(gft.expir_dt, '%Y-%m-%d') expirDt,
+            gft.brcd brcd, gft.descn descn, gft.img_path imgPath, gft.is_auto_prc isAutoPrc, DATE_FORMAT(gft.in_date, '%Y-%m-%d') inDate,
+            cate.name cateName, brd.name brdName, prod.name prodName, prod.prc prodPrc, prod.in_dc_rate inDcRate, usr.email requester]]>
+        <include refid="getSaleGft"/>
+        <![CDATA[ and gft.id = #{gftId} ]]>
+    </select>
+
+    <select id="countAllSaleGft" resultType="int">
+        <![CDATA[select count(*)]]>
+        <include refid="getSaleGft"/>
+        <include refid="saleGftCriteria"/>
+    </select>
 </mapper>

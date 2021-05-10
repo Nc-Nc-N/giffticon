@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ncncn.domain.SaleRqustVO;
+import com.ncncn.domain.pagination.SaleGftCriteria;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
 import com.ncncn.mapper.GifticonMapper;
 import com.ncncn.mapper.ProductMapper;
@@ -15,13 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Log4j
-public class SaleRqustServiceImpl implements SaleRqustService {
+public class GftManagingServiceImpl implements GftManagingService {
 
 	private GifticonMapper gifticonMapper;
 
 	private ProductMapper productMapper;
 
-	public SaleRqustServiceImpl(GifticonMapper gifticonMapper, ProductMapper productMapper) {
+	public GftManagingServiceImpl(GifticonMapper gifticonMapper, ProductMapper productMapper) {
 		this.gifticonMapper = gifticonMapper;
 		this.productMapper = productMapper;
 	}
@@ -59,6 +60,21 @@ public class SaleRqustServiceImpl implements SaleRqustService {
 	@Override
 	public int removeRqust(int id) {
 		return gifticonMapper.deleteGifticon(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getAllSaleGifticon(SaleGftCriteria cri) {
+		return gifticonMapper.getAllSaleGifticon(cri);
+	}
+
+	@Override
+	public Map<String, Object> getSaleGifticon(int gftId) {
+		return gifticonMapper.getSaleGifticon(gftId);
+	}
+
+	@Override
+	public int getTotalSaleGftCount(SaleGftCriteria cri) {
+		return gifticonMapper.countAllSaleGft(cri);
 	}
 
 }

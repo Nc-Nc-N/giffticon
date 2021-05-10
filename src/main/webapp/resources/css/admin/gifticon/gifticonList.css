@@ -1,0 +1,13 @@
+#search-form {
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.order-area {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.order-area select {
+    margin-top: 10px;
+}
