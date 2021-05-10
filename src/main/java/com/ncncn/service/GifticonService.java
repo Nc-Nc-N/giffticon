@@ -41,6 +41,10 @@ public interface GifticonService {
 
 	public void registerGifticon(GifticonVO gifticon);
 
+	//map 출력용 대표 기프티콘
+	public List<ProdListVO> getMainGftByBrandName(String brdName);
+
 	// 기프티콘 상태 변경(판매중 -> 거래확정대기)
 	public boolean updateGftStus(int id);
+
 }

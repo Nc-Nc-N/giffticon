@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -77,6 +79,16 @@ public class GifticonMapperTests {
     }
 
     @Test
+    public void getMainGftByBrdNameTest(){
+
+        String brdName = "스타벅스";
+
+        List<ProdListVO> mainGftList = mapper.getMainGftByBrandName(brdName);
+
+        assertEquals(mainGftList.size(), 25);
+    }
+
+    @Test
     public void readTest(){
         int id = 102;
 
@@ -93,4 +105,5 @@ public class GifticonMapperTests {
         assertEquals(result, true);
 
     }
+
 }
