@@ -847,6 +847,7 @@
         let today = new Date();
         // 만료일까지 남은 일 수 계산
         let dateDiff = Math.ceil((expirDt.getTime() - today.getTime()) / (1000 * 3600 * 24));
+        alert(dateDiff);
 
         if (dateDiff <= 60 && dateDiff >= 0) {
             // 남은기간 60일부터 15일간격으로 할인율 변경구간 분리

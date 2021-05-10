@@ -66,4 +66,7 @@ public interface GifticonMapper {
 
 	public void disableExpiredGifticon(int id);
 
+//	public void updateAutoPrice(int id, int dcPrc, double dcRate);
+	public void updateAutoPrice(AutoPriceVO autoPriceVO);
+
 }

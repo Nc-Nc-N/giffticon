@@ -269,4 +269,10 @@
         where id = #{id}
     </update>
 
+    <update id="updateAutoPrice">
+        update gifticon
+        set dc_prc = #{dcPrc}, dc_rate = #{dcRate}, up_date = now(), up_user = current_user()
+        where id = #{id}
+    </update>
+
 </mapper>

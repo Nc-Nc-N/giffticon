@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Log4j
 @Component
@@ -21,7 +20,7 @@ public class DisableExpiredGifticons {
     private GifticonMapper gifticonMapper;
 
     // 매일 23시 55분에 유효기간 만료된 상품 판매불가로 변경
-    @Scheduled(cron="0 55 23 * * *")
+    @Scheduled(cron="0 * * 23 * *")
     public void updateGifticonStatus() throws Exception {
         // 상태코드 001 or 002인 기프티콘 가져오기
         // 유효기간이 오늘이면 상태코드 003으로 변경
@@ -33,9 +32,9 @@ public class DisableExpiredGifticons {
                 Date today = new Date();
 
                 long diffInMillies = expDt.getTime() - today.getTime();
-                long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                long dateDiff = (int)Math.ceil(diffInMillies/(1000*3600*24.0));
 
-                if(diff == 0) {
+                if(dateDiff == 0) {
                     System.out.println("disable gifticon ID: " + gifticon.getId());
                     gifticonMapper.disableExpiredGifticon(gifticon.getId());
                 }
