@@ -76,4 +76,9 @@ public class ConController {
 		int balance = pntHistVO.getBalance();
 		pointService.updateUserCon(userId, balance);
 	}
+
+	@GetMapping("/mypage/myCon")
+	public void myCon(){
+
+	}
 }
