@@ -136,7 +136,7 @@
     </delete>
 
 <!--    사용자 update-->
-    <update id="updateUser">
+    <update id="updateFromUser">
         update cs_psnl_qust
         set title= #{title},
             cntnt= #{cntnt},

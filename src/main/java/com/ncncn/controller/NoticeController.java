@@ -28,14 +28,21 @@ public class NoticeController {
 	@GetMapping("/user/cs/noticeBoard")
 	public String csNotice(CsCriteria cri, Model model){
 
-		log.info("list: " + cri);
-		model.addAttribute("list", service.getList(cri));
 
-		int total = service.getTotal(cri);
+		try{
+			log.info("list: " + cri);
+			model.addAttribute("list", service.getList(cri));
 
-		log.info("total: " + total);
+			int total = service.getTotal(cri);
 
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
+			log.info("total: " + total);
+
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
+
+		}catch (Exception e){
+			e.printStackTrace();
+			model.addAttribute("error", e.getMessage());
+		}
 
 		return "user/cs/noticeBoard";
 	}
@@ -47,22 +54,27 @@ public class NoticeController {
 	@GetMapping("/admin/adminNotice")
 	public  String adminNotice(HttpServletRequest request, CsCriteria cri, Model model){
 
-		log.info("list: " + cri);
-		model.addAttribute("list", service.getList(cri));
 
-		int total = service.getTotal(cri);
-
-		log.info("total: " + total);
-
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
-
-		int userId = 0;
-		//userId 0일경우 예외처리 해줄 것
 		try {
+
+			log.info("list: " + cri);
+			model.addAttribute("list", service.getList(cri));
+
+			int total = service.getTotal(cri);
+
+			log.info("total: " + total);
+
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
+
+			int userId = 0;
+
 			userId = (int) request.getSession().getAttribute("userId");
+
 			model.addAttribute("userId", userId);
+
 		} catch (NullPointerException e) {
 			e.printStackTrace();
+			model.addAttribute("error", e.getMessage());
 		}
 
 		return "admin/cs/adminNotice";
@@ -73,11 +85,20 @@ public class NoticeController {
 	@PostMapping("/admin/adminNotice/register")
 	public String register(HttpServletRequest request, CsNoticeVO notice, RedirectAttributes rttr){
 
-		log.info("register: " + notice);
+		try{
 
-		int userId = (int) request.getSession().getAttribute("userId");
-		service.register(notice);
-		rttr.addFlashAttribute("result", notice.getId());
+			log.info("register: " + notice);
+
+			int userId = (int) request.getSession().getAttribute("userId");
+
+			service.register(notice);
+
+			rttr.addFlashAttribute("result", notice.getId());
+
+		}catch (Exception e){
+			e.printStackTrace();
+			rttr.addAttribute("error", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
 		return "redirect:/admin/adminNotice";
 	}
@@ -86,19 +107,27 @@ public class NoticeController {
 	@PostMapping("/admin/adminNotice/modify")
 	public String modify(HttpServletRequest request, CsNoticeVO notice, @ModelAttribute("cri") CsCriteria cri, RedirectAttributes rttr){
 
-		log.info("modify: " + notice);
 
-		int userId = (int) request.getSession().getAttribute("userId");
+		try {
 
-		service.modify(notice);
-		if(service.modify(notice)){
-			rttr.addFlashAttribute("result", "success");
+			log.info("modify: " + notice);
+
+			int userId = (int) request.getSession().getAttribute("userId");
+
+			service.modify(notice);
+			if(service.modify(notice)){
+				rttr.addFlashAttribute("result", "success");
+			}
+
+			rttr.addAttribute("pageNum", cri.getPageNum());
+			rttr.addAttribute("amount", cri.getAmount());
+			rttr.addAttribute("type", cri.getType());
+			rttr.addAttribute("keyword", cri.getKeyword());
+
+		}catch (Exception e){
+			e.printStackTrace();
+			rttr.addAttribute("error", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		rttr.addAttribute("type", cri.getType());
-		rttr.addAttribute("keyword", cri.getKeyword());
 
 		return "redirect:/admin/adminNotice";
 	}
@@ -110,16 +139,21 @@ public class NoticeController {
 
 		log.info("remove...." + id);
 
-		int userId = (int) request.getSession().getAttribute("userId");
+		try {
 
-		if (service.remove(id)){
-			rttr.addFlashAttribute("result","success");
+			int userId = (int) request.getSession().getAttribute("userId");
+
+			service.remove(id);
+
+			rttr.addAttribute("pageNum", cri.getPageNum());
+			rttr.addAttribute("amount", cri.getAmount());
+			rttr.addAttribute("type", cri.getType());
+			rttr.addAttribute("keyword", cri.getKeyword());
+
+		}catch (Exception e){
+			e.printStackTrace();
+			rttr.addAttribute("error",HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		rttr.addAttribute("type", cri.getType());
-		rttr.addAttribute("keyword", cri.getKeyword());
 
 		return "redirect:/admin/adminNotice";
 	}
@@ -130,9 +164,18 @@ public class NoticeController {
 	@GetMapping(value = "/admin/notice", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CsNoticeVO> getNotice(@RequestParam("id") int id) {
 
-		CsNoticeVO noticeVO = service.get(id);
+		try {
 
-		return new ResponseEntity<>(noticeVO,HttpStatus.OK);
+			CsNoticeVO noticeVO = service.get(id);
+
+			return new ResponseEntity<>(noticeVO,HttpStatus.OK);
+
+		}catch (Exception e){
+
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
 }

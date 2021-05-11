@@ -31,14 +31,21 @@ public class FaqController {
 
 		log.info("list: " + cri);
 
+		try {
 
-		model.addAttribute("list", service.getListUser(cri));
+			model.addAttribute("list", service.getListUser(cri));
 
-		int total = service.getTotalUser(cri);
+			int total = service.getTotalUser(cri);
 
-		log.info("total: " + total);
+			log.info("total: " + total);
 
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
+
+		}catch (Exception e){
+
+			e.printStackTrace();
+			model.addAttribute("error", e.getMessage());
+		}
 
 		return "user/cs/faqBoard";
 	}
@@ -54,15 +61,22 @@ public class FaqController {
 
 		log.info("list: " + cri);
 
-		int userId = (int) request.getSession().getAttribute("userId");
-		model.addAttribute("userId", userId);
-		model.addAttribute("list", service.getList(cri));
+		try {
 
-		int total = service.getTotal(cri);
+			int userId = (int) request.getSession().getAttribute("userId");
+			model.addAttribute("userId", userId);
+			model.addAttribute("list", service.getList(cri));
 
-		log.info("total: " + total);
+			int total = service.getTotal(cri);
 
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
+			log.info("total: " + total);
+
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
+
+		}catch (Exception e){
+			e.printStackTrace();
+			model.addAttribute("error", e.getMessage());
+		}
 
 		return "admin/cs/adminFaq";
 
@@ -73,11 +87,19 @@ public class FaqController {
 	public String register(HttpServletRequest request, CsFaqVO faq, RedirectAttributes rttr){
 
 		log.info("register: " + faq);
-		int userId = (int) request.getSession().getAttribute("userId");
 
-		service.register(faq);
+		try {
 
-		rttr.addFlashAttribute("result", faq.getId());
+			int userId = (int) request.getSession().getAttribute("userId");
+
+			service.register(faq);
+
+			rttr.addFlashAttribute("result", faq.getId());
+
+		}catch (Exception e){
+			e.printStackTrace();
+			rttr.addAttribute("error",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
 		return "redirect:/admin/adminFaq";
 	}
@@ -88,17 +110,21 @@ public class FaqController {
 
 		log.info("modify: " + faq);
 
-		int userId = (int) request.getSession().getAttribute("userId");
+		try {
 
-		service.modify(faq);
-		if(service.modify(faq)){
-			rttr.addFlashAttribute("result", "success");
+			int userId = (int) request.getSession().getAttribute("userId");
+
+			service.modify(faq);
+
+			rttr.addAttribute("pageNum", cri.getPageNum());
+			rttr.addAttribute("amount", cri.getAmount());
+			rttr.addAttribute("type", cri.getType());
+			rttr.addAttribute("keyword", cri.getKeyword());
+
+		}catch (Exception e){
+			e.printStackTrace();
+			rttr.addAttribute("error", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		rttr.addAttribute("type", cri.getType());
-		rttr.addAttribute("keyword", cri.getKeyword());
 
 		return "redirect:/admin/adminFaq";
 	}
@@ -110,16 +136,21 @@ public class FaqController {
 
 		log.info("remove...." + id);
 
-		int userId = (int) request.getSession().getAttribute("userId");
+		try {
 
-		if (service.remove(id)){
-			rttr.addFlashAttribute("result","success");
+			int userId = (int) request.getSession().getAttribute("userId");
+
+			service.remove(id);
+
+			rttr.addAttribute("pageNum", cri.getPageNum());
+			rttr.addAttribute("amount", cri.getAmount());
+			rttr.addAttribute("type", cri.getType());
+			rttr.addAttribute("keyword", cri.getKeyword());
+
+		}catch (Exception e){
+			e.printStackTrace();
+			rttr.addAttribute("error",HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		rttr.addAttribute("type", cri.getType());
-		rttr.addAttribute("keyword", cri.getKeyword());
 
 		return "redirect:/admin/adminFaq";
 	}
@@ -130,9 +161,16 @@ public class FaqController {
 	@GetMapping(value = "/admin/faq", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CsFaqVO> getNotice(@RequestParam("id") int id) {
 
-		CsFaqVO faqVO = service.get(id);
+		try {
 
-		return new ResponseEntity<>(faqVO,HttpStatus.OK);
+			CsFaqVO faqVO = service.get(id);
+
+			return new ResponseEntity<>(faqVO,HttpStatus.OK);
+
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }
