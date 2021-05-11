@@ -114,6 +114,7 @@
     <update id="gftDealCmpl">
         update gifticon
         set gft_stus_code = '005',
+            up_user = current_user,
             up_date = now()
         where id = #{gftId}
     </update>
