@@ -252,6 +252,16 @@
 
     $(document).ready(function () {
 
+        //관리자 Faq 오류 메시지를 controller에서 보내줌.
+        let error = "${error}";
+
+        // error 발생 시 해당 에러 메시지를 alert
+        if (error.length > 0) {
+            alert("에러 발생. 담당자에게 문의해주세요. \n" + error);
+            console.log(error);
+        }
+
+
         document.getElementById("adminCs").className = 'active';
 
         //page번호 클릭 시

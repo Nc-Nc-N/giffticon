@@ -20,45 +20,45 @@ public class PsnlQustServiceImpl implements PsnlQustService {
 	}
 
 	@Override
-	public void register(CsPsnlQustVO qna) {
+	public void register(CsPsnlQustVO qna) {	//1:1 문의 등록
 		log.info("register....." + qna);
 
 		mapper.insert(qna);
 	}
 
 	@Override
-	public CsPsnlQustVO get(int id) {
+	public CsPsnlQustVO get(int id) {		//ajax에서 CsPsnlQustVO를 받아오기 위한 get(id)
 		log.info("get......" + id);
 		return mapper.read(id);
 	}
 
 	@Override
-	public boolean modify(CsPsnlQustVO qna) {
+	public boolean modify(CsPsnlQustVO qna) {	// 관리자 1:1 문의 수정 및 답변.
 		log.info("modify...." + qna);
 		return mapper.update(qna) == 1;
 	}
 
 	@Override
-	public boolean modifyUser(CsPsnlQustVO qna) {
+	public boolean modifyFromUser(CsPsnlQustVO qna) {	//사용자 1:1 문의 수정.
 		log.info("modify...." + qna);
-		return mapper.updateUser(qna) == 1;
+		return mapper.updateFromUser(qna) == 1;
 	}
 
 	@Override
-	public boolean remove(int id) {
+	public boolean remove(int id) {		// 1:1 문의 삭제.
 		log.info("remove...." + id);
 		return mapper.delete(id) == 1;
 	}
 
 	@Override
-	public List<CsPsnlQustVO> getList(CsCriteria cri) {
+	public List<CsPsnlQustVO> getList(CsCriteria cri) {		//관리자 1:1문의 list 출력
 		log.info("getList with criteria: " + cri);
 
 		return mapper.getListWithPaging(cri);
 	}
 
 	@Override
-	public List<CsPsnlQustVO> getListPsnlQust(CsCriteria cri, int userId) {
+	public List<CsPsnlQustVO> getListPsnlQust(CsCriteria cri, int userId) {		//사용자 1:1문의 list 출력
 		log.info("getList Personal Question: " + cri);
 
 		return mapper.getListPsnlQust(cri.getPageNum(), cri.getAmount(), cri.getType(), cri.getKeyword(), userId, cri.getTypeArr());
