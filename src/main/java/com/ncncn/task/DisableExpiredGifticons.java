@@ -20,7 +20,7 @@ public class DisableExpiredGifticons {
 
     // 매일 23시 55분에 유효기간 만료된 상품 판매불가로 변경
     @Scheduled(cron="0 55 23 * * ?")
-    public void updateGifticonStatus() throws Exception {
+    public void updateGifticonStatus() {
         // 상태코드 001 or 002인 기프티콘 가져오기
         // 유효기간이 오늘이면 상태코드 003으로 변경
         try {
@@ -36,6 +36,7 @@ public class DisableExpiredGifticons {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            log.warn("유효기간 만료 처리 과정에서 오류가 발생했습니다. 기프티콘 상태 정보를 확인해주세요.");
         }
 
     }

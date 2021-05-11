@@ -20,7 +20,7 @@ public class AutoPriceUpdateTask {
 
     // 매일 0시 0분 1초에 자동설정가격 업데이트
     @Scheduled(cron="1 0 0 * * ?")
-    public void updatePrices() throws Exception {
+    public void updatePrices() {
 
         try {
             List<AutoPriceVO> list = gifticonMapper.getAutoPricedGifticon();
@@ -52,6 +52,7 @@ public class AutoPriceUpdateTask {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            log.warn("자동설정가격 업데이트 과정에서 오류가 발생했습니다. 가격정보를 확인해주세요");
         }
     }
 
