@@ -1,115 +1,62 @@
-.search-area {
-    margin: 20px 0;
-    float: right;
-}
-
-#search-form {
-    display: flex;
-    justify-content: center;
-}
-
-.search-select {
-    width: 80px;
-}
-
-#rqust-div {
-    padding: 0 10px;
-}
-
-#rqust-tb {
-    width: 100%;
-    margin: 20px 0;
-    text-align: center;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-#rqust-tb thead {
-    box-shadow: 0px 1px 3px 0px rgb(188, 188, 188);
-    font-weight: 600;
-}
-
-#rqust-tb > thead > tr {
-    font-size: 16px;
-    height: 50px;
-}
-
 .w15 {
     width: 15px;
-}
-
-.w45 {
-    width: 45px;
 }
 
 .w90 {
     width: 90px;
 }
 
-.w100 {
-    width: 100px;
-}
-
-.w125 {
-    width: 125px;
-}
-
 .w200 {
     width: 200px;
 }
 
-.rqust-img {
-    width: 120px;
-    height: 120px;
-    margin: auto;
-    text-align: center;
-}
+/* modal css */
 
-.rqust-img img {
-    margin: 10px 0;
-    width: 90%;
-    height: 100px;
-}
-
-.rqust-tr {
-    height: fit-content;
-    /* border-bottom: 1.5px solid rgb(188, 188, 188); */
-    font-size: 16px;
-}
-
-.ellipsis {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.nothing {
-    text-align: center;
-}
-
-.main-footer {
+.prc-td {
+    width: 40%;
     display: flex;
-    justify-content: space-between;
-    margin: 30px 0 40px 0;
+    justify-content: space-around;
 }
 
-.main-footer button {
+.prc-td > input {
+    margin: auto 0;
+}
+
+.w70 {
+    width: 70px;
+}
+
+.rq-rate {
+    color: rgb(255, 88, 93);
+}
+
+.img-btn {
     height: 40px;
+    font-size: 16px;
+    text-decoration: underline;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
-.main-footer button:hover {
-    color: white;
-    background-color: rgb(255, 88, 93);
+.loading-delete {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 250px;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 10px 0;
 }
 
-a.detail-link {
-    color: rgb(71, 71, 71);
+.loading-delete > div {
+    font-weight: 600;
+    height: 30px;
 }
 
-a.detail_link:visited {
-    color: rgb(71, 71, 71);
-}
-
-a.detail-link:hover {
-    color: rgb(255, 88, 93)
+.loading-delete > img {
+    width: 140px;
+    height: 140px;
 }

@@ -101,6 +101,14 @@ public class GifticonServiceImpl implements GifticonService {
     }
 
     @Override
+    public List<ProdListVO> getMainGftByBrandName(String brdName){
+
+        List<ProdListVO> mainGftList = gifticonMapper.getMainGftByBrandName(brdName);
+
+        return mainGftList;
+    }
+    
+  @Override
     public boolean updateGftStus(int id) {
 
         try{
@@ -112,5 +120,4 @@ public class GifticonServiceImpl implements GifticonService {
             return false;
         }
     }
-
 }

@@ -14,8 +14,9 @@
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/list.css" typeof="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/modal.css" typeof="text/css">
 <link rel="stylesheet" href="/resources/css/admin/request/requestList.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/admin/request/requestDetail.css" type="text/css">
 
 <h1>판매요청관리</h1>
 
@@ -56,8 +57,8 @@
 <!-- search area end -->
 
 <!-- request list -->
-<div id="rqust-div">
-    <table id="rqust-tb">
+<div id="list-div">
+    <table id="list-tb">
         <thead>
         <tr>
             <td class="w15">&nbsp;</td>
@@ -73,10 +74,10 @@
         </thead>
         <tbody>
         <c:forEach var="rqust" items="${rqustList}" varStatus="status">
-            <tr class="rqust-tr">
+            <tr class="list-tr">
                 <td><input type="checkbox" name="isRemove"/></td>
                 <td>
-                    <div class="rqust-img"><img src="<c:out value='${rqust .imgPath}'/>"></div>
+                    <div class="list-img"><img src="<c:out value='${rqust .imgPath}'/>"></div>
                 </td>
                 <td>
                     <div><c:out value="${rqust.gftId}"/></div>
@@ -141,7 +142,7 @@
 
 <div class="modal detail">
     <!-- detail modal -->
-    <div id="detail-modal">
+    <div class="detail-modal">
         <div class="modal-title">판매요청상세</div>
 
         <table id="rq-td">
@@ -236,7 +237,7 @@
             </tr>
         </table>
 
-        <div id="rq-btn-area">
+        <div class="detail-btn-area">
             <button class="btn btn-active rq-aprv">승인</button>
             <button class="btn btn-disabled cancel">취소</button>
             <button class="btn dark rq-delete">반려</button>
@@ -289,7 +290,11 @@
         });
 
         // modal에 값을 추가하기 위한 변수
-        let modal = $("#detail-modal");
+        let modal = $(".detail-modal");
+        let modalgftId = modal.find(".gftId");
+        let modalCate = modal.find(".cate");
+        let modalProdName = modal.find(".prodName");
+        let modalRequester = modal.find(".requester");
         let modalDcPrc = modal.find(".dcPrc");
         let modalProdPrc = modal.find(".prodPrc");
         let modalIsAuto = modal.find("input[name='isAuto']");

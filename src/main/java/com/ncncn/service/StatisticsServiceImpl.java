@@ -2,14 +2,17 @@ package com.ncncn.service;
 
 import com.ncncn.domain.StatisticsVO;
 import com.ncncn.mapper.StatisticsMapper;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Log4j
 public class StatisticsServiceImpl implements StatisticsService {
 
+	@Setter(onMethod_ = {@Autowired})
 	private StatisticsMapper statisticsMapper;
 
 	public StatisticsServiceImpl(StatisticsMapper statisticsMapper) {
@@ -18,6 +21,13 @@ public class StatisticsServiceImpl implements StatisticsService {
 
 	@Override
 	public StatisticsVO getByToday() {
+
+		if (statisticsMapper.readByToday() == null){
+
+			statisticsMapper.initStatistics();
+
+		}
+
 		StatisticsVO statisticsVO = statisticsMapper.readByToday();
 
 		if (statisticsVO == null) {
@@ -25,5 +35,27 @@ public class StatisticsServiceImpl implements StatisticsService {
 		}
 
 		return statisticsVO;
+	}
+
+	@Override
+	public void initializeStatistics() {
+
+		log.info("initialize Statistice.......");
+		statisticsMapper.initStatistics();
+	}
+
+	@Override
+	public boolean modifyVisitrRec(int visitrRec) {
+
+		log.info("modify VisitrRec....");
+		return statisticsMapper.updateVisitrRec(visitrRec) == 1;
+	}
+
+
+	@Override
+	public boolean modifySalesRec(StatisticsVO stat) {
+
+		log.info("modify SalesRec...");
+		return statisticsMapper.updateSalesRec(stat) == 1;
 	}
 }

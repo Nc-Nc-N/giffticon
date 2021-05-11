@@ -6,4 +6,9 @@ public interface StatisticsMapper {
 
 	StatisticsVO readByToday();
 
+	void initStatistics();
+
+	int updateVisitrRec(int visitrRec);
+
+	int updateSalesRec(StatisticsVO stat);
 }

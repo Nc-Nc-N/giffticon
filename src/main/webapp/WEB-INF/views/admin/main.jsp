@@ -10,6 +10,8 @@
 
 <jsp:include page="adminLayout.jsp"/>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <link rel="stylesheet" href="/resources/css/admin/adminMain.css" type="text/css">
 
 <!-- billboard.js -->
@@ -121,4 +123,9 @@
 
         console.log(error);
     });
+
+
+
+
+
 </script>

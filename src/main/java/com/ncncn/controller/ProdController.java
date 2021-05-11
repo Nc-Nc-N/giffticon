@@ -1,5 +1,6 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.CategoryVO;
 import com.ncncn.domain.WishListVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
 import com.ncncn.domain.pagination.PageDTO;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user/*")
 @AllArgsConstructor
+@Log4j
 public class ProdController {
 
 	private CategoryService cateService;
@@ -85,4 +88,17 @@ public class ProdController {
 		}
 			return "/user/gifticon/gifti_detail";
 	}
+
+	@GetMapping("/gifticon/map")
+	public void map(Model model) {
+
+		List<CategoryVO> cateList = cateService.getCategoryList();
+
+		log.info("category... : " + cateList);
+		cateList.remove(cateList.size()-1);
+
+		model.addAttribute("cateList", cateList);
+
+	}
+
 }
