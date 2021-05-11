@@ -31,6 +31,6 @@ public class SaleGftCriteria extends Criteria {
     }
 
     public String[] getOrderArr() {
-        return order == null ? new String[]{"S", "J", "W", "C"} : type.split("");
+        return order == null ? new String[]{"S", "J", "W", "C"} : order.split("");
     }
 }

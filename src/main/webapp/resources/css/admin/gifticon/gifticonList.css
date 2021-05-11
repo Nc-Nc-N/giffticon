@@ -1,6 +1,17 @@
-#search-form {
+.s-area {
+    display: flex;
+    flex-direction: column;
     justify-content: flex-end;
-    margin-top: 20px;
+    margin-top: 30px;
+}
+
+.s-form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-select {
+    width: 100px;
 }
 
 .order-area {
@@ -10,4 +21,31 @@
 
 .order-area select {
     margin-top: 10px;
+    outline: none;
+    border: none;
+    height: 30px;
+    width: 100px;
+}
+
+#mail-btn {
+    width: 70px;
+    height: 30px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background: rgb(233, 233, 233);
+    cursor: pointer;
+}
+
+.stus-select {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background: rgb(233, 233, 233);
+}
+
+.main-footer {
+    justify-content: flex-end;
 }

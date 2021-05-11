@@ -32,37 +32,39 @@
 <!-- menu end -->
 
 <!-- search area -->
-<div class="search-area">
-<form id="search-form">
-    <select name="type" class="search-select">
-        <option value="ENCG" <c:out value="${pageMaker.cri.type eq 'ENCG' ? 'selected' : ''}"/>>전체</option>
-        <option value="E" <c:out value="${pageMaker.cri.type eq 'E' ? 'selected' : ''}"/>>판매자</option>
-        <option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : ''}"/>>상품명</option>
-        <option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : ''}"/>>상품코드</option>
-        <option value="G" <c:out value="${pageMaker.cri.type eq 'G' ? 'selected' : ''}"/>>기프티콘ID</option>
-    </select>
-    <div class="search-form">
-        <div>
-            <input type="text" name="keyword" class="search-input"
-                   value="<c:out value='${pageMaker.cri.keyword}'/>"/>
-            <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
-            <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>
-            <button type="submit" class="search-button">
-                <i class="fas fa-search"></i>
-            </button>
+<div class="s-area">
+    <form id="s-form">
+        <div class="s-form">
+            <select name="type" class="search-select">
+                <option value="ENCG" <c:out value="${pageMaker.cri.type eq 'ENCG' ? 'selected' : ''}"/>>전체</option>
+                <option value="E" <c:out value="${pageMaker.cri.type eq 'E' ? 'selected' : ''}"/>>판매자</option>
+                <option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : ''}"/>>상품명</option>
+                <option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : ''}"/>>상품코드</option>
+                <option value="G" <c:out value="${pageMaker.cri.type eq 'G' ? 'selected' : ''}"/>>기프티콘ID</option>
+            </select>
+            <div class="search-form">
+                <div>
+                    <input type="text" name="keyword" class="search-input"
+                           value="<c:out value='${pageMaker.cri.keyword}'/>"/>
+                    <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
+                    <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-</form>
 
-<div class="order-area">
-    <select name="order" class="order-select">
-        <option value="SJWC" <c:out value="${pageMaker.cri.order eq 'SJWC' ? 'selected' : ''}"/>>전체</option>
-        <option value="S" <c:out value="${pageMaker.cri.order eq 'S' ? 'selected' : ''}"/>>판매중</option>
-        <option value="J" <c:out value="${pageMaker.cri.order eq 'J' ? 'selected' : ''}"/>>핀매불가</option>
-        <option value="W" <c:out value="${pageMaker.cri.order eq 'W' ? 'selected' : ''}"/>>거래확정대기</option>
-        <option value="C" <c:out value="${pageMaker.cri.order eq 'C' ? 'selected' : ''}"/>>거래확정완료</option>
-    </select>
-</div>
+        <div class="order-area">
+            <select name="order" class="order-select">
+                <option value="SJWC" <c:out value="${pageMaker.cri.order eq 'SJWC' ? 'selected' : ''}"/>>전체</option>
+                <option value="S" <c:out value="${pageMaker.cri.order eq 'S' ? 'selected' : ''}"/>>판매중</option>
+                <option value="J" <c:out value="${pageMaker.cri.order eq 'J' ? 'selected' : ''}"/>>핀매불가</option>
+                <option value="W" <c:out value="${pageMaker.cri.order eq 'W' ? 'selected' : ''}"/>>거래확정대기</option>
+                <option value="C" <c:out value="${pageMaker.cri.order eq 'C' ? 'selected' : ''}"/>>거래확정완료</option>
+            </select>
+        </div>
+    </form>
 </div>
 <!-- search area end -->
 
@@ -71,7 +73,6 @@
     <table id="rqust-tb">
         <thead>
         <tr>
-            <td class="w15">&nbsp;</td>
             <td class="w125">기프티콘 이미지</td>
             <td class="w45">No.</td>
             <td class="w200">상품</td>
@@ -85,7 +86,6 @@
         <tbody>
         <c:forEach var="gft" items="${gftList}" varStatus="status">
             <tr class="rqust-tr">
-                <td><input type="checkbox" name="isRemove"/></td>
                 <td>
                     <div class="rqust-img"><img src="<c:out value='${gft.imgPath}'/>"></div>
                 </td>
@@ -111,7 +111,7 @@
                     <div><c:out value="${gft.gftStus}"/></div>
                 </td>
                 <td>
-                    <div><a href="${gft.id}" class="detail-link">상세</a></div>
+                    <div><a href="${gft.gftId}" class="detail-link">상세</a></div>
                 </td>
             </tr>
         </c:forEach>
@@ -126,7 +126,6 @@
 </c:if>
 
 <div class="main-footer">
-    <button class="btn btn-disabled">선택삭제</button>
     <div class="pagination">
         <c:if test="${pageMaker.prev}">
             <a class="paginate_button prev" href="${pageMaker.startPage - 1}">&lt;</a>
@@ -154,12 +153,12 @@
 <div class="modal detail">
     <!-- detail modal -->
     <div id="detail-modal">
-        <h2>판매요청상세</h2>
+        <h2>기프티콘상세</h2>
 
         <table id="rq-td">
             <tr class="under-line">
                 <td class="td-title">
-                    <div>요청번호</div>
+                    <div>기프티콘번호</div>
                 </td>
                 <td colspan="5" class="w90">
                     <div class="td-cntnt gftId"></div>
@@ -211,7 +210,7 @@
             <tr class="under-line">
                 <td class="td-title">&nbsp;</td>
                 <td colspan="5">
-                    <div class="prc-td">
+                    <div class="td-cntnt prc-td">
                         <input type="radio" name="isAuto" value="1" disabled>추천가격
                         <input type="radio" name="isNotAuto" value="0" disabled>직접입력
                     </div>
@@ -234,13 +233,22 @@
             <tr class="under-line">
                 <td class="td-title">기프티콘상태</td>
                 <td colspan="5">
-                    <div class="td-cntnt status"><!-- select 추가 --></div>
+                    <div class="td-cntnt">
+                        <select name="stus" class="stus-select">
+                            <option name="002" value="002">판매중</option>
+                            <option name="003" value="003">핀매불가</option>
+                            <option name="004" value="004">거래확정대기</option>
+                            <option name="005" value="005">거래확정완료</option>
+                        </select>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td class="td-title">&nbsp;</td>
                 <td colspan="5">
-                    <a class="img-btn">기프티콘 이미지 확인</a>
+                    <div class="td-cntnt">
+                        <a class="img-btn">기프티콘 이미지 확인</a>
+                    </div>
                 </td>
             </tr>
         </table>
@@ -280,6 +288,11 @@
             submitAction(searchForm, "1");
         });
 
+        $(".order-select").on("change", function (e) {
+            $("#actionForm").find("input[name='order']").val($(".order-select option:selected").val());
+            submitAction(actionForm, "1");
+        });
+
         // modal에 값을 추가하기 위한 변수
         let modal = $("#detail-modal");
         let modalgftId = modal.find(".gftId");
@@ -294,6 +307,7 @@
         let modalBrcd = modal.find(".brcd");
         let modalDescn = modal.find(".descn");
         let modalImgBtn = modal.find(".img-btn");
+        let modalStus = modal.find(".stus-select");
         // 모달에 포함된 버튼
         let aprvBtn = modal.find(".rq-aprv");
         let deleteBtn = modal.find(".rq-delete");
@@ -309,7 +323,7 @@
             e.preventDefault();
 
             let gftId = $(this).attr("href");
-            let rqust = {};
+            let gft = {};
 
             let errorFlag = false;
 
@@ -319,11 +333,10 @@
                 url: '/admin/gifticon/' + gftId,
                 async: false,
                 success: function (result) {
-                    rqust = result;
+                    gft = result;
                 },
                 error: function (result) {
                     alert("다시 한 번 시도해주세요.");
-
                     hideModal();
                     submitAction(searchForm, "1");
                     errorFlag = true;
@@ -332,25 +345,54 @@
 
             if (!errorFlag) {
                 // 모달에 기프티콘 정보를 출력
-                modalgftId.text(rqust.gftId);
-                modalCate.text(rqust.cateName + " > " + rqust.brdName);
-                modalProdName.text(rqust.prodCode + "  " + rqust.prodName);
-                modalRequester.text(rqust.requester);
-                modalDcPrc.text(rqust.dcPrc + "  원");
-                modalProdPrc.text(rqust.prodPrc + "  원  ").append("<span class='rq-rate'>" + parseInt(parseFloat(rqust.dcRate) * 100) + "%</span>");
-                if (rqust.isAuto === '1') {
+                modalgftId.text(gft.gftId);
+                modalCate.text(gft.cateName + " > " + gft.brdName);
+                modalProdName.text(gft.prodName)
+                modalRequester.text(gft.requester);
+                modalDcPrc.text(gft.dcPrc + "  원");
+                modalProdPrc.text(gft.prodPrc + "  원  ").append("<span class='rq-rate'>" + parseInt(parseFloat(gft.dcRate) * 100) + "%</span>");
+                if (gft.isAuto === '1') {
                     modalIsAuto.prop("checked", true);
                 } else {
                     modalIsNotAuto.prop("checked", true);
                 }
-                modalExpirDt.text("~  " + rqust.expirDt);
-                modalBrcd.text(rqust.brcd);
-                modalDescn.text(rqust.descn);
-
+                modalExpirDt.text("~  " + gft.expirDt);
+                modalBrcd.text(gft.brcd);
+                modalDescn.text(gft.descn);
+                modalStus.find("option[name='" + gft.stusCode + "']").prop("selected", "true");
                 modalImgBtn.on("click", function (e) {
                     e.preventDefault();
                     // 기프티콘 이미지를 새창에 띄워줌
-                    window.open(rqust.imgPath, "gfticon img", "width=700, height=900");
+                    window.open(gft.imgPath, "gfticon img", "width=700, height=900");
+                });
+
+                let pre = '';
+                modalStus.on("focus", function (e) {
+                    pre = $(this).find("option:selected").val();
+                });
+                modalStus.on("change", function (e) {
+                    let stus = $(this).find("option:selected").val();
+
+                    if (confirm("기프티콘 상태를 수정하시겠습니까?")) {
+                        $.ajax({
+                            url: '/admin/gifticon/' + gftId,
+                            type: 'patch',
+                            contentType: 'text/plain',
+                            async: false,
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                            },
+                            data: stus,
+                            success: function (result) {
+                                alert("기프티콘 상태 수정에 성공했습니다.");
+                            },
+                            error: function (result) {
+                                alert("기프티콘 상태 수정에 실패했습니다. 새로고침 후 다시 시도해주세요.\n문제가 반복되면 담당자에게 문의해주세요.");
+                            }
+                        });
+                    } else {
+                        $(this).find("option[name='" + pre + "']").prop("selected", "true");
+                    }
                 });
 
                 // 모달 show
@@ -369,6 +411,7 @@
             // 기존 이벤트를 삭제
             aprvBtn.off();
             deleteBtn.off();
+            modalStus.off();
         }
 
         function getRealEnd(t, a) {

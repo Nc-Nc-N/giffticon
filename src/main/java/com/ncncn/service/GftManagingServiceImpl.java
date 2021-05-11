@@ -77,4 +77,9 @@ public class GftManagingServiceImpl implements GftManagingService {
 		return gifticonMapper.countAllSaleGft(cri);
 	}
 
+	@Override
+	public int modifyGftStus(int id, String stus) {
+		return gifticonMapper.updateSaleGftStus(id, stus);
+	}
+
 }

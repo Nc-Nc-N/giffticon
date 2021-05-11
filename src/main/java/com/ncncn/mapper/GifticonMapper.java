@@ -72,4 +72,6 @@ public interface GifticonMapper {
 
 	int countAllSaleGft(SaleGftCriteria cri);
 
+	int updateSaleGftStus(@Param("id") int id, @Param("stus") String stus);
+
 }

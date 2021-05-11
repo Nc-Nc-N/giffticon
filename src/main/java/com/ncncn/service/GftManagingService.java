@@ -25,4 +25,6 @@ public interface GftManagingService {
 
 	int getTotalSaleGftCount(SaleGftCriteria cri);
 
+	int modifyGftStus(int id, String stus);
+
 }

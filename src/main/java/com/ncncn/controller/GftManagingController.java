@@ -178,4 +178,26 @@ public class GftManagingController {
 		}
 	}
 
+	@GetMapping(value = "/gifticon/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Object>> getGifticon(@PathVariable("id") int id) {
+		Map<String, Object> gifticon;
+
+		try {
+			gifticon = gftManagingService.getSaleGifticon(id);        // map 객체에 판매요청 상태인 기프티콘 상세정보 조회 후 저장
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(gifticon, HttpStatus.OK);
+	}
+
+	@PatchMapping(value="/gifticon/{id}", consumes = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> modifyGftStus(@PathVariable("id") int id, @RequestBody String stus) {
+		 try {
+		 	int result = gftManagingService.modifyGftStus(id, stus);
+		 } catch (Exception e) {
+		 	return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		 }
+
+		 return new ResponseEntity<>(HttpStatus.OK);
+	}
 }
