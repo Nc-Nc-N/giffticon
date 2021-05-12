@@ -204,6 +204,15 @@
 
     let userId = "<c:out value="${userId}"/>";
 
+    //관리자 1:1문의 오류 메시지를 controller에서 보내줌.
+    let error = "${error}";
+
+    // error 발생 시 해당 에러 메시지를 alert
+    if (error.length > 0) {
+        alert("에러 발생. 담당자에게 문의해주세요. \n" + error);
+        console.log(error);
+    }
+
 
     //검색
     var searchForm = $("#searchForm");
@@ -237,10 +246,11 @@
         });
 
 
-            $(".finish").css({
-                "background-color" : "rgb(71, 71, 71)",
-                "color" : "white"
-            });
+        //stusCode == 001인 list들의 버튼 색상 변경.
+        $(".finish").css({
+            "background-color" : "rgb(71, 71, 71)",
+            "color" : "white"
+        });
 
 
 
@@ -258,6 +268,9 @@
 
         let psnl = '';
 
+
+        //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
+        //list의 id는 status.index+1
         $.ajax({
             type: 'get',
             url: '/psnl?id=' + this.id,
@@ -284,12 +297,14 @@
         $("#ansModal").fadeIn();
 
 
-        $('#btn-modify').on("click", function () {
+        $('#btn-modify').on("click", function () {      //확인 버튼 클릭 시
 
+            console.log("userId : " + userId);
 
             $(".ans-admin-id").val(userId);
-            $(".ans-stus-code").val("001");
-            console.log("userId : " + userId);
+            $(".ans-stus-code").val("001");     //stusCode가 001로 변경되면 list에서 finish class name을 갖게됌.
+
+
             ansForm.attr("action", "/admin/adminPsnlQust/modify");
             ansForm.submit();
         });
@@ -312,6 +327,8 @@
 
         let psnl = '';
 
+        //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
+        //list의 id는 status.index+1
         $.ajax({
             type: 'get',
             url: '/psnl?id=' + this.id,
@@ -346,7 +363,7 @@
 
         $("#deleteModal").fadeIn();
 
-        $("#btn-delete").on("click", function (e) {
+        $("#btn-delete").on("click", function (e) {      //확인 버튼 클릭 시
 
             formObj.attr("action", "/admin/adminPsnlQust/remove");
             formObj.submit();

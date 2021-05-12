@@ -27,7 +27,7 @@ public interface PsnlQustMapper {
 
 	int update(CsPsnlQustVO notice);
 
-	int updateUser(CsPsnlQustVO notice);
+	int updateFromUser(CsPsnlQustVO notice);
 
 	int getTotalCount(CsCriteria cri);
 

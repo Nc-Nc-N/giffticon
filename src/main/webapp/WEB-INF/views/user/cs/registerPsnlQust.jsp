@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <%@include file="/WEB-INF/views/common/header.jsp" %>
 
 <meta charset="UTF-8">
@@ -22,16 +23,18 @@
 <div id="container">
     <div class="space"></div>
     <div class="main">
+
         <div class="menuhead">
-            <div class="menuname">고객센터</div>
         </div>
+
         <div class="menubody">
             <div class="sidebarspace">
+                <div class="menuname">고객센터</div>
                 <div class="sidebar">
 
                     <a href="/user/cs/noticeBoard">
-                        <div class="bar" style="background-color:rgb(240, 240, 240);">
-                            <div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">공지사항</div>
+                        <div class="bar">
+                            <div>공지사항</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
                     <a href="/user/cs/faqBoard">
@@ -40,8 +43,8 @@
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
                     <a href="/user/mypage/psnlQustBoard">
-                        <div class="bar">
-                            <div>1:1문의</div>
+                        <div class="bar" style="background-color:rgb(240, 240, 240);">
+                            <div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">1:1문의</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
 
@@ -50,26 +53,22 @@
             <div class="emptyspace">
 
             </div>
-
-
-
             <div class="content">
+
                 <h3>1:1문의</h3>
-                <table id="t1" width=100%>
-                    <thead>
-                    <tr>
-                        <th class="t11">문의유형</th>
-                        <th class="t12">제목</th>
-                        <%--                        <th class="t13">이메일</th>--%>
-                        <%--                        <th class="t14">문자메시지</th>--%>
-                        <th class="t15">내용</th>
-                        <th class="t16">파일</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <form role="form" action="/user/mypage/psnlQustBoard/register" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <form role="form" action="/user/mypage/psnlQustBoard/register" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <table id="t1" width=100%>
+                        <thead>
+                        <tr>
+                            <th class="t11">문의유형</th>
+                            <th class="t12">제목</th>
+                            <th class="t15">내용</th>
+                            <th class="t16">파일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
                             <input type="hidden" class="register-user-id" name="userId" value="">
                             <input type="hidden" name="stusCode" value="000">
                             <td class="t21">
@@ -81,16 +80,6 @@
                             <td class="t22">
                                 <input type="text" class="td-title" name="title">
                             </td>
-                            <%--                            <td class="t23">--%>
-                            <%--                                <input type="text" class="td-email" name="email">--%>
-                            <%--                                <input type="checkbox" class="td-check-email" name="" value="" checked="checked">답변수신을 이메일로 받겠습니다--%>
-                            <%--                            </td>--%>
-                            <%--                            <td class="t24">--%>
-                            <%--                                <input type="text" class="td-message">--%>
-                            <%--                                <input type="checkbox" class="td-check-message" name="" value="" checked="checked">답변수신을 문자메시지로--%>
-                            <%--                                받겠습니다--%>
-                            <%--                            </td>--%>
-
                             <td class="t25">
                                 <div class="td-div-intro">
                                     <p>1:1문의 작성 전 확인해주세요!<br>
@@ -104,18 +93,17 @@
                                 </div>
                             </td>
                             <td class="t26">
-                                <input type="file" class="td-file" name="atchFilePath">
+                                <input type="file" class="td-file" name="atchFilePath" multiple>
                             </td>
 
-                    </tr>
+                        </tr>
 
-                    </tbody>
-                </table>
-                <div id="qna-write">
-                    <button type="submit" class="btn btn-active">저장</button>
-                </div>
-                </form>
-
+                        </tbody>
+                    </table>
+                    <div id="qna-write">
+                        <button type="submit" class="btn btn-active">저장</button>
+                    </div>
+                    </form>
             </div>
         </div>
     </div>
@@ -127,6 +115,28 @@
     let userId = "<c:out value="${userId}"/>";
 
     $(".register-user-id").val(userId);
+
+
+    //파일 확장자 및 크기 사전 처리
+    var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+    var maxSize = 5242880; //5MB
+
+    function checkExtension(fileName, fileSize){
+
+        if(fileSize >= maxSize) {
+            alert("파일 사이즈 초과");
+            return false;
+        }
+
+        if(regex.test(fileName)){
+            alert("해당 종류의 파일은 업로드할 수 없습니다.");
+            return false;
+        }
+        return true;
+    }
+
+
+
 
 </script>
 

@@ -139,7 +139,7 @@
         // '인출하기' 버튼 클릭시
         $("#withdraw-btn").on("click", function (e){
             if(!inputBox.val()){
-                alert("인출할 충전 ");
+                alert("인출할 충전 콘을 입력해주세요.");
                 return false;
             }
 
