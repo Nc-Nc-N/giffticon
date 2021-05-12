@@ -2,45 +2,53 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="templete.jsp"/>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/addCon.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/mypage/withdrawCon.css" type="text/css">
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-
-<div class="contentheader">
-    <span> 콘 인출</span>
-</div>
-<div class="tbl-group">
-    <table class="type02">
-        <tr>
-            <th scope="row">이름</th>
-            <td>내용이 들어갑니다.</td>
-        </tr>
-        <tr>
-            <th scope="row">은행</th>
-            <td>내용이 들어갑니다.</td>
-        </tr>
-        <tr>
-            <th scope="row">계좌번호</th>
-            <td>내용이 들어갑니다.</td>
-        </tr>
-    </table>
-</div>
-<div class="pnt_info_column">
-    <div class="con_info" style="border-top: 1px solid gainsboro;"> 인출 가능 콘 <span class="userPnt"><c:out value="${user.pnt}"/> 콘</span> </div>
-    <div class="con_info">  인출할 충전 콘 <input type="number" id="wdCon"/></div>
-    <div class="con_info"> 인출 후 콘 <span class="afterAdd"></span></div>
-    <span class="money"></span>
-</div>
-<div class="pnt_bought_btn_section">
-    <button id= "withdraw-btn" class="btn btn-active">인출하기</button>
+<div class="contents">
+    <div class="contentheader">
+        <span> 콘 인출</span>
+    </div>
+    <div class="tbl-group">
+        <table class="type02">
+            <tr>
+                <th scope="row">이름</th>
+                <td><c:out value="${user.name}"/></td>
+            </tr>
+            <tr>
+                <th scope="row">계좌</th>
+                <td class="myAcc"><c:out value="${user.bnkName}"/>&nbsp;<c:out value="${user.acc}"/></td>
+            </tr>
+        </table>
+    </div>
+    <div class="pnt_info_column">
+        <div class="con_info" > 인출 가능 콘 <span class="userPnt"><c:out value="${user.pnt}"/> 콘</span> </div>
+        <div class="con_info">  인출할 충전 콘 <input type="number" id="wdCon"/></div>
+        <div class="con_info"> 인출 후 콘 <span class="afterAdd"></span></div>
+        <span class="money"></span>
+        <div class="pnt_bought_btn_section">
+            <button id= "withdraw-btn" class="btn btn-active">인출하기</button>
+        </div>
+    </div>
 </div>
 
+</div>
+</div>
+</div>
+</div>
 
-</div>
-</div>
-</div>
-</div>
+<div class="modal">
+    <div class="screen">
+        <div class="layerpop">
+            <p class="layerpop__container">
+                레이어팝업입니다.<br />
+                레이어팝업입니다.<br />
+                레이어팝업입니다.<br />
+                레이어팝업입니다.
+            </p>
+            <button type="button" value="close" class="btn modal--close">Close</button>
+        </div>
+    </div>
 </div>
 
 </body>
@@ -101,6 +109,12 @@
         let oldVal = 0;
         let inputBox = $("#wdCon");
 
+        // 인증된 계좌가 없을 때
+        if($(".myAcc").val()===""){
+            $(".myAcc").html("회원 정보에서 계좌를 등록해주세요.");
+            $(".myAcc").css({"font-size":"small","color":"#FF585D"});
+        }
+
         // 인출할 충전 콘이 변할 때마다 인출 후 콘 변경
         inputBox.on("propertychange change keyup paste input", function (){
             let currentVal = $(this).val();
@@ -119,6 +133,7 @@
                 $('.afterAdd').html("");
             }
 
+            // 인출할 충전 콘이 보유 콘보다 클 때
             if(oldVal > userCon){
                 $(this).val(userCon);
                 oldVal = userCon;
@@ -126,25 +141,36 @@
             }
         })
 
+        // 인출할 충전 콘이 1000원 미만일 때 1000원으로 처리
         $(function(){
-            $(document).mousedown(function( e ){
+            $(document).mousedown(function(){
                 if( isNotInMyArea ( [ $("button"), $("#wdCon") ] ) ) {
                     if(parseInt(inputBox.val())<1000){
                         alert("충전 콘은 1,000원 이상부터 1원 단위로 인출하실 수 있습니다.");
+                        inputBox.val(1000);
+                        $('.afterAdd').html(userCon-1000).append(" 콘");
                     }
                 }
             })
         });
 
+        $modal = $(".modal");
+
         // '인출하기' 버튼 클릭시
-        $("#withdraw-btn").on("click", function (e){
+        $("#withdraw-btn").on("click", function (){
             if(!inputBox.val()){
                 alert("인출할 충전 콘을 입력해주세요.");
                 return false;
             }
 
+
+            $modal.show();
+
         })
 
+        $(".modal--close").click(function(){
+            $modal.hide();
+        });
 
     })
 </script>
