@@ -112,4 +112,22 @@ public class UserInfoController {
         }
     }
 
+    // 계좌 있는지 확인
+    @GetMapping(value = "/checkAccount")
+    public ResponseEntity<String> checkAccount(HttpServletRequest request){
+
+        int userId = (int) request.getSession().getAttribute("userId");
+
+        try{
+            UserInfoDTO user = userService.getMyInfo(userId);
+            String bnkName = user.getBnkName();
+
+            // 등록된 계좌 은행명이 존재하면 status OK 반환 없으면 error
+            return bnkName != null ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        } catch (Exception e){
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

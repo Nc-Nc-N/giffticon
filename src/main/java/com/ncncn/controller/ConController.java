@@ -88,9 +88,15 @@ public class ConController {
 		int userId = (int) request.getSession().getAttribute("userId");
 
 		UserInfoDTO user = userService.getMyInfo(userId);
+		log.info("bnk: "+user.getBnkName());
 
 		try{
 			model.addAttribute("user", user);
+
+			// 접근 제한 걸기
+			if(user.getBnkName()==null){
+
+			}
 
 		}catch (Exception e){
 			model.addAttribute("error", "일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.");

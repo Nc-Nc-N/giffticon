@@ -66,16 +66,20 @@
     line-height: 46px;
 }
 
-.btns-txt{
+.btns-txt, .withdraw-btn{
     display: block;
     width: 250px;
     height: 44px;
     text-align: center;
     font-size: 16px;
-    line-height: 44px;
     color: #fff;
     text-decoration: none;
     background: #FF585D;
+    border: 0;
+    outline: 0;
+}
+.btns-txt{
+    line-height: 44px;
 }
 
 .tbl {

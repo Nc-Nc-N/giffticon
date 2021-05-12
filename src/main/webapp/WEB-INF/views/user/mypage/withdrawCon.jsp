@@ -109,12 +109,6 @@
         let oldVal = 0;
         let inputBox = $("#wdCon");
 
-        // 인증된 계좌가 없을 때
-        if($(".myAcc").val()===""){
-            $(".myAcc").html("회원 정보에서 계좌를 등록해주세요.");
-            $(".myAcc").css({"font-size":"small","color":"#FF585D"});
-        }
-
         // 인출할 충전 콘이 변할 때마다 인출 후 콘 변경
         inputBox.on("propertychange change keyup paste input", function (){
             let currentVal = $(this).val();
@@ -162,8 +156,6 @@
                 alert("인출할 충전 콘을 입력해주세요.");
                 return false;
             }
-
-
             $modal.show();
 
         })

@@ -29,9 +29,7 @@
                     </a>
                 </li>
                 <li class="btn-li">
-                    <a href="/user/mypage/withdrawCon" class="home-summary-buttons__alink--topUp">
-                        <span class="btns-txt"><i class="fas fa-minus"></i> 인출하기</span>
-                    </a>
+                    <button class="withdraw-btn"><i class="fas fa-minus"></i> 인출하기</button>
                 </li>
             </ul>
         </div>
@@ -70,3 +68,21 @@
 
 </body>
 </html>
+<script>
+    $(".withdraw-btn").on("click", function (){
+
+        $.ajax({
+            type:"GET",
+            url:"/user/mypage/checkAccount",
+            success: function (){
+                location.href="/user/mypage/withdrawCon";
+            },
+            error: function (){
+                let result = confirm("등록된 계좌가 존재하지 않습니다. 계좌 등록 페이지로 이동하시겠습니까?");
+                if(result){
+                    $(location).attr('href', '/user/mypage/userInfo');
+                }
+            }
+        });
+    })
+</script>
