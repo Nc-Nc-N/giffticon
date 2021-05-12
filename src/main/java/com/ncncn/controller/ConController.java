@@ -81,4 +81,20 @@ public class ConController {
 	public void myCon(){
 
 	}
+
+	@GetMapping("/mypage/withdrawCon")
+	public void withdrawCon(HttpServletRequest request, Model model){
+
+		int userId = (int) request.getSession().getAttribute("userId");
+
+		UserInfoDTO user = userService.getMyInfo(userId);
+
+		try{
+			model.addAttribute("user", user);
+
+		}catch (Exception e){
+			model.addAttribute("error", "일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.");
+		}
+	}
+
 }

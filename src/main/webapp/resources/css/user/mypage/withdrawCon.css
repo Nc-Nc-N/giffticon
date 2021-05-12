@@ -1,0 +1,32 @@
+table.type02 {
+    border-spacing: 0px;
+    text-align: center;
+    line-height: 1.5;
+    margin: 5% 5%;
+    border: 1px solid gainsboro;
+    border-collapse: collapse;
+    width: 90%;
+}
+table.type02 th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #eee;
+}
+table.type02 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.con_info input{
+    float: right;
+    margin: 10px;
+    height: 30px;
+    text-align: right;
+}
