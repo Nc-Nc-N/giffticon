@@ -45,7 +45,7 @@
                             <div>회원 정보</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
-                    <a href="(메뉴이동">
+                    <a href="/user/mypage/psnlQustBoard">
                         <div class="bar">
                             <div>1:1 문의</div>
                             <i class="fas fa-chevron-right"></i></div>

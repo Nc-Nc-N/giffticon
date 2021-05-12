@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.util.List;
 
-@Log4j
+
 @Controller
 @RequestMapping("/user/*")
 @AllArgsConstructor
