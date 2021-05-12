@@ -31,10 +31,14 @@ public class SignUpServiceImpl implements SignUpService {
 	}
 
 	public int register(UserVO userVO) throws Exception {
-		checkValidateUser(userVO);
 
-		String encodedPwd = passwordEncoder.encode(userVO.getPwd());
-		userVO.setPwd(encodedPwd);
+		if(!userVO.getRoleCode().equals("003")) {
+
+			checkValidateUser(userVO);
+
+			String encodedPwd = passwordEncoder.encode(userVO.getPwd());
+			userVO.setPwd(encodedPwd);
+		}
 
 		int result = 0;
 		try {
