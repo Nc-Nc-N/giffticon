@@ -1,6 +1,7 @@
 package com.ncncn.mapper;
 
 import com.ncncn.domain.BarcodeInfoVO;
+import com.ncncn.domain.AutoPriceVO;
 import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProdListVO;
 import com.ncncn.domain.SaleRqustVO;
@@ -68,6 +69,15 @@ public interface GifticonMapper {
 
 	// 기프티콘 상태 변경(판매중 -> 거래확정대기)
 	public boolean updateGftStus(int id);
+  
+  public List<AutoPriceVO> getAutoPricedGifticon();
+
+	public List<GifticonVO> getOnSaleGifticon();
+
+	public void disableExpiredGifticon(int id);
+
+//	public void updateAutoPrice(int id, int dcPrc, double dcRate);
+	public void updateAutoPrice(AutoPriceVO autoPriceVO);
 
 	// 어제 업로드된 바코드 이미지 파일 목록
 	public List<BarcodeInfoVO> getYesterdayBarcodeImageInfo();

@@ -382,6 +382,7 @@
                     pwd: pwd,
                     name: name,
                     telNo: telNo,
+                    roleCode: '002',
                     emlAuthTkn: emlAuthCode
                 }),
                 contentType: 'application/json; charset=utf-8',
