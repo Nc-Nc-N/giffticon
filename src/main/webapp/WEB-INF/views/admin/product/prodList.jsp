@@ -120,8 +120,7 @@
 <div class="modal reg-modal">
     <div class="detail-modal">
         <div class="modal-title">상품등록</div>
-        <form id="reg-form" method="post" action="/admin/product/register?${_csrf.parameterName}=${_csrf.token}"
-              enctype="multipart/form-data">
+        <form id="reg-form" method="post" action="/admin/product/register?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
             <table id="reg-td">
                 <tr class="under-line">
                     <td class="td-title">
@@ -412,12 +411,12 @@
         });
 
         // 등록버튼 이벤트 등록
-        $("prod-reg").on("click", function (e) {
+        $(".prod-reg").on("click", function (e) {
             e.preventDefault();
             // 입력한 상품정보가 유효하면 상품을 등록한다.
             if (!checkInputVale()) return;
 
-            $(".prod-reg").submit();
+            $("#reg-form").submit();
         });
 
         // 모달 visibility visible
@@ -442,16 +441,20 @@
         return parseInt(Math.ceil((total * 1.0) / amount));
     }
 
-    let regex = new RegExp("(.*?)\.(jpg|jpeg|png|JPEG)$");
+    let regex = new RegExp("(.+?)\.(jpg|jpeg|png|JPEG)$");
     let maxSize = 5242880; //5MB
 
     function checkExtension(fileName, fileSize) {
-        if (fileSize >= maxSize) {
+        let img = $("input[name='prodImg']");
+        if (img.size >= maxSize) {
             alert("파일 사이즈 초과");
             return false;
         }
 
-        if (!regex.test(fileName)) {
+        console.log(img.size);
+        console.log(img.val());
+
+        if (!regex.test(img.val())) {
             alert("이미지 파일만 업로드 가능합니다.");
             return false;
         }
@@ -475,7 +478,7 @@
 
     function checkImg() {
         let img = $("input[name='prodImg']");
-        return img.val() !== 0 && checkExtension(img.val(), img.size);
+        return img.val() !== '';
     }
 
     function checkInputVale() {
@@ -499,6 +502,7 @@
             alert("상품 이미지를 등록해주세요.");
             return false;
         }
+        if (!checkExtension()) return false;
         return true;
     }
 </script>
