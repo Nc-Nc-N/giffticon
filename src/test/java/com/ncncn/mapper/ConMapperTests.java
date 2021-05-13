@@ -55,14 +55,27 @@ public class ConMapperTests {
     @Test
     public void testAddCon(){
 
+        // 충전(입금)
         PntHistVO pntHistVO = new PntHistVO();
         pntHistVO.setUserId(156);
         pntHistVO.setChgQuty(5000);
+        pntHistVO.setPntHistCode("001");
 
-        conMapper.addCon(pntHistVO);
+        conMapper.insertConHist(pntHistVO);
         int balance = pntHistVO.getBalance();
 
         conMapper.updateUserCon(156, balance);
+
+        // 구매
+        PntHistVO pnt = new PntHistVO();
+        pnt.setUserId(156);
+        pnt.setChgQuty(-5000);
+        pnt.setPntHistCode("003");
+
+        conMapper.insertConHist(pnt);
+        int bal = pnt.getBalance();
+
+        conMapper.updateUserCon(156, bal);
 
     }
 

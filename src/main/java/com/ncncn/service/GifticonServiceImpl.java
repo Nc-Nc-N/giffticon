@@ -19,6 +19,12 @@ public class GifticonServiceImpl implements GifticonService {
 
     GifticonMapper gifticonMapper;
 
+
+    @Override
+    public ProdListVO getGifticon(int id) {
+        return gifticonMapper.getGifticon(id);
+    }
+
     @Override
     public int gftDealCmpl(int gftId) {
 
@@ -90,7 +96,28 @@ public class GifticonServiceImpl implements GifticonService {
 
     @Override
     public void registerGifticon(GifticonVO gifticon) {
+
         gifticonMapper.registerGifticon(gifticon);
     }
 
+    @Override
+    public List<ProdListVO> getMainGftByBrandName(String brdName){
+
+        List<ProdListVO> mainGftList = gifticonMapper.getMainGftByBrandName(brdName);
+
+        return mainGftList;
+    }
+    
+  @Override
+    public boolean updateGftStus(int id) {
+
+        try{
+            gifticonMapper.updateGftStus(id);
+            log.info("기프티콘 상태코드 수정 성공(거래확정대기)");
+            return true;
+        } catch (Exception e){
+            log.info("기프티콘 상태코드 수정 실패(거래확정대기)");
+            return false;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.ncncn.service;
 
 import com.ncncn.domain.PrcUpdateVO;
+import com.ncncn.domain.ProdListVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -8,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -66,5 +69,15 @@ public class GifticonServiceTests {
         int count = gifticonService.countOnselling(prdCode);
 
         assertEquals(count,4);
+    }
+
+    @Test
+    public void getMainGftByBrdNameTest(){
+
+        String brdName = "스타벅사";
+
+        List<ProdListVO> gftList = gifticonService.getMainGftByBrandName(brdName);
+
+        assertEquals(gftList.size(), 0);
     }
 }

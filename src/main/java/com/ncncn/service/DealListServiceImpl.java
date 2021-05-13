@@ -48,4 +48,17 @@ public class DealListServiceImpl implements DealListService {
         return dealListMapper.countStus004(userId);
     }
 
+    @Override
+    public boolean insertDeal(int userId, int gftId, int dcPrc, String metdStus) {
+
+        try{
+            dealListMapper.insertDeal(userId, gftId, dcPrc, metdStus);
+            log.info("insert into deal_detail 성공");
+            return true;
+        } catch (Exception e){
+            log.info("insert into deal_detail 실패");
+            return false;
+        }
+    }
+
 }

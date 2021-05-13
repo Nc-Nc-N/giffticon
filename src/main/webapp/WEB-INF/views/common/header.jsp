@@ -82,16 +82,15 @@
                         <a href="#none"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
                         <%-- Drop Down --%>
                         <ul class="drop-down-ul animated fadeIn">
-                            <%-- ajax로 불러옴 --%>
+                        <%-- ajax로 불러옴 --%>
                         </ul>
                     </li>
                 </ul>
             </div>
             <div class="leftmenus">
-                <div class="leftmenu"><a href="#">충전하기</a></div>
-                <div class="leftmenu"><a href="#"><i class="fas fa-map-marker-alt"></i></a></div>
+                <div class="leftmenu"><a href="/user/mypage/addCon">충전하기</a></div>
+                <div class="leftmenu"><a href="/user/gifticon/map"><i class="fas fa-map-marker-alt"></i></a></div>
             </div>
-
         </div>
         <!-- search area -->
         <div class="search-bar-container">

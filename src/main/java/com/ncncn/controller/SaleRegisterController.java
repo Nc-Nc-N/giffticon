@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,20 +49,20 @@ public class SaleRegisterController {
 
     @GetMapping("/deal/saleGifticon")
     public String saleGifticon(HttpServletRequest request , Model model){
-
-        model.addAttribute("categoryList", cateService.getCategoryList());
-
-        int userId = 0;
+        try {
+            model.addAttribute("categoryList", cateService.getCategoryList());
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("initError", "카테고리 불러오기에 실패했습니다. 다시 시도해주세요");
+        }
 
         try {
-            userId = (int) request.getSession().getAttribute("userId");
+            int userId = (int)request.getSession().getAttribute("userId");
+            model.addAttribute("userId", userId);
+            log.info("userId= " + userId);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
-        model.addAttribute("userId", userId);
-
-        log.info("userId= " + userId);
 
         log.info("saleGifticon.........");
 
@@ -70,7 +71,7 @@ public class SaleRegisterController {
 
     @GetMapping(value = "/getBrandAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<List<BrandVO>> getBrandListAjax(@RequestParam("name") String name) {
+    public ResponseEntity<List<BrandVO>> getBrandListAjax(String name) {
 
         // 선택된 카테고리에 해당하는 브랜드 목록 전송
         try {
@@ -87,7 +88,7 @@ public class SaleRegisterController {
 
     @GetMapping(value = "/getProductAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<List<ProductVO>> getProductListAjax(@RequestParam("name") String name) {
+    public ResponseEntity<List<ProductVO>> getProductListAjax(String name) {
 
         // 선택된 브랜드에 해당하는 상품 목록 전송
         try {
@@ -104,9 +105,8 @@ public class SaleRegisterController {
 
     @GetMapping(value = "/getProductObjectAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ProductVO> getProductObjectAjax(
-            @RequestParam("brdName") String brdName, @RequestParam("prodName") String prodName) {
-
+    public ResponseEntity<ProductVO> getProductObjectAjax(String brdName, String prodName) {
+        //shift+j 줄 합치기
         // 선택된 브랜드, 상품에 해당하는 상품 전송
         try {
             String brandName = URLDecoder.decode(brdName, "UTF-8");
@@ -149,12 +149,13 @@ public class SaleRegisterController {
     }
 
 
-    // 바코드 이미지 업로드 처리
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<AttachFileDTO>>
     uploadAjaxPost(MultipartFile[] uploadFile) {
-
+        // 바코드 이미지 업로드 처리
+        // 업로드된 파일이 이미지 종류의 파일인지 확인
+        // 이미지 파일일 경우 섬네일 이미지 생성
         log.info("update ajax post................");
 
         List<AttachFileDTO> list = new ArrayList<>();
@@ -166,7 +167,11 @@ public class SaleRegisterController {
         log.info("upload path: " + uploadPath);
 
         if(uploadPath.exists() == false) {
-            uploadPath.mkdirs();
+            try {
+                uploadPath.mkdirs();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         // make yyyy/MM/dd folder
 
@@ -186,18 +191,21 @@ public class SaleRegisterController {
             log.info("only file name: " + uploadFileName);
             attachDTO.setFileName(uploadFileName);
 
+            //  uuid 생성
             UUID uuid = UUID.randomUUID();
 
             uploadFileName = uuid.toString() + "_" + uploadFileName;
 
             try {
                 File saveFile = new File(uploadPath, uploadFileName);
+                // 서버에 파일 저장
                 multipartFile.transferTo(saveFile);
 
                 attachDTO.setUuid(uuid.toString());
                 attachDTO.setUploadPath(uploadFolderPath);
 
                 // check image type file
+                // 이미지 파일일 경우 섬네일 이미지 생성
                 if (checkImageType(saveFile)) {
 
                     attachDTO.setImage(true);
@@ -235,7 +243,9 @@ public class SaleRegisterController {
         try {
             HttpHeaders header= new HttpHeaders();
 
+            // MIME Type 입력
             header.add("Content-Type", Files.probeContentType(file.toPath()));
+            // 파일 전송
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();

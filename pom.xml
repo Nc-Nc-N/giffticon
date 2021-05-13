@@ -245,6 +245,14 @@
       <version>0.4.8</version>
     </dependency>
 
+    <!-- FILE UPLOAD -->
+    <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
+    </dependency>
+    
     <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
     <dependency>
       <groupId>org.quartz-scheduler</groupId>
@@ -258,7 +266,6 @@
       <artifactId>quartz-jobs</artifactId>
       <version>2.3.0</version>
     </dependency>
-
   </dependencies>
 
   <build>

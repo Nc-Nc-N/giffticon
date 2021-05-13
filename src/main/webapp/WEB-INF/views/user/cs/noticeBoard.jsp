@@ -159,7 +159,17 @@
 
     $(document).ready(function () {
 
-        //page번호 클릭 시
+        //사용자 공지사항 오류 메시지를 controller에서 보내줌.
+        let error = "${error}";
+
+        // error 발생 시 해당 에러 메시지를 alert
+        if (error.length > 0) {
+            alert("에러 발생. 담당자에게 문의해주세요. \n" + error);
+            console.log(error);
+        }
+
+
+        //pagenation
         var actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {

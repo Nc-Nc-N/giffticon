@@ -11,10 +11,10 @@ public interface ConService {
     public boolean accUpdate(BankAccountVO bankAccountVO);
 
     // 콘 충전 db에 저장
-    public void addCon(PntHistVO pntHistVO);
+    public boolean insertConHist(PntHistVO pntHistVO);
 
     // user pnt update
-    public void updateUserCon(@Param("userId") int userId,
+    public boolean updateUserCon(@Param("userId") int userId,
                               @Param("balance") int balance);
 
 }

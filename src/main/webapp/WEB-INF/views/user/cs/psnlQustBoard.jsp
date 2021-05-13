@@ -116,6 +116,7 @@
 
                 <div id="notion-write">
 
+                    <%--1:1 문의 register btn--%>
                     <button class="btn btn-active">1:1문의</button>
 
                     <!-- pagenation-->
@@ -164,7 +165,6 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
-<%--                    <p class="search-selected" id="modifyModalLabe"></p>--%>
                     <input class="modify-id" type="hidden" name="id" value=''>
                     <textarea class="modify-title" name="title"></textarea>
                 </div>
@@ -222,7 +222,16 @@
 
     $(document).ready(function () {
 
-        //page번호 클릭 시
+        //사용자 1:1문의 오류 메시지를 controller에서 보내줌.
+        let error = "${error}";
+
+        // error 발생 시 해당 에러 메시지를 alert
+        if (error.length > 0) {
+            alert("에러 발생. 담당자에게 문의해주세요. \n" + error);
+            console.log(error);
+        }
+
+        //pagination
         var actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {
@@ -263,6 +272,8 @@
 
         let psnl = '';
 
+        //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
+        //list의 id는 status.index+1
         $.ajax({
             type: 'get',
             url: '/psnl?id=' + this.id,
@@ -296,10 +307,11 @@
 
         $(".modify-content").html(psnl.cntnt);
 
-        $("#modifyModal").fadeIn();
+
+        $("#modifyModal").fadeIn();     //모달창 열기.
 
 
-        $('#btn-modify').on("click", function () {
+        $('#btn-modify').on("click", function () {  //확인 버튼 클릭 시
 
             modifyForm.attr("action", "/user/mypage/psnlQustBoard/modify");
             modifyForm.submit();
@@ -323,6 +335,7 @@
 
         let psnl = '';
 
+        //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
         $.ajax({
             type: 'get',
             url: '/psnl?id=' + this.id,
@@ -357,7 +370,7 @@
 
         $("#deleteModal").fadeIn();
 
-        $("#btn-delete").on("click", function (e) {
+        $("#btn-delete").on("click", function (e) {     //확인 버튼 클릭 시
 
             formObj.attr("action", "/user/mypage/psnlQustBoard/remove");
             formObj.submit();

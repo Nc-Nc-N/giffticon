@@ -32,7 +32,7 @@ public class HistoryController {
     }
 
     @GetMapping("/admin/con-history")
-    public String adminPointHistory(AdminConHistCriteria cri, Model model) {
+    public String adminConHistory(AdminConHistCriteria cri, Model model) {
 
         log.info("list: " + cri);
         model.addAttribute("list", historyService.getAdminConHist(cri));

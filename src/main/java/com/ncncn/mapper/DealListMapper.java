@@ -27,4 +27,10 @@ public interface DealListMapper {
 
     public int countStus004(int userId);
 
+    // 구매하기 이후 거래확정 대기
+	public boolean insertDeal(@Param("userId") int userId,
+							  @Param("gftId") int gftId,
+							  @Param("dcPrc") int dcPrc,
+							  @Param("metdStus") String metdStus);
+
 }

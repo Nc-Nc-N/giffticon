@@ -1,5 +1,7 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.GifticonVO;
+import com.ncncn.domain.ProdListVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -7,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -72,6 +76,34 @@ public class GifticonMapperTests {
         int count = mapper.countOnselling(prodCode);
 
         assertEquals(count,3);
+    }
+
+    @Test
+    public void getMainGftByBrdNameTest(){
+
+        String brdName = "스타벅스";
+
+        List<ProdListVO> mainGftList = mapper.getMainGftByBrandName(brdName);
+
+        assertEquals(mainGftList.size(), 25);
+    }
+
+    @Test
+    public void readTest(){
+        int id = 102;
+
+        ProdListVO gifti = mapper.getGifticon(id);
+
+    }
+
+    @Test
+    public void updateGftStus(){
+        int id = 7;
+
+        Boolean result = mapper.updateGftStus(id);
+
+        assertEquals(result, true);
+
     }
 
 }

@@ -53,11 +53,6 @@
                         <div class="innerbox">
                             <!-- <span>중분류 선택</span> -->
                             <ul class="brandbox"> <!-- 중분류 카테고리 -->
-                                <c:forEach items="${brandList}" var="brandL">
-                                    <li class="brandSelect">
-                                        <button type="button" class="select"><c:out value="${brandL.name}"/></button>
-                                    </li>
-                                </c:forEach>
 
                             </ul>
                         </div>
@@ -65,11 +60,6 @@
                         <div class="innerbox">
                             <!-- <span>소분류 선택<span> -->
                             <ul class="productbox"> <!-- 소분류 카테고리 -->
-                                <c:forEach items="${productList}" var="prodL">
-                                    <li class="productSelect">
-                                        <button type="button" class="select"><c:out value="${prodL.name}"/></button>
-                                    </li>
-                                </c:forEach>
 
                             </ul>
 
@@ -133,13 +123,18 @@
                             </label>
 
                         </div>
-                        <textarea readonly="readonly">쿠폰 등록시 유의사항  1. 반드시 쿠폰 이미지만 잘라서 올려주세요. 캡쳐 이미지에 배터리 잔여량, 통신사, 시간, 화살표 등이 표기된 경우, 저희 시스템상 바코드와 유효기간을 잘못 인식하는 경우가 많아 반려하고 있습니다. 2. 카테고리가 지정된 쿠폰이 우선적으로 검수됩니다. 해당 쿠폰의 정확한 카테고리를 지정해주세요. 3.기프티콘의 유효기간을 반드시 입력해주세요 4. 기쁘티콘 혹은 기쁘티콘 제휴사에서 구매한 쿠폰은 다시 매입하지 않습니다.
+                        <textarea readonly="readonly">[ 쿠폰 등록시 유의사항 ]
+
+1. 반드시 쿠폰 이미지만 잘라서 올려주세요. 캡쳐 이미지에 배터리 잔여량, 통신사, 시간, 화살표 등이 표기된 경우, 저희 시스템상 바코드와 유효기간을 잘못 인식하는 경우가 많아 반려하고 있습니다.
+
+2. 카테고리가 지정된 쿠폰이 우선적으로 검수됩니다. 해당 쿠폰의 정확한 카테고리를 지정해주세요.
+
+3. 기프티콘의 유효기간을 반드시 입력해주세요
+
+4. 기쁘티콘 혹은 기쁘티콘 제휴사에서 구매한 쿠폰은 다시 매입하지 않습니다.
                                 </textarea>
                         <!-- 쿠폰 파일 업로드 -->
                         <div class="box-file-input">
-
-
-                            <%--                            <button id="uploadBtn">Upload</button>--%>
 
                         </div>
                     </div>
@@ -232,6 +227,11 @@
 
     $(document).ready(function () {
 
+        // 페이지 로딩시 카테고리 불러오기 실패하면 에러메세지 출력
+        if ("${initError}" != "") {
+            alert("${initError}");
+        }
+
         // 가격종류 변경시 동작
         $("input:radio[name=group1]").click(function () {
             let radioValue = $(this).val();
@@ -255,9 +255,9 @@
 
             console.log(files);
 
-            //add filedate to formdata
             for (var i = 0; i < files.length; i++) {
 
+                // 파일 용량, 확장자 체크
                 if (!checkExtension(files[i].name, files[i].size)) {
                     return false;
                 }
@@ -282,6 +282,7 @@
 
                     console.log(result);
 
+                    // 이미지 등록 성공시 썸네일 이미지 불러오기
                     showUploadedFile(result);
 
                 },
@@ -461,9 +462,11 @@
     $('.categorySelect').on("click", function () {
         // 대분류 클릭시 대분류이름을 보내고 중분류 객체리스트를 받아온다.
         // 선택퇸 카테고리 텍스트 변경, 상품 정보 삭제, 가격정보 초기화
+
         let catName = this.innerText;
-        selectedCatName = this.innerText;
+
         // 선택된 카테고리 텍스트 변경
+        selectedCatName = this.innerText;
         changeSelectedResultText(catSelectResultText());
         // 가격정보 초기화
         priceAllClean();
@@ -665,14 +668,13 @@
     }); // 소분류 클릭 시 동작
 
 
-    var uploadResult = $(".filename")[0];
-
     originPath = "";
 
     // 이미지 업로드시 썸네일 보여주는 함수
     function showUploadedFile(uploadResultArr) {
 
         $(uploadResultArr).each(function (i, obj) {
+            // fileCallPath : 썸네일 이미지 경로
             var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" +
                 obj.uuid + "_" + obj.fileName);
 
@@ -680,7 +682,7 @@
             document.getElementById('thumbnail').src =
                 "/user/display?fileName=/" + fileCallPath;
 
-            // DB gifticon 테이블 img_path에 입력할때 사용할 originPath
+            // DB gifticon 테이블 img_path에 입력할때 사용할 변수 originPath
             originPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;
 
             originPath = originPath.replace(new RegExp(/\\/g), "/");
@@ -770,6 +772,7 @@
             success: function (result) {
 
                 console.log(result);
+                // 등록 성공시 모달창 보여주기
                 showFinalModal();
 
             },

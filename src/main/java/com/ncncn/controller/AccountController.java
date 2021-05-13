@@ -10,6 +10,7 @@ import com.ncncn.service.SignUpService;
 import com.ncncn.service.SoclInfoService;
 import com.ncncn.service.UserService;
 import com.ncncn.util.EmailAuthCodeUtils;
+import com.ncncn.util.UserAuthCheckUtils;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,4 +160,81 @@ public class AccountController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping(value ="/socialSignUp")
+    public void socialSignUp(String email, String name, String soclTypeCode, Model model){
+
+
+        model.addAttribute("email", email);
+        model.addAttribute("name", name);
+        model.addAttribute("soclTypeCode", soclTypeCode);
+
+    }
+
+    @GetMapping(value="/socialAccLink")
+    public void socialAccLink(String email, String name, String soclTypeCode, Model model){
+
+        UserVO user = signUpService.getUserByEmail(email);
+
+        model.addAttribute("user", user);
+        model.addAttribute("soclEmail", email);
+        model.addAttribute("soclName", name);
+        model.addAttribute("soclTypeCode", soclTypeCode);
+
+    }
+
+    // 소셜 회원 등록 요청
+    @PostMapping(value = "/soclRegister", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/text; charset=UTF-8")
+    public ResponseEntity<String> soclRegister(@RequestBody UserVO user) {
+
+        String soclType = user.getRoleCode();
+        user.setRoleCode("003");
+        try {
+            // 사용자 등록
+            signUpService.register(user);
+
+            int userId = signUpService.getUserByEmail(user.getEmail()).getId();
+
+            soclInfoService.RegisterSoclUser(userId,soclType);
+
+        } catch (Exception e) {
+            // 등록 실패사유를 응답에 담아 전송
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/soclCheckOriPwd",
+            method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> soclCheckOriPwd(@RequestParam Map<String, String> checkUser) {
+
+        String email = checkUser.get("email");
+        String pwd = checkUser.get("pwd");
+        String soclType = checkUser.get("soclType");
+        String name = checkUser.get("name");
+        int userId = Integer.parseInt(checkUser.get("userId"));
+
+        UserVO user = signUpService.getUserByEmail(email);
+
+        //입력된 비밀번호가 db값과 일치여부 확인
+        if (UserAuthCheckUtils.userAuthCheck(email, pwd, user)) {
+
+            boolean isUpdated = soclInfoService.changeUserAsSocl("사용자(소셜로그인)",name, email);
+            boolean isRegistered = soclInfoService.RegisterSoclUser(userId, soclType);
+
+            if(isUpdated == true && isRegistered && true){
+
+                return new ResponseEntity<>(HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+        } else {
+
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
 }

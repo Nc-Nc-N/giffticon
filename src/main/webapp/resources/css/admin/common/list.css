@@ -1,0 +1,103 @@
+.search-area {
+    margin: 20px 0;
+    float: right;
+}
+
+#search-form {
+    display: flex;
+    justify-content: center;
+}
+
+.search-select {
+    width: 80px;
+}
+
+#list-div {
+    padding: 0 10px;
+}
+
+#list-tb {
+    width: 100%;
+    margin: 20px 0;
+    text-align: center;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#list-tb thead {
+    box-shadow: 0px 1px 3px 0px rgb(188, 188, 188);
+    font-weight: 600;
+}
+
+#list-tb > thead > tr {
+    font-size: 16px;
+    height: 50px;
+}
+
+.w45 {
+    width: 45px;
+}
+
+.w100 {
+    width: 100px;
+}
+
+.w125 {
+    width: 125px;
+}
+
+.list-tr {
+    height: fit-content;
+    font-size: 16px;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-img {
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    text-align: center;
+}
+
+.list-img img {
+    margin: 10px 0;
+    width: 90%;
+    height: 100px;
+}
+
+.main-footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0 40px 0;
+    padding: 0 10px;
+}
+
+.main-footer button {
+    height: 40px;
+}
+
+.main-footer button:hover {
+    color: white;
+    background-color: rgb(255, 88, 93);
+}
+
+a.detail-link {
+    color: rgb(71, 71, 71);
+}
+
+a.detail_link:visited {
+    color: rgb(71, 71, 71);
+}
+
+a.detail-link:hover {
+    color: rgb(255, 88, 93)
+}
+
+.nothing {
+    text-align: center;
+}

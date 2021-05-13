@@ -8,4 +8,34 @@
         select * from statistics where date_format(dt, '%Y-%m-%d') = curdate()
     </select>
 
+
+    <insert id="initStatistics">
+        insert statistics(dt, visitr_rec, sales_rec, in_user, up_user)
+        values (curdate(), 0, 0, current_user, current_user )
+    </insert>
+
+    <update id="updateVisitrRec">
+        <![CDATA[
+            update statistics
+            set visitr_rec = #{visitrRec}
+            where date_format(dt, '%Y-%m-%d') = curdate()
+        ]]>
+    </update>
+
+
+    <update id="updateSalesRec">
+        <![CDATA[
+            update statistics
+            set sales_rec = ( select SUM(deal.pymt_prc)
+                              from deal_detail as deal
+                                       join gifticon as gft
+                                       join (select * from cmmn_code where code_type = 'GFT_STUS') cm
+                                            on gft.gft_stus_code = cm.code
+                              where gft.gft_stus_code = '005')
+            where date_format(dt, '%Y-%m-%d') = curdate()
+        ]]>
+    </update>
+
+
+
 </mapper>

@@ -15,6 +15,9 @@ public interface GifticonMapper {
 
 	GifticonVO read(int id);
 
+	// 구매할 기프티콘
+	ProdListVO getGifticon(int id);
+
 	List<SaleRqustVO> readAllRqustWithPaging(SaleRqustCriteria cri);
 
 	Map<String, Object> readRqustById(int id);
@@ -60,7 +63,13 @@ public interface GifticonMapper {
 
 	public void registerGifticon(GifticonVO gifticon);
 
-	public List<AutoPriceVO> getAutoPricedGifticon();
+	//지도 - 메인기프티콘
+	public List<ProdListVO> getMainGftByBrandName(String brdName);
+
+	// 기프티콘 상태 변경(판매중 -> 거래확정대기)
+	public boolean updateGftStus(int id);
+  
+  public List<AutoPriceVO> getAutoPricedGifticon();
 
 	public List<GifticonVO> getOnSaleGifticon();
 

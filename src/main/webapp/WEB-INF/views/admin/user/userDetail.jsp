@@ -114,6 +114,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+
+        // 페이지 로딩시 회원 상세정보 불러오기 실패하면 에러메세지 출력
+        if ("${initError}" != "") {
+            alert("${initError}");
+        }
+
         document.getElementById("userAdministration").className = 'active';
 
         let ustat = document.getElementById('ustatus').innerText;

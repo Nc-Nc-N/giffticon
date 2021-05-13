@@ -25,7 +25,7 @@ let wishListService = (function () {
 
             }, error: function () {
 
-                alert("다시 시도해주세요.");
+                alert('일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.');
 
             }
         })
