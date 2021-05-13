@@ -39,14 +39,15 @@
 
 <div class="modal">
     <div class="screen">
+        <button type="button" value="close" class="btn modal--close">X</button>
         <div class="layerpop">
-            <p class="layerpop__container">
-                레이어팝업입니다.<br />
-                레이어팝업입니다.<br />
-                레이어팝업입니다.<br />
-                레이어팝업입니다.
-            </p>
-            <button type="button" value="close" class="btn modal--close">Close</button>
+            <div  class="pwd_group">
+                <div class="input_text">
+                    비밀번호 확인 &ensp;<input type="password" class="originPwd" placeholder="기존 비밀번호를 입력해주세요">
+                </div>
+                <button class="btn btn-submit" id="btn-confirmOriginPwd">인증</button>
+            </div>
+            <div class="message" id="msg-originPwd"></div>
         </div>
     </div>
 </div>
@@ -165,4 +166,62 @@
         });
 
     })
+</script>
+<%-- modal 비밀번호 확인--%>
+<script>
+    $(document).ready(function () {
+
+        let csrfHeaderName = "${_csrf.headerName}";
+        let csrfTokenValue = "${_csrf.token}";
+
+        const oriEmail = "<c:out value="${user.email}"/>";
+
+        //비밀번호 확인 버튼
+        let btnOriginPwd = $("#btn-confirmOriginPwd");
+
+        //input 칸
+        let insertOriginPwd = $(".originPwd");
+
+        //msg 출력칸
+        let originPwdMsg = $("#msg-originPwd");
+
+        //기존 비밀번호 인증
+        btnOriginPwd.on("click", function (e) {
+
+            var msg = "";
+            let oriPwdVal = insertOriginPwd.val();
+
+            let checkUser = {
+                email: oriEmail,
+                pwd: oriPwdVal
+            }
+
+            originPwdMsg.html("");
+
+            $.ajax({
+                url: '/user/mypage/checkPassword',
+                contentType: "application/json",
+                data: JSON.stringify(checkUser),
+                type: 'post',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                },
+                success: function () {
+                    // 비밀번호 확인 성공
+
+
+                },
+                error: function () {
+
+                    msg += "<i class='fas fa-exclamation-circle'></i>";
+                    msg += "<p>&nbsp;비밀번호가 다릅니다.</p>";
+                    originPwdMsg.html(msg);
+
+                }
+
+            })
+
+        })
+    });
+
 </script>

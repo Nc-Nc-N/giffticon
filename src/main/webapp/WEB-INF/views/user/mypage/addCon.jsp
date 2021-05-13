@@ -47,7 +47,7 @@
     </div>
 
     <div class="pnt_info_column">
-        <div class="con_info" style="border-top: 1px solid gainsboro;"> 현재 콘 <span class="userPnt"><c:out value="${userCon}"/> 콘</span> </div>
+        <div class="con_info"> 현재 콘 <span class="userPnt"><c:out value="${userCon}"/> 콘</span> </div>
         <div class="con_info"> 충전 콘 <span class="addCon"></span> <span class="benefits"></span></div>
         <div class="con_info"> 충전 후 콘 <span class="afterAdd"></span></div>
         <div class="con_info"> 총 결제 금액
