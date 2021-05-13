@@ -265,7 +265,7 @@
 
     <update id="disableExpiredGifticon">
         update gifticon
-        set gft_stus_code = '003'
+        set gft_stus_code = '003', up_date = now(), up_user = current_user()
         where id = #{id}
     </update>
 
