@@ -357,5 +357,15 @@
         update gifticon
         set dc_prc = #{dcPrc}, dc_rate = #{dcRate}, up_date = now(), up_user = current_user()
         where id = #{id}
+    </update>
+  
+    <!-- 어제 업로드된 바코드 이미지 파일 목록 가져오기 -->
+    <select id="getYesterdayBarcodeImageInfo" resultType="com.ncncn.domain.BarcodeInfoVO">
+        select substr(img_path, 24, 10) upload_path,
+               substr(img_path, 35, 36) uuid,
+               substr(img_path, 72) file_name
+        from gifticon
+        where substr(img_path, 24, 10) = DATE_FORMAT(DATE_ADD(now(), INTERVAL -1 DAY), '%Y/%m/%d')
+    </select>  
 
 </mapper>
