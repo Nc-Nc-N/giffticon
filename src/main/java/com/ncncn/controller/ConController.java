@@ -2,6 +2,8 @@ package com.ncncn.controller;
 
 import com.ncncn.domain.PntHistVO;
 import com.ncncn.domain.UserInfoDTO;
+import com.ncncn.domain.pagination.MyPageCriteria;
+import com.ncncn.domain.pagination.PageDTO;
 import com.ncncn.service.ConService;
 import com.ncncn.service.UserService;
 import lombok.AllArgsConstructor;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ConController {
 
 	private UserService userService;
-	private ConService pointService;
+	private ConService conService;
 
 	// 콘 충전하기 페이지
 	@GetMapping(value = "/mypage/addCon")
@@ -70,15 +72,29 @@ public class ConController {
 		pntHistVO.setPntHistCode(pntCode);
 
 		// conHist insert
-		pointService.insertConHist(pntHistVO);
+		conService.insertConHist(pntHistVO);
 
 		//사용자 콘 update
 		int balance = pntHistVO.getBalance();
-		pointService.updateUserCon(userId, balance);
+		conService.updateUserCon(userId, balance);
 	}
 
 	@GetMapping("/mypage/myCon")
-	public void myCon(){
+	public void myCon(HttpServletRequest request, Model model, MyPageCriteria cri){
+
+		int userId = (int) request.getSession().getAttribute("userId");
+
+		UserInfoDTO user = userService.getMyInfo(userId);
+		int total = conService.getConTotal(userId, cri);
+		cri.setAmount(10);
+
+		try{
+			model.addAttribute("user", user);
+			model.addAttribute("conHist", conService.getConHistWithPaging(userId, cri));
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
+		}catch (Exception e){
+			model.addAttribute("error", "일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.");
+		}
 
 	}
 
@@ -92,11 +108,6 @@ public class ConController {
 
 		try{
 			model.addAttribute("user", user);
-
-			// 접근 제한 걸기
-			if(user.getBnkName()==null){
-
-			}
 
 		}catch (Exception e){
 			model.addAttribute("error", "일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.");

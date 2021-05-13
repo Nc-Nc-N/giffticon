@@ -218,10 +218,14 @@
                     originPwdMsg.html(msg);
 
                 }
-
             })
-
         })
-    });
 
+        // 에러 메시지 처리
+        let error = "${error}";
+
+        if(error.length > 0){
+            alert("error: " + error);
+        }
+    });
 </script>

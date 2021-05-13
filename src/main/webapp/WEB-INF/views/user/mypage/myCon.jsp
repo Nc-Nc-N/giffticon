@@ -1,7 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:include page="templete.jsp"/>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/css/user/mypage/myCon.css" type="text/css">
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
@@ -19,7 +24,7 @@
         </div>
         <div class="info-right">
             <div class="con-amount-info">
-                <span class="con-amount">0</span>
+                <span class="con-amount"><c:out value="${user.pnt}"/></span>
                 <span class="con-amount-won">원</span>
             </div>
             <ul class="con-btns">
@@ -35,6 +40,45 @@
         </div>
     </div>
 
+    <div class="contentsearch">
+
+        <form class="search-spec" action="/user/mypage/myCon" method="get">
+
+            <div class="search-area">
+                <select class="search-select" name="type">
+                    <option value="ALL">
+                            전체
+                    </option>
+                    <option value="A"
+                            <c:out value="${pageMaker.cri.type eq 'A' ? 'selected' : ''}"/>> 입금
+                    </option>
+                    <option value="W"
+                            <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : ''}"/>> 출금
+                    </option>
+                    <option value="B"
+                            <c:out value="${pageMaker.cri.type eq 'B' ? 'selected' : ''}"/>> 구매
+                    </option>
+                    <option value="S"
+                            <c:out value="${pageMaker.cri.type eq 'S' ? 'selected' : ''}"/>> 판매
+                    </option>
+                </select>
+
+                <div class="date-search">
+                    <input type="text" id="dateFrom" name="dateFrom"
+                           value="<c:out value="${pageMaker.cri.dateFrom}"/>">
+                    <span>~</span>
+                    <input type="text" id="dateTo" name="dateTo"
+                           value="<c:out value="${pageMaker.cri.dateTo}"/>">
+                </div>
+                <div class="search-form">
+                    <input type="hidden" name="pageNum" value="<c:out value="${pageMaker.cri.pageNum}"/>">
+                    <input type="hidden" name="amount" value="<c:out value="${pageMaker.cri.amount}"/>">
+                    <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+                </div>
+
+            </div>
+        </form>
+    </div>
     <table class="tbl tbl_type1">
         <colgroup>
             <col style="width: 120px;">
@@ -44,23 +88,58 @@
         </colgroup>
         <thead>
         <tr>
-            <th>날짜</th>
-            <th class="info">내용</th>
-            <th>유효기간</th>
+            <th>거래종류</th>
+            <th>거래일시</th>
             <th>금액</th>
+            <th>잔여 콘</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td colspan="4" class="no_data">
-            적립금 내역이 존재하지 않습니다.
-            </td>
-        </tr>
+        <c:choose>
+            <c:when test="${not empty conHist}">
+                <c:forEach items="${conHist}" var="conH">
+                <tr>
+                    <td>${conH.codeName}</td>
+                    <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+                                        value="${conH.chgDt}"/></td>
+                    <td>${conH.chgQuty}</td>
+                    <td>${conH.balance}</td>
+                </tr>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <tr class="no_data_tr">
+                    <td colspan="4" class="no_data">
+                    콘 내역이 존재하지 않습니다.
+                    </td>
+                </tr>
+            </c:otherwise>
+        </c:choose>
         </tbody>
     </table>
 </div>
 
+<div class="contentfooter">
+    <div class="pagination">
+        <c:if test="${pageMaker.prev}">
+            <a class="paginate_btn prev" href="${pageMaker.startPage - 1}"><</a>
+        </c:if>
+        <c:forEach var="num" begin="${pageMaker.startPage}"
+                   end="${pageMaker.endPage}">
+            <a class="paginate_btn ${pageMaker.cri.pageNum == num ? "active" : ""}" href="${num}" }>${num}</a>
+        </c:forEach>
+        <c:if test="${pageMaker.next}">
+            <a class="paginate_btn next" href="${pageMaker.endPage + 1}">></a>
+        </c:if>
+    </div>
+
+    <form id="actionForm" action="/user/mypage/myCon" method="get">
+        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+    </form>
 </div>
+
+
 </div>
 </div>
 </div>
@@ -69,20 +148,76 @@
 </body>
 </html>
 <script>
-    $(".withdraw-btn").on("click", function (){
+    $(document).ready(function () {
+        let actionForm = $("#actionForm");
+        let searchSpec = $(".search-spec");
 
-        $.ajax({
-            type:"GET",
-            url:"/user/mypage/checkAccount",
-            success: function (){
-                location.href="/user/mypage/withdrawCon";
-            },
-            error: function (){
-                let result = confirm("등록된 계좌가 존재하지 않습니다. 계좌 등록 페이지로 이동하시겠습니까?");
-                if(result){
-                    $(location).attr('href', '/user/mypage/userInfo');
+        $(".withdraw-btn").on("click", function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/user/mypage/checkAccount",
+                success: function () {
+                    location.href = "/user/mypage/withdrawCon";
+                },
+                error: function () {
+                    let result = confirm("등록된 계좌가 존재하지 않습니다. 계좌 등록 페이지로 이동하시겠습니까?");
+                    if (result) {
+                        $(location).attr('href', '/user/mypage/userInfo');
+                    }
                 }
-            }
+            });
+        })
+
+        // 에러 메시지 처리
+        let error = "${error}";
+
+        if(error.length > 0){
+            alert("error: " + error);
+        }
+
+        // 페이지네이션 이벤트 처리
+        $(".paginate_btn").on("click", function (e) {
+            e.preventDefault();
+
+            actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+            actionForm.submit();
         });
-    })
+
+        //search 버튼 누를 시 날짜조건이 정확한지 체크 후 검색 실행
+        $(".search-button").on("click", function (e) {
+
+            let dateFrom = $("#dateFrom").val();
+            let dateTo = $("#dateTo").val();
+
+            if (!calendarCheck(dateFrom, dateTo)) {
+                alert("날짜 선택이 올바르지 않습니다.");
+                e.preventDefault();
+            } else {
+
+                searchSpec.find("input[name='pageNum']").val("1");
+                searchSpec.submit();
+            }
+        })
+
+        // datepicker
+        $(function() {
+            $("#dateFrom").datepicker({
+                dateFormat: 'yy-mm-dd',
+                maxDate:0,
+                onClose:function (){
+                    $("#dateTo").datepicker({
+                        dateFormat: 'yy-mm-dd',
+
+                    })
+                }
+            });
+
+            $("#dateTo").datepicker({
+                dateFormat: 'yy-mm-dd',
+                maxDate:0
+            });
+
+        });
+    });
 </script>
