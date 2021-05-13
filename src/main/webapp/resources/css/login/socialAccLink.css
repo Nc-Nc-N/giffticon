@@ -1,0 +1,343 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.container {
+    margin: auto;
+    width: 600px;
+    height: auto;
+}
+
+.imgcontainer {
+    width: 80%;
+    height: 20%;
+    margin: 15px auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.title {
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid rgb(81, 81, 81);
+    text-align: end;
+    font-size: 14px;
+}
+
+img {
+    width: 50%;
+}
+
+.label {
+    width: 100px;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.red {
+    color: rgb(255, 88, 93);
+}
+
+.element {
+    margin: auto;
+    margin-bottom: 30px;
+    width: 90%;
+    height: 100%;
+    display: flex;
+}
+
+.element_name{
+    margin-left: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.guide_msg{
+    font-size: 12px;
+    color: rgb(255,88,93);
+    margin-left: 20px;
+}
+
+.input-div {
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+input {
+    display: block;
+    margin: auto;
+    padding: 0;
+    width: 320px;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: rgb(36, 35, 35);
+}
+
+.input001 {
+    border-bottom: 2px solid #e4e4e4;
+    font-size: 16px;
+}
+
+.input-msg {
+    /* visibility: hidden; */
+    display: none;
+    width: 90%;
+    margin: 5px auto;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(100, 100, 100);
+
+}
+
+.pwd-info {
+    width: 90%;
+    margin: 5px auto;
+    font-size: 14px;
+    color: rgb(100, 100, 100);
+}
+
+.pwd-info ul {
+    margin-left: 20px;
+}
+
+::placeholder {
+    color: silver;
+    font-size: 15px;
+}
+
+.btn-area {
+    width: 80px;
+    height: 40px;
+    display: flex;
+}
+
+.btn002 {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    background-color: white;
+    border: 1px solid rgb(255, 88, 93);
+    border-radius: 5px;
+    color: rgb(255, 88, 93);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn-disabled {
+    border-color: #e4e4e4 !important;
+    color: #e4e4e4 !important;
+    pointer-events: none;
+}
+
+.btn002:hover {
+    background-color: rgb(255, 88, 93);
+    color: white;
+}
+
+.checks {
+    width: 90%;
+    height: 30px;
+    position: relative;
+    margin: 10px auto 0 auto;
+}
+
+.checks input[type="checkbox"] { /* 실제 체크박스는 화면에서 숨김 */
+    display: none;
+}
+
+.f-all {
+    font-size: 18px !important;
+    font-weight: 600;
+}
+
+.checks input[type="checkbox"] + label {
+    cursor: pointer;
+    padding-left: 35px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.checks input[type="checkbox"] + label:before { /* 가짜 체크박스 */
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    background: url(/resources/img/nonChecked.png) no-repeat center/25px 25px;
+}
+
+.checks input[type="checkbox"]:checked + label:before { /* 체크박스를 체크했을때 */
+    background: url(/resources/img/checked.png) no-repeat center/25px 25px;
+}
+
+.term {
+    float: right;
+    text-decoration: none;
+    color: rgb(81, 81, 81);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.msg_output{
+    width: 100%;
+    text-align: center;
+    height: 20px;
+    margin-bottom: 10px;
+    /*background-color: beige;*/
+}
+
+#btn {
+    display: block;
+    justify-content: center;
+    margin: 30px auto 0 auto;
+}
+
+.btn_section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn001 {
+    width: 45%;
+    height: 45px;
+    background-color: rgb(255, 88, 93);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 3px;
+    cursor: pointer;
+}
+
+.btn001:hover {
+    background-color: white;
+    color: rgb(255, 88, 93);
+    border: 2px solid rgb(255, 88, 93);
+}
+
+@keyframes grdtn {
+    from {
+        border-bottom-color: #e4e4e4;
+    }
+    to {
+        border-bottom-color: rgb(255, 88, 93);
+    }
+}
+
+#validateMsg {
+    /*display: visible;*/
+    margin: 10px auto auto auto;
+    width: 100%;
+    color: rgb(100, 100, 100);
+    font-size: 15px;
+    font-weight: 600;
+    /*background-color: grey;*/
+
+}
+
+i {
+    color: rgb(255, 88, 93);
+}
+
+.modal {
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(80, 80, 80, 0.4);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.term-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: rgb(240, 240, 240);
+    font-size: 17px;
+    width: 350px;
+    height: 600px;
+    padding: 20px 20px 0 20px;
+    border-radius: 10px;
+}
+
+.textarea-div {
+    margin: 30px 0 0 0;
+    width: 100%;
+    height: 480px;
+}
+
+textarea {
+    background-color: rgb(240, 240, 240);
+    width: 100%;
+    height: 480px;
+    resize: none;
+    outline: none;
+    border: none;
+}
+
+.confirm {
+    width: 100%;
+    margin: 15px auto 15px auto;
+    text-align: center;
+}
+
+.confirm button {
+    width: 60%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* ==================================== */
+
+.password_section{
+    /*background-color: grey;*/
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.input_pwd{
+    width: 45%;
+    height: 30px;
+    border-bottom: 0.5px solid gainsboro;
+    /*background-color: grey;*/
+}
+
+.originPwd{
+    width: 95%;
+    height: 25px;
+}

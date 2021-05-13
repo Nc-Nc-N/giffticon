@@ -18,4 +18,23 @@
         where code_type = 'SOCL_TYPE';
     </select>
 
+    <insert id="insertSocialInfo">
+        insert into socl_auth
+            (user_id, socl_type_code, in_date, in_user, up_date, up_user)
+            value
+            (#{userId},#{soclType},now(), current_user (),now(), current_user ());
+    </insert>
+
+    <update id="updateUserRole">
+        update user
+        set role_code = (
+            select code
+            from cmmn_code
+            where code_type = 'USER_ROLE'
+              and code_name = #{roleName}
+        ),
+            name = #{name}
+        where email = #{email};
+    </update>
+
 </mapper>
