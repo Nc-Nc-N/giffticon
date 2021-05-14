@@ -34,7 +34,12 @@
                             <div><c:out value="${user.pnt}"/>p</div>
                         </div>
                         <div class="user_info_btn">
-                            <button class="btn btn-active" id="modUserInfo">비밀번호 변경</button>
+                            <c:if test="${pwdExist == false}">
+                                <button class="btn btn-active" id="modUserInfo">비밀번호 설정</button>
+                            </c:if>
+                            <c:if test="${pwdExist == true}">
+                                <button class="btn btn-active" id="modUserInfo">비밀번호 변경</button>
+                            </c:if>
                             <button class="btn btn-active" id="modTelNo">휴대전화 인증</button>
                         </div>
                     </div>
@@ -54,7 +59,14 @@
                             <div><c:out value="${user.acc}"/></div>
                         </div>
                         <div class="user_info_btn">
-                            <button class="btn btn-active" id="modAccInfo">계좌정보 수정</button>
+                            <c:choose>
+                                <c:when test="${pwdExist == false}">
+                                    <button class="btn btn-disabled">계좌정보 수정</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="btn btn-active" id="modAccInfo">계좌정보 수정</button>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -85,29 +97,31 @@
 
     $(".document").ready(function(){
 
-        modUserInfo.on("click",function (){
+        //계좌정보 수정 비활성화, 휴대전화인증 비활성화, 비밀번호 변경 텍스트 바꾸기
+    })
 
-            $(".modal_userInfo").css("visibility","visible");
-        })
+    modUserInfo.on("click",function (){
 
-        modTelNo.on("click", function(){
+        $(".modal_userInfo").css("visibility","visible");
+    })
 
-            $(".modal_telNo").css("visibility","visible");
-        })
+    modTelNo.on("click", function(){
 
-        modAccInfo.on("click",function(){
+        $(".modal_telNo").css("visibility","visible");
+    })
 
-            $(".modal_accInfo").css("visibility", "visible");
-        })
+    modAccInfo.on("click",function(){
 
-        $(".cancel").on("click",function(e){
+        $(".modal_accInfo").css("visibility", "visible");
+    })
 
-            $(".modalOn").css("visibility", "hidden");
-        })
+    $(".cancel").on("click",function(e){
 
+        $(".modalOn").css("visibility", "hidden");
     })
 </script>
 
 <script>
+
 
 </script>

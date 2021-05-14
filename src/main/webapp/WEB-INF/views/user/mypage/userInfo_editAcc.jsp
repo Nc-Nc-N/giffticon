@@ -84,11 +84,6 @@
 
         let bnkSelected;
 
-        //selectBox의 은행명 가져오기
-        $("#acc-bankSelect").change(function () {
-            bnkSelected = $(this).val();
-        })
-
         let holder = $(".acc-holder");
         let account = $(".acc-account");
 
@@ -100,6 +95,25 @@
         let accOriPwd = $(".acc-originPwd");
         let accPwdMsg = $("#msg-accPwd");
         let accMsg = $("#msg-accConfirm");
+
+        let accInfo = {};
+
+        //selectBox의 은행명 가져오기
+        $("#acc-bankSelect").change(function () {
+            checkAllConfirmed[1] = false;
+            accMsg.html("");
+            bnkSelected = $(this).val();
+        })
+
+        holder.keyup(function(e){
+            checkAllConfirmed[1] = false;
+            accMsg.html("");
+        })
+
+        account.keyup(function(e){
+            checkAllConfirmed[1] = false;
+            accMsg.html("");
+        })
 
         //기존 비밀번호 인증
         accPwdConfirm.on("click", function (e) {
@@ -125,8 +139,13 @@
                     checkIsCorrect(accPwdMsg, msg, true, 0);
                     accOriPwd.attr("readonly", true);
                 },
-                error: function () {
-                    msg = "비밀번호가 다릅니다";
+                error: function (error) {
+
+                    if(error.status == 406){
+                        msg = "최초비밀번호를 등록 후 인증해주세요";
+                    }else {
+                        msg = "비밀번호가 다릅니다";
+                    }
                     checkIsCorrect(accPwdMsg, msg, false, 0);
                 }
             })
@@ -139,13 +158,12 @@
             let accountVal = account.val();
 
             //실명조회할 계좌 정보
-            let accInfo = {
+            accInfo = {
                 bnkCode: bnkSelected,
                 holder: holderVal,
                 acc: accountVal,
                 birth: "930226"
             }
-
 
             //promise_ 토큰 획득 후 계좌실명조회
             getBankingAccTkn()
@@ -155,24 +173,15 @@
 
         })
 
-        $("#modifyAcc").on("click", function () {
 
-            alert(checkAllConfirmed);
+        $("#modifyAcc").on("click", function () {
 
             let originAcc = "<c:out value="${user.acc}"/>";
 
-            let holderVal = holder.val();
-            let accountVal = account.val();
-
             if (checkAllConfirmed[0] == true && checkAllConfirmed[1] == true) {
 
-                let accInfo = {
-                    "acc": accountVal,
-                    "userId": userId,
-                    "bnkCode": bnkSelected,
-                    "holder": holderVal,
-                    "is_authed": "1" //여기 어떻게 해야할지 논의!!! + acc_stus 도 필요없는듯
-                }
+                delete accInfo.birth;
+                accInfo.userId = userId;
 
                 let ajaxTo;
 
@@ -216,6 +225,7 @@
             holder.val("");
             account.val("");
             accOriPwd.val("");
+            accMsg.html("");
             accPwdMsg.html("");
             checkAllConfirmed = [false, false];
         })

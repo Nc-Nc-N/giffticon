@@ -200,6 +200,7 @@
                user.email,
                user.pwd,
                user.name,
+               user.role_code,
                user.tel_no,
                user.pnt,
                bnkT.acc,

@@ -6,6 +6,7 @@ import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.service.*;
 import com.ncncn.util.UserAuthCheckUtils;
+import javafx.animation.ScaleTransition;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @Log4j
@@ -41,7 +43,11 @@ public class UserInfoController {
         UserInfoDTO user = userService.getMyInfo(userId);
         List<CmmnCodeVO> bnkList = cmmnCodeService.getBankList();
 
-        log.info("map bnk:" + bnkList);
+        if(user.getPwd().equals("") || user.getPwd() == null){
+            model.addAttribute("pwdExist",false);
+        }else{
+            model.addAttribute("pwdExist",true);
+        }
 
         model.addAttribute("bnkList", bnkList);
         model.addAttribute("user", user);
@@ -59,11 +65,16 @@ public class UserInfoController {
         UserVO user = userService.readbyId(userId);
 
         //입력된 비밀번호가 db값과 일치여부 확인
-        if (UserAuthCheckUtils.userAuthCheck(checkuser.getEmail(), checkuser.getPwd(), user)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            if (UserAuthCheckUtils.userAuthCheck(checkuser.getEmail(), checkuser.getPwd(), user)) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }catch (NoSuchElementException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
+
     }
 
     @RequestMapping(value = "/userUpdate",

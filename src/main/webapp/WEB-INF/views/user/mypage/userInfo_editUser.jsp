@@ -17,6 +17,7 @@
     <h2>비밀번호 변경</h2>
 
     <div id="content">
+    <c:if test="${pwdExist == true}">
         <div class="info_section">
             <div>
                 <h3>현재 비밀번호</h3>
@@ -29,6 +30,7 @@
 
             </div>
         </div>
+    </c:if>
         <div class="info_section">
             <div>
                 <h3>새 비밀번호</h3>
@@ -64,6 +66,8 @@
 
     $(document).ready(function () {
 
+        let pwdExist = "<c:out value="${pwdExist}"/>";
+
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
@@ -84,6 +88,12 @@
         let originPwdMsg = $("#msg-originPwd");
         let newPwdMsg = $("#msg-newPwd");
         let confirmNewPwdMsg = $("#msg-confirmNewPwd");
+
+        if(pwdExist){
+            checkAllConfirmed[0] = true;
+            insertNewPwd.removeAttr("disabled");
+            console.log(checkAllConfirmed);
+        }
 
         //기존 비밀번호 인증
         btnOriginPwd.on("click", function (e) {
@@ -200,6 +210,7 @@
 
         //수정 확인 버튼 클릭
         $("#modifyMyInfo").on("click", function (e) {
+            console.log(checkAllConfirmed);
 
             //기존 비밀번호, 새 비밀번호, 새 비밀번호 확인 모두 true이면
             if (checkAllConfirmed[0] == true &&
