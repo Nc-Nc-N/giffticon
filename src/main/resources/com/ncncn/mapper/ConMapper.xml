@@ -4,6 +4,48 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ncncn.mapper.ConMapper">
 
+    <sql id="criteriaCon">
+        <trim prefix="and">
+            <if test="dateFrom != null and dateFrom != ''">
+                    chg_dt >= #{dateFrom}
+            </if>
+        </trim>
+
+        <trim prefix="and">
+            <if test="dateTo != null and dateTo != ''">
+                    adddate(#{dateTo}, interval 1 day) > chg_dt
+            </if>
+        </trim>
+
+        <trim prefix="and (" suffix=")" prefixOverrides="OR">
+            <foreach item="type" collection="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'A'.toString()">
+                            pnt_hist_code = '001'
+                        </when>
+                        <when test="type == 'W'.toString()">
+                            pnt_hist_code = '002'
+                        </when>
+                        <when test="type == 'B'.toString()">
+                            pnt_hist_code = '003'
+                        </when>
+                        <when test="type == 'S'.toString()">
+                            pnt_hist_code = '004'
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
+    <resultMap id="ConHist" type="java.util.HashMap">
+        <result property="codeName" column="code_name"/>
+        <result property="chgDt" column="chg_dt"/>
+        <result property="chgQuty" column="chg_quty"/>
+        <result property="balance" column="balance"/>
+    </resultMap>
+
     <insert id="accRegister">
         insert into bank_account
             value ( #{acc},
@@ -43,4 +85,24 @@
     <update id="updateUserCon">
         update user set pnt = #{balance}, up_date = now(), up_user = current_user() where id = #{userId}
     </update>
+
+    <select id="getConHistWithPaging" resultMap="ConHist">
+        select user_id, code_name, chg_dt, chg_quty, balance
+        from pnt_hist p
+        left outer join (select * from cmmn_code
+        where code_type='PNT_HIST') c
+        on p.pnt_hist_code = c.code
+        where user_id = #{userId}
+        <include refid="criteriaCon"></include>
+        order by chg_dt desc
+        LIMIT ${amount}
+        OFFSET ${(pageNum-1)*amount}
+    </select>
+
+    <select id="getConTotal" resultType="int">
+        select count(*)
+        from pnt_hist
+        where user_id = ${userId}
+        <include refid="criteriaCon"></include>
+    </select>
 </mapper>

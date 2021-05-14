@@ -2,11 +2,13 @@ package com.ncncn.service;
 
 import com.ncncn.domain.BankAccountVO;
 import com.ncncn.domain.PntHistVO;
+import com.ncncn.domain.pagination.MyPageCriteria;
 import com.ncncn.mapper.ConMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Log4j
@@ -70,5 +72,16 @@ public class ConServiceImpl implements ConService {
             log.info("사용자 보유 con 수정 실패");
             return false;
         }
+    }
+
+    @Override
+    public List<PntHistVO> getConHistWithPaging(int userId, MyPageCriteria cri){
+        return conMapper.getConHistWithPaging(userId, cri.getAmount(), cri.getPageNum(),
+                cri.getDateFrom(), cri.getDateTo(), cri.getType(), cri.getTypeArr());
+    }
+
+    @Override
+    public int getConTotal(int userId, MyPageCriteria cri) {
+        return conMapper.getConTotal(userId,cri.getDateFrom(), cri.getDateTo(), cri.getType(), cri.getTypeArr());
     }
 }
