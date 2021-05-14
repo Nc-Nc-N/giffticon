@@ -80,7 +80,7 @@
         let csrfTokenValue = "${_csrf.token}";
 
         let oriEmail = "<c:out value="${user.email}"/>";
-        <%--let birth = "<c:out value="${user.birth}"/>";--%>
+        let birth = "<c:out value="${user.birthDt}"/>";
 
         let bnkSelected;
 
@@ -162,7 +162,7 @@
                 bnkCode: bnkSelected,
                 holder: holderVal,
                 acc: accountVal,
-                birth: "930226"
+                birth: birth
             }
 
             //promise_ 토큰 획득 후 계좌실명조회

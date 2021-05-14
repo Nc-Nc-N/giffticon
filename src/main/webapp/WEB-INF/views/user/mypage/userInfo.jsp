@@ -23,6 +23,7 @@
                         <div class="user_info_column">
                             <div>Email</div>
                             <div>이름</div>
+                            <div>생년월일</div>
                             <div>전화번호</div>
                             <div>보유 포인트</div>
                         </div>
@@ -30,6 +31,7 @@
                         <div class="user_info_row">
                             <div><c:out value="${user.email}"/></div>
                             <div><c:out value="${user.name}"/></div>
+                            <div><c:out value="${user.birthDt}"/></div>
                             <div><c:out value="${user.telNo}"/></div>
                             <div><c:out value="${user.pnt}"/>p</div>
                         </div>

@@ -89,7 +89,7 @@
         let newPwdMsg = $("#msg-newPwd");
         let confirmNewPwdMsg = $("#msg-confirmNewPwd");
 
-        if(pwdExist){
+        if(!pwdExist){
             checkAllConfirmed[0] = true;
             insertNewPwd.removeAttr("disabled");
             console.log(checkAllConfirmed);
