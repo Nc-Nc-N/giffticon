@@ -75,6 +75,17 @@ button.active-prod-btn {
     background-color: rgb(233, 233, 233);
 }
 
+.img-btn {
+    height: 40px;
+    font-size: 16px;
+    text-decoration: underline;
+    border: none;
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .descn > textarea {
     height: 50px;
 }

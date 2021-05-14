@@ -144,5 +144,5 @@ buildNumber.properties
 .flattened-pom.xml
 
 applicationContext.xml
-
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,maven
+/src/main/java/com/ncncn/listener/DBConnection.java
