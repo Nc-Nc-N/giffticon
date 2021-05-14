@@ -33,8 +33,9 @@ public class UserMapperTest {
         UserVO user = new UserVO();
         user.setEmail("registerTest@test.com");
         user.setName("test");
+        user.setBirthDt("961016");
         user.setPwd("test1234");
-        user.setTelNo("010-1234-5678");
+        user.setTelNo("01012345678");
         user.setEmlAuthTkn("AAAAAAAA");
 
         int result = userMapper.insertUser(user);
@@ -45,6 +46,8 @@ public class UserMapperTest {
         assertEquals(user.getEmail(), findUser.getEmail());
         assertEquals(user.getPwd(), findUser.getPwd());
         assertEquals(user.getName(), findUser.getName());
+        assertEquals(user.getBirthDt(), findUser.getBirthDt());
+        assertEquals(user.getTelNo(), findUser.getTelNo());
 
         userMapper.deleteByEmail(user.getEmail());
     }

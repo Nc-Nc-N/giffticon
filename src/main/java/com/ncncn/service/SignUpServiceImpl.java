@@ -31,6 +31,9 @@ public class SignUpServiceImpl implements SignUpService {
 	}
 
 	public int register(UserVO userVO) throws Exception {
+		// 입력받은 생년월일 값이 없으면 null값 저장
+		if (userVO.getBirthDt().equals("")) userVO.setBirthDt(null);
+
 		checkValidateUser(userVO);
 
 		String encodedPwd = passwordEncoder.encode(userVO.getPwd());
@@ -65,6 +68,9 @@ public class SignUpServiceImpl implements SignUpService {
 		}
 		if (!UserValidator.checkName(userVO.getName())) {
 			throw new IllegalArgumentException("유효하지 않은 이름 형식입니다.");
+		}
+		if (!UserValidator.checkBirthDt(userVO.getBirthDt())) {
+			throw new IllegalArgumentException("유효하지 않은 생년월일 형식입니다.");
 		}
 		if (!UserValidator.checkTelNo(userVO.getTelNo())) {
 			throw new IllegalArgumentException("유효하지 않은 휴대폰 번호 형식입니다.");

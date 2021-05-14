@@ -55,8 +55,7 @@ img {
 }
 
 .element {
-    margin: auto;
-    margin-bottom: 30px;
+    margin: auto auto 30px;
     width: 90%;
     height: 100%;
     display: flex;
@@ -81,7 +80,7 @@ input {
 }
 
 .input001 {
-    border-bottom: 2px solid #e4e4e4;
+    border-bottom: 1.5px solid #e4e4e4;
     font-size: 16px;
 }
 
@@ -110,6 +109,7 @@ input {
 ::placeholder {
     color: silver;
     font-size: 15px;
+    font-weight: 400;
 }
 
 .btn-area {
@@ -184,8 +184,8 @@ input {
     float: right;
     text-decoration: none;
     color: rgb(81, 81, 81);
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 400;
 }
 
 #btn {
@@ -201,17 +201,10 @@ input {
     border: none;
     outline: none;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     color: white;
-    letter-spacing: 3px;
     cursor: pointer;
-}
-
-.btn001:hover {
-    background-color: white;
-    color: rgb(255, 88, 93);
-    border: 2px solid rgb(255, 88, 93);
 }
 
 @keyframes grdtn {

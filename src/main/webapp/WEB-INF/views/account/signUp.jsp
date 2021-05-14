@@ -88,6 +88,17 @@
             </div>
         </div>
         <div class="element">
+            <div class="label">생년월일</div>
+            <div class="input-div">
+                <input type="text" class="input001" name="birth" placeholder="생년(2자리)월일 (예: 210513)">
+                <div class="birth-msg input-msg"><i class="fas fa-exclamation-circle"></i>생년(2자리)월일 형식에 맞춰 입력해주세요.
+                </div>
+            </div>
+            <div class="btn-area">
+                &nbsp;
+            </div>
+        </div>
+        <div class="element">
             <div class="label">휴대폰<span class="red">*</span></div>
             <div class="input-div">
                 <input type="text" class="input001" name="telNo" placeholder="숫자만 입력해주세요.">
@@ -99,7 +110,17 @@
                 <button name="tel-auth-btn" class="btn-disabled btn002">휴대폰인증</button>
             </div>
         </div>
-
+        <!-- 휴대폰 인증코드 입력 -->
+        <div class="element">
+            <div class="label">&nbsp;</div>
+            <div class="input-div">
+                <input type="text" class="input001" name="telAuthTkn" placeholder="휴대폰 인증코드">
+                <div class="tel-auth-msg input-msg"><i class="fas fa-exclamation-circle"></i> 잘못된 인증코드입니다.</div>
+            </div>
+            <div class="btn-area">
+                &nbsp;
+            </div>
+        </div>
         <div class="element">
             <div id="validateMsg"></div>
         </div>
@@ -204,14 +225,18 @@
         let emlInput = $("input[name='email']");
         let emlValidMsg = $(".email-msg");
         let emlAuthBtn = $("button[name='email-auth-btn']");
+        let telAuthBtn = $("button[name='tel-auth-btn']");
 
         let emlAuthCode = '';           // 이메일 인증코드
+        let telAuthCode = '';
 
         let isRightEmail = false;       // 이메일 형식 일치 여부
         let isCertifiedEmail = false;   // 이메일 인증 진행 여부
+        let isCertifiedTel = false;     // 전화번호 인증 진행 여부
         let isRightPwd = false;         // 비밀번호 형식 일치 여부
         let isEqualPwd = false;         // 비밀번호와 비밀번호 확인 값 일치 여부
         let isRightName = false;        // 이름 형식 일치 여부
+        let isRightBirth = false;       // 생년월일 형식 일치 여부
         let isRightTelNo = false;       // 휴대전화 형식 일치 여부
         let isAllEssnChecked = false;   // 필수 약관동의 여부
 
@@ -243,6 +268,7 @@
                 return;
             }
             $(".email-exist-msg").css("display", "none");
+            emlCodeInput.val("");
 
             emlAuthBtn.attr("class", "btn-disabled btn002");
             alert("인증코드가 메일로 전송되었습니다. \n5분 이내에 도착하지 않는다면 다시 한 번 시도해주세요.");
@@ -259,8 +285,29 @@
             });
         });
 
-        let authCodeInput = $("input[name='emlAuthTkn']");
-        authCodeInput.on("propertychange change keyup paste input", function (e) {
+        telAuthBtn.on('click', function (e) {
+            e.preventDefault();
+
+            let telNo = telInput.val();
+
+            telAuthBtn.attr("class", "btn-disabled btn002");
+            telCodeInput.val("");
+            alert("인증코드가 문자로 전송되었습니다. \n5분 이내에 도착하지 않는다면 다시 한 번 시도해주세요.");
+
+            $.ajax({
+                type: 'get',
+                url: '/account/telNoConfirm?telNo=' + telNo,
+                success: function (result) {
+                    telAuthCode = result.code;   // 인증코드 메일 전송을 성공하면 해당 코드값을 받아옴
+                }, error: function (result) {
+                    $(this).attr("class", "btn002");
+                    alert("인증코드 전송에 실패했습니다. \n휴대폰번호 확인 후 다시 시도해주세요.");
+                }
+            });
+        });
+
+        let emlCodeInput = $("input[name='emlAuthTkn']");
+        emlCodeInput.on("propertychange change keyup paste input", function (e) {
             if (emlAuthCode === $(this).val()) {        // 입력 값과 인증코드가 같으면
                 $(".auth-msg").css("display", "none");  // 안내 메세지 hide
                 isCertifiedEmail = true;                // 이메일 인증여부 true
@@ -268,6 +315,17 @@
             }
             $(".auth-msg").css("display", "block");     // 안내 메세지 show
             isCertifiedEmail = false;                   // 이메일 인증여부 false
+        });
+
+        let telCodeInput = $("input[name='telAuthTkn']");
+        telCodeInput.on("propertychange change keyup paste input", function (e) {
+            if (telAuthCode === $(this).val()) {            // 입력 값과 인증코드가 같으면
+                $(".tel-auth-msg").css("display", "none");  // 안내 메세지 hide
+                isCertifiedTel = true;                      // 휴대폰 인증여부 true
+                return;
+            }
+            $(".tel-auth-msg").css("display", "block");     // 안내 메세지 show
+            isCertifiedTel = false;                         // 휴대폰 인증여부 false
         });
 
         let pwdInput = $("input[name='pwd']");
@@ -307,18 +365,35 @@
             isRightName = false;
         });
 
+        let birthInput = $("input[name='birth']");
+        birthInput.on("focusout", function (e) {
+            let birth = $(this).val().replace(/[^0-9]/g, '').substring(0, 6);
+            $(this).val(birth);
+
+            if (checkBirth($(this).val())) {
+                $(".birth-msg").css("display", "none");
+                isRightBirth = true;
+                return;
+            }
+            $(".birth-msg").css("display", "block");
+            isRightBirth = false;
+        });
+
         // 전화번호 유효성 검사과정
         let telInput = $("input[name='telNo']");
         telInput.on("propertychange change keyup paste input", function (e) {
+            isCertifiedTel = false;
             let tel = $(this).val().replace(/[^0-9]/g, '').substring(0, 11);
             $(this).val(tel);
 
             if (checkTelNo(tel)) {
                 $(".tel-msg").css("display", "none");
+                telAuthBtn.attr("class", "btn002");             // 휴대폰 인증버튼 활성화
                 isRightTelNo = true;
                 return;
             }
             $(".tel-msg").css("display", "block");
+            telAuthBtn.attr("class", "btn-disabled btn002");    // 인증버튼 비활성화
             isRightTelNo = false;
         });
 
@@ -360,18 +435,25 @@
         // 가입하기
         $('button[type="submit"]').on('click', function (e) {
             e.preventDefault();
+
+
             let email = $('input[name="email"]').val();
             let pwd = $('input[name="pwd"]').val();
             let name = $('input[name="name"]').val();
+            let birth = $('input[name="birth"]').val();
             let telNo = $('input[name="telNo"]').val();
+
+            console.log("birth: " + birth);
 
             if (printValidateMsg(!isCertifiedEmail, "이메일 인증을 진행해주세요.")) return;
             if (printValidateMsg(!isRightEmail, "이메일 형식을 확인해주세요.")) return;
             if (printValidateMsg(!isRightPwd, "비밀번호를 조건에 맞게 입력해주세요.")) return;
             if (printValidateMsg(!isEqualPwd, "비밀번호가 일치하지 않습니다.")) return;
             if (printValidateMsg(!isRightName, "이름을 다시 입력해주세요.")) return;
+            if (printValidateMsg(!isRightBirth, "생년월일을 형식에 맞게 입력하거나,<br>등록을 원하지 않으면 입력 값을 비워주세요.")) return;
             if (printValidateMsg(!isRightTelNo, "휴대폰 번호를 알맞게 입력해주세요.")) return;
             if (printValidateMsg(!isAllEssnChecked, "필수 약관 동의가 필요합니다.")) return;
+
 
             // 모두 만족시 가입진행
             $.ajax({
@@ -381,6 +463,7 @@
                     email: email,
                     pwd: pwd,
                     name: name,
+                    birthDt: birth,
                     telNo: telNo,
                     emlAuthTkn: emlAuthCode
                 }),
@@ -452,6 +535,10 @@
     // 잔화번호 유효성 검사 -> 11자리의 숫자로만 이루어진 문자인지 확인
     function checkTelNo(telNo) {
         return telNo.match(/^[0-9]{11}$/);
+    }
+
+    function checkBirth(birth) {
+        return birth.match(/^[0-9]{6}$/) || birth === '';
     }
 
 </script>
