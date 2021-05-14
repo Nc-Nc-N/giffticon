@@ -76,7 +76,7 @@
         </div>
     </div>
 <div class="modalOn modal_userInfo">
-    <jsp:include page="userInfo_editUser.jsp"/>
+    <jsp:include page="userInfo_editPwd.jsp"/>
 </div>
 <div class="modalOn modal_telNo">
     <jsp:include page="userInfo_editTelNo.jsp"/>
