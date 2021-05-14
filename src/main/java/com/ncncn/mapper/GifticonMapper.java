@@ -6,6 +6,7 @@ import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProdListVO;
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
+import com.ncncn.domain.pagination.SaleGftCriteria;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
 import org.apache.ibatis.annotations.Param;
 
@@ -81,5 +82,13 @@ public interface GifticonMapper {
 
 	// 어제 업로드된 바코드 이미지 파일 목록
 	public List<BarcodeInfoVO> getYesterdayBarcodeImageInfo();
+
+	List<Map<String, Object>> getAllSaleGifticon(SaleGftCriteria cri);
+
+	Map<String, Object> getSaleGifticon(int gftId);
+
+	int countAllSaleGft(SaleGftCriteria cri);
+
+	int updateSaleGftStus(@Param("id") int id, @Param("stus") String stus);
 
 }

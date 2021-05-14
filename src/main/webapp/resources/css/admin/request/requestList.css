@@ -81,7 +81,13 @@ button.active-prod-btn {
     text-decoration: underline;
     border: none;
     outline: none;
-    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.descn > textarea {
+    height: 50px;
 }
 
 .loading-delete {

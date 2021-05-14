@@ -54,6 +54,29 @@
     border-bottom: 1px solid rgb(233, 233, 233)
 }
 
+.text-input {
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid rgb(188, 188, 188);
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.descn {
+    padding: 5px;
+}
+
+.descn > textarea {
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: scroll;
+    overflow-x: hidden;
+    width: 465px;
+    height: 80px;
+    font-size: 14px;
+}
+
 .detail-btn-area {
     width: 60%;
     margin: 0 auto;
@@ -72,4 +95,17 @@
     width: 120px;
     height: 120px;
     border: 1px solid rgb(188, 188, 188);
+}
+
+.img-btn {
+    height: 40px;
+    font-size: 16px;
+    text-decoration: underline;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-disabled {
+    background-color: rgb(233, 233, 233);
 }
