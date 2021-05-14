@@ -61,7 +61,7 @@ public class UserServiceTests {
 
     @Test
     public void testUpdateMemo() {
-        UserMemoVO memo = new UserMemoVO();
+        UserVO memo = new UserVO();
         memo.setId(152);
         memo.setMemo("Memo update test123");
 
@@ -74,7 +74,7 @@ public class UserServiceTests {
 
     @Test
     public void testUpdateStatus() {
-        UserStatusVO stus = new UserStatusVO();
+        UserVO stus = new UserVO();
         stus.setId(152);
         stus.setEnabled(0);
 
@@ -84,7 +84,7 @@ public class UserServiceTests {
 
     @Test
     public void testUpdateStatus2() {
-        UserStatusVO stus = new UserStatusVO();
+        UserVO stus = new UserVO();
         stus.setId(152);
         stus.setEnabled(1);
 

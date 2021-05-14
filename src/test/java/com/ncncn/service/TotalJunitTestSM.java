@@ -244,7 +244,7 @@ public class TotalJunitTestSM {
     @Test
     public void UserCheckTest3(){
 
-        UserMemoVO memo = new UserMemoVO();
+        UserVO memo = new UserVO();
         memo.setMemo("테스트용 메모입니다 유저에 메모 삽입 (user객체 에 update문 안쓰고 따로 메모 DTO 를 만드신건가요???)- SM");
         memo.setId(156);
 
@@ -258,7 +258,7 @@ public class TotalJunitTestSM {
     @Test
     public void UserCheckTest4(){
 
-        UserStatusVO userStus = new UserStatusVO();
+        UserVO userStus = new UserVO();
 
         userStus.setEnabled('2');
         userStus.setId(44);

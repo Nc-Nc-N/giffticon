@@ -78,7 +78,7 @@ public class UserCheckController {
     @PostMapping("/update-memo")
     public String updateMemo(HttpServletRequest request) {
         log.info("memo changed..................");
-        UserMemoVO updateMemo = new UserMemoVO();
+        UserVO updateMemo = new UserVO();
 
         // request.getParameter가 반환하는 문자열 값을 int로 변환해줌
         updateMemo.setId(Integer.parseInt(request.getParameter("id")));
@@ -93,7 +93,7 @@ public class UserCheckController {
     @PostMapping("/update-status")
     public String updateStatus(HttpServletRequest request) {
         log.info("status changed................");
-        UserStatusVO updateStat = new UserStatusVO();
+        UserVO updateStat = new UserVO();
 
         updateStat.setId(Integer.parseInt(request.getParameter("id")));
 
