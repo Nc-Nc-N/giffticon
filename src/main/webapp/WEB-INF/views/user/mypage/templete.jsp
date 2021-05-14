@@ -170,6 +170,7 @@
         $(".curentPnt").on("click", function(e) {
 
             absSearch.attr("action", "/user/mypage/myCon").attr("method","get");
+            absSearch.find("input[name='amount']").val("10");
 
             absSearch.submit();
         })

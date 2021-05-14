@@ -46,7 +46,7 @@
 
             <div class="search-area">
                 <select class="search-select" name="type">
-                    <option value="ALL">
+                    <option value="">
                             전체
                     </option>
                     <option value="A"
@@ -190,7 +190,7 @@
             let dateFrom = $("#dateFrom").val();
             let dateTo = $("#dateTo").val();
 
-            if (!calendarCheck(dateFrom, dateTo)) {
+            if (dateFrom ==="" || dateTo===""){
                 alert("날짜 선택이 올바르지 않습니다.");
                 e.preventDefault();
             } else {
@@ -205,17 +205,17 @@
             $("#dateFrom").datepicker({
                 dateFormat: 'yy-mm-dd',
                 maxDate:0,
-                onClose:function (){
-                    $("#dateTo").datepicker({
-                        dateFormat: 'yy-mm-dd',
-
-                    })
+                onClose:function (selectedDate){
+                    $("#dateTo").datepicker("option", "minDate", selectedDate);
                 }
             });
 
             $("#dateTo").datepicker({
                 dateFormat: 'yy-mm-dd',
-                maxDate:0
+                maxDate:0,
+                onClose: function (selectedDate){
+                    $("#dateFrom").datepicker("option", "maxDate", selectedDate);
+                }
             });
 
         });
