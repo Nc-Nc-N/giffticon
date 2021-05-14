@@ -33,4 +33,6 @@ public class UserDetailCheckVO {
 
     private int pqustCount;
 
+    private Date quitHist;
+
 }

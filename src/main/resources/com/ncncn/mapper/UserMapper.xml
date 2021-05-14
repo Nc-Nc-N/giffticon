@@ -141,7 +141,8 @@
                detail.paysum,
                pqust.pqust_count,
                u.enabled,
-               u.memo
+               u.memo,
+               qhist.in_date as quit_hist
         from user u
                  left outer join
              bank_account b on u.id = b.user_id
@@ -173,6 +174,17 @@
               from cs_psnl_qust
               group by user_id
              ) AS pqust on u.id = pqust.user_id
+
+                 left outer join
+             (select user_id, in_date
+              from user_stat_hist
+              where id IN
+                    (select max(id)
+                     from user_stat_hist
+                     where enabled=0
+                     group by user_id
+                    )
+             ) AS qhist on u.id = qhist.user_id
 
         where u.id = #{userId}
         ]]>
