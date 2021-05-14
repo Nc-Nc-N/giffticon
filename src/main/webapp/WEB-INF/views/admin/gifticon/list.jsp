@@ -14,9 +14,9 @@
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/admin/request/requestList.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/list.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/modal.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/gifticon/gifticonList.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/admin/request/requestDetail.css" type="text/css">
 
 <h1>기프티콘관리</h1>
 
@@ -69,13 +69,13 @@
 <!-- search area end -->
 
 <!-- request list -->
-<div id="rqust-div">
-    <table id="rqust-tb">
+<div id="list-div">
+    <table id="list-tb">
         <thead>
         <tr>
             <td class="w125">기프티콘 이미지</td>
             <td class="w45">No.</td>
-            <td class="w200">상품</td>
+            <td class="w125">상품</td>
             <td class="w100">바코드 번호</td>
             <td class="w100">유효기간</td>
             <td class="w125">판매자</td>
@@ -85,9 +85,9 @@
         </thead>
         <tbody>
         <c:forEach var="gft" items="${gftList}" varStatus="status">
-            <tr class="rqust-tr">
+            <tr class="list-tr">
                 <td>
-                    <div class="rqust-img"><img src="<c:out value='${gft.imgPath}'/>"></div>
+                    <div class="list-img"><img src="<c:out value='${gft.imgPath}'/>"></div>
                 </td>
                 <td>
                     <div><c:out value="${gft.gftId}"/></div>
@@ -152,10 +152,10 @@
 
 <div class="modal detail">
     <!-- detail modal -->
-    <div id="detail-modal">
+    <div class="detail-modal">
         <h2>기프티콘상세</h2>
 
-        <table id="rq-td">
+        <table>
             <tr class="under-line">
                 <td class="td-title">
                     <div>기프티콘번호</div>
@@ -253,7 +253,7 @@
             </tr>
         </table>
 
-        <div id="rq-btn-area">
+        <div class="detail-btn-area">
             <button class="btn btn-disabled cancel">취소</button>
         </div>
     </div>
@@ -294,7 +294,7 @@
         });
 
         // modal에 값을 추가하기 위한 변수
-        let modal = $("#detail-modal");
+        let modal = $(".detail-modal");
         let modalgftId = modal.find(".gftId");
         let modalCate = modal.find(".cate");
         let modalProdName = modal.find(".prodName");
@@ -309,8 +309,6 @@
         let modalImgBtn = modal.find(".img-btn");
         let modalStus = modal.find(".stus-select");
         // 모달에 포함된 버튼
-        let aprvBtn = modal.find(".rq-aprv");
-        let deleteBtn = modal.find(".rq-delete");
         let cancleBtn = modal.find(".cancel");
         // 취소버튼 클릭시 모달 숨김
         cancleBtn.on("click", function (e) {
@@ -385,9 +383,13 @@
                             data: stus,
                             success: function (result) {
                                 alert("기프티콘 상태 수정에 성공했습니다.");
+                                let pageNum = parseInt("${pageMaker.cri.pageNum}");
+                                hideModal();
+                                submitAction(searchForm, pageNum);
                             },
                             error: function (result) {
                                 alert("기프티콘 상태 수정에 실패했습니다. 새로고침 후 다시 시도해주세요.\n문제가 반복되면 담당자에게 문의해주세요.");
+                                $(this).find("option[name='" + pre + "']").prop("selected", "true");
                             }
                         });
                     } else {
@@ -409,15 +411,7 @@
             $(".detail").css("visibility", "hidden");
             $('html').css("overflow", "visible");
             // 기존 이벤트를 삭제
-            aprvBtn.off();
-            deleteBtn.off();
             modalStus.off();
-        }
-
-        function getRealEnd(t, a) {
-            let total = parseInt(t) - 1;
-            let amount = parseInt(a);
-            return parseInt(Math.ceil((total * 1.0) / amount));
         }
     });
 </script>

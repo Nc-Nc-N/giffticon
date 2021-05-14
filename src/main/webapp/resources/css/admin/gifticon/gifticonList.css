@@ -49,3 +49,13 @@
 .main-footer {
     justify-content: flex-end;
 }
+
+.prc-td {
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.prc-td > input {
+    margin: auto 0;
+}

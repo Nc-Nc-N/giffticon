@@ -422,6 +422,6 @@
     </select>
 
     <update id="updateSaleGftStus">
-        update gifticon set gft_stus_code = #{stus} where id = #{id}
+        update gifticon set gft_stus_code = #{stus}, up_user = current_user, up_date = now() where id = #{id}
     </update>
 </mapper>

@@ -226,7 +226,9 @@
             <tr class="under-line">
                 <td class="td-title">판매자메모</td>
                 <td colspan="5">
-                    <div class="td-cntnt descn"></div>
+                    <div class="td-cntnt text-input descn">
+                        <textarea name="descn" readonly></textarea>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -390,14 +392,14 @@
             });
 
             // 모달에 기프티콘 정보를 출력
-            modal.find(".gftId").text(rqust.gftId);                    // 요청번호
-            modal.find(".requester").text(rqust.requester);            // 판매자 이메일
-            modalDcPrc.text(rqust.dcPrc + "  원");           // 판매가
-            modalProdPrc.text(rqust.prodPrc + "  원  ")      // 정가, 할인율
+            modal.find(".gftId").text(rqust.gftId);                              // 요청번호
+            modal.find(".requester").text(rqust.requester);                      // 판매자 이메일
+            modalDcPrc.text(rqust.dcPrc + "  원");                               // 판매가
+            modalProdPrc.text(rqust.prodPrc + "  원  ")                          // 정가, 할인율
                 .append("<span class='rq-rate'>" + parseInt(rqust.dcRate * 100) + "%</span>");
-            modal.find(".expirDt").text(rqust.expirDt + " 까지");      // 유효기간
-            modal.find(".brcd").text(rqust.brcd);                      // 바코드번호
-            modal.find(".descn").text(rqust.descn);                    // 판매자 메모
+            modal.find(".expirDt").text(rqust.expirDt + " 까지");                // 유효기간
+            modal.find(".brcd").text(rqust.brcd);                                // 바코드번호
+            modal.find("textarea[name='descn']").val(rqust.descn);               // 판매자 메모
 
             // 추천가격을 선택한 경우 남은 유효기간에 따라 가격변경
             if (rqust.isAutoPrc === '1') {
