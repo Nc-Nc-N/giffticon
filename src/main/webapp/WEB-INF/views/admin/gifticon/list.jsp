@@ -282,7 +282,7 @@
         });
 
         // 검색
-        let searchForm = $("#search-form");
+        let searchForm = $("#s-form");
         $("#search-form button").on("click", function (e) {
             e.preventDefault();
             submitAction(searchForm, "1");
@@ -382,10 +382,10 @@
                             },
                             data: stus,
                             success: function (result) {
-                                alert("기프티콘 상태 수정에 성공했습니다.");
-                                let pageNum = parseInt("${pageMaker.cri.pageNum}");
                                 hideModal();
+                                let pageNum = parseInt("${pageMaker.cri.pageNum}");
                                 submitAction(searchForm, pageNum);
+                                alert("기프티콘 상태 수정에 성공했습니다.");
                             },
                             error: function (result) {
                                 alert("기프티콘 상태 수정에 실패했습니다. 새로고침 후 다시 시도해주세요.\n문제가 반복되면 담당자에게 문의해주세요.");
