@@ -84,8 +84,11 @@ public class UserCheckController {
         updateMemo.setId(Integer.parseInt(request.getParameter("id")));
         updateMemo.setMemo(request.getParameter("memo"));
 
-        userService.updateMemo(updateMemo);
-
+        try {
+            userService.updateMemo(updateMemo);
+        } catch (Exception e) {
+            log.warn("회원 메모 변경 과정에서 오류가 발생했습니다.");
+        }
         return "redirect:/admin/user/user-detail?userId=" + updateMemo.getId();
     }
 
@@ -104,7 +107,12 @@ public class UserCheckController {
             updateStat.setEnabled(0);
         }
 
-        userService.updateStatus(updateStat);
+        try {
+            userService.updateStatus(updateStat);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.warn("회원 상태 변경 과정에서 오류가 발생했습니다.");
+        }
 
         return "redirect:/admin/user/user-detail?userId=" + updateStat.getId();
     }
