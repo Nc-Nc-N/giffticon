@@ -64,9 +64,9 @@
     <!-- search area end -->
     <div id="checkbox-container">
         <input type="checkbox" id="k1" name="deposit"
-        <c:out value="${pageMaker.cri.deposit eq 'on'?'checked=\"checked\"':''}"/>>입금
+        <c:out value="${pageMaker.cri.deposit eq 'on'?'checked=\"checked\"':''}"/>>충전
         <input type="checkbox" id="k2" name="withdraw"
-        <c:out value="${pageMaker.cri.withdraw eq 'on'?'checked=\"checked\"':''}"/>>출금
+        <c:out value="${pageMaker.cri.withdraw eq 'on'?'checked=\"checked\"':''}"/>>인출
         <input type="checkbox" id="k3" name="buy"
         <c:out value="${pageMaker.cri.buy eq 'on'?'checked=\"checked\"':''}"/>>구매
         <input type="checkbox" id="k4" name="sell"

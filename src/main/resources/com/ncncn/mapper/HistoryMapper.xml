@@ -153,10 +153,10 @@
 
                 <trim prefix="AND (" prefixOverrides="OR" suffix=")">
                         <if test="deposit == 'on'.toString()">
-                            OR code_name="입금"
+                            OR code_name="충전"
                         </if>
                         <if test="withdraw == 'on'.toString()">
-                            OR code_name="출금"
+                            OR code_name="인출"
                         </if>
                         <if test="buy == 'on'.toString()">
                             OR code_name="구매"

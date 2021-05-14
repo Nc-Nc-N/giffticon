@@ -50,10 +50,10 @@
                             전체
                     </option>
                     <option value="A"
-                            <c:out value="${pageMaker.cri.type eq 'A' ? 'selected' : ''}"/>> 입금
+                            <c:out value="${pageMaker.cri.type eq 'A' ? 'selected' : ''}"/>> 충전
                     </option>
                     <option value="W"
-                            <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : ''}"/>> 출금
+                            <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : ''}"/>> 인출
                     </option>
                     <option value="B"
                             <c:out value="${pageMaker.cri.type eq 'B' ? 'selected' : ''}"/>> 구매
@@ -190,7 +190,7 @@
             let dateFrom = $("#dateFrom").val();
             let dateTo = $("#dateTo").val();
 
-            if (dateFrom ==="" || dateTo===""){
+            if ((dateFrom !=="" && dateTo==="")||(dateFrom ==="" && dateTo !=="")){
                 alert("날짜 선택이 올바르지 않습니다.");
                 e.preventDefault();
             } else {
