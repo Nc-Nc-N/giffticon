@@ -147,11 +147,13 @@ function loginWithKakao() {
                 url: '/v2/user/me',
                 success: function (response) {
 
+                    let name = response.kakao_account.profile.nickname;
                     let email = response.kakao_account.email;
-
+                    console.log("result : " + name + email);
                     let soclUserInfo = {
                         email: email,
-                        soclTypeCode: '001',
+                        name: name,
+                        soclTypeCode: soclType,
                         tknType: authObj.token_type,
                         accesTkn: authObj.access_token,
                         accesTknExpirIn: authObj.expires_in,
@@ -159,7 +161,7 @@ function loginWithKakao() {
                         rfrshTknExpirIn: authObj.refresh_token_expires_in
                     }
 
-                    socialLogin(email, soclType, soclUserInfo);
+                    socialLogin(email, soclUserInfo);
                 },
                 fail: function (error) {
                     console.log("error: " + error);
@@ -207,10 +209,10 @@ function attachSignin(element) {
             //카카오 / 네이버에서 token 사용자 식별번호 설정 되면 id_tkn 비교로 바꾸기
             let soclUserInfo = {
                 email: email,
-                soclTypeCode: '001'
+                soclTypeCode: soclType
             }
 
-            socialLogin(email, soclType, soclUserInfo);
+            socialLogin(email, soclUserInfo);
 
         }, function (error) {
             alert(JSON.stringify(error, undefined, 2));

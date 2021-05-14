@@ -2,6 +2,7 @@ package com.ncncn.mapper;
 
 import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProdListVO;
+import com.ncncn.domain.pagination.SaleGftCriteria;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;

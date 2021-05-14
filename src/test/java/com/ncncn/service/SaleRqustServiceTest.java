@@ -28,7 +28,7 @@ public class SaleRqustServiceTest {
 	private ProductMapper productMapper;
 
 	@InjectMocks
-	private SaleRqustServiceImpl saleRqustService;
+	private GftManagingServiceImpl saleRqustService;
 
 	@Test
 	public void getAllRqustSuccessTest() {
