@@ -55,10 +55,15 @@
     border-radius: 5px;
 }
 
-.user_info_btn > button:hover {
+.btn-active:hover {
     background-color: white;
     color:rgb(255,88,93);
     border: 1px solid rgb(255,88,93);
+}
+
+.btn-disabled{
+    cursor: not-allowed;
+    font-weight: bold;
 }
 
 .modalOn{
