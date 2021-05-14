@@ -62,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public String register(ProdRegisterDTO product) {
+		mapper.insert(product);
 		return product.getCode();
 	}
 

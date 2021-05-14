@@ -89,7 +89,7 @@
                     </div>
                 </td>
                 <td>
-                    <div><c:out value="${rqust.brcd}"/></div>
+                    <div class="ellipsis"><c:out value="${rqust.brcd}"/></div>
                 </td>
                 <td>
                     <div>&#126;&nbsp;<fmt:formatDate value="${rqust.expirDt}" pattern="yyyy-MM-dd"/></div>
