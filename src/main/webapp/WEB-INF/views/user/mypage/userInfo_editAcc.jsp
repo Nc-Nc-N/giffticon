@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_user.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_editPwd.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_account.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -68,20 +68,21 @@
 </div>
 </body>
 </html>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script type="text/javascript" src="/resources/js/banking/openBanking.js"></script>
 <script type="text/javascript">
+
+    var checkAllConfirmed = [false, false];
+
     $(document).ready(function () {
 
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
         let oriEmail = "<c:out value="${user.email}"/>";
-        let bnkSelected;
+        let birth = "<c:out value="${user.birthDt}"/>";
 
-        //selectBox의 은행명 가져오기
-        $("#acc-bankSelect").change(function () {
-            bnkSelected = $(this).val();
-        })
+        let bnkSelected;
 
         let holder = $(".acc-holder");
         let account = $(".acc-account");
@@ -93,21 +94,37 @@
         let accPwdConfirm = $("#btn-accPwdConfirm");
         let accOriPwd = $(".acc-originPwd");
         let accPwdMsg = $("#msg-accPwd");
+        let accMsg = $("#msg-accConfirm");
 
-        let checkAllConfirmed = [false, true]; // 계좌 인증 완료 후 기본값 false로 변경해야함
+        let accInfo = {};
+
+        //selectBox의 은행명 가져오기
+        $("#acc-bankSelect").change(function () {
+            checkAllConfirmed[1] = false;
+            accMsg.html("");
+            bnkSelected = $(this).val();
+        })
+
+        holder.keyup(function(e){
+            checkAllConfirmed[1] = false;
+            accMsg.html("");
+        })
+
+        account.keyup(function(e){
+            checkAllConfirmed[1] = false;
+            accMsg.html("");
+        })
 
         //기존 비밀번호 인증
         accPwdConfirm.on("click", function (e) {
 
-            var msg = "";
+            let msg = "";
             let oriPwdVal = accOriPwd.val();
 
             let checkUser = {
                 email: oriEmail,
                 pwd: oriPwdVal
             }
-
-            accPwdMsg.html("");
 
             $.ajax({
                 url: '/user/mypage/checkPassword',
@@ -118,49 +135,53 @@
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
                 success: function () {
-                    msg += "<i class='far fa-check-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 일치합니다.</p>";
-                    accPwdMsg.html(msg);
-
+                    msg = "비밀번호가 일치합니다.";
+                    checkIsCorrect(accPwdMsg, msg, true, 0);
                     accOriPwd.attr("readonly", true);
-                    checkAllConfirmed[0] = true;
                 },
-                error: function () {
-                    msg += "<i class='fas fa-exclamation-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 다릅니다.</p>";
-                    accPwdMsg.html(msg);
+                error: function (error) {
 
-                    checkAllConfirmed[0] = false;
+                    if(error.status == 406){
+                        msg = "최초비밀번호를 등록 후 인증해주세요";
+                    }else {
+                        msg = "비밀번호가 다릅니다";
+                    }
+                    checkIsCorrect(accPwdMsg, msg, false, 0);
                 }
             })
         })
 
-        //계좌 인증 버튼 작업 넣기
-        $("#btn-accPwdConfirm").on("click", function () {
+        //계좌 인증 버튼
+        $("#btn-accConfirm").on("click", function () {
 
             let holderVal = holder.val();
             let accountVal = account.val();
 
-            //해당 정보로 api를 통한 계좌실명확인절차 밟기
-            //return 값 - 실제 있는 holder, account, 은행명, 인증여부, 인증시각
+            //실명조회할 계좌 정보
+            accInfo = {
+                bnkCode: bnkSelected,
+                holder: holderVal,
+                acc: accountVal,
+                birth: birth
+            }
+
+            //promise_ 토큰 획득 후 계좌실명조회
+            getBankingAccTkn()
+                .then((accTkn) => inqRealNameBnkAcc(accTkn, accInfo))
+                .then((msg) => checkIsCorrect(accMsg, msg, true, 1))
+                .catch((error) => checkIsCorrect(accMsg, error, false, 1))
+
         })
+
 
         $("#modifyAcc").on("click", function () {
 
             let originAcc = "<c:out value="${user.acc}"/>";
 
-            let holderVal = holder.val();
-            let accountVal = account.val();
-
             if (checkAllConfirmed[0] == true && checkAllConfirmed[1] == true) {
 
-                let accInfo = {
-                    "acc": accountVal,
-                    "userId": userId,
-                    "bnkCode": bnkSelected,
-                    "holder": holderVal,
-                    "is_authed": "1" //여기 어떻게 해야할지 논의!!! + acc_stus 도 필요없는듯
-                }
+                delete accInfo.birth;
+                accInfo.userId = userId;
 
                 let ajaxTo;
 
@@ -168,17 +189,10 @@
 
                 //최초 계좌 등록인 경우
                 if (originAcc == null || originAcc == "") {
-
-                    if (!confirm("계좌를 등록하시겠습니까?")) {
-                        return;
-                    }
+                    if (!confirm("계좌를 등록하시겠습니까?")) { return; }
                     ajaxTo = '/user/mypage/accRegister'
-
                 } else { //계좌 수정의 경우
-
-                    if (!confirm("등록계좌를 수정하시겠습니까? 기존 등록된 계좌는 삭제됩니다.")) {
-                        return;
-                    }
+                    if (!confirm("등록계좌를 수정하시겠습니까? 기존 등록된 계좌는 삭제됩니다.")) { return; }
                     ajaxTo = '/user/mypage/accUpdate'
                 }
 
@@ -211,8 +225,26 @@
             holder.val("");
             account.val("");
             accOriPwd.val("");
+            accMsg.html("");
             accPwdMsg.html("");
-            checkAllConfirmed = [false,false];
+            checkAllConfirmed = [false, false];
         })
     })
+</script>
+<script>
+    function checkIsCorrect(div, msg, isTrue, i) {
+
+        let str = "";
+        checkAllConfirmed[i] = isTrue
+
+        if (isTrue) {
+            str += "<i class='far fa-check-circle'></i>";
+
+        } else {
+            str += "<i class='fas fa-exclamation-circle'></i>";
+        }
+
+        str += "<p>&nbsp;" + msg + "</p>";
+        div.html(str);
+    }
 </script>

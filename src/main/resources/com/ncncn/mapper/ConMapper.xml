@@ -10,7 +10,7 @@
             #{userId},
             #{bnkCode},
             #{holder},
-            #{isAuthed},
+            "1",
             now(),
             "001",
             now(),
@@ -26,7 +26,6 @@
             holder = #{holder},
             auth_dt = now(),
             up_date = now(),
-            is_authed = #{isAuthed},
             up_user = current_user()
         where user_id = #{userId}
     </update>
