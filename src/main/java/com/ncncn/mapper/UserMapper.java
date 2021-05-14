@@ -38,6 +38,8 @@ public interface UserMapper {
 
     void updateStatus(UserVO status);
 
+    void recordUserStatHistChange(UserVO status);
+
     UserInfoDTO getMyInfo(int userId);
 
     int updatePwd(@Param("pwd") String pwd,

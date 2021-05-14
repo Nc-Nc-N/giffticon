@@ -181,7 +181,7 @@
     <update id="updateMemo">
         update user
         set memo=#{memo},
-            up_date=current_time,
+            up_date=now(),
             up_user=current_user
         where id = #{id}
     </update>
@@ -189,10 +189,15 @@
     <update id="updateStatus">
         update user
         set enabled=#{enabled},
-            up_date=current_time,
+            up_date=now(),
             up_user=current_user
         where id = #{id}
     </update>
+
+    <insert id="recordUserStatHistChange">
+        insert into user_stat_hist
+        values(default, #{id}, #{enabled}, default, current_user, default, current_user)
+    </insert>
 
     <select id="getMyInfo" resultType="com.ncncn.domain.UserInfoDTO">
         <![CDATA[

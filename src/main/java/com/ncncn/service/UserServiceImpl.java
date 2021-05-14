@@ -91,6 +91,9 @@ public class UserServiceImpl implements UserService {
 
         log.info("update User Status " + status);
         userMapper.updateStatus(status);
+
+        log.info("record User Status change history");
+        userMapper.recordUserStatHistChange(status);
     }
 
     @Override
