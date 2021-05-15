@@ -35,4 +35,6 @@ public interface UserService {
 
     public boolean updateNameAndBirthDt(int userId, UserVO userVO);
 
+    public boolean updateTelNo(int userId, String telNo);
+
 }

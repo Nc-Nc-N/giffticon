@@ -42,6 +42,9 @@
                 </div>
                 <button class="btn btn-submit" id="btn-confirmOriginPwd-telno">인증</button>
             </div>
+            <div class="message" id="msg-tel-confirmPwd">
+
+            </div>
         </div>
 
     </div>
@@ -57,6 +60,8 @@
 <script>
     $(document).ready(function () {
 
+        let oriEmail = "<c:out value="${user.email}"/>";
+
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
@@ -64,12 +69,13 @@
         let btnOriginPwd = $("#btn-confirmOriginPwd-telno");
 
 
-        let insertOriginPwd = $("#originPwd-telno");
+        let inputPwd = $(".originPwd-telno");
         let inputTelNo = $(".input_telNo");
         let inputCode = $(".input_code");
 
-        let originPwdMsg = $("#msg-originPwd-telno");
+        let msgPwd = $("#msg-tel-confirmPwd");
 
+        let checkAllConfimedForTelNo = [false,false];
 
         //sms 인증 버튼 -- 전화인증 완료 후 code 추가 예정
         btnConfimTelNo.on("click",function(e){
@@ -85,13 +91,12 @@
             }
 
             //sms 보내기 ajax
-            $.ajax({
-
-            })
 
             //타이핑한 인증코드값
             let code = inputCode.val();
             console.log("code : " + code);
+
+            checkAllConfimedForTelNo[0] = true;
 
         })
 
@@ -99,14 +104,14 @@
         btnOriginPwd.on("click", function (e) {
 
             var msg = "";
-            let oriPwdVal = insertOriginPwd.val();
+            let pwdVal = inputPwd.val();
 
             let checkUser = {
                 email: oriEmail,
-                pwd: oriPwdVal
+                pwd: pwdVal
             }
 
-            originPwdMsg.html("");
+            msgPwd.html("");
 
             $.ajax({
                 url: '/user/mypage/checkPassword',
@@ -118,21 +123,52 @@
                 },
                 success: function () {
 
-                    msg += "<i class='far fa-check-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 일치합니다.</p>";
-                    originPwdMsg.html(msg);
+                    msg += "비밀번호가 일치합니다.";
+                    checkIsCorrect(msgPwd,msg,true)
+                    checkAllConfimedForTelNo[1] = true
 
                 },
                 error: function () {
 
-                    msg += "<i class='fas fa-exclamation-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 다릅니다.</p>";
-                    originPwdMsg.html(msg);
+                    msg += "비밀번호가 다릅니다.";
+                    checkIsCorrect(msgPwd,msg,false)
+                    checkAllConfimedForTelNo[1] = false
 
                 }
 
             })
 
+        })
+
+        $("#modifyMyInfo-telno").on("click", function(){
+
+            console.log(checkAllConfimedForTelNo);
+
+            let telNo = inputTelNo.val();
+
+            if(checkAllConfimedForTelNo[0] == true && checkAllConfimedForTelNo[1] == true) {
+
+                console.log("send telNo: " + telNo);
+
+                $.ajax({
+                    url: '/user/mypage/updateTelNo/' + telNo,
+                    type: 'patch',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                    },
+                    success: function () {
+                        alert("전화번호가 변경되었습니다.");
+                        window.location.reload();
+                    },
+                    error: function (error) {
+                        alert("수정불가, 관리자에게 문의하세요.");
+                        return;
+                    }
+                })
+            }else{
+                alert("인증을 완료해주세요.");
+                return;
+            }
         })
     })
 </script>

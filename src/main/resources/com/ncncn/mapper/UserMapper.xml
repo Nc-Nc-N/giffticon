@@ -229,7 +229,15 @@
     </update>
 
     <update id="updateNameAndBirthDt">
-        update user set name = #{name}, birth_dt = #{birthDt}
+        update user
+        set name     = #{name},
+            birth_dt = #{birthDt}
+        where id = #{userId}
+    </update>
+
+    <update id="updateTelNo">
+        update user
+        set tel_no = #{telNo}
         where id = #{userId}
     </update>
 
