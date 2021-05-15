@@ -19,26 +19,19 @@
 
         <div class="info_section">
             <div>
-                <h3>이름</h3>
-                <div class="input_text">
-                    <input type="text" class="name" value="<c:out value="${user.name}"/>">
-                </div>
-            </div>
-            <div class="message" id="msg-name">
-
-            </div>
-
-        </div>
-
-        <div class="info_section">
-            <div>
                 <h3>전화번호</h3>
                 <div class="input_text">
-                    <input type="text" class="telNo" value="<c:out value="${user.telNo}"/>">
+                    <input type="text" class="input_telNo" placeholder="<c:out value="${user.telNo}"/>">
                 </div>
-                <button class="btn btn-submit" id="confirmTelNo">인증</button>
+                <button class="btn btn-submit" id="btn-confirmTelNo">인증</button>
             </div>
-            <div class="message"><h5>인증 완료</h5></div>
+            <div class="verifyCode">
+                <div class="code_section">
+                    <span>인증코드 : </span>
+                    <input type="text" class="input_code"placeholder="">
+                </div>
+                <span class="msg_code_verify">인증완료</span>
+            </div>
         </div>
 
         <div class="info_section">
@@ -48,9 +41,6 @@
                     <input type="password" class="originPwd-telno" placeholder="기존 비밀번호를 입력해주세요">
                 </div>
                 <button class="btn btn-submit" id="btn-confirmOriginPwd-telno">인증</button>
-            </div>
-            <div class="message" id="msg-originPwd-telno">
-
             </div>
         </div>
 
@@ -70,38 +60,41 @@
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
-        let oriEmail = "<c:out value="${user.email}"/>";
-        let oriName = "<c:out value="${user.name}"/>";
-        let oriTelNo = "<c:out value="${user.telNo}"/>";
-
+        let btnConfimTelNo = $("#btn-confirmTelNo");
         let btnOriginPwd = $("#btn-confirmOriginPwd-telno");
 
-        let newName = $(".name");
-        let newNameMsg = $("#msg-name");
 
-        let insertOriginPwd = $(".originPwd-telno");
+        let insertOriginPwd = $("#originPwd-telno");
+        let inputTelNo = $(".input_telNo");
+        let inputCode = $(".input_code");
+
         let originPwdMsg = $("#msg-originPwd-telno");
 
-        //이름 변경시 메세지 출력 및 확인
-        newName.keyup(function (e) {
 
-            let newNameVal = newName.val();
-            let msg = "";
+        //sms 인증 버튼 -- 전화인증 완료 후 code 추가 예정
+        btnConfimTelNo.on("click",function(e){
 
-            let checkCondition = false;
+            //전화번호 input
+            let telNo = inputTelNo.val();
+            console.log("telNo: " + telNo);
 
-            checkCondition = nameChecker(newNameVal);
-
-            if (!checkCondition) {
-                msg += "<i class='fas fa-exclamation-circle'></i>";
-                msg += "<p>&nbsp;이름이 올바르지 않습니다.</p>";
-                newNameMsg.html(msg);
-
-            } else {
-                newNameMsg.html("");
-
+            //전화번호 유효성 검사
+            if(!checkTelNo(telNo)){
+                alert("유효한 전화번호가 아닙니다.");
+                return;
             }
+
+            //sms 보내기 ajax
+            $.ajax({
+
+            })
+
+            //타이핑한 인증코드값
+            let code = inputCode.val();
+            console.log("code : " + code);
+
         })
+
 
         btnOriginPwd.on("click", function (e) {
 
@@ -142,4 +135,9 @@
 
         })
     })
+</script>
+<script>
+    function checkTelNo(telNo) {
+        return telNo.match(/^[0-9]{11}$/);
+    }
 </script>
