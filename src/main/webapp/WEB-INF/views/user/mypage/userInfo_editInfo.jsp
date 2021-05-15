@@ -33,7 +33,8 @@
             <div>
                 <h3>생년월일</h3>
                 <div class="input_text">
-                    <input type="text" class="info_newBirthDt" id="datepicker" readonly="readonly" placeholder="<c:out value="${user.birthDt}"/>">
+                    <input type="text" class="info_newBirthDt" id="datepicker" readonly="readonly"
+                           placeholder="<c:out value="${user.birthDt}"/>">
                 </div>
             </div>
             <div class="message" id="msg-info_validateBirthDt">
@@ -77,7 +78,7 @@
         yearRange: 'c-100:c+100',
         minDate: '-100y',
         maxDate: '0',
-        dateFormat:'yy/mm/dd'
+        dateFormat: 'yy/mm/dd'
     });
 
 
@@ -100,30 +101,32 @@
 
         let nameMsg = $("#msg-info_validateName");
         let pwdMsg = $("#msg-info_confirmPwd");
-        let birthDtMsg = $("#msg-info_validateBirthDt");
 
+        //생년월일 출력 포맷에 변경 후 placeholder에 출력
         let birthDt = "<c:out value="${user.birthDt}"/>";
-        birthDt = birthDt.slice(0,4)+"/"+birthDt.slice(4,6)+"/"+birthDt.slice(6,birthDt.length);
-        newBirthDt.attr("placeholder",birthDt);
+        birthDt = birthDt.slice(0, 4) + "/" + birthDt.slice(4, 6) + "/" + birthDt.slice(6, birthDt.length);
+        newBirthDt.attr("placeholder", birthDt);
 
-        let checkPwdForEditInfo = [false,false];
+        //checklist
+        let checkPwdForEditInfo = [false, false];
 
-        newName.on("keyup", function(){
+        //이름 유효성 검사
+        newName.on("keyup", function () {
             let msg = "";
 
-           if(nameChecker($(this).val())){
-               msg += "사용가능한 이름입니다.";
-               checkIsCorrect(nameMsg,msg,true);
-               checkPwdForEditInfo[0] = true;
-           }else{
-               msg += "올바르지 않은 이름입니다.";
-               checkIsCorrect(nameMsg,msg,false);
-               checkPwdForEditInfo[0] = false;
-           }
+            if (nameChecker($(this).val())) {
+                msg += "사용가능한 이름입니다.";
+                checkIsCorrect(nameMsg, msg, true);
+                checkPwdForEditInfo[0] = true;
+            } else {
+                msg += "올바르지 않은 이름입니다.";
+                checkIsCorrect(nameMsg, msg, false);
+                checkPwdForEditInfo[0] = false;
+            }
 
-           if($(this).val()==""){
-               nameMsg.html("");
-           }
+            if ($(this).val() == "") {
+                nameMsg.html("");
+            }
         })
 
         //기존 비밀번호 인증
@@ -150,7 +153,7 @@
                 success: function () {
 
                     msg += "비밀번호가 일치합니다.";
-                    checkIsCorrect(pwdMsg,msg,true);
+                    checkIsCorrect(pwdMsg, msg, true);
 
                     //기존 비밀번호 인증 시 새로운 비밀번호 입력 가능, 인증 된 비밀번호는 수정 불가
                     insertPwd.attr("readonly", true);
@@ -160,7 +163,7 @@
                 error: function () {
 
                     msg += "비밀번호가 다릅니다.";
-                    checkIsCorrect(pwdMsg,msg,false);
+                    checkIsCorrect(pwdMsg, msg, false);
                     checkPwdForEditInfo[1] = false;
 
                 }
@@ -172,7 +175,7 @@
         //수정 확인 버튼 클릭
         $("#btn_info_register").on("click", function (e) {
 
-            if(newName.val() == "" && newBirthDt.val() == ""){
+            if (newName.val() == "" && newBirthDt.val() == "") {
                 alert("수정 정보를 입력해주세요");
                 return;
             }
@@ -188,7 +191,7 @@
                 //입력된 생일 저장형식에 맞게 변경
                 let birthArray = newBirthDt.val().split("/");
                 let birthDt = "";
-                for(let i=0; i<birthArray.length; i++){
+                for (let i = 0; i < birthArray.length; i++) {
                     birthDt += birthArray[i];
                 }
 
@@ -227,6 +230,15 @@
         //취소 버튼 클릭 시 모든 입력값 초기화
         $('#btn_info_cancel').on("click", function (e) {
 
+            checkPwdForEditInfo = [false, false];
+            newName.val("");
+            newBirthDt.val("");
+            insertPwd.val("");
+
+            nameMsg.html("");
+            pwdMsg.html("");
+
+            insertPwd.attr("readonly", false);
 
         })
 

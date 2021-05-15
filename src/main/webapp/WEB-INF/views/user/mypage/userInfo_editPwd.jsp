@@ -14,23 +14,26 @@
 
 <body>
 <div id="register-content">
-    <h2>비밀번호 변경</h2>
+    <h2>비밀번호
+        <c:if test="${pwdExist == true}"> 수정</c:if>
+        <c:if test="${pwdExist == false}"> 등록</c:if>
+    </h2>
 
     <div id="content">
-    <c:if test="${pwdExist == true}">
-        <div class="info_section">
-            <div>
-                <h3>현재 비밀번호</h3>
-                <div class="input_text">
-                    <input type="password" class="originPwd" placeholder="기존 비밀번호를 입력해주세요">
+        <c:if test="${pwdExist == true}">
+            <div class="info_section">
+                <div>
+                    <h3>현재 비밀번호</h3>
+                    <div class="input_text">
+                        <input type="password" class="originPwd" placeholder="기존 비밀번호를 입력해주세요">
+                    </div>
+                    <button class="btn btn-submit" id="btn-confirmOriginPwd">인증</button>
                 </div>
-                <button class="btn btn-submit" id="btn-confirmOriginPwd">인증</button>
-            </div>
-            <div class="message" id="msg-originPwd">
+                <div class="message" id="msg-originPwd">
 
+                </div>
             </div>
-        </div>
-    </c:if>
+        </c:if>
         <div class="info_section">
             <div>
                 <h3>새 비밀번호</h3>
@@ -74,7 +77,7 @@
         let oriEmail = "<c:out value="${user.email}"/>";
 
         //[기존비밀번호, 새 비밀번호, 새 비밀번호 확인] 모두 true 가 되어야 수정 가능
-        let checkAllConfirmed = [false, false, false];
+        let checkAllConfirmedforPwd = [false, false, false];
 
         //기존 비밀번호 확인 버튼
         let btnOriginPwd = $("#btn-confirmOriginPwd");
@@ -89,10 +92,10 @@
         let newPwdMsg = $("#msg-newPwd");
         let confirmNewPwdMsg = $("#msg-confirmNewPwd");
 
-        if(!pwdExist){
-            checkAllConfirmed[0] = true;
+        //비밀번호 최초 등록의 경우 기존 비밀번호 인증 생략
+        if (!pwdExist) {
+            checkAllConfirmedforPwd[0] = true;
             insertNewPwd.removeAttr("disabled");
-            console.log(checkAllConfirmed);
         }
 
         //기존 비밀번호 인증
@@ -118,23 +121,21 @@
                 },
                 success: function () {
 
-                    msg += "<i class='far fa-check-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 일치합니다.</p>";
-                    originPwdMsg.html(msg);
+                    msg += "비밀번호가 일치합니다.";
+                    checkIsCorrect(originPwdMsg, msg, true);
+                    checkAllConfirmedforPwd[0] = true;
 
                     //기존 비밀번호 인증 시 새로운 비밀번호 입력 가능, 인증 된 비밀번호는 수정 불가
                     insertOriginPwd.attr("readonly", true);
                     insertNewPwd.removeAttr("disabled");
 
-                    checkAllConfirmed[0] = true;
+
                 },
                 error: function () {
 
-                    msg += "<i class='fas fa-exclamation-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 다릅니다.</p>";
-                    originPwdMsg.html(msg);
-
-                    checkAllConfirmed[0] = false;
+                    msg += "비밀번호가 다릅니다.";
+                    checkIsCorrect(originPwdMsg, msg, false);
+                    checkAllConfirmedforPwd[0] = false;
                 }
 
             })
@@ -144,7 +145,7 @@
         //새로운 비밀번호 변경 시 메세지 출력 및 확인
         insertNewPwd.keyup(function (e) {
 
-            checkAllConfirmed[2] = false;
+            checkAllConfirmedforPwd[2] = false;
 
             let newPwdVal = insertNewPwd.val();
             let oriPwdVal = insertOriginPwd.val();
@@ -162,26 +163,22 @@
                 //비밀번호 양식 일치 여부 확인
                 if (!checkCondition) {
 
-                    msg += "<i class='fas fa-exclamation-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호 조건을 확인하세요</p>";
-                    newPwdMsg.html(msg);
-
-                    checkAllConfirmed[1] = false;
+                    msg += "비밀번호 조건을 확인하세요";
+                    checkIsCorrect(newPwdMsg, msg, false);
+                    checkAllConfirmedforPwd[1] = false;
                 } else {
 
                     //새로운 비밀번호가 양식에 맞으면 새로운 비밀번호 재입력 가능
                     newPwdMsg.html("");
                     confirmNewPwd.removeAttr("disabled");
 
-                    checkAllConfirmed[1] = true;
+                    checkAllConfirmedforPwd[1] = true;
                 }
             } else {
 
-                msg += "<i class='fas fa-exclamation-circle'></i>";
-                msg += "<p>&nbsp;기존과 다른 비밀번호로 설정해주세요.</p>";
-                newPwdMsg.html(msg);
-
-                checkAllConfirmed[1] = false;
+                msg += "기존과 다른 비밀번호로 설정해주세요.";
+                checkIsCorrect(newPwdMsg, msg, false)
+                checkAllConfirmedforPwd[1] = false;
             }
 
         })
@@ -199,23 +196,23 @@
                 msg += "<p>&nbsp;비밀번호가 일치하지 않습니다.</p>";
                 confirmNewPwdMsg.html(msg);
 
-                checkAllConfirmed[2] = false;
+                checkAllConfirmedforPwd[2] = false;
             } else {
 
                 confirmNewPwdMsg.html("");
 
-                checkAllConfirmed[2] = true;
+                checkAllConfirmedforPwd[2] = true;
             }
         })
 
         //수정 확인 버튼 클릭
         $("#modifyMyInfo").on("click", function (e) {
-            console.log(checkAllConfirmed);
+            console.log(checkAllConfirmedforPwd);
 
             //기존 비밀번호, 새 비밀번호, 새 비밀번호 확인 모두 true이면
-            if (checkAllConfirmed[0] == true &&
-                checkAllConfirmed[1] == true &&
-                checkAllConfirmed[2] == true) {
+            if (checkAllConfirmedforPwd[0] == true &&
+                checkAllConfirmedforPwd[1] == true &&
+                checkAllConfirmedforPwd[2] == true) {
 
                 //바꾸기 전에 한번 물어보자
                 if (!confirm("비밀번호를 변경하시겠습니까?")) {
@@ -266,7 +263,7 @@
             insertNewPwd.attr("disabled", true);
             confirmNewPwd.attr("disabled", true);
 
-            checkAllConfirmed = [false, false, false];
+            checkAllConfirmedforPwd = [false, false, false];
 
         })
 
