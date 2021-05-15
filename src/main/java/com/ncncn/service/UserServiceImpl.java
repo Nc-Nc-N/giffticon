@@ -172,14 +172,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateNameAndBirthDt(int userId, UserVO userVO){
-
-
+    public boolean updateNameAndBirthDt(int userId, UserVO userVO) {
+        
         int isUpdated = userMapper.updateNameAndBirthDt(userId, userVO.getName(), userVO.getBirthDt());
-        log.info("isUpdated: " + isUpdated);
-        if(isUpdated == 1){
+
+        if (isUpdated == 1) {
             return true;
-        }else{
+        } else {
             throw new IllegalArgumentException("변경오류입니다. 관리자에게 문의하세요.");
         }
 

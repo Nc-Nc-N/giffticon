@@ -78,7 +78,22 @@
     background-color: rgba(10,10,10,0.5);
 }
 
-.modal_editPwd, .modal_accInfo, .modal_telNo, .modal_editInfo{
+.modal_editPwd, .modal_accInfo, .modal_telNo, .modal_editInfo, .modal_alert{
     visibility: hidden;
 }
+
+.alertMsg{
+    position: absolute;
+    top: 40%;
+    width: 500px;
+    height: 100px;
+    background-color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
