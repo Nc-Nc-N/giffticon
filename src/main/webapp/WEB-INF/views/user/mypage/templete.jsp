@@ -50,9 +50,9 @@
                             <div>1:1 문의</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
-                    <a href="/user/mypage/addCon">
+                    <a href="/user/mypage/myCon">
                         <div class="bar">
-                            <div>콘 충전</div>
+                            <div>마이 콘</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
                     <a href="/user/mypage/wishList">
@@ -118,7 +118,6 @@
                 $("#stus001").html(result[1]);
                 $("#stus002").html(result[2]);
                 $("#userPnt").html(result[3]);
-                $("#now_con")
             },
             error: function(){
                 alert("요약 창 정보 불러오기에 실패했습니다.");
@@ -166,6 +165,16 @@
 
             absSearch.submit();
         })
+
+        //요약 - 보유콘 바로가기
+        $(".curentPnt").on("click", function(e) {
+
+            absSearch.attr("action", "/user/mypage/myCon").attr("method","get");
+            absSearch.find("input[name='amount']").val("10");
+
+            absSearch.submit();
+        })
+
         
     })
 </script>

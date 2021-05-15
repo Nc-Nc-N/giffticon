@@ -11,7 +11,7 @@
 }
 
 .item_brdNname {
-    width: 300px;
+    width: 200px;
     height: 80px;
     display: flex;
     flex-direction: column;
@@ -67,7 +67,7 @@
 .itemprice{
     align-items: flex-end;
     justify-content: center;
-    padding-right: 5%;
+    margin: 0 5%;
 }
 
 .itemprice > span{
@@ -90,7 +90,6 @@
     float: none;
     width: 60px;
     height: 29px;
-    margin: 0 auto;
     line-height: 27px;
     border: 1px solid gray;
     background-color: #fff;
