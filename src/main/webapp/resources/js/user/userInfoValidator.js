@@ -52,18 +52,22 @@ function nameChecker(newName){
     return checkAllconditions;
 }
 
-function checkIsCorrect(div, msg, isTrue, checkList) {
 
-    let str = "";
-    checkList = isTrue
+function checkIsCorrect(div, msg, isTrue) {
 
-    if (isTrue) {
+    return new Promise(function(resolve,reject){
+        let str = "";
+
+        if (isTrue) {
         str += "<i class='far fa-check-circle'></i>";
 
-    } else {
+        } else {
         str += "<i class='fas fa-exclamation-circle'></i>";
-    }
+        }
 
-    str += "<p>&nbsp;" + msg + "</p>";
-    div.html(str);
+        str += "<p>&nbsp;" + msg + "</p>";
+        div.html(str);
+
+        resolve();
+    })
 }

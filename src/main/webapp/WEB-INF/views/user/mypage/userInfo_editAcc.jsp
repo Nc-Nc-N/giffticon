@@ -73,7 +73,7 @@
 <script type="text/javascript" src="/resources/js/banking/openBanking.js"></script>
 <script type="text/javascript">
 
-    var checkAllConfirmed = [false, false];
+    var checkAllConfirmedForAcc = [false, false];
 
     $(document).ready(function () {
 
@@ -101,18 +101,18 @@
 
         //selectBox의 은행명 가져오기
         $("#acc-bankSelect").change(function () {
-            checkAllConfirmed[1] = false;
+            checkAllConfirmedForAcc[1] = false;
             accMsg.html("");
             bnkSelected = $(this).val();
         })
 
         holder.keyup(function(e){
-            checkAllConfirmed[1] = false;
+            checkAllConfirmedForAcc[1] = false;
             accMsg.html("");
         })
 
         account.keyup(function(e){
-            checkAllConfirmed[1] = false;
+            checkAllConfirmedForAcc[1] = false;
             accMsg.html("");
         })
 
@@ -137,7 +137,9 @@
                 },
                 success: function () {
                     msg = "비밀번호가 일치합니다.";
-                    checkIsCorrect(accPwdMsg, msg, true, checkAllConfirmed[0]);
+                    checkIsCorrect(accPwdMsg, msg, true)
+                    checkAllConfirmedForAcc[0] = true;
+                    console.log(checkAllConfirmedForAcc);
                     accOriPwd.attr("readonly", true);
                 },
                 error: function (error) {
@@ -146,7 +148,9 @@
                     }else {
                         msg = "비밀번호가 다릅니다";
                     }
-                    checkIsCorrect(accPwdMsg, msg, false, checkAllConfirmed[0]);
+                    checkIsCorrect(accPwdMsg, msg, false)
+                    checkAllConfirmedForAcc[0] = false;
+                    console.log(checkAllConfirmedForAcc);
                 }
             })
         })
@@ -162,23 +166,25 @@
                 bnkCode: bnkSelected,
                 holder: holderVal,
                 acc: accountVal,
-                birth: birth
+                birth: birth.slice(2,birth.length)
             }
 
             //promise_ 토큰 획득 후 계좌실명조회
             getBankingAccTkn()
                 .then((accTkn) => inqRealNameBnkAcc(accTkn, accInfo))
-                .then((msg) => checkIsCorrect(accMsg, msg, true, checkAllConfirmed[1]))
-                .catch((error) => checkIsCorrect(accMsg, error, false, checkAllConfirmed[1]))
+                .then((msg) => checkIsCorrect(accMsg, msg, true)
+                    .then(checkAllConfirmedForAcc[1] = true))
+                .catch((error) => checkIsCorrect(accMsg, error, false)
+                    .then(checkAllConfirmedForAcc[1] = false))
 
         })
 
 
         $("#modifyAcc").on("click", function () {
-
+            console.log(checkAllConfirmedForAcc);
             let originAcc = "<c:out value="${user.acc}"/>";
 
-            if (checkAllConfirmed[0] == true && checkAllConfirmed[1] == true) {
+            if (checkAllConfirmedForAcc[0] == true && checkAllConfirmedForAcc[1] == true) {
 
                 delete accInfo.birth;
                 accInfo.userId = userId;
@@ -228,7 +234,7 @@
             accMsg.html("");
             accPwdMsg.html("");
             accOriPwd.attr("readonly", false);
-            checkAllConfirmed = [false, false];
+            checkAllConfirmedForAcc = [false, false];
         })
     })
 </script>

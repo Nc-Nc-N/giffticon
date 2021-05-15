@@ -149,9 +149,8 @@
                 },
                 success: function () {
 
-                    msg += "<i class='far fa-check-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 일치합니다.</p>";
-                    pwdMsg.html(msg);
+                    msg += "비밀번호가 일치합니다.";
+                    checkIsCorrect(pwdMsg,msg,true);
 
                     //기존 비밀번호 인증 시 새로운 비밀번호 입력 가능, 인증 된 비밀번호는 수정 불가
                     insertPwd.attr("readonly", true);
@@ -160,9 +159,8 @@
                 },
                 error: function () {
 
-                    msg += "<i class='fas fa-exclamation-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 다릅니다.</p>";
-                    pwdMsg.html(msg);
+                    msg += "비밀번호가 다릅니다.";
+                    checkIsCorrect(pwdMsg,msg,false);
                     checkPwdForEditInfo[1] = false;
 
                 }
