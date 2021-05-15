@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateNameAndBirthDt(int userId, UserVO userVO) {
-        
+
         int isUpdated = userMapper.updateNameAndBirthDt(userId, userVO.getName(), userVO.getBirthDt());
 
         if (isUpdated == 1) {

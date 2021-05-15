@@ -69,8 +69,8 @@
 
     $(document).ready(function () {
 
-        let pwdExist = "<c:out value="${pwdExist}"/>";
-
+        let pwdExist = <c:out value="${pwdExist}"/>;
+        console.log("pwdExist:" + pwdExist);
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
@@ -96,6 +96,7 @@
         if (!pwdExist) {
             checkAllConfirmedforPwd[0] = true;
             insertNewPwd.removeAttr("disabled");
+            console.log("pwdExist disabled");
         }
 
         //기존 비밀번호 인증
@@ -232,7 +233,7 @@
 
                         alert("비밀번호가 변경되었습니다.");
                         //모달 닫고 input 정보 지우기
-                        $('#cancelMyInfo').trigger("click");
+                        window.location.reload();
 
                     },
                     error: function () {
@@ -264,6 +265,11 @@
             confirmNewPwd.attr("disabled", true);
 
             checkAllConfirmedforPwd = [false, false, false];
+
+            if(!pwdExist){
+                checkAllConfirmedforPwd[0] = true;
+                insertNewPwd.removeAttr("disabled");
+            }
 
         })
 
