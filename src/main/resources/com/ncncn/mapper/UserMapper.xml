@@ -228,4 +228,9 @@
           and id = #{userId}
     </update>
 
+    <update id="updateNameAndBirthDt">
+        update user set name = #{name}, birth_dt = #{birthDt}
+        where id = #{userId}
+    </update>
+
 </mapper>

@@ -123,4 +123,21 @@ public class UserInfoController {
         }
     }
 
+    @RequestMapping(value="/updateInfo",
+            consumes = "application/json",
+            method=RequestMethod.POST)
+    public ResponseEntity<String> infoUpdate(HttpServletRequest request,
+                         @RequestBody UserVO updateInfo){
+
+        log.info("received:" +updateInfo);
+        int userId = (int)request.getSession().getAttribute("userId");
+
+        try{
+            userService.updateNameAndBirthDt(userId, updateInfo);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

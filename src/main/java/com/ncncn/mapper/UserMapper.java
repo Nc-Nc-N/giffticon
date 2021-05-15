@@ -45,5 +45,9 @@ public interface UserMapper {
     int updatePwd(@Param("pwd") String pwd,
                   @Param("email") String email,
                   @Param("userId") int userId);
+
+    int updateNameAndBirthDt(@Param("userId") int userId,
+                             @Param("name") String name,
+                             @Param("birthDt") String birthDt);
 }
 

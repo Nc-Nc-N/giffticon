@@ -78,7 +78,7 @@
     background-color: rgba(10,10,10,0.5);
 }
 
-.modal_userInfo, .modal_accInfo, .modal_telNo{
+.modal_editPwd, .modal_accInfo, .modal_telNo, .modal_editInfo{
     visibility: hidden;
 }
 

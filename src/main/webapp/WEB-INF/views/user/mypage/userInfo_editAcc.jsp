@@ -69,6 +69,7 @@
 </body>
 </html>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script type="text/javascript" src="/resources/js/user/userInfoValidator.js"></script>
 <script type="text/javascript" src="/resources/js/banking/openBanking.js"></script>
 <script type="text/javascript">
 
@@ -136,17 +137,16 @@
                 },
                 success: function () {
                     msg = "비밀번호가 일치합니다.";
-                    checkIsCorrect(accPwdMsg, msg, true, 0);
+                    checkIsCorrect(accPwdMsg, msg, true, checkAllConfirmed[0]);
                     accOriPwd.attr("readonly", true);
                 },
                 error: function (error) {
-
                     if(error.status == 406){
                         msg = "최초비밀번호를 등록 후 인증해주세요";
                     }else {
                         msg = "비밀번호가 다릅니다";
                     }
-                    checkIsCorrect(accPwdMsg, msg, false, 0);
+                    checkIsCorrect(accPwdMsg, msg, false, checkAllConfirmed[0]);
                 }
             })
         })
@@ -168,8 +168,8 @@
             //promise_ 토큰 획득 후 계좌실명조회
             getBankingAccTkn()
                 .then((accTkn) => inqRealNameBnkAcc(accTkn, accInfo))
-                .then((msg) => checkIsCorrect(accMsg, msg, true, 1))
-                .catch((error) => checkIsCorrect(accMsg, error, false, 1))
+                .then((msg) => checkIsCorrect(accMsg, msg, true, checkAllConfirmed[1]))
+                .catch((error) => checkIsCorrect(accMsg, error, false, checkAllConfirmed[1]))
 
         })
 
@@ -227,24 +227,8 @@
             accOriPwd.val("");
             accMsg.html("");
             accPwdMsg.html("");
+            accOriPwd.attr("readonly", false);
             checkAllConfirmed = [false, false];
         })
     })
-</script>
-<script>
-    function checkIsCorrect(div, msg, isTrue, i) {
-
-        let str = "";
-        checkAllConfirmed[i] = isTrue
-
-        if (isTrue) {
-            str += "<i class='far fa-check-circle'></i>";
-
-        } else {
-            str += "<i class='fas fa-exclamation-circle'></i>";
-        }
-
-        str += "<p>&nbsp;" + msg + "</p>";
-        div.html(str);
-    }
 </script>
