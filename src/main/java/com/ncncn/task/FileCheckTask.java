@@ -47,13 +47,13 @@ public class FileCheckTask {
             // 어제 등록된 기프티콘 이미지 목록
             List<BarcodeInfoVO> fileList = gifticonMapper.getYesterdayBarcodeImageInfo();
             List<Path> fileListPaths = fileList.stream().
-                    map(vo -> Paths.get("/Users/asdddq/Desktop/MyFolder/TeamProject/Git0418/giffticon/src/main/webapp/resources/img/barcode",
+                    map(vo -> Paths.get("/Users/asdddq/upload/barcode",
                             vo.getUploadPath(), vo.getUuid() + "_" + vo.getFileName())).collect(Collectors.toList());
 
 
             // thumbnail
             fileList.stream()
-                    .map(vo -> Paths.get("/Users/asdddq/Desktop/MyFolder/TeamProject/Git0418/giffticon/src/main/webapp/resources/img/barcode",
+                    .map(vo -> Paths.get("/Users/asdddq/upload/barcode",
                             vo.getUploadPath(), "s_" + vo.getUuid() + "_" + vo.getFileName())).collect(Collectors.toList());
 
             log.warn("===========================================================");
@@ -61,7 +61,7 @@ public class FileCheckTask {
             fileListPaths.forEach(p -> log.warn(p));
 
             //  files in yesterday directory
-            File targetDir = Paths.get("/Users/asdddq/Desktop/MyFolder/TeamProject/Git0418/giffticon/src/main/webapp/resources/img/barcode",
+            File targetDir = Paths.get("/Users/asdddq/upload/barcode",
                     getFolderYesterDay()).toFile();
 
             File[] removeFiles = targetDir.listFiles(file -> fileListPaths.contains(file.toPath()) == false);
