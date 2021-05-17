@@ -511,6 +511,8 @@
             deleteProdInfo();
             // 중분류 클릭시 할인율 초기화
             dcRateIndicatorClean();
+        } else {
+            return;
         }
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
@@ -582,6 +584,8 @@
             priceChoiceButtonClean();
             // 할인율 표시 초기화
             dcRateIndicatorClean();
+        } else {
+            return;
         }
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
