@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="/resources/css/login/signUp.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 <div class="container">
@@ -90,7 +92,7 @@
         <div class="element">
             <div class="label">생년월일</div>
             <div class="input-div">
-                <input type="text" class="input001" name="birth" placeholder="생년(2자리)월일 (예: 210513)">
+                <input type="text" id="datepicker" class="input001" name="birth" placeholder="YYYYMMDD" readonly>
                 <div class="birth-msg input-msg"><i class="fas fa-exclamation-circle"></i>생년(2자리)월일 형식에 맞춰 입력해주세요.
                 </div>
             </div>
@@ -219,6 +221,14 @@
 
 <script>
     $(document).ready(function (e) {
+        $("#datepicker").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            yearRange: 'c-100:c+100',
+            minDate: '-100y',
+            maxDate: '0'
+        });
+
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
@@ -367,8 +377,9 @@
 
         let birthInput = $("input[name='birth']");
         birthInput.on("focusout", function (e) {
-            let birth = $(this).val().replace(/[^0-9]/g, '').substring(0, 6);
-            $(this).val(birth);
+            console.log($(this).val());
+            // let birth = $(this).val().replace(/[^0-9]/g, '').substring(0, 6);
+            // $(this).val(birth);
 
             if (checkBirth($(this).val())) {
                 $(".birth-msg").css("display", "none");
@@ -436,7 +447,6 @@
         $('button[type="submit"]').on('click', function (e) {
             e.preventDefault();
 
-
             let email = $('input[name="email"]').val();
             let pwd = $('input[name="pwd"]').val();
             let name = $('input[name="name"]').val();
@@ -452,8 +462,8 @@
             if (printValidateMsg(!isRightName, "이름을 다시 입력해주세요.")) return;
             if (printValidateMsg(!isRightBirth, "생년월일을 형식에 맞게 입력하거나,<br>등록을 원하지 않으면 입력 값을 비워주세요.")) return;
             if (printValidateMsg(!isRightTelNo, "휴대폰 번호를 알맞게 입력해주세요.")) return;
+            if (printValidateMsg(!isCertifiedTel, "휴대폰 인증을 진행해주세요.")) return;
             if (printValidateMsg(!isAllEssnChecked, "필수 약관 동의가 필요합니다.")) return;
-
 
             // 모두 만족시 가입진행
             $.ajax({

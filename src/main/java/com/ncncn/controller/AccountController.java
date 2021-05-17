@@ -168,4 +168,15 @@ public class AccountController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@GetMapping("/findPwd")
+	public void findPwd() {}
+
+//	@PatchMapping(value = "/account/sendTemporaryPwd", consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<Map<String, String>> sendTemporaryPwd(String email) {
+//		Map<String, String> map = new HashMap<>();
+//
+//		String tmprPwd;
+//	}
+
 }
