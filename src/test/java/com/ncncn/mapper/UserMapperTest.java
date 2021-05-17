@@ -159,7 +159,7 @@ public class UserMapperTest {
 
         int userId=152;
         String memo="Memo Update Test";
-        UserMemoVO updateMemo = new UserMemoVO();
+        UserVO updateMemo = new UserVO();
         updateMemo.setId(userId);
         updateMemo.setMemo(memo);
 

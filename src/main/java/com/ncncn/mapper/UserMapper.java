@@ -2,8 +2,6 @@ package com.ncncn.mapper;
 
 import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserDetailCheckVO;
-import com.ncncn.domain.UserMemoVO;
-import com.ncncn.domain.UserStatusVO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.domain.pagination.UserCheckCriteria;
 import org.apache.ibatis.annotations.Param;
@@ -36,9 +34,11 @@ public interface UserMapper {
 
     UserDetailCheckVO getUserDetail(int userId);
 
-    void updateMemo(UserMemoVO memo);
+    void updateMemo(UserVO memo);
 
-    void updateStatus(UserStatusVO status);
+    void updateStatus(UserVO status);
+
+    void recordUserStatHistChange(UserVO status);
 
     UserInfoDTO getMyInfo(int userId);
 

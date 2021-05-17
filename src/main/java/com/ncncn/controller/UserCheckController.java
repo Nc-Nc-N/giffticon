@@ -78,14 +78,17 @@ public class UserCheckController {
     @PostMapping("/update-memo")
     public String updateMemo(HttpServletRequest request) {
         log.info("memo changed..................");
-        UserMemoVO updateMemo = new UserMemoVO();
+        UserVO updateMemo = new UserVO();
 
         // request.getParameter가 반환하는 문자열 값을 int로 변환해줌
         updateMemo.setId(Integer.parseInt(request.getParameter("id")));
         updateMemo.setMemo(request.getParameter("memo"));
 
-        userService.updateMemo(updateMemo);
-
+        try {
+            userService.updateMemo(updateMemo);
+        } catch (Exception e) {
+            log.warn("회원 메모 변경 과정에서 오류가 발생했습니다.");
+        }
         return "redirect:/admin/user/user-detail?userId=" + updateMemo.getId();
     }
 
@@ -93,7 +96,7 @@ public class UserCheckController {
     @PostMapping("/update-status")
     public String updateStatus(HttpServletRequest request) {
         log.info("status changed................");
-        UserStatusVO updateStat = new UserStatusVO();
+        UserVO updateStat = new UserVO();
 
         updateStat.setId(Integer.parseInt(request.getParameter("id")));
 
@@ -104,7 +107,12 @@ public class UserCheckController {
             updateStat.setEnabled(0);
         }
 
-        userService.updateStatus(updateStat);
+        try {
+            userService.updateStatus(updateStat);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.warn("회원 상태 변경 과정에서 오류가 발생했습니다.");
+        }
 
         return "redirect:/admin/user/user-detail?userId=" + updateStat.getId();
     }
