@@ -110,6 +110,9 @@
                             </div>
                         </div>
                     </c:forEach>
+                    <c:if test="${list.size() == 0}">
+                        <div class="noSearchResult">검색 결과가 없습니다.</div>
+                    </c:if>
                 </div>
                 <!-- end accordionMenu-->
 

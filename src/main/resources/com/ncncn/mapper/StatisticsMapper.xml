@@ -8,12 +8,34 @@
         select * from statistics where date_format(dt, '%Y-%m-%d') = curdate()
     </select>
 
+<!--    월별 매출액-->
+    <select id="readSalesByMonth" resultType="com.ncncn.domain.AdminSalesHistVO">
+        select SUM(deal.pymt_prc) as sumPrc , DATE_FORMAT(gft.up_date,'%Y') as sYear, DATE_FORMAT(gft.up_date,'%m') as sMonth
+        from gifticon gft
+            inner join deal_detail deal
+        on gft.id = deal.gifticon_id
+            inner join (select * from cmmn_code where code_type = 'GFT_STUS') cm
+            on gft.gft_stus_code = cm.code
+        where gft.gft_stus_code = '005'
+        group by sMonth
+        order by sMonth
+    </select>
+
+
+<!--    월별 방문자 수-->
+    <select id="readVisitrByMonth" resultType="com.ncncn.domain.AdminVisitrHistVO">
+        select count(*) as sumVisitr, DATE_FORMAT(visit_date,'%Y') as vYear, DATE_FORMAT(visit_date,'%m') as vMonth
+        from visit
+        group by vMonth
+        order by vMonth
+    </select>
 
     <insert id="initStatistics">
         insert statistics(dt, visitr_rec, sales_rec, in_user, up_user)
         values (curdate(), 0, 0, current_user, current_user )
     </insert>
 
+<!--    방문자 수-->
     <update id="updateVisitrRec">
         <![CDATA[
             update statistics
@@ -27,15 +49,19 @@
         <![CDATA[
             update statistics
             set sales_rec = ( select SUM(deal.pymt_prc)
-                              from deal_detail as deal
-                                       join gifticon as gft
-                                       join (select * from cmmn_code where code_type = 'GFT_STUS') cm
-                                            on gft.gft_stus_code = cm.code
+                              from gifticon gft
+                                       inner join deal_detail deal
+                                                  on gft.id = deal.gifticon_id
+                                       inner join (select * from cmmn_code where code_type = 'GFT_STUS') cm
+                                                  on gft.gft_stus_code = cm.code
                               where gft.gft_stus_code = '005')
             where date_format(dt, '%Y-%m-%d') = curdate()
         ]]>
     </update>
 
-
+<!--    <resultMap id="SalesGraph" type="java.util.HashMap">-->
+<!--        <result property="pymtPrc" column="pymt_prc"/>-->
+<!--        <result property="upDate" column="up_date"/>-->
+<!--    </resultMap>-->
 
 </mapper>
