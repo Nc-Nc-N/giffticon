@@ -199,7 +199,8 @@
 <div class="modal modify-modal">
     <div class="detail-modal">
         <div class="modal-title">상품상세</div>
-        <form id="modify-form" method="post" action="/admin/product/modify?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+        <form id="modify-form" method="post" action="/admin/product/modify?${_csrf.parameterName}=${_csrf.token}"
+              enctype="multipart/form-data">
             <table id="modify-td">
                 <tr class="under-line">
                     <td class="td-title">
@@ -290,6 +291,17 @@
     $(document).ready(function (e) {
         // 사이드바 판매요청관리 active
         $("a[id='prodAdministration']").attr('class', 'active');
+
+        $("#reg-form input").on('keypress', function (e) {
+            if (e.key === 'Enter') {
+                return false;
+            }
+        });
+        $("#modify-form input").on('keypress', function (e) {
+            if (e.key === 'Enter') {
+                return false;
+            }
+        });
 
         // 페이지 이동
         let actionForm = $("#actionForm");
@@ -412,8 +424,7 @@
         });
 
         // 등록버튼 이벤트 등록
-        $("prod-reg").on("click", function (e) {
-            e.preventDefault();
+        $(".prod-reg").on("click", function (e) {
             // 입력한 상품정보가 유효하면 상품을 등록한다.
             if (!checkInputVale()) return;
 

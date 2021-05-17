@@ -118,6 +118,7 @@
     border: 1px solid rgb(220, 220, 220);
 }
 .imgspace > img{
+    height: 100%;
     width: 100%;
 }
 

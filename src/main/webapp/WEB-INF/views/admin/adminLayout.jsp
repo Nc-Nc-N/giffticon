@@ -30,7 +30,7 @@
             </div>
             <div id="admin-menu">
                 <a href="/admin/user/userlist" id="userAdministration"><i class="fas fa-user-cog"></i>회원관리</a>
-                <a href="#"><i class="fas fa-boxes"></i>상품관리</a>
+                <a href="/admin/product/prodList" id="prodAdministration"><i class="fas fa-boxes"></i>상품관리</a>
 <%--                <a href="#"><i class="fas fa-brush"></i>배너관리</a>--%>
                 <a href="/admin/request/list" id="gifticonAdministration"><i class="far fa-check-circle"></i>기프티콘관리</a>
                 <a href="/admin/deal-history" id="dealHistAdministration"><i class="fas fa-exchange-alt"></i>거래내역관리</a>

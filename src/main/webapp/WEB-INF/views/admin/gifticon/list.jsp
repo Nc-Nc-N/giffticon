@@ -99,7 +99,7 @@
                     </div>
                 </td>
                 <td>
-                    <div><c:out value="${gft.brcd}"/></div>
+                    <div class="ellipsis"><c:out value="${gft.brcd}"/></div>
                 </td>
                 <td>
                     <div>&#126;&nbsp;<c:out value="${gft.expirDt}"/></div>
