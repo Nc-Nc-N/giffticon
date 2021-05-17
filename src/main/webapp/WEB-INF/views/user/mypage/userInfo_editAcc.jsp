@@ -69,10 +69,9 @@
 </body>
 </html>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script type="text/javascript" src="/resources/js/user/userInfoValidator.js"></script>
 <script type="text/javascript" src="/resources/js/banking/openBanking.js"></script>
 <script type="text/javascript">
-
-    var checkAllConfirmed = [false, false];
 
     $(document).ready(function () {
 
@@ -96,22 +95,25 @@
         let accPwdMsg = $("#msg-accPwd");
         let accMsg = $("#msg-accConfirm");
 
+        //계좌조회시 정보 담을 객체
         let accInfo = {};
+
+        var checkAllConfirmedForAcc = [false, false];
 
         //selectBox의 은행명 가져오기
         $("#acc-bankSelect").change(function () {
-            checkAllConfirmed[1] = false;
+            checkAllConfirmedForAcc[1] = false;
             accMsg.html("");
             bnkSelected = $(this).val();
         })
 
-        holder.keyup(function(e){
-            checkAllConfirmed[1] = false;
+        holder.keyup(function (e) {
+            checkAllConfirmedForAcc[1] = false;
             accMsg.html("");
         })
 
-        account.keyup(function(e){
-            checkAllConfirmed[1] = false;
+        account.keyup(function (e) {
+            checkAllConfirmedForAcc[1] = false;
             accMsg.html("");
         })
 
@@ -136,17 +138,20 @@
                 },
                 success: function () {
                     msg = "비밀번호가 일치합니다.";
-                    checkIsCorrect(accPwdMsg, msg, true, 0);
+                    checkIsCorrect(accPwdMsg, msg, true)
+                    checkAllConfirmedForAcc[0] = true;
+                    console.log(checkAllConfirmedForAcc);
                     accOriPwd.attr("readonly", true);
                 },
                 error: function (error) {
-
-                    if(error.status == 406){
+                    if (error.status == 406) {
                         msg = "최초비밀번호를 등록 후 인증해주세요";
-                    }else {
+                    } else {
                         msg = "비밀번호가 다릅니다";
                     }
-                    checkIsCorrect(accPwdMsg, msg, false, 0);
+                    checkIsCorrect(accPwdMsg, msg, false)
+                    checkAllConfirmedForAcc[0] = false;
+                    console.log(checkAllConfirmedForAcc);
                 }
             })
         })
@@ -162,23 +167,25 @@
                 bnkCode: bnkSelected,
                 holder: holderVal,
                 acc: accountVal,
-                birth: birth
+                birth: birth.slice(2, birth.length)
             }
 
             //promise_ 토큰 획득 후 계좌실명조회
             getBankingAccTkn()
                 .then((accTkn) => inqRealNameBnkAcc(accTkn, accInfo))
-                .then((msg) => checkIsCorrect(accMsg, msg, true, 1))
-                .catch((error) => checkIsCorrect(accMsg, error, false, 1))
+                .then((msg) => checkIsCorrect(accMsg, msg, true)
+                    .then(checkAllConfirmedForAcc[1] = true))
+                .catch((error) => checkIsCorrect(accMsg, error, false)
+                    .then(checkAllConfirmedForAcc[1] = false))
 
         })
 
-
+        //모든 인증 완료 후 수정 버튼 클릭
         $("#modifyAcc").on("click", function () {
-
+            console.log(checkAllConfirmedForAcc);
             let originAcc = "<c:out value="${user.acc}"/>";
 
-            if (checkAllConfirmed[0] == true && checkAllConfirmed[1] == true) {
+            if (checkAllConfirmedForAcc[0] == true && checkAllConfirmedForAcc[1] == true) {
 
                 delete accInfo.birth;
                 accInfo.userId = userId;
@@ -189,10 +196,14 @@
 
                 //최초 계좌 등록인 경우
                 if (originAcc == null || originAcc == "") {
-                    if (!confirm("계좌를 등록하시겠습니까?")) { return; }
+                    if (!confirm("계좌를 등록하시겠습니까?")) {
+                        return;
+                    }
                     ajaxTo = '/user/mypage/accRegister'
                 } else { //계좌 수정의 경우
-                    if (!confirm("등록계좌를 수정하시겠습니까? 기존 등록된 계좌는 삭제됩니다.")) { return; }
+                    if (!confirm("등록계좌를 수정하시겠습니까? 기존 등록된 계좌는 삭제됩니다.")) {
+                        return;
+                    }
                     ajaxTo = '/user/mypage/accUpdate'
                 }
 
@@ -227,24 +238,8 @@
             accOriPwd.val("");
             accMsg.html("");
             accPwdMsg.html("");
-            checkAllConfirmed = [false, false];
+            accOriPwd.attr("readonly", false);
+            checkAllConfirmedForAcc = [false, false];
         })
     })
-</script>
-<script>
-    function checkIsCorrect(div, msg, isTrue, i) {
-
-        let str = "";
-        checkAllConfirmed[i] = isTrue
-
-        if (isTrue) {
-            str += "<i class='far fa-check-circle'></i>";
-
-        } else {
-            str += "<i class='fas fa-exclamation-circle'></i>";
-        }
-
-        str += "<p>&nbsp;" + msg + "</p>";
-        div.html(str);
-    }
 </script>

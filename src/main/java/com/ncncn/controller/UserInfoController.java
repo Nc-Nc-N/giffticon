@@ -122,7 +122,7 @@ public class UserInfoController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+  
     // 계좌 있는지 확인
     @GetMapping(value = "/checkAccount")
     public ResponseEntity<String> checkAccount(HttpServletRequest request){
@@ -141,4 +141,38 @@ public class UserInfoController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+  
+   @RequestMapping(value="/updateInfo",
+            consumes = "application/json",
+            method=RequestMethod.POST)
+    public ResponseEntity<String> infoUpdate(HttpServletRequest request,
+                         @RequestBody UserVO updateInfo){
+
+        log.info("received:" +updateInfo);
+        int userId = (int)request.getSession().getAttribute("userId");
+
+        try{
+            userService.updateNameAndBirthDt(userId, updateInfo);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value="/updateTelNo/{telNo}",
+            method=RequestMethod.PATCH)
+    public ResponseEntity<String> telNoUpdate(HttpServletRequest request,
+                                             @PathVariable("telNo") String telNo){
+        log.info("received:" +telNo);
+
+        int userId = (int)request.getSession().getAttribute("userId");
+
+        try{
+            userService.updateTelNo(userId, telNo);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

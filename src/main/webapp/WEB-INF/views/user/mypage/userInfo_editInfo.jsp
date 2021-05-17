@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_editInfo.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -22,8 +21,11 @@
             <div>
                 <h3>이름</h3>
                 <div class="input_text">
-                    <input type="text" class="newName" placeholder="기존 비밀번호를 입력해주세요">
+                    <input type="text" class="info_newName" placeholder="<c:out value="${user.name}"/>">
                 </div>
+            </div>
+            <div class="message" id="msg-info_validateName">
+
             </div>
         </div>
 
@@ -31,8 +33,12 @@
             <div>
                 <h3>생년월일</h3>
                 <div class="input_text">
-                    <input type="date" class="newBirthDt" placeholder="새 비밀번호를 입력해주세요">
+                    <input type="text" class="info_newBirthDt" id="datepicker" readonly="readonly"
+                           placeholder="<c:out value="${user.birthDt}"/>">
                 </div>
+            </div>
+            <div class="message" id="msg-info_validateBirthDt">
+
             </div>
         </div>
 
@@ -40,26 +46,44 @@
             <div>
                 <h3>현재 비밀번호</h3>
                 <div class="input_text">
-                    <input type="password" class="originPwd" placeholder="기존 비밀번호를 입력해주세요">
+                    <input type="password" class="info_originPwd" placeholder="기존 비밀번호를 입력해주세요">
                 </div>
-                <button class="btn btn-submit" id="btn-confirmPwdEditInfo">인증</button>
+                <button class="btn btn-submit" id="btn-info_confirmPwd">인증</button>
             </div>
-            <div class="message" id="msg-confirmPwdEditInfo">
+            <div class="message" id="msg-info_confirmPwd">
 
             </div>
         </div>
 
     </div>
     <div id="reg-btn-area">
-        <button class="btn btn-active" id="modifyMyInfo">등록</button>
-        <button class="btn btn-dark cancel" id="cancelMyInfo">취소</button>
+        <button class="btn btn-active" id="btn_info_register">등록</button>
+        <button class="btn btn-dark cancel" id="btn_info_cancel">취소</button>
     </div>
 </div>
 </body>
 
 <script type="text/javascript" src="/resources/js/user/userInfoValidator.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script type="text/javascript" src="/resources/js/user/calendar.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script type="text/javascript">
 
+    $("#datepicker").datepicker({
+        changeYear: true,
+        changeMonth: true,
+        yearRange: 'c-100:c+100',
+        minDate: '-100y',
+        maxDate: '0',
+        dateFormat: 'yy/mm/dd'
+    });
+
+
+</script>
+<script type="text/javascript">
     $(document).ready(function () {
 
         let csrfHeaderName = "${_csrf.headerName}";
@@ -68,15 +92,42 @@
         let oriEmail = "<c:out value="${user.email}"/>";
 
         //기존 비밀번호 확인 버튼
-        let btnOriginPwd = $("#btn-confirmPwdEditInfo");
+        let btnOriginPwd = $("#btn-info_confirmPwd");
 
         //input 칸
-        let newName = $(".newName");
-        let newBirthDt = $(".newBirthDt");
-        let insertPwd = $(".originPwd");
+        let newName = $(".info_newName");
+        let newBirthDt = $(".info_newBirthDt");
+        let insertPwd = $(".info_originPwd");
 
-        let pwdMsg = $("#msg-confirmPwdEditInfo");
+        let nameMsg = $("#msg-info_validateName");
+        let pwdMsg = $("#msg-info_confirmPwd");
 
+        //생년월일 출력 포맷에 변경 후 placeholder에 출력
+        let birthDt = "<c:out value="${user.birthDt}"/>";
+        birthDt = birthDt.slice(0, 4) + "/" + birthDt.slice(4, 6) + "/" + birthDt.slice(6, birthDt.length);
+        newBirthDt.attr("placeholder", birthDt);
+
+        //checklist
+        let checkPwdForEditInfo = [false, false];
+
+        //이름 유효성 검사
+        newName.on("keyup", function () {
+            let msg = "";
+
+            if (nameChecker($(this).val())) {
+                msg += "사용가능한 이름입니다.";
+                checkIsCorrect(nameMsg, msg, true);
+                checkPwdForEditInfo[0] = true;
+            } else {
+                msg += "올바르지 않은 이름입니다.";
+                checkIsCorrect(nameMsg, msg, false);
+                checkPwdForEditInfo[0] = false;
+            }
+
+            if ($(this).val() == "") {
+                nameMsg.html("");
+            }
+        })
 
         //기존 비밀번호 인증
         btnOriginPwd.on("click", function (e) {
@@ -101,19 +152,19 @@
                 },
                 success: function () {
 
-                    msg += "<i class='far fa-check-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 일치합니다.</p>";
-                    pwdMsg.html(msg);
+                    msg += "비밀번호가 일치합니다.";
+                    checkIsCorrect(pwdMsg, msg, true);
 
                     //기존 비밀번호 인증 시 새로운 비밀번호 입력 가능, 인증 된 비밀번호는 수정 불가
-                    insertOriginPwd.attr("readonly", true);
+                    insertPwd.attr("readonly", true);
+                    checkPwdForEditInfo[1] = true;
 
                 },
                 error: function () {
 
-                    msg += "<i class='fas fa-exclamation-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 다릅니다.</p>";
-                    pwdMsg.html(msg);
+                    msg += "비밀번호가 다릅니다.";
+                    checkIsCorrect(pwdMsg, msg, false);
+                    checkPwdForEditInfo[1] = false;
 
                 }
 
@@ -122,51 +173,72 @@
         })
 
         //수정 확인 버튼 클릭
-        $("#modifyMyInfo").on("click", function (e) {
-            console.log(checkAllConfirmed);
+        $("#btn_info_register").on("click", function (e) {
 
-            //기존 비밀번호, 새 비밀번호, 새 비밀번호 확인 모두 true이면
-            if (checkAllConfirmed[0] == true &&
-                checkAllConfirmed[1] == true &&
-                checkAllConfirmed[2] == true) {
+            if (newName.val() == "" && newBirthDt.val() == "") {
+                alert("수정 정보를 입력해주세요");
+                return;
+            }
+
+            //비밀번호 통과 시
+            if (checkPwdForEditInfo[0] == true && checkPwdForEditInfo[1] == true) {
 
                 //바꾸기 전에 한번 물어보자
-                if (!confirm("비밀번호를 변경하시겠습니까?")) {
+                if (!confirm("회원정보를 수정하시겠습니까?")) {
                     return;
                 }
 
-                let newPwdVal = insertNewPwd.val();
+                //입력된 생일 저장형식에 맞게 변경
+                let birthArray = newBirthDt.val().split("/");
+                let birthDt = "";
+                for (let i = 0; i < birthArray.length; i++) {
+                    birthDt += birthArray[i];
+                }
+
+                let updateInfo = {
+                    name: newName.val(),
+                    birthDt: birthDt
+                }
+
+                console.log(updateInfo);
 
                 $.ajax({
-                    url: '/user/mypage/userUpdate',
+                    url: '/user/mypage/updateInfo',
                     method: 'post',
-                    data: {"newPwd": newPwdVal, "email": oriEmail},
+                    data: JSON.stringify(updateInfo),
+                    contentType: "application/json",
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                     },
-                    success: function () {
-
-                        alert("비밀번호가 변경되었습니다.");
-                        //모달 닫고 input 정보 지우기
-                        $('#cancelMyInfo').trigger("click");
-
+                    success: function (result) {
+                        alert("회원정보가 수정되었습니다.");
+                        window.location.reload();
                     },
-                    error: function () {
-                        alert("실패");
+                    error: function (error) {
+                        alert("회원정보 수정에 실패했습니다. 관리자에게 문의해주세요.");
                         return;
                     }
                 })
 
-                //정보가 정확히 입력 안되었을때
+                //비밀번호 인증 안했을때
             } else {
-                alert("정보를 정확히 입력하세요");
+                alert("정보를 정확히 입력해주세요.");
                 return;
             }
         })
 
         //취소 버튼 클릭 시 모든 입력값 초기화
-        $('#cancelMyInfo').on("click", function (e) {
+        $('#btn_info_cancel').on("click", function (e) {
 
+            checkPwdForEditInfo = [false, false];
+            newName.val("");
+            newBirthDt.val("");
+            insertPwd.val("");
+
+            nameMsg.html("");
+            pwdMsg.html("");
+
+            insertPwd.attr("readonly", false);
 
         })
 

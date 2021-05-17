@@ -33,4 +33,8 @@ public interface UserService {
 
     String checkLoginCode(String email);
 
+    public boolean updateNameAndBirthDt(int userId, UserVO userVO);
+
+    public boolean updateTelNo(int userId, String telNo);
+
 }

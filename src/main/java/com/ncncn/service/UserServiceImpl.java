@@ -170,4 +170,30 @@ public class UserServiceImpl implements UserService {
             return "social";
         }
     }
+
+    @Override
+    public boolean updateNameAndBirthDt(int userId, UserVO userVO) {
+
+        int isUpdated = userMapper.updateNameAndBirthDt(userId, userVO.getName(), userVO.getBirthDt());
+
+        if (isUpdated == 1) {
+            return true;
+        } else {
+            throw new IllegalArgumentException("변경오류입니다. 관리자에게 문의하세요.");
+        }
+
+    }
+
+    @Override
+    public boolean updateTelNo(int userId, String telNo){
+
+        int isUpdated = userMapper.updateTelNo(userId, telNo);
+
+        if (isUpdated == 1) {
+            return true;
+        } else {
+            throw new IllegalArgumentException("변경오류입니다. 관리자에게 문의하세요.");
+        }
+    }
+
 }
