@@ -740,13 +740,20 @@
         });
     }
 
+    let validateErrorMsg = "";
+
     //유효성 검사
     let gifticonValidate = function () {
+        validateErrorMsg = "";
         let checker = 0;
-        if (userId === 0) {
+
+        if (userIdCheck()) {
+            validateErrorMsg += "\n" + "회원정보를 불러올 수 없습니다. 다시 로그인 해주세요";
             checker += 1
         }
-        if (prodCode === "") {
+
+        if (prodCodeCheck()) {
+            validateErrorMsg += "\n" + "";
             checker += 1
         }
         if ($("#dcprice")[0].value === "") {
@@ -755,9 +762,17 @@
         if (parseInt($("#dcprice")[0].value) < 100) {
             checker += 1
         }
-        if (inDcRate === 0) {
-            checker += 1
-        }
+
+
+
+        // if (inDcRate === 0) {
+        //     checker += 1
+        // }
+
+        alert("inDcRateCheck: " + inDcRateCheck());
+
+
+
         if ($("#end-date")[0].value === "") {
             checker += 1
         }
@@ -772,6 +787,47 @@
         }
         return checker === 0;
     }
+
+
+
+
+    // ------------------유효성검사 개별 함수------------------
+    let userIdCheck = function() {
+        return userId === 0
+    }
+
+    let prodCodeCheck = function() {
+        return prodCode === "";
+    }
+
+    let dcPriceCheck = function() {
+        return $("#dcprice")[0].value === "";
+    }
+
+    let dcPriceCheck2 = function() {
+        return parseInt($("#dcprice")[0].value) < 100;
+    }
+
+    let inDcRateCheck = function() {
+        return inDcRate === 0
+    }
+
+    let endDateCheck = function() {
+        return $("#end-date")[0].value === "";
+    }
+
+    let barcodeCheck = function() {
+        return $("#barcode")[0].value === "";
+    }
+
+    let originPathCheck = function() {
+        return originPath === "";
+    }
+
+    let priceTypeCheck = function() {
+        return $("input[name=group1]:checked")[0] === undefined;
+    }
+    // ------------------유효성검사 개별 함수------------------
 
     // 모달 배경처리
     function wrapWindowByMask() {
