@@ -460,7 +460,7 @@
             if (printValidateMsg(!isRightPwd, "비밀번호를 조건에 맞게 입력해주세요.")) return;
             if (printValidateMsg(!isEqualPwd, "비밀번호가 일치하지 않습니다.")) return;
             if (printValidateMsg(!isRightName, "이름을 다시 입력해주세요.")) return;
-            if (printValidateMsg(!isRightBirth, "생년월일을 형식에 맞게 입력하거나,<br>등록을 원하지 않으면 입력 값을 비워주세요.")) return;
+            if (printValidateMsg(!checkBirth(birth), "생년월일을 형식에 맞게 입력하거나,<br>등록을 원하지 않으면 입력 값을 비워주세요.")) return;
             if (printValidateMsg(!isRightTelNo, "휴대폰 번호를 알맞게 입력해주세요.")) return;
             if (printValidateMsg(!isCertifiedTel, "휴대폰 인증을 진행해주세요.")) return;
             if (printValidateMsg(!isAllEssnChecked, "필수 약관 동의가 필요합니다.")) return;
@@ -548,7 +548,7 @@
     }
 
     function checkBirth(birth) {
-        return birth.match(/^[0-9]{6}$/) || birth === '';
+        return birth.match(/^[0-9]{8}$/) || birth === '';
     }
 
 </script>
