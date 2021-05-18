@@ -69,7 +69,7 @@
                 </tr>
                 </thead>
                 <c:forEach items="${list}" var="userL">
-                    <tr class="eachUser">
+                    <tr class="list-tr">
                         <td>${userL.id}</td>
                         <td>${userL.email}</td>
                         <td>${userL.name}</td>
@@ -170,11 +170,11 @@
 
     }); //end of $(document).ready
 
-    $(".eachUser").on("click", function(e){
+    $(".list-tr").on("click", function (e) {
 
-        let eachUserId=this.children[0].innerText;
+        let eachUserId = this.children[0].innerText;
 
-        location.href="/admin/user/user-detail?userId=" + eachUserId;
+        location.href = "/admin/user/user-detail?userId=" + eachUserId;
 
     });
 
