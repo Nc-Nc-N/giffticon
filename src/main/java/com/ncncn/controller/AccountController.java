@@ -9,8 +9,7 @@ import com.ncncn.domain.UserVO;
 import com.ncncn.service.SignUpService;
 import com.ncncn.service.SoclInfoService;
 import com.ncncn.service.UserService;
-import com.ncncn.util.EmailAuthCodeUtils;
-import com.ncncn.util.SendMmsMessage;
+import com.ncncn.util.ConfirmCodeUtils;
 import lombok.extern.log4j.Log4j;
 
 import org.springframework.http.HttpStatus;
@@ -97,7 +96,7 @@ public class AccountController {
 	public ResponseEntity<Map<String, String>> confirmEmail(@RequestParam("email") String email) {
 		Map<String, String> map = new HashMap<>();
 
-		String code = EmailAuthCodeUtils.getAuthCode();         // 인증코드 생성
+		String code = ConfirmCodeUtils.getCode();         // 인증코드 생성
 		SimpleMailMessage message = new SimpleMailMessage();
 
 		try {
@@ -118,7 +117,7 @@ public class AccountController {
 	@GetMapping(value = "/telNoConfirm", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, String>> confirmTelNo(@RequestParam("telNo") String telNo) {
 		Map<String, String> map = new HashMap<>();
-		String code = EmailAuthCodeUtils.getAuthCode();         // 인증코드 생성
+		String code = ConfirmCodeUtils.getCode();         // 인증코드 생성
 
 		try {
 			signUpService.sendAuthCode(telNo, code);

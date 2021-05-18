@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserMapper;
-import com.ncncn.util.EmailAuthCodeUtils;
 import com.ncncn.util.SendMmsMessage;
 import com.ncncn.util.UserValidator;
 import lombok.extern.log4j.Log4j;
@@ -62,7 +61,6 @@ public class SignUpServiceImpl implements SignUpService {
 	@Override
 	public void sendAuthCode(String telNo, String code) throws Exception {
 		String responseCode = sendMmsMessage.sendAuthCode(telNo, code);
-		log.info(responseCode);
 		checkMmsResponse(responseCode);
 	}
 
