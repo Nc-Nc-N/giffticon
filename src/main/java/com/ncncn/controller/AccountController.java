@@ -27,18 +27,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/account/*")
 public class AccountController {
 
-	private final SignUpService signUpService;
-	private final JavaMailSender javaMailSender;
-	private final SendMmsMessage sendMmsMessage;
 	private final UserService userService;
 	private final SoclInfoService soclInfoService;
+	private final SignUpService signUpService;
+	private final JavaMailSender javaMailSender;
 
-	public AccountController(UserService userService, SoclInfoService soclInfoService, SignUpService signUpService, JavaMailSender javaMailSender, SendMmsMessage sendMmsMessage) {
+	public AccountController(UserService userService, SoclInfoService soclInfoService, SignUpService signUpService, JavaMailSender javaMailSender) {
 		this.userService = userService;
 		this.soclInfoService = soclInfoService;
 		this.signUpService = signUpService;
 		this.javaMailSender = javaMailSender;
-		this.sendMmsMessage = sendMmsMessage;
 	}
 
 	@GetMapping("/signIn")
@@ -123,16 +121,19 @@ public class AccountController {
 		String code = EmailAuthCodeUtils.getAuthCode();         // 인증코드 생성
 
 		try {
-			log.info(sendMmsMessage.sendAuthCode(telNo, code));
+			signUpService.sendAuthCode(telNo, code);
+
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			map.put("error", e.getMessage());
+			return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		map.put("code", code);                                // 인증메일 전송에 성공하면 map에 인증코드를 담아 전달
+		map.put("code", code);                                // 인증문자 전송에 성공하면 map에 인증코드를 담아 전달
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 	public Model cookieChecker(HttpServletRequest request, Model model) {
+
 		Cookie[] cookies = request.getCookies();
 
 		if (cookies != null) {
@@ -161,6 +162,7 @@ public class AccountController {
 
 	@GetMapping(value = "/basicAccountCheck")
 	public ResponseEntity<String> ajaxLogin(@RequestParam("email") String email) {
+
 		try {
 			String usertype = userService.checkLoginCode(email);
 			return new ResponseEntity<String>(usertype, HttpStatus.OK);
@@ -168,15 +170,5 @@ public class AccountController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
-	@GetMapping("/findPwd")
-	public void findPwd() {}
-
-//	@PatchMapping(value = "/account/sendTemporaryPwd", consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<Map<String, String>> sendTemporaryPwd(String email) {
-//		Map<String, String> map = new HashMap<>();
-//
-//		String tmprPwd;
-//	}
 
 }

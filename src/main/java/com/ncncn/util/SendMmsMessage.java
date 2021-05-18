@@ -80,9 +80,9 @@ public class SendMmsMessage {
 		addParameter(writer, "callback", callback);
 		addParameter(writer, "phone", phone);
 		addParameter(writer, "msg", msg);
-		addParameter(writer, "names", names);
-		addParameter(writer, "appdate", appdate);
-		addParameter(writer, "subject", subject);
+//		addParameter(writer, "names", names);
+//		addParameter(writer, "appdate", appdate);
+//		addParameter(writer, "subject", subject);
 
 		if (file1 != null) {
 			addFile(writer, outputStream, "file1", file1);

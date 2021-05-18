@@ -92,7 +92,7 @@
         <div class="element">
             <div class="label">생년월일</div>
             <div class="input-div">
-                <input type="text" id="datepicker" class="input001" name="birth" placeholder="YYYYMMDD" readonly>
+                <input type="text" id="datepicker" class="input001" name="birth" readonly>
                 <div class="birth-msg input-msg"><i class="fas fa-exclamation-circle"></i>생년(2자리)월일 형식에 맞춰 입력해주세요.
                 </div>
             </div>
@@ -222,11 +222,15 @@
 <script>
     $(document).ready(function (e) {
         $("#datepicker").datepicker({
+            dateFormat: 'yymmdd',
             changeYear: true,
             changeMonth: true,
             yearRange: 'c-100:c+100',
             minDate: '-100y',
-            maxDate: '0'
+            maxDate: '0',
+            monthNames: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+            monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+            showMonthAfterYear: true
         });
 
         let csrfHeaderName = "${_csrf.headerName}";
@@ -311,7 +315,7 @@
                     telAuthCode = result.code;   // 인증코드 메일 전송을 성공하면 해당 코드값을 받아옴
                 }, error: function (result) {
                     $(this).attr("class", "btn002");
-                    alert("인증코드 전송에 실패했습니다. \n휴대폰번호 확인 후 다시 시도해주세요.");
+                    alert("인증코드 전송에 실패했습니다. 다시 시도해주세요.\n문제가 반복되면 문의남겨주시면 빠르게 해결하겠습니다. (" + result.error +")");
                 }
             });
         });
@@ -377,10 +381,6 @@
 
         let birthInput = $("input[name='birth']");
         birthInput.on("focusout", function (e) {
-            console.log($(this).val());
-            // let birth = $(this).val().replace(/[^0-9]/g, '').substring(0, 6);
-            // $(this).val(birth);
-
             if (checkBirth($(this).val())) {
                 $(".birth-msg").css("display", "none");
                 isRightBirth = true;

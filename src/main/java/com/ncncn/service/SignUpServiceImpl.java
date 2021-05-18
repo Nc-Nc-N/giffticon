@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import com.ncncn.domain.UserVO;
 import com.ncncn.mapper.UserMapper;
+import com.ncncn.util.EmailAuthCodeUtils;
+import com.ncncn.util.SendMmsMessage;
 import com.ncncn.util.UserValidator;
 import lombok.extern.log4j.Log4j;
 
@@ -16,10 +18,12 @@ public class SignUpServiceImpl implements SignUpService {
 
 	private final UserMapper userMapper;
 	private final PasswordEncoder passwordEncoder;
+	private final SendMmsMessage sendMmsMessage;
 
-	public SignUpServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder) {
+	public SignUpServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder, SendMmsMessage sendMmsMessage) {
 		this.userMapper = userMapper;
 		this.passwordEncoder = passwordEncoder;
+		this.sendMmsMessage = sendMmsMessage;
 	}
 
 	public UserVO getUserByEmail(String email) {
@@ -32,7 +36,9 @@ public class SignUpServiceImpl implements SignUpService {
 
 	public int register(UserVO userVO) throws Exception {
 		// 입력받은 생년월일 값이 없으면 null값 저장
-		if (userVO.getBirthDt().equals("")) userVO.setBirthDt(null);
+		if (userVO.getBirthDt().equals("")) {
+			userVO.setBirthDt(null);
+		}
 
 		checkValidateUser(userVO);
 
@@ -51,6 +57,19 @@ public class SignUpServiceImpl implements SignUpService {
 		}
 
 		return result;
+	}
+
+	@Override
+	public void sendAuthCode(String telNo, String code) throws Exception {
+		String responseCode = sendMmsMessage.sendAuthCode(telNo, code);
+		log.info(responseCode);
+		checkMmsResponse(responseCode);
+	}
+
+	private void checkMmsResponse(String responseCode) throws Exception {
+		if (!responseCode.contains("ok")) {
+			throw new Exception(responseCode);
+		}
 	}
 
 	private void checkValidateUser(UserVO userVO) {
