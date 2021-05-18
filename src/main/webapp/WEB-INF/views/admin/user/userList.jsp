@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/list.css" typeof="text/css">
 <link rel="stylesheet" href="/resources/css/admin/user/userList.css" type="text/css">
 
 <h1>회원관리</h1>
@@ -55,16 +56,18 @@
 <c:choose>
     <c:when test="${not empty list}">
         <!-- table wrapper -->
-        <div id="tablewrapper">
-            <table id="t1">
+        <div id="list-div">
+            <table id="list-tb">
+                <thead>
                 <tr>
-                    <th>회원번호</th>
-                    <th>이메일</th>
-                    <th>이름</th>
-                    <th>가입일시</th>
-                    <th>전화번호</th>
-                    <th>회원상태</th>
+                    <td>회원번호</td>
+                    <td>이메일</td>
+                    <td>이름</td>
+                    <td>가입일시</td>
+                    <td>전화번호</td>
+                    <td>회원상태</td>
                 </tr>
+                </thead>
                 <c:forEach items="${list}" var="userL">
                     <tr class="eachUser">
                         <td>${userL.id}</td>
