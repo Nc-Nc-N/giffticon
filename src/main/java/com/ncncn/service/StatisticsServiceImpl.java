@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.AdminCateSalesHistVO;
 import com.ncncn.domain.AdminSalesHistVO;
 import com.ncncn.domain.AdminVisitrHistVO;
 import com.ncncn.domain.StatisticsVO;
@@ -53,6 +54,13 @@ public class StatisticsServiceImpl implements StatisticsService {
 
 		log.info("get Visitr By Month");
 		return statisticsMapper.readVisitrByMonth();
+	}
+
+	@Override
+	public List<AdminCateSalesHistVO> getCateSalesByMonth() {
+
+		log.info("get Category Sales by Month");
+		return statisticsMapper.readCateSalesByMonth();
 	}
 
 	@Override

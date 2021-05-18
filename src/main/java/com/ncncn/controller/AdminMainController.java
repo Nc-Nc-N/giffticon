@@ -1,5 +1,6 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.AdminCateSalesHistVO;
 import com.ncncn.domain.AdminSalesHistVO;
 import com.ncncn.domain.AdminVisitrHistVO;
 import com.ncncn.domain.StatisticsVO;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -88,7 +90,7 @@ public class AdminMainController {
 
 		try{
 			List<AdminSalesHistVO> list = statisticsService.getSalesByMonth();
-			log.info("list 값 : " + list);
+			log.info("sales list 값 : " + list);
 			return new ResponseEntity<>(list, HttpStatus.OK);
 
 		}catch (Exception e){
@@ -104,7 +106,7 @@ public class AdminMainController {
 
 		try{
 			List<AdminVisitrHistVO> list = statisticsService.getVisitrByMonth();
-			log.info("list 값 : " + list);
+			log.info("visitr list 값 : " + list);
 			return new ResponseEntity<>(list, HttpStatus.OK);
 
 		}catch (Exception e){
@@ -113,5 +115,23 @@ public class AdminMainController {
 		}
 
 	}
+
+	//월별 카테고리 매출액 ajax
+	@GetMapping(value = "/cateSales", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<AdminCateSalesHistVO>> getCateSalesByMonth(){
+
+		try {
+			List<AdminCateSalesHistVO> list = statisticsService.getCateSalesByMonth();
+			log.info("cateSales list 값 : " + list);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+
+
 
 }
