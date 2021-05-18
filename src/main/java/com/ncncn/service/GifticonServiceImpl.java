@@ -120,4 +120,12 @@ public class GifticonServiceImpl implements GifticonService {
             return false;
         }
     }
+
+    @Override
+    public GifticonVO getGft(int gftId){
+
+        GifticonVO gifticonVO = gifticonMapper.read(gftId);
+
+        return gifticonVO;
+    }
 }
