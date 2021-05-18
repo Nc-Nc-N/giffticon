@@ -62,3 +62,76 @@ function inqRealNameBnkAcc(accTkn, accInfo) {
 
     })
 }
+
+// 콘 인출
+function deposit(accTkn, userInfo){
+
+    return new Promise(function (resolve, reject) {
+
+        const dateNow = new Date();
+        const tranDTime = moment(dateNow).format('YYYYMMDDHHmmss');
+        const bnkTranId = "M202112121U" + (String)(dateNow.getTime()).slice(-9, (String)(dateNow.getTime()).length);
+
+        $.ajax({
+            url: 'https://testapi.openbanking.or.kr/v2.0/transfer/deposit/acnt_num',
+            type: 'post',
+            contentType: 'application/json; charset=UTF-8',
+            data:
+                JSON.stringify({
+                    "cntr_account_type": "N",
+                    "cntr_account_num": "123123123123",     // 약정계좌
+                    "wd_pass_phrase": "NONE",
+                    "wd_print_content": "콘인출",
+                    "name_check_option": "off",
+                    "tran_dtime": tranDTime,
+                    "req_cnt": "1",
+                    "req_list": [{
+                        "tran_no": "1",
+                        "bank_tran_id": bnkTranId,
+                        "bank_code_std": userInfo.bnkCode,
+                        "account_num": userInfo.acc,
+                        "account_holder_name": userInfo.holder,
+                        "print_content": "콘인출",
+                        "tran_amt": userInfo.conAmt,
+                        "req_client_name": userInfo.name,
+                        "req_client_num": userInfo.id,
+                        "transfer_purpose": "TR"
+                        }]
+                }),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", accTkn);
+            },
+            success: function (result) {
+
+                console.log(result);
+
+                if (result.rsp_code == "A0000") {
+                    resolve(userInfo.conAmt);
+                }
+                else{
+                    reject('인출에 실패하였습니다. 다시 시도해 주세요. 에러내용:'+result.rsp_message);
+                }
+
+            }
+        })
+    })
+}
+
+// 콘 업데이트
+function conUpdate(con){
+    return new Promise(function (resolve, reject){
+        $.ajax({
+            type:"POST",
+            url: "/user/conUpdate",
+            data:{
+                "amount": -con,
+                "pntCode":"002"     // 인출
+            },
+            success:function (){
+                resolve("인출이 완료되었습니다.");
+            }, error: function (){
+                reject("일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.");
+            }
+        })
+    })
+}
