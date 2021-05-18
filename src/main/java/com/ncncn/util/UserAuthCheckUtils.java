@@ -4,6 +4,8 @@ import com.ncncn.domain.UserVO;
 import lombok.extern.log4j.Log4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.NoSuchElementException;
+
 @Log4j
 public class UserAuthCheckUtils {
 

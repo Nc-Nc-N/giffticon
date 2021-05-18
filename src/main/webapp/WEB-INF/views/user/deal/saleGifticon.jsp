@@ -69,8 +69,7 @@
                     <h3 class="showCategory" style="text-align:left">선택한 카테고리 : <b></b></h3>
                     <div class="prodInfo">
                         <div class="imgspace"> <!-- 이미지 테두리-->
-                            <img id="prodImg"
-                                 alt="">
+                            <img id="prodImg" src="/resources/img/product/99/9999/999999.jpeg">
                         </div>
                         <textarea id="prodDescn" readonly>
                                 </textarea>
@@ -106,7 +105,6 @@
                 </div>
             </div>
 
-
             <!-- 쿠폰 등록 -->
             <div class="couponblock">
                 <div class="catename">
@@ -140,7 +138,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="block">
                 <div class="catename">
@@ -192,7 +189,6 @@
         </div>
     </div>
 
-
     <!-- Modal -->
     <div class="modal1">
         <div class="black_bg"></div>
@@ -201,11 +197,8 @@
                 <h1>판매 등록 요청이 완료되었습니다.</h1><br>
                 <h3>( 판매 수락은 기쁘티콘 업무시간에 순차적으로 진행됩니다. )</h3>
                 <div class="inputcontainer">
-                    <div class="inputtitle">
-
-                    </div>
+                    <div class="inputtitle"></div>
                     <br>
-
                 </div>
                 <div class="modalbtn">
                     <button type="button" id="btn-to-main" class="btn btn-active" style="color:white">메인으로 이동</button>
@@ -213,20 +206,14 @@
                         이동
                     </button>
                 </div>
-
             </div>
         </div>
     </div>
     <!-- Modal -->
-
 </div>    <!-- end of container -->
 
-
 <script type="text/javascript">
-
-
     $(document).ready(function () {
-
         // 페이지 로딩시 카테고리 불러오기 실패하면 에러메세지 출력
         if ("${initError}" != "") {
             alert("${initError}");
@@ -253,15 +240,11 @@
             var inputFile = $("input[name='uploadFile']");
             var files = inputFile[0].files;
 
-            console.log(files);
-
             for (var i = 0; i < files.length; i++) {
-
                 // 파일 용량, 확장자 체크
                 if (!checkExtension(files[i].name, files[i].size)) {
                     return false;
                 }
-
                 formData.append("uploadFile", files[i]);
             }
 
@@ -279,29 +262,21 @@
                 type: 'POST',
                 dataType: 'json',
                 success: function (result) {
-
-                    console.log(result);
-
                     // 이미지 등록 성공시 썸네일 이미지 불러오기
                     showUploadedFile(result);
-
                 },
                 error: function (request, status, error) {
                     alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                 }
-
             });  //$.ajax
         });
-
     });  //end of $(document).ready()
-
 
     // 업로드 파일 확장자, 용량 제한
     var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
     var maxSize = 5242880; //5MB
 
     function checkExtension(fileName, fileSize) {
-
         if (fileSize >= maxSize) {
             alert("파일 사이즈 초과");
             return false;
@@ -313,7 +288,6 @@
         }
         return true;
     }
-
 
     // 자동입력 선택시 작동하는 함수 - 정가에 값이 있을 때만 판매가 입력 가능, 유효기간 선택 안했으면 오류메시지 출력
     let inputPriceAuto = function () {
@@ -411,7 +385,7 @@
 
     // product img 삭제하는 함수
     let deleteProdImg = function () {
-        document.getElementById('prodImg').src = "";
+        document.getElementById('prodImg').src = "/resources/img/product/99/9999/999999.jpeg";
     }
 
     // product 설명 삭제하는 함수
@@ -424,7 +398,6 @@
         deleteProdImg();
         deleteProdDescn();
     }
-
 
     // 선택한 카테고리 출력용 변수
     let selectedCatName = "";
@@ -462,7 +435,6 @@
     $('.categorySelect').on("click", function () {
         // 대분류 클릭시 대분류이름을 보내고 중분류 객체리스트를 받아온다.
         // 선택퇸 카테고리 텍스트 변경, 상품 정보 삭제, 가격정보 초기화
-
         let catName = this.innerText;
 
         // 선택된 카테고리 텍스트 변경
@@ -494,9 +466,6 @@
             type: 'GET',
             dataType: 'json',
             success: function (result) {
-
-                // console.log(result);
-                // console.log(result.length);
                 let brbox = document.getElementsByClassName('brandbox')[0];
                 let brboxlength = brbox.children.length;
 
@@ -516,9 +485,7 @@
 
                     brbox.appendChild(li).appendChild(btn);
                 }
-
             },
-
             error: function () {
                 alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
             }
@@ -582,10 +549,7 @@
 
                     prodbox.appendChild(li).appendChild(btn);
                 }
-
-
             },
-
             error: function () {
                 alert("브랜드 불러오기에 실패했습니다. 다시 시도해주세요.")
             }
@@ -635,9 +599,6 @@
             type: 'GET',
             dataType: 'json',
             success: function (result) {
-
-                console.log(result);
-
                 // 등록요청시 전송할 GifticonVO 객체에 받아온 소분류 객체의 변수값 입력
                 // alert(result.code.substring(0,2));  //대분류 코드
                 cateCode = result.code.substring(0, 2);
@@ -654,19 +615,16 @@
 
                 // 상품 이미지, 설명 변경
                 // document.getElementById('prodImg').src = "/resources/img/product/01/0101/010101.jpeg";
-                let imgSrc = "/resources/img/product/" + cateCode + "/" + brdCode + "/" + prodCode + ".jpeg";
-                document.getElementById('prodImg').src = imgSrc;
+                // let imgSrc = "/resources/img/product/" + cateCode + "/" + brdCode + "/" + prodCode + ".jpeg";
+                document.getElementById('prodImg').src = result.imgPath;
                 document.getElementById('prodDescn').textContent = prodDescn;
                 document.getElementById('fixedprice').value = prc;
-
             },
-
             error: function () {
                 alert("상품 불러오기에 실패했습니다. 다시 시도해주세요.")
             }
         }); // $.ajax
     }); // 소분류 클릭 시 동작
-
 
     originPath = "";
 
@@ -686,9 +644,7 @@
             originPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;
 
             originPath = originPath.replace(new RegExp(/\\/g), "/");
-
         });
-
     }
 
     // 바코드 입력시 동작
@@ -696,7 +652,6 @@
         let rawBarcode = document.getElementById('barcode').value;
         document.getElementById('barcode').value = trimString(rawBarcode);
     });
-
 
     // 판매가 변경시 동작
     $('#dcprice').on("propertychange change keyup paste input", function () {
@@ -707,12 +662,10 @@
         document.getElementById('dcprice').value = trimFrontZero(trimString(rawDcPrice));
     });
 
-
     // 썸네일이미지 클릭시 동작
     $("#thumbnail").on("click", function () {
         document.getElementById('gifticon-img-upload').click();
     });
-
 
     // 모달 버튼 클릭시 동작
     $('#btn-to-main').on("click", function () {
@@ -722,7 +675,6 @@
     $('#btn-to-hist').on("click", function () {
         location.href = "/user/mypage/sells";
     });
-
 
     // 판매 등록하기 버튼 클릭시 동작
     $("#saleReg").on("click", function () {
@@ -776,13 +728,11 @@
                 showFinalModal();
 
             },
-
             error: function (error) {
                 console.log(error);
                 alert("등록과정에서 오류가 발생했습니다. \n" +
                     "(이미 등록된 바코드번호일 수 있습니다.)");
             }
-
         });
     }
 
@@ -842,14 +792,14 @@
         });
     };
 
-
     // 날짜에 따른 추가 할인율 계산
     let getAddDcRate = function () {
         let addDcRate = 0.0;
         let expirDt = new Date($("#end-date")[0].value);
         let today = new Date();
         // 만료일까지 남은 일 수 계산
-        let dateDiff = Math.ceil((expirDt.getTime() - today.getTime()) / (1000 * 3600 * 24));
+        let diffInMillies = expirDt.getTime() - today.getTime();
+        let dateDiff = Math.ceil(diffInMillies / (1000 * 3600 * 24));
 
         if (dateDiff <= 60 && dateDiff >= 0) {
             // 남은기간 60일부터 15일간격으로 할인율 변경구간 분리
@@ -861,7 +811,6 @@
         }
         return addDcRate;
     }
-
 
     // 대분류 클릭시 동작
     // 선택된 대분류에만 클래스이름 추가, 나머지는 삭제
@@ -896,7 +845,6 @@
         dateFormat: 'yy-mm-dd',
         minDate: 0
     });
-
 
 </script>
 </body>

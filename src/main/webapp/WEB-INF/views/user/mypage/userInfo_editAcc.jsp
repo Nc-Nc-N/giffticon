@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_user.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_editPwd.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_account.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -68,20 +68,20 @@
 </div>
 </body>
 </html>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script type="text/javascript" src="/resources/js/user/userInfoValidator.js"></script>
+<script type="text/javascript" src="/resources/js/banking/openBanking.js"></script>
 <script type="text/javascript">
+
     $(document).ready(function () {
 
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
         let oriEmail = "<c:out value="${user.email}"/>";
-        let bnkSelected;
+        let birth = "<c:out value="${user.birthDt}"/>";
 
-        //selectBox의 은행명 가져오기
-        $("#acc-bankSelect").change(function () {
-            bnkSelected = $(this).val();
-        })
+        let bnkSelected;
 
         let holder = $(".acc-holder");
         let account = $(".acc-account");
@@ -93,21 +93,40 @@
         let accPwdConfirm = $("#btn-accPwdConfirm");
         let accOriPwd = $(".acc-originPwd");
         let accPwdMsg = $("#msg-accPwd");
+        let accMsg = $("#msg-accConfirm");
 
-        let checkAllConfirmed = [false, true]; // 계좌 인증 완료 후 기본값 false로 변경해야함
+        //계좌조회시 정보 담을 객체
+        let accInfo = {};
+
+        var checkAllConfirmedForAcc = [false, false];
+
+        //selectBox의 은행명 가져오기
+        $("#acc-bankSelect").change(function () {
+            checkAllConfirmedForAcc[1] = false;
+            accMsg.html("");
+            bnkSelected = $(this).val();
+        })
+
+        holder.keyup(function (e) {
+            checkAllConfirmedForAcc[1] = false;
+            accMsg.html("");
+        })
+
+        account.keyup(function (e) {
+            checkAllConfirmedForAcc[1] = false;
+            accMsg.html("");
+        })
 
         //기존 비밀번호 인증
         accPwdConfirm.on("click", function (e) {
 
-            var msg = "";
+            let msg = "";
             let oriPwdVal = accOriPwd.val();
 
             let checkUser = {
                 email: oriEmail,
                 pwd: oriPwdVal
             }
-
-            accPwdMsg.html("");
 
             $.ajax({
                 url: '/user/mypage/checkPassword',
@@ -118,49 +137,58 @@
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
                 success: function () {
-                    msg += "<i class='far fa-check-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 일치합니다.</p>";
-                    accPwdMsg.html(msg);
-
+                    msg = "비밀번호가 일치합니다.";
+                    checkIsCorrect(accPwdMsg, msg, true)
+                    checkAllConfirmedForAcc[0] = true;
+                    console.log(checkAllConfirmedForAcc);
                     accOriPwd.attr("readonly", true);
-                    checkAllConfirmed[0] = true;
                 },
-                error: function () {
-                    msg += "<i class='fas fa-exclamation-circle'></i>";
-                    msg += "<p>&nbsp;비밀번호가 다릅니다.</p>";
-                    accPwdMsg.html(msg);
-
-                    checkAllConfirmed[0] = false;
+                error: function (error) {
+                    if (error.status == 406) {
+                        msg = "최초비밀번호를 등록 후 인증해주세요";
+                    } else {
+                        msg = "비밀번호가 다릅니다";
+                    }
+                    checkIsCorrect(accPwdMsg, msg, false)
+                    checkAllConfirmedForAcc[0] = false;
+                    console.log(checkAllConfirmedForAcc);
                 }
             })
         })
 
-        //계좌 인증 버튼 작업 넣기
-        $("#btn-accPwdConfirm").on("click", function () {
+        //계좌 인증 버튼
+        $("#btn-accConfirm").on("click", function () {
 
             let holderVal = holder.val();
             let accountVal = account.val();
 
-            //해당 정보로 api를 통한 계좌실명확인절차 밟기
-            //return 값 - 실제 있는 holder, account, 은행명, 인증여부, 인증시각
+            //실명조회할 계좌 정보
+            accInfo = {
+                bnkCode: bnkSelected,
+                holder: holderVal,
+                acc: accountVal,
+                birth: birth.slice(2, birth.length)
+            }
+
+            //promise_ 토큰 획득 후 계좌실명조회
+            getBankingAccTkn()
+                .then((accTkn) => inqRealNameBnkAcc(accTkn, accInfo))
+                .then((msg) => checkIsCorrect(accMsg, msg, true)
+                    .then(checkAllConfirmedForAcc[1] = true))
+                .catch((error) => checkIsCorrect(accMsg, error, false)
+                    .then(checkAllConfirmedForAcc[1] = false))
+
         })
 
+        //모든 인증 완료 후 수정 버튼 클릭
         $("#modifyAcc").on("click", function () {
-
+            console.log(checkAllConfirmedForAcc);
             let originAcc = "<c:out value="${user.acc}"/>";
 
-            let holderVal = holder.val();
-            let accountVal = account.val();
+            if (checkAllConfirmedForAcc[0] == true && checkAllConfirmedForAcc[1] == true) {
 
-            if (checkAllConfirmed[0] == true && checkAllConfirmed[1] == true) {
-
-                let accInfo = {
-                    "acc": accountVal,
-                    "userId": userId,
-                    "bnkCode": bnkSelected,
-                    "holder": holderVal,
-                    "is_authed": "1" //여기 어떻게 해야할지 논의!!! + acc_stus 도 필요없는듯
-                }
+                delete accInfo.birth;
+                accInfo.userId = userId;
 
                 let ajaxTo;
 
@@ -168,14 +196,11 @@
 
                 //최초 계좌 등록인 경우
                 if (originAcc == null || originAcc == "") {
-
                     if (!confirm("계좌를 등록하시겠습니까?")) {
                         return;
                     }
                     ajaxTo = '/user/mypage/accRegister'
-
                 } else { //계좌 수정의 경우
-
                     if (!confirm("등록계좌를 수정하시겠습니까? 기존 등록된 계좌는 삭제됩니다.")) {
                         return;
                     }
@@ -211,8 +236,10 @@
             holder.val("");
             account.val("");
             accOriPwd.val("");
+            accMsg.html("");
             accPwdMsg.html("");
-            checkAllConfirmed = [false,false];
+            accOriPwd.attr("readonly", false);
+            checkAllConfirmedForAcc = [false, false];
         })
     })
 </script>

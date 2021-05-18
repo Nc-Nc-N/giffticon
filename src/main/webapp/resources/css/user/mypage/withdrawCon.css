@@ -1,0 +1,123 @@
+table.type02 {
+    border-spacing: 0px;
+    text-align: center;
+    line-height: 1.5;
+    margin: 5% 5%;
+    border: 1px solid gainsboro;
+    border-collapse: collapse;
+    width: 90%;
+}
+table.type02 th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: rgb(245, 244, 244);
+}
+table.type02 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.con_info input{
+    float: right;
+    margin: 10px;
+    height: 30px;
+    text-align: right;
+}
+.pnt_info_column{
+    margin: 5% 5%;
+}
+.con_info{
+    border-bottom: 1px solid gainsboro;
+    line-height: 60px;
+    padding-left: 3%;
+}
+
+.con_info span:first-child{
+    float: right;
+    margin-right: 3%;
+}
+.pnt_bought_btn_section{
+    float: right;
+    margin-top: 5%;
+}
+
+.modal{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.screen {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+    color: #333333;
+}
+
+.modal--close{
+    background: white;
+    float: right;
+    font-size: 5px;
+    width: 5%;
+    height: 5%;
+}
+
+.input_text{
+    display: flex;
+}
+
+/* Change the color to your own background color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-transition: background-color 9999s ease-out;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+input{
+    border: 1px solid #ccc;
+}
+
+.pwd_group{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 7%;
+}
+
+.btn-submit{
+    margin-left: 3%;
+    height: 23px;
+    width: 40px;
+    font-size: 12px;
+    border-radius: 5px;
+    background-color: #FF585D;
+    color: white;
+}
+
+.message {
+    margin-left: 39%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 11px;
+}
+i {
+    color: rgb(255, 88, 93);
+}

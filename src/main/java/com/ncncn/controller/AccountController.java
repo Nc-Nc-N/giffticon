@@ -131,43 +131,121 @@ public class AccountController {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-	public Model cookieChecker(HttpServletRequest request, Model model) {
+    public Model cookieChecker(HttpServletRequest request, Model model) {
 
-		Cookie[] cookies = request.getCookies();
+        Cookie[] cookies = request.getCookies();
 
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("remEmail")) {
-					model.addAttribute("email", cookies[i].getValue());
-					model.addAttribute("isRemember", "checked");
-				}
-			}
-		}
-		return model;
-	}
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equals("remEmail")) {
+                    model.addAttribute("email", cookies[i].getValue());
+                    model.addAttribute("isRemember", "checked");
+                }
+            }
+        }
+        return model;
+    }
 
-	@GetMapping(value = "/socialAccountCheck")
-	public ResponseEntity<Integer> socialAccountCheck(@RequestParam("email") String email, @RequestParam("soclType") String soclType) {
-		//회원 상태에 따라 0,1,2,3 반환
-		try {
-			int isRegistered = userService.soclUserReadByEmail(email, soclType);
-			log.info("isRegistered :" + isRegistered);
-			return new ResponseEntity<Integer>(isRegistered, HttpStatus.OK);
-		} catch (Exception e) {
-			log.info("social check error");
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    @GetMapping(value = "/socialAccountCheck")
+    public ResponseEntity<Integer> socialAccountCheck(@RequestParam("email") String email,
+                                                      @RequestParam("soclType") String soclType) {
 
-	@GetMapping(value = "/basicAccountCheck")
-	public ResponseEntity<String> ajaxLogin(@RequestParam("email") String email) {
+        //회원 상태에 따라 0,1,2,3 반환
+        try {
+            int isRegistered = userService.soclUserReadByEmail(email, soclType);
+            log.info("isRegistered :" + isRegistered);
+            return new ResponseEntity<Integer>(isRegistered, HttpStatus.OK);
+        } catch (Exception e) {
+            log.info("social check error");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-		try {
-			String usertype = userService.checkLoginCode(email);
-			return new ResponseEntity<String>(usertype, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    }
 
+    @GetMapping(value = "/basicAccountCheck")
+    public ResponseEntity<String> ajaxLogin(@RequestParam("email") String email) {
+
+        try {
+            String usertype = userService.checkLoginCode(email);
+            return new ResponseEntity<String>(usertype, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(value ="/socialSignUp")
+    public void socialSignUp(String email, String name, String soclTypeCode, Model model){
+
+
+        model.addAttribute("email", email);
+        model.addAttribute("name", name);
+        model.addAttribute("soclTypeCode", soclTypeCode);
+
+    }
+
+    @GetMapping(value="/socialAccLink")
+    public void socialAccLink(String email, String name, String soclTypeCode, Model model){
+
+        UserVO user = signUpService.getUserByEmail(email);
+
+        model.addAttribute("user", user);
+        model.addAttribute("soclEmail", email);
+        model.addAttribute("soclName", name);
+        model.addAttribute("soclTypeCode", soclTypeCode);
+
+    }
+
+    // 소셜 회원 등록 요청
+    @PostMapping(value = "/soclRegister", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/text; charset=UTF-8")
+    public ResponseEntity<String> soclRegister(@RequestBody UserVO user) {
+
+        String soclType = user.getRoleCode();
+        user.setRoleCode("003");
+        try {
+            // 사용자 등록
+            signUpService.register(user);
+
+            int userId = signUpService.getUserByEmail(user.getEmail()).getId();
+
+            soclInfoService.RegisterSoclUser(userId,soclType);
+
+        } catch (Exception e) {
+            // 등록 실패사유를 응답에 담아 전송
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/soclCheckOriPwd",
+            method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> soclCheckOriPwd(@RequestParam Map<String, String> checkUser) {
+
+        String email = checkUser.get("email");
+        String pwd = checkUser.get("pwd");
+        String soclType = checkUser.get("soclType");
+        String name = checkUser.get("name");
+        int userId = Integer.parseInt(checkUser.get("userId"));
+
+        UserVO user = signUpService.getUserByEmail(email);
+
+        //입력된 비밀번호가 db값과 일치여부 확인
+        if (UserAuthCheckUtils.userAuthCheck(email, pwd, user)) {
+
+            boolean isUpdated = soclInfoService.changeUserAsSocl("사용자(소셜로그인)",name, email);
+            boolean isRegistered = soclInfoService.RegisterSoclUser(userId, soclType);
+
+            if(isUpdated == true && isRegistered && true){
+
+                return new ResponseEntity<>(HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+        } else {
+
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
 }

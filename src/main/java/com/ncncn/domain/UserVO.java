@@ -20,6 +20,8 @@ public class UserVO {
 
     private String telNo;
 
+    private String birthDt;
+
     private int pnt;
 
     private String memo;

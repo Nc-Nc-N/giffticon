@@ -1,21 +1,13 @@
 package com.ncncn.controller;
 
 
-import com.ncncn.service.DealListService;
-
 import com.ncncn.domain.BrandVO;
 import com.ncncn.domain.CategoryVO;
-import com.ncncn.service.BrandService;
-import com.ncncn.service.CategoryService;
-
-import com.ncncn.service.GifticonService;
-import com.ncncn.service.WishListService;
+import com.ncncn.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;
-
 import org.springframework.http.MediaType;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

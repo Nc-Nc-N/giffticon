@@ -62,7 +62,6 @@
             <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
             <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
         </form>
-
     </div>
 </div>
 </div>
@@ -72,7 +71,7 @@
 <script type="text/javascript" src="/resources/js/user/wishList.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        var actionForm = $("#actionForm");
+        let actionForm = $("#actionForm");
 
         // 페이지네이션 이벤트 처리
         $(".paginate_btn").on("click", function (e) {

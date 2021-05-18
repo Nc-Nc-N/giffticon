@@ -21,9 +21,9 @@ public interface UserService {
 
     UserDetailCheckVO getUserDetail(int userId);
 
-    void updateMemo(UserMemoVO memo);
+    void updateMemo(UserVO memo);
 
-    void updateStatus(UserStatusVO status);
+    void updateStatus(UserVO status);
 
     public UserInfoDTO getMyInfo(int userId);
 
@@ -32,5 +32,9 @@ public interface UserService {
     int soclUserReadByEmail(String email, String soclType);
 
     String checkLoginCode(String email);
+
+    public boolean updateNameAndBirthDt(int userId, UserVO userVO);
+
+    public boolean updateTelNo(int userId, String telNo);
 
 }

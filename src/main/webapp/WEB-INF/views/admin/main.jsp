@@ -69,20 +69,94 @@
 <jsp:include page="adminMemo.jsp"/>
 
 <script>
+
+    //월별 매출 통계 데이터 받기
+    //1. ajax로 AdminSalesHistVO 객체 list 받기
+    //2. 받은 list를 배열에 넣기
+    //3. 월 위치에 맞게 배열의 매출 값 chart1에 넣기
+
+
+    //ajax를 받을 배열 - 길이 12, 매출액 0으로 초기화
+    var salesList = new Array(12);
+
+    for (let i=0; i<salesList.length; i++){
+        salesList[i] = 0;
+    }
+
+
+    //ajax로 AdminSalesHistVO 객체 list 받기
+    $.ajax({
+        type:'get',
+        url: '/admin/sales',
+        async: false,
+        success: function (result){
+            console.log(result);
+
+            //해당 월에 매출액 넣기
+            for(let i =0; i<result.length; i++){
+                console.log(parseInt(result[i].smonth));
+
+                salesList[parseInt(result[i].smonth)] = result[i].sumPrc;
+            }
+        },
+        error: function (e){
+            console.log("ajax list를 받아오는 것을 실패했습니다.");
+            console.log(e);
+        }
+
+    });
+
+
+
+    //월별 방문자 통계 데이터 받기.
+
+    //ajax를 받을 배열 - 길이 12, 방문자 수 0으로 초기화
+    var visitrList = new Array(12);
+
+    for (let i=0; i<visitrList.length; i++){
+        visitrList[i] = 0;
+    }
+
+
+    //ajax로 AdminVisitrHistVO 객체 list 받기
+    $.ajax({
+        type:'get',
+        url: '/admin/visitr',
+        async: false,
+        success: function (result){
+            console.log(result);
+
+            //해당 월에 매출액 넣기
+            for(let i =0; i<result.length; i++){
+                console.log(parseInt(result[i].vmonth));
+
+                visitrList[parseInt(result[i].vmonth)] = result[i].sumVisitr;
+            }
+        },
+        error: function (e){
+            console.log("ajax list를 받아오는 것을 실패했습니다.");
+            console.log(e);
+        }
+
+    });
+
+
+    //월별 매출액 그래프
     let chart1 = bb.generate({
         data: {
             columns: [
-                ["매출 (원)", 306500, 501200, 378050, 340050, 262000, 378050, 306500, 501200, 378050, 340050, 262000, 378050],
+                ["매출 (원)", salesList[0],salesList[1],salesList[2],salesList[3],salesList[4],salesList[5],salesList[6],salesList[7],salesList[8],salesList[9],salesList[10],salesList[11]],
             ],
             types: {}
         },
         bindto: ".areaChart1"
     });
 
+    //월별 방문자 수 그래프
     let chart2 = bb.generate({
         data: {
             columns: [
-                ["방문자 수", 300, 350, 300, 140, 250, 340, 300, 350, 300, 140, 250, 340],
+                ["방문자 수", visitrList[0],visitrList[1],visitrList[2],visitrList[3],visitrList[4],visitrList[5],visitrList[6],visitrList[7],visitrList[8],visitrList[9],visitrList[10],visitrList[11]],
             ],
             types: {}
         },
@@ -122,6 +196,8 @@
         }
 
         console.log(error);
+
+
     });
 
 

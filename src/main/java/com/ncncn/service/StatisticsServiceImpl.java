@@ -1,5 +1,7 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.AdminSalesHistVO;
+import com.ncncn.domain.AdminVisitrHistVO;
 import com.ncncn.domain.StatisticsVO;
 import com.ncncn.mapper.StatisticsMapper;
 import lombok.Setter;
@@ -7,6 +9,8 @@ import lombok.extern.log4j.Log4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Log4j
@@ -35,6 +39,20 @@ public class StatisticsServiceImpl implements StatisticsService {
 		}
 
 		return statisticsVO;
+	}
+
+	@Override
+	public List<AdminSalesHistVO> getSalesByMonth() {
+
+		log.info("get SalesRec By Month");
+		return statisticsMapper.readSalesByMonth();
+	}
+
+	@Override
+	public List<AdminVisitrHistVO> getVisitrByMonth() {
+
+		log.info("get Visitr By Month");
+		return statisticsMapper.readVisitrByMonth();
 	}
 
 	@Override

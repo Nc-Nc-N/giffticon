@@ -475,6 +475,7 @@
                     name: name,
                     birthDt: birth,
                     telNo: telNo,
+                    roleCode: '002',
                     emlAuthTkn: emlAuthCode
                 }),
                 contentType: 'application/json; charset=utf-8',

@@ -40,9 +40,14 @@ public class SignUpServiceImpl implements SignUpService {
 		}
 
 		checkValidateUser(userVO);
+    
+		if(!userVO.getRoleCode().equals("003")) {
 
-		String encodedPwd = passwordEncoder.encode(userVO.getPwd());
-		userVO.setPwd(encodedPwd);
+			checkValidateUser(userVO);
+
+			String encodedPwd = passwordEncoder.encode(userVO.getPwd());
+			userVO.setPwd(encodedPwd);
+		}
 
 		int result = 0;
 		try {

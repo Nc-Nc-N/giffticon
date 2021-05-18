@@ -23,6 +23,7 @@
                         <div class="user_info_column">
                             <div>Email</div>
                             <div>이름</div>
+                            <div>생년월일</div>
                             <div>전화번호</div>
                             <div>보유 포인트</div>
                         </div>
@@ -30,12 +31,27 @@
                         <div class="user_info_row">
                             <div><c:out value="${user.email}"/></div>
                             <div><c:out value="${user.name}"/></div>
+                            <div>
+                                <c:if test="${user.birthDt == null}">
+                                    생년월일을 등록해주세요
+                                </c:if>
+                                <c:if test="${user.birthDt != null}">
+                                    <c:out value="${user.birthDt}"/>
+                                </c:if>
+                            </div>
                             <div><c:out value="${user.telNo}"/></div>
                             <div><c:out value="${user.pnt}"/>p</div>
                         </div>
                         <div class="user_info_btn">
-                            <button class="btn btn-active" id="modUserInfo">비밀번호 변경</button>
                             <button class="btn btn-active" id="modTelNo">휴대전화 인증</button>
+                            <c:if test="${pwdExist == false}">
+                                <button class="btn btn-active" id="modPwd">비밀번호 설정</button>
+                                <button class="btn btn-disabled needPwd">회원정보 수정</button>
+                            </c:if>
+                            <c:if test="${pwdExist == true}">
+                                <button class="btn btn-active" id="modPwd">비밀번호 변경</button>
+                                <button class="btn btn-active" id="modInfo">회원정보 수정</button>
+                            </c:if>
                         </div>
                     </div>
                     <div class="contentheader">
@@ -54,15 +70,25 @@
                             <div><c:out value="${user.acc}"/></div>
                         </div>
                         <div class="user_info_btn">
-                            <button class="btn btn-active" id="modAccInfo">계좌정보 수정</button>
+                            <c:choose>
+                                <c:when test="${pwdExist == false}">
+                                    <button class="btn btn-disabled needPwd">계좌정보 수정</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="btn btn-active" id="modAccInfo">계좌정보 수정</button>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<div class="modalOn modal_userInfo">
-    <jsp:include page="userInfo_editUser.jsp"/>
+<div class="modalOn modal_editPwd">
+    <jsp:include page="userInfo_editPwd.jsp"/>
+</div>
+<div class="modalOn modal_editInfo">
+    <jsp:include page="userInfo_editInfo.jsp"/>
 </div>
 <div class="modalOn modal_telNo">
     <jsp:include page="userInfo_editTelNo.jsp"/>
@@ -70,44 +96,63 @@
 <div class="modalOn modal_accInfo">
     <jsp:include page="userInfo_editAcc.jsp"/>
 </div>
+<div class="modalOn modal_alert">
+    <div class="alertMsg">비밀번호 설정 후 이용가능합니다.</div>
+</div>
 </body>
 
 
 </html>
 
-
 <script>
 
     let modalSection = $(".modalOn");
-    let modUserInfo = $("#modUserInfo");
+    let modPwd = $("#modPwd");
     let modTelNo = $("#modTelNo");
     let modAccInfo = $("#modAccInfo");
+    let modInfo = $("#modInfo");
 
     $(".document").ready(function(){
 
-        modUserInfo.on("click",function (){
-
-            $(".modal_userInfo").css("visibility","visible");
-        })
-
-        modTelNo.on("click", function(){
-
-            $(".modal_telNo").css("visibility","visible");
-        })
-
-        modAccInfo.on("click",function(){
-
-            $(".modal_accInfo").css("visibility", "visible");
-        })
-
-        $(".cancel").on("click",function(e){
-
-            $(".modalOn").css("visibility", "hidden");
-        })
-
+        //계좌정보 수정 비활성화, 휴대전화인증 비활성화, 비밀번호 변경 텍스트 바꾸기
     })
+
+    modPwd.on("click",function (){
+
+        $(".modal_editPwd").css("visibility","visible");
+    })
+
+    modTelNo.on("click", function(){
+
+        $(".modal_telNo").css("visibility","visible");
+    })
+
+    modAccInfo.on("click",function(){
+
+        $(".modal_accInfo").css("visibility", "visible");
+    })
+
+    modInfo.on("click",function(){
+
+        $(".modal_editInfo").css("visibility", "visible");
+    })
+
+    $(".needPwd").on("click",function(){
+        $(".modal_alert").css("visibility","visible");
+    })
+
+    $(".modal_alert").on("click",function(){
+        $(this).css("visibility", "hidden");
+    })
+
+    $(".cancel").on("click",function(e){
+
+        $(".modalOn").css("visibility", "hidden");
+    })
+
 </script>
 
 <script>
+
 
 </script>

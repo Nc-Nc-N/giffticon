@@ -64,7 +64,15 @@
             </span>
         </td>
 
-        <td class="c2">ㅤ</td>
+        <td class="c2">
+            <span>
+            <c:if test="${user.enabled == 0}">
+               <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+                               value="${user.quitHist}"/>
+            </c:if>
+            </span>
+        </td>
+
     </tr>
     <tr>
         <td class="c3">ㅤ</td>

@@ -2,8 +2,6 @@ package com.ncncn.service;
 
 import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserDetailCheckVO;
-import com.ncncn.domain.UserMemoVO;
-import com.ncncn.domain.UserStatusVO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.domain.pagination.UserCheckCriteria;
 import com.ncncn.mapper.SoclInfoMapper;
@@ -14,6 +12,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -82,17 +81,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateMemo(UserMemoVO memo) {
+    public void updateMemo(UserVO memo) {
 
         log.info("update Memo " + memo);
         userMapper.updateMemo(memo);
     }
 
+    @Transactional
     @Override
-    public void updateStatus(UserStatusVO status) {
+    public void updateStatus(UserVO status) {
 
         log.info("update User Status " + status);
         userMapper.updateStatus(status);
+
+        log.info("record User Status change history");
+        userMapper.recordUserStatHistChange(status);
     }
 
     @Override
@@ -170,4 +173,30 @@ public class UserServiceImpl implements UserService {
             return "social";
         }
     }
+
+    @Override
+    public boolean updateNameAndBirthDt(int userId, UserVO userVO) {
+
+        int isUpdated = userMapper.updateNameAndBirthDt(userId, userVO.getName(), userVO.getBirthDt());
+
+        if (isUpdated == 1) {
+            return true;
+        } else {
+            throw new IllegalArgumentException("변경오류입니다. 관리자에게 문의하세요.");
+        }
+
+    }
+
+    @Override
+    public boolean updateTelNo(int userId, String telNo){
+
+        int isUpdated = userMapper.updateTelNo(userId, telNo);
+
+        if (isUpdated == 1) {
+            return true;
+        } else {
+            throw new IllegalArgumentException("변경오류입니다. 관리자에게 문의하세요.");
+        }
+    }
+
 }
