@@ -2,8 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="templete.jsp"/>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/withdrawCon.css" type="text/css">
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<head>
+    <link rel="stylesheet" href="/resources/css/user/mypage/withdrawCon.css" type="text/css">
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+</head>
 
 <div class="contents">
     <div class="contentheader">
@@ -225,8 +229,6 @@
                         holder: holderVal,
                         id: idVal
                     }
-
-                    console.log(userInfo);
 
                     //promise_ 토큰 획득 후
                     getBankingAccTkn()
