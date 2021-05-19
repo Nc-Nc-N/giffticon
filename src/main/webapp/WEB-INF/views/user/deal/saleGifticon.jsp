@@ -699,7 +699,6 @@
             return;
         }
 
-
         if (endDateCheck()) {
             alert("기프티콘 유효기간을 입력해주세요.")
             return;
@@ -730,10 +729,8 @@
             return;
         }
 
-
         // 유효성검사 모두 통과하면 판매등록 진행
         insertGifticonValues();
-
     });
 
     // 유효성검사 통과 시 Ajax로 DB에 Insert하는 함수
