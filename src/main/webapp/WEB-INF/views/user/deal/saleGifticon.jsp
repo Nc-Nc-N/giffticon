@@ -456,7 +456,7 @@
 
         // 해당 대분류 하위 중분류 목록 가져옴
         $.ajax({
-            url: '/user/getBrandAction?name=' + encodeURIComponent(catName),
+            url: '/user/getBrandAction?name=' + encodeURI(encodeURIComponent(catName)),
             processData: false,
             contentType: false,
             beforeSend: function (xhr) {
@@ -519,7 +519,7 @@
 
         // 해당 중분류 하위 소분류 목록 가져옴
         $.ajax({
-            url: '/user/getProductAction?name=' + encodeURIComponent(brdName),
+            url: '/user/getProductAction?name=' + encodeURI(encodeURIComponent(brdName)),
             processData: false,
             contentType: false,
             beforeSend: function (xhr) {
@@ -592,8 +592,8 @@
 
         // 소분류 클릭시 중분류, 소분류 이름을 보내고 소분류 객체를 받아온다.
         $.ajax({
-            url: '/user/getProductObjectAction?brdName=' + encodeURIComponent(brdName) +
-                '&prodName=' + encodeURIComponent(prodName),
+            url: '/user/getProductObjectAction?brdName=' + encodeURI(encodeURIComponent(brdName)) +
+                '&prodName=' + encodeURI(encodeURIComponent(prodName)),
             processData: false,
             contentType: false,
             beforeSend: function (xhr) {
