@@ -19,7 +19,7 @@ public class UserValidator {
 
 	public static boolean checkBirthDt(String birthDt) {
 		// 길이가 6자리이고, 숫자로만 이루어져있는지 확인
-		if (birthDt != null) return birthDt.matches("[0-9]{6}$");
+		if (birthDt != null) return birthDt.matches("[0-9]{8}$");
 		// 생년월일 값이 없어도 가입진행
 		return true;
 	}
