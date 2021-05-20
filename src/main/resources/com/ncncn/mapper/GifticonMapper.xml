@@ -457,6 +457,23 @@
                substr(img_path, 72) file_name
         from gifticon
         where substr(img_path, 24, 10) = DATE_FORMAT(DATE_ADD(now(), INTERVAL -1 DAY), '%Y/%m/%d')
-    </select>  
+    </select>
+
+    <select id="getNotCmplGft" resultType="int">
+        select
+            gftT.id
+        from deal_detail dealT, gifticon gftT
+        where dealT.gifticon_id = gftT.id
+          and gftT.gft_stus_code = '004' and dealT.cmpl_dt is null;
+    </select>
+
+<!--    <update id="AutoDealCmpl" parameterType="java.util.List">-->
+<!--        update gifticon-->
+<!--        set gft_stus_code = '004'-->
+<!--        where id in (-->
+<!--        <foreach collection="list" item="item" separator=",">-->
+<!--            #{gftList}-->
+<!--            );-->
+<!--    </update>-->
 
 </mapper>

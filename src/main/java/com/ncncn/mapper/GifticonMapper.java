@@ -91,4 +91,6 @@ public interface GifticonMapper {
 
 	int updateSaleGftStus(@Param("id") int id, @Param("stus") String stus);
 
+	List<Integer> getNotCmplGft();
+
 }

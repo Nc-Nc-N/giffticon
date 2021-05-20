@@ -22,6 +22,9 @@ public class GifticonServiceTests {
     @Setter(onMethod_ = {@Autowired})
     GifticonService gifticonService;
 
+    @Setter(onMethod_ = {@Autowired})
+    GftManagingService gftManagingService;
+
     @Test
     public void gftDealCmplTests(){
 
@@ -79,5 +82,18 @@ public class GifticonServiceTests {
         List<ProdListVO> gftList = gifticonService.getMainGftByBrandName(brdName);
 
         assertEquals(gftList.size(), 0);
+    }
+
+    @Test
+    public void getNotCmplGftTest(){
+
+        List<Integer> gftList = gftManagingService.getNotCmplGifticon();
+
+        if(gftList.size() == 0){
+            log.info("업데이트 할 기프티콘이 없습니다.");
+        }else{
+            log.info("총 " + gftList.size() + "개의 gft 업데이트");
+            log.info(gftList);
+        }
     }
 }
