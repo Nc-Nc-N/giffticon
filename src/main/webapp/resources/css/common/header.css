@@ -182,7 +182,7 @@ li.drop-down > a:hover + .drop-down-ul {
 
     .flyout-right > div {
         left: 100%;
-        height: 468px;
+        height: 416px;
         overflow-y: auto;
 
     }

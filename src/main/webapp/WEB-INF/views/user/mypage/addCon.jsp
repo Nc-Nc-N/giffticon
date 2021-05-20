@@ -129,8 +129,8 @@
             }, function (rsp) {
                 console.log(rsp);
                 if (rsp.success) {
-                    var msg = '결제가 완료되었습니다. ';
-                    msg += '결제 금액 : ' + rsp.paid_amount;
+                    var msg = '충전 완료되었습니다. ';
+                    msg += '충전 금액 : ' + rsp.paid_amount;
 
                     $.ajax({
                         type: "POST",
@@ -145,7 +145,7 @@
 
                     });
                 } else {
-                    var msg = '결제에 실패하였습니다.';
+                    var msg = '충전에 실패하였습니다. 다시 시도해 주세요.';
                     msg += '에러내용 : ' + rsp.error_msg;
                 }
                 alert(msg);
