@@ -30,6 +30,20 @@
         order by vMonth
     </select>
 
+<!--    월별 카테고리 매출비율-->
+    <select id="readCateSalesByMonth" resultType="com.ncncn.domain.AdminCateSalesHistVO">
+        select substr(gft.prod_code,1,2) as prodCode  ,SUM(deal.pymt_prc) as sumPrc , DATE_FORMAT(gft.up_date,'%m') as sMonth
+        from gifticon gft
+                 inner join deal_detail deal
+                            on gft.id = deal.gifticon_id
+                 inner join (select * from cmmn_code where code_type = 'GFT_STUS') cm
+                            on gft.gft_stus_code = cm.code
+        where gft.gft_stus_code = '005'
+        group by sMonth, prodCode
+        having sMonth = DATE_FORMAT(now(),'%m')
+    </select>
+
+
     <insert id="initStatistics">
         insert statistics(dt, visitr_rec, sales_rec, in_user, up_user)
         values (curdate(), 0, 0, current_user, current_user )
@@ -59,9 +73,5 @@
         ]]>
     </update>
 
-<!--    <resultMap id="SalesGraph" type="java.util.HashMap">-->
-<!--        <result property="pymtPrc" column="pymt_prc"/>-->
-<!--        <result property="upDate" column="up_date"/>-->
-<!--    </resultMap>-->
 
 </mapper>

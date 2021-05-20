@@ -1,5 +1,6 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.AdminCateSalesHistVO;
 import com.ncncn.domain.AdminSalesHistVO;
 import com.ncncn.domain.AdminVisitrHistVO;
 import com.ncncn.domain.StatisticsVO;
@@ -16,6 +17,9 @@ public interface StatisticsMapper {
 
 	//월별 방문자 수
 	List<AdminVisitrHistVO> readVisitrByMonth();
+
+	//월별 카테고리 매출액
+	List<AdminCateSalesHistVO> readCateSalesByMonth();
 
 	void initStatistics();
 

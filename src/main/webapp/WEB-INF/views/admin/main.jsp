@@ -140,6 +140,41 @@
 
     });
 
+    //월별 카테고리 매출액
+
+    //ajax로 받을 카테고리 수 8개
+    var cateSalesList = new Array(8);
+
+    for (let i=0; i<cateSalesList.length; i++){
+        cateSalesList[i] = 0;
+    }
+
+    //ajax로 AdminCateSalesHistVO 객체 list 받기
+    $.ajax({
+        type:'get',
+        url: '/admin/cateSales',
+        async: false,
+        success: function (result){
+            console.log(result);
+
+            //해당 카테고리에 매출액 넣기
+            for(let i =0; i<result.length; i++){
+
+                console.log(parseInt(result[i].prodCode));
+
+                cateSalesList[parseInt(result[i].prodCode) - 1] = result[i].sumPrc;
+            }
+        },
+        error: function (e){
+            console.log("ajax list를 받아오는 것을 실패했습니다.");
+            console.log(e);
+        }
+
+    });
+
+
+
+
 
     //월별 매출액 그래프
     let chart1 = bb.generate({
@@ -169,14 +204,14 @@
     let chart = bb.generate({
         data: {
             columns: [
-                ["카페", 120],
-                ["피자, 햄버거, 치킨", 50],
-                ["빵, 아이스크림", 70],
-                ["편의점, 마트", 20],
-                ["문화, 게임, 영화", 20],
-                ["외식, 분식", 30],
-                ["백화점, 주유, 뷰티", 10],
-                ["휴대폰 데이터", 0]
+                ["카페", cateSalesList[0]],
+                ["피자, 햄버거, 치킨", cateSalesList[1]],
+                ["빵, 아이스크림", cateSalesList[2]],
+                ["편의점, 마트", cateSalesList[3]],
+                ["문화, 게임, 영화", cateSalesList[4]],
+                ["외식, 분식", cateSalesList[5]],
+                ["백화점, 주유, 뷰티", cateSalesList[6]],
+                ["휴대폰 데이터", cateSalesList[7]]
             ],
             type: "pie", // for ESM specify as: pie()
             onclick: function (d, i) {

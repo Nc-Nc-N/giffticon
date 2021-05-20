@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.AdminCateSalesHistVO;
 import com.ncncn.domain.AdminSalesHistVO;
 import com.ncncn.domain.AdminVisitrHistVO;
 import com.ncncn.domain.StatisticsVO;
@@ -15,6 +16,9 @@ public interface StatisticsService {
 
 	//월별 방문자 수
 	List<AdminVisitrHistVO> getVisitrByMonth();
+
+	//월별 카테고리 매출액
+	List<AdminCateSalesHistVO> getCateSalesByMonth();
 
 	void initializeStatistics();
 
