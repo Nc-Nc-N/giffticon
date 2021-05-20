@@ -32,4 +32,6 @@ public interface ProductMapper {
 
 	int updateProductWithImagePath(ProdRegisterDTO product);
 
+	int updateSoldQuty(int id);
+
 }
