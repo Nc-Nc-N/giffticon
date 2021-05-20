@@ -11,7 +11,7 @@ public class SocialInfoDTO {
 
     private String name;
 
-    private Date birthDt;
+    private String birthDt;
 
     private String telNo;
 

@@ -10,8 +10,8 @@
     </select>
 
     <insert id="insertUser">
-        insert into user(email, pwd, name, tel_no, eml_auth_tkn, role_code, in_user, up_user)
-            value (#{email}, #{pwd}, #{name}, #{telNo}, #{emlAuthTkn}, #{roleCode}, current_user , current_user)
+        insert into user(email, pwd, name, birth_dt, tel_no, eml_auth_tkn, role_code, in_user, up_user)
+            value (#{email}, #{pwd}, #{name}, #{birthDt}, #{telNo}, #{emlAuthTkn}, #{roleCode}, current_user , current_user)
     </insert>
 
     <delete id="deleteByEmail">

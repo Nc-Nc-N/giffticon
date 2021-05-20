@@ -93,11 +93,6 @@ public class ProdManagingController {
 
 	@PostMapping(value = "/product/register")
 	public String register(ProdRegisterDTO product, @RequestParam("prodImg") MultipartFile[] files, ProdCriteria cri, RedirectAttributes rattr) {
-		rattr.addFlashAttribute("pageNum", cri.getPageNum());
-		rattr.addFlashAttribute("amount", cri.getAmount());
-		rattr.addFlashAttribute("type", cri.getType());
-		rattr.addFlashAttribute("keyword", cri.getKeyword());
-
 		String cateCode = product.getBrdCode().substring(0, 2);
 		String uploadFolder = "C:/Users/lwiii/Desktop/Projects/giffticon/src/main/webapp";
 		String prodFolder = "/resources/img/product/" + cateCode + "/" + product.getBrdCode() + "/";
@@ -110,27 +105,24 @@ public class ProdManagingController {
 		try {
 			code = productService.register(product);
 
-			File upload = new File(uploadFolder, prodFolder);
-			if (!upload.exists()) {
-				upload.mkdirs();
+			if (!files[0].isEmpty()) {
+				File upload = new File(uploadFolder, prodFolder);
+				if (!upload.exists()) {
+					upload.mkdirs();
+				}
+				File saveFile = new File(uploadFolder + prodFolder, code + fileExtension);
+				files[0].transferTo(saveFile);
 			}
-			File saveFile = new File(uploadFolder + prodFolder, code + fileExtension);
-			files[0].transferTo(saveFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 			rattr.addAttribute("error", "상품을 등록하는데 실패했습니다. 새로고침 후 다시 시도해주세요.\n문제가 반복되면 담당자에게 문의해주세요.");
 		}
 
-		return "redirect:/admin/product/prodList";
+		return "redirect:/admin/product/prodList?pageNum=" + cri.getPageNum() + "&amount=" + cri.getAmount() + "&type=" + cri.getType() + "&keyword=" + cri.getKeyword();
 	}
 
 	@PostMapping(value = "/product/modify")
 	public String modify(ProdRegisterDTO product, @RequestParam("prodImg") MultipartFile[] files, ProdCriteria cri, RedirectAttributes rattr) {
-		rattr.addFlashAttribute("pageNum", cri.getPageNum());
-		rattr.addFlashAttribute("amount", cri.getAmount());
-		rattr.addFlashAttribute("type", cri.getType());
-		rattr.addFlashAttribute("keyword", cri.getKeyword());
-
 		String cateCode = product.getBrdCode().substring(0, 2);
 		String uploadFolder = "C:/Users/lwiii/Desktop/Projects/giffticon/src/main/webapp";
 		String imgPath = "/resources/img/product/" + cateCode + "/" + product.getBrdCode() + "/";
@@ -161,6 +153,6 @@ public class ProdManagingController {
 			rattr.addAttribute("error", "상품 수정에 실패했습니다. 새로고침 후 다시 시도해주세요.\n문제가 반복되면 담당자에게 문의해주세요.");
 		}
 
-		return "redirect:/admin/product/prodList";
+		return "redirect:/admin/product/prodList?pageNum=" + cri.getPageNum() + "&amount=" + cri.getAmount() + "&type=" + cri.getType() + "&keyword=" + cri.getKeyword();
 	}
 }

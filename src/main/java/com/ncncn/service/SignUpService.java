@@ -10,4 +10,6 @@ public interface SignUpService {
 
 	int register(UserVO userVO) throws Exception;
 
+	void sendAuthCode(String telNo, String code) throws Exception;
+
 }
