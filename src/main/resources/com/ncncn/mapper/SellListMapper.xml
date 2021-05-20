@@ -48,6 +48,7 @@
             prdT.brd_code = brdT.code
           and
             gftT.gft_stus_code = stusT.code
+        order by gftT.in_date desc
         ]]>
 
         <include refid="criteria"></include>
