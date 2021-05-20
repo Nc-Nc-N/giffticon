@@ -2,7 +2,7 @@
     font-size:14px;
 }
 
-.search-area {
+#search-area {
     display: flex;
     justify-content:space-between;
     align-items:center;
@@ -60,19 +60,10 @@
     color: rgb(71, 71, 71);
 }
 
-#t1 {
-    text-align:center;
-    border-collapse:collapse;
-}
-
-th {
-    background-color:rgb(189, 187, 187);
-    padding:7px;
-}
-
-td {
-    border-bottom:1px solid black;
-    padding:10px 0;
+.list-tr {
+    height: fit-content;
+    font-size: 16px;
+    height:60px;
 }
 
 .pagination-container {

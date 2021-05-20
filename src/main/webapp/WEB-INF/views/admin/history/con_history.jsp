@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/list.css" typeof="text/css">
 <link rel="stylesheet" href="/resources/css/admin/history/con_history.css" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -23,7 +24,7 @@
 
 <!-- search area -->
 <form id='searchForm' action="/admin/con-history" method="get">
-    <div class="search-area">
+    <div id="search-area">
         <div class="period-container">
             <span id="period">거래 기간</span>
             <div class="date-search">
@@ -79,17 +80,19 @@
 <div>
     <c:choose>
         <c:when test="${not empty list}">
-            <table id="t1" width="100%">
+            <table id="list-tb">
+                <thead>
                 <tr>
-                    <th style="width:26%">회원 Email</th>
-                    <th style="width:12%">거래종류</th>
-                    <th style="width:12%">금액</th>
-                    <th style="width:15%">주문번호</th>
-                    <th style="width:20%">거래일시</th>
-                    <th style="width:15%">잔여 콘</th>
+                    <td style="width:26%">회원 Email</td>
+                    <td style="width:12%">거래종류</td>
+                    <td style="width:12%">금액</td>
+                    <td style="width:15%">주문번호</td>
+                    <td style="width:20%">거래일시</td>
+                    <td style="width:15%">잔여 콘</td>
                 </tr>
+                </thead>
                 <c:forEach items="${list}" var="conL">
-                    <tr>
+                    <tr class="list-tr">
                         <td>${conL.email}</td>
                         <td>${conL.codeName}</td>
                         <td>${conL.chgQuty}</td>
