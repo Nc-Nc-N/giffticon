@@ -120,4 +120,12 @@
             up_user = current_user()
         where code = #{code}
     </update>
+
+    <update id="updateSoldQuty">
+        update product
+        set sold_quty = (sold_quty + 1),
+            up_date = now(),
+            up_user = current_user()
+        where code= (select prod_code from gifticon where id= #{id})
+    </update>
 </mapper>

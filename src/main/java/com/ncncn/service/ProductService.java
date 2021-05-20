@@ -30,4 +30,6 @@ public interface ProductService {
 
 	int modifyProductWithImagePath(ProdRegisterDTO product);
 
+	int updateSoldQuty(int id);
+
 }

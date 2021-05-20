@@ -4,6 +4,7 @@ import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.mapper.DealListMapper;
 import com.ncncn.service.DealListService;
 import com.ncncn.service.GifticonService;
+import com.ncncn.service.ProductService;
 import com.ncncn.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -21,6 +22,7 @@ public class OrderController {
 	private GifticonService giftiService;
 	private UserService userService;
 	private DealListService dealService;
+	private ProductService productService;
 
 	@GetMapping("/user/gifti_order")
 	public String giftiOrder(@RequestParam("gifti") int id, HttpServletRequest request,  Model model) {
@@ -55,6 +57,9 @@ public class OrderController {
 
 			// deal_detail 추가
 			dealService.insertDeal(userId,gftId, dcPrc, metdStus);
+
+			// 상품 sold_quty 변경
+			productService.updateSoldQuty(gftId);
 
 			model.addAttribute("gftId", gftId);
 			model.addAttribute("dcPrc", dcPrc);
