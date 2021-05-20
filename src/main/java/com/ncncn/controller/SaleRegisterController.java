@@ -159,7 +159,7 @@ public class SaleRegisterController {
         log.info("update ajax post................");
 
         List<AttachFileDTO> list = new ArrayList<>();
-        String uploadFolder = "/Users/asdddq/Desktop/MyFolder/TeamProject/Git0418/giffticon/src/main/webapp/resources/img/barcode";
+        String uploadFolder = "/Users/asdddq/upload/barcode";
 
         String uploadFolderPath = getFolder();
         //make folder --------
@@ -234,7 +234,7 @@ public class SaleRegisterController {
 
         log.info("fileName: " + fileName);
 
-        File file = new File("/Users/asdddq/Desktop/MyFolder/TeamProject/Git0418/giffticon/src/main/webapp/resources/img/barcode" + fileName);
+        File file = new File("/Users/asdddq/upload/barcode" + fileName);
 
         log.info("file: " + file);
 
