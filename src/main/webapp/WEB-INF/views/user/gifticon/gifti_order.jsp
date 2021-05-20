@@ -286,7 +286,7 @@ $(document).ready(function(){
     }
 
     function payCon(){
-        // 다시 생각해보기..
+
         let con = ${gifticon.dcPrc};
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";

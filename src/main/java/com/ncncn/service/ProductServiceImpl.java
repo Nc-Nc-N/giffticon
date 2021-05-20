@@ -75,4 +75,7 @@ public class ProductServiceImpl implements ProductService {
 	public int modifyProductWithImagePath(ProdRegisterDTO product) {
 		return mapper.updateProductWithImagePath(product);
 	}
+
+	@Override
+	public int updateSoldQuty(int id) { return mapper.updateSoldQuty(id); }
 }
