@@ -11,6 +11,7 @@ import com.ncncn.service.SoclInfoService;
 import com.ncncn.service.UserService;
 import com.ncncn.util.ConfirmCodeUtils;
 import lombok.extern.log4j.Log4j;
+import com.ncncn.util.UserAuthCheckUtils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
