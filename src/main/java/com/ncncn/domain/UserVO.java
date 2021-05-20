@@ -16,8 +16,6 @@ public class UserVO {
 
     private String name;
 
-    private String birthDt;
-
     private String telNo;
 
     private String birthDt;
