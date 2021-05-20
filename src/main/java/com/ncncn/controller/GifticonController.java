@@ -1,8 +1,11 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.GifticonVO;
+import com.ncncn.domain.PntHistVO;
 import com.ncncn.domain.pagination.MyPageCriteria;
 import com.ncncn.domain.PrcUpdateVO;
 import com.ncncn.domain.UserVO;
+import com.ncncn.service.ConService;
 import com.ncncn.service.GifticonService;
 import com.ncncn.service.UserService;
 import com.ncncn.util.UserAuthCheckUtils;
@@ -24,12 +27,29 @@ public class GifticonController {
 
     GifticonService gifticonService;
     UserService userService;
+    ConService conService;
 
     @PostMapping("/stus005")
     public String gftDealCmpl(HttpServletRequest request, int gftId, Model model) {
 
         //기프티콘 상태 구매확정대기 -> 구매 확정 변경
         gifticonService.gftDealCmpl(gftId);
+
+        //기프티콘 가격정보, 판매자 id 불러오기
+        GifticonVO gifticonVO = gifticonService.getGft(gftId);
+
+        PntHistVO pntHistVO = new PntHistVO();
+
+        //pnt_history 객체 만들기
+        pntHistVO.setUserId(gifticonVO.getUserId());
+        pntHistVO.setChgQuty(gifticonVO.getDcPrc());
+        pntHistVO.setPntHistCode("004");
+
+        // conHist insert
+        conService.insertConHist(pntHistVO);
+
+        //판매자에게 입금
+        conService.updateUserCon(gifticonVO.getUserId(), gifticonVO.getDcPrc());
 
         //구매상세페이지에서 구매확정한 경우 구매상세로 다시 보냄
         if (request.getHeader("referer").contains("/dealDetail")) {
