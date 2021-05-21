@@ -12,6 +12,7 @@ import com.ncncn.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,13 +40,27 @@ import java.util.UUID;
 @Controller
 @Log4j
 @RequestMapping("/user/*")
-@AllArgsConstructor
 public class SaleRegisterController {
 
-    private CategoryService cateService;
-    private BrandService brandService;
-    private ProductService prodService;
-    private GifticonService giftiService;
+    final private String barcodepath;
+    final private CategoryService cateService;
+    final private BrandService brandService;
+    final private ProductService prodService;
+    final private GifticonService giftiService;
+
+    public SaleRegisterController(
+        @Value("#{barcodepath['path']}") String barcodepath,
+        CategoryService cateService,
+        BrandService brandService,
+        ProductService prodService,
+        GifticonService giftiService
+    ) {
+        this.barcodepath = barcodepath;
+        this.cateService = cateService;
+        this.prodService = prodService;
+        this.brandService = brandService;
+        this.giftiService = giftiService;
+    }
 
     @GetMapping("/deal/saleGifticon")
     public String saleGifticon(HttpServletRequest request , Model model){
@@ -159,7 +174,7 @@ public class SaleRegisterController {
         log.info("update ajax post................");
 
         List<AttachFileDTO> list = new ArrayList<>();
-        String uploadFolder = "/Users/asdddq/upload/barcode";
+        String uploadFolder = barcodepath;
 
         String uploadFolderPath = getFolder();
         //make folder --------
@@ -234,7 +249,7 @@ public class SaleRegisterController {
 
         log.info("fileName: " + fileName);
 
-        File file = new File("/Users/asdddq/upload/barcode" + fileName);
+        File file = new File(barcodepath + fileName);
 
         log.info("file: " + file);
 
