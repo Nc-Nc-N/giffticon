@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <%@include file="../../common/header.jsp" %>
 
@@ -213,6 +214,7 @@
 </div>    <!-- end of container -->
 
 <script type="text/javascript">
+
     $(document).ready(function () {
         // 페이지 로딩시 카테고리 불러오기 실패하면 에러메세지 출력
         if ("${initError}" != "") {
@@ -566,6 +568,7 @@
     let inDcRate = 0.0;
     let userId = ${userId};
     let originPath = "";
+    let barcodepath = "<spring:eval expression="@barcodepath['path']"/>";
 
     // 소분류 클릭시 동작
     $('.productbox').on("click", $('.productSelect .select'), function (e) {
@@ -748,7 +751,7 @@
                 expirDt: $("#end-date")[0].value,
                 brcd: $("#barcode")[0].value,
                 descn: $("#descn")[0].value,
-                imgPath: "/resources/img/barcode/" + originPath,
+                imgPath: barcodepath + "/" + originPath,
                 isAutoPrc: $("input[name=group1]:checked")[0].value,
                 gftStusCode: '001',
                 aprvDt: null,

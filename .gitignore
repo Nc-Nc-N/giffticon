@@ -146,5 +146,5 @@ buildNumber.properties
 applicationContext.xml
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,maven
 /src/main/java/com/ncncn/listener/DBConnection.java
-
 /src/main/resources/mms.properties
+/src/main/resources/barcodepath.properties
