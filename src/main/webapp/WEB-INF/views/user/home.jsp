@@ -88,16 +88,6 @@
                                             <div class="itemname">
                                                 <c:out value="${wishList.pname}"/>
                                             </div>
-                                            <div class="itemprice">
-                                                <span><fmt:formatNumber value="${wishList.dcRate}"
-                                                                        type="percent"/></span>&nbsp;&nbsp;
-                                                <span><fmt:formatNumber type="number" maxFractionDigits="3"
-                                                                        value="${wishList.dcPrc}"/> 원 ~</span>
-                                            </div>
-                                            <div class="itemoriginprice">
-                                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3"
-                                                                             value="${wishList.prc}"/> 원</del></span>
-                                            </div>
                                         </div>
                                     </div>
                                 </a>
@@ -134,34 +124,32 @@
                                 <tr>
                             </c:if>
                             <td>
-                                <a href="gifti_detail?code=${bestList.prodCode}">
-                                    <div class="items">
-                                        <div class="pic">
-                                            <div class="img">
-                                                <p class="best">NO. ${i+1}</p>
-                                                <img src="${bestList.pimgPath}">
-                                            </div>
-                                        </div>
-                                        <div class="itemnameNprice">
-                                            <div class="itembrand">
-                                                <c:out value="${bestList.bname}"/>
-                                            </div>
-                                            <div class="itemname">
-                                                <c:out value="${bestList.pname}"/>
-                                            </div>
-                                            <div class="itemprice">
-                                                <span><fmt:formatNumber value="${bestList.dcRate}"
-                                                                        type="percent"/></span>&nbsp;&nbsp;
-                                                <span><fmt:formatNumber type="number" maxFractionDigits="3"
-                                                                        value="${bestList.dcPrc}"/> 원 ~</span>
-                                            </div>
-                                            <div class="itemoriginprice">
-                                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3"
-                                                                             value="${bestList.prc}"/> 원</del></span>
-                                            </div>
+                                <div class="items">
+                                    <div class="pic">
+                                        <div class="img">
+                                            <p class="best">NO. ${i+1}</p>
+                                            <img src="${bestList.pimgPath}">
                                         </div>
                                     </div>
-                                </a>
+                                    <div class="itemnameNprice">
+                                        <div class="itembrand">
+                                            <c:out value="${bestList.bname}"/>
+                                        </div>
+                                        <div class="itemname">
+                                            <c:out value="${bestList.pname}"/>
+                                        </div>
+                                        <div class="itemprice">
+                                                <span><fmt:formatNumber value="${bestList.dcRate}"
+                                                                        type="percent"/></span>&nbsp;&nbsp;
+                                            <span><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                                    value="${bestList.dcPrc}"/> 원 ~</span>
+                                        </div>
+                                        <div class="itemoriginprice">
+                                                <span><del><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                                             value="${bestList.prc}"/> 원</del></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                             <c:if test="${i%j==j-1}">
                                 </tr>
@@ -199,35 +187,32 @@
                                 <tr>
                             </c:if>
                             <td>
-                                <a href="gifti_detail?code=${DL.prodCode}">
-
-                                    <div class="items">
-                                        <div class="pic">
-                                            <div class="img">
-                                                <img src="${DL.pimgPath}">
-                                            </div>
-                                            <p class="deadline">유효기간: ~ <fmt:formatDate value="${DL.expirDt}"
-                                                                                        pattern="yyyy-MM-dd"/></p>
+                                <div class="items">
+                                    <div class="pic">
+                                        <div class="img">
+                                            <img src="${DL.pimgPath}">
                                         </div>
-                                        <div class="itemnameNprice">
-                                            <div class="itembrand">
-                                                <c:out value="${DL.bname}"/>
-                                            </div>
-                                            <div class="itemname">
-                                                <c:out value="${DL.pname}"/>
-                                            </div>
-                                            <div class="itemprice">
-                                                <span><fmt:formatNumber value="${DL.dcRate}" type="percent"/></span>&nbsp;&nbsp;
-                                                <span><fmt:formatNumber type="number" maxFractionDigits="3"
-                                                                        value="${DL.dcPrc}"/> 원 ~</span>
-                                            </div>
-                                            <div class="itemoriginprice">
+                                        <p class="deadline">유효기간: ~ <fmt:formatDate value="${DL.expirDt}"
+                                                                                    pattern="yyyy-MM-dd"/></p>
+                                    </div>
+                                    <div class="itemnameNprice">
+                                        <div class="itembrand">
+                                            <c:out value="${DL.bname}"/>
+                                        </div>
+                                        <div class="itemname" value="<c:out value="${DL.prodCode}"/>">
+                                            <c:out value="${DL.pname}"/>
+                                        </div>
+                                        <div class="itemprice">
+                                            <span><fmt:formatNumber value="${DL.dcRate}" type="percent"/></span>&nbsp;&nbsp;
+                                            <span><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                                    value="${DL.dcPrc}"/> 원 ~</span>
+                                        </div>
+                                        <div class="itemoriginprice">
                                                 <span><del><fmt:formatNumber type="number" maxFractionDigits="3"
                                                                              value="${DL.prc}"/> 원</del></span>
-                                            </div>
                                         </div>
                                     </div>
-                                </a>
+                                </div>
                             </td>
                             <c:if test="${i%j==j-1}">
                                 </tr>
@@ -267,4 +252,26 @@
     if(error.length > 0){
         alert("error: " + error);
     }
+
+    //물품 이름 클릭 시 해당 물품의 판매중인 기프티콘 조회. 판매중 있을 시 상품상세로 이동
+    $(".itemname").on("click", function (e) {
+        e.preventDefault();
+
+        let prdCode = $(this).attr("value");
+
+        $.ajax({
+            url: '/gifticon/' + prdCode,
+            type: 'get',
+            success: function () {
+                if (confirm("해당 상품 판매 페이지로 이동하시겠습니까?")) {
+                    location.href = "/user/gifti_detail?code=" + prdCode;
+                } else {
+                    return;
+                }
+            },
+            error: function () {
+                alert("해당 물품의 구매가능한 기프티콘이 없습니다.")
+            }
+        })
+    })
 </script>
