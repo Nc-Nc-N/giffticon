@@ -30,8 +30,8 @@ public class MapController {
 
     GifticonService gifticonService;
 
-    @GetMapping(value="/getBrdList/{cateCode}")
-    public ResponseEntity<Map<String,String>> getBrdList(@PathVariable String cateCode){
+    @GetMapping(value = "/getBrdList/{cateCode}")
+    public ResponseEntity<Map<String, String>> getBrdList(@PathVariable String cateCode) {
 
         log.info("get CateCode : " + cateCode);
         try {
@@ -40,27 +40,32 @@ public class MapController {
 
             Map<String, String> brdMap = new HashMap<>();
 
-            for(int i=0; i<brdList.size(); i++){
-                brdMap.put(brdList.get(i).getCode(),brdList.get(i).getName());
+            for (int i = 0; i < brdList.size(); i++) {
+                brdMap.put(brdList.get(i).getCode(), brdList.get(i).getName());
             }
 
             log.info("brdMap :" + brdMap);
 
-            return new ResponseEntity<Map<String,String>>(brdMap, HttpStatus.OK);
-        }catch (Exception e){
+            return new ResponseEntity<Map<String, String>>(brdMap, HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
-    @GetMapping(value="/getMainGfts/{brdName}")
-    public ResponseEntity<List<ProdListVO>> getMainGfts(@PathVariable String brdName){
-        log.info("brdName :" + brdName);
-        try{
+    @GetMapping(value = "/getMainGfts/{brdName}")
+    public ResponseEntity<List<ProdListVO>> getMainGfts(@PathVariable String brdName) {
+
+        try {
             List<ProdListVO> mainGftList = gifticonService.getMainGftByBrandName(brdName);
 
-            return new ResponseEntity<List<ProdListVO>>(mainGftList, HttpStatus.OK);
-        }catch (Exception e){
+            if (mainGftList.size() != 0) {
+                return new ResponseEntity<List<ProdListVO>>(mainGftList, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+        } catch (Exception e) {
 
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
