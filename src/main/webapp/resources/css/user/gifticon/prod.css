@@ -88,3 +88,6 @@
     left: 0;
     background: rgba(0, 0, 0, 0.04);
 }
+.items-wish{
+    cursor: pointer;
+}

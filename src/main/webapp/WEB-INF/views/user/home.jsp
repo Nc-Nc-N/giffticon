@@ -74,23 +74,21 @@
                     <tr>
                         <c:forEach items="${wishList}" var="wishList" end="2">
                             <td>
-                                <a href="gifti_detail?code=${wishList.prodCode}">
-                                    <div class="items">
-                                        <div class="pic">
-                                            <div class="img">
-                                                <img src="${wishList.imgPath}">
-                                            </div>
-                                        </div>
-                                        <div class="itemnameNprice">
-                                            <div class="itembrand">
-                                                <c:out value="${wishList.bname}"/>
-                                            </div>
-                                            <div class="itemname">
-                                                <c:out value="${wishList.pname}"/>
-                                            </div>
+                                <div class="items-wish" value="<c:out value="${wishList.prodCode}"/>">
+                                    <div class="pic">
+                                        <div class="img">
+                                            <img src="${wishList.imgPath}">
                                         </div>
                                     </div>
-                                </a>
+                                    <div class="itemnameNprice">
+                                        <div class="itembrand">
+                                            <c:out value="${wishList.bname}"/>
+                                        </div>
+                                        <div class="itemname">
+                                            <c:out value="${wishList.pname}"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </c:forEach>
                     </tr>
@@ -124,6 +122,7 @@
                                 <tr>
                             </c:if>
                             <td>
+                            <a href="gifti_detail?code=${bestList.prodCode}">
                                 <div class="items">
                                     <div class="pic">
                                         <div class="img">
@@ -150,6 +149,7 @@
                                         </div>
                                     </div>
                                 </div>
+                            </a>
                             </td>
                             <c:if test="${i%j==j-1}">
                                 </tr>
@@ -187,32 +187,34 @@
                                 <tr>
                             </c:if>
                             <td>
-                                <div class="items">
-                                    <div class="pic">
-                                        <div class="img">
-                                            <img src="${DL.pimgPath}">
+                                <a href="gifti_detail?code=${DL.prodCode}">
+                                    <div class="items">
+                                        <div class="pic">
+                                            <div class="img">
+                                                <img src="${DL.pimgPath}">
+                                            </div>
+                                            <p class="deadline">유효기간: ~ <fmt:formatDate value="${DL.expirDt}"
+                                                                                        pattern="yyyy-MM-dd"/></p>
                                         </div>
-                                        <p class="deadline">유효기간: ~ <fmt:formatDate value="${DL.expirDt}"
-                                                                                    pattern="yyyy-MM-dd"/></p>
-                                    </div>
-                                    <div class="itemnameNprice">
-                                        <div class="itembrand">
-                                            <c:out value="${DL.bname}"/>
-                                        </div>
-                                        <div class="itemname" value="<c:out value="${DL.prodCode}"/>">
-                                            <c:out value="${DL.pname}"/>
-                                        </div>
-                                        <div class="itemprice">
-                                            <span><fmt:formatNumber value="${DL.dcRate}" type="percent"/></span>&nbsp;&nbsp;
-                                            <span><fmt:formatNumber type="number" maxFractionDigits="3"
-                                                                    value="${DL.dcPrc}"/> 원 ~</span>
-                                        </div>
-                                        <div class="itemoriginprice">
+                                        <div class="itemnameNprice">
+                                            <div class="itembrand">
+                                                <c:out value="${DL.bname}"/>
+                                            </div>
+                                            <div class="itemname">
+                                                <c:out value="${DL.pname}"/>
+                                            </div>
+                                            <div class="itemprice">
+                                                <span><fmt:formatNumber value="${DL.dcRate}" type="percent"/></span>&nbsp;&nbsp;
+                                                <span><fmt:formatNumber type="number" maxFractionDigits="3"
+                                                                        value="${DL.dcPrc}"/> 원 ~</span>
+                                            </div>
+                                            <div class="itemoriginprice">
                                                 <span><del><fmt:formatNumber type="number" maxFractionDigits="3"
                                                                              value="${DL.prc}"/> 원</del></span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </td>
                             <c:if test="${i%j==j-1}">
                                 </tr>
@@ -254,7 +256,7 @@
     }
 
     //물품 이름 클릭 시 해당 물품의 판매중인 기프티콘 조회. 판매중 있을 시 상품상세로 이동
-    $(".itemname").on("click", function (e) {
+    $(".items-wish").on("click", function (e) {
         e.preventDefault();
 
         let prdCode = $(this).attr("value");
