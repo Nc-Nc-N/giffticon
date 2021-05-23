@@ -42,7 +42,7 @@
 
         <multipart-config>
             <!-- 경로 각자 맞게 수정해주세요 -->
-            <location>/Users/heeyoung/upload/tmp</location>
+            <location>/Users/asdddq/upload/tmp</location>
             <max-file-size>5242880</max-file-size> <!-- 1MB * 5 -->
             <max-request-size>41943040</max-request-size> <!-- 40MB -->
             <file-size-threshold>20971520</file-size-threshold> <!-- 20MB -->
