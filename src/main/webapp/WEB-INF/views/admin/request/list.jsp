@@ -61,7 +61,7 @@
     <table id="list-tb">
         <thead>
         <tr>
-            <td class="w15">&nbsp;</td>
+<%--            <td class="w15">&nbsp;</td>--%>
             <td class="w125">기프티콘 이미지</td>
             <td class="w45">No.</td>
             <td class="w200">상품</td>
@@ -75,7 +75,7 @@
         <tbody>
         <c:forEach var="rqust" items="${rqustList}" varStatus="status">
             <tr class="list-tr">
-                <td><input type="checkbox" name="isRemove"/></td>
+<%--                <td><input type="checkbox" name="isRemove"/></td>--%>
                 <td>
                     <div class="list-img"><img src="<c:out value='${rqust .imgPath}'/>"></div>
                 </td>
@@ -116,7 +116,7 @@
 </c:if>
 
 <div class="main-footer">
-    <button class="btn btn-diabled">선택삭제</button>
+<%--    <button class="btn btn-diabled">선택삭제</button>--%>
     <div class="pagination">
         <c:if test="${pageMaker.prev}">
             <a class="paginate_button prev" href="${pageMaker.startPage - 1}">&lt;</a>
@@ -395,8 +395,9 @@
             modal.find(".gftId").text(rqust.gftId);                              // 요청번호
             modal.find(".requester").text(rqust.requester);                      // 판매자 이메일
             modalDcPrc.text(rqust.dcPrc + "  원");                               // 판매가
+            let newDcRate = (rqust.prodPrc - rqust.dcPrc) / parseFloat(rqust.prodPrc);
             modalProdPrc.text(rqust.prodPrc + "  원  ")                          // 정가, 할인율
-                .append("<span class='rq-rate'>" + parseInt(rqust.dcRate * 100) + "%</span>");
+                .append("<span class='rq-rate'>" + parseInt(parseFloat(newDcRate) * 100) + "%</span>");
             modal.find(".expirDt").text(rqust.expirDt + " 까지");                // 유효기간
             modal.find(".brcd").text(rqust.brcd);                                // 바코드번호
             modal.find("textarea[name='descn']").val(rqust.descn);               // 판매자 메모
@@ -486,7 +487,7 @@
         function getRealEnd(t, a) {
             let total = parseInt(t) - 1;
             let amount = parseInt(a);
-            return parseInt(Math.ceil((total * 1.0) / amount));
+            return parseInt(Math.ceil(((total > 0 ? total : 1)) / amount));
         }
 
         function getCategoryList() {
