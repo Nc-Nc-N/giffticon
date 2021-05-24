@@ -234,7 +234,7 @@
             <tr>
                 <td class="td-title">&nbsp;</td>
                 <td colspan="5">
-                    <div class="td-cntnt gft-img"></div>
+                    <div class="td-cntnt"><a class="img-btn">기프티콘 이미지 확인</a></div>
                 </td>
             </tr>
         </table>
@@ -301,7 +301,6 @@
         let modalProdPrc = modal.find(".prodPrc");
         let modalIsAuto = modal.find("input[name='isAuto']");
         let modalIsNotAuto = modal.find("input[name='isNotAuto']");
-        let modalGftImg = modal.find(".gft-img");
         // 모달에 포함된 버튼
         let modalImgBtn = modal.find(".img-btn");
         let aprvBtn = modal.find(".rq-aprv");
@@ -402,7 +401,6 @@
             modal.find(".expirDt").text(rqust.expirDt + " 까지");                // 유효기간
             modal.find(".brcd").text(rqust.brcd);                                // 바코드번호
             modal.find("textarea[name='descn']").val(rqust.descn);               // 판매자 메모
-            modalGftImg.append("<img src='" + rqust.imgPath + "'>");
 
             // 추천가격을 선택한 경우 남은 유효기간에 따라 가격변경
             if (rqust.isAutoPrc === '1') {
