@@ -61,7 +61,7 @@
     <table id="list-tb">
         <thead>
         <tr>
-            <td class="w15">&nbsp;</td>
+<%--            <td class="w15">&nbsp;</td>--%>
             <td class="w125">기프티콘 이미지</td>
             <td class="w45">No.</td>
             <td class="w200">상품</td>
@@ -75,7 +75,7 @@
         <tbody>
         <c:forEach var="rqust" items="${rqustList}" varStatus="status">
             <tr class="list-tr">
-                <td><input type="checkbox" name="isRemove"/></td>
+<%--                <td><input type="checkbox" name="isRemove"/></td>--%>
                 <td>
                     <div class="list-img"><img src="<c:out value='${rqust .imgPath}'/>"></div>
                 </td>
@@ -116,7 +116,7 @@
 </c:if>
 
 <div class="main-footer">
-    <button class="btn btn-diabled">선택삭제</button>
+<%--    <button class="btn btn-diabled">선택삭제</button>--%>
     <div class="pagination">
         <c:if test="${pageMaker.prev}">
             <a class="paginate_button prev" href="${pageMaker.startPage - 1}">&lt;</a>
@@ -234,7 +234,7 @@
             <tr>
                 <td class="td-title">&nbsp;</td>
                 <td colspan="5">
-                    <div class="td-cntnt"><a class="img-btn">기프티콘 이미지 확인</a></div>
+                    <div class="td-cntnt gft-img"></div>
                 </td>
             </tr>
         </table>
@@ -301,6 +301,7 @@
         let modalProdPrc = modal.find(".prodPrc");
         let modalIsAuto = modal.find("input[name='isAuto']");
         let modalIsNotAuto = modal.find("input[name='isNotAuto']");
+        let modalGftImg = modal.find(".gft-img");
         // 모달에 포함된 버튼
         let modalImgBtn = modal.find(".img-btn");
         let aprvBtn = modal.find(".rq-aprv");
@@ -401,6 +402,7 @@
             modal.find(".expirDt").text(rqust.expirDt + " 까지");                // 유효기간
             modal.find(".brcd").text(rqust.brcd);                                // 바코드번호
             modal.find("textarea[name='descn']").val(rqust.descn);               // 판매자 메모
+            modalGftImg.append("<img src='" + rqust.imgPath + "'>");
 
             // 추천가격을 선택한 경우 남은 유효기간에 따라 가격변경
             if (rqust.isAutoPrc === '1') {
