@@ -116,8 +116,8 @@
 </div>
 </div>
 </div>
-
 </body>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </html>
 
 <script type="text/javascript" src="/resources/js/user/calendar.js"></script>
@@ -196,5 +196,3 @@
 
     })
 </script>
-
-<%@include file="/WEB-INF/views/common/footer.jsp"%>
