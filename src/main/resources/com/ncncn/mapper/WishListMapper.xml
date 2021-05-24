@@ -31,7 +31,7 @@
                  INNER JOIN gifticon as gifti ON wish.prod_code = gifti.prod_code
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
-        where wish.user_id= #{userId} and gft_stus_code = '002'
+        where wish.user_id= #{userId}
         group by wish.prod_code
         order by wish.up_date desc
         ]]>
@@ -45,7 +45,7 @@
                  INNER JOIN gifticon as gifti ON wish.prod_code = gifti.prod_code
                  INNER JOIN product as prod ON gifti.prod_code = prod.code
                  INNER JOIN brand ON prod.brd_code = brand.code
-        where wish.user_id= #{userId} and gft_stus_code = '002'
+        where wish.user_id= #{userId}
         group by wish.prod_code
         order by wish.up_date desc
         LIMIT #{amount}

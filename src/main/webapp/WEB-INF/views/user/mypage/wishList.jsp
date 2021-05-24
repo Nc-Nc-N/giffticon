@@ -20,10 +20,8 @@
         <div class='item_info'>
             <span class="item_img"><img src="<c:out value='${list.imgPath}'/>"></span>
             <span class="item_brdNname">
-                                <div class="item_brd"><c:out value="${list.bname}"/></div>
-            <a href="/user/gifti_detail?code=${list.prodCode}">
-                                <div class="item_name"><c:out value="${list.pname}"/></div>
-            </a>
+                 <div class="item_brd"><c:out value="${list.bname}"/></div>
+                 <div class="item_name" value="<c:out value="${list.prodCode}"/>"><c:out value="${list.pname}"/></div>
             </span>
 
             <div class="itemprice">
@@ -101,5 +99,27 @@
         if(${pageMaker.total}===0){
             $('.noResult').show();
         }
+
+        //물품 이름 클릭 시 해당 물품의 판매중인 기프티콘 조회. 판매중 있을 시 상품상세로 이동
+        $(".item_name").on("click", function (e) {
+            e.preventDefault();
+
+            let prdCode = $(this).attr("value");
+
+            $.ajax({
+                url: '/gifticon/' + prdCode,
+                type: 'get',
+                success: function () {
+                    if (confirm("해당 상품 판매 페이지로 이동하시겠습니까?")) {
+                        location.href = "/user/gifti_detail?code=" + prdCode;
+                    } else {
+                        return;
+                    }
+                },
+                error: function () {
+                    alert("해당 물품의 구매가능한 기프티콘이 없습니다.")
+                }
+            })
+        })
     })
 </script>

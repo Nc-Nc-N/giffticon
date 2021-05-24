@@ -19,7 +19,7 @@
 .itemname{
     width: 100%;
     height: 50px;
-    font-size: medium;
+    font-size: 14px;
     font-weight: bold;
     text-align: center;
     margin-top: 3px;
@@ -87,4 +87,7 @@
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.04);
+}
+.items-wish{
+    cursor: pointer;
 }
