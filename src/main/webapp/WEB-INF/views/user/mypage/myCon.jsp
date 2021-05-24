@@ -3,13 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:include page="templete.jsp"/>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/css/user/mypage/myCon.css" type="text/css">
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<%--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--%>
+<%--<link rel="stylesheet" href="/resources/demos/style.css">--%>
+<%--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>--%>
+<%--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
 
+<link rel="stylesheet" href="/resources/css/user/mypage/myCon.css" type="text/css">
+
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <div class="contentheader">
     <span> 마이 콘</span>
@@ -41,9 +42,7 @@
     </div>
 
     <div class="contentsearch">
-
         <form class="search-spec" action="/user/mypage/myCon" method="get">
-
             <div class="search-area">
                 <select class="search-select" name="type">
                     <option value="">
@@ -100,8 +99,7 @@
                 <c:forEach items="${conHist}" var="conH">
                 <tr>
                     <td>${conH.codeName}</td>
-                    <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-                                        value="${conH.chgDt}"/></td>
+                    <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${conH.chgDt}"/></td>
                     <td>${conH.chgQuty}</td>
                     <td>${conH.balance}</td>
                 </tr>
@@ -109,9 +107,7 @@
             </c:when>
             <c:otherwise>
                 <tr class="no_data_tr">
-                    <td colspan="4" class="no_data">
-                    콘 내역이 존재하지 않습니다.
-                    </td>
+                    <td colspan="4" class="no_data">콘 내역이 존재하지 않습니다.</td>
                 </tr>
             </c:otherwise>
         </c:choose>
@@ -124,8 +120,7 @@
         <c:if test="${pageMaker.prev}">
             <a class="paginate_btn prev" href="${pageMaker.startPage - 1}"><</a>
         </c:if>
-        <c:forEach var="num" begin="${pageMaker.startPage}"
-                   end="${pageMaker.endPage}">
+        <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
             <a class="paginate_btn ${pageMaker.cri.pageNum == num ? "active" : ""}" href="${num}" }>${num}</a>
         </c:forEach>
         <c:if test="${pageMaker.next}">
@@ -138,8 +133,6 @@
         <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
     </form>
 </div>
-
-
 </div>
 </div>
 </div>
@@ -149,11 +142,12 @@
 </html>
 <script>
     $(document).ready(function () {
+        $("#con-link").attr("class", "menu active");
+
         let actionForm = $("#actionForm");
         let searchSpec = $(".search-spec");
 
         $(".withdraw-btn").on("click", function () {
-
             $.ajax({
                 type: "GET",
                 url: "/user/mypage/checkAccount",
@@ -186,7 +180,6 @@
 
         //search 버튼 누를 시 날짜조건이 정확한지 체크 후 검색 실행
         $(".search-button").on("click", function (e) {
-
             let dateFrom = $("#dateFrom").val();
             let dateTo = $("#dateTo").val();
 
@@ -217,7 +210,6 @@
                     $("#dateFrom").datepicker("option", "maxDate", selectedDate);
                 }
             });
-
         });
     });
 </script>

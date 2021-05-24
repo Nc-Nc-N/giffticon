@@ -2,27 +2,19 @@
     box-sizing: border-box;
 }
 
-.menuhead,.sidebar, .sidebarspace, .menubody{
-    background-color: white;
-}
-
 .content{
     margin: 0 0 0 0;
-    background-color: white;
 }
 
 .emptyspace{
     width: 50px;
     height: 2000px;
-
 }
 
 .search-form{
     float: right;
     margin-top: 10px;
 }
-
-
 
 .sub-category-btn-all, .sub-category-btn-notice, .sub-category-btn-event{
     width: 33%;
@@ -42,7 +34,6 @@
     border-right:1px solid rgb(172, 172, 172);
 }
 
-
 .accordionMenu{
     width: 750px;
     margin-top: 50px;
@@ -52,4 +43,3 @@
 .sub:hover{
     color: rgb(255, 88, 93);
 }
-

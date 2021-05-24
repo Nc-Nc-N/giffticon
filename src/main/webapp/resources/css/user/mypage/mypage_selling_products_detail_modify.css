@@ -3,8 +3,8 @@
     margin-top: 30%;
     margin-left: 9%;
     position: absolute;
-
 }
+
 .img_section{
     width: 100%;
     height: 40%;
@@ -34,13 +34,11 @@
     border:2px solid gainsboro;
 }
 
-
 .price_modify{
     /* background-color: green; */
     width: 100%;
     height: 100%;
     display: flex;
-
 }
 
 .select{
@@ -85,12 +83,11 @@
 }
 #rateinput{
     width: 60px;
-
     background-color: rgba(255,255,255,0);
     /*background-color: #333333;*/
-
     font-weight: bold;
 }
+
 input[type="radio"]{
     width: 15px;
     height: 15px;
@@ -140,8 +137,6 @@ input[type="number"]::-webkit-inner-spin-button {
 .date-search{
     /*background-color: blueviolet;*/
     position: relative;
-
-
 }
 
 input[type="date"]{
@@ -154,4 +149,3 @@ input[type="date"]{
 #reg-btn-area{
     margin-top: 150px;
 }
-

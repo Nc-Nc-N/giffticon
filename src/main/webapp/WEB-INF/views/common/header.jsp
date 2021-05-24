@@ -31,14 +31,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
+
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>Kakao.init('ac51465d91bcae237e6703842ae5d0c5');</script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-    </style>
+
+    <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
 </head>
 <body>
 <div id="header">
@@ -47,35 +46,33 @@
 
         <sec:authorize access="isAnonymous()">
             <span><a href="/account/signIn" class="login-panel">로그인</a></span>
-            <span class="header_divider">|</span>
+            <span class="header_divider">.</span>
             <span><a href="/account/signUp" class="login-panel">회원가입</a></span>
         </sec:authorize>
 
         <sec:authorize access="isAuthenticated()">
+            <span><a class="user-email"><sec:authentication property="principal.username"/></a></span>
+            <span class="header_divider">.</span>
             <span>
                 <button type="submit" class="logout">로그아웃</button>
                 <form class="form-logout" action="/account/logOut" method="post">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
             </span>
-            <span class="header_divider">|</span>
-            <span><a class="user-email"><sec:authentication property="principal.username"/></a></span>
         </sec:authorize>
 
-        <span class="header_divider">|</span>
+        <span class="header_divider">.</span>
         <span><a href="/user/cs/noticeBoard" class="login-panel">고객센터</a></span>
 
     </div>
-
 
     <div class="main-logo">
         <div class="home-logo"><a href="/user/home"><img src="/resources/img/logo.png"></a></div>
     </div>
 
-
     <div class="main-bar">
 
-        <div class="bar-left">
+<%--        <div class="bar-left">--%>
             <div class="category-drop">
                 <ul class="exo-menu">
                     <li class="drop-down">
@@ -87,11 +84,11 @@
                     </li>
                 </ul>
             </div>
-            <div class="leftmenus">
+<%--            <div class="leftmenus">--%>
                 <div class="leftmenu"><a href="/user/mypage/addCon">충전하기</a></div>
                 <div class="leftmenu"><a href="/user/gifticon/map"><i class="fas fa-map-marker-alt"></i></a></div>
-            </div>
-        </div>
+<%--            </div>--%>
+<%--        </div>--%>
         <!-- search area -->
         <div class="search-bar-container">
             <form id="h-search-form" action="/user/gifti_list" method="get">
@@ -102,14 +99,14 @@
             </form>
         </div>
 
-        <div class="bar-right">
+<%--        <div class="bar-right">--%>
             <div class="bubble">거래확정!</div>
-            <span class="rightmenu" id="alarm-ticket">
-                    <i class="fas fa-ticket-alt"></i>
-                </span>
-            <span class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></span>
-            <span class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></span>
-        </div>
+            <div class="rightmenu" id="alarm-ticket">
+                    <a><i class="fas fa-ticket-alt"></i></a>
+                </div>
+            <div class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></div>
+            <div class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></div>
+<%--        </div>--%>
     </div>
 
 </div>
@@ -192,23 +189,22 @@
                 error: function () {
                     alert("카테고리 불러오기에 실패했습니다. 다시 시도해주세요.")
                 }
-            })
-        })
+            });
+        });
 
         // 전체 카테고리 마우스오버 색 고정
         $('.drop-down a').mouseover(function () {
             $(this).addClass('on');
-        })
+        });
 
         // 전체 카테고리 글자색, 카테고리 배경화면 색 초기화
         $('.exo-menu').mouseleave(function () {
             $('.drop-down a').removeClass('on');
-        })
+        });
 
         $('.drop-down-ul').mouseleave(function () {
             $('.flyout-right a').removeClass('on');
-        })
-
+        });
 
     })
 </script>
@@ -222,18 +218,17 @@
 
         $(".bubble").on("click", function (e) {
             ticketAlarmBtn();
-        })
+        });
 
         $("#alarm-ticket").on("click", function (e) {
             ticketAlarmBtn();
-        })
+        });
 
-    })
+    });
 
 
     //티켓 클릭 시 마이페이지/구매내역 + 거래확정대기 검색 이동
     function ticketAlarmBtn() {
-
         let ticketAlarmBtn = $(".ticket-alarm")
 
         ticketAlarmBtn.find("input[name='keyword']").val("거래확정대기");
@@ -261,15 +256,12 @@
             contentType: 'json',
             dataType: 'json',
             success: function (result) {
-                if (result == 0) {
+                if (result === 0) {
                 } else {
                     $(".bubble").css("visibility", "visible");
                 }
-            },
-            error: function () {
-
             }
-        })
+        });
     }
 </script>
 
@@ -289,7 +281,7 @@
         } else { //향후 추가되는 소셜로그인은 여기에 차례대로 추가해주세요
             logoutForm.submit();
         }
-    })
+    });
 
 </script>
 

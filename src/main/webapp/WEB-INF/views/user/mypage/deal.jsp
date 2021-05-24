@@ -111,7 +111,6 @@
         </form>
     </div>
 </div>
-
 </div>
 </div>
 </div>
@@ -123,6 +122,7 @@
 <script type="text/javascript" src="/resources/js/user/calendar.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#deal-link").attr("class", "menu active");
 
         var actionForm = $("#actionForm");
 
@@ -158,7 +158,6 @@
 
         //기프티콘 상세페이지 버튼
         $("button[name='dealDetailBtn']").on("click", function (k) {
-
             actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
             actionForm.attr("action", "/user/mypage/dealDetail").attr("method", "get");
 
@@ -180,7 +179,6 @@
 
         //search 버튼 누를 시 날짜조건이 정확한지 체크 후 검색 실행
         $(".search-button").on("click", function (e) {
-
             let dateFrom = $("#dateFrom").val();
             let dateTo = $("#dateTo").val();
 
@@ -188,11 +186,9 @@
                 alert("날짜 선택이 올바르지 않습니다.");
                 e.preventDefault();
             } else {
-
                 searchSpec.find("input[name='pageNum']").val("1");
                 searchSpec.submit();
             }
-        })
-
-    })
+        });
+    });
 </script>

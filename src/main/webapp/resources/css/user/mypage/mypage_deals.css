@@ -52,7 +52,6 @@
     display: flex;
     justify-content: flex-end;
     width: 60%;
-
 }
 
 .search-cat {
@@ -60,7 +59,6 @@
     margin-top: 2px;
     background: rgb(245, 244, 244);
     border-radius: 40px;
-
 }
 
 .cat-drop-box {
@@ -119,8 +117,6 @@
     flex-direction: column;
     justify-content: center;
     /* background-color: darkgreen; */
-
-
 }
 
 .item_brd {
@@ -130,7 +126,6 @@
     margin-left: 10%;
     display: flex;
     align-items: center;
-
 }
 
 .item_name {
@@ -163,7 +158,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .item_status {
@@ -188,7 +182,6 @@
     justify-content: space-around
 }
 
-
 img {
     overflow: hidden;
     width: 100%;
@@ -204,7 +197,6 @@ img {
     font-size: large;
     margin-top: 100px;
 }
-
 
 .contentfooter {
     width: 100%;

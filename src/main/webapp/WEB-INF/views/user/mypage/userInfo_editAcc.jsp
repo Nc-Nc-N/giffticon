@@ -2,16 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_editPwd.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_account.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-</style>
+
+<link rel="stylesheet" href="/resources/css/user/mypage/user_info_modal.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_account.css" type="text/css">
+
 </head>
 <body>
-<div id="acc_register-content">
+<div id="register-content">
     <h2>계좌정보 수정</h2>
 
     <div id="acc_content">

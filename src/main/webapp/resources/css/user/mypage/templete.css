@@ -1,7 +1,6 @@
 #container {
     width: 1000px;
     height: fit-content;
-    /* background-color:khaki; */
     margin: auto;
 }
 
@@ -19,18 +18,17 @@
 .menuhead {
     height: 80px;
     width: 1000px;
-    /* background-color:yellow; */
     display: flex;
     align-items: center;
 }
 
 .menuname {
     width: 200px;
-    height: 160px;
+    height: 80px;
     background-color: white;
-    color: rgb(255, 88, 93);
-    border: 1.5px solid rgb(255, 88, 93);
-    /*box-shadow: 1.5px 1.5px 3px gray;*/
+    color: rgb(71, 71, 71);
+    /*color: rgb(255, 88, 93);*/
+    /*border: 1.5px solid rgb(255, 88, 93);*/
     font-size: 32px;
     font-weight: bold;
     display: flex;
@@ -41,29 +39,31 @@
 .menubody {
     height: fit-content;
     width: 1000px;
-    /* background-color:aqua; */
     display: flex;
 }
 
 .sidebarspace {
     height: 855px;
     width: 200px;
-    /* background-color:coral; */
 }
 
 .sidebar {
     margin-top: 50px;
-    height: 420px;
+    height: fit-content;
     width: 200px;
-    /* background-color:dodgerblue; */
+    border: 1px solid gainsboro;
+    border-bottom: none;
+}
+
+.sidebar li {
+    list-style: none;
+    border-bottom: 1px solid gainsboro;
 }
 
 .bar {
-    height: 70px;
+    height: 60px;
     width: 200px;
     background-color: white;
-    border: 1px solid gray;
-    box-shadow: 1.5px 1.5px 3px gray;
     display: flex;
     align-items: center;
     text-align: center;
@@ -72,67 +72,75 @@
 .bar > div {
     width: 60%;
     margin-left: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    /* background-color: aqua; */
+    font-size: 16px;
+    font-weight: 600;
+    color: #666666;
     text-align: left;
 }
 
 .bar > i {
-    margin-left: 20px;
+    color: #666666;
+    margin-left: 25px;
+}
+
+.menu div:hover{
+    background-color: #f8f8f8;
+}
+
+.active a, .active div, .active i {
+    background-color: #f8f8f8;
+    color: #FF585D;
 }
 
 .abstracts {
-    /* background-color:blue; */
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
 .abs {
-    background-color: rgb(255, 88, 93);
-    border: 1px solid white;
+    /*background-color: rgb(255, 88, 93);*/
+    /*border: 1px solid white;*/
     width: 160px;
-    height: 160px;
-    color: white;
+    height: 80px;
+    color: rgb(71, 71, 71);
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
 }
 
 .abs:hover {
     background-color: white;
     color: rgb(255, 88, 93);
-    border: 1px solid rgb(255, 88, 93);
     cursor: pointer;
 }
 
 .abs_name {
     text-align: center;
-    font-size: 20px;
-    margin-top: 30px;
+    font-size: 16px;
+    margin: auto;
 }
 
 .abs_num {
     text-align: center;
-    font-size: 30px;
-    margin-top: 15px;
+    font-size: 16px;
+    margin: auto;
 }
 
 .abs_pnt {
     text-align: center;
-    font-size: 30px;
-    margin-top: 15px;
+    font-size: 16px;
+    margin: auto;
 }
 
 .content {
     height: fit-content;
     width: 750px;
-    /*background-color:wheat;*/
     margin: 0 0 0 50px;
 }
 
 .contentheader {
     height: 50px;
-    /* background-color: brown; */
     font-size: 22px;
     font-weight: bold;
     border-bottom: 3px solid gainsboro;

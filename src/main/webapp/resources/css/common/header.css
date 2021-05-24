@@ -1,11 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap');
+
 * {
     font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 #header {
+    padding-top: 5px;
     height: 180px;
     color: #333;
-    border-bottom: 1px solid gainsboro;
+    /*border-bottom: 1px solid gainsboro;*/
+    box-shadow: 0px 15px 10px -18px gainsboro;
 }
 
 .top_menu {
@@ -14,17 +20,30 @@
     display: flex;
     margin: auto;
     justify-content: flex-end;
-
 }
 
-.top_menu > span {
+.top_menu > span a {
+    font-size: 12px;
     margin: 0 5px;
+}
+
+.top_menu > span button {
+    font-size: 12px;
+    margin: 0 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header_divider {
+    font-size: 12px;
+    color: #8b8b8b;
 }
 
 .main-logo {
     padding: 15px;
     text-align: center;
-
 }
 
 .home-logo {
@@ -41,26 +60,28 @@
     width: 1000px;
     margin: auto;
     display: flex;
+    justify-content: space-around;
     font-size: 16px;
     font-weight: bold;
 }
 
 .bar-left {
     /* background-color:yellow; */
-    width: 275px;
+    /*width: 275px;*/
     display: flex;
 }
-
 
 /*전체 카테고리 menu*/
 .category-drop {
     color: #333;
     display: flex;
     width: 125px;
+    padding-top: 5px;
 }
+
 .exo-menu {
     height: 80%;
-    margin: 13.5px auto 13.5px -40px;
+    /*margin: 13.5px auto 13.5px -40px;*/
     float: left;
     position: relative;
 }
@@ -78,7 +99,8 @@
     -o-transition: color 0.2s linear, background 0.2s linear;
     transition: color 0.2s linear, background 0.2s linear;
 }
-.brdBox{
+
+.brdBox {
     background-color: rgb(245, 244, 244);
     position: relative;
     top: 0px;
@@ -89,12 +111,9 @@
 li.drop-down ul > li > a:hover {
     color: #FF585D;
 }
-li.drop-down ul > li > a:hover{
-    background-color: rgb(245, 244, 244);
-}
 
-li.drop-down,
-.flyout-right {
+li.drop-down ul > li > a:hover {
+    background-color: rgb(245, 244, 244);
 }
 
 li.drop-down:before {
@@ -137,10 +156,12 @@ li.drop-down > ul > li > a,
     transition: color 0.2s linear, background 0.2s linear;
     border-right: none;
 }
-li.drop-down > ul > li > a{
+
+li.drop-down > ul > li > a {
     border: 1px solid gainsboro;
 }
-.flyout-right div > ul > li > a{
+
+.flyout-right div > ul > li > a {
     background-color: rgb(245, 244, 244);
 }
 
@@ -162,7 +183,7 @@ li.drop-down > a:hover + .drop-down-ul {
     position: absolute;
 }
 
-.flyout-right a.on{
+.flyout-right a.on {
     background-color: rgb(245, 244, 244);
     color: #FF585D;
 }
@@ -186,18 +207,19 @@ li.drop-down > a:hover + .drop-down-ul {
         overflow-y: auto;
 
     }
-    .brdBox > ul{
+
+    .brdBox > ul {
         list-style: none;
         left: 100%;
         padding-left: 0px;
     }
-    .brdBox > ul >li{
+
+    .brdBox > ul > li {
         background-color: rgb(245, 244, 244);
     }
 }
 
 @media (max-width: 300px) {
-
     .exo-menu {
         min-height: 58px;
         background-color: white;
@@ -223,19 +245,15 @@ li.drop-down > a:hover + .drop-down-ul {
         list-style: none;
         position: relative;
     }
-
 }
 
 .leftmenus {
-    width: 150px;
     text-align: end;
     display: flex;
-    justify-content: flex-start;
-
 }
 
 .leftmenu {
-    margin: auto 20px auto 15px;
+    padding-top: 5px;
 }
 
 .search-bar-container {
@@ -244,7 +262,7 @@ li.drop-down > a:hover + .drop-down-ul {
     width: 450px;
     background: rgb(245, 244, 244);
     border-radius: 40px;
-    margin: auto;
+    margin: auto 10px 20px 10px;
 }
 
 .h-search-form {
@@ -280,15 +298,15 @@ li.drop-down > a:hover + .drop-down-ul {
     color: rgb(71, 71, 71);
 }
 
-.bar-right {
-    width: 275px;
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
-}
+/*.bar-right {*/
+/*    width: 275px;*/
+/*    display: flex;*/
+/*    justify-content: flex-end;*/
+/*    position: relative;*/
+/*}*/
 
 .rightmenu {
-    margin: auto 0 auto 40px;
+    padding-top: 5px;
 }
 
 .bubble {
@@ -340,11 +358,11 @@ li.drop-down > a:hover + .drop-down-ul {
     color: rgb(255, 88, 93);
 }
 
-i {
+.main-bar > i {
     cursor: pointer;
 }
 
-i:hover {
+.main-bar > i:hover {
     color: rgb(255, 88, 93);
 }
 
@@ -356,11 +374,6 @@ i:hover {
 .icon {
     font-size: x-large;
     margin: auto 30px auto 10px;
-}
-
-.header_divider {
-    font-size: 14px;
-    color: #666666;
 }
 
 .user-email {

@@ -6,7 +6,6 @@
 
 <jsp:include page="templete.jsp"/>
 
-
 <div class="contentheader">
     <span>판매 내역</span>
 </div>
@@ -127,8 +126,8 @@
 
 <script type="text/javascript" src="/resources/js/user/calendar.js"></script>
 <script>
-
     $(".document").ready(function () {
+        $("#sell-link").attr("class", "menu active");
 
         var actionForm = $("#actionForm");
 
@@ -152,7 +151,6 @@
                 alert("날짜 선택이 올바르지 않습니다.");
                 e.preventDefault();
             } else {
-
                 searchSpec.find("input[name='pageNum']").val("1");
                 searchSpec.submit();
             }

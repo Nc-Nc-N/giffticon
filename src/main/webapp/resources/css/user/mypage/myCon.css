@@ -1,6 +1,7 @@
 .contentheader{
     color: #333333;
 }
+
 .con-info{
     position: relative;
     margin: 5% 9px;
@@ -79,6 +80,7 @@
     outline: 0;
     cursor: pointer;
 }
+
 .btns-txt{
     line-height: 44px;
 }
@@ -106,6 +108,7 @@
 tr:last-child td {
     border-bottom: 1px solid #ddd;
 }
+
 .no_data {
     padding: 50px 0;
     font-size: 13px;
@@ -132,6 +135,7 @@ td{
     justify-content: space-between;
     align-items: center;
 }
+
 .search-spec {
     width: 100%;
     display: flex;
@@ -149,5 +153,5 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     -webkit-transition: background-color 9999s ease-out;
-    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
 }

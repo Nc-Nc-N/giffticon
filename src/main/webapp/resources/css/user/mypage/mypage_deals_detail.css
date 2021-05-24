@@ -23,7 +23,6 @@
     width: 40%;
     height: auto;
     /* background-color: greenyellow; */
-
 }
 
 .item_name, .item_code {
@@ -45,13 +44,11 @@
     /* background-color: indigo; */
 }
 
-
 .item_btn {
     width: 11%;
     height: 95%;
     /* background-color: grey; */
     display: flex;
-
 }
 
 .btn-disabled {
@@ -63,14 +60,12 @@
     background-color: rgb(255, 88, 93);
     color: white;
     animation: heartbeat 1s 20;
-
 }
 
 .btn-cmpl:hover {
     background-color: white;
     color: rgb(255, 88, 93);
     border: 1px solid rgb(255, 88, 93);
-
 }
 
 .toListbtn{
@@ -86,7 +81,6 @@
     color: rgb(255, 88, 93);
     border: 1px solid rgb(255, 88, 93);
 }
-
 
 @keyframes heartbeat {
     0% {
