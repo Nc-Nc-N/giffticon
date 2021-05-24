@@ -397,3 +397,5 @@
 
 </body>
 </html>
+
+<%@include file="/WEB-INF/views/common/footer.jsp"%>
