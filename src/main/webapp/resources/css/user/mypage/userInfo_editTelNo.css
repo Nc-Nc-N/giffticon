@@ -115,7 +115,6 @@ input {
     font-weight: bold;
     color: rgb(50, 50, 50);
     background-color: darkgray;
-
 }
 
 .btn-dark:hover {
@@ -169,6 +168,19 @@ i {
 }
 
 .msg_code_verify{
+    display: none;
     margin-left: 30px;
     color: forestgreen;
+}
+
+.btn-disabled {
+    width: 60px;
+    height: 25px;
+    border-radius: 8px;
+    margin-left: 18px;
+    font-size: 15px;
+    font-weight: 400;
+    border-color: #e4e4e4 !important;
+    color: #e4e4e4 !important;
+    pointer-events: none;
 }
