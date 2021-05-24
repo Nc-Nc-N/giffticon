@@ -231,7 +231,6 @@
 </div>
 </body>
 
-
 <script>
     <%--  슬라이드바   --%>
     let elms = document.getElementsByClassName('splide');
@@ -277,3 +276,5 @@
         })
     })
 </script>
+
+<%@include file="../common/footer.jsp" %>
