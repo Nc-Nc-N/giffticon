@@ -17,6 +17,13 @@ public class UserValidator {
 		return name != null && name.matches("^[a-zA-Zㄱ-ㅎ가-힣 ]{2,20}$");
 	}
 
+	public static boolean checkBirthDt(String birthDt) {
+		// 길이가 6자리이고, 숫자로만 이루어져있는지 확인
+		if (birthDt != null) return birthDt.matches("[0-9]{8}$");
+		// 생년월일 값이 없어도 가입진행
+		return true;
+	}
+
 	public static boolean checkTelNo(String telNo) {
 		// 길이가 11자리이고, 숫자로만 이루어져있는지 확인
 		return telNo != null && telNo.matches("[0-9]{11}$");

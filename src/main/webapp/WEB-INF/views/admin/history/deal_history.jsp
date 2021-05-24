@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/list.css" typeof="text/css">
 <link rel="stylesheet" href="/resources/css/admin/history/deal_history.css" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -16,7 +17,7 @@
 
 <!-- search area -->
 <form id='searchForm' action="/admin/deal-history" method="get">
-    <div class="search-area">
+    <div id="search-area">
         <div class="period-container">
             <span id="period">거래 기간</span>
             <div class="date-search">
@@ -74,30 +75,32 @@
     </div>
 </form>
 <!-- search area end -->
-<div>
+<div id="list-div2">
     <c:choose>
         <c:when test="${not empty list}">
-            <table id="t1" width="100%">
+            <table id="list-tb">
+                <thead>
                 <tr>
-                    <th style="width:9%">주문번호</th>
-                    <th style="width:23%">
+                    <td style="width:9%">주문번호</td>
+                    <td style="width:23%">
                         <p>구매자 Email</p>
                         <p>판매자 Email</p>
-                    </th>
-                    <th style="width:9%">상품일련번호</th>
-                    <th style="width:20%">
+                    </td>
+                    <td style="width:9%">상품일련번호</td>
+                    <td style="width:20%">
                         <p>브랜드명</p>
                         <p>상품명</p>
-                    </th>
-                    <th style="width:9%">금액</th>
-                    <th style="width:20%">
+                    </td>
+                    <td style="width:9%">금액</td>
+                    <td style="width:20%">
                         <p>구매일시</p>
                         <p>구매확정일시</p>
-                    </th>
-                    <th style="width:10%">상태</th>
+                    </td>
+                    <td style="width:10%">상태</td>
                 </tr>
+                </thead>
                 <c:forEach items="${list}" var="dealL">
-                    <tr>
+                    <tr class="list-tr">
                         <td>${dealL.id}</td>
                         <td>
                             <p>${dealL.buyerEmail}</p>

@@ -124,12 +124,45 @@ public class SignUpServiceTest {
 		signUpService.register(user);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void registerFailToBirthDtInvalid() throws Exception {
+		UserVO user = new UserVO();
+		user.setEmail("test@ncncn.com");
+		user.setPwd("test1234!");
+		user.setName("lee hyeji");
+		user.setBirthDt("19961016");
+		user.setTelNo("01012341234");
+		user.setEmlAuthTkn("TeS<>@!4");
+
+		signUpService.register(user);
+	}
+
 	@Test
 	public void registerSuccessTest() throws Exception {
 		UserVO user = new UserVO();
 		user.setEmail("test@ncncn.com");
 		user.setPwd("test1234!");
 		user.setName("lee hyeji");
+		user.setTelNo("01012341234");
+		user.setEmlAuthTkn("token123");
+
+		when(userMapper.insertUser(any())).thenReturn(1);
+		when(passwordEncoder.encode(anyString())).thenReturn(anyString());
+
+		int result = signUpService.register(user);
+
+		verify(userMapper).insertUser(user);
+		verify(passwordEncoder).encode(anyString());
+		assertEquals(1, result);
+	}
+
+	@Test
+	public void registerSuccessTestWithBirthDt() throws Exception {
+		UserVO user = new UserVO();
+		user.setEmail("test@ncncn.com");
+		user.setPwd("test1234!");
+		user.setName("lee hyeji");
+		user.setBirthDt("961016");
 		user.setTelNo("01012341234");
 		user.setEmlAuthTkn("token123");
 

@@ -80,6 +80,7 @@ table.type02 td {
 
 .input_text{
     display: flex;
+    justify-content: center;
 }
 
 /* Change the color to your own background color */
@@ -95,10 +96,7 @@ input{
 }
 
 .pwd_group{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 7%;
+    margin: 5%;
 }
 
 .btn-submit{
@@ -120,4 +118,11 @@ input{
 }
 i {
     color: rgb(255, 88, 93);
+}
+.withdraw_con{
+    margin: 3% 0;
+    display: flex;
+    justify-content: center;
+    color: grey;
+    font-size: small;
 }

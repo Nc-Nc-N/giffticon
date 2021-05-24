@@ -8,13 +8,14 @@
 
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/list.css" typeof="text/css">
 <link rel="stylesheet" href="/resources/css/admin/user/quitUserList.css" type="text/css">
 
 <h1>회원관리</h1>
 
 <div id="submenu">
     <div>
-        <a href="/admin/user/userlist" ><span>회원목록</span></a>
+        <a href="/admin/user/userlist"><span>회원목록</span></a>
     </div>
     <div>
         <a href="/admin/user/userlist-quit" class="active"><span>탈퇴회원목록</span></a>
@@ -55,18 +56,20 @@
 <c:choose>
     <c:when test="${not empty quitlist}">
         <!-- table wrapper -->
-        <div id="tablewrapper">
-            <table id="t1">
+        <div id="list-div">
+            <table id="list-tb">
+                <thead>
                 <tr>
-                    <th>회원번호</th>
-                    <th>이메일</th>
-                    <th>이름</th>
-                    <th>가입일시</th>
-                    <th>전화번호</th>
-                    <th>회원상태</th>
+                    <td>회원번호</td>
+                    <td>이메일</td>
+                    <td>이름</td>
+                    <td>가입일시</td>
+                    <td>전화번호</td>
+                    <td>회원상태</td>
                 </tr>
+                </thead>
                 <c:forEach items="${quitlist}" var="quituserL">
-                    <tr class="eachUser">
+                    <tr class="list-tr">
                         <td>${quituserL.id}</td>
                         <td>${quituserL.email}</td>
                         <td>${quituserL.name}</td>
@@ -167,11 +170,11 @@
 
     }); //end of $(document).ready
 
-    $(".eachUser").on("click", function(e){
+    $(".list-tr").on("click", function (e) {
 
-        let eachUserId=this.children[0].innerText;
+        let eachUserId = this.children[0].innerText;
 
-        location.href="/admin/user/user-detail?userId=" + eachUserId;
+        location.href = "/admin/user/user-detail?userId=" + eachUserId;
 
     });
 

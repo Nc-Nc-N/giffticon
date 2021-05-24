@@ -6,7 +6,6 @@ import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.domain.UserVO;
 import com.ncncn.service.*;
 import com.ncncn.util.UserAuthCheckUtils;
-import javafx.animation.ScaleTransition;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;

@@ -51,6 +51,7 @@ public class ConController {
 	public @ResponseBody
 	void addCon(int amount, String pntCode, PntHistVO pntHistVO, HttpServletRequest request) {
 
+		log.info("conUpdate....");
 		log.info("amount: "+amount);
 		log.info("pntCode: "+pntCode);
 

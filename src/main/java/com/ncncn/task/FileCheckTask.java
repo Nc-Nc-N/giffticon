@@ -5,6 +5,7 @@ import com.ncncn.mapper.GifticonMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 @Component
 public class FileCheckTask {
 
+    @Value("#{barcodepath['path']}")
+    String barcodepath;
 
     @Setter(onMethod_ = {@Autowired})
     private GifticonMapper gifticonMapper;
@@ -47,13 +50,13 @@ public class FileCheckTask {
             // 어제 등록된 기프티콘 이미지 목록
             List<BarcodeInfoVO> fileList = gifticonMapper.getYesterdayBarcodeImageInfo();
             List<Path> fileListPaths = fileList.stream().
-                    map(vo -> Paths.get("/Users/asdddq/Desktop/MyFolder/TeamProject/Git0418/giffticon/src/main/webapp/resources/img/barcode",
+                    map(vo -> Paths.get(barcodepath,
                             vo.getUploadPath(), vo.getUuid() + "_" + vo.getFileName())).collect(Collectors.toList());
 
 
             // thumbnail
             fileList.stream()
-                    .map(vo -> Paths.get("/Users/asdddq/Desktop/MyFolder/TeamProject/Git0418/giffticon/src/main/webapp/resources/img/barcode",
+                    .map(vo -> Paths.get(barcodepath,
                             vo.getUploadPath(), "s_" + vo.getUuid() + "_" + vo.getFileName())).collect(Collectors.toList());
 
             log.warn("===========================================================");
@@ -61,7 +64,7 @@ public class FileCheckTask {
             fileListPaths.forEach(p -> log.warn(p));
 
             //  files in yesterday directory
-            File targetDir = Paths.get("/Users/asdddq/Desktop/MyFolder/TeamProject/Git0418/giffticon/src/main/webapp/resources/img/barcode",
+            File targetDir = Paths.get(barcodepath,
                     getFolderYesterDay()).toFile();
 
             File[] removeFiles = targetDir.listFiles(file -> fileListPaths.contains(file.toPath()) == false);

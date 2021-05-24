@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <%@include file="../../common/header.jsp" %>
 
@@ -213,6 +214,7 @@
 </div>    <!-- end of container -->
 
 <script type="text/javascript">
+
     $(document).ready(function () {
         // 페이지 로딩시 카테고리 불러오기 실패하면 에러메세지 출력
         if ("${initError}" != "") {
@@ -456,7 +458,7 @@
 
         // 해당 대분류 하위 중분류 목록 가져옴
         $.ajax({
-            url: '/user/getBrandAction?name=' + encodeURIComponent(catName),
+            url: '/user/getBrandAction?name=' + encodeURI(encodeURIComponent(catName)),
             processData: false,
             contentType: false,
             beforeSend: function (xhr) {
@@ -511,13 +513,15 @@
             deleteProdInfo();
             // 중분류 클릭시 할인율 초기화
             dcRateIndicatorClean();
+        } else {
+            return;
         }
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
         // 해당 중분류 하위 소분류 목록 가져옴
         $.ajax({
-            url: '/user/getProductAction?name=' + encodeURIComponent(brdName),
+            url: '/user/getProductAction?name=' + encodeURI(encodeURIComponent(brdName)),
             processData: false,
             contentType: false,
             beforeSend: function (xhr) {
@@ -564,6 +568,7 @@
     let inDcRate = 0.0;
     let userId = ${userId};
     let originPath = "";
+    let barcodepath = "<spring:eval expression="@barcodepath['path']"/>";
 
     // 소분류 클릭시 동작
     $('.productbox').on("click", $('.productSelect .select'), function (e) {
@@ -582,14 +587,16 @@
             priceChoiceButtonClean();
             // 할인율 표시 초기화
             dcRateIndicatorClean();
+        } else {
+            return;
         }
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
         // 소분류 클릭시 중분류, 소분류 이름을 보내고 소분류 객체를 받아온다.
         $.ajax({
-            url: '/user/getProductObjectAction?brdName=' + encodeURIComponent(brdName) +
-                '&prodName=' + encodeURIComponent(prodName),
+            url: '/user/getProductObjectAction?brdName=' + encodeURI(encodeURIComponent(brdName)) +
+                '&prodName=' + encodeURI(encodeURIComponent(prodName)),
             processData: false,
             contentType: false,
             beforeSend: function (xhr) {
@@ -647,7 +654,7 @@
         });
     }
 
-    // 바코드 입력시 동작
+    // 바코드 번호 입력시 동작
     $('#barcode').on("propertychange change keyup paste input", function () {
         let rawBarcode = document.getElementById('barcode').value;
         document.getElementById('barcode').value = trimString(rawBarcode);
@@ -680,13 +687,53 @@
     $("#saleReg").on("click", function () {
 
         // 유효성검사
-        if (gifticonValidate() === false) {
-            alert("유효하지 않은 입력입니다.");
-        } else {
-            // 유효성검사 통과하면 데이터 입력
-            insertGifticonValues();
+        if (userIdCheck()) {
+            alert("회원정보를 확인할 수 없습니다. 다시 로그인해주세요.")
+            return;
         }
 
+        if (prodCodeCheck()) {
+            alert("상품을 선택해주세요.")
+            return;
+        }
+
+        if (barcodeCheck()) {
+            alert("기프티콘 바코드 번호를 입력해주세요.")
+            return;
+        }
+
+        if (endDateCheck()) {
+            alert("기프티콘 유효기간을 입력해주세요.")
+            return;
+        }
+
+        if (originPathCheck()) {
+            alert("쿠폰 이미지를 등록해주세요.")
+            return;
+        }
+
+        if (priceTypeCheck()) {
+            alert("판매가격 종류를 선택해주세요. (자동입력 혹은 가격제시)")
+            return;
+        }
+
+        if (dcPriceCheck()) {
+            alert("판매가격을 입력해주세요.")
+            return;
+        }
+
+        if (dcPriceCheckOver100()) {
+            alert("100원 미만의 가격으로 판매할 수 없습니다.")
+            return;
+        }
+
+        if (inDcRateCheck()) {
+            alert("상품 할인율 정보를 불러오는데 실패했습니다. 관리자에게 문의해주세요.")
+            return;
+        }
+
+        // 유효성검사 모두 통과하면 판매등록 진행
+        insertGifticonValues();
     });
 
     // 유효성검사 통과 시 Ajax로 DB에 Insert하는 함수
@@ -704,7 +751,7 @@
                 expirDt: $("#end-date")[0].value,
                 brcd: $("#barcode")[0].value,
                 descn: $("#descn")[0].value,
-                imgPath: "/resources/img/barcode/" + originPath,
+                imgPath: barcodepath + "/" + originPath,
                 isAutoPrc: $("input[name=group1]:checked")[0].value,
                 gftStusCode: '001',
                 aprvDt: null,
@@ -736,38 +783,54 @@
         });
     }
 
-    //유효성 검사
-    let gifticonValidate = function () {
-        let checker = 0;
-        if (userId === 0) {
-            checker += 1
-        }
-        if (prodCode === "") {
-            checker += 1
-        }
-        if ($("#dcprice")[0].value === "") {
-            checker += 1
-        }
-        if (parseInt($("#dcprice")[0].value) < 100) {
-            checker += 1
-        }
-        if (inDcRate === 0) {
-            checker += 1
-        }
-        if ($("#end-date")[0].value === "") {
-            checker += 1
-        }
-        if ($("#barcode")[0].value === "") {
-            checker += 1
-        }
-        if (originPath === "") {
-            checker += 1
-        }
-        if ($("input[name=group1]:checked")[0] === undefined) {
-            checker += 1
-        }
-        return checker === 0;
+
+    // ------------------유효성검사 개별 함수------------------
+    // 회원정보 확인
+    let userIdCheck = function () {
+        return userId === 0
     }
+
+    // 상품코드 확인
+    let prodCodeCheck = function () {
+        return prodCode === "";
+    }
+
+    // 판매가격 입력 확인
+    let dcPriceCheck = function () {
+        return $("#dcprice")[0].value === "";
+    }
+
+    // 판매가격 100원 이상인지 확인
+    let dcPriceCheckOver100 = function () {
+        return parseInt($("#dcprice")[0].value) < 100;
+    }
+
+    // 상품 기본 할인율 적용여부 확인
+    let inDcRateCheck = function () {
+        return inDcRate === 0.0
+    }
+
+    // 유효기간 입력 확인
+    let endDateCheck = function () {
+        return $("#end-date")[0].value === "";
+    }
+
+    // 바코드번호 입력 확인
+    let barcodeCheck = function () {
+        return $("#barcode")[0].value === "";
+    }
+
+    // 바코드이미지 등록 확인
+    let originPathCheck = function () {
+        return originPath === "";
+    }
+
+    // 가격종류 선택 확인
+    let priceTypeCheck = function () {
+        return $("input[name=group1]:checked")[0] === undefined;
+    }
+    // ------------------유효성검사 개별 함수------------------
+
 
     // 모달 배경처리
     function wrapWindowByMask() {

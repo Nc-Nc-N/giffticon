@@ -2,8 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="templete.jsp"/>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/withdrawCon.css" type="text/css">
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<head>
+    <link rel="stylesheet" href="/resources/css/user/mypage/withdrawCon.css" type="text/css">
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+</head>
 
 <div class="contents">
     <div class="contentheader">
@@ -42,10 +46,13 @@
         <button type="button" value="close" class="btn modal--close">X</button>
         <div class="layerpop">
             <div  class="pwd_group">
+                <div class="withdraw_con">
+                   <span class="con_txt"></span> 콘을 인출하시겠습니까? 인출을 위해 비밀번호를 입력해 주세요.
+                </div>
                 <div class="input_text">
                     비밀번호 확인 &ensp;<input type="password" class="originPwd" placeholder="기존 비밀번호를 입력해주세요">
+                    <button class="btn btn-submit" id="btn-confirmOriginPwd">인증</button>
                 </div>
-                <button class="btn btn-submit" id="btn-confirmOriginPwd">인증</button>
             </div>
             <div class="message" id="msg-originPwd"></div>
         </div>
@@ -54,6 +61,8 @@
 
 </body>
 </html>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script type="text/javascript" src="/resources/js/banking/openBanking.js"></script>
 <script>
     $(document).ready(function (){
 
@@ -157,6 +166,7 @@
                 alert("인출할 충전 콘을 입력해주세요.");
                 return false;
             }
+            $(".con_txt").html(inputBox.val());
             $modal.show();
 
         })
@@ -165,16 +175,18 @@
             $modal.hide();
         });
 
-    })
-</script>
-<%-- modal 비밀번호 확인--%>
-<script>
-    $(document).ready(function () {
+
+        <%-- modal 비밀번호 확인, 인출--%>
 
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
         const oriEmail = "<c:out value="${user.email}"/>";
+        const accountVal = "<c:out value="${user.acc}"/>";
+        const bnkCodeVal = "<c:out value="${user.bnkCode}"/>";
+        const holderVal = "<c:out value="${user.holder}"/>";
+        const userNameVal = "<c:out value="${user.name}"/>";
+        const idVal = "<c:out value="${user.id}"/>";
 
         //비밀번호 확인 버튼
         let btnOriginPwd = $("#btn-confirmOriginPwd");
@@ -190,10 +202,11 @@
 
             var msg = "";
             let oriPwdVal = insertOriginPwd.val();
+            const conVal = $(".con_txt").text();
 
             let checkUser = {
                 email: oriEmail,
-                pwd: oriPwdVal
+                pwd: oriPwdVal,
             }
 
             originPwdMsg.html("");
@@ -206,8 +219,23 @@
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
-                success: function () {
-                    // 비밀번호 확인 성공
+                success: function () {  // 비밀번호 확인 성공
+
+                    userInfo={
+                        acc: accountVal,
+                        bnkCode: bnkCodeVal,
+                        conAmt: conVal,
+                        name: userNameVal,
+                        holder: holderVal,
+                        id: idVal
+                    }
+
+                    //promise_ 토큰 획득 후
+                    getBankingAccTkn()
+                        .then(accTkn => deposit(accTkn, userInfo)
+                            .then(con => conUpdate(con)
+                            .then(msg => alert(msg))))
+                    .catch(error => alert(error))
 
 
                 },

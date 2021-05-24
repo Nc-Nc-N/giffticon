@@ -132,9 +132,6 @@ li{
 
 .mapUsingGuide > span {
     margin-left: 16px;
-    visibility: hidden;
-    animation: visible 1s forwards;
-    animation-delay: 0.5s;
 }
 
 /* 스크롤바 설정*/
@@ -282,14 +279,4 @@ a:link{
 
 a:hover {
     color: rgb(255, 88, 93);
-}
-
-
-@keyframes visible {
-    0%{
-    visibility: hidden;
-    }
-    100%{
-        visibility: visible;
-    }
 }

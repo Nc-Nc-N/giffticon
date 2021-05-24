@@ -152,7 +152,7 @@
                 type: 'get',
                 async: false,
                 success: function (result) {
-                    for(let i=0; i<result.length; i++){
+                    for(let i=0; i<result.length-1; i++){
                         menu.append('<li class="flyout-right"><a href="/user/gifti_list?code='+result[i].code+'">'+result[i].name+'</a>' +
                             '<div class="brdBox"><ul class="animated-'+result[i].code+'"></ul></div></li>');
                     }

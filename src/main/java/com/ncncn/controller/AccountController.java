@@ -9,11 +9,10 @@ import com.ncncn.domain.UserVO;
 import com.ncncn.service.SignUpService;
 import com.ncncn.service.SoclInfoService;
 import com.ncncn.service.UserService;
-import com.ncncn.util.EmailAuthCodeUtils;
-import com.ncncn.util.UserAuthCheckUtils;
-import lombok.Setter;
+import com.ncncn.util.ConfirmCodeUtils;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ncncn.util.UserAuthCheckUtils;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,48 +22,45 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@Log4j
 @Controller
 @RequestMapping("/account/*")
-@Log4j
 public class AccountController {
 
+	private final UserService userService;
+	private final SoclInfoService soclInfoService;
+	private final SignUpService signUpService;
+	private final JavaMailSender javaMailSender;
 
-    private final SignUpService signUpService;
-    private final JavaMailSender javaMailSender;
+	public AccountController(UserService userService, SoclInfoService soclInfoService, SignUpService signUpService, JavaMailSender javaMailSender) {
+		this.userService = userService;
+		this.soclInfoService = soclInfoService;
+		this.signUpService = signUpService;
+		this.javaMailSender = javaMailSender;
+	}
 
-    @Setter(onMethod_ = @Autowired)
-    UserService userService;
+	@GetMapping("/signIn")
+	public void signIn(HttpServletRequest request, String error, Model model) {
 
-    @Setter(onMethod_ = @Autowired)
-    SoclInfoService soclInfoService;
+		model = cookieChecker(request, model);
 
-    public AccountController(SignUpService signUpServiceImpl, JavaMailSender javaMailSender) {
-        this.signUpService = signUpServiceImpl;
-        this.javaMailSender = javaMailSender;
-    }
+		//로그인 실패 시
+		if (error != null) {
+			model.addAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
+		}
 
-    @GetMapping("/signIn")
-    public void signIn(HttpServletRequest request, String error, Model model) {
+		//직접 logout 해서 로그인 창으로 왔을 시
+		if (request.getSession().getAttribute("logout") != null) {
+			model.addAttribute("msg", "로그아웃되었습니다.");
+			request.getSession().removeAttribute("logout");
+		}
 
-        model = cookieChecker(request, model);
+		model.addAttribute("soclTypes", soclInfoService.getSoclLoginCode());
 
-        //로그인 실패 시
-        if (error != null) {
-            model.addAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
-        }
+		request.getSession().setAttribute("referer", request.getHeader("referer"));
+	}
 
-        //직접 logout 해서 로그인 창으로 왔을 시
-        if (request.getSession().getAttribute("logout") != null) {
-            model.addAttribute("msg", "로그아웃되었습니다.");
-            request.getSession().removeAttribute("logout");
-        }
-
-        model.addAttribute("soclTypes", soclInfoService.getSoclLoginCode());
-
-        request.getSession().setAttribute("referer", request.getHeader("referer"));
-    }
-
-    	@GetMapping("/signUp")
+	@GetMapping("/signUp")
 	public String getSignUp() {
 		return "/account/signUp";
 	}
@@ -101,7 +97,7 @@ public class AccountController {
 	public ResponseEntity<Map<String, String>> confirmEmail(@RequestParam("email") String email) {
 		Map<String, String> map = new HashMap<>();
 
-		String code = EmailAuthCodeUtils.getAuthCode();         // 인증코드 생성
+		String code = ConfirmCodeUtils.getCode();         // 인증코드 생성
 		SimpleMailMessage message = new SimpleMailMessage();
 
 		try {
@@ -115,6 +111,24 @@ public class AccountController {
 		}
 
 		map.put("code", code);                      // 인증메일 전송에 성공하면 map에 인증코드를 담아 전달
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+
+	// 사용자가 입력한 이메일로 인증메일 전송
+	@GetMapping(value = "/telNoConfirm", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, String>> confirmTelNo(@RequestParam("telNo") String telNo) {
+		Map<String, String> map = new HashMap<>();
+		String code = ConfirmCodeUtils.getCode();         // 인증코드 생성
+
+		try {
+			signUpService.sendAuthCode(telNo, code);
+
+		} catch (Exception e) {
+			map.put("error", e.getMessage());
+			return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		map.put("code", code);                                // 인증문자 전송에 성공하면 map에 인증코드를 담아 전달
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
@@ -146,7 +160,6 @@ public class AccountController {
             log.info("social check error");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
 
     }
 
@@ -236,5 +249,4 @@ public class AccountController {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
     }
-
 }

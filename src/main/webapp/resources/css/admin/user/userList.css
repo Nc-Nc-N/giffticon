@@ -22,23 +22,15 @@
     margin: 20px 0;
 }
 
-#t1 {
-    width: 100%;
-    text-align:center;
-    border-collapse:collapse;
+#list-tb > thead > tr {
+    font-size: 16px;
+    height: 50px;
 }
 
-tr * {
-    height:40px;
-}
-
-th {
-    background-color:rgb(189, 187, 187);
-    border-bottom:1px solid black;
-}
-
-td {
-    border-bottom:1px solid black;
+.list-tr {
+    height: fit-content;
+    font-size: 16px;
+    height:60px;
 }
 
 .pagination-container {
@@ -54,7 +46,7 @@ td {
     list-style:none;
 }
 
-.eachUser {
+.list-tr {
     cursor:pointer;
 }
 
