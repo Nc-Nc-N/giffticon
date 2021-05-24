@@ -464,12 +464,14 @@
             gftT.id
         from deal_detail dealT, gifticon gftT
         where dealT.gifticon_id = gftT.id
-          and gftT.gft_stus_code = '004' and dealT.cmpl_dt is null;
+          and gftT.gft_stus_code = '004'
+          and date_format(adddate(dealT.deal_dt, interval 4 day),'%y%m%d') = date_format(now(),'%y%m%d')
+          and dealT.cmpl_dt is null;
     </select>
 
 <!--    <update id="AutoDealCmpl" parameterType="java.util.List">-->
 <!--        update gifticon-->
-<!--        set gft_stus_code = '004'-->
+<!--        set gft_stus_code = '005'-->
 <!--        where id in (-->
 <!--        <foreach collection="list" item="item" separator=",">-->
 <!--            #{gftList}-->

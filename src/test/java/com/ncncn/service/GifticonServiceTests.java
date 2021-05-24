@@ -95,5 +95,7 @@ public class GifticonServiceTests {
             log.info("총 " + gftList.size() + "개의 gft 업데이트");
             log.info(gftList);
         }
+
+
     }
 }

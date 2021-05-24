@@ -31,6 +31,9 @@ public class AutoDealCmplTask {
             System.out.println(gftList);
         }
 
+        log.info("gftList");
+        log.info(gftList);
+
         //중단 - gifticon mapper에 상태코드 update 문 넣는 중 파라미터를 gftLIst로 들어가게 해야함
 
         //2. 그 중 pymt_dt 익일 + 3이 now보다 같거나 이전인것듣만 뽑기
