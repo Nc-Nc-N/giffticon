@@ -27,4 +27,6 @@ public interface GftManagingService {
 
 	int modifyGftStus(int id, String stus);
 
+	public List<Integer> getNotCmplGifticon();
+
 }

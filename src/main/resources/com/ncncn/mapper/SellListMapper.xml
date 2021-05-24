@@ -53,6 +53,7 @@
         <include refid="criteria"></include>
 
         <![CDATA[
+        order by gftT.in_date desc
         limit #{amount}
         offset ${(pageNum-1) * amount};
         ]]>

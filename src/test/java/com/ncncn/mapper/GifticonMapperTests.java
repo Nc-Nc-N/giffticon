@@ -107,4 +107,12 @@ public class GifticonMapperTests {
 
     }
 
+    @Test
+    public void getNotCmplGft(){
+
+        List<Integer> notCmplList = mapper.getNotCmplGft();
+
+        assertEquals(notCmplList.size(), 2);
+    }
+
 }
