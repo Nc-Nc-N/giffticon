@@ -48,12 +48,12 @@
             prdT.brd_code = brdT.code
           and
             gftT.gft_stus_code = stusT.code
-        order by gftT.in_date desc
         ]]>
 
         <include refid="criteria"></include>
 
         <![CDATA[
+        order by gftT.in_date desc
         limit #{amount}
         offset ${(pageNum-1) * amount};
         ]]>

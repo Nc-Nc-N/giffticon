@@ -90,14 +90,14 @@
             prdT.brd_code = brdT.code
           and
             gftT.gft_stus_code = stusT.code
-        order by dealT.deal_dt desc
         ]]>
 
         <include refid="criteria"></include>
 
         <![CDATA[
+        order by dealT.deal_dt desc
         limit #{amount}
-        offset ${(pageNum-1) * amount};
+        offset ${(pageNum-1) * amount}
         ]]>
     </select>
 
