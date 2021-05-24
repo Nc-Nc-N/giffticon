@@ -110,7 +110,7 @@
         </div>
 
         <div class="listcontent">
-            <div class="splide" style="width: 1000px; margin-top: 3%;">
+            <div class="splide" style="width: 1000px; margin-top: 5%;">
                 <div class="splide__track">
                     <ul class="splide__list">
                         <c:set var="i" value="0"/>
@@ -175,17 +175,9 @@
             </div>
         </div>
         <div class="listcontent">
-            <div class="splide" style="width: 1000px; margin-top: 3%;">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        <c:set var="i" value="0"/>
-                        <c:set var="j" value="4"/>
-                        <c:forEach items="${deadlineList}" var="DL">
-                            <c:if test="${i%j==0}">
-                                <li class="splide__slide">
-                                <table>
-                                <tr>
-                            </c:if>
+                <table class="dl">
+                        <tr>
+                        <c:forEach items="${deadlineList}" var="DL" end="3">
                             <td>
                                 <a href="gifti_detail?code=${DL.prodCode}">
                                     <div class="items">
@@ -216,15 +208,9 @@
                                     </div>
                                 </a>
                             </td>
-                            <c:if test="${i%j==j-1}">
-                                </tr>
-                                </table>
-                                </li>
-                            </c:if>
-                            <c:set var="i" value="${i+1}"/>
                         </c:forEach>
-                    </ul>
-                </div>
+                        </tr>
+                </table>
             </div>
         </div>
     </div>
