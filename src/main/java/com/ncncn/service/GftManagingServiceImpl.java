@@ -3,6 +3,8 @@ package com.ncncn.service;
 import java.util.List;
 import java.util.Map;
 
+import com.ncncn.domain.DealDetailVO;
+import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.SaleGftCriteria;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
@@ -83,8 +85,11 @@ public class GftManagingServiceImpl implements GftManagingService {
     }
 
     @Override
-    public List<Integer> getNotCmplGifticon() {
-        return gifticonMapper.getNotCmplGft();
+    public List<DealDetailVO> getNotCmplGifticon() {
+        List<DealDetailVO> gftList = gifticonMapper.getNotCmplGft();
+        return gftList;
     }
 
+    @Override
+    public int autoDealCmpl(List<DealDetailVO> gftList) { return gifticonMapper.autoDealCmpl(gftList); }
 }

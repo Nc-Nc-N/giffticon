@@ -3,6 +3,8 @@ package com.ncncn.service;
 import java.util.List;
 import java.util.Map;
 
+import com.ncncn.domain.DealDetailVO;
+import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.pagination.SaleGftCriteria;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
 import com.ncncn.domain.SaleRqustVO;
@@ -27,6 +29,7 @@ public interface GftManagingService {
 
 	int modifyGftStus(int id, String stus);
 
-	public List<Integer> getNotCmplGifticon();
+	public List<DealDetailVO> getNotCmplGifticon();
 
+	public int autoDealCmpl(List<DealDetailVO> gftList);
 }
