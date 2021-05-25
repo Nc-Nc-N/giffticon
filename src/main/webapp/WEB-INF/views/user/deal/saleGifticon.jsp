@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <%@include file="../../common/header.jsp" %>
 
@@ -195,8 +195,8 @@
         <div class="black_bg"></div>
         <div class="modal_wrap">
             <div class="modal-content">
-                <h1>판매 등록 요청이 완료되었습니다.</h1><br>
-                <h3>( 판매 수락은 기쁘티콘 업무시간에 순차적으로 진행됩니다. )</h3>
+                <h1 id="modal-text1">판매 등록 요청이 완료되었습니다.</h1><br>
+                <h3 id="modal-text2">( 판매 수락은 기쁘티콘 업무시간에 순차적으로 진행됩니다. )</h3>
                 <div class="inputcontainer">
                     <div class="inputtitle"></div>
                     <br>
@@ -212,6 +212,11 @@
     </div>
     <!-- Modal -->
 </div>    <!-- end of container -->
+
+</body>
+
+</html>
+<%@include file="/WEB-INF/views/common/footer.jsp" %>
 
 <script type="text/javascript">
 
@@ -910,7 +915,5 @@
     });
 
 </script>
-</body>
-</html>
 
-<%@include file="/WEB-INF/views/common/footer.jsp"%>
+
