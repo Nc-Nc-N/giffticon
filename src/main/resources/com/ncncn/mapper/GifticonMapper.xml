@@ -52,7 +52,7 @@
     <sql id="search">
         <trim prefix="and">
             <if test='keyword != null and keyword neq ""'>
-                prod.name like concat('%', #{keyword}, '%') OR brand.name like concat('%', #{keyword}, '%')
+                (prod.name like concat('%', #{keyword}, '%') OR brand.name like concat('%', #{keyword}, '%'))
             </if>
         </trim>
     </sql>
