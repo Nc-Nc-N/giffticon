@@ -19,42 +19,7 @@
     <link rel="stylesheet" href="/resources/css/user/cs/notice_board.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
 
-<body>
-
-<div id="container">
-    <div class="space"></div>
-    <div class="main">
-
-        <div class="menuhead">
-        </div>
-
-        <div class="menubody">
-            <div class="sidebarspace">
-            <div class="menuname">고객센터</div>
-                <div class="sidebar">
-
-                    <a href="/user/cs/noticeBoard">
-                        <div class="bar">
-                            <div>공지사항</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-                    <a href="/user/cs/faqBoard">
-                        <div class="bar" style="background-color:rgb(240, 240, 240);">
-                            <div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">자주묻는질문</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-                    <a href="/user/mypage/psnlQustBoard">
-                        <div class="bar">
-                            <div>1:1문의</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-
-                </div>
-            </div>
-
-            <div class="emptyspace"></div>
-
-            <div class="content"><!--메인컨텐츠 (이하 각자 내용 작성)-->
+<%@ include file="/WEB-INF/views/user/cs/csTemplete.jsp"%>
 
                 <h3>자주묻는 질문</h3>
 

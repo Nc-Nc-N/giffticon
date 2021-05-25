@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
 <%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -18,46 +19,11 @@
 
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 
-<body>
-
-<div id="container">
-    <div class="space"></div>
-    <div class="main">
-
-        <div class="menuhead">
-        </div>
-
-        <div class="menubody">
-            <div class="sidebarspace">
-                <div class="menuname">고객센터</div>
-                <div class="sidebar">
-
-                    <a href="/user/cs/noticeBoard">
-                        <div class="bar">
-                            <div>공지사항</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-                    <a href="/user/cs/faqBoard">
-                        <div class="bar">
-                            <div>자주묻는질문</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-                    <a href="/user/mypage/psnlQustBoard">
-                        <div class="bar" style="background-color:rgb(240, 240, 240);">
-                            <div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">1:1문의</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-
-                </div>
-            </div>
-            <div class="emptyspace">
-
-            </div>
-            <div class="content">
+<%@ include file="/WEB-INF/views/user/cs/csTemplete.jsp"%>
 
                 <h3>1:1문의</h3>
-                    <form role="form" action="/user/mypage/psnlQustBoard/register" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<%--                    <form role="form" action="/user/mypage/psnlQustBoard/register" method="post" enctype="multipart/form-data">--%>
+<%--                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
                     <table id="t1" width=100%>
                         <thead>
                         <tr>
@@ -70,7 +36,7 @@
                         <tbody>
                         <tr>
                             <input type="hidden" class="register-user-id" name="userId" value="">
-                            <input type="hidden" name="stusCode" value="000">
+                            <input type="hidden" class="register-stus" name="stusCode" value="000">
                             <td class="t21">
                                 <select class="td-select" name="csCateCode">
                                     <option value="001">구매</option>
@@ -93,7 +59,9 @@
                                 </div>
                             </td>
                             <td class="t26">
-                                <input type="file" class="td-file" name="atchFilePath" multiple>
+<%--                                <input type="file" class="td-file" name="atchFilePath" multiple>--%>
+                                    <input type="file" class="file-input" name="uploadFile"
+                                            accept="image/jpeg, image/jpg, image/png">
                             </td>
 
                         </tr>
@@ -103,7 +71,7 @@
                     <div id="qna-write">
                         <button type="submit" class="btn btn-active">저장</button>
                     </div>
-                    </form>
+<%--                    </form>--%>
             </div>
         </div>
     </div>
@@ -115,6 +83,9 @@
     let userId = "<c:out value="${userId}"/>";
 
     $(".register-user-id").val(userId);
+
+    let psnlqustpath ="<spring:eval expression="@psnlqustpath['path']"/>";
+    let originPath = ""; //table의 atch_file_path에 들어갈 변수
 
 
     //파일 확장자 및 크기 사전 처리
@@ -135,7 +106,116 @@
         return true;
     }
 
+    //파일 업로드
+    $(document).on("change", ".file-input", function (){
 
+        var formData = new FormData();
+        var inputFile = $("input[name='uploadFile']");
+        var files = inputFile[0].files;
+
+        for (var i = 0; i < files.length; i++){
+            //파일 용량, 확장자 체크
+            if(!checkExtension(files[i].name, files[i].size)){
+                return false;
+            }
+            formData.append("uploadFile", files[i]);
+        }
+
+        let csrfHeaderName = "${_csrf.headerName}";
+        let csrfTokenValue = "${_csrf.token}";
+
+
+        $.ajax({
+            url:'/psnl/uploadAjaxAction',
+            processData: false,
+            contentType: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+            },
+            data: formData,
+            type: 'POST',
+            dataType: 'json',
+            success: function (result){
+                alert("파일 업로드 성공");
+                saveFile(result);
+            },
+            error: function (request, status, error){
+                alert("code:" + request.status + "\n" + "massage:" + request.responseText + "\n" + "error:" + error);
+            }
+        }); //$.ajax
+
+
+        //이미지 파일 save하는 함수
+        function saveFile(uploadResultArr){
+
+            console.log("uploadResultArr: " + uploadResultArr);
+            $(uploadResultArr).each(function (i, obj){
+
+                originPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;
+
+                console.log(originPath);
+                originPath = originPath.replace(new RegExp(/\\/g), "/");
+            });
+        }
+
+    });
+
+    //유효성 검사 후 db 저장
+    $(".btn-active").on("click", function (){
+
+        if ($(".td-title").val() ==''){
+            alert("제목을 입력해주세요.");
+            return false;
+        }
+        if ($(".td-content").val() ==''){
+            alert("내용을 입력해주세요.");
+            return false;
+        }
+
+        insertPsnlQust();
+    });
+
+    //유효성 통과 시 Ajax로 db에 insert
+    let insertPsnlQust = function (){
+        let csrfHeaderName = "${_csrf.headerName}";
+        let csrfTokenValue = "${_csrf.token}";
+
+        var form = {
+            id: null,
+            userId: userId,
+            title: $(".td-title")[0].value,
+            cntnt: $(".td-content")[0].value,
+            atchFilePath: psnlqustpath + "/" + originPath,
+            adminId: null,
+            ansCntnt: null,
+            ansInDt: null,
+            cmpltDt: null,
+            csCateCode:$(".td-select")[0].value,
+            stusCode: $(".register-stus")[0].value,
+            inDate: null,
+            upDate: null
+        }
+
+        $.ajax({
+            url: '/user/mypage/psnlQustBoard/register',
+            processData: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+            },
+            data: JSON.stringify(form),
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            success: function (result) {
+                alert("1:1 문의 성공. 빠른 시일 내에 답변드리겠습니다.");
+                self.location="/user/mypage/psnlQustBoard";
+            },
+            error: function (error) {
+                console.log(error);
+                alert("등록과정에서 오류가 발생했습니다. 관리자에게 문의해주세요.");
+            }
+        })
+
+    }
 
 
 </script>

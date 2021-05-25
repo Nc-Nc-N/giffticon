@@ -21,42 +21,7 @@
 
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 
-<body>
-
-<div id="container">
-    <div class="space"></div>
-    <div class="main">
-
-        <div class="menuhead">
-        </div>
-
-        <div class="menubody">
-            <div class="sidebarspace">
-                <div class="menuname">고객센터</div>
-                <div class="sidebar">
-
-                    <a href="/user/cs/noticeBoard">
-                        <div class="bar">
-                            <div>공지사항</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-                    <a href="/user/cs/faqBoard">
-                        <div class="bar">
-                            <div>자주묻는질문</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-                    <a href="/user/mypage/psnlQustBoard">
-                        <div class="bar" style="background-color:rgb(240, 240, 240);">
-                            <div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">1:1문의</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-
-                </div>
-            </div>
-            <div class="emptyspace">
-
-            </div>
-            <div class="content">
+<%@ include file="/WEB-INF/views/user/cs/csTemplete.jsp"%>
 
                 <h3>1:1문의</h3>
                 <div class="sub-category-area">
