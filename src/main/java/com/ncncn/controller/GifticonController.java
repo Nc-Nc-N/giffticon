@@ -49,7 +49,7 @@ public class GifticonController {
         conService.insertConHist(pntHistVO);
 
         //판매자에게 입금
-        conService.updateUserCon(gifticonVO.getUserId(), gifticonVO.getDcPrc());
+        conService.manualDealCmpl(gifticonVO.getUserId(), gifticonVO.getDcPrc());
 
         //구매상세페이지에서 구매확정한 경우 구매상세로 다시 보냄
         if (request.getHeader("referer").contains("/dealDetail")) {

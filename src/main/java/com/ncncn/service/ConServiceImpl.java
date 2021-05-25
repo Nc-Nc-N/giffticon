@@ -84,4 +84,19 @@ public class ConServiceImpl implements ConService {
     public int getConTotal(int userId, MyPageCriteria cri) {
         return conMapper.getConTotal(userId,cri.getDateFrom(), cri.getDateTo(), cri.getType(), cri.getTypeArr());
     }
+
+    @Override
+    public boolean manualDealCmpl(int userId, int balance) {
+
+        try{
+            conMapper.manualDealCmpl(userId, balance);
+            log.info("사용자 보유 con 수정 성공");
+            return true;
+
+        } catch (Exception e){
+            log.info("사용자 보유 con 수정 실패");
+            return false;
+        }
+    }
+
 }
