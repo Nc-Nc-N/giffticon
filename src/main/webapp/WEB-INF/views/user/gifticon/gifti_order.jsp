@@ -228,6 +228,7 @@
 
                     <form id="order-form" action="/payment_cmplt" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="hidden" name="prodCode" value="<c:out value="${gifticon.prodCode}"/>"/>
                         <input type="hidden" name="orderer_name" value="<c:out value="${user.name}"/>"/>
                         <input type="hidden" name="gftId" value="<c:out value="${gifticon.id}"/>"/>
                         <input type="hidden" name="dcPrc" value="<c:out value="${gifticon.dcPrc}"/>"/>

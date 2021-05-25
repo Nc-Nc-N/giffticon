@@ -139,11 +139,7 @@ table{
     padding-left: 5%;
     display: flex;
 }
-.listnamelast table, .dl{
-    border-spacing: 15px;
-    margin: 5% 0;
-    display: flex;
-}
+
 .items{
     width:200px;
     height:100%;
@@ -187,4 +183,14 @@ h3{
     text-align: center;
     color: #333;
     margin: 25%;
+}
+.listnamelast table, .dl{
+    border-spacing: 15px;
+    margin: 5% 0;
+    display: flex;
+    padding-left: 2%;
+}
+
+.listnamelast table{
+    padding-left: 6%;
 }
