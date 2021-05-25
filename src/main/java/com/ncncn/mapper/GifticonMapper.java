@@ -91,4 +91,6 @@ public interface GifticonMapper {
 
 	int autoDealCmpl(List<DealDetailVO> gftList);
 
+	public int checkGft(@Param("gftId") int gftId, @Param("userId") int userId);
+
 }

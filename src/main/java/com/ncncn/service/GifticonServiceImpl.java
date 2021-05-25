@@ -128,4 +128,9 @@ public class GifticonServiceImpl implements GifticonService {
 
         return gifticonVO;
     }
+
+    @Override
+    public int checkGft(int gftId, int userId) {
+        return gifticonMapper.checkGft(gftId, userId);
+    }
 }

@@ -53,9 +53,9 @@ table.select_pnt td:last-child, .benefits{
     float: right;
     margin-right: 3%;
 }
-.pnt_bought_btn_section{
+.pnt_bought_btn_section {
     float: right;
-    margin-top: 5%;
+    margin: 5% 0 15%;
 }
 .benefits{
     margin-left: 5%;

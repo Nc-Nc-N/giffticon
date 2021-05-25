@@ -164,14 +164,26 @@
                 }else{  // 구매하기
 
                     let orderForm = $(".opt-order");
+                    let gftId = $(".option-select option:selected").val();
 
                     e.preventDefault();
 
-                    if (!$(".option-select option:selected").val()) {
-                        alert("옵션을 선택해주세요");
+                    if (!gftId) {
+                        alert("옵션을 선택해 주세요");
                         return false;
                     }
-                    orderForm.submit();
+                    $.ajax({
+                        url: '/gifticon/gftId/'+gftId,
+                        type: 'get',
+                        success: function (){
+                            orderForm.submit();
+                        },
+                        error: function (){
+                            alert("본인이 등록한 기프티콘입니다. " +
+                                "판매취소를 원하시는 경우 마이페이지 - 판매내역으로 이동해 주세요.");
+                        }
+
+                    })
                 }
             }
         })
