@@ -1,5 +1,6 @@
 package com.ncncn.mapper;
 
+import com.ncncn.domain.DealDetailVO;
 import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProdListVO;
 import com.ncncn.domain.pagination.SaleGftCriteria;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -110,9 +112,24 @@ public class GifticonMapperTests {
     @Test
     public void getNotCmplGft(){
 
-        List<Integer> notCmplList = mapper.getNotCmplGft();
+        List<DealDetailVO> notCmplList = mapper.getNotCmplGft();
 
         assertEquals(notCmplList.size(), 2);
+    }
+
+    @Test
+    public void autoDealCmpl(){
+
+        List<DealDetailVO> gftList = mapper.getNotCmplGft();
+
+        if(gftList.size() != 0){
+
+            int isUpdated = mapper.autoDealCmpl(gftList);
+
+        }else{
+            log.info("상태변경할 기프티콘이 없습니다.");
+        }
+
     }
 
 }

@@ -1,5 +1,7 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.DealDetailVO;
+import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.PrcUpdateVO;
 import com.ncncn.domain.ProdListVO;
 import lombok.Setter;
@@ -87,7 +89,7 @@ public class GifticonServiceTests {
     @Test
     public void getNotCmplGftTest(){
 
-        List<Integer> gftList = gftManagingService.getNotCmplGifticon();
+        List<DealDetailVO> gftList = gftManagingService.getNotCmplGifticon();
 
         if(gftList.size() == 0){
             log.info("업데이트 할 기프티콘이 없습니다.");
@@ -95,5 +97,7 @@ public class GifticonServiceTests {
             log.info("총 " + gftList.size() + "개의 gft 업데이트");
             log.info(gftList);
         }
+
+
     }
 }
