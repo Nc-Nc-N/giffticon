@@ -13,8 +13,8 @@
                 <div class="sidebar">
 
                     <a href="/user/cs/noticeBoard">
-                        <div class="bar" style="background-color:rgb(240, 240, 240);">
-                            <div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">공지사항</div>
+                        <div class="bar">
+                            <div>공지사항</div>
                             <i class="fas fa-chevron-right"></i></div>
                     </a>
                     <a href="/user/cs/faqBoard">
