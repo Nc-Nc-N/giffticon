@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:include page="templete.jsp"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_info.css" type="text/css">
@@ -12,8 +13,6 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 </style>
-
-<jsp:include page="templete.jsp"/>
 
                     <div class="contentheader">
                         <span>회원 정보</span>
