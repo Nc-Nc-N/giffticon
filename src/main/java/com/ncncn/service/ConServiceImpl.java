@@ -89,7 +89,7 @@ public class ConServiceImpl implements ConService {
     public boolean manualDealCmpl(int userId, int balance) {
 
         try{
-            conMapper.manualDealCmpl(userId, balance);
+            conMapper.manualDealCmpl(userId, (int)(balance/100*90));
             log.info("사용자 보유 con 수정 성공");
             return true;
 
