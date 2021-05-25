@@ -417,3 +417,8 @@ button{
     color:rgb(255,88,93);
 }
 
+.select {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

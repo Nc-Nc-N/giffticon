@@ -271,13 +271,15 @@ public class SaleRegisterController {
 
     @PostMapping(value = "/registerGifticonAction", consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
     @ResponseBody
-    public void registerGifticonAction(@RequestBody GifticonVO gifticon) {
+    public ResponseEntity<Void> registerGifticonAction(@RequestBody GifticonVO gifticon) {
 
         try {
             giftiService.registerGifticon(gifticon);
             log.info("registered Gifticon successfully.............");
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
