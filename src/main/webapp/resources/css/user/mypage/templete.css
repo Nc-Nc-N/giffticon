@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 #container {
     width: 1000px;
     height: fit-content;
@@ -27,8 +32,6 @@
     height: 80px;
     background-color: white;
     color: rgb(71, 71, 71);
-    /*color: rgb(255, 88, 93);*/
-    /*border: 1.5px solid rgb(255, 88, 93);*/
     font-size: 32px;
     font-weight: bold;
     display: flex;

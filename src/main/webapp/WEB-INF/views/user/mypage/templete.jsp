@@ -186,8 +186,8 @@
                         //요약 - 보유콘 바로가기
                         $(".curentPnt").on("click", function (e) {
                             absSearch.attr("action", "/user/mypage/myCon").attr("method", "get");
+                            absSearch.find("input[name='pageNum']").val("1");
                             absSearch.find("input[name='amount']").val("10");
-
                             absSearch.submit();
                         });
                     });

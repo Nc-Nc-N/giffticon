@@ -36,7 +36,7 @@
     align-items: start;
 }
 
-.item_name:hover{
+.item_name:hover {
     color: #FF585D;
     cursor: pointer;
 }
@@ -67,28 +67,28 @@
     /*background-color: cadetblue;*/
 }
 
-.itemprice{
+.itemprice {
     align-items: flex-end;
     justify-content: center;
     margin: 0 5%;
 }
 
-.itemprice > span{
+.itemprice > span {
     font-size: medium;
     color: #FF585D;
     font-weight: bold;
 }
 
-.itemprice > span:last-child{
+.itemprice > span:last-child {
     color: black
 }
 
-.itemprice > span:nth-child(1){
+.itemprice > span:nth-child(1) {
     color: gray;
     width: 100px;
 }
 
-.delete-btn{
+.delete-btn {
     display: block;
     float: none;
     width: 60px;
@@ -99,7 +99,7 @@
     color: gray;
 }
 
-.noResult{
+.noResult {
     margin-top: 30px;
     text-align: center;
 }

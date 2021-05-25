@@ -1,23 +1,20 @@
 /* --------------------이하 구매내역 css (위쪽 templete css)--------------------- */
 .contentinfo {
     height: 30px;
-    /* background-color: rgb(150, 250, 163); */
     display: flex;
     align-items: center;
     font-weight: bold;
-    font-size: 14px;;
+    font-size: 14px;
 }
 
 .contentsearch {
     height: 50px;
-    /* background-color: teal; */
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .search-by-period {
-    /* background-color: chartreuse; */
     display: flex;
     width: 40%;
 }
@@ -48,7 +45,6 @@
 }
 
 .search-by-text {
-    /* background-color:coral; */
     display: flex;
     justify-content: flex-end;
     width: 60%;
@@ -71,34 +67,27 @@
 .item {
     width: 100%;
     height: 500px;
-    /*background-color: gold;*/
-    /* border-bottom: 2px solid black; */
 }
 
 .item_purdate {
     width: 100%;
     height: 30px;
-    /*background-color: cadetblue;*/
     font-size: 20px;
     font-weight: bold;
 }
 
 .expr_dt {
-    /*margin-top:5px;*/
-    /*margin-right:20px;*/
     font-size: 14px;
     font-weight: lighter;
     color: #333333;
     display: flex;
     justify-content: center;
-    /*background-color: #888888;*/
     width: 100%;
 }
 
 .item_info {
     width: 100%;
     height: 160px;
-    /*background-color: coral;*/
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -107,7 +96,6 @@
 .item_img {
     width: 150px;
     height: 150px;
-    /* background-color: cornflowerblue; */
 }
 
 .item_brdNname {
@@ -116,13 +104,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* background-color: darkgreen; */
 }
 
 .item_brd {
     width: 80%;
     height: 35%;
-    /* background-color: darkred; */
     margin-left: 10%;
     display: flex;
     align-items: center;
@@ -131,7 +117,6 @@
 .item_name {
     width: 80%;
     height: 70%;
-    /* background-color: blueviolet; */
     margin-left: 10%;
     font-size: 20px;
     font-weight: bold;
@@ -152,7 +137,6 @@
 .item_prc, .item_status {
     width: 100px;
     height: 80px;
-    /* background-color: darkgrey; */
     font-size: 20px;
     font-weight: bold;
     display: flex;
@@ -175,7 +159,6 @@
 .item_buttons {
     width: 80px;
     height: 100px;
-    /* background-color: darkolivegreen; */
     line-height: 50px;
     display: flex;
     flex-direction: column;
@@ -190,7 +173,6 @@ img {
 .noSearchResult {
     width: 100%;
     height: 50px;
-    /*background-color: #333333;*/
     display: flex;
     justify-content: center;
     align-content: center;
@@ -203,11 +185,9 @@ img {
     height: 60px;
     margin-top: 60px;
     text-align: center;
-    /*background-color: cadetblue;*/
 }
 
 .search-spec {
-    /*background-color:blue;*/
     width: 100%;
     display: flex;
     justify-content: space-between;
