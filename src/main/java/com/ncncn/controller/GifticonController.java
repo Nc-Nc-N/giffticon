@@ -121,4 +121,21 @@ public class GifticonController {
         }
 
     }
+
+    @GetMapping(value = "gftId/{gftId}")
+    public ResponseEntity<String> checkGft(HttpServletRequest request, @PathVariable("gftId") int gftId){
+
+        try{
+            int userId = (int) request.getSession().getAttribute("userId");
+            // 해당 상품이 본인이 등록한 상품일 경우 1
+            int cnt = gifticonService.checkGft(gftId, userId);
+            log.info("cnt: "+cnt);
+
+            return  cnt == 0 ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        } catch (Exception e){
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

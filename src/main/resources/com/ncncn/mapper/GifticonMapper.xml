@@ -502,4 +502,10 @@
         </foreach>
     </update>
 
+    <select id="checkGft" resultType="int">
+        select count(*)
+        from gifticon
+        where id = #{gftId} and user_id = #{userId};
+    </select>
+
 </mapper>
