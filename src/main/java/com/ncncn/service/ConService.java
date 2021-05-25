@@ -25,4 +25,5 @@ public interface ConService {
 
     public int getConTotal(int userId, MyPageCriteria cri);
 
+    public boolean manualDealCmpl(int userId, int balance);
 }
