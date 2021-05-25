@@ -34,4 +34,7 @@ public interface ConMapper {
                            @Param("type") String type,
                            @Param("typeArr") String[] typeArr);
 
+    // user pnt update
+    public boolean manualDealCmpl(@Param("userId") int userId,
+                                 @Param("balance") int balance);
 }

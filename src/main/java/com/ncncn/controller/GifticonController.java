@@ -49,7 +49,7 @@ public class GifticonController {
         conService.insertConHist(pntHistVO);
 
         //판매자에게 입금
-        conService.updateUserCon(gifticonVO.getUserId(), gifticonVO.getDcPrc());
+        conService.manualDealCmpl(gifticonVO.getUserId(), gifticonVO.getDcPrc());
 
         //구매상세페이지에서 구매확정한 경우 구매상세로 다시 보냄
         if (request.getHeader("referer").contains("/dealDetail")) {
@@ -120,5 +120,22 @@ public class GifticonController {
 
         }
 
+    }
+
+    @GetMapping(value = "gftId/{gftId}")
+    public ResponseEntity<String> checkGft(HttpServletRequest request, @PathVariable("gftId") int gftId){
+
+        try{
+            int userId = (int) request.getSession().getAttribute("userId");
+            // 해당 상품이 본인이 등록한 상품일 경우 1
+            int cnt = gifticonService.checkGft(gftId, userId);
+            log.info("cnt: "+cnt);
+
+            return  cnt == 0 ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        } catch (Exception e){
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

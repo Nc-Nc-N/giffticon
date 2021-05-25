@@ -6,7 +6,6 @@
 <%
     //userId 변수명이 mypage와 겹쳐서 header 전용으로 userId 지정
     Integer headerUid;
-
     try {
         headerUid = (int) request.getSession().getAttribute("userId");
     } catch (Exception e) {
@@ -16,7 +15,6 @@
 
     //소셜로그인 타입으로 logout handling
     String soclType;
-
     try {
         soclType = (String) request.getSession().getAttribute("social");
         System.out.println("socltype scriptlet: " + soclType);
@@ -43,7 +41,6 @@
 <div id="header">
 
     <div class="top_menu">
-
         <sec:authorize access="isAnonymous()">
             <span><a href="/account/signIn" class="login-panel">로그인</a></span>
             <span class="header_divider">.</span>
@@ -63,7 +60,6 @@
 
         <span class="header_divider">.</span>
         <span><a href="/user/cs/noticeBoard" class="login-panel">고객센터</a></span>
-
     </div>
 
     <div class="main-logo">
@@ -71,12 +67,10 @@
     </div>
 
     <div class="main-bar">
-
-<%--        <div class="bar-left">--%>
             <div class="category-drop">
                 <ul class="exo-menu">
                     <li class="drop-down">
-                        <a href="#none"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
+                        <a class="nonclick"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
                         <%-- Drop Down --%>
                         <ul class="drop-down-ul animated fadeIn">
                         <%-- ajax로 불러옴 --%>
@@ -84,29 +78,22 @@
                     </li>
                 </ul>
             </div>
-<%--            <div class="leftmenus">--%>
                 <div class="leftmenu"><a href="/user/mypage/addCon">충전하기</a></div>
                 <div class="leftmenu"><a href="/user/gifticon/map"><i class="fas fa-map-marker-alt"></i></a></div>
-<%--            </div>--%>
-<%--        </div>--%>
         <!-- search area -->
         <div class="search-bar-container">
             <form id="h-search-form" action="/user/gifti_list" method="get">
                 <input type="text" class="h-search-input" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
-
                 <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'/>
                 <button class="h-search-button"><i class="fas fa-search"></i></button>
             </form>
         </div>
-
-<%--        <div class="bar-right">--%>
             <div class="bubble">거래확정!</div>
             <div class="rightmenu" id="alarm-ticket">
                     <a><i class="fas fa-ticket-alt"></i></a>
                 </div>
             <div class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></div>
             <div class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></div>
-<%--        </div>--%>
     </div>
 
 </div>
@@ -121,12 +108,10 @@
 </form>
 
 <script>
-
     // 검색 버튼 이벤트 처리
     let headerSearchForm = $('#h-search-form');
 
     $("#h-search-form button").on("click", function (e) {
-
         headerSearchForm.find("input[name='code']").val("0");
         e.preventDefault();
 
@@ -139,6 +124,10 @@
 
     // 전체카테고리 메뉴 불러오기
     $(document).ready(function () {
+        $(".nonclick").on("click", function (e) {
+            e.preventDefault();
+        });
+
         menuLoader();
 
         // 카테고리
@@ -206,7 +195,7 @@
             $('.flyout-right a').removeClass('on');
         });
 
-    })
+    });
 </script>
 
 <!-- 티켓 아이콘 알림 버튼 적용 스크립트 -->

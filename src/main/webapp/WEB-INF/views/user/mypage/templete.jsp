@@ -88,36 +88,29 @@
             <div class="content"><!--메인컨텐츠 (이하 각자 내용 작성)-->
                 <div class='abstracts'>
                     <div class='abs stus004'>
-                        <div class="abs_name">확정 대기</div>
-                        <div class="abs_num" id="stus004">
-                            <%--                            <c:out value="${countStus004}"/>--%>
-                        </div>
+                        <div class="abs_name">확정 대기&nbsp;&nbsp;<i class="fas fa-chevron-right"></i></div>
+                        <div class="abs_num" id="stus004"></div>
                     </div>
                     <div class='abs stus001'>
-                        <div class="abs_name">판매 대기</div>
-                        <div class="abs_num" id="stus001">
-                            <%--                            <c:out value="${countStus001}"/>--%>
-                        </div>
+                        <div class="abs_name">판매 대기&nbsp;&nbsp;<i class="fas fa-chevron-right"></i></div>
+                        <div class="abs_num" id="stus001"></div>
                     </div>
                     <div class='abs stus002'>
-                        <div class="abs_name">판매 중</div>
-                        <div class="abs_num" id="stus002">
-                            <%--                            <c:out value="${countStus002}"/>--%>
-                        </div>
+                        <div class="abs_name">판매 중&nbsp;&nbsp;<i class="fas fa-chevron-right"></i></div>
+                        <div class="abs_num" id="stus002"></div>
                     </div>
                     <div class='abs curentPnt'>
-                        <div class="abs_name">보유 콘</div>
-                        <div class="abs_pnt" id="userPnt">
-                            <%--                            <c:out value="${userPnt}"/>p--%>
-                        </div>
+                        <div class="abs_name">보유 콘&nbsp;&nbsp;<i class="fas fa-chevron-right"></i></div>
+                        <div class="abs_pnt" id="userPnt"></div>
                     </div>
-                    <form class="abs-search" action="/user/mypage/deal" method="get">
-                        <input type="hidden" name="pageNum" value="<c:out value="${pageMaker.cri.pageNum}"/>">
-                        <input type="hidden" name="amount" value="<c:out value="${pageMaker.cri.amount}"/>">
-                        <input type="hidden" name="keyword" value=""/>
-                        <input type="hidden" name="type" value=""/>
-                    </form>
                 </div>
+                <form class="abs-search" action="/user/mypage/deal" method="get">
+                    <input type="hidden" name="pageNum" value="<c:out value="${pageMaker.cri.pageNum}"/>">
+                    <input type="hidden" name="amount" value="<c:out value="${pageMaker.cri.amount}"/>">
+                    <input type="hidden" name="keyword" value=""/>
+                    <input type="hidden" name="type" value=""/>
+                </form>
+
                 <div class="space50"></div>
 
                 <script>

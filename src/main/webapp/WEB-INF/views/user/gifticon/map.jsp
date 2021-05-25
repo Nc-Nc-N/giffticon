@@ -40,14 +40,14 @@
             <div class="listSpace type1">
                 <div class="mapUsingGuide"><span>브랜드 선택 후 매장을 찾아주세요.</span></div>
             </div>
-            <div class="container"><!--메인컨텐츠 (이하 각자 내용 작성)-->
+            <div class="map-container"><!--메인컨텐츠 (이하 각자 내용 작성)-->
                 <div class="selectedbrd"></div>
                 <div id="map"></div>
             </div>
         </div>
     </div>
 </div>
-
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
 

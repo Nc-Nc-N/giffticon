@@ -13,7 +13,6 @@
     거래확정대기&nbsp;>&nbsp;거래확정완료
 </div>
 <div class="contentsearch">
-
     <form class="search-spec" action="/user/mypage/deal" method="get">
         <div class="date-search">
             <input type="date" id="dateFrom" name="dateFrom"
@@ -116,8 +115,8 @@
 </div>
 </div>
 </div>
-
 </body>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </html>
 
 <script type="text/javascript" src="/resources/js/user/calendar.js"></script>

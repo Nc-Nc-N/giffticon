@@ -1,9 +1,7 @@
 /* 컨테이너 전체 */
 #container{
     width:1000px;
-    height:1000px;
-    /* background-color:khaki; */
-    margin: auto;
+    margin: 0 auto 10%;
 }
 
 /* 공백 */
@@ -16,23 +14,16 @@
 /* 헤더 아래 내용 시작 */
 #main{
     width:1000px;
-    height:935px;
-    
-    /* background-color: lightgreen; */
 }
 
 /* 판매하기 */
 .menuname{
     width:1000px;
-    /* background-color:yellow; */
 }
 
 /* 판매하기 내용 시작 */
 #content{
-    height:855px;
     width:900px;
-    /* background-color:olive; */
-    /* margin: 0 0 0 50px; */
 }
 
 /* 한 카테고리 전체 */

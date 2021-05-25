@@ -20,14 +20,12 @@
 
     <sql id="getRqust">
         <![CDATA[
-
-                from gifticon as gft
+        from gifticon as gft
                     join product as prod on prod.code = gft.prod_code
                     join brand as brd on brd.code = prod.brd_code
                     join category as cate on cate.code = brd.cate_code
                     join user as usr on usr.id = gft.user_id
                     where gft.gft_stus_code = '001'
-
         ]]>
     </sql>
 
@@ -54,7 +52,7 @@
     <sql id="search">
         <trim prefix="and">
             <if test='keyword != null and keyword neq ""'>
-                prod.name like concat('%', #{keyword}, '%') OR brand.name like concat('%', #{keyword}, '%')
+                (prod.name like concat('%', #{keyword}, '%') OR brand.name like concat('%', #{keyword}, '%'))
             </if>
         </trim>
     </sql>
@@ -116,18 +114,16 @@
     <update id="gftDealCmpl">
         update gifticon
         set gft_stus_code = '005',
-            up_user = current_user,
-            up_date = now()
+            up_user       = current_user,
+            up_date       = now()
         where id = #{gftId}
     </update>
 
     <delete id="deleteGifticon">
         <![CDATA[
-
-                delete
-                from gifticon
-                where id = #{gftId}
-
+        delete
+        from gifticon
+        where id = #{gftId}
         ]]>
    </delete>
 
@@ -183,7 +179,7 @@
 
     <!-- 판매중 기프티콘 대표   -->
     <select id="getGifti" resultType="com.ncncn.domain.ProdListVO">
-        <![CDATA[        
+        <![CDATA[
         select prod.enabled,
                gifti.id,
                gifti.user_id,
@@ -193,7 +189,7 @@
                prod.name         as pname,
                prod.prc,
                min(gifti.dc_prc) as dc_prc,
-               max(dc_rate) as dc_rate,
+               max(dc_rate)      as dc_rate,
                gft_stus_code,
                prod.descn,
                prod.img_path     as pimg_path
@@ -214,10 +210,11 @@
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code}, '%') and prod.enabled = '1' and gft_stus_code ='002'
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1'
         ]]>
         <include refid="search"></include>
         <![CDATA[
+        and gft_stus_code ='002'
         group by gifti.prod_code
         order by
         ]]>
@@ -240,10 +237,11 @@
         from gifticon as gifti
         INNER JOIN product as prod ON gifti.prod_code = prod.code
         INNER JOIN brand ON prod.brd_code = brand.code
-        where prod_code like concat(#{code}, '%') and prod.enabled = '1' and gft_stus_code ='002'
+        where prod_code like concat(#{code}, '%') and prod.enabled = '1'
         ]]>
         <include refid="search"></include>
         <![CDATA[
+        and gft_stus_code ='002'
         group by gifti.prod_code
         order by
         ]]>
@@ -267,7 +265,7 @@
                prc,
                sold_quty,
                min(dc_prc)   as dc_prc,
-               max(dc_rate) as dc_rate,
+               max(dc_rate)  as dc_rate,
                gft_stus_code,
                prod.img_path as pimg_path
         from gifticon as gifti
@@ -317,17 +315,17 @@
     </insert>
 
     <select id="getMainGftByBrandName" resultType="com.ncncn.domain.ProdListVO">
-        select prdT.img_path pimgPath,
-               brdT.name bname,
-               prdT.name pname,
+        select prdT.img_path     pimgPath,
+               brdT.name         bname,
+               prdT.name         pname,
                max(gftT.dc_rate) dcRate,
-               prdT.prc prc,
-               min(gftT.dc_prc) dcPrc,
-               gftT.prod_code prodCode
+               prdT.prc          prc,
+               min(gftT.dc_prc)  dcPrc,
+               gftT.prod_code    prodCode
         from gifticon as gftT,
              product as prdT,
              (select * from brand where name = #{brdName}) as brdT,
-             (select code from cmmn_code where code_type = 'GFT_STUS' and code_name ='판매중') as stusT
+             (select code from cmmn_code where code_type = 'GFT_STUS' and code_name = '판매중') as stusT
         where brdT.code = prdT.brd_code
           and prdT.code = gftT.prod_code
           and gftT.gft_stus_code = stusT.code
@@ -336,12 +334,16 @@
 
     <!-- 기프티콘 상태 변경(판매중 -> 거래확정대기) -->
     <update id="updateGftStus">
-        update gifticon set gft_stus_code = '004', up_date = now(), up_user = current_user() where id = #{id}
+        update gifticon
+        set gft_stus_code = '004',
+            up_date       = now(),
+            up_user       = current_user()
+        where id = #{id}
     </update>
 
     <sql id="getSaleGft">
         <![CDATA[
-                from gifticon as gft
+        from gifticon as gft
                     join product as prod on prod.code = gft.prod_code
                     join brand as brd on brd.code = prod.brd_code
                     join category as cate on cate.code = brd.cate_code
@@ -423,57 +425,87 @@
     </select>
 
     <update id="updateSaleGftStus">
-        update gifticon set gft_stus_code = #{stus}, up_user = current_user, up_date = now() where id = #{id}
+        update gifticon
+        set gft_stus_code = #{stus},
+            up_user       = current_user,
+            up_date       = now()
+        where id = #{id}
     </update>
 
     <select id="getAutoPricedGifticon" resultType="com.ncncn.domain.AutoPriceVO">
-        select g.id, g.prod_code, p.prc, g.dc_prc, p.in_dc_rate, g.dc_rate, g.expir_dt, g.gft_stus_code stus_code
+        select g.id,
+               g.prod_code,
+               p.prc,
+               g.dc_prc,
+               p.in_dc_rate,
+               g.dc_rate,
+               g.expir_dt,
+               g.gft_stus_code stus_code
         from gifticon g
                  left outer join product p on g.prod_code = p.code
-        where g.is_auto_prc=1 and (g.gft_stus_code='001' or g.gft_stus_code='002')
+        where g.is_auto_prc = 1
+          and (g.gft_stus_code = '001' or g.gft_stus_code = '002')
     </select>
 
     <select id="getOnSaleGifticon" resultType="com.ncncn.domain.GifticonVO">
-        select * from gifticon
-        where gft_stus_code = '001' or gft_stus_code='002'
+        select *
+        from gifticon
+        where gft_stus_code = '001'
+           or gft_stus_code = '002'
     </select>
 
     <update id="disableExpiredGifticon">
         update gifticon
-        set gft_stus_code = '003', up_date = now(), up_user = current_user()
+        set gft_stus_code = '003',
+            up_date       = now(),
+            up_user       = current_user()
         where id = #{id}
     </update>
 
     <update id="updateAutoPrice">
         update gifticon
-        set dc_prc = #{dcPrc}, dc_rate = #{dcRate}, up_date = now(), up_user = current_user()
+        set dc_prc  = #{dcPrc},
+            dc_rate = #{dcRate},
+            up_date = now(),
+            up_user = current_user()
         where id = #{id}
     </update>
-  
+
     <!-- 어제 업로드된 바코드 이미지 파일 목록 가져오기 -->
     <select id="getYesterdayBarcodeImageInfo" resultType="com.ncncn.domain.BarcodeInfoVO">
         select substr(img_path, 24, 10) upload_path,
                substr(img_path, 35, 36) uuid,
-               substr(img_path, 72) file_name
+               substr(img_path, 72)     file_name
         from gifticon
         where substr(img_path, 24, 10) = DATE_FORMAT(DATE_ADD(now(), INTERVAL -1 DAY), '%Y/%m/%d')
     </select>
 
-    <select id="getNotCmplGft" resultType="int">
-        select
-            gftT.id
-        from deal_detail dealT, gifticon gftT
+    <select id="getNotCmplGft" resultType="com.ncncn.domain.DealDetailVO">
+        select gftT.id gifticonId, dealT.pymt_prc pymtPrc
+        from deal_detail dealT,
+             gifticon gftT
         where dealT.gifticon_id = gftT.id
-          and gftT.gft_stus_code = '004' and dealT.cmpl_dt is null;
+          and gftT.gft_stus_code = '004'
+          and date_format(adddate(dealT.deal_dt, interval 4 day), '%y%m%d') = date_format(now(), '%y%m%d')
+          and dealT.cmpl_dt is null;
     </select>
 
-<!--    <update id="AutoDealCmpl" parameterType="java.util.List">-->
-<!--        update gifticon-->
-<!--        set gft_stus_code = '004'-->
-<!--        where id in (-->
-<!--        <foreach collection="list" item="item" separator=",">-->
-<!--            #{gftList}-->
-<!--            );-->
-<!--    </update>-->
+    <update id="autoDealCmpl" parameterType="java.util.List">
+        <foreach collection="list" index="index" item="gifticon" separator=";" close=";">
+        update gifticon as gftT, deal_detail as dealT, user as userT
+        set gftT.gft_stus_code = '005',
+            dealT.cmpl_dt = now(),
+            userT.pnt = userT.pnt + #{gifticon.pymtPrc}
+        where dealT.gifticon_id = gftT.id
+            and gftT.user_id = userT.id
+            and gftT.id = #{gifticon.gifticonId}
+        </foreach>
+    </update>
+
+    <select id="checkGft" resultType="int">
+        select count(*)
+        from gifticon
+        where id = #{gftId} and user_id = #{userId};
+    </select>
 
 </mapper>

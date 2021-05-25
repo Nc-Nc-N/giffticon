@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<jsp:include page="templete.jsp"/>
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,8 +13,6 @@
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_info.css" type="text/css">
 
 <title>Document</title>
-
-<jsp:include page="templete.jsp"/>
 
 <div class="contentheader">
     <span>회원 정보</span>
@@ -81,7 +82,7 @@
 </div>
 </div>
 </div>
-</div>
+
 <div class="modalOn modal_editPwd">
     <jsp:include page="userInfo_editPwd.jsp"/>
 </div>
@@ -141,3 +142,5 @@
         });
     });
 </script>
+
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

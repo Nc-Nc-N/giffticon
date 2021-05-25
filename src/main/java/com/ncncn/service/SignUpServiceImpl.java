@@ -34,14 +34,13 @@ public class SignUpServiceImpl implements SignUpService {
 	}
 
 	public int register(UserVO userVO) throws Exception {
-		// 입력받은 생년월일 값이 없으면 null값 저장
-		if (userVO.getBirthDt().equals("")) {
-			userVO.setBirthDt(null);
-		}
 
-		checkValidateUser(userVO);
-    
 		if(!userVO.getRoleCode().equals("003")) {
+
+			// 입력받은 생년월일 값이 없으면 null값 저장
+			if (userVO.getBirthDt().equals("")) {
+				userVO.setBirthDt(null);
+			}
 
 			checkValidateUser(userVO);
 
@@ -53,6 +52,8 @@ public class SignUpServiceImpl implements SignUpService {
 		try {
 			result = userMapper.insertUser(userVO);
 		} catch (Exception e) {
+			e.getMessage();
+
 			// e가 가진 정보를 그대로 전달
 			// 새로운 예외를 던지더라도 원인예외를 포함해야함
 			SQLException sqlException = new SQLException("회원등록중 문제가 발생했습니다.");

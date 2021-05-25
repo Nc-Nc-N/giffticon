@@ -111,3 +111,7 @@ button.active-prod-btn {
     width: 140px;
     height: 140px;
 }
+
+.main-footer {
+    justify-content: flex-end;
+}

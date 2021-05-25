@@ -128,7 +128,7 @@ li.drop-down:before {
 }
 
 li.drop-down > ul {
-    left: 40px;
+    top: 20px;
     min-width: 150px; /* 박스 크기 */
     z-index: 2;
     padding: 18px 0;
@@ -298,13 +298,6 @@ li.drop-down > a:hover + .drop-down-ul {
     color: rgb(71, 71, 71);
 }
 
-/*.bar-right {*/
-/*    width: 275px;*/
-/*    display: flex;*/
-/*    justify-content: flex-end;*/
-/*    position: relative;*/
-/*}*/
-
 .rightmenu {
     padding-top: 5px;
 }
@@ -433,7 +426,6 @@ a:hover, a:active {
 }
 
 @keyframes cloud {
-
     0% {
         bottom: 45px;
     }

@@ -29,7 +29,7 @@
 
 .menuname {
     width: 200px;
-    height: 80px;
+    height: 120px;
     background-color: white;
     color: rgb(71, 71, 71);
     font-size: 32px;
@@ -102,38 +102,37 @@
 }
 
 .abs {
-    /*background-color: rgb(255, 88, 93);*/
-    /*border: 1px solid white;*/
-    width: 160px;
-    height: 80px;
-    color: rgb(71, 71, 71);
+    background-color: #f8f6f6;
+    width: 180px;
+    height: 120px;
     font-weight: bold;
+    color: rgb(71, 71, 71);
     display: flex;
     flex-direction: column;
 }
 
+.abs-search {
+    width: 0;
+}
+
 .abs:hover {
-    background-color: white;
-    color: rgb(255, 88, 93);
     cursor: pointer;
 }
 
 .abs_name {
-    text-align: center;
-    font-size: 16px;
-    margin: auto;
+    /*text-align: center;*/
+    font-size: 14px;
+    margin: 10px auto 10px 30px;
 }
 
-.abs_num {
-    text-align: center;
-    font-size: 16px;
-    margin: auto;
+.abs_name i {
+    font-size: 12px;
 }
 
-.abs_pnt {
-    text-align: center;
-    font-size: 16px;
-    margin: auto;
+.abs_num, .abs_pnt {
+    /*text-align: center;*/
+    font-size: 22px;
+    margin: 20px auto auto auto;
 }
 
 .content {

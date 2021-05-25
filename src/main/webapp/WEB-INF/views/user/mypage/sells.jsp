@@ -2,9 +2,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/mypage_deals.css?after" type="text/css">
-
 <jsp:include page="templete.jsp"/>
+
+<link rel="stylesheet" href="/resources/css/user/mypage/mypage_deals.css" type="text/css">
 
 <div class="contentheader">
     <span>판매 내역</span>
@@ -202,3 +202,5 @@
         });
     })
 </script>
+
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -105,4 +105,8 @@
         where user_id = ${userId}
         <include refid="criteriaCon"></include>
     </select>
+
+    <update id="manualDealCmpl">
+        update user set pnt = pnt + #{balance}, up_date = now(), up_user = current_user() where id = #{userId}
+    </update>
 </mapper>

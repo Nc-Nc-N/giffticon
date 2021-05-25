@@ -4,6 +4,7 @@ import com.ncncn.domain.PrcUpdateVO;
 import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.ProdListVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -48,5 +49,8 @@ public interface GifticonService {
 	public boolean updateGftStus(int id);
 
 	public GifticonVO getGft(int id);
+
+	public int checkGft(@Param("gftId") int gftId, @Param("userId") int userId);
+
 
 }

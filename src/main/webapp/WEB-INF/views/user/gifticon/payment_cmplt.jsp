@@ -24,11 +24,10 @@
 			<tbody>
 			<tr>
 				<td class="infotitle">
-					주문번호
+					상품번호
 				</td>
 				<td>
-					<c:set var="date"><fmt:formatDate value="${today}" pattern="yyyyMMdd" /></c:set>
-					<c:out value="${date}"/><c:out value="${gftId}"/>
+					<c:out value="${prodCode}"/><c:out value="${gftId}"/>
 				</td>
 			</tr>
 			<tr>
@@ -74,3 +73,5 @@
 		alert("error: " + error);
 	}
 </script>
+
+<%@include file="/WEB-INF/views/common/footer.jsp"%>

@@ -204,10 +204,9 @@ public class AccountController {
         user.setRoleCode("003");
         try {
             // 사용자 등록
-            signUpService.register(user);
+            int isRegistered = signUpService.register(user);
 
             int userId = signUpService.getUserByEmail(user.getEmail()).getId();
-
             soclInfoService.RegisterSoclUser(userId,soclType);
 
         } catch (Exception e) {

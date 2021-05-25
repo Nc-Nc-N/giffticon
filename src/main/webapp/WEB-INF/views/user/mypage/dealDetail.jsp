@@ -2,10 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/mypage_deals_detail.css" type="text/css">
-
 <jsp:include page="templete.jsp"/>
-
+<link rel="stylesheet" href="/resources/css/user/mypage/mypage_deals_detail.css" type="text/css">
 <div class="contentheader">
     <span>구매 내역 > 상품 상세</span>
 </div>
@@ -99,3 +97,5 @@
 
     })
 </script>
+
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

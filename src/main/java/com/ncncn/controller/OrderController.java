@@ -42,11 +42,7 @@ public class OrderController {
 	}
 
 	@PostMapping("/payment_cmplt")
-	public String paymentCmplt(int gftId, int dcPrc, String metdStus, HttpServletRequest request, Model model){
-
-		log.info("gft_id: "+gftId);
-		log.info("metdStus: "+metdStus);
-
+	public String paymentCmplt(int gftId, int dcPrc, String metdStus, String prodCode, HttpServletRequest request, Model model){
 
 		try{
 			int userId = (int) request.getSession().getAttribute("userId");
@@ -61,6 +57,7 @@ public class OrderController {
 			// 상품 sold_quty 변경
 			productService.updateSoldQuty(gftId);
 
+			model.addAttribute("prodCode", prodCode);
 			model.addAttribute("gftId", gftId);
 			model.addAttribute("dcPrc", dcPrc);
 			model.addAttribute("user", user);

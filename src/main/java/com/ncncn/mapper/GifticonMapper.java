@@ -1,10 +1,6 @@
 package com.ncncn.mapper;
 
-import com.ncncn.domain.BarcodeInfoVO;
-import com.ncncn.domain.AutoPriceVO;
-import com.ncncn.domain.GifticonVO;
-import com.ncncn.domain.ProdListVO;
-import com.ncncn.domain.SaleRqustVO;
+import com.ncncn.domain.*;
 import com.ncncn.domain.pagination.GiftiCriteria;
 import com.ncncn.domain.pagination.SaleGftCriteria;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
@@ -91,6 +87,10 @@ public interface GifticonMapper {
 
 	int updateSaleGftStus(@Param("id") int id, @Param("stus") String stus);
 
-	List<Integer> getNotCmplGft();
+	List<DealDetailVO> getNotCmplGft();
+
+	int autoDealCmpl(List<DealDetailVO> gftList);
+
+	public int checkGft(@Param("gftId") int gftId, @Param("userId") int userId);
 
 }
