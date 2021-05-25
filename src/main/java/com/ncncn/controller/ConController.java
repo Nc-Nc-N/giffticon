@@ -100,19 +100,24 @@ public class ConController {
 	}
 
 	@GetMapping("/mypage/withdrawCon")
-	public void withdrawCon(HttpServletRequest request, Model model){
+	public String withdrawCon(HttpServletRequest request, Model model){
 
 		int userId = (int) request.getSession().getAttribute("userId");
 
-		UserInfoDTO user = userService.getMyInfo(userId);
-		log.info("bnk: "+user.getBnkName());
-
 		try{
+			UserInfoDTO user = userService.getMyInfo(userId);
 			model.addAttribute("user", user);
+
+			if(user.getAcc() == null){
+				throw new NullPointerException("등록된 계좌가 없습니다.");
+			}
 
 		}catch (Exception e){
 			model.addAttribute("error", "일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.");
+			return "redirect:/user/home";
 		}
+
+		return "/user/mypage/withdrawCon";
 	}
 
 }

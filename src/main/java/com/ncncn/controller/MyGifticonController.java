@@ -52,6 +52,7 @@ public class MyGifticonController {
 	public String dealDetail(HttpServletRequest request, int gftId, Model model,
 							 @ModelAttribute("cri") MyPageCriteria cri) {
 
+		log.info("dealDetail....");
 		int userId = (int) request.getSession().getAttribute("userId");
 
 		//로그인된 userId의 dealDetail을 가져오기 (url로 접속 방지)
@@ -65,6 +66,8 @@ public class MyGifticonController {
 			log.info("다른 사용자의 조회페이지 입니다. 메인페이지로 이동합니다.");
 			return "redirect:/user/home";
 		}
+
+		log.info("dealDetail로 이동합니다.");
 
 		return "/user/mypage/dealDetail";
 	}
