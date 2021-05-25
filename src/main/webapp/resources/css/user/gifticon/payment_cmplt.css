@@ -1,6 +1,6 @@
 #container{
     width:1000px;
-    margin: auto;
+    margin: 0 auto 10%;
     color: #333333;
 }
 .msg {
