@@ -364,6 +364,17 @@
         indicateDcRate(dcrate);
     }
 
+    // 가격종류(자동/직접입력)에 따라 최종 할인율 입력하는 함수
+    let setFinalDcRate = function() {
+        // 자동입력이면 finalDcRate에 indcRate + getAddDcRate 입력
+        if(document.getElementById("autoprice").checked) {
+            finalDcRate = inDcRate + getAddDcRate();
+        // 자동입력 아니면 finalDcRate에 수동입력 가격에서 할인율 계산해서 입력
+        } else {
+            finalDcRate = calculateDcRate() / 100;
+        }
+    }
+
     // 판매가가 정가보다 높으면 에러메세지 출력하고 판매가 초기화하는 함수
     let checkDcPrice = function () {
         let fixedprice = parseInt(document.getElementById('fixedprice').value);
@@ -574,6 +585,7 @@
     let userId = ${userId};
     let originPath = "";
     let barcodepath = "<spring:eval expression="@barcodepath['path']"/>";
+    let finalDcRate = 0.0;
 
     // 소분류 클릭시 동작
     $('.productbox').on("click", $('.productSelect .select'), function (e) {
@@ -690,6 +702,8 @@
 
     // 판매 등록하기 버튼 클릭시 동작
     $("#saleReg").on("click", function () {
+        // 할인율 입력
+        setFinalDcRate();
 
         // 유효성검사
         if (userIdCheck()) {
@@ -752,7 +766,7 @@
                 userId: userId,
                 prodCode: prodCode,
                 dcPrc: $("#dcprice")[0].value * 1,
-                dcRate: inDcRate + getAddDcRate(),
+                dcRate: finalDcRate,
                 expirDt: $("#end-date")[0].value,
                 brcd: $("#barcode")[0].value,
                 descn: $("#descn")[0].value,
@@ -879,6 +893,7 @@
         }
         return addDcRate;
     }
+
 
     // 대분류 클릭시 동작
     // 선택된 대분류에만 클래스이름 추가, 나머지는 삭제
