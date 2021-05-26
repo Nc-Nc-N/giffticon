@@ -30,8 +30,8 @@ a {
 }
 
 a > img {
-    width: 50%;
-    height: 100%;
+    width: 300px;
+    height: auto;
 }
 
 .container {
