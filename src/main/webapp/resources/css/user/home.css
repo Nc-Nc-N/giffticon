@@ -8,6 +8,7 @@
 #advertiser{
     width:100%;
     display: flex;
+    margin-top: 5px;
 }
 
 #container{
@@ -184,6 +185,7 @@ h3{
     color: #333;
     margin: 25%;
 }
+
 .listnamelast table, .dl{
     border-spacing: 15px;
     margin: 5% 0;

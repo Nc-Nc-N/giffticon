@@ -67,33 +67,38 @@
     </div>
 
     <div class="main-bar">
-            <div class="category-drop">
-                <ul class="exo-menu">
-                    <li class="drop-down">
-                        <a class="nonclick"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
-                        <%-- Drop Down --%>
-                        <ul class="drop-down-ul animated fadeIn">
+        <div class="category-drop">
+            <ul class="exo-menu">
+                <li class="drop-down">
+                    <a class="nonclick"><i class="fas fa-bars"></i>&nbsp;전체 카테고리</a>
+                    <%-- Drop Down --%>
+                    <ul class="drop-down-ul animated fadeIn">
                         <%-- ajax로 불러옴 --%>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-                <div class="leftmenu"><a href="/user/mypage/addCon">충전하기</a></div>
-                <div class="leftmenu"><a href="/user/gifticon/map"><i class="fas fa-map-marker-alt"></i></a></div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="leftmenu"><a href="/user/mypage/addCon">충전하기</a></div>
+        <div class="leftmenu"><a href="/user/gifticon/map"><i class="fas fa-map-marker-alt"></i></a></div>
         <!-- search area -->
         <div class="search-bar-container">
             <form id="h-search-form" action="/user/gifti_list" method="get">
-                <input type="text" class="h-search-input" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요." />
+                <input type="text" class="h-search-input" name="keyword"
+                       value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요."/>
                 <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'/>
                 <button class="h-search-button"><i class="fas fa-search"></i></button>
             </form>
+        <div>
+            <div class="tooltip-text">
+                <div><span class="red">거래확정대기</span> 상품이 있습니다.<br/>구매내역에서 확인하세요!</div>
+            </div>
         </div>
-            <div class="bubble">거래확정!</div>
-            <div class="rightmenu" id="alarm-ticket">
-                    <a><i class="fas fa-ticket-alt"></i></a>
-                </div>
-            <div class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></div>
-            <div class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></div>
+        </div>
+        <div class="rightmenu" id="alarm-ticket">
+            <a class="tooltip"><i class="fas fa-ticket-alt"></i></a>
+        </div>
+        <div class="rightmenu"><a href="/user/deal/saleGifticon">판매하기</a></div>
+        <div class="rightmenu"><a href="/user/mypage/deal">마이페이지</a></div>
     </div>
 
 </div>
@@ -138,9 +143,9 @@
                 type: 'get',
                 async: false,
                 success: function (result) {
-                    for(let i=0; i<result.length-1; i++){
-                        menu.append('<li class="flyout-right"><a href="/user/gifti_list?code='+result[i].code+'">'+result[i].name+'</a>' +
-                            '<div class="brdBox"><ul class="animated-'+result[i].code+'"></ul></div></li>');
+                    for (let i = 0; i < result.length - 1; i++) {
+                        menu.append('<li class="flyout-right"><a href="/user/gifti_list?code=' + result[i].code + '">' + result[i].name + '</a>' +
+                            '<div class="brdBox"><ul class="animated-' + result[i].code + '"></ul></div></li>');
                     }
                 },
                 error: function () {
@@ -171,8 +176,8 @@
                     cate.empty();   // 기존 브랜드 목록 지우기
 
                     // 브랜드 목록 추가
-                    for(let i=0; i<result.length; i++){
-                        cate.append('<li><a href="/user/gifti_list?code='+result[i].code+'">'+result[i].name+'</a></li>');
+                    for (let i = 0; i < result.length; i++) {
+                        cate.append('<li><a href="/user/gifti_list?code=' + result[i].code + '">' + result[i].name + '</a></li>');
                     }
                 },
                 error: function () {
@@ -202,7 +207,6 @@
 <script>
 
     $(document).ready(function () {
-
         ticketAlarm();
 
         $(".bubble").on("click", function (e) {
@@ -212,9 +216,7 @@
         $("#alarm-ticket").on("click", function (e) {
             ticketAlarmBtn();
         });
-
     });
-
 
     //티켓 클릭 시 마이페이지/구매내역 + 거래확정대기 검색 이동
     function ticketAlarmBtn() {
@@ -228,13 +230,11 @@
         ticketAlarmBtn.submit();
     }
 
-
     //user가 산 기프티콘 중 거래확정 대기 count, count가 0이 아니면 메세지 div 출력
     function ticketAlarm() {
-
         let headerUid = <%=headerUid%>;
 
-        if (headerUid == 0) {
+        if (headerUid === 0) {
             return;
         }
 
@@ -247,7 +247,7 @@
             success: function (result) {
                 if (result === 0) {
                 } else {
-                    $(".bubble").css("visibility", "visible");
+                    $(".tooltip-text").css("display", "block");
                 }
             }
         });
