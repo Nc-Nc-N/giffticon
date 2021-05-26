@@ -18,7 +18,7 @@
 <body>
 <div class="container">
     <div class="element">
-        <a href="/user/home"><img src="/resources/img/logo.png"></a>
+        <a href="/user/home"><img src="/resources/img/user-logo.png" width="270px" height="auto"></a>
     </div>
 
     <form class="form-basicLogin" action="/login" method="POST">
