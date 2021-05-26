@@ -770,7 +770,7 @@
                 expirDt: $("#end-date")[0].value,
                 brcd: $("#barcode")[0].value,
                 descn: $("#descn")[0].value,
-                imgPath: barcodepath + "/" + originPath,
+                imgPath: "/user/display?fileName=" + "/" + originPath,
                 isAutoPrc: $("input[name=group1]:checked")[0].value,
                 gftStusCode: '001',
                 aprvDt: null,
