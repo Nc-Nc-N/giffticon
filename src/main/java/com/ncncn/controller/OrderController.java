@@ -1,13 +1,16 @@
 package com.ncncn.controller;
 
+import com.ncncn.domain.DealDetailVO;
 import com.ncncn.domain.UserInfoDTO;
-import com.ncncn.mapper.DealListMapper;
 import com.ncncn.service.DealListService;
 import com.ncncn.service.GifticonService;
 import com.ncncn.service.ProductService;
 import com.ncncn.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +44,25 @@ public class OrderController {
 		return "user/gifticon/gifti_order";
 	}
 
+	@RequestMapping(value = "/user/insertDeal", method = {RequestMethod.POST}, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Integer> insertDeal(@RequestBody DealDetailVO dealDetailVO, HttpServletRequest request){
+
+		int userId = (int) request.getSession().getAttribute("userId");
+		dealDetailVO.setUserId(userId);
+
+		// deal_detail 추가
+		try{
+			return new ResponseEntity<>(dealService.insertDeal(dealDetailVO), HttpStatus.OK);
+
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	@PostMapping("/payment_cmplt")
-	public String paymentCmplt(int gftId, int dcPrc, String metdStus, String prodCode, HttpServletRequest request, Model model){
+	public String paymentCmplt(int gftId, int dcPrc, String prodCode, HttpServletRequest request, Model model){
 
 		try{
 			int userId = (int) request.getSession().getAttribute("userId");
@@ -50,9 +70,6 @@ public class OrderController {
 
 			// 기프티콘 상태 변경
 			giftiService.updateGftStus(gftId);
-
-			// deal_detail 추가
-			dealService.insertDeal(userId,gftId, dcPrc, metdStus);
 
 			// 상품 sold_quty 변경
 			productService.updateSoldQuty(gftId);

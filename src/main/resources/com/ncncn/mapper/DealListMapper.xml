@@ -156,8 +156,8 @@
     </sql>
 
     <!-- 구매하기 이후 거래확정 대기 -->
-    <insert id="insertDeal">
-        insert into deal_detail(user_id, gifticon_id, pymt_prc, pymt_mtd, deal_dt, in_date, in_user, up_date, up_user)
-        values (#{userId}, #{gftId}, #{dcPrc}, #{metdStus}, current_date(), now(), current_user (), now(), current_user ())
+    <insert id="insertDeal" useGeneratedKeys="true" keyProperty="id">
+            insert into deal_detail(user_id, gifticon_id, pymt_prc, pymt_mtd, deal_dt, in_date, in_user, up_date, up_user)
+        values (#{userId}, #{gifticonId}, #{pymtPrc}, #{pymtMtd}, current_date(), now(), current_user (), now(), current_user ())
     </insert>
 </mapper>
