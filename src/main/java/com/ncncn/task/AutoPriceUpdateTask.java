@@ -60,6 +60,12 @@ public class AutoPriceUpdateTask {
         Date today = new Date();
         long diffInMillies = expDt.getTime() - today.getTime();
         int dateDiff = (int)Math.ceil(diffInMillies/(1000 * 3600 * 24.0));
+
+        // 유효기간까지 남은 날짜가 60보다 크면 추가할인율 없음
+        if(dateDiff > 60) {
+            return inDcRate;
+        }
+
         log.info("dateDiff: " + dateDiff);
 
         // 할인율 구간 구분
