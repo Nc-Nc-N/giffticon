@@ -43,6 +43,7 @@
                gftT.id         gftId,
                gftT.img_path   gftImgPath,
                gftT.brcd       brcd,
+               dealT.id        dealId,
                dealT.user_id   csId,
                dealT.deal_dt   dealDt,
                gftT.expir_dt   exprDt,
