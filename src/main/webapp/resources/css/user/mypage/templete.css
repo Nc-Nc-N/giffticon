@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body {
+    height: fit-content;
+}
+
 #container {
     width: 1000px;
     height: fit-content;
@@ -184,4 +188,16 @@
     100% {
         transform: scale(1.0);
     }
+}
+
+.modalOn{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top:0%;
+    bottom: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10,10,10,0.5);
+    visibility: hidden;
 }

@@ -13,6 +13,7 @@
 <div class="contentheader">
     <span>판매 내역 > 상품 상세</span>
 </div>
+
 <div class="item_info">
     <div class="item_img">
         <img src="<c:out value="${gftInfo.prdImgPath}"/>">
@@ -49,6 +50,7 @@
 
     </div>
 </div>
+
 <div class="item_info">
     <div class="item_img">
         <img src="<c:out value="${gftInfo.brcdImgPath}"/>">
@@ -81,6 +83,7 @@
     <div class="item_btn">
     </div>
 </div>
+
 <div class="item_prc">
     <div class="item_prc_left">
         <div class="prc_column">
@@ -101,6 +104,7 @@
         </div>
     </div>
 </div>
+
 <div class="toListbtn">
     <form id="actionForm" action="/user/mypage/sells" method="get">
         <input type="hidden" name="dateFrom" value="<c:out value="${cri.dateFrom}"/>">
@@ -112,21 +116,24 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button class="btn btn-active" id="toListbtn">목록</button>
     </form>
+</div>
 
 </div>
 </div>
 </div>
 </div>
-</div>
-</body>
+
 <div class="modalOn">
     <jsp:include page="mypage_selling_products_detail_modify.jsp"/>
 </div>
+
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+</body>
 </html>
 
 <script> //actionForm , 기프티콘 수정 및 삭제
-
 $(".document").ready(function () {
+    $("#sell-link").attr("class", "menu active");
 
     var actionForm = $("#actionForm");
 
@@ -140,22 +147,21 @@ $(".document").ready(function () {
         } else {
             return;
         }
-    })
+    });
 
     //수정 버튼 클릭시 모달 띄우기
     $("#modifyGift").on("click", function (e) {
-
+        let h = $("body").css("height");
+        $(".modalOn").css("height", h);
         $(".modalOn").css("visibility", "visible");
-    })
+    });
 
     //닫기 버튼 클릭 시 모달 닫기
     $("#modal-close").on("click", function (e) {
 
         $(".modalOn").css("visibility", "hidden");
-    })
+    });
 
-})
+});
 
 </script>
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

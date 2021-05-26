@@ -69,7 +69,7 @@
 }
 
 .toListbtn{
-    margin-top: 8px;
+    margin: 15px auto;
     height: 50px;
     width: 100%;
     display: flex;

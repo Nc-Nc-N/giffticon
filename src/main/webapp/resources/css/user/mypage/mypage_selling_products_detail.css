@@ -1,6 +1,8 @@
 .item_btn_seller{
-    width: 11%;
+    width: fit-content;
     height: 95%;
+    display: flex;
+    flex-direction: column;
     /* background-color: grey; */
 }
 
@@ -68,16 +70,4 @@
 
 .btn-disabled:hover {
     cursor: not-allowed;
-}
-
-.modalOn{
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    top:0%;
-    bottom: 0%;
-    width: 100%;
-    height: 200%;
-    background-color: rgba(10,10,10,0.5);
-    visibility: hidden;
 }
