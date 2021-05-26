@@ -70,6 +70,7 @@
                 <label for="<c:out value="${status.index+1}"/>">
                     <span class="qna-q">Q. </span><c:out value="${qna.csCateCode == '001' ? '[구매]':'[판매]'}"/> <c:out
                         value="${qna.title}"/>
+                    <span class="qna-user-id"><c:out value="${qna.userId}"/></span>
                     <button class="btn-no btn-erase" id="<c:out value='${qna.id}'/>">
                         <i class="fas fa-minus"></i></button>
                     <button class="btn-no btn-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
@@ -253,6 +254,27 @@
         });
 
 
+        //파일 다운로드
+        //파일경로 문제 --> 차후 수정필요
+        $(".atch-file").on("click", function (){
+
+            $.ajax({
+                type: 'get',
+                url: '/admin/adminPsnlQust/download?fileName=' + $(".atch-file")[0].value,
+                async: false,
+                success: function (result) {
+                    console.log("download:" + result);
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        });
+
+
+
+
 
     });
 
@@ -378,32 +400,6 @@
         });
 
     }); //end delete
-
-
-    // //파일 썸네일 보여주기
-    // function showUploadedFile(uploadResultArr){
-    //
-    //     var str = "";
-    //
-    //     $(uploadResultArr).each(function (i,obj){
-    //
-    //         if (!obj.image){
-    //
-    //             var fileCallPath = encodeURIComponent(obj.uploadPath+ "/" + obj.uuid + "_" + obj.fileName);
-    //
-    //             str += "<li><a href='/download?fileName="+fileCallPath+"'>"+"<img src='/resources/img/attach.png'>" + obj.fileName + "</li>"
-    //
-    //         }else{
-    //
-    //             var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_" + obj.uuid + "_" + obj.fileName);
-    //
-    //             str += "<li><img src='/display?fileName="+fileCallPath+"'></li>";
-    //
-    //         }
-    //     });
-    //
-    //     uploadResult.append(str);
-    // }
 
 
 </script>

@@ -10,6 +10,8 @@ import com.ncncn.service.PsnlQustService;
 import lombok.extern.log4j.Log4j;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,11 +20,15 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -354,6 +360,76 @@ public class PsnlQustController {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+
+	//파일 다운로드
+	@GetMapping(value = "/admin/adminPsnlQust/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName){
+
+		log.info("download file: " + fileName);
+
+		Resource resource = new FileSystemResource("/Users/byoungeun-Kim/upload/psnlqust/" + fileName);
+
+		if (resource.exists() == false){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		String resourceName = resource.getFilename();
+
+		//remove UUID
+		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1);
+
+		HttpHeaders headers = new HttpHeaders();
+
+		try {
+			String downloadName = null;
+
+			if (userAgent.contains("Trident")){
+				log.info("IE browser");
+				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8").replaceAll("\\+"," ");
+			}else if (userAgent.contains("Edge")){
+				log.info("Edge browser");
+				downloadName = URLEncoder.encode(resourceOriginalName,"UTF-8");
+			}else {
+				log.info("Chrome browser");
+				downloadName = new String(resourceOriginalName.getBytes("UTF-8"),"ISO-8859-1");
+			}
+			log.info("downloadName: " + downloadName);
+
+			headers.add("Content-Disposition", "attachment; filename=" + downloadName);
+
+		}catch (UnsupportedEncodingException e){
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+	}
+
+	//이미지 display
+	//차후 이미지를 직접 보여주는 방식으로 수정
+	@GetMapping("/user/mypage/psnlQustBoard/display")
+	@ResponseBody
+	public ResponseEntity<byte[]> getFile(String fileName){
+		log.info("fileName: " + fileName);
+
+		File file = new File("/Users/byoungeun-Kim/upload/psnlqust/" + fileName);
+
+		log.info("file:" + file);
+
+		ResponseEntity<byte[]> result = null;
+
+		try{
+			HttpHeaders header = new HttpHeaders();
+
+			header.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

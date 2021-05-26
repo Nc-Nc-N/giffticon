@@ -66,6 +66,11 @@ li{
     visibility: hidden;
 }
 
+.qna-user-id{
+    font-size: 12px;
+    color: darkgrey;
+}
+
 
 /*모달 css*/
 
