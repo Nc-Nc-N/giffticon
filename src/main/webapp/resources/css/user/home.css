@@ -148,7 +148,7 @@ table{
 
 
 .itemoriginprice > span{
-    margin-right: 23%;
+    margin-right: 32%;
 }
 
 a {
@@ -185,12 +185,14 @@ h3{
     margin: 25%;
 }
 .listnamelast table, .dl{
-    border-spacing: 15px;
     margin: 5% 0;
     display: flex;
-    padding-left: 2%;
 }
 
 .listnamelast table{
     padding-left: 6%;
+}
+.items-wish{
+    cursor: pointer;
+    margin-right: 30px;
 }
