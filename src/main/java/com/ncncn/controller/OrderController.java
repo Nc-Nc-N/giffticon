@@ -94,16 +94,14 @@ public class OrderController {
 
 		GifticonVO gifticonVO = giftiService.checkValidPrc(gftId,dcPrcVal);
 
-		if(gifticonVO != null){
-
+		if(gifticonVO == null || gifticonVO.getGftStusCode().equals("003")){
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}else{
 			if(gifticonVO.getDcPrc() == dcPrcVal){
 				return new ResponseEntity(HttpStatus.OK);
 			}else{
 				return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
 			}
-
-		}else{
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
 
 	}
