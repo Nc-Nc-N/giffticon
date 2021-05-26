@@ -21,143 +21,109 @@
 
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 
-<body>
-
-<div id="container">
-    <div class="space"></div>
-    <div class="main">
-
-        <div class="menuhead">
-        </div>
-
-        <div class="menubody">
-            <div class="sidebarspace">
-                <div class="menuname">고객센터</div>
-                <div class="sidebar">
-
-                    <a href="/user/cs/noticeBoard">
-                        <div class="bar">
-                            <div>공지사항</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-                    <a href="/user/cs/faqBoard">
-                        <div class="bar">
-                            <div>자주묻는질문</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-                    <a href="/user/mypage/psnlQustBoard">
-                        <div class="bar" style="background-color:rgb(240, 240, 240);">
-                            <div style="color: rgb(255, 88, 93); background-color:rgb(240, 240, 240);">1:1문의</div>
-                            <i class="fas fa-chevron-right"></i></div>
-                    </a>
-
-                </div>
-            </div>
-            <div class="emptyspace">
-
-            </div>
-            <div class="content">
-
-                <h3>1:1문의</h3>
-                <div class="sub-category-area">
-                    <button class="sub sub-category-btn-all" value="NE" name="type"
-                            onclick="location.href='/user/mypage/psnlQustBoard?pageNum=1&amount=10&type=NE&keyword=';">
-                        전체
-                    </button>
-                    <button class="sub sub-category-btn-notice" value="N" name="type"
-                            onclick="location.href='/user/mypage/psnlQustBoard?pageNum=1&amount=10&type=N&keyword=';">구매
-                    </button>
-                    <button class="sub sub-category-btn-event" value="E" name="type"
-                            onclick="location.href='/user/mypage/psnlQustBoard?pageNum=1&amount=10&type=E&keyword=';">판매
-                    </button>
-                </div>
-
-                <!-- search area end -->
-
-                <!--accordionMenu-->
-                <div class="accordionMenu">
-
-                    <c:forEach items="${list}" var="qna" varStatus="status">
-                        <!-- 1st menu-->
-                        <input type="checkbox" class="list-id" name="trg1" id="acc<c:out value="${status.index+1}"/>">
-                        <label for="acc<c:out value="${status.index+1}"/>">
-                            <span class="qna-q">Q. </span><c:out value="${qna.csCateCode == '001' ? '[구매]':'[판매]'}"/>
-                            <c:out value="${qna.title}"/>
-                            <button id="<c:out value='${qna.id}'/>" class="btn-no btn-erase">
-                                <i class="fas fa-minus"></i></button>
-                            <button class="btn-no btn-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
-                                    id="<c:out value='${qna.id}'/>">
-                                <c:out value="${qna.stusCode == '001' ? '답변완료':'답변대기'}"/>
-                            </button>
-                            <button class="btn-ans-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
-                                    id="<c:out value='${qna.id}'/>">수정
-                            </button>
-                        </label>
-
-                        <div class="content">
-                            <div class="inner">
-                                <p class="qna-a">Q. </p>
-                                <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/></p>
-                                <a href="<c:out value="${qna.atchFilePath}"/>" download="<c:out value="${qna.atchFilePath}"/>" class="atch-file" name="atchFilePath">
-                                    <c:out value="${qna.atchFilePath}"/></a>
-
-                            </div>
-                            <div class="admin-inner">
-                                <p class="qna-a">A. </p>
-                                <p><c:out value="${qna.ansCntnt}"/></p>
+<%@ include file="/WEB-INF/views/user/cs/csTemplete.jsp" %>
 
 
-                            </div>
-                        </div>
-                    </c:forEach>
-                    <c:if test="${list.size() == 0}">
-                        <div class="noSearchResult">검색 결과가 없습니다.</div>
-                    </c:if>
-                </div>
-                <!-- end accordionMenu-->
-
-
-                <div id="notion-write">
-
-                    <%--1:1 문의 register btn--%>
-                    <button class="btn btn-active">1:1문의</button>
-
-                    <!-- pagenation-->
-                    <div class="pagination">
-
-                        <c:if test="${pageMaker.prev}">
-                            <li>
-                                <a class="paginate_button previous" href="${pageMaker.startPage -1}">&lt;</a></li>
-                        </c:if>
-
-                        <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                            <li>
-                                <a class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}"
-                                   href="${num}">${num}</a>
-                            </li>
-                        </c:forEach>
-
-                        <c:if test="${pageMaker.next}">
-                            <li>
-                                <a class="paginate_button next" href="${pageMaker.endPage +1 }">&gt;</a></li>
-                        </c:if>
-                    </div>
-                    <!-- end pagenation-->
-
-                    <form ID='actionForm' action="/user/mypage/psnlQustBoard" method="get">
-                        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-                        <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
-                        <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
-                    </form>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
+<h3>1:1문의</h3>
+<div class="sub-category-area">
+    <button class="sub sub-category-btn-all" value="NE" name="type"
+            onclick="location.href='/user/mypage/psnlQustBoard?pageNum=1&amount=10&type=NE&keyword=';">
+        전체
+    </button>
+    <button class="sub sub-category-btn-notice" value="N" name="type"
+            onclick="location.href='/user/mypage/psnlQustBoard?pageNum=1&amount=10&type=N&keyword=';">구매
+    </button>
+    <button class="sub sub-category-btn-event" value="E" name="type"
+            onclick="location.href='/user/mypage/psnlQustBoard?pageNum=1&amount=10&type=E&keyword=';">판매
+    </button>
 </div>
 
+<!-- search area end -->
+
+<!--accordionMenu-->
+<div class="accordionMenu">
+
+    <c:forEach items="${list}" var="qna" varStatus="status">
+        <!-- 1st menu-->
+        <input type="checkbox" class="list-id" name="trg1" id="acc<c:out value="${status.index+1}"/>">
+        <label for="acc<c:out value="${status.index+1}"/>">
+            <span class="qna-q">Q. </span><c:out value="${qna.csCateCode == '001' ? '[구매]':'[판매]'}"/>
+            <c:out value="${qna.title}"/>
+            <button id="<c:out value='${qna.id}'/>" class="btn-no btn-erase">
+                <i class="fas fa-minus"></i></button>
+            <button class="btn-no btn-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
+                    id="<c:out value='${qna.id}'/>">
+                <c:out value="${qna.stusCode == '001' ? '답변완료':'답변대기'}"/>
+            </button>
+            <button class="btn-ans-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
+                    id="<c:out value='${qna.id}'/>">수정
+            </button>
+        </label>
+
+        <div class="content">
+            <div class="inner">
+                <p class="qna-a">Q. </p>
+                <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/></p>
+                <a href="<c:out value="${qna.atchFilePath}"/>" download="<c:out value="${qna.atchFilePath}"/>"
+                   class="atch-file" name="atchFilePath">
+                    <c:out value="${qna.atchFilePath}"/></a>
+
+            </div>
+            <div class="admin-inner">
+                <p class="qna-a">A. </p>
+                <p><c:out value="${qna.ansCntnt}"/></p>
+
+
+            </div>
+        </div>
+    </c:forEach>
+    <c:if test="${list.size() == 0}">
+        <div class="noSearchResult">검색 결과가 없습니다.</div>
+    </c:if>
+</div>
+<!-- end accordionMenu-->
+
+
+<div id="notion-write">
+
+    <%--1:1 문의 register btn--%>
+    <button class="btn btn-active">1:1문의</button>
+
+    <!-- pagenation-->
+    <div class="pagination">
+
+        <c:if test="${pageMaker.prev}">
+            <li>
+                <a class="paginate_button previous" href="${pageMaker.startPage -1}">&lt;</a></li>
+        </c:if>
+
+        <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+            <li>
+                <a class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""}"
+                   href="${num}">${num}</a>
+            </li>
+        </c:forEach>
+
+        <c:if test="${pageMaker.next}">
+            <li>
+                <a class="paginate_button next" href="${pageMaker.endPage +1 }">&gt;</a></li>
+        </c:if>
+    </div>
+    <!-- end pagenation-->
+
+    <form ID='actionForm' action="/user/mypage/psnlQustBoard" method="get">
+        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+        <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
+        <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
+    </form>
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
 
 
 <!-- Modify Modal -->
@@ -165,7 +131,7 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="modal-content">
                 <div class="modal-header">
                     <input class="modify-id" type="hidden" name="id" value=''>
@@ -189,13 +155,11 @@
 <!-- end Modal -->
 
 
-
-
 <!-- delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" action="" method="post">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="modal-content">
                 <div class="modal-header">
                     <input class="del-id" type="hidden" name="id" value=''>
@@ -218,7 +182,6 @@
     <!--/.modal-dialog -->
 </div>
 <!-- end Modal -->
-
 
 
 <script type="text/javascript">
@@ -262,7 +225,6 @@
         console.log("1:1문의");
         self.location = "/user/mypage/psnlQustBoard/register";
     });
-
 
 
     //modify modal
@@ -389,8 +351,6 @@
         });
 
     }); //end delete
-
-
 
 
 </script>

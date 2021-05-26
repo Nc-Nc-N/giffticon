@@ -5,33 +5,50 @@ import javax.servlet.http.HttpServletRequest;
 import com.ncncn.domain.CsPsnlQustVO;
 import com.ncncn.domain.pagination.CsCriteria;
 import com.ncncn.domain.pagination.PageDTO;
+import com.ncncn.domain.request.AttachFileDTO;
 import com.ncncn.service.PsnlQustService;
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
 @Log4j
-@AllArgsConstructor
 public class PsnlQustController {
 
 	private PsnlQustService service;
+	private String psnlqustpath;
+
+	public PsnlQustController(
+			@Value("#{psnlqustpath['path']}") String psnlqustpath,
+			PsnlQustService service
+	){
+		this.psnlqustpath = psnlqustpath;
+		this.service = service;
+	}
+
 
 	// 사용자
 
@@ -65,7 +82,7 @@ public class PsnlQustController {
 
 		}
 
-		return "user/cs/psnlQustBoard";
+		return "/user/cs/psnlQustBoard";
 
 	}
 
@@ -73,78 +90,85 @@ public class PsnlQustController {
 	@GetMapping("/user/mypage/psnlQustBoard/register")
 	public String registerPsnlQust() {
 
-
-
-		return "user/cs/registerPsnlQust";
+		return "/user/cs/registerPsnlQust";
 	}
 
-	//사용자 1:1문의 등록
-	@PostMapping("/user/mypage/psnlQustBoard/register")
-	public String register(HttpServletRequest request, MultipartFile[] atchFilePath, CsPsnlQustVO qna, RedirectAttributes rttr) {
+	//1:1문의 파일 업로드 ajax
+	@PostMapping(value = "/psnl/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile){
 
-		log.info("register: " + qna);
+		log.info("upload ajax post.......");
 
-		int userId = (int) request.getSession().getAttribute("userId");
+		List<AttachFileDTO> list = new ArrayList<>();
+		String uploadFolder = psnlqustpath;
 
-		try {
+		String uploadFolderPath = getFolder();
 
-			//개인마다 파일 저장소 변경하기.
-			String uploadFolder = "/Users/byoungeun-Kim/upload/tmp/psnlQustFile";
+		//make folder
+		File uploadPath = new File(uploadFolder, getFolder());
+		log.info("upload path: " + uploadPath);
 
-			//파일 생성--> make yyyy/MM/dd folder
-			File uploadPath = new File(uploadFolder, getFolder());
-			log.info("upload path: " + uploadPath);
-
-			//file path가 없는 경우 생성.
-			if (uploadPath.exists() == false){
+		if (uploadPath.exists() == false){
+			try {
 				uploadPath.mkdirs();
+			}catch (Exception e){
+				e.printStackTrace();
 			}
-
-			//Upload File 정보
-			for (MultipartFile multipartFile : atchFilePath){
-
-				log.info("---------------------------------------");
-				log.info("Upload File Name: " + multipartFile.getOriginalFilename());
-				log.info("Upload File Size:" + multipartFile.getSize());
-
-				String uploadFileName = multipartFile.getOriginalFilename();
-
-
-
-				//IE has file path
-				uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-
-				log.info("only file name: " + uploadFileName);
-
-				UUID uuid = UUID.randomUUID();
-
-				uploadFileName = userId + "_" + uuid.toString() + "_" + uploadFileName;
-
-				qna.setAtchFilePath(uploadFileName);
-
-				File saveFile = new File(uploadPath, uploadFileName);
-
-				//Upload File 저장
-				try {
-					multipartFile.transferTo(saveFile);
-				}catch (Exception e){
-					e.printStackTrace();
-					rttr.addAttribute("error", e.getMessage());
-				}
-			}
-
-			service.register(qna);
-			rttr.addFlashAttribute("result", qna.getId());
-
-		}catch (Exception e){
-
-			e.printStackTrace();
-			rttr.addAttribute("error", e.getMessage());
 		}
 
+		for (MultipartFile multipartFile : uploadFile){
 
-		return "redirect:/user/mypage/psnlQustBoard";
+			AttachFileDTO attachDTO = new AttachFileDTO();
 
+			log.info("---------------------------------------");
+			log.info("Upload File Name: " + multipartFile.getOriginalFilename());
+			log.info("Upload File Size: " + multipartFile.getSize());
+
+			String uploadFileName = multipartFile.getOriginalFilename();
+
+			// IE has file path
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+			log.info("only file name: " + uploadFileName);
+			attachDTO.setFileName(uploadFileName);
+
+			//  uuid 생성
+			UUID uuid = UUID.randomUUID();
+
+			uploadFileName = uuid.toString() + "_" + uploadFileName;
+
+			try{
+				File saveFile = new File(uploadPath, uploadFileName);
+				//서버에 파일 저장
+				multipartFile.transferTo(saveFile);
+
+				attachDTO.setUuid(uuid.toString());
+				attachDTO.setUploadPath(uploadFolderPath);
+				attachDTO.setImage(true);
+
+				list.add(attachDTO);
+
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+
+		}//end for
+
+		return new ResponseEntity<>(list,HttpStatus.OK);
+
+	}
+
+
+	//사용자 1:1문의 등록
+	@PostMapping(value = "/user/mypage/psnlQustBoard/register", consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
+	public void register(@RequestBody CsPsnlQustVO qna){
+		try{
+			service.register(qna);
+			log.info("register qna success");
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 
@@ -234,7 +258,7 @@ public class PsnlQustController {
 			model.addAttribute("error" , e.getMessage());
 		}
 
-		return "admin/cs/adminPsnlQust";
+		return "/admin/cs/adminPsnlQust";
 
 	}
 
@@ -311,13 +335,8 @@ public class PsnlQustController {
 
 	}
 
-//	@GetMapping("/uploadAjax")
-//	public void uploadAjax(){
-//
-//		log.info("upload ajax");
-//	}
 
-
+	//날짜별 업로드 폴더 생성
 	private  String getFolder(){
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -327,6 +346,90 @@ public class PsnlQustController {
 		String str = sdf.format(date);
 
 		return str.replace("-", File.separator);
+	}
+
+	//업로드된 파일이 이미지 타입인지 검사
+	private boolean checkImageType(File file) {
+
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+
+			return contentType.startsWith("image");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+
+	//파일 다운로드
+	@GetMapping(value = "/admin/adminPsnlQust/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName){
+
+		log.info("download file: " + fileName);
+
+		Resource resource = new FileSystemResource("/Users/byoungeun-Kim/upload/psnlqust/" + fileName);
+
+		if (resource.exists() == false){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		String resourceName = resource.getFilename();
+
+		//remove UUID
+		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1);
+
+		HttpHeaders headers = new HttpHeaders();
+
+		try {
+			String downloadName = null;
+
+			if (userAgent.contains("Trident")){
+				log.info("IE browser");
+				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8").replaceAll("\\+"," ");
+			}else if (userAgent.contains("Edge")){
+				log.info("Edge browser");
+				downloadName = URLEncoder.encode(resourceOriginalName,"UTF-8");
+			}else {
+				log.info("Chrome browser");
+				downloadName = new String(resourceOriginalName.getBytes("UTF-8"),"ISO-8859-1");
+			}
+			log.info("downloadName: " + downloadName);
+
+			headers.add("Content-Disposition", "attachment; filename=" + downloadName);
+
+		}catch (UnsupportedEncodingException e){
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+	}
+
+	//이미지 display
+	//차후 이미지를 직접 보여주는 방식으로 수정
+	@GetMapping("/user/mypage/psnlQustBoard/display")
+	@ResponseBody
+	public ResponseEntity<byte[]> getFile(String fileName){
+		log.info("fileName: " + fileName);
+
+		File file = new File("/Users/byoungeun-Kim/upload/psnlqust/" + fileName);
+
+		log.info("file:" + file);
+
+		ResponseEntity<byte[]> result = null;
+
+		try{
+			HttpHeaders header = new HttpHeaders();
+
+			header.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

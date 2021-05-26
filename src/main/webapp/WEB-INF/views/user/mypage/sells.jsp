@@ -63,8 +63,8 @@
                 <div class="item_brd"><c:out value="${list.brdName}"/></div>
                 <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>">
                     <c:choose>
-                        <c:when test="${fn:length(list.prdName) > 8}">
-                            <c:out value="${fn:substring(list.prdName,0,8)}"/>..
+                        <c:when test="${fn:length(list.prdName) > 14}">
+                            <c:out value="${fn:substring(list.prdName, 0, 14)}"/>..
                         </c:when>
                         <c:otherwise>
                             <c:out value="${list.prdName}"/>

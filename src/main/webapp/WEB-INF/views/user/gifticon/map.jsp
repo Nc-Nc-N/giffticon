@@ -318,9 +318,13 @@ $(document).ready(function () {
                 str += '<div class="prdInfo">';
                 str += '<div class="brdName">' + gftResult[i].bname + '</div>';
 
-                if (gftResult[i].pname.length >= 14) {
+                let pnameSize = gftResult[i].pname.length;
+
+                if(pnameSize >= 16){
+                    str += '<div class="prdName small">' + gftResult[i].pname.substr(0,15) + '...' + '</div>';
+                }else if (16 < pnameSize && pnameSize >= 12) {
                     str += '<div class="prdName small">' + gftResult[i].pname + '</div>';
-                } else {
+                }else{
                     str += '<div class="prdName medium">' + gftResult[i].pname + '</div>';
                 }
 
