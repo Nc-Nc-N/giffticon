@@ -21,7 +21,13 @@ public class DealListServiceImpl implements DealListService {
 
         log.info("Get Detail of gft Id: " + gftId);
 
-        return dealListMapper.getGftDetail(gftId, userId);
+        MyDealsVO mydeal = dealListMapper.getGftDetail(gftId, userId);
+
+        if(mydeal == null){
+            throw new NullPointerException("해당아이디의 기프티콘이 아닙니다.");
+        }
+
+        return mydeal;
     }
 
     @Override

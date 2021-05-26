@@ -74,6 +74,7 @@
         let telNoConfirmMsg = $(".msg_code_verify");
         let checkAllConfirmedForTelNo = [false, false];
 
+
         //sms 인증 버튼 -- 전화인증 완료 후 code 추가 예정
         btnConfirmTelNo.on("click", function (e) {
             //전화번호 input
@@ -99,7 +100,6 @@
                 }
             });
 
-            checkAllConfirmedForTelNo[0] = true;
         });
 
         inputCode.on("propertychange change keyup paste input", function (e) {
@@ -173,6 +173,17 @@
                 return;
             }
         });
+
+        $("#cancelMyInfo-telno").on("click",function(){
+            inputPwd.val("");
+            inputTelNo.val("");
+            inputCode.val("");
+            btnConfirmTelNo.attr("class", "btn btn-submit");
+            msgPwd.html("");
+            telAuthCode='';
+            telNoConfirmMsg.css("display", "none");
+            checkAllConfirmedForTelNo = [false,false];
+        })
     });
 
     function checkTelNo(telNo) {

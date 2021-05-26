@@ -38,8 +38,13 @@ public class SellListServiceImpl implements SellListService{
     public MySellVO getSellDetail(int gftId, int userId){
 
         log.info("get Sell Details....");
+        MySellVO mysell = sellListMapper.getSellDetail(gftId, userId);
 
-        return sellListMapper.getSellDetail(gftId, userId);
+        if(mysell == null){
+            throw new NullPointerException("해당아이디의 기프티콘이 아닙니다.");
+        }
+
+        return mysell;
     }
 
     @Override

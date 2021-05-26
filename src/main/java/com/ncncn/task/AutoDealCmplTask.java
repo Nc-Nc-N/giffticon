@@ -27,6 +27,10 @@ public class AutoDealCmplTask {
 
         List<DealDetailVO> gftList = gftManagingService.getNotCmplGifticon();
 
+        for(DealDetailVO dealDetailVO : gftList){
+            dealDetailVO.setPymtPrc((int)(dealDetailVO.getPymtPrc()/100*90));
+        }
+
         if(gftList.size() != 0){
 
             try{
