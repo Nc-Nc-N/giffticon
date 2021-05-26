@@ -70,6 +70,7 @@
                 <label for="<c:out value="${status.index+1}"/>">
                     <span class="qna-q">Q. </span><c:out value="${qna.csCateCode == '001' ? '[구매]':'[판매]'}"/> <c:out
                         value="${qna.title}"/>
+                    <span class="qna-user-id"><c:out value="${qna.userId}"/></span>
                     <button class="btn-no btn-erase" id="<c:out value='${qna.id}'/>">
                         <i class="fas fa-minus"></i></button>
                     <button class="btn-no btn-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
@@ -82,7 +83,7 @@
                         <p class="qna-a">Q. </p>
                         <p><c:out value="${qna.cntnt}"/></p>
                         <br>
-                        <a href="<c:out value="${qna.atchFilePath}"/>" class="atch-file" name="atchFilePath">
+                        <a href="<c:out value="${qna.atchFilePath}"/>" download class="atch-file" name="atchFilePath">
                             <c:out value="${qna.atchFilePath}"/></a>
                     </div>
                     <div class="admin-inner">
@@ -253,6 +254,26 @@
         });
 
 
+        //파일 다운로드
+        //파일경로 문제 --> 차후 수정필요
+        $(".atch-file").on("click", function (){
+
+            $.ajax({
+                type: 'get',
+                url: '/admin/adminPsnlQust/download?fileName=' + $(".atch-file")[0].value,
+                async: false,
+                success: function (result) {
+                    console.log("download:" + result);
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        });
+
+
+
 
 
     });
@@ -379,8 +400,6 @@
         });
 
     }); //end delete
-
-
 
 
 </script>
