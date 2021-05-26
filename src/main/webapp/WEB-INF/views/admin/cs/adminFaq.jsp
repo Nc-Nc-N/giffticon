@@ -6,16 +6,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/resources/css/common//pagination.css" type="text/css">
@@ -24,7 +14,6 @@
     <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice_detail.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
 
             <h2>고객센터</h2>
@@ -138,19 +127,19 @@
     <div class="modal-dialog">
         <form role="form" action="" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content" id="delete-content">
+                <div class="modal-header" id="delete-header">
                     <input class="del-id" type="hidden" name="id" value=''>
                     <p class="delete-question" id="ModalLabel">정말 삭제하시겠습니까?</p>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="delete-body">
                     <span class="search-selected"></span>
                     <span class="de-title"></span>
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-cancel" id="closeModalBtn">CANCEL</button>
                     <button class="btn btn-register" id="btn-delete">OK</button>
+                    <button class="btn btn-cancel" id="closeModalBtn">CANCEL</button>
                 </div>
             </div>
             <!--/.modal-content -->
@@ -168,8 +157,8 @@
     <div class="modal-dialog">
         <form role="form" action="" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content" id="modify-content">
+                <div class="modal-header" id="modify-header">
                     <p class="search-selected" id="modifyModalLabel"></p>
                     <input class="modify-id" type="hidden" name="id" value=''>
                     <span><input type="checkbox" class="modify-enabled" name="enabled" checked="checked" value=''> Visible</span>
@@ -177,14 +166,14 @@
                     <textarea class="modify-title" name="qust"></textarea>
 
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="modify-body">
 
                     <textarea class="modify-content" name="ans"></textarea>
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-cancel" id="closeModifyModalBtn">CANCEL</button>
                     <button class="btn btn-register" id="btn-modify">OK</button>
+                    <button class="btn btn-cancel" id="closeModifyModalBtn">CANCEL</button>
                 </div>
             </div>
             <!--/.modal-content -->
@@ -201,8 +190,8 @@
     <div class="modal-dialog">
         <form role="form" action="" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content" id="register-content">
+                <div class="modal-header" id="register-header">
 
                     <div class="modal-search-area">
                         <select class="modal-search-select" name="csCateCode">
@@ -217,13 +206,13 @@
                     <input class="register-user-id" type="hidden" name="userId" value=''>
                     <span class="qna-q">Q. </span><textarea class="register-title" name="qust"></textarea>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="register-body">
                     <span class="qna-a">A. </span><textarea class="register-content" name="ans"></textarea>
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-cancel" id="closeRegisterModalBtn">CANCEL</button>
                     <button class="btn btn-register" id="btn-register">OK</button>
+                    <button class="btn btn-cancel" id="closeRegisterModalBtn">CANCEL</button>
                 </div>
             </div>
             <!--/.modal-content -->
@@ -321,7 +310,7 @@
         $(".de-title").html(faq.qust);
 
 
-        $("#deleteModal").modal("show");
+        $("#deleteModal").fadeIn();
 
         $("#btn-delete").on("click", function (e) {
 
@@ -335,7 +324,7 @@
         $("#closeModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
 
             e.preventDefault();
-            $("#deleteModal").modal("hide");
+            $("#deleteModal").fadeOut();
         });
 
     }); //end btn-erase
@@ -391,7 +380,7 @@
 
         }
 
-        $("#modifyModal").modal("show");
+        $("#modifyModal").fadeIn();
 
 
         $('#btn-modify').on("click", function () {
@@ -414,7 +403,7 @@
         $("#closeModifyModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
 
             e.preventDefault();
-            $("#modifyModal").modal("hide");
+            $("#modifyModal").fadeOut();
         });
 
     });
@@ -425,7 +414,7 @@
 
         registerForm = $("form");
         let userId = "<c:out value="${userId}"/>";
-        $("#registerModal").modal("show");
+        $("#registerModal").fadeIn();
 
         //register 값 채우기
 
@@ -463,7 +452,7 @@
         $("#closeRegisterModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
 
             e.preventDefault();
-            $("#registerModal").modal("hide");
+            $("#registerModal").fadeOut();
         });
     });
 

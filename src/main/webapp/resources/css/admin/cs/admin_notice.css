@@ -11,6 +11,8 @@ h2{
     font-size: 2em;
 }
 
+
+
 .search-area {
     display: flex;
     float: right;
@@ -163,7 +165,6 @@ h2{
 
 .btn-active {
     margin-top: 13px;
-    padding: unset;
 }
 
 
@@ -198,6 +199,141 @@ h2{
     border-radius: 5px;
 }
 
-*, ::after, ::before{
-    box-sizing: unset;
+
+/*modal css*/
+
+.modal{
+    position: absolute;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0; left: 0;
+    background: rgba(80, 80, 80, 0.4);
+}
+
+.modal-content{
+    position: absolute;
+    top: calc(40vh - 100px);
+    left: calc(40vw - 200px);
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+}
+
+#delete-content{
+    width: 500px;
+    height: 200px;
+}
+
+#modify-content{
+    width: 800px;
+    height: 500px;
+}
+
+#register-content{
+    width: 800px;
+    height: 500px;
+}
+
+.modal-header{
+    border-bottom: 1px solid #dee2e6;
+}
+
+#delete-header{
+    height: 50px;
+}
+
+#modify-header{
+    height: 110px;
+}
+
+#register-header{
+    height: 110px;
+}
+
+.modal-header textarea{
+    margin: 10px;
+    width: 780px;
+    height: 35px;
+    font-size: 20px;
+    resize: none;
+    border-color: #dee2e6;
+}
+
+.modify-title, .register-title{
+    margin-top: 3px;
+}
+
+.modify-fixed{
+    margin-left: 5px;
+}
+
+.modal-body{
+    margin: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-body textarea{
+    width: 780px;
+    height: 290px;
+    font-size: 17px;
+    resize: none;
+    border-color: #dee2e6;
+}
+
+#delete-body{
+    height: 60px;
+}
+
+#modify-body{
+    height: 300px;
+}
+
+#register-body{
+    height: 300px;
+}
+
+.delete-question{
+    font-size: 25px;
+    margin: 10px;
+}
+
+.modal-search-area{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.register-fixed, .register-end-dt{
+    margin-top: 10px;
+}
+
+.search-selected{
+    margin: 10px;
+}
+
+.modify-fixed{
+    margin-left: 10px;
+}
+
+
+.modal span, .de-cntnt{
+    font-size: 1rem;
+    margin: 10px;
+}
+
+.btn-register{
+    background-color: rgb(255, 88, 93);
+    color: white;
+}
+
+.btn-cancel{
+    color: rgb(55, 55, 55);
+}
+
+.btn-register, .btn-cancel{
+    float: right;
+    margin:10px;
 }

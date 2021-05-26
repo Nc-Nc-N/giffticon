@@ -82,7 +82,7 @@
                         <p class="qna-a">Q. </p>
                         <p><c:out value="${qna.cntnt}"/></p>
                         <br>
-                        <a href="<c:out value="${qna.atchFilePath}"/>" class="atch-file" name="atchFilePath">
+                        <a href="<c:out value="${qna.atchFilePath}"/>" download class="atch-file" name="atchFilePath">
                             <c:out value="${qna.atchFilePath}"/></a>
                     </div>
                     <div class="admin-inner">
@@ -254,7 +254,6 @@
 
 
 
-
     });
 
 
@@ -381,6 +380,30 @@
     }); //end delete
 
 
+    // //파일 썸네일 보여주기
+    // function showUploadedFile(uploadResultArr){
+    //
+    //     var str = "";
+    //
+    //     $(uploadResultArr).each(function (i,obj){
+    //
+    //         if (!obj.image){
+    //
+    //             var fileCallPath = encodeURIComponent(obj.uploadPath+ "/" + obj.uuid + "_" + obj.fileName);
+    //
+    //             str += "<li><a href='/download?fileName="+fileCallPath+"'>"+"<img src='/resources/img/attach.png'>" + obj.fileName + "</li>"
+    //
+    //         }else{
+    //
+    //             var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_" + obj.uuid + "_" + obj.fileName);
+    //
+    //             str += "<li><img src='/display?fileName="+fileCallPath+"'></li>";
+    //
+    //         }
+    //     });
+    //
+    //     uploadResult.append(str);
+    // }
 
 
 </script>
