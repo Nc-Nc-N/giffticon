@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="templete.jsp"/>
@@ -10,7 +11,8 @@
     <span>판매 내역</span>
 </div>
 <div class="contentinfo">
-    판매 대기 > 판매 중 > 거래 확정 대기 > 거래 확정 완료
+    판매대기&nbsp;<i class="fas fa-caret-right"></i>&nbsp;판매중&nbsp;<i class="fas fa-caret-right"></i>
+    &nbsp;거래확정대기&nbsp;<i class="fas fa-caret-right"></i>&nbsp;거래확정완료
 </div>
 <div class="contentsearch">
     <form class="search-spec" action="/user/mypage/sells" method="get">
@@ -58,23 +60,30 @@
         <div class='item_info'>
             <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
             <span class="item_brdNname">
-                                    <div class="item_brd"><c:out value="${list.brdName}"/></div>
-                                    <div class="item_name" name="prdLink"
-                                         value="<c:out value="${list.prdCode}"/>"><c:out value="${list.prdName}"/></div>
-                                    <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out
-                                            value="${list.id}"/></div>
-                                </span>
+                <div class="item_brd"><c:out value="${list.brdName}"/></div>
+                <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>">
+                    <c:choose>
+                        <c:when test="${fn:length(list.prdName) > 8}">
+                            <c:out value="${fn:substring(list.prdName,0,8)}"/>..
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value="${list.prdName}"/>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out value="${list.id}"/></div>
+            </span>
             <span class="item_prc"><c:out value="${list.dcPrc}"/>원</span>
             <span class="item_status">
-                                <div><c:out value="${list.codeName}"/></div>
-                                <div class="expr_dt">
-                                (유효기간: <fmt:formatDate pattern="yyyy-MM-dd" value="${list.expirDt}"/>)
-                                </div>
-                            </span>
+                <div><c:out value="${list.codeName}"/></div>
+                <div class="expr_dt">
+                    (유효기간: <fmt:formatDate pattern="yyyy-MM-dd" value="${list.expirDt}"/>)
+                </div>
+            </span>
             <div class="item_buttons">
                 <c:choose>
                     <c:when test="${list.codeName eq '판매대기' || list.codeName eq '판매중'}">
-                        <button name="deleteGift" class="btn btn-dark" value="<c:out value="${list.id}"/>">판매 취소
+                        <button name="deleteGift" class="btn btn-cancel" value="<c:out value="${list.id}"/>">판매 취소
                         </button>
                     </c:when>
                     <c:when test="${list.codeName eq '판매불가'}">
@@ -92,6 +101,8 @@
     <c:if test="${sellList.size() == 0}">
         <div class="noSearchResult">검색 결과가 없습니다.</div>
     </c:if>
+
+    <div class="space50"></div>
     <div class="contentfooter">
         <div class="pagination">
             <c:if test="${pageMaker.prev}">
@@ -120,7 +131,8 @@
 </div>
 </div>
 </div>
-
+<div class="space100"></div>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
 
@@ -143,7 +155,6 @@
 
         //검색버튼 클릭 시 날짜 조건 일치하면 검색 실행
         $(".search-button").on("click", function (e) {
-
             let dateFrom = $("#dateFrom").val();
             let dateTo = $("#dateTo").val();
 
@@ -168,39 +179,31 @@
                 success: function () {
                     if (confirm("해당 상품 판매 페이지로 이동하시겠습니까?")) {
                         location.href = "/user/gifti_detail?code=" + prdCode;
-                    } else {
-                        return;
                     }
                 },
                 error: function () {
                     alert("해당 물품의 구매가능한 기프티콘이 없습니다.")
                 }
-            })
-        })
+            });
+        });
 
         //기프티콘 삭제 버튼
         $("button[name='deleteGift']").on("click", function (e) {
-
             if (confirm("삭제하시겠습니까? 삭제 후 재등록 가능합니다.")) {
                 actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
                 actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
                 actionForm.attr("action", "/gifticon/delGft").attr("method", "post");
 
                 actionForm.submit();
-            } else {
-                return;
             }
         });
 
         //기프티콘 상세 페이지 이동
         $("button[name='sellDetailBtn']").on("click", function (e) {
-
             actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
             actionForm.attr("action", "/user/mypage/sellDetail").attr("method", "get");
 
             actionForm.submit();
         });
-    })
+    });
 </script>
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

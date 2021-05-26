@@ -1,7 +1,6 @@
 #register-content {
-    height: 700px;
+    height: fit-content;
     margin-top: 10%;
-    margin-left: 9%;
     position: absolute;
 }
 

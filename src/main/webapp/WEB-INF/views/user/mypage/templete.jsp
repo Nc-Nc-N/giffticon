@@ -128,16 +128,19 @@
                             data: {userId: userId},
                             dataType: 'json',
                             success: function (result) {
-
                                 $("#stus004").html(result[0]);
                                 $("#stus001").html(result[1]);
                                 $("#stus002").html(result[2]);
-                                $("#userPnt").html(result[3]);
+                                $("#userPnt").html(numberWithCommas(result[3]));
                             },
                             error: function () {
                                 alert("요약 창 정보 불러오기에 실패했습니다.");
                             }
                         });
+                    }
+
+                    function numberWithCommas(x) {
+                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     }
                 </script>
                 <script>

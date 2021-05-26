@@ -53,11 +53,8 @@
             <c:out value="${gftInfo.stusCode}"/>
         </div>
     </div>
-    <div class="item_btn">
-
-    </div>
-
 </div>
+<div class="space50"></div>
 <div class="toListbtn">
     <form id="actionForm" action="/user/mypage/deal" method="get">
         <input type="hidden" name="dateFrom" value="<c:out value="${cri.dateFrom}"/>">
@@ -74,13 +71,15 @@
 </div>
 </div>
 </div>
-
+<div class="space100"></div>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
 
 <script>
 
     $(document).ready(function () {
+        $("#deal-link").attr("class", "menu active");
 
         var actionForm = $("#actionForm");
 
@@ -94,8 +93,5 @@
                 return;
             }
         });
-
-    })
+    });
 </script>
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

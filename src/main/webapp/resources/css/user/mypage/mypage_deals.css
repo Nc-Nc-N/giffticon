@@ -1,10 +1,16 @@
 /* --------------------이하 구매내역 css (위쪽 templete css)--------------------- */
 .contentinfo {
-    height: 30px;
+    height: 40px;
     display: flex;
     align-items: center;
-    font-weight: bold;
+    font-weight: 400;
     font-size: 14px;
+    color: #666666;
+}
+
+.contentinfo i {
+    font-size: 16px;
+    color: rgb(71, 71, 71);
 }
 
 .contentsearch {
@@ -71,9 +77,10 @@
 
 .item_purdate {
     width: 100%;
-    height: 30px;
-    font-size: 20px;
+    height: 20px;
+    font-size: 14px;
     font-weight: bold;
+    margin: 15px auto 5px auto;
 }
 
 .expr_dt {
@@ -87,15 +94,16 @@
 
 .item_info {
     width: 100%;
-    height: 160px;
+    height: 120px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid gainsboro;
 }
 
 .item_img {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
 }
 
 .item_brdNname {
@@ -104,40 +112,37 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-size: 14px;
 }
 
 .item_brd {
     width: 80%;
-    height: 35%;
-    margin-left: 10%;
     display: flex;
     align-items: center;
+    font-size: 12px;
 }
 
 .item_name {
-    width: 80%;
-    height: 70%;
-    margin-left: 10%;
-    font-size: 20px;
+    width: 100%;
+    font-size: 15px;
     font-weight: bold;
     display: flex;
     align-items: start;
 }
 
-.item_name:hover{
-    color: rgb(255,88,93);
+.item_name:hover {
+    color: rgb(255, 88, 93);
     cursor: pointer;
 }
 
-.item_code{
-    margin-left: 10%;
+.item_code {
     color: #333333;
 }
 
 .item_prc, .item_status {
-    width: 100px;
+    width: 80px;
     height: 80px;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -157,8 +162,8 @@
 }
 
 .item_buttons {
-    width: 80px;
-    height: 100px;
+    width: fit-content;
+    height: 70px;
     line-height: 50px;
     display: flex;
     flex-direction: column;
@@ -168,6 +173,7 @@
 img {
     overflow: hidden;
     width: 100%;
+    height: 100%;
 }
 
 .noSearchResult {
@@ -182,9 +188,9 @@ img {
 
 .contentfooter {
     width: 100%;
-    height: 60px;
-    margin-top: 60px;
     text-align: center;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .search-spec {
@@ -193,45 +199,59 @@ img {
     justify-content: space-between;
 }
 
+.btn {
+    width: 60px;
+    height: 25px;
+    font-size: 13px;
+    border-radius: 5px;
+}
+
 .btn-disabled {
+    background-color: rgb(96, 96, 96);
+    color: white;
     cursor: not-allowed;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .btn-disabled:hover {
     cursor: not-allowed;
 }
 
+.btn-active {
+    background-color: rgb(237, 237, 237);
+    color: rgb(71, 71, 71);
+}
+
 .btn-active:hover {
+    background-color: white;
+    color: rgb(71, 71, 71);
+    border: 1px solid rgb(237, 237, 237);
+}
+
+.btn-cancel {
+    background-color: rgb(255, 88, 93);
+    color: white;
+}
+
+.btn-cancel:hover {
     background-color: white;
     color: rgb(255, 88, 93);
     border: 1px solid rgb(255, 88, 93);
-
 }
 
 .btn-cmpl {
     background-color: rgb(255, 88, 93);
     color: white;
     animation: heartbeat 1s 20;
-
 }
 
 .btn-cmpl:hover {
     background-color: white;
     color: rgb(255, 88, 93);
     border: 1px solid rgb(255, 88, 93);
-
-}
-.btn-dark{
-    font-weight: bold;
-    color: rgb(50,50,50);
-    border: 1px solid darkgrey;
-}
-.btn-dark:hover{
-    background-color: darkgray;
 }
 
-.datepicker{
+.datepicker {
     background-color: white;
 }
 
@@ -245,4 +265,8 @@ img {
     100% {
         transform: scale(1.0);
     }
+}
+
+input[type='date'] {
+    outline: none;
 }

@@ -60,7 +60,7 @@ a {
     margin: auto;
     display: flex;
     justify-content: space-around;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -74,7 +74,7 @@ a {
 .category-drop {
     color: #333;
     display: flex;
-    width: 100px;
+    width: 120px;
     padding-top: 5px;
 }
 
@@ -102,7 +102,7 @@ a {
 .brdBox {
     background-color: rgb(245, 244, 244);
     position: relative;
-    top: 0px;
+    top: 0;
 }
 
 .exo-menu > li > a.active,
@@ -453,7 +453,7 @@ a:hover, a:active {
 
 .tooltip-text:after, .tooltip-text:before {
     bottom: 100%;
-    left: 29%;
+    left: 26%;
     border: solid transparent;
     content: "";
     height: 0;
