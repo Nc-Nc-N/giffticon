@@ -1,3 +1,14 @@
+.btn-remove {
+    background-color: rgb(237, 237, 237);
+    color: rgb(71, 71, 71);
+}
+
+.btn-remove:hover {
+    background-color: white;
+    color: rgb(71, 71, 71);
+    border: 1px solid rgb(237, 237, 237);
+}
+
 .item_btn_seller{
     width: fit-content;
     height: 95%;
@@ -8,66 +19,4 @@
 
 .item_btn_seller > button {
     margin-bottom: 10px;
-}
-
-.item_prc{
-    width: 100%;
-    height: 150px;
-    /*background-color: yellow;*/
-    display: flex;
-    font-weight: bold;
-    font-size:19px;
-    text-align: left;
-    border-bottom: 3px solid gainsboro;
-}
-
-.item_prc_left{
-    width: 150px;
-    height: 100%;
-    /*background-color: #989898;*/
-    margin-left: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.item_prc_right{
-    width: 300px;
-    height: 100%;
-    /*background-color: #888888;*/
-    margin-left:85px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.prc_column{
-    width: 100%;
-    height: 30px;
-    text-align: center;
-    display: flex;
-}
-
-.prc_column_left{
-    width: 50%;
-    height: 100%;
-    font-weight: bold;
-    text-align: left;
-}
-
-.prc_column_right{
-    width: 35%;
-    height: 100%;
-    font-weight: bold;
-    text-align: left
-}
-
-.isAutoPrc{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-}
-
-.btn-disabled:hover {
-    cursor: not-allowed;
 }
