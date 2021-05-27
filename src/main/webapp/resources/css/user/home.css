@@ -90,18 +90,21 @@
     margin-right:10px;
     font-size: small;
 }
+
 .main-btn {
     top: 0;
     right: 0;
     min-width: 85px;
     height: 35px;
-    border: 1px solid #d5d5d5;
-    font-size: 12px;
+    /* border: 1px solid #d5d5d5; */
+    font-size: 13px;
     line-height: 35px;
-    color: #777;
+    color: #333;
     text-align: center;
     text-decoration: none;
+    font-weight: 600;
 }
+
 .listcontent{
     width:1000px;
     height:80%;
@@ -195,4 +198,8 @@ h3{
 
 .listnamelast table{
     padding-left: 6%;
+}
+
+.fa-caret-right{
+    font-size: 14px;
 }
