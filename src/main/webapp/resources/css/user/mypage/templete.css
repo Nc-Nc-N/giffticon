@@ -9,7 +9,7 @@ body {
 
 #container {
     width: 1000px;
-    height: 850px;
+    height: fit-content;
     margin: auto;
 }
 
@@ -40,7 +40,7 @@ body {
 
 .main {
     width: 1000px;
-    height: 930px;
+    height: fit-content;
 }
 
 .cs-main{
@@ -170,7 +170,7 @@ body {
 }
 
 .full-content{
-    height: 850px;
+    height: fit-content;
     width: 750px;
     margin: 0 0 0 50px;
 }
