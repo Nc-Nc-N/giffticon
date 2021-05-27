@@ -35,15 +35,6 @@
     display: flex;
     justify-content: space-between;
 }
-.listnamefirst{
-    border-bottom: 1px solid gainsboro;
-}
-
-.listnamefirst > h3 {
-    text-align: left;
-    margin-top: 5px;
-    margin-left: 10px;
-}
 
 .listname {
     border-bottom: 1px solid gainsboro;
@@ -83,12 +74,6 @@
     justify-content: flex-end;
 }
 
-.categorypaging{
-    text-align:center;
-    margin-top:10px;
-    margin-right:10px;
-    font-size: small;
-}
 .main-btn {
     top: 0;
     right: 0;
@@ -108,15 +93,10 @@
     display: flex;
 }
 
-.maps{
-   width: 225px;
-   height:100%;
-}
-
 .mapicon{
     width: 100%;
-    height: 58%;
-    display: flex;
+    margin-top: 35%;
+    position: relative;
     align-items: center;
     text-align: center;
     overflow: hidden;
@@ -126,14 +106,6 @@
     width: 55%;
 }
 
-.mapinfo{
-    width: 100%;
-    height: 25%;
-    float: left;
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-}
 table{
     width: 100%;
     padding-left: 5%;
@@ -195,4 +167,24 @@ h3{
 .items-wish{
     cursor: pointer;
     margin-right: 30px;
+}
+
+.map-main{
+    height: 100%;
+}
+.map-img{
+    width: 100%;
+}
+.map-txt{
+    background: rgb(245, 244, 244);
+    border-radius: 40px;
+    text-align: center;
+    width: 90%;
+    position: absolute;
+    top: 40%;
+    left: 5%;
+}
+.map-txt span{
+    font-size: 12px;
+    line-height: 40px;
 }
