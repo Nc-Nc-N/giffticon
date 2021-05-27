@@ -277,7 +277,7 @@
         order by prod.sold_quty desc limit 8
     </select>
 
-    <!-- 마감임박 상품 8개 조회  -->
+    <!-- 7일 이내의 마감임박 상품조회  -->
     <select id="getDeadlineGifti" resultType="com.ncncn.domain.ProdListVO">
         <![CDATA[
         select tbl.*
@@ -298,13 +298,13 @@
               from gifticon as gifti
                        INNER JOIN product as prod ON gifti.prod_code = prod.code
                        INNER JOIN brand ON prod.brd_code = brand.code
-              where expir_dt > current_date
+              where expir_dt >= current_date
                 and expir_dt - current_date() <= 7
                 and prod.enabled = '1'
                 and gft_stus_code = '002'
               order by expir_dt, sold_quty LIMIT 18446744073709551615
              ) as tbl
-        group by tbl.prod_code limit 8
+        group by tbl.prod_code
         ]]>
     </select>
 
