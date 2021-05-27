@@ -18,7 +18,7 @@
 <body>
 <div class="container">
     <div class="element">
-        <a href="/user/home"><img src="/resources/img/user-logo.png" width="270px" height="auto"></a>
+        <a href="/user/home"><img src="/resources/img/user-logo.png"></a>
     </div>
 
     <form class="form-basicLogin" action="/login" method="POST">
@@ -51,11 +51,11 @@
     </div>
 
     <div id="socialLoginHeader">
-        <p>SNS계정으로 간편 로그인/회원가입</p>
+        <p>카카오로 로그인/회원가입</p>
     </div>
     <div class="element" id="socialLogin">
         <!-- Kakao Btn -->
-        <img class="social kakao" src="/resources/img/socialLogin/kakao_login_medium_wide.png">
+        <img class="social kakao" src="/resources/img/socialLogin/kakao_login_medium_narrow.png">
         <!-- Google Btn -->
 <%--        <div id="gSignInWrapper">--%>
 <%--            <div id="googleBtn" class="customGPlusSignIn">--%>
