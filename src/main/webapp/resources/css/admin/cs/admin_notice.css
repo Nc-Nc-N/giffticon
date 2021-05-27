@@ -1,8 +1,8 @@
-*, ::after, ::before{
-    box-sizing: unset;
-    margin: 0;
-    padding: 0;
-}
+/**, ::after, ::before{*/
+/*    box-sizing: unset;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
 body{
     font-weight: 400;

@@ -2,16 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
-
+<jsp:include page="csTemplete.jsp"/>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/cs/notice_board.css" type="text/css">
-
-<%@ include file="/WEB-INF/views/user/cs/csTemplete.jsp" %>
 
 <h3>공지사항</h3>
 <div class="sub-category-area">

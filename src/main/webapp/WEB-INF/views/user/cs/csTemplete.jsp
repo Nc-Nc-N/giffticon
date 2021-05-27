@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
 
 <body>

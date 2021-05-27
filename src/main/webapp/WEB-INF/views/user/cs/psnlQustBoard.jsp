@@ -2,8 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@include file="/WEB-INF/views/common/header.jsp" %>
-
+<jsp:include page="csTemplete.jsp"/>
 <meta charset="UTF-8">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,9 +18,6 @@
 <link rel="stylesheet" href="/resources/css/user/cs/psnl_qust_board.css" type="text/css">
 
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-
-<%@ include file="/WEB-INF/views/user/cs/csTemplete.jsp" %>
-
 
 <h3>1:1문의</h3>
 <div class="sub-category-area">
