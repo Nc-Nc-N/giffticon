@@ -60,6 +60,7 @@
 }
 
 .brandbar {
+    margin: 10px 0 10px 0;
     visibility: hidden;
     border: 0.5px solid gainsboro;
     border-radius: 1px;
@@ -78,7 +79,7 @@ li {
 }
 
 .brdList {
-    margin: 0 10px 0 10px;
+    margin: 5px 10px 5px 10px;
 }
 
 .brd-submit {
