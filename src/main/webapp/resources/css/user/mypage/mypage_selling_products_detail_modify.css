@@ -27,7 +27,7 @@
     height: 100%;
     overflow: hidden;
     border-radius: 10px;
-    border: 2px solid gainsboro;
+    border: 1px solid rgb(188, 188, 188);
 }
 
 .price_modify {
@@ -54,7 +54,7 @@
 .input_text {
     background-color: white;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid rgb(188, 188, 188);
     width: 50%;
     height: 30px;
     display: flex;
@@ -74,6 +74,7 @@
 }
 
 #rateinput {
+    color: rgb(255, 88, 93);
     width: 60px;
     background-color: rgba(255, 255, 255, 0);
     font-weight: bold;
@@ -87,7 +88,6 @@ input[type="radio"] {
 }
 
 label {
-    font-weight: bold;
     margin-right: 10px;
 }
 
@@ -100,7 +100,7 @@ label {
 .input_prc {
     background-color: white;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid rgb(188, 188, 188);
     width: 40%;
     height: 30px;
     display: flex;
@@ -127,13 +127,15 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="date"] {
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid rgb(188, 188, 188);
     position: relative;
     right: 10px;
 }
 
 #reg-btn-area {
-    margin-top: 150px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    justify-content: center;
 }
 
 .email_section, .date_section, .img_section, .price_section {
@@ -142,10 +144,27 @@ input[type="date"] {
 
 h3 {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 h4 {
     font-weight: 400;
     font-size: 16px;
+}
+
+.btn {
+    width: 60px;
+    height: 30px;
+}
+
+.btn-dark {
+    background-color: rgb(237, 237, 237);
+    font-size: 15px;
+    font-weight: 400;
+    margin-left: 60px;
+}
+
+.btn-dark:hover {
+    background-color: white;
+    border: 1px solid rgb(237, 237, 237);
 }

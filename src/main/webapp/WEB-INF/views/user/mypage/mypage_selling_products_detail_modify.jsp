@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -12,16 +13,22 @@
         <div class="email_section">
             <h3>브랜드 / 상품명</h3>
             <h4><c:out value="${gftInfo.brdName}"/></h4>&nbsp;>&nbsp;
-            <h4><c:out value="${gftInfo.prdName}"/></h4>
+            <h4>
+                <c:choose>
+                    <c:when test="${fn:length(gftInfo.prdName) > 18}">
+                        <c:out value="${fn:substring(gftInfo.prdName, 0, 18)}"/>..
+                    </c:when>
+                    <c:otherwise>
+                        <c:out value="${gftInfo.prdName}"/>
+                    </c:otherwise>
+                </c:choose>
+            </h4>
         </div>
         <div class="img_section">
             <h3>상품 정보</h3>
             <div>
                 <div class="img_container">
                     <img class="modal-img" src="<c:out value="${gftInfo.prdImgPath}"/>">
-                </div>
-                <div class="img_container">
-                    <img class="modal-img" src="<c:out value="${gftInfo.brcdImgPath}"/>">
                 </div>
             </div>
         </div>
@@ -91,6 +98,7 @@
         <input type="hidden" name="gftId" value="<c:out value="${gftInfo.id}"/>">
     </form>
 </div>
+
 <script>
     $(".document").ready(function () {
 
@@ -142,7 +150,7 @@
                     //반환된 error 코드가 406 (비밀번호 불일치)
                     if (request.status == 406) {
                         alert("비밀번호를 확인하세요.");
-                    //반환된 error 코드가 500 (가격 수정 실패)
+                        //반환된 error 코드가 500 (가격 수정 실패)
                     } else {
                         alert("가격 수정 실패. 관리자에게 문의하세요");
                     }
@@ -205,7 +213,7 @@ $(".document").ready(function () {
             $("#prcinput").val("");
             $("#rateinput").val("");
 
-        //올바르지 않은 가격 입력 시 alert 출력 후 input 지우기
+            //올바르지 않은 가격 입력 시 alert 출력 후 input 지우기
         } else if (parseInt($("#prcinput").val()) <= 0) {
             alert("가격이 올바르지 않습니다.");
             $("#prcinput").val("");
