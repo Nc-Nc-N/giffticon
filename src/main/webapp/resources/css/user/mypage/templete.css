@@ -151,7 +151,7 @@ body {
     margin: 20px auto auto auto;
 }
 
-.content {
+.full-content{
     height: fit-content;
     width: 750px;
     margin: 0 0 0 50px;
@@ -176,6 +176,10 @@ body {
 
 .sidebar > a:hover {
     color: rgb(255, 88, 93)
+}
+
+.bar{
+    border-right: 1px solid gainsboro;
 }
 
 @keyframes heartbeat0_5 {

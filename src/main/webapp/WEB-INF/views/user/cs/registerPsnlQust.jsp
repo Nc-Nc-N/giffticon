@@ -10,7 +10,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
@@ -79,6 +78,10 @@
 
 
 <script>
+
+    $(document).ready(function(){
+        $("#psnlQ-link").attr("class", "menu active");
+    })
 
     let userId = "<c:out value="${userId}"/>";
 
