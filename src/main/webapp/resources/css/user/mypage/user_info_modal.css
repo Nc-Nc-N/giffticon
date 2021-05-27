@@ -4,10 +4,11 @@
     flex-direction: column;
     justify-content: space-around;
     background-color: white;
-    width: 600px;
+    width: 550px;
     padding: 20px;
     color: rgb(71, 71, 71);
     border-radius: 10px;
+    margin-top: 20%;
 }
 
 #content {

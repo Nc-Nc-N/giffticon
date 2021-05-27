@@ -42,12 +42,17 @@
 
 .btn-disabled {
     width: 60px;
-    height: 25px;
-    border-radius: 8px;
-    margin-left: 18px;
-    font-size: 15px;
+    /*height: 25px;*/
+    /*border-radius: 8px;*/
+    /*margin-left: 18px;*/
+    /*font-size: 15px;*/
     font-weight: 400;
-    border-color: #e4e4e4 !important;
-    color: #e4e4e4 !important;
-    pointer-events: none;
+    /*border-color: #e4e4e4 !important;*/
+    /*color: #e4e4e4 !important;*/
+    /*pointer-events: none;*/
+}
+
+h3 {
+    font-size: 15px;
+    font-weight: 600 !important;
 }
