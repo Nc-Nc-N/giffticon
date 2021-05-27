@@ -4,20 +4,17 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <link rel="stylesheet" href="/resources/css/user/mypage/user_info_modal.css" type="text/css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <body>
 <div id="register-content">
     <h2>회원정보 수정</h2>
 
     <div id="content">
-
         <div class="info_section">
             <div>
                 <h3>이름</h3>
                 <div class="input_text">
-                    <input type="text" class="info_newName" placeholder="<c:out value="${user.name}"/>">
+                    <input type="text" class="info_newName" value="<c:out value="${user.name}"/>">
                 </div>
             </div>
             <div class="message" id="msg-info_validateName">
@@ -30,7 +27,7 @@
                 <h3>생년월일</h3>
                 <div class="input_text">
                     <input type="text" class="info_newBirthDt" id="datepicker" readonly="readonly"
-                           placeholder="<c:out value="${user.birthDt}"/>">
+                           value="<c:out value="${user.birthDt}"/>">
                 </div>
             </div>
             <div class="message" id="msg-info_validateBirthDt">
@@ -44,7 +41,7 @@
                 <div class="input_text">
                     <input type="password" class="info_originPwd" placeholder="기존 비밀번호를 입력해주세요">
                 </div>
-                <button class="btn btn-submit" id="btn-info_confirmPwd">인증</button>
+                <button class="btn btn-confirm" id="btn-info_confirmPwd">인증</button>
             </div>
             <div class="message" id="msg-info_confirmPwd">
 
@@ -54,7 +51,7 @@
     </div>
     <div id="reg-btn-area">
         <button class="btn btn-active" id="btn_info_register">등록</button>
-        <button class="btn btn-dark cancel" id="btn_info_cancel">취소</button>
+        <button class="btn cancel" id="btn_info_cancel">취소</button>
     </div>
 </div>
 </body>
@@ -122,7 +119,7 @@
             if ($(this).val() == "") {
                 nameMsg.html("");
             }
-        })
+        });
 
         //기존 비밀번호 인증
         btnOriginPwd.on("click", function (e) {
@@ -146,30 +143,23 @@
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
                 success: function () {
-
                     msg += "비밀번호가 일치합니다.";
                     checkIsCorrect(pwdMsg, msg, true);
 
                     //기존 비밀번호 인증 시 새로운 비밀번호 입력 가능, 인증 된 비밀번호는 수정 불가
                     insertPwd.attr("readonly", true);
                     checkPwdForEditInfo[1] = true;
-
                 },
                 error: function () {
-
                     msg += "비밀번호가 다릅니다.";
                     checkIsCorrect(pwdMsg, msg, false);
                     checkPwdForEditInfo[1] = false;
-
                 }
-
-            })
-
-        })
+            });
+        });
 
         //수정 확인 버튼 클릭
         $("#btn_info_register").on("click", function (e) {
-
             if (newName.val() == "" && newBirthDt.val() == "") {
                 alert("수정 정보를 입력해주세요");
                 return;
@@ -195,8 +185,6 @@
                     birthDt: birthDt
                 }
 
-                console.log(updateInfo);
-
                 $.ajax({
                     url: '/user/mypage/updateInfo',
                     method: 'post',
@@ -213,18 +201,16 @@
                         alert("회원정보 수정에 실패했습니다. 관리자에게 문의해주세요.");
                         return;
                     }
-                })
-
+                });
                 //비밀번호 인증 안했을때
             } else {
                 alert("정보를 정확히 입력해주세요.");
                 return;
             }
-        })
+        });
 
         //취소 버튼 클릭 시 모든 입력값 초기화
         $('#btn_info_cancel').on("click", function (e) {
-
             checkPwdForEditInfo = [false, false];
             newName.val("");
             newBirthDt.val("");
@@ -234,8 +220,6 @@
             pwdMsg.html("");
 
             insertPwd.attr("readonly", false);
-
-        })
-
-    })
+        });
+    });
 </script>

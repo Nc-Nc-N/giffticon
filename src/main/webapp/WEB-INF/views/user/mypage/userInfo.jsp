@@ -92,7 +92,7 @@
 <div class="modalOn modal_editInfo">
     <jsp:include page="userInfo_editInfo.jsp"/>
 </div>
-<div class="modalOn modal_telNo" style="visibility: visible">
+<div class="modalOn modal_telNo">
     <jsp:include page="userInfo_editTelNo.jsp"/>
 </div>
 <div class="modalOn modal_accInfo">
