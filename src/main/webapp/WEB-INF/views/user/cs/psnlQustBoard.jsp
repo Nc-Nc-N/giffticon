@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_psnl_qust.css" type="text/css">
@@ -187,6 +186,8 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        $("#psnlQ-link").attr("class", "menu active");
 
         //사용자 1:1문의 오류 메시지를 controller에서 보내줌.
         let error = "${error}";

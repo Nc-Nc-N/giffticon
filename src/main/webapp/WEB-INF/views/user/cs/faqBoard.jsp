@@ -11,7 +11,6 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-<link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
@@ -139,6 +138,8 @@
 
 
     $(document).ready(function () {
+
+        $("#faq-link").attr("class", "menu active");
 
         //사용자 Faq 오류 메시지를 controller에서 보내줌.
         let error = "${error}";

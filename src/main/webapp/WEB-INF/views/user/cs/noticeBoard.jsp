@@ -5,7 +5,6 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
@@ -111,6 +110,9 @@
     });
 
     $(document).ready(function () {
+
+        $("#notice-link").attr("class", "menu active");
+
         //사용자 공지사항 오류 메시지를 controller에서 보내줌.
         let error = "${error}";
 
