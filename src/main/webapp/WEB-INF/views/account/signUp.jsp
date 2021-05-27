@@ -22,7 +22,7 @@
 
     <div class="imgcontainer">
         <a href="/user/home">
-            <img id="imgtohome" src="/resources/img/logo.png">
+            <img id="imgtohome" src="/resources/img/user-logo.png">
         </a>
     </div>
 

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="templete.jsp"/>
@@ -57,12 +58,22 @@
         <div class='item_info'>
             <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
             <span class="item_brdNname">
-                                    <div class="item_brd"><c:out value="${list.brdName}"/></div>
-                                    <div class="item_name" name="prdLink"
-                                         value="<c:out value="${list.prdCode}"/>"><c:out value="${list.prdName}"/></div>
-                                    <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out
-                                            value="${list.id}"/></div>
-                                </span>
+                <div class="item_brd"><c:out value="${list.brdName}"/></div>
+
+                <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>">
+                <c:choose>
+                    <c:when test="${fn:length(list.prdName) > 8}">
+                        <c:out value="${fn:substring(list.prdName,0,8)}"/>..
+                    </c:when>
+                    <c:otherwise>
+                        <c:out value="${list.prdName}"/>
+                    </c:otherwise>
+                </c:choose>
+                </div>
+
+                <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out
+                        value="${list.id}"/></div>
+            </span>
             <span class="item_prc"><c:out value="${list.dcPrc}"/>원</span>
             <span class="item_status">
                                 <div><c:out value="${list.codeName}"/></div>

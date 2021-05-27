@@ -128,18 +128,18 @@ let token = $("meta[name='_csrf']").attr("content");
 function conUpdate(con){
     return new Promise(function (resolve, reject){
 
-        console.log("conUpdate...")
-
         $.ajax({
             type:"POST",
             url: "/user/conUpdate",
             beforeSend: function (xhr){
                 xhr.setRequestHeader( header, token );
             },
-            data:{
-                "amount": -con,
-                "pntCode":"002"     // 인출
-            },
+            data:
+                JSON.stringify({
+                "chgQuty": -con,
+                "pntHistCode":"002"     // 인출
+                }),
+            contentType: 'application/json; charset=UTF-8',
             success:function (){
                 resolve("인출이 완료되었습니다.");
                 document.location.href = "/user/mypage/withdrawCon";

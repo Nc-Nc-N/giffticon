@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="templete.jsp"/>
@@ -58,8 +59,18 @@
             <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
             <span class="item_brdNname">
                 <div class="item_brd"><c:out value="${list.brdName}"/></div>
-                <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>"><c:out
-                        value="${list.prdName}"/></div>
+
+                <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>">
+                <c:choose>
+                    <c:when test="${fn:length(list.prdName) > 8}">
+                        <c:out value="${fn:substring(list.prdName,0,8)}"/>..
+                    </c:when>
+                    <c:otherwise>
+                        <c:out value="${list.prdName}"/>
+                    </c:otherwise>
+                </c:choose>
+                </div>
+
                 <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out value="${list.gftId}"/></div>
             </span>
             <span class="item_prc"><c:out value="${list.pymtPrc}"/>원</span>
@@ -72,7 +83,7 @@
             <div class="item_buttons">
 
                 <c:if test="${list.stusCode eq '거래확정대기'}">
-                    <button name="dealCmplBtn" class="btn btn-cmpl" value="<c:out value="${list.gftId}"/>">거래 확정
+                    <button name="dealCmplBtn" class="btn btn-cmpl" value="<c:out value="${list.gftId}"/>" id="<c:out value="${list.dealId}"/>">거래 확정
                     </button>
                 </c:if>
                 <c:if test="${list.stusCode eq '거래확정완료'}">
@@ -164,10 +175,12 @@
             actionForm.submit();
         });
 
+
         //구매확정 버튼
         $("button[name='dealCmplBtn']").on("click", function (i) {
             if (confirm("구매확정하시겠습니까? 확정 후 변경 불가합니다.")) {
                 actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
+                actionForm.append("<input type='hidden' name='dealId' value='" + $(this).attr("id") + "'>");
                 actionForm.attr("action", "/gifticon/stus005").attr("method", "post");
                 actionForm.submit();
             } else {

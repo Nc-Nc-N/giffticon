@@ -69,7 +69,7 @@
 
 
     <div class="main-logo">
-        <div class="home-logo"><a href="/user/home"><img src="/resources/img/logo.png"></a></div>
+        <div class="home-logo"><a href="/user/home"><img src="/resources/img/user-logo.jpg"></a></div>
     </div>
 
 
