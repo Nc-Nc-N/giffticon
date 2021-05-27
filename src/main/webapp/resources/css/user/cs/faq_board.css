@@ -11,3 +11,12 @@
 li{
     list-style: none;
 }
+
+.inner{
+    padding: 0 25px 0 35px;
+}
+
+.content{
+    background-color: #F5F4F4;
+    padding: 20px 0 20px 0;
+}

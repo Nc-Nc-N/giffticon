@@ -60,8 +60,7 @@
         </label>
 
         <div class="content" name="content_<c:out value="${status.index}"/>">
-            <div class="inner">
-                <p class="qna-a">Q. </p>
+            <div class="inner userQstInner">
                 <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/></p>
                 <a href="<c:out value="${qna.atchFilePath}"/>" download="<c:out value="${qna.atchFilePath}"/>"
                    class="atch-file" name="atchFilePath">
@@ -69,7 +68,7 @@
 
             </div>
             <div class="admin-inner">
-                <p class="qna-a">A. </p>
+                <p class="qna-a"></p>
                 <p><c:out value="${qna.ansCntnt}"/></p>
 
 
@@ -134,7 +133,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <input class="modify-id" type="hidden" name="id" value=''>
-                    <textarea class="modify-title" name="title"></textarea>
+                    <input class="modify-title" name="title" type="textarea">
                 </div>
 
                 <div class="modal-body">
@@ -283,7 +282,7 @@
             $(".search-selected").html("[판매]");
         }
 
-        $(".modify-title").html(psnl.title);
+        $(".modify-title").val(psnl.title);
 
         $(".modify-content").html(psnl.cntnt);
 

@@ -44,3 +44,7 @@
 .sub:hover{
     color: rgb(255, 88, 93);
 }
+
+.inner{
+    padding: 0 25px 0 35px;
+}

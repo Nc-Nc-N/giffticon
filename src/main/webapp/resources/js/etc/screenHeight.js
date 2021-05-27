@@ -9,8 +9,8 @@ function calculateContentLength(){
 
             let divLengthStr = $(this).css("height");
             let divLength = divLengthStr.substr(0,divLengthStr.length -2);
-            totalLengthMenuBody += parseInt(divLength);
-            totalLengthContainer += parseInt(divLength);
+            totalLengthMenuBody += parseInt(divLength) + 40;
+            totalLengthContainer += parseInt(divLength) + 40;
         }
 
     });

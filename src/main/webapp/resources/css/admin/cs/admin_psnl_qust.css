@@ -41,7 +41,7 @@
     cursor: pointer;
     border-radius: 5px;
     color: rgb(255, 88, 93);
-    background: rgb(245, 244, 244);
+    background: white;
     text-decoration: underline;
 }
 
@@ -103,7 +103,9 @@ li{
     /*border-bottom: 1px solid #dee2e6;*/
 }
 
-
+.inner{
+    padding: 0 25px 0 35px;
+}
 
 .inner a:link { color: #4b70fd; }
 

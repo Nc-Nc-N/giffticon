@@ -182,12 +182,14 @@
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
+        let filePath = originPath.length != 0 ? psnlqustpath + "/" + originPath : '';
+
         var form = {
             id: null,
             userId: userId,
             title: $(".td-title")[0].value,
             cntnt: $(".td-content")[0].value,
-            atchFilePath: psnlqustpath + "/" + originPath,
+            atchFilePath: filePath,
             adminId: null,
             ansCntnt: null,
             ansInDt: null,
