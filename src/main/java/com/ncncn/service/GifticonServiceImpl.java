@@ -133,4 +133,16 @@ public class GifticonServiceImpl implements GifticonService {
     public int checkGft(int gftId, int userId) {
         return gifticonMapper.checkGft(gftId, userId);
     }
+
+    @Override
+    public GifticonVO checkValidPrc(int gftId, int dcPrcVal){
+
+        try{
+            GifticonVO gifticon = gifticonMapper.checkValidPrc(gftId);
+            return gifticon;
+        }catch(Exception e){
+            return null;
+        }
+
+    }
 }

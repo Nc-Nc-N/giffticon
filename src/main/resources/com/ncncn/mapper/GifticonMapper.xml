@@ -509,4 +509,9 @@
         where id = #{gftId} and user_id = #{userId};
     </select>
 
+    <select id="checkValidPrc" resultType="com.ncncn.domain.GifticonVO">
+        select *
+        from gifticon
+        where id = #{gftId};
+    </select>
 </mapper>

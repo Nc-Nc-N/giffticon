@@ -336,10 +336,31 @@ $(document).ready(function(){
         });
         })
     }
+
+    function checkValidGft(){
+
+        return new Promise(function(resolve){
+
+            $.ajax({
+                url: '/checkValidGft/' + gftId +"/" + dcPrcVal,
+                type: 'get',
+                statusCode: {
+                    200: function(){ resolve(); },
+                    204: function(){ alert("판매가 취소된 상품입니다. 메인메뉴로 이동합니다.");
+                                    window.location.href="/user/home"; },
+                    417: function(){ alert("결제완료 전 상품가격이 변경되었습니다. 가격을 다시 확인해주세요.");
+                                    window.location.reload();}
+                }
+
+            })
+        })
+    }
     // 결제
     function order(method){
         if(method === '002'){
-            insertDeal(method).then((result) => payCon(result))
+            checkValidGft()
+                .then(() => insertDeal(method))
+                .then((result) => payCon(result))
                 .catch(error => alert(error));
         }
     }
