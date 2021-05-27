@@ -1,12 +1,14 @@
 package com.ncncn.task;
 
 import com.ncncn.domain.AutoPriceVO;
+import com.ncncn.domain.GifticonVO;
 import com.ncncn.mapper.GifticonMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +21,7 @@ public class AutoPriceUpdateTask {
     private GifticonMapper gifticonMapper;
 
     // 매일 0시 0분 1초에 자동설정가격 업데이트
+    @Transactional
     @Scheduled(cron="1 0 0 * * ?")
     public void updatePrices() {
 
@@ -26,6 +29,7 @@ public class AutoPriceUpdateTask {
             // 자동가격 설정된 기프티콘 중 자동할인율 변경구간(유효기간까지 59, 44, 29, 14일)에 해당되는 기프티콘 가져오기
             List<AutoPriceVO> list = gifticonMapper.getAutoPricedGifticon();
             log.info(list);
+            GifticonVO gft = new GifticonVO();
             for (AutoPriceVO gifticon : list) {
                 // 1. 각각의 gifticon 현재 할인구간을 계산한다
                 // 2. dc_prc와 dc_rate를 바꿔준다
@@ -50,6 +54,9 @@ public class AutoPriceUpdateTask {
                     log.info("id: " + id + " newPrice: " + dcPrc + " newDcRate: " + dcRate);
                 }
 
+                gft.setId(id);
+                gft.setDcPrc(prc);
+                gifticonMapper.insertDcPrcHist(gft);
             }
         } catch (Exception e) {
             e.printStackTrace();
