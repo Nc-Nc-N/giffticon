@@ -45,7 +45,7 @@
     <c:forEach items="${list}" var="qna" varStatus="status">
         <!-- 1st menu-->
         <input type="checkbox" class="list-id" name="trg1" id="acc<c:out value="${status.index+1}"/>">
-        <label for="acc<c:out value="${status.index+1}"/>">
+        <label class="contentList" name="<c:out value="${status.index}"/>" for="acc<c:out value="${status.index+1}"/>">
             <span class="qna-q">Q. </span><c:out value="${qna.csCateCode == '001' ? '[구매]':'[판매]'}"/>
             <c:out value="${qna.title}"/>
             <button id="<c:out value='${qna.id}'/>" class="btn-no btn-erase">
@@ -59,7 +59,7 @@
             </button>
         </label>
 
-        <div class="content">
+        <div class="content" name="content_<c:out value="${status.index}"/>">
             <div class="inner">
                 <p class="qna-a">Q. </p>
                 <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/></p>
@@ -182,10 +182,24 @@
 </div>
 <!-- end Modal -->
 
-
+<script type="text/javascript" src="/resources/js/etc/screenHeight.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        $(".contentList").on("click", function(){
+
+            let listNum = "content_" + $(this).attr("name");
+            let divDisplay = $("div[name=" + listNum + "]").css("display");
+
+            if(divDisplay == "none"){
+                $("div[name=" + listNum + "]").css("display","block");
+            }else{
+                $("div[name=" + listNum + "]").css("display","none");
+            }
+
+            calculateContentLength();
+        })
 
         $("#psnlQ-link").attr("class", "menu active");
 

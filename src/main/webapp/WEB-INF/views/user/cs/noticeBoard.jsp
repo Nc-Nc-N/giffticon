@@ -49,10 +49,10 @@
     <c:forEach items="${list}" var="notice" varStatus="status">
         <!-- 1st menu-->
         <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">
-        <label for="acc<c:out value="${status.index+1}"/>"><c:out value="${notice.csCateCode == '003' ? '[공지]':'[이벤트]'}"/> <c:out value="${notice.title}"/>
+        <label class="contentList" name="<c:out value="${status.index}"/>" for="acc<c:out value="${status.index+1}"/>"><c:out value="${notice.csCateCode == '003' ? '[공지]':'[이벤트]'}"/> <c:out value="${notice.title}"/>
             <span class="no-date"><fmt:formatDate value="${notice.startDt}" pattern="yyyy-MM-dd"/></span>
         </label>
-        <div class="content">
+        <div class="content" name="content_<c:out value="${status.index}"/>">
             <div class="inner">
                 <p><c:out value="${notice.cntnt}"/></p>
             </div>
@@ -65,6 +65,7 @@
 <!-- end accordionMenu-->
 
 <!-- pagenation-->
+<div class="space50"></div>
 <div class="pagination">
     <c:if test="${pageMaker.prev}">
         <li>
@@ -90,14 +91,36 @@
     <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
     <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
 </form>
-
+<div class="space100"></div>
 </div>
 </div>
 </div>
 </div>
 
 <%@include file="/WEB-INF/views/common/footer.jsp"%>
+<script type="text/javascript" src="/resources/js/etc/screenHeight.js"></script>
+<script>
 
+    $(document).ready(function(){
+
+        $(".contentList").on("click", function(){
+
+            let listNum = "content_" + $(this).attr("name");
+            let divDisplay = $("div[name=" + listNum + "]").css("display");
+
+            if(divDisplay == "none"){
+                $("div[name=" + listNum + "]").css("display","block");
+            }else{
+                $("div[name=" + listNum + "]").css("display","none");
+            }
+
+            calculateContentLength();
+        })
+
+    })
+
+
+</script>
 <script type="text/javascript">
     //검색
     var searchForm = $("#searchForm");

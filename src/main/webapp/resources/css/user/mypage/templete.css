@@ -9,9 +9,16 @@ body {
 
 #container {
     width: 1000px;
-    height: fit-content;
+    height: 850px;
     margin: auto;
 }
+
+#cs-container{
+    width: 1000px;
+    height: 930px;
+    margin: auto;
+}
+
 
 .space30 {
     height: 30px;
@@ -33,7 +40,12 @@ body {
 
 .main {
     width: 1000px;
-    height: fit-content;
+    height: 930px;
+}
+
+.cs-main{
+    width: 1000px;
+    height: 930px;
 }
 
 .menuhead {
@@ -57,6 +69,12 @@ body {
 
 .menubody {
     height: fit-content;
+    width: 1000px;
+    display: flex;
+}
+
+.cs-menubody{
+    height: 850px;
     width: 1000px;
     display: flex;
 }
@@ -152,7 +170,7 @@ body {
 }
 
 .full-content{
-    height: fit-content;
+    height: 850px;
     width: 750px;
     margin: 0 0 0 50px;
 }
