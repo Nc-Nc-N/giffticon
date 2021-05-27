@@ -1,9 +1,10 @@
-*, ::after, ::before{
-    box-sizing: border-box;
-}
+/**, ::after, ::before{*/
+/*    box-sizing: border-box;*/
+/*}*/
 
 .content{
     margin: 0 0 0 0;
+    display: none;
 }
 
 .emptyspace{
@@ -17,7 +18,7 @@
 }
 
 .sub-category-btn-all, .sub-category-btn-notice, .sub-category-btn-event{
-    width: 33%;
+    width: 32.5%;
     height: 35px;
     border: none;
     background-color: white;
@@ -42,4 +43,8 @@
 
 .sub:hover{
     color: rgb(255, 88, 93);
+}
+
+.inner{
+    padding: 0 25px 0 35px;
 }

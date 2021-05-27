@@ -3,12 +3,12 @@
 
 <body>
 
-<div id="container">
+<div id="cs-container">
     <div class="space"></div>
-    <div class="main">
+    <div class="cs-main">
         <div class="menuhead">
         </div>
-        <div class="menubody">
+        <div class="cs-menubody">
             <div class="sidebarspace">
                 <div class="menuname">고객센터</div>
                 <div class="sidebar"> <!--사이드 바 영역 (필요한만큼 영역 늘리기)-->
