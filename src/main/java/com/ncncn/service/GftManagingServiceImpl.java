@@ -62,8 +62,8 @@ public class GftManagingServiceImpl implements GftManagingService {
         PrcUpdateVO prcUpdate = new PrcUpdateVO();
         prcUpdate.setGftId(id);
 
-        int gftIdforUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
-        gifticonMapper.updateDcPrcHist(gftIdforUpdate);
+        int gftIdForUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
+        gifticonMapper.updateDcPrcHist(gftIdForUpdate);
 
         GifticonVO gifticon = new GifticonVO();
         gifticon.setId(id);

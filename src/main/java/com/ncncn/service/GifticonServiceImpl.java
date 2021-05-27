@@ -47,8 +47,9 @@ public class GifticonServiceImpl implements GifticonService {
     public int updateGftPrc(PrcUpdateVO prcUpdate) {
 
         int result =  gifticonMapper.updateGftPrc(prcUpdate.getGftId(),prcUpdate.getIsAutoPrc(),prcUpdate.getDcPrc(), prcUpdate.getDcRate());
-        int gftIdforUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
-        gifticonMapper.updateDcPrcHist(gftIdforUpdate);
+
+        int gftIdForUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
+        gifticonMapper.updateDcPrcHist(gftIdForUpdate);
 
         GifticonVO gifticon = new GifticonVO();
         gifticon.setId(prcUpdate.getGftId());
@@ -152,4 +153,6 @@ public class GifticonServiceImpl implements GifticonService {
     public int checkGft(int gftId, int userId) {
         return gifticonMapper.checkGft(gftId, userId);
     }
+
+
 }
