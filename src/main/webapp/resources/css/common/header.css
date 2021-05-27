@@ -59,7 +59,7 @@ a {
     width: 1000px;
     margin: auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     font-size: 16px;
     font-weight: 600;
 }
@@ -453,7 +453,7 @@ a:hover, a:active {
 
 .tooltip-text:after, .tooltip-text:before {
     bottom: 100%;
-    left: 26%;
+    left: 28%;
     border: solid transparent;
     content: "";
     height: 0;
