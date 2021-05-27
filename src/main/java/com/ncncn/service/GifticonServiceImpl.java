@@ -47,15 +47,8 @@ public class GifticonServiceImpl implements GifticonService {
     public int updateGftPrc(PrcUpdateVO prcUpdate) {
 
         int result =  gifticonMapper.updateGftPrc(prcUpdate.getGftId(),prcUpdate.getIsAutoPrc(),prcUpdate.getDcPrc(), prcUpdate.getDcRate());
-
-        int gftIdForUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
-        gifticonMapper.updateDcPrcHist(gftIdForUpdate);
-
-        GifticonVO gifticon = new GifticonVO();
-        gifticon.setId(prcUpdate.getGftId());
-        gifticon.setDcPrc(prcUpdate.getDcPrc());
-
-        gifticonMapper.insertDcPrcHist(gifticon);
+        updateDcPrcHistEndDt(prcUpdate);
+        insertDcPrcHist(prcUpdate.getGftId(), prcUpdate.getDcPrc());
 
         return result;
     }
@@ -154,5 +147,19 @@ public class GifticonServiceImpl implements GifticonService {
         return gifticonMapper.checkGft(gftId, userId);
     }
 
+    // 현재 가격수정이력 row의 end_dt 컬럼에 변경시간을 입력하는 메서드
+    private void updateDcPrcHistEndDt(PrcUpdateVO prcUpdate) {
+        int gftIdForUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
+        gifticonMapper.updateDcPrcHist(gftIdForUpdate);
+    }
+
+    // 새로운 가격수정이력 row를 insert하는 메서드
+    private void insertDcPrcHist(int id, int dcPrc) {
+        GifticonVO gifticon = new GifticonVO();
+        gifticon.setId(id);
+        gifticon.setDcPrc(dcPrc);
+
+        gifticonMapper.insertDcPrcHist(gifticon);
+    }
 
 }

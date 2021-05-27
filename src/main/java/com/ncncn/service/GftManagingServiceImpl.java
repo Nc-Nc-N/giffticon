@@ -62,14 +62,9 @@ public class GftManagingServiceImpl implements GftManagingService {
         PrcUpdateVO prcUpdate = new PrcUpdateVO();
         prcUpdate.setGftId(id);
 
-        int gftIdForUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
-        gifticonMapper.updateDcPrcHist(gftIdForUpdate);
+        updateDcPrcHistEndDt(prcUpdate);
+        insertDcPrcHist(id, Integer.parseInt(rqust.get("dcPrc")));
 
-        GifticonVO gifticon = new GifticonVO();
-        gifticon.setId(id);
-        gifticon.setDcPrc(Integer.parseInt(rqust.get("dcPrc")));
-
-        gifticonMapper.insertDcPrcHist(gifticon);
     }
 
     @Override
@@ -105,4 +100,20 @@ public class GftManagingServiceImpl implements GftManagingService {
 
     @Override
     public int autoDealCmpl(List<DealDetailVO> gftList) { return gifticonMapper.autoDealCmpl(gftList); }
+
+    // 현재 가격수정이력 row의 end_dt 컬럼에 변경시간을 입력하는 메서드
+    private void updateDcPrcHistEndDt(PrcUpdateVO prcUpdate) {
+        int gftIdForUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
+        gifticonMapper.updateDcPrcHist(gftIdForUpdate);
+    }
+
+    // 새로운 가격수정이력 row를 insert하는 메서드
+    private void insertDcPrcHist(int id, int dcPrc) {
+        GifticonVO gifticon = new GifticonVO();
+        gifticon.setId(id);
+        gifticon.setDcPrc(dcPrc);
+
+        gifticonMapper.insertDcPrcHist(gifticon);
+    }
+
 }
