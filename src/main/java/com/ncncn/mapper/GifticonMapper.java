@@ -61,6 +61,10 @@ public interface GifticonMapper {
 
 	public void registerGifticon(GifticonVO gifticon);
 
+	public void insertDcPrcHist(GifticonVO gifticon);
+
+	public int getGftIdByBarcode(String brcd);
+
 	//지도 - 메인기프티콘
 	public List<ProdListVO> getMainGftByBrandName(String brdName);
 

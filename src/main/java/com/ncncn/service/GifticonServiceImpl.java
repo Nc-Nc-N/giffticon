@@ -9,6 +9,7 @@ import com.ncncn.mapper.GifticonMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -94,10 +95,17 @@ public class GifticonServiceImpl implements GifticonService {
         return gifticonMapper.getDeadlineGifti();
     }
 
+    @Transactional
     @Override
     public void registerGifticon(GifticonVO gifticon) {
-
+        // gifticon 등록
         gifticonMapper.registerGifticon(gifticon);
+        // 바코드번호로 등록된 기프티콘 id 가져오기
+        String brcd = gifticon.getBrcd();
+        int newId = gifticonMapper.getGftIdByBarcode(brcd);
+        // gifticonVO에 가져온 id값 입력하고 dc_prc_hist table에 insert
+        gifticon.setId(newId);
+        gifticonMapper.insertDcPrcHist(gifticon);
     }
 
     @Override
