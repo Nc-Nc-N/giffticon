@@ -14,7 +14,7 @@
 </div>
 <div class="item_info">
     <div class="item_img gifticon-img">
-        <img src="<c:out value='${gftInfo.gftImgPath}'/>">
+        <a class="gft-img-btn" href="<c:out value='${gftInfo.gftImgPath}'/>"><img src="/resources/img/gft-img.png"></a>
     </div>
     <div class="item_nameNcode">
         <div class="item_code">
@@ -88,6 +88,12 @@
             } else {
                 return;
             }
+        });
+
+        $(".gft-img-btn").on("click", function (e) {
+            e.preventDefault();
+
+            window.open($(this).attr("href"), "gifticon img", "width=700, height=900");
         });
     });
 </script>

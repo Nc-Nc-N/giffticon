@@ -11,8 +11,9 @@
 }
 
 #content {
-    width: 100%;
+    width: 80%;
     height: 80%;
+    margin: auto;
 }
 
 .email_section {
@@ -64,8 +65,8 @@ h2 {
 }
 
 h3 {
-    margin-left: 20px;
-    width: 180px;
+    /*margin-left: 20px;*/
+    width: 120px;
     font-weight: lighter;
 }
 

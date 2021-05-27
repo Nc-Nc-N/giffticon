@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<link rel="stylesheet" href="mypage_selling_products_detail_modify.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/mypage/mypage_selling_products_detail_modify.css" type="text/css">
 
 <div id="register-content" tabindex="-1" role="dialog" aria-hidden="true">
     <h2>상품 정보 수정</h2>
@@ -38,14 +38,13 @@
             <div class="date-search">
                 <h4><fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.expirDt}"/></h4>
             </div>
-
         </div>
+
         <div class="date_section">
             <h3>정가</h3>
             <div class="date-search">
                 <h4><c:out value="${gftInfo.listPrc}"/>원</h4>
             </div>
-
         </div>
 
         <div class="price_section">

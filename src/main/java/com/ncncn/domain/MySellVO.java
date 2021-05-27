@@ -60,4 +60,5 @@ public class MySellVO {
     //판매자 메세지
     private String descn;
 
+
 }

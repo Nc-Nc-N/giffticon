@@ -24,17 +24,21 @@
 .item_img {
     width: 200px;
     height: 90%;
-    /*margin-left: 30px;*/
     overflow: hidden;
     text-align: center;
-}
-
-.item_img > img {
-    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .gifticon-img img {
-    height: 100%;
+    width: auto;
+    height: 200px;
+}
+
+.gft-img-btn {
+    width: auto;
+    height: 200px;
 }
 
 .item_nameNcode {
