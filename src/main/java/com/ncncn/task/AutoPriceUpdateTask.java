@@ -2,6 +2,7 @@ package com.ncncn.task;
 
 import com.ncncn.domain.AutoPriceVO;
 import com.ncncn.domain.GifticonVO;
+import com.ncncn.domain.PrcUpdateVO;
 import com.ncncn.mapper.GifticonMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -30,6 +31,7 @@ public class AutoPriceUpdateTask {
             List<AutoPriceVO> list = gifticonMapper.getAutoPricedGifticon();
             log.info(list);
             GifticonVO gft = new GifticonVO();
+            PrcUpdateVO prcUpdate = new PrcUpdateVO();
             for (AutoPriceVO gifticon : list) {
                 // 1. 각각의 gifticon 현재 할인구간을 계산한다
                 // 2. dc_prc와 dc_rate를 바꿔준다
@@ -54,9 +56,10 @@ public class AutoPriceUpdateTask {
                     log.info("id: " + id + " newPrice: " + dcPrc + " newDcRate: " + dcRate);
                 }
 
-                gft.setId(id);
-                gft.setDcPrc(prc);
-                gifticonMapper.insertDcPrcHist(gft);
+                prcUpdate.setGftId(id);
+                updateDcPrcHistEndDt(prcUpdate);
+
+                insertDcPrcHist(gft, id, prc);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,6 +89,20 @@ public class AutoPriceUpdateTask {
     // 자동입력가격은 할인율(기본할인율 + 날짜별 추가할인율) 적용 후 일의자리에서 반올림
     private int getDcPrc(int prc, double dcRate) {
         return (int)(Math.round(prc * (1 - dcRate) / 10.0) * 10);
+    }
+
+    // 현재 가격수정이력 row의 end_dt 컬럼에 변경시간을 입력하는 메서드
+    private void updateDcPrcHistEndDt(PrcUpdateVO prcUpdate) {
+        int gftIdForUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
+        gifticonMapper.updateDcPrcHist(gftIdForUpdate);
+    }
+
+    // 새로운 가격수정이력 row를 insert하는 메서드
+    private void insertDcPrcHist(GifticonVO gifticon, int id, int dcPrc) {
+        gifticon.setId(id);
+        gifticon.setDcPrc(dcPrc);
+
+        gifticonMapper.insertDcPrcHist(gifticon);
     }
 
 }
