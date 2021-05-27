@@ -42,10 +42,21 @@ public class GifticonServiceImpl implements GifticonService {
         return gifticonMapper.deleteGifticon(gftId);
     }
 
+    @Transactional
     @Override
     public int updateGftPrc(PrcUpdateVO prcUpdate) {
 
-        return gifticonMapper.updateGftPrc(prcUpdate.getGftId(),prcUpdate.getIsAutoPrc(),prcUpdate.getDcPrc(), prcUpdate.getDcRate());
+        int result =  gifticonMapper.updateGftPrc(prcUpdate.getGftId(),prcUpdate.getIsAutoPrc(),prcUpdate.getDcPrc(), prcUpdate.getDcRate());
+        int gftIdforUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
+        gifticonMapper.updateDcPrcHist(gftIdforUpdate);
+
+        GifticonVO gifticon = new GifticonVO();
+        gifticon.setId(prcUpdate.getGftId());
+        gifticon.setDcPrc(prcUpdate.getDcPrc());
+
+        gifticonMapper.insertDcPrcHist(gifticon);
+
+        return result;
     }
 
     @Override
