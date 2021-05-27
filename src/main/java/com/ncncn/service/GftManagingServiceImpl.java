@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ncncn.domain.DealDetailVO;
 import com.ncncn.domain.GifticonVO;
+import com.ncncn.domain.PrcUpdateVO;
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.SaleGftCriteria;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
@@ -57,6 +58,18 @@ public class GftManagingServiceImpl implements GftManagingService {
         // 기프티콘 상태(판매요청 -> 판매중), 상품코드, 판매가, 할인율 변경
         gifticonMapper.updateSaleRqust(id, rqust.get("prodCode"), Integer.parseInt(rqust.get("dcPrc")), Double.parseDouble(rqust.get("dcRate")));
         productMapper.updateRegQuty(rqust.get("prodCode"));     // prodCode에 해당하는 상품의 기프티콘 개수  + 1
+
+        PrcUpdateVO prcUpdate = new PrcUpdateVO();
+        prcUpdate.setGftId(id);
+
+        int gftIdforUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
+        gifticonMapper.updateDcPrcHist(gftIdforUpdate);
+
+        GifticonVO gifticon = new GifticonVO();
+        gifticon.setId(id);
+        gifticon.setDcPrc(Integer.parseInt(rqust.get("dcPrc")));
+
+        gifticonMapper.insertDcPrcHist(gifticon);
     }
 
     @Override
