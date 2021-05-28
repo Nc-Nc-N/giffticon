@@ -11,10 +11,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>--%>
-<%--<script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>--%>
-<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--%>
-
 <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
@@ -120,8 +116,6 @@
                     absLoader(userId);
 
                     function absLoader(userId) {
-                        console.log("userId type : " + typeof (userId));
-
                         $.ajax({
                             url: '/user/mypage/absLoader',
                             type: 'get',
