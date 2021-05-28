@@ -60,10 +60,11 @@
         <div class="content" name="content_<c:out value="${status.index}"/>">
 
             <div class="inner userQstInner">
-                <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/>
-                    &nbsp;&nbsp;
-                    <button class="btn img_show" value="<c:out value="${qna.atchFilePath}"/>">첨부파일</button></p>
-
+                <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/>&nbsp;&nbsp;
+                <c:if test="${qna.atchFilePath != ''}">
+                <button class="btn img_show" value="<c:out value="${qna.atchFilePath}"/>">첨부파일</button>
+                </c:if>
+                </p>
             </div>
             <div class="admin-inner">
                 <p class="qna-a"></p>
