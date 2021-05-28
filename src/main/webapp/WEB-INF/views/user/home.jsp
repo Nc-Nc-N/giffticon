@@ -45,7 +45,7 @@
                 <div class="mapicon">
                     <a href="/user/gifticon/map" class="map-main">
                         <div class="map-img">
-                            <img src="/resources/img/map-img.png">
+                            <img src="/resources/img/map.jpeg">
                         </div>
                         <div class="map-txt">
                             <span>현재 위치에서 기쁘티콘 찾기
