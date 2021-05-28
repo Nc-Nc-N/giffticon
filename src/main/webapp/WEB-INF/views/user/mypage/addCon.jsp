@@ -129,8 +129,8 @@
             }, function (rsp) {
                 console.log(rsp);
                 if (rsp.success) {
-                    var msg = '충전 완료되었습니다. ';
-                    msg += '충전 금액 : ' + rsp.paid_amount;
+                    var msg = "결제가 완료되었습니다.";
+                    msg += '결제 금액 : ' + rsp.paid_amount;
 
                     $.ajax({
                         type: "POST",
@@ -138,9 +138,17 @@
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                         },
-                        data: {
-                            "amount": money,
-                            "pntCode": "001"        // 충전
+                        data:
+                            JSON.stringify({
+                            "chgQuty": money,
+                            "pntHistCode": "001"        // 충전
+                            }),
+                        contentType: 'application/json; charset=UTF-8',
+                        async: false,
+                        success: function (){
+                        },
+                        error:function (){
+                            alert('충전 업데이트에 실패하였습니다. 관리자에게 문의해주시기 바랍니다.')
                         }
 
                     });

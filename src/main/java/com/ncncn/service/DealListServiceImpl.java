@@ -1,5 +1,6 @@
 package com.ncncn.service;
 
+import com.ncncn.domain.DealDetailVO;
 import com.ncncn.domain.pagination.MyPageCriteria;
 import com.ncncn.domain.MyDealsVO;
 import com.ncncn.mapper.DealListMapper;
@@ -55,16 +56,11 @@ public class DealListServiceImpl implements DealListService {
     }
 
     @Override
-    public boolean insertDeal(int userId, int gftId, int dcPrc, String metdStus) {
+    public int insertDeal(DealDetailVO dealDetailVO){
 
-        try{
-            dealListMapper.insertDeal(userId, gftId, dcPrc, metdStus);
-            log.info("insert into deal_detail 성공");
-            return true;
-        } catch (Exception e){
-            log.info("insert into deal_detail 실패");
-            return false;
-        }
+        log.info("insertDeal...");
+        dealListMapper.insertDeal(dealDetailVO);
+        return dealDetailVO.getId();
     }
 
 }

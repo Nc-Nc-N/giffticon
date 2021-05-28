@@ -81,7 +81,7 @@
             <div class="item_buttons">
 
                 <c:if test="${list.stusCode eq '거래확정대기'}">
-                    <button name="dealCmplBtn" class="btn btn-cmpl" value="<c:out value="${list.gftId}"/>">거래확정
+                    <button name="dealCmplBtn" class="btn btn-cmpl" value="<c:out value="${list.gftId}"/>" id="<c:out value="${list.dealId}"/>">거래 확정
                     </button>
                 </c:if>
                 <c:if test="${list.stusCode eq '거래확정완료'}">
@@ -174,10 +174,12 @@
             actionForm.submit();
         });
 
+
         //구매확정 버튼
         $("button[name='dealCmplBtn']").on("click", function (i) {
             if (confirm("구매확정하시겠습니까? 확정 후 변경 불가합니다.")) {
                 actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
+                actionForm.append("<input type='hidden' name='dealId' value='" + $(this).attr("id") + "'>");
                 actionForm.attr("action", "/gifticon/stus005").attr("method", "post");
                 actionForm.submit();
             } else {

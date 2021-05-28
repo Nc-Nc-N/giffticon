@@ -23,6 +23,7 @@ public class AutoPriceUpdateTask {
     public void updatePrices() {
 
         try {
+            // 자동가격 설정된 기프티콘 중 자동할인율 변경구간(유효기간까지 59, 44, 29, 14일)에 해당되는 기프티콘 가져오기
             List<AutoPriceVO> list = gifticonMapper.getAutoPricedGifticon();
             log.info(list);
             for (AutoPriceVO gifticon : list) {
@@ -60,6 +61,7 @@ public class AutoPriceUpdateTask {
         Date today = new Date();
         long diffInMillies = expDt.getTime() - today.getTime();
         int dateDiff = (int)Math.ceil(diffInMillies/(1000 * 3600 * 24.0));
+
         log.info("dateDiff: " + dateDiff);
 
         // 할인율 구간 구분
