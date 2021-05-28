@@ -40,16 +40,57 @@
     border: 1px solid gainsboro;
 }
 
-.content
-
-.inner{
-    padding: 0 25px 0 35px;
+.content{
+    width: 100%;
+    height: 100%;
+    margin: 0 0 0 0;
+    /*padding: 0 25px 0 35px;*/
 }
 
-.userQstInner{
-    margin: 10px 0 10px 0;
+.userQstInner, .admin-inner{
+    padding: 10px 25px 10px 35px;
+    font-size: 16px;
+    color: #333333;
 }
 
+.img_show{
+    background-color: white;
+    border: 1px solid rgb(71, 71, 71);
+    color: #333333;
+    cursor: pointer;
+    width: 60px;
+    height: 20px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+.wait{
+    background-color:rgb(255,88,93);
+    /*border: 1px solid rgb(71, 71, 71);*/
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    border-radius: 0px;
+    font-size: 12px;
+}
+.finish{
+    background-color:gainsboro;
+    /*border: 1px solid rgb(71, 71, 71);*/
+    color: #333;
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    border-radius: 0px;
+    font-size: 12px;
+}
+
+.modify{
+    z-index: 1;
+    color: rgb(255,88,93);
+    font-size:14px;
+    border: none;
+    background-color: unset;
+}
 
 
 

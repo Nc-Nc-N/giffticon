@@ -56,51 +56,7 @@
 <div id="qna-write">
     <button type="submit" class="btn btn-active">저장</button>
 </div>
-<%--<table id="t1" width=100%>--%>
-<%--    <thead>--%>
-<%--    <tr>--%>
-<%--        <th class="t11">문의유형</th>--%>
-<%--        <th class="t12">제목</th>--%>
-<%--        <th class="t15">내용</th>--%>
-<%--        <th class="t16">파일</th>--%>
-<%--    </tr>--%>
-<%--    </thead>--%>
-<%--    <tbody>--%>
-<%--    <tr>--%>
-<%--        <input type="hidden" class="register-user-id" name="userId" value="">--%>
-<%--        <input type="hidden" class="register-stus" name="stusCode" value="000">--%>
-<%--        <td class="t21">--%>
-<%--            <select class="td-select" name="csCateCode">--%>
-<%--                <option value="001">구매</option>--%>
-<%--                <option value="002">판매</option>--%>
-<%--            </select>--%>
-<%--        </td>--%>
-<%--        <td class="t22">--%>
-<%--            <input type="text" class="td-title" name="title">--%>
-<%--        </td>--%>
-<%--        <td class="t25">--%>
-<%--            <div class="td-div-intro">--%>
-<%--                <p>1:1문의 작성 전 확인해주세요!<br>--%>
-<%--                    기쁘티콘에서 구매하신 쿠폰은 프로모션 상품, 또는 리셀링된 쿠폰입니다.<br>--%>
-<%--                    추후 문제가 발생할 우려가 있어 바코드 이미지 노출 이후 단순 변심, 주문 실수 등의 사유로 환불 및 교환이 불가합니다.<br>--%>
-<%--                    해당 내용은 구매 페이지에 안내되어 있으니 참고 부탁드립니다.--%>
-<%--                </p>--%>
-<%--            </div>--%>
-<%--            <div class="td-div-content">--%>
-<%--                <textarea type="text" class="td-content" name="cntnt"></textarea>--%>
-<%--            </div>--%>
-<%--        </td>--%>
-<%--        <td class="t26">--%>
 
-<%--            <input type="file" class="file-input" name="uploadFile"--%>
-<%--                   accept="image/jpeg, image/jpg, image/png">--%>
-<%--        </td>--%>
-
-<%--    </tr>--%>
-
-<%--    </tbody>--%>
-<%--</table>--%>
-<%--                    </form>--%>
 </div>
 </div>
 </div>
@@ -115,7 +71,7 @@
 
     let userId = "<c:out value="${userId}"/>";
 
-    let psnlqustpath = "<spring:eval expression="@psnlqustpath['path']"/>";
+    let psnlqustpath = "<spring:eval expression="@imgPath['path']"/>";
     let originPath = ""; //table의 atch_file_path에 들어갈 변수
 
     //파일 확장자 및 크기 사전 처리
@@ -214,7 +170,7 @@
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
-        let filePath = originPath.length != 0 ? "/user/display?fileName=" + "/pnslQust/" + originPath : '';
+        let filePath = originPath.length != 0 ? "/user/display?fileName=/psnlQust/" + originPath : '';
 
         var form = {
             id: null,

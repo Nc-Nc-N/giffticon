@@ -50,25 +50,26 @@
                     id="<c:out value='${qna.id}'/>">
                 <c:out value="${qna.stusCode == '001' ? '답변완료':'답변대기'}"/>
             </button>
-            <button class="btn-ans-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
-                    id="<c:out value='${qna.id}'/>">수정
-            </button>
+
+            <c:if test="${qna.stusCode == '000'}">
+                <button class="btn-ans-modify modify" id="<c:out value='${qna.id}'/>">수정</button>
+            </c:if>
+
         </label>
 
         <div class="content" name="content_<c:out value="${status.index}"/>">
+
             <div class="inner userQstInner">
-                <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/></p>
-                <a href="<c:out value="${qna.atchFilePath}"/>" download="<c:out value="${qna.atchFilePath}"/>"
-                   class="atch-file" name="atchFilePath">
-                    <c:out value="${qna.atchFilePath}"/></a>
+                <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/>
+                    &nbsp;&nbsp;
+                    <button class="btn img_show" value="<c:out value="${qna.atchFilePath}"/>">첨부파일</button></p>
 
             </div>
             <div class="admin-inner">
                 <p class="qna-a"></p>
                 <p><c:out value="${qna.ansCntnt}"/></p>
-
-
             </div>
+
         </div>
     </c:forEach>
     <c:if test="${list.size() == 0}">
@@ -81,7 +82,7 @@
 <div id="notion-write">
 
     <%--1:1 문의 register btn--%>
-    <button class="btn btn-active">1:1문의</button>
+    <button class="btn btn-active" id="reg-psnQust">1:1문의</button>
 
     <!-- pagenation-->
     <div class="pagination">
@@ -220,25 +221,17 @@
             actionForm.submit();
         });
 
-
-        //답변상태, 수정 css 변경
-        $(".finish").css({
-            "background-color": "rgb(71, 71, 71)",
-            "color": "white"
-        });
-
-
     });
 
     //1:1문의 register 이동
-    $(".btn-active").on("click", function () {
+    $("#reg-psnQust").on("click", function () {
         console.log("1:1문의");
         self.location = "/user/mypage/psnlQustBoard/register";
     });
 
 
     //modify modal
-    $(".wait").on("click", function () {
+    $(".modify").on("click", function () {
 
 
         var modifyForm = $("form");
@@ -361,6 +354,21 @@
         });
 
     }); //end delete
+
+
+</script>
+<script>
+
+    $(document).ready(function (){
+
+        $(".img_show").on("click", function(){
+
+            let imgPath = $(this).val();
+
+            window.open($(this).val(), "gifticon img", "width=700, height=900");
+        });
+
+    })
 
 
 </script>
