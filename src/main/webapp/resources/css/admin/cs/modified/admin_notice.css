@@ -1,0 +1,317 @@
+body {
+    font-weight: 400;
+}
+
+h2 {
+    line-height: unset;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.search-area {
+    display: flex;
+    float: right;
+    margin-right: 5%;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    border-radius: unset;
+    background: white;
+}
+
+.search-input {
+    border: none;
+    width: 130px;
+    height: 30px;
+    background-color: rgb(245, 244, 244);
+    border-radius: 40px;
+    color: rgb(71, 71, 71);
+}
+
+.search-input-area {
+    display: inline-block;
+    float: right;
+    width: 300px;
+    height: 30px;
+    border-radius: 40px;
+    background: rgb(245, 244, 244);
+}
+
+.accordionMenu {
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 5%;
+}
+
+.accordionMenu input[type=checkbox] {
+    display: none;
+}
+
+.accordionMenu label {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 25px 0 10px;
+    background-color: white;
+    font-size: 16px;
+    color: rgb(71, 71, 71);
+    position: relative;
+    cursor: pointer;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.no-date {
+    font-size: 10px;
+    color: darkgrey;
+}
+
+.noSearchResult {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: large;
+    margin-top: 100px;
+}
+
+.btn-no {
+    border: none;
+    width: 30px;
+    height: 20px;
+    border-radius: 5px;
+    margin-right: 15px;
+    font-size: 12px;
+    outline: none;
+    position: relative;
+    float: right;
+    right: 5%;
+    top: 25%;
+    cursor: pointer;
+    line-height: normal;
+}
+
+.btn-modify {
+    background-color: rgb(255, 88, 93);
+    color: white;
+}
+
+.btn-modify:hover {
+    color: black;
+}
+
+.btn-erase {
+    font-size: large;
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.btn-active {
+    margin-top: 13px;
+}
+
+/* 페이지네이션 css */
+.pagination {
+    margin-right: 5%;
+    display: flex;
+    margin-top: 15px;
+    float: right;
+    margin-bottom: 50px;
+}
+
+.pagination a {
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: rgb(71, 71, 71);
+    background-color: rgb(245, 244, 244);
+    margin: 0 3px 0 3px;
+    border-radius: 5px;
+}
+
+.pagination a.active {
+    background-color: rgb(255, 88, 93);
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: rgb(255, 88, 93);
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination > li {
+    list-style: none;
+}
+
+/*modal css*/
+.modal{
+    z-index: 2;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(80, 80, 80, 0.4);
+}
+
+.modal-content {
+    position: absolute;
+    top: calc(40vh - 100px);
+    left: calc(40vw - 200px);
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+#delete-content {
+    width: 500px;
+    height: 200px;
+}
+
+#modify-content {
+    width: 800px;
+    height: 500px;
+}
+
+#register-content {
+    width: 800px;
+    height: 500px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    margin: 10px;
+}
+
+#delete-header {
+    height: 50px;
+}
+
+#modify-header {
+    height: 110px;
+}
+
+#register-header {
+    height: 110px;
+}
+
+.modal-header textarea {
+    width: 780px;
+    height: 35px;
+    font-size: 20px;
+    resize: none;
+    border-color: #dee2e6;
+}
+
+.modify-title, .register-title {
+    margin-top: 3px;
+}
+
+.modify-fixed {
+    margin-left: 5px;
+}
+
+.modal-body {
+    margin: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-body textarea {
+    width: 780px;
+    height: 290px;
+    font-size: 17px;
+    resize: none;
+    border-color: #dee2e6;
+}
+
+#delete-body {
+    height: 60px;
+}
+
+#modify-body {
+    height: 300px;
+}
+
+#register-body {
+    height: 300px;
+}
+
+.delete-question {
+    font-size: 25px;
+    margin: 10px;
+}
+
+.modal-search-area {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.register-fixed, .register-end-dt {
+    margin-top: 10px;
+}
+
+.search-selected {
+    margin: 10px;
+}
+
+.modify-fixed {
+    margin-left: 10px;
+}
+
+.modal span, .de-cntnt {
+    font-size: 1rem;
+    margin: 10px;
+}
+
+.btn-register {
+    background-color: rgb(255, 88, 93);
+    color: white;
+}
+
+.btn-cancel {
+    color: rgb(55, 55, 55);
+}
+
+.btn-register, .btn-cancel {
+    float: right;
+    margin: 10px;
+}
+
+.content{
+    display: none;
+    padding: 0 25px 0 10px;
+    background-color: #F5F4F4;
+}
+
+.inner{
+    padding: 10px 80px 10px 25px;
+}
+
+.modify{
+    background-color:rgb(255,88,93);
+    /*border: 1px solid rgb(71, 71, 71);*/
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    border-radius: 0px;
+    font-size: 12px;
+}
+.finish{
+    background-color:gainsboro;
+    /*border: 1px solid rgb(71, 71, 71);*/
+    color: #333;
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    border-radius: 0px;
+    font-size: 12px;
+}
