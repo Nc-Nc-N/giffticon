@@ -212,8 +212,8 @@
         //취소 버튼 클릭 시 모든 입력값 초기화
         $('#btn_info_cancel').on("click", function (e) {
             checkPwdForEditInfo = [false, false];
-            newName.val("");
-            newBirthDt.val("");
+            newName.val("${user.name}");
+            newBirthDt.val("${user.birthDt}");
             insertPwd.val("");
 
             nameMsg.html("");

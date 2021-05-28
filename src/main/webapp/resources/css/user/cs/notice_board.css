@@ -1,23 +1,19 @@
-/**, ::after, ::before{*/
-/*    box-sizing: border-box;*/
-/*}*/
-
-.content{
+.content {
     margin: 0 0 0 0;
     display: none;
 }
 
-.emptyspace{
+.emptyspace {
     width: 50px;
     height: 2000px;
 }
 
-.search-form{
+.search-form {
     float: right;
-    margin-top: 10px;
+    margin: 20px 0;
 }
 
-.sub-category-btn-all, .sub-category-btn-notice, .sub-category-btn-event{
+.sub-category-btn-all, .sub-category-btn-notice, .sub-category-btn-event {
     width: 32.5%;
     height: 35px;
     border: none;
@@ -27,24 +23,24 @@
     outline: none;
 }
 
-.sub-category-btn-all{
-    border-right:1px solid rgb(172, 172, 172);
+.sub-category-btn-all {
+    border-right: 1px solid rgb(172, 172, 172);
 }
 
-.sub-category-btn-notice{
-    border-right:1px solid rgb(172, 172, 172);
+.sub-category-btn-notice {
+    border-right: 1px solid rgb(172, 172, 172);
 }
 
-.accordionMenu{
+.accordionMenu {
     width: 750px;
-    margin-top: 50px;
+    margin-top: 70px;
     border-top: 1px solid rgb(230, 230, 230);
 }
 
-.sub:hover{
+.sub:hover {
     color: rgb(255, 88, 93);
 }
 
-.inner{
+.inner {
     padding: 0 25px 0 35px;
 }

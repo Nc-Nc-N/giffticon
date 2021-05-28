@@ -67,11 +67,3 @@ h3 {
     color: white;
     cursor: not-allowed;
 }
-
-.message {
-    margin-left: 29% !important;
-}
-
-#msg-telNo-confirm {
-    margin-left: 35%;
-}

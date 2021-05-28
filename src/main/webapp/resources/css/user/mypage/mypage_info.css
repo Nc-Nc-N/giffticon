@@ -56,14 +56,9 @@
 
 .info-btn-active {
     background-color: white;
-    border: 1px solid rgb(255, 88, 93);
-    color: rgb(255, 88, 93);
+    border: 1px solid rgb(71, 71, 71);
+    color: #333333;
     cursor: pointer;
-}
-
-.info-btn-active:hover {
-    background-color: rgb(255, 88, 93);
-    color: white;
 }
 
 .info-btn-disabled {

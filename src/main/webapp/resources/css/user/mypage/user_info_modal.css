@@ -23,7 +23,7 @@
 }
 
 .info_section {
-    width: fit-content;
+    width: 450px;
     height: 60px;
     font-size: 15px;
     font-weight: lighter;
@@ -58,7 +58,7 @@ input {
 .message {
     width: 50%;
     margin-top: 5px;
-    margin-left: 33.5%;
+    margin-left: 29%;
     font-size: 12px;
     font-weight: 600;
     color: #333333;

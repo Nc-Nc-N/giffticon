@@ -111,7 +111,7 @@
         let telNoConfirm = $("#msg-telNo-confirm");
 
         inputCode.on("propertychange change keyup paste input", function (e) {
-            if (telAuthCode === $(this).val()) {            // 입력 값과 인증코드가 같으면
+            if (telAuthCode !== '' && telAuthCode === $(this).val()) {            // 입력 값과 인증코드가 같으면
                 checkIsCorrect(telNoConfirm, "인증코드 일치", true);
                 checkAllConfirmedForTelNo[0] = true;        // 휴대폰 인증여부 true
                 return;
@@ -142,7 +142,6 @@
                     msg += "비밀번호가 일치합니다.";
                     checkIsCorrect(msgPwd, msg, true)
                     checkAllConfirmedForTelNo[1] = true
-                    inputPwd.prop("readonly", "true");
                     btnOriginPwd.prop("disabled", "true");
                     btnOriginPwd.attr("class", "btn disabled");
                 },
@@ -188,6 +187,8 @@
             inputPwd.val("");
             inputTelNo.val("");
             inputCode.val("");
+            btnOriginPwd.prop("disabled", "false");
+            btnOriginPwd.attr("class", "btn btn-confirm");
             btnConfirmTelNo.attr("class", "btn btn-confirm");
             msgPwd.html("");
             telAuthCode='';

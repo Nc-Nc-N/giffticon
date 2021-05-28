@@ -1,7 +1,7 @@
 function calculateContentLength(){
 
     let totalLengthMenuBody = 850;
-    let totalLengthContainer = 930;
+    let totalLengthContainer = 970;
 
     $("div[class='content']").each(function () {
 
