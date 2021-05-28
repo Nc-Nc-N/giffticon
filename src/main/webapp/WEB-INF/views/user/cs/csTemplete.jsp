@@ -42,7 +42,4 @@
                     <!--필요한만큼 아래 추가해서 사용 (개당 간격70px)-->
                 </div>
             </div>
-            <div class="emptyspace">
-
-            </div>
             <div class="full-content">
