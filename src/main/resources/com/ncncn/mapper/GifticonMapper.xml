@@ -445,6 +445,7 @@
                  left outer join product p on g.prod_code = p.code
         where g.is_auto_prc = 1
           and (g.gft_stus_code = '001' or g.gft_stus_code = '002')
+          and DATEDIFF(g.expir_dt, now()) IN (59, 44, 29, 14)
     </select>
 
     <select id="getOnSaleGifticon" resultType="com.ncncn.domain.GifticonVO">
@@ -467,7 +468,7 @@
         set dc_prc  = #{dcPrc},
             dc_rate = #{dcRate},
             up_date = now(),
-            up_user = current_user()
+            up_user = 'AutoPriceTask'
         where id = #{id}
     </update>
 
@@ -508,4 +509,9 @@
         where id = #{gftId} and user_id = #{userId};
     </select>
 
+    <select id="checkValidPrc" resultType="com.ncncn.domain.GifticonVO">
+        select *
+        from gifticon
+        where id = #{gftId};
+    </select>
 </mapper>

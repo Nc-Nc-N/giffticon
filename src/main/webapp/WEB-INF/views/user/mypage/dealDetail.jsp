@@ -25,6 +25,25 @@
             <div>상품명</div>
             <c:out value="${gftInfo.prdName}"/>
         </div>
+        <div class="item_code">
+            <div>상품 번호</div>
+            <c:out value="${gftInfo.prdCode}"/><c:out value="${gftInfo.gftId}"/>
+        </div>
+    </div>
+    <div class="item_btn">
+        <c:if test="${gftInfo.stusCode eq '거래확정대기'}">
+            <button name="dealCmplBtn" class="btn btn-cmpl" value="<c:out value="${gftInfo.gftId}"/>" id="<c:out value="${gftInfo.dealId}"/>">거래 확정</button>
+        </c:if>
+        <c:if test="${gftInfo.stusCode eq '거래확정완료'}">
+            <button class="btn btn-disabled">확정 완료</button>
+        </c:if>
+    </div>
+</div>
+<div class="item_info">
+    <div class="item_img">
+        <img src="<c:out value='${gftInfo.gftImgPath}'/>">
+    </div>
+    <div class="item_nameNcode">
         <div class="item_name">
             <div>구매일자</div>
             <fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.dealDt}"/>
@@ -83,6 +102,7 @@
         $("button[name='dealCmplBtn']").on("click", function (i) {
             if (confirm("구매확정하시겠습니까? 확정 후 변경 불가합니다.")) {
                 actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
+                actionForm.append("<input type='hidden' name='dealId' value='" + $(this).attr("id") + "'>");
                 actionForm.attr("action", "/gifticon/stus005").attr("method", "post");
                 actionForm.submit();
             } else {

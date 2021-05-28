@@ -229,10 +229,8 @@
                     <form id="order-form" action="/payment_cmplt" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <input type="hidden" name="prodCode" value="<c:out value="${gifticon.prodCode}"/>"/>
-                        <input type="hidden" name="orderer_name" value="<c:out value="${user.name}"/>"/>
                         <input type="hidden" name="gftId" value="<c:out value="${gifticon.id}"/>"/>
                         <input type="hidden" name="dcPrc" value="<c:out value="${gifticon.dcPrc}"/>"/>
-                        <input type="hidden" name="metdStus" value="">
                         <button class="btn_payment">
                         결제하기
                         </button>
@@ -244,9 +242,14 @@
 
 <script>
 $(document).ready(function(){
+
     let payBtn = $(".btn_payment");
     let payMetd = $('input:radio[name="settlekind"]');
     let orderForm = $("#order-form");
+    let csrfHeaderName = "${_csrf.headerName}";
+    let csrfTokenValue = "${_csrf.token}";
+    const gftId = ${gifticon.id};
+    const dcPrcVal = ${gifticon.dcPrc};
 
     // 결제방식 클릭시 결제금액 변함
     payMetd.click(function (){
@@ -277,43 +280,90 @@ $(document).ready(function(){
         $('.useCon').html(con);
         $('.final').html(money);
     })
+    // 거래내역 추가
+    function insertDeal(method){
+        return new Promise(function (resolve, reject){
 
-
-    // 결제
-    function order(method){
-        if(method === '002'){
-            payCon();
-        }
+            $.ajax({
+                type:"POST",
+                url:"/user/insertDeal",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                },
+                data:
+                    JSON.stringify({
+                        "gifticonId": gftId,
+                        "pymtPrc": dcPrcVal,
+                        "pymtMtd": method
+                    }),
+                contentType: 'application/json; charset=UTF-8',
+                async: false,
+                success:function (result){
+                    resolve(result)
+                }
+                ,error:function(request,status,error){
+                    reject("관리자에게 문의해주시기 바랍니다."+"\n"+"code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+            })
+        })
     }
 
-    function payCon(){
+    // 결제방식: 콘
+    function payCon(result){
+        return new Promise(function (resolve, reject){
 
         let con = ${gifticon.dcPrc};
-        let csrfHeaderName = "${_csrf.headerName}";
-        let csrfTokenValue = "${_csrf.token}";
 
-        orderForm.find("input[name='metdStus']").val("002");
-
-        // 콘 결제
         $.ajax({
             type:"POST",
             url:"/user/conUpdate",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
-            data:{
-                "amount": -con,
-                "pntCode": "003"    // 구매
-            },
+            data:
+                JSON.stringify({
+                "chgQuty": -con,
+                "pntHistCode": "003", // 구매
+                "dealId": result
+                }),
+            contentType: 'application/json; charset=UTF-8',
             success: function (){
                 orderForm.submit();
 
             }, error: function (){
-                alert('일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.');
+                reject('일시적인 오류가 생겨 잠시 후 다시 시도해주시기 바랍니다.');
             }
         });
+        })
     }
 
+    function checkValidGft(){
+
+        return new Promise(function(resolve){
+
+            $.ajax({
+                url: '/checkValidGft/' + gftId +"/" + dcPrcVal,
+                type: 'get',
+                statusCode: {
+                    200: function(){ resolve(); },
+                    204: function(){ alert("판매가 취소된 상품입니다. 메인메뉴로 이동합니다.");
+                                    window.location.href="/user/home"; },
+                    417: function(){ alert("결제완료 전 상품가격이 변경되었습니다. 가격을 다시 확인해주세요.");
+                                    window.location.reload();}
+                }
+
+            })
+        })
+    }
+    // 결제
+    function order(method){
+        if(method === '002'){
+            checkValidGft()
+                .then(() => insertDeal(method))
+                .then((result) => payCon(result))
+                .catch(error => alert(error));
+        }
+    }
 
     // '결제하기' 버튼 클릭시 이벤트 발생
     payBtn.on("click", function (e){
@@ -335,7 +385,6 @@ $(document).ready(function(){
         order(method);
 
     });
-
 
     // 에러 메시지 처리
     let error = "${error}";

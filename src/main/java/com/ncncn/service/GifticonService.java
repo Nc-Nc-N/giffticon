@@ -52,5 +52,5 @@ public interface GifticonService {
 
 	public int checkGft(@Param("gftId") int gftId, @Param("userId") int userId);
 
-
+	public GifticonVO checkValidPrc(int gftId, int dcPrcVal);
 }
