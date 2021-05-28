@@ -66,7 +66,26 @@
 <script>
 
     $(document).ready(function(){
+
         $("#psnlQ-link").attr("class", "menu active");
+
+        $(".cnt").keyup(function(e){
+
+            let inputLength = $(this).val().length;
+            let remain = inputLength < 240 ? 240 - inputLength : 0;
+
+            // 150자가 넘어가면 입력하지 못하게
+            if (remain <= 0) {
+                alert("최대 240글자까지 입력 가능합니다.");
+                let content = ($(this).val()).substring(0, 240);
+                $(this).val(content);
+            }
+
+            $('.cnt').html(remain);
+
+
+
+        })
     })
 
     let userId = "<c:out value="${userId}"/>";
