@@ -12,7 +12,7 @@
 }
 
 #content {
-    width: 80%;
+    width: 450px;
     height: 80%;
     margin: auto;
 }
@@ -23,8 +23,8 @@
 }
 
 .info_section {
-    width: 100%;
-    height: 70px;
+    width: 450px;
+    height: 60px;
     font-size: 15px;
     font-weight: lighter;
 }
@@ -38,8 +38,8 @@
 .input_text {
     background-color: white;
     border: none;
-    border-bottom: 2px solid gainsboro;
-    width: 50%;
+    border-bottom: 1px solid gainsboro;
+    width: 250px;
     height: 30px;
     display: flex;
 }
@@ -57,7 +57,11 @@ input {
 
 .message {
     width: 50%;
-    margin-left: 33.5%;
+    margin-top: 5px;
+    margin-left: 29%;
+    font-size: 12px;
+    font-weight: 600;
+    color: #333333;
 }
 
 h2 {
@@ -85,16 +89,17 @@ h5 {
     align-items: center;
 }
 
-.btn-submit {
+.btn-confirm {
     width: 60px;
     height: 25px;
     border-radius: 8px;
     font-size: 15px;
     background-color: rgb(255, 88, 93);
     color: white;
+    margin-left: 20px;
 }
 
-.btn-submit:hover {
+.btn-confirm:hover {
     background-color: white;
     border: 1px solid rgb(255, 88, 93);
     color: rgb(255, 88, 93);
@@ -114,4 +119,27 @@ h5 {
     background-color: white;
     border: 1px solid rgb(255, 88, 93);
     color: rgb(255, 88, 93);
+}
+
+.cancel {
+    background-color: #ededed;
+}
+
+.cancel:hover {
+    background-color: white;
+    border: 1px solid #ededed;
+}
+
+#msg-newPwd, #msg-confirmNewPwd {
+    margin-left: 35% !important;
+}
+
+.acc_bank_select{
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.fa-check-circle{
+    color: forestgreen;
 }

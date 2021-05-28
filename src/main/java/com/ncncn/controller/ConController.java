@@ -10,10 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -48,14 +45,15 @@ public class ConController {
 
 	// conHist insert, 사용자 보유 콘 update
 	@PostMapping("/conUpdate")
-	public @ResponseBody
-	void addCon(int amount, String pntCode, PntHistVO pntHistVO, HttpServletRequest request) {
+	@ResponseBody
+	public void addCon(@RequestBody PntHistVO pntHistVO, HttpServletRequest request) {
 
 		log.info("conUpdate....");
-		log.info("amount: "+amount);
-		log.info("pntCode: "+pntCode);
 
-		if(pntCode.equals("001")){
+		// 충전할 때
+		if(pntHistVO.getPntHistCode().equals("001")){
+
+			int amount = pntHistVO.getChgQuty();
 			// 콘 충전 혜택
 			if (amount == 10000) {
 				amount += 1000;
@@ -64,13 +62,11 @@ public class ConController {
 			} else if (amount == 50000) {
 				amount += 6000;
 			}
+			pntHistVO.setChgQuty(amount);
 		}
 
 		int userId = (int) request.getSession().getAttribute("userId");
-
 		pntHistVO.setUserId(userId);
-		pntHistVO.setChgQuty(amount);
-		pntHistVO.setPntHistCode(pntCode);
 
 		// conHist insert
 		conService.insertConHist(pntHistVO);

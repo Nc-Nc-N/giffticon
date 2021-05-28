@@ -11,8 +11,11 @@
 <link rel="stylesheet" href="/resources/css/user/cs/notice_board.css" type="text/css">
 
 <h3>공지사항</h3>
+
+<div class="line-117"></div>
+
 <div class="sub-category-area">
-    <button class="sub sub-category-btn-all" value="NE" name="type"
+    <button class="sub sub-category-btn-all " value="NE" name="type"
             onclick="location.href='/user/cs/noticeBoard?pageNum=1&amount=10&type=NE&keyword=';">전체
     </button>
     <button class="sub sub-category-btn-notice" value="N" name="type"
@@ -22,7 +25,6 @@
             onclick="location.href='/user/cs/noticeBoard?pageNum=1&amount=10&type=E&keyword=';">이벤트
     </button>
 </div>
-
 
 <form class="search-form" id='searchForm' action="/user/cs/noticeBoard" method="get">
     <!-- search area -->
@@ -46,7 +48,9 @@
     <c:forEach items="${list}" var="notice" varStatus="status">
         <!-- 1st menu-->
         <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">
-        <label class="contentList" name="<c:out value="${status.index}"/>" for="acc<c:out value="${status.index+1}"/>"><c:out value="${notice.csCateCode == '003' ? '[공지]':'[이벤트]'}"/> <c:out value="${notice.title}"/>
+        <label class="contentList" name="<c:out value="${status.index}"/>"
+               for="acc<c:out value="${status.index+1}"/>"><c:out
+                value="${notice.csCateCode == '003' ? '[공지]':'[이벤트]'}"/> <c:out value="${notice.title}"/>
             <span class="no-date"><fmt:formatDate value="${notice.startDt}" pattern="yyyy-MM-dd"/></span>
         </label>
         <div class="content" name="content_<c:out value="${status.index}"/>">
@@ -88,34 +92,34 @@
     <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
     <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
 </form>
-<div class="space100"></div>
 </div>
 </div>
 </div>
 </div>
 
-<%@include file="/WEB-INF/views/common/footer.jsp"%>
+<%@include file="/WEB-INF/views/common/footer.jsp" %>
+
 <script type="text/javascript" src="/resources/js/etc/screenHeight.js"></script>
 <script>
+    $(document).ready(function () {
+        let type = "${pageMaker.cri.type}";
 
-    $(document).ready(function(){
+        let activeMenu = type === 'NE' ? ".sub-category-btn-all" : type === 'N' ? ".sub-category-btn-notice" : ".sub-category-btn-event";
+        $(activeMenu).css("color", "rgb(255, 88, 93)");
 
-        $(".contentList").on("click", function(){
-
+        $(".contentList").on("click", function () {
             let listNum = "content_" + $(this).attr("name");
             let divDisplay = $("div[name=" + listNum + "]").css("display");
 
-            if(divDisplay == "none"){
-                $("div[name=" + listNum + "]").css("display","block");
-            }else{
-                $("div[name=" + listNum + "]").css("display","none");
+            if (divDisplay == "none") {
+                $("div[name=" + listNum + "]").css("display", "block");
+            } else {
+                $("div[name=" + listNum + "]").css("display", "none");
             }
 
             calculateContentLength();
-        })
-
-    })
-
+        });
+    });
 
 </script>
 <script type="text/javascript">
@@ -123,9 +127,9 @@
     var searchForm = $("#searchForm");
 
     $(".search-button").on("click", function (e) {
-        searchForm.find("input[name='pageNum']").val("1");
         e.preventDefault();
 
+        searchForm.find("input[name='pageNum']").val("1");
         searchForm.submit();
     });
 
@@ -139,7 +143,6 @@
         // error 발생 시 해당 에러 메시지를 alert
         if (error.length > 0) {
             alert("에러 발생. 담당자에게 문의해주세요. \n" + error);
-            console.log(error);
         }
 
         //pagenation

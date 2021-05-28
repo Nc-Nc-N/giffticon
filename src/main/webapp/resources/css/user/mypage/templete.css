@@ -15,10 +15,9 @@ body {
 
 #cs-container{
     width: 1000px;
-    height: 930px;
+    height: 970px;
     margin: auto;
 }
-
 
 .space30 {
     height: 30px;
@@ -45,7 +44,7 @@ body {
 
 .cs-main{
     width: 1000px;
-    height: 930px;
+    height: 970px;
 }
 
 .menuhead {
@@ -179,7 +178,7 @@ body {
     height: 35px;
     font-size: 20px;
     font-weight: 900;
-    border-bottom: 2px solid rgb(71, 71, 71);
+    border-bottom: 2px solid rgb(117, 117, 117);
 }
 
 .sidebar > a:visited {
@@ -235,4 +234,10 @@ body {
     background-color: rgba(10, 10, 10, 0.5);
     visibility: hidden;
     z-index: 2;
+}
+
+.line-117 {
+    border-bottom: 2px solid rgb(117, 117, 117);
+    margin: 10px 0 20px 0;
+    width: 100%;
 }

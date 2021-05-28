@@ -5,11 +5,6 @@
 <jsp:include page="csTemplete.jsp"/>
 <meta charset="UTF-8">
 
-<script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
@@ -18,6 +13,8 @@
 <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
 
 <h3>자주묻는 질문</h3>
+
+<div class="line-117"></div>
 
 <div class="sub-category-area">
     <button class="sub sub-category-btn-all" value="NE" name="type"
@@ -35,11 +32,8 @@
 </div>
 
 <!-- search area -->
-
 <form class="search-form" id='searchForm' action="/user/cs/faqBoard" method="get">
     <div class="search-area">
-
-
         <div class="search-input-area">
             <input type="text" class="search-input" name="keyword"
                    value='<c:out value="${pageMaker.cri.keyword}"/>'>
@@ -52,13 +46,10 @@
         </div>
     </div>
 </form>
-
 <!-- search area end -->
-
 
 <!--accordionMenu-->
 <div class="accordionMenu">
-
     <c:forEach items="${list}" var="faq" varStatus="status">
         <!-- 1st menu-->
         <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">
@@ -80,10 +71,10 @@
 </div>
 <!-- end accordionMenu-->
 
+<div class="space50"></div>
 
 <!-- pagenation-->
 <div class="pagination">
-
     <c:if test="${pageMaker.prev}">
         <li>
             <a class="paginate_button previous" href="${pageMaker.startPage -1}">&lt;</a></li>
@@ -102,38 +93,42 @@
 </div>
 <!-- end pagenation-->
 
-<form ID='actionForm' action="/user/cs/faqBoard" method="get">
+<form id='actionForm' action="/user/cs/faqBoard" method="get">
     <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
     <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
     <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
     <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
 </form>
-
 </div>
 <!-- end content -->
+</div>
+</div>
+</div>
 
-</div>
-</div>
-</div>
+<%@include file="/WEB-INF/views/common/footer.jsp"%>
+
+</body>
+</html>
 
 <script type="text/javascript" src="/resources/js/etc/screenHeight.js"></script>
 <script type="text/javascript">
-
     //검색
     var searchForm = $("#searchForm");
 
     $(".search-button").on("click", function (e) {
-
-
-        searchForm.find("input[name='pageNum']").val("1");
         e.preventDefault();
 
+        searchForm.find("input[name='pageNum']").val("1");
         searchForm.submit();
-
     });
 
 
     $(document).ready(function () {
+
+        let type = "${pageMaker.cri.type}";
+
+        let activeMenu = type === 'NE' ? ".sub-category-btn-all" : type === 'N' ? ".sub-category-btn-notice" : ".sub-category-btn-event";
+        $(activeMenu).css("color", "rgb(255, 88, 93)");
 
         $(".contentList").on("click", function(){
 
@@ -157,29 +152,18 @@
         // error 발생 시 해당 에러 메시지를 alert
         if (error.length > 0) {
             alert("에러 발생. 담당자에게 문의해주세요. \n" + error);
-            console.log(error);
         }
 
         //pagenation
         var actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {
-
             e.preventDefault();
-
-            console.log('click');
 
             actionForm.find("input[name='pageNum']").val($(this).attr("href"));
             actionForm.submit();
         });
-
-
     });
 
 </script>
 
-
-</body>
-</html>
-
-<%@include file="/WEB-INF/views/common/footer.jsp"%>

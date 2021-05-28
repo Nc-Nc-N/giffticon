@@ -1,35 +1,26 @@
-/**, ::after, ::before{*/
-/*    box-sizing: unset;*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*}*/
-
-body{
+body {
     font-weight: 400;
 }
 
-h2{
-    font-weight: unset;
+h2 {
     line-height: unset;
     font-weight: bold;
     font-size: 2em;
 }
-
-
 
 .search-area {
     display: flex;
     float: right;
 }
 
-.search-form{
-    display:flex;
-    align-items:center;
+.search-form {
+    display: flex;
+    align-items: center;
     border-radius: unset;
     background: white;
 }
 
-.search-input{
+.search-input {
     border: none;
     width: 130px;
     height: 30px;
@@ -38,30 +29,30 @@ h2{
     color: rgb(71, 71, 71);
 }
 
-.search-input-area{
+.search-input-area {
     display: inline-block;
-    float:right;
+    float: right;
     width: 300px;
     height: 30px;
     border-radius: 40px;
     background: rgb(245, 244, 244);
 }
 
-.accordionMenu{
+.accordionMenu {
     margin-top: 50px;
 }
 
-.accordionMenu input[type=checkbox]{
+.accordionMenu input[type=checkbox] {
     display: none;
 }
 
-.accordionMenu label{
+.accordionMenu label {
     display: block;
     height: 50px;
     line-height: 50px;
     padding: 0 25px 0 10px;
     background-color: white;
-    font-size: 18px;
+    font-size: 16px;
     color: rgb(71, 71, 71);
     position: relative;
     cursor: pointer;
@@ -76,7 +67,6 @@ h2{
 .noSearchResult {
     width: 100%;
     height: 50px;
-    /*background-color: #333333;*/
     display: flex;
     justify-content: center;
     align-content: center;
@@ -105,7 +95,7 @@ h2{
     color: white;
 }
 
-.btn-modify:hover{
+.btn-modify:hover {
     color: black;
 }
 
@@ -153,16 +143,16 @@ h2{
 /*modal css*/
 .modal{
     z-index: 2;
-    position: absolute;
     display: none;
     position: fixed;
     width: 100%;
     height: 100%;
-    top:0; left: 0;
+    top: 0;
+    left: 0;
     background: rgba(80, 80, 80, 0.4);
 }
 
-.modal-content{
+.modal-content {
     position: absolute;
     top: calc(40vh - 100px);
     left: calc(40vw - 200px);
@@ -172,38 +162,38 @@ h2{
     border-radius: 10px;
 }
 
-#delete-content{
+#delete-content {
     width: 500px;
     height: 200px;
 }
 
-#modify-content{
+#modify-content {
     width: 800px;
     height: 500px;
 }
 
-#register-content{
+#register-content {
     width: 800px;
     height: 500px;
 }
 
-.modal-header{
+.modal-header {
     border-bottom: 1px solid #dee2e6;
 }
 
-#delete-header{
+#delete-header {
     height: 50px;
 }
 
-#modify-header{
+#modify-header {
     height: 110px;
 }
 
-#register-header{
+#register-header {
     height: 110px;
 }
 
-.modal-header textarea{
+.modal-header textarea {
     margin: 10px;
     width: 780px;
     height: 35px;
@@ -212,20 +202,20 @@ h2{
     border-color: #dee2e6;
 }
 
-.modify-title, .register-title{
+.modify-title, .register-title {
     margin-top: 3px;
 }
 
-.modify-fixed{
+.modify-fixed {
     margin-left: 5px;
 }
 
-.modal-body{
+.modal-body {
     margin: 10px;
     border-bottom: 1px solid #dee2e6;
 }
 
-.modal-body textarea{
+.modal-body textarea {
     width: 780px;
     height: 290px;
     font-size: 17px;
@@ -233,55 +223,55 @@ h2{
     border-color: #dee2e6;
 }
 
-#delete-body{
+#delete-body {
     height: 60px;
 }
 
-#modify-body{
+#modify-body {
     height: 300px;
 }
 
-#register-body{
+#register-body {
     height: 300px;
 }
 
-.delete-question{
+.delete-question {
     font-size: 25px;
     margin: 10px;
 }
 
-.modal-search-area{
+.modal-search-area {
     margin-left: 10px;
     margin-top: 10px;
 }
 
-.register-fixed, .register-end-dt{
+.register-fixed, .register-end-dt {
     margin-top: 10px;
 }
 
-.search-selected{
+.search-selected {
     margin: 10px;
 }
 
-.modify-fixed{
+.modify-fixed {
     margin-left: 10px;
 }
 
-.modal span, .de-cntnt{
+.modal span, .de-cntnt {
     font-size: 1rem;
     margin: 10px;
 }
 
-.btn-register{
+.btn-register {
     background-color: rgb(255, 88, 93);
     color: white;
 }
 
-.btn-cancel{
+.btn-cancel {
     color: rgb(55, 55, 55);
 }
 
-.btn-register, .btn-cancel{
+.btn-register, .btn-cancel {
     float: right;
-    margin:10px;
+    margin: 10px;
 }

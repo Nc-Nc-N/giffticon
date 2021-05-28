@@ -41,12 +41,12 @@
     <div class="user_info_btn">
         <c:if test="${pwdExist == false}">
             <button class="info-btn info-btn-active" id="modPwd">비밀번호설정</button>
-            <button class="info-btn info-btn-disabled needPwd">휴대전화인증</button>
+            <button class="info-btn info-btn-disabled needPwd">전화번호변경</button>
             <button class="info-btn info-btn-disabled needPwd">회원정보수정</button>
         </c:if>
         <c:if test="${pwdExist == true}">
             <button class="info-btn info-btn-active" id="modPwd">비밀번호변경</button>
-            <button class="info-btn info-btn-active" id="modTelNo">휴대전화인증</button>
+            <button class="info-btn info-btn-active" id="modTelNo">전화번호변경</button>
             <button class="info-btn info-btn-active" id="modInfo">회원정보수정</button>
         </c:if>
     </div>
@@ -92,7 +92,7 @@
 <div class="modalOn modal_editInfo">
     <jsp:include page="userInfo_editInfo.jsp"/>
 </div>
-<div class="modalOn modal_telNo" style="visibility: visible">
+<div class="modalOn modal_telNo">
     <jsp:include page="userInfo_editTelNo.jsp"/>
 </div>
 <div class="modalOn modal_accInfo">
