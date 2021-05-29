@@ -181,10 +181,13 @@ h3{
     text-align: center;
     width: 90%;
     position: absolute;
-    top: 40%;
+    top: 43%;
     left: 5%;
 }
 .map-txt span{
     font-size: 12px;
     line-height: 40px;
+}
+.map-img img{
+    height: 300px;
 }
