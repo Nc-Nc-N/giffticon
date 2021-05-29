@@ -24,12 +24,6 @@
                  <div class="item_name" value="<c:out value="${list.prodCode}"/>"><c:out value="${list.pname}"/></div>
             </span>
 
-            <div class="itemprice">
-                <span><del><fmt:formatNumber type="number" maxFractionDigits="3" value="${list.prc}"/> 원</del></span>&nbsp;&nbsp;
-                <span><fmt:formatNumber value="${list.dcRate}" type="percent" /></span>&nbsp;&nbsp;
-                <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${list.dcPrc}"/>원</span>
-            </div>
-
             <button type="button" class="delete-btn" value="<c:out value="${list.prodCode}"/>">
                 삭제
             </button>

@@ -40,23 +40,26 @@
     <div class="prdlist">
         <!--카테고리 이름 삽입-->
         <div class="listname_first">
-            <div class='listnamefirst'>
-                <h3><i class="fas fa-map-marked-alt"></i>&nbsp;지도로 찾는 기쁘티콘</h3>
-            </div>
             <!--지도 삽입-->
             <div class="maps">
                 <div class="mapicon">
-                    <a href="/user/gifticon/map"><p><img src="/resources/img/map.png"></p></a> <!--db에서 상품 이미지불러오기-->
-                </div>
-                <div class="mapinfo">
-                    <span>현재 위치에서 기쁘티콘 찾기</span>
+                    <a href="/user/gifticon/map" class="map-main">
+                        <div class="map-img">
+                            <img src="/resources/img/map.jpeg">
+                        </div>
+                        <div class="map-txt">
+                            <span>현재 위치에서 기쁘티콘 찾기
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </a> <!--db에서 상품 이미지불러오기-->
                 </div>
             </div>
         </div>
 
         <div class='listnamelast'>
             <div class="wishname">
-                <h3><i class="far fa-heart"></i>&nbsp;나만의 관심상품</h3>
+                <h3>나만의 관심상품</h3>
                 <div class="categorycontroller">
                     <a href="/user/mypage/wishList" class="main-btn">전체보기 <i class="fas fa-caret-right"></i></a>
                 </div>
@@ -102,7 +105,7 @@
     <div class="prdlists">
         <div class="listname">
             <div class='listnametotal'>
-                <h3><i class="far fa-thumbs-up"></i>&nbsp;모두들 찾는 인기상품</h3>
+                <h3>모두들 찾는 인기상품</h3>
             </div>
             <div class="categorycontroller">
                 <a href="/user/gifti_list?keyword=&code=0&orderby=best" class="main-btn">전체보기 <i class="fas fa-caret-right"></i></a>
@@ -168,7 +171,7 @@
     <div class="prdlists">
         <div class="listname">
             <div class='listnametotal'>
-                <h3><i class="far fa-clock"></i>&nbsp;초특가! 만료 임박 상품</h3>
+                <h3>초특가! 만료 임박 상품</h3>
             </div>
             <div class="categorycontroller">
                 <a href="/user/gifti_list?keyword=&code=0&orderby=deadline" class="main-btn">전체보기 <i class="fas fa-caret-right"></i></a>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ncncn.domain.DealDetailVO;
 import com.ncncn.domain.GifticonVO;
+import com.ncncn.domain.PrcUpdateVO;
 import com.ncncn.domain.SaleRqustVO;
 import com.ncncn.domain.pagination.SaleGftCriteria;
 import com.ncncn.domain.pagination.SaleRqustCriteria;
@@ -57,6 +58,13 @@ public class GftManagingServiceImpl implements GftManagingService {
         // 기프티콘 상태(판매요청 -> 판매중), 상품코드, 판매가, 할인율 변경
         gifticonMapper.updateSaleRqust(id, rqust.get("prodCode"), Integer.parseInt(rqust.get("dcPrc")), Double.parseDouble(rqust.get("dcRate")));
         productMapper.updateRegQuty(rqust.get("prodCode"));     // prodCode에 해당하는 상품의 기프티콘 개수  + 1
+
+        PrcUpdateVO prcUpdate = new PrcUpdateVO();
+        prcUpdate.setGftId(id);
+
+        updateDcPrcHistEndDt(prcUpdate);
+        insertDcPrcHist(id, Integer.parseInt(rqust.get("dcPrc")));
+
     }
 
     @Override
@@ -92,4 +100,20 @@ public class GftManagingServiceImpl implements GftManagingService {
 
     @Override
     public int autoDealCmpl(List<DealDetailVO> gftList) { return gifticonMapper.autoDealCmpl(gftList); }
+
+    // 현재 가격수정이력 row의 end_dt 컬럼에 변경시간을 입력하는 메서드
+    private void updateDcPrcHistEndDt(PrcUpdateVO prcUpdate) {
+        int gftIdForUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
+        gifticonMapper.updateDcPrcHist(gftIdForUpdate);
+    }
+
+    // 새로운 가격수정이력 row를 insert하는 메서드
+    private void insertDcPrcHist(int id, int dcPrc) {
+        GifticonVO gifticon = new GifticonVO();
+        gifticon.setId(id);
+        gifticon.setDcPrc(dcPrc);
+
+        gifticonMapper.insertDcPrcHist(gifticon);
+    }
+
 }
