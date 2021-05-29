@@ -147,7 +147,19 @@ public class GifticonServiceImpl implements GifticonService {
         return gifticonMapper.checkGft(gftId, userId);
     }
 
-    // 현재 가격수정이력 row의 end_dt 컬럼에 변경시간을 입력하는 메서드
+    @Override
+    public GifticonVO checkValidPrc(int gftId, int dcPrcVal){
+
+        try{
+            GifticonVO gifticon = gifticonMapper.checkValidPrc(gftId);
+            return gifticon;
+        }catch(Exception e){
+            return null;
+        }
+
+    }
+  
+      // 현재 가격수정이력 row의 end_dt 컬럼에 변경시간을 입력하는 메서드
     private void updateDcPrcHistEndDt(PrcUpdateVO prcUpdate) {
         int gftIdForUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
         gifticonMapper.updateDcPrcHist(gftIdForUpdate);

@@ -1,6 +1,7 @@
 package com.ncncn.controller;
 
 import com.ncncn.domain.DealDetailVO;
+import com.ncncn.domain.GifticonVO;
 import com.ncncn.domain.UserInfoDTO;
 import com.ncncn.service.DealListService;
 import com.ncncn.service.GifticonService;
@@ -86,4 +87,23 @@ public class OrderController {
 
 		return "user/gifticon/payment_cmplt";
 	}
+
+	@GetMapping("/checkValidGft/{gftId}/{dcPrcVal}")
+	public ResponseEntity<String> checkValidGft(@PathVariable("gftId") int gftId, @PathVariable("dcPrcVal") int dcPrcVal){
+
+
+		GifticonVO gifticonVO = giftiService.checkValidPrc(gftId,dcPrcVal);
+
+		if(gifticonVO == null || gifticonVO.getGftStusCode().equals("003")){
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}else{
+			if(gifticonVO.getDcPrc() == dcPrcVal){
+				return new ResponseEntity(HttpStatus.OK);
+			}else{
+				return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
+			}
+		}
+
+	}
+
 }

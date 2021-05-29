@@ -30,8 +30,8 @@ public class GifticonController {
     ConService conService;
 
     @PostMapping("/stus005")
-    public String gftDealCmpl(HttpServletRequest request, int gftId, Model model) {
-
+    public String gftDealCmpl(HttpServletRequest request, int gftId, int dealId, Model model) {
+        log.info("dealId???? : " + dealId);
         //기프티콘 상태 구매확정대기 -> 구매 확정 변경
         gifticonService.gftDealCmpl(gftId);
 
@@ -43,6 +43,7 @@ public class GifticonController {
         //pnt_history 객체 만들기
         pntHistVO.setUserId(gifticonVO.getUserId());
         pntHistVO.setChgQuty(gifticonVO.getDcPrc());
+        pntHistVO.setDealId(dealId);
         pntHistVO.setPntHistCode("004");
 
         // conHist insert

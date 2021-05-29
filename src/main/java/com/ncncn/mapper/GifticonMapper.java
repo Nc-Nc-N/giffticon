@@ -101,4 +101,5 @@ public interface GifticonMapper {
 
 	public int checkGft(@Param("gftId") int gftId, @Param("userId") int userId);
 
+	public GifticonVO checkValidPrc(@Param("gftId") int gftId);
 }
