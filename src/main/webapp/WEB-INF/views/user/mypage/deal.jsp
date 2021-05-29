@@ -4,15 +4,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="templete.jsp"/>
+
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_deals.css" type="text/css">
+
 <div class="contentheader">
     <span>구매 내역</span>
 </div>
 <div class="contentinfo">
-    거래확정대기&nbsp;>&nbsp;거래확정완료
+    거래확정대기&nbsp;<i class="fas fa-caret-right"></i>&nbsp;거래확정완료
 </div>
 <div class="contentsearch">
-
     <form class="search-spec" action="/user/mypage/deal" method="get">
         <div class="date-search">
             <input type="date" id="dateFrom" name="dateFrom"
@@ -49,7 +50,6 @@
         </div>
     </form>
 </div>
-<div class="space30"></div>
 <div class="item">
     <c:forEach items="${dealList}" var="list" varStatus="num">
         <div class='item_purdate'>
@@ -59,18 +59,16 @@
             <span class="item_img"><img src="<c:out value='${list.prdImgPath}'/>"></span>
             <span class="item_brdNname">
                 <div class="item_brd"><c:out value="${list.brdName}"/></div>
-
                 <div class="item_name" name="prdLink" value="<c:out value="${list.prdCode}"/>">
-                <c:choose>
-                    <c:when test="${fn:length(list.prdName) > 8}">
-                        <c:out value="${fn:substring(list.prdName,0,8)}"/>..
-                    </c:when>
-                    <c:otherwise>
-                        <c:out value="${list.prdName}"/>
-                    </c:otherwise>
-                </c:choose>
+                    <c:choose>
+                        <c:when test="${fn:length(list.prdName) > 14}">
+                            <c:out value="${fn:substring(list.prdName, 0, 14)}"/>..
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value="${list.prdName}"/>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
-
                 <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out value="${list.gftId}"/></div>
             </span>
             <span class="item_prc"><c:out value="${list.pymtPrc}"/>원</span>
@@ -87,9 +85,9 @@
                     </button>
                 </c:if>
                 <c:if test="${list.stusCode eq '거래확정완료'}">
-                    <button class="btn btn-disabled">확정 완료</button>
+                    <button class="btn btn-disabled">확정완료</button>
                 </c:if>
-                <button name="dealDetailBtn" class="btn btn-active" value="<c:out value="${list.gftId}"/>">구매 상세
+                <button name="dealDetailBtn" class="btn btn-active" value="<c:out value="${list.gftId}"/>">구매상세
                 </button>
             </div>
         </div>
@@ -97,6 +95,7 @@
     <c:if test="${dealList.size() == 0}">
         <div class="noSearchResult">검색 결과가 없습니다.</div>
     </c:if>
+    <div class="space50"></div>
     <div class="contentfooter">
         <div class="pagination">
             <c:if test="${pageMaker.prev}">
@@ -121,18 +120,19 @@
         </form>
     </div>
 </div>
-
 </div>
 </div>
 </div>
 </div>
-</body>
+<div class="space100"></div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+</body>
 </html>
 
 <script type="text/javascript" src="/resources/js/user/calendar.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#deal-link").attr("class", "menu active");
 
         var actionForm = $("#actionForm");
 
@@ -168,7 +168,6 @@
 
         //기프티콘 상세페이지 버튼
         $("button[name='dealDetailBtn']").on("click", function (k) {
-
             actionForm.append("<input type='hidden' name='gftId' value='" + $(this).attr("value") + "'>");
             actionForm.attr("action", "/user/mypage/dealDetail").attr("method", "get");
 
@@ -192,7 +191,6 @@
 
         //search 버튼 누를 시 날짜조건이 정확한지 체크 후 검색 실행
         $(".search-button").on("click", function (e) {
-
             let dateFrom = $("#dateFrom").val();
             let dateTo = $("#dateTo").val();
 
@@ -200,11 +198,9 @@
                 alert("날짜 선택이 올바르지 않습니다.");
                 e.preventDefault();
             } else {
-
                 searchSpec.find("input[name='pageNum']").val("1");
                 searchSpec.submit();
             }
-        })
-
-    })
+        });
+    });
 </script>

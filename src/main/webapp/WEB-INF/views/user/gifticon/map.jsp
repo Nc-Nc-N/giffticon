@@ -1,25 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@include file="../../common/header.jsp" %>
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/resources/css/user/gifticon/map.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 
-    <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ac51465d91bcae237e6703842ae5d0c5&libraries=services"></script>
     <title>Document</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-    </style>
+
+    <link rel="stylesheet" href="/resources/css/user/gifticon/map.css" type="text/css">
 </head>
-<body>
 
 <div id="container">
     <div class="space"></div>
@@ -47,13 +40,14 @@
         </div>
     </div>
 </div>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
 </body>
 </html>
 
 <script>
     $(document).ready(function () {
-
         let cateBtn = $(".cateList");
 
         cateBtn.on("click", function () {
@@ -76,7 +70,7 @@
                     str += "<li class='brdList'><input type='checkbox' class='all' name='전체' id='" + cateName + " 전체" + "' value='" + cateCode + "'>전체</li>";
 
                     for (var key in result) {
-                        str += "<li class='brdList each'><input type='checkbox' class='brand' name='" + result[key] + "' value='" + key + "'>" + result[key] + "</li>";
+                        str += "<li class='brdList each'><input type='checkbox' class='brand' name='" + result[key] + "' value='" + key + "'>" + " " + result[key] + "</li>";
                     }
 
                     $(".brandbar").html(str);
@@ -86,10 +80,9 @@
                 error: function () {
                     alert("error received");
                 }
-
-            })
-        })
-    })
+            });
+        });
+    });
 </script>
 <script> //브랜드 checkbox
 
@@ -129,8 +122,8 @@ $(".brandbar").on("click", function () {
     }
     $('.selectedbrd').text(name);
 });
-
 </script>
+
 <script>
     var lat = 0;
     var lon = 0;
@@ -150,9 +143,8 @@ $(".brandbar").on("click", function () {
     }
 
 </script>
+
 <script> //카카오맵 로딩
-
-
 $(document).ready(function () {
 
     const container = document.getElementById('map');
@@ -182,7 +174,6 @@ $(document).ready(function () {
 
     //마커 표시 함수
     function displayMarker(result) {
-
         for (let i = 0; i < result.length; i++) {
             for (let j = 0; j < result[i].documents.length; j++) {
 
@@ -194,7 +185,6 @@ $(document).ready(function () {
                 markers.push(marker);
             }
         }
-
     }
 
     //마커 삭제 함수
@@ -209,13 +199,8 @@ $(document).ready(function () {
     //카카오맵 장소 검색 메서드
     function searchPlaces(query, API_KEY) {
 
-        const response = fetch("https://dapi.kakao.com/v2/local/search/keyword.json?"
-            + query,
-            {
-                headers: {
-                    Authorization: 'KakaoAK ' + API_KEY
-                }
-            })
+        const response = fetch("https://dapi.kakao.com/v2/local/search/keyword.json?" + query,
+            {headers: {Authorization: 'KakaoAK ' + API_KEY}});
 
         return response.then(res => res.json());
 
@@ -223,7 +208,6 @@ $(document).ready(function () {
 
     //장소검색 핸들러
     async function placeSearchHandler(brand) {
-
         let bound = map.getBounds();
         let params = {"rect": bound.ha + "," + bound.qa + "," + bound.oa + "," + bound.pa};
         const API_KEY = "9f25bd36ab923b67977eb8ffa2d6c29a";
@@ -236,19 +220,15 @@ $(document).ready(function () {
             const response = searchPlaces(query, API_KEY);
 
             keywordPromise.push(response);
-
-        })
+        });
 
         await Promise.all(keywordPromise)
             .then((result) => insertPlcInResultList(placeResults, result))
             .then(() => gifticonSearchHandler(placeResults));
-
-
     }
 
     //기프티콘검색핸들러
     async function gifticonSearchHandler(placeResults) {
-
         if (placeResults.length != 0) {
 
             let promiseList = [];
@@ -264,7 +244,7 @@ $(document).ready(function () {
                         if (result.status == 'fulfilled') {
                             insertGftInResultList(result)
                         }
-                    })
+                    });
                 })
                 .then(() => displayGifticon(gftResult));
 
@@ -278,7 +258,6 @@ $(document).ready(function () {
 
     //판매중인 기프티콘 검색
     function searchGifticon(brdName) {
-
         return new Promise(function (resolve, reject) {
             $.ajax({
                 url: '/user/map/getMainGfts/' + brdName,
@@ -296,9 +275,8 @@ $(document).ready(function () {
                         reject();
                     }
                 }
-            })
-        })
-
+            });
+        });
     }
 
     //기프티콘 목록 출력
@@ -320,11 +298,11 @@ $(document).ready(function () {
 
                 let pnameSize = gftResult[i].pname.length;
 
-                if(pnameSize >= 16){
-                    str += '<div class="prdName small">' + gftResult[i].pname.substr(0,15) + '...' + '</div>';
-                }else if (16 < pnameSize && pnameSize >= 12) {
+                if (pnameSize >= 16) {
+                    str += '<div class="prdName small">' + gftResult[i].pname.substr(0, 15) + '...' + '</div>';
+                } else if (16 < pnameSize && pnameSize >= 12) {
                     str += '<div class="prdName small">' + gftResult[i].pname + '</div>';
-                }else{
+                } else {
                     str += '<div class="prdName medium">' + gftResult[i].pname + '</div>';
                 }
 
@@ -373,8 +351,6 @@ $(document).ready(function () {
         gftResult = [];
 
         placeSearchHandler(brand);
-
-    })
-})
-
+    });
+});
 </script>

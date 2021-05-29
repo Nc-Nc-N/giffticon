@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/resources/css/admin/adminLayout.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/admin/cs/modified/admin_notice.css" type="text/css">
 
 
 
@@ -60,32 +60,52 @@
             </div>
 
             <!-- search area end -->
-
-
-            <!--accordionMenu-->
             <div class="accordionMenu">
-
                 <c:forEach items="${list}" var="notice" varStatus="status">
                     <!-- 1st menu-->
                     <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">
-                    <label for="acc<c:out value="${status.index+1}"/>"><c:out
+                    <label class="contentList" name="<c:out value="${status.index}"/>"
+                           for="acc<c:out value="${status.index+1}"/>"><c:out
                             value="${notice.csCateCode == '003' ? '[공지]':'[이벤트]'}"/> <c:out value="${notice.title}"/>
                         <span class="no-date"><fmt:formatDate value="${notice.startDt}" pattern="yyyy-MM-dd"/></span>
                         <button id="<c:out value='${notice.id}'/>" class="btn-no btn-erase">
                             <i class="fas fa-minus"></i></button>
-                        <button class="btn-no btn-modify" id="<c:out value='${notice.id}'/>" onclick="">수정</button>
+                        <button class="btn-no modify" id="<c:out value='${notice.id}'/>" onclick="">수정</button>
                     </label>
-                    <div class="content">
+                    <div class="content" name="content_<c:out value="${status.index}"/>">
                         <div class="inner">
                             <p><c:out value="${notice.cntnt}"/></p>
                         </div>
-
                     </div>
                 </c:forEach>
                 <c:if test="${list.size() == 0}">
                     <div class="noSearchResult">검색 결과가 없습니다.</div>
                 </c:if>
             </div>
+            <!--accordionMenu-->
+<%--            <div class="accordionMenu">--%>
+
+<%--                <c:forEach items="${list}" var="notice" varStatus="status">--%>
+<%--                    <!-- 1st menu-->--%>
+<%--                    <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">--%>
+<%--                    <label for="acc<c:out value="${status.index+1}"/>"><c:out--%>
+<%--                            value="${notice.csCateCode == '003' ? '[공지]':'[이벤트]'}"/> <c:out value="${notice.title}"/>--%>
+<%--                        <span class="no-date"><fmt:formatDate value="${notice.startDt}" pattern="yyyy-MM-dd"/></span>--%>
+<%--                        <button id="<c:out value='${notice.id}'/>" class="btn-no btn-erase">--%>
+<%--                            <i class="fas fa-minus"></i></button>--%>
+<%--                        <button class="btn-no btn-modify" id="<c:out value='${notice.id}'/>" onclick="">수정</button>--%>
+<%--                    </label>--%>
+<%--                    <div class="content">--%>
+<%--                        <div class="inner">--%>
+<%--                            <p><c:out value="${notice.cntnt}"/></p>--%>
+<%--                        </div>--%>
+
+<%--                    </div>--%>
+<%--                </c:forEach>--%>
+<%--                <c:if test="${list.size() == 0}">--%>
+<%--                    <div class="noSearchResult">검색 결과가 없습니다.</div>--%>
+<%--                </c:if>--%>
+<%--            </div>--%>
             <!-- end accordionMenu-->
 
 
@@ -227,6 +247,23 @@
 </div>
 <!-- end Modal -->
 
+<script>
+    $(document).ready(function () {;
+
+        $(".contentList").on("click", function () {
+            let listNum = "content_" + $(this).attr("name");
+            let divDisplay = $("div[name=" + listNum + "]").css("display");
+
+            if (divDisplay == "none") {
+                $("div[name=" + listNum + "]").css("display", "block");
+            } else {
+                $("div[name=" + listNum + "]").css("display", "none");
+            }
+
+            // calculateContentLength();
+        });
+    });
+</script>
 
 <script type="text/javascript">
 
@@ -276,9 +313,9 @@
 
 
     //delete
-    $(".btn-erase").on("click", function () {
+    $(".btn-erase").on("click", function (e) {
 
-
+        e.stopPropagation();
         var formObj = $("form");
         console.log(this.id);
 
@@ -336,8 +373,8 @@
 
 
     //modify
-    $(".btn-modify").on("click", function () {
-
+    $(".modify").on("click", function (e) {
+        e.stopPropagation();
         var modifyForm = $("form");
         console.log(this.id);
         let date;

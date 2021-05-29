@@ -3,39 +3,28 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="templete.jsp"/>
+
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_deals_detail.css" type="text/css">
+
 <div class="contentheader">
-    <span>구매 내역 > 상품 상세</span>
+    <span>상품상세</span>
+</div>
+<div class="contentinfo">
+    거래확정대기&nbsp;<i class="fas fa-caret-right"></i>&nbsp;거래확정완료
 </div>
 <div class="item_info">
-    <div class="item_img">
-        <img src="<c:out value="${gftInfo.prdImgPath}"/>">
+    <div class="item_img gifticon-img">
+        <a class="gft-img-btn" href="<c:out value='${gftInfo.gftImgPath}'/>"><img src="/resources/img/gft-img.png"></a>
     </div>
     <div class="item_nameNcode">
+        <div class="item_code">
+            <div>상품코드</div>
+            <c:out value="${gftInfo.prdCode}"/><c:out value="${gftInfo.gftId}"/>
+        </div>
         <div class="item_name">
             <div>상품명</div>
             <c:out value="${gftInfo.prdName}"/>
         </div>
-        <div class="item_code">
-            <div>상품 번호</div>
-            <c:out value="${gftInfo.prdCode}"/><c:out value="${gftInfo.gftId}"/>
-        </div>
-    </div>
-    <div class="item_btn">
-        <c:if test="${gftInfo.stusCode eq '거래확정대기'}">
-            <button name="dealCmplBtn" class="btn btn-cmpl" value="<c:out value="${gftInfo.gftId}"/>" id="<c:out value="${gftInfo.dealId}"/>">거래 확정</button>
-        </c:if>
-        <c:if test="${gftInfo.stusCode eq '거래확정완료'}">
-            <button class="btn btn-disabled">확정 완료</button>
-        </c:if>
-
-    </div>
-</div>
-<div class="item_info">
-    <div class="item_img">
-        <img src="<c:out value='${gftInfo.gftImgPath}'/>">
-    </div>
-    <div class="item_nameNcode">
         <div class="item_name">
             <div>구매일자</div>
             <fmt:formatDate pattern="yyyy-MM-dd" value="${gftInfo.dealDt}"/>
@@ -54,10 +43,15 @@
         </div>
     </div>
     <div class="item_btn">
-
+        <c:if test="${gftInfo.stusCode eq '거래확정대기'}">
+            <button name="dealCmplBtn" class="btn btn-cmpl" value="<c:out value="${gftInfo.gftId}"/>">거래확정</button>
+        </c:if>
+        <c:if test="${gftInfo.stusCode eq '거래확정완료'}">
+            <button class="btn btn-disabled">확정완료</button>
+        </c:if>
     </div>
-
 </div>
+<div class="space50"></div>
 <div class="toListbtn">
     <form id="actionForm" action="/user/mypage/deal" method="get">
         <input type="hidden" name="dateFrom" value="<c:out value="${cri.dateFrom}"/>">
@@ -67,20 +61,21 @@
         <input type="hidden" name="keyword" value="<c:out value="${cri.keyword}"/>"/>
         <input type="hidden" name="type" value="<c:out value="${cri.type}"/>"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <button class="btn btn-active" id="toListbtn">목록</button>
+        <button id="toListbtn">목록</button>
     </form>
 </div>
 </div>
 </div>
 </div>
 </div>
-
+<div class="space100"></div>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
 
 <script>
-
     $(document).ready(function () {
+        $("#deal-link").attr("class", "menu active");
 
         var actionForm = $("#actionForm");
 
@@ -96,7 +91,10 @@
             }
         });
 
-    })
-</script>
+        $(".gft-img-btn").on("click", function (e) {
+            e.preventDefault();
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+            window.open($(this).attr("href"), "gifticon img", "width=700, height=900");
+        });
+    });
+</script>

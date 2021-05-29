@@ -9,9 +9,9 @@
 
 
 .one-user-email{
-   font-size: 12px;
-   color: grey;
-   
+    font-size: 12px;
+    color: grey;
+
 }
 
 .dark{
@@ -28,8 +28,8 @@
     text-decoration: underline;
     cursor: pointer;
     font-size: 15px;
- 
-    margin: 0 auto;    
+
+    margin: 0 auto;
 }
 .btn-modify{
     width: 50px;
@@ -87,10 +87,11 @@ li{
 }
 
 .modal-body textarea{
-    margin: 10px;
+    outline: none;
+    margin-left: 10px;
     width: 560px;
     height: 150px;
-    font-size: 17px;
+    font-size: 15px;
     resize: none;
     border-color: #dee2e6;
 }
@@ -110,3 +111,56 @@ li{
 .inner a:link { color: #4b70fd; }
 
 .inner a:visited { color: #8c59b9; }
+
+.img_show{
+    background-color: white;
+    border: 1px solid rgb(71, 71, 71);
+    color: #333333;
+    cursor: pointer;
+    width: 60px;
+    height: 20px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+.wait{
+    background-color:rgb(255,88,93);
+    /*border: 1px solid rgb(71, 71, 71);*/
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    border-radius: 0px;
+    font-size: 12px;
+}
+.finish{
+    background-color:gainsboro;
+    /*border: 1px solid rgb(71, 71, 71);*/
+    color: #333;
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    border-radius: 0px;
+    font-size: 12px;
+}
+
+.modify{
+    z-index: 1;
+    color: rgb(255,88,93);
+    font-size:14px;
+    border: none;
+    background-color: unset;
+}
+
+.psnlQinner, .psnlAinner{
+    padding: 10px 76px 10px 20px;
+}
+
+.psnlAinner{
+    padding: 10px 76px 20px 20px;
+}
+
+.modal-modify-ans{
+    outline: none;
+    margin: 10px;
+    width: 560px;
+}

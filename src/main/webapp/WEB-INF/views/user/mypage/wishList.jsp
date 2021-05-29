@@ -63,6 +63,8 @@
 <script type="text/javascript" src="/resources/js/user/wishList.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#wish-link").attr("class", "menu active");
+
         let actionForm = $("#actionForm");
 
         // 페이지네이션 이벤트 처리
@@ -90,7 +92,9 @@
            actionForm.submit();
         })
 
-        if(${pageMaker.total}===0){
+        let total = "${pageMaker.total}";
+
+        if(${pageMaker.total} === 0) {
             $('.noResult').show();
         }
 
@@ -113,9 +117,9 @@
                 error: function () {
                     alert("해당 물품의 구매가능한 기프티콘이 없습니다.")
                 }
-            })
-        })
-    })
+            });
+        });
+    });
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

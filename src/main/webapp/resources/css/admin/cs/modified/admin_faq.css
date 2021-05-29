@@ -1,0 +1,41 @@
+.qna-q{
+
+    font-weight:bold;
+    color:#333;
+}
+
+.faq-date{
+    font-size: 10px;
+    color: darkgrey;
+}
+
+.modify-odrNo, .register-odrNo{
+    margin-left: 10px;
+    width: 60px;
+}
+
+.modify-enabled, .register-enabled {
+
+    margin-left: 10px;
+}
+
+.content{
+    display: none;
+    padding: 0 25px 0 10px;
+    background-color: #F5F4F4;
+}
+
+.inner{
+    padding: 10px 80px 10px 25px;
+}
+
+.modify{
+    background-color:rgb(255,88,93);
+    /*border: 1px solid rgb(71, 71, 71);*/
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    border-radius: 0px;
+    font-size: 12px;
+}

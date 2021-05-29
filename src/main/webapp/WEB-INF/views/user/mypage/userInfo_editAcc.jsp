@@ -2,21 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_editPwd.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_account.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-</style>
+
+<link rel="stylesheet" href="/resources/css/user/mypage/user_info_modal.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_edit_account.css" type="text/css">
+
 </head>
 <body>
-<div id="acc_register-content">
+<div id="register-content">
     <h2>계좌정보 수정</h2>
 
-    <div id="acc_content">
+    <div id="content">
 
-        <div class="acc_info_section">
+        <div class="info_section">
             <div>
                 <h3>은행명</h3>
                 <select id="acc-bankSelect">
@@ -29,7 +28,7 @@
             </div>
 
         </div>
-        <div class="acc_info_section">
+        <div class="info_section">
             <div>
                 <h3>예금주</h3>
                 <div class="input_text">
@@ -38,23 +37,23 @@
             </div>
 
         </div>
-        <div class="acc_info_section">
+        <div class="info_section">
             <div>
                 <h3>계좌번호</h3>
                 <div class="input_text">
                     <input type="text" class="acc-account" placeholder="기존 계좌번호 출력">
                 </div>
-                <button class="btn btn-submit" id="btn-accConfirm">인증</button>
+                <button class="btn btn-confirm" id="btn-accConfirm">인증</button>
             </div>
             <div class="message" id="msg-accConfirm"></div>
         </div>
         <div class="acc_info_section">
             <div>
-                <h3>비밀번호 입력</h3>
+                <h3>비밀번호입력</h3>
                 <div class="input_text">
                     <input type="password" class="acc-originPwd" placeholder="">
                 </div>
-                <button class="btn btn-submit" id="btn-accPwdConfirm">인증</button>
+                <button class="btn btn-confirm" id="btn-accPwdConfirm">인증</button>
             </div>
             <div class="message" id="msg-accPwd"></div>
         </div>
@@ -63,7 +62,7 @@
 
     <div id="reg-btn-area">
         <button class="btn btn-active" id="modifyAcc">등록</button>
-        <button class="btn btn-dark cancel" id="cancelAcc">취소</button>
+        <button class="btn cancel" id="cancelAcc">취소</button>
     </div>
 </div>
 </body>

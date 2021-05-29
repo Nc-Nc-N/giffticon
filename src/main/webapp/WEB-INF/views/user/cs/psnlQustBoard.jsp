@@ -2,8 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@include file="/WEB-INF/views/common/header.jsp" %>
-
+<jsp:include page="csTemplete.jsp"/>
 <meta charset="UTF-8">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,7 +10,6 @@
 <link rel="stylesheet" href="/resources/css/common/header.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_psnl_qust.css" type="text/css">
@@ -20,9 +18,6 @@
 <link rel="stylesheet" href="/resources/css/user/cs/psnl_qust_board.css" type="text/css">
 
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-
-<%@ include file="/WEB-INF/views/user/cs/csTemplete.jsp" %>
-
 
 <h3>1:1문의</h3>
 <div class="sub-category-area">
@@ -46,7 +41,7 @@
     <c:forEach items="${list}" var="qna" varStatus="status">
         <!-- 1st menu-->
         <input type="checkbox" class="list-id" name="trg1" id="acc<c:out value="${status.index+1}"/>">
-        <label for="acc<c:out value="${status.index+1}"/>">
+        <label class="contentList" name="<c:out value="${status.index}"/>" for="acc<c:out value="${status.index+1}"/>">
             <span class="qna-q">Q. </span><c:out value="${qna.csCateCode == '001' ? '[구매]':'[판매]'}"/>
             <c:out value="${qna.title}"/>
             <button id="<c:out value='${qna.id}'/>" class="btn-no btn-erase">
@@ -55,26 +50,27 @@
                     id="<c:out value='${qna.id}'/>">
                 <c:out value="${qna.stusCode == '001' ? '답변완료':'답변대기'}"/>
             </button>
-            <button class="btn-ans-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
-                    id="<c:out value='${qna.id}'/>">수정
-            </button>
+
+            <c:if test="${qna.stusCode == '000'}">
+                <button class="btn-ans-modify modify" id="<c:out value='${qna.id}'/>">수정</button>
+            </c:if>
+
         </label>
 
-        <div class="content">
-            <div class="inner">
-                <p class="qna-a">Q. </p>
-                <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/></p>
-                <a href="<c:out value="${qna.atchFilePath}"/>" download="<c:out value="${qna.atchFilePath}"/>"
-                   class="atch-file" name="atchFilePath">
-                    <c:out value="${qna.atchFilePath}"/></a>
+        <div class="content" name="content_<c:out value="${status.index}"/>">
 
+            <div class="inner userQstInner">
+                <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/>&nbsp;&nbsp;
+                <c:if test="${qna.atchFilePath != ''}">
+                <button class="btn img_show" value="<c:out value="${qna.atchFilePath}"/>">첨부파일</button>
+                </c:if>
+                </p>
             </div>
             <div class="admin-inner">
-                <p class="qna-a">A. </p>
+                <p class="qna-a"></p>
                 <p><c:out value="${qna.ansCntnt}"/></p>
-
-
             </div>
+
         </div>
     </c:forEach>
     <c:if test="${list.size() == 0}">
@@ -87,7 +83,7 @@
 <div id="notion-write">
 
     <%--1:1 문의 register btn--%>
-    <button class="btn btn-active">1:1문의</button>
+    <button class="btn btn-active" id="reg-psnQust">1:1문의</button>
 
     <!-- pagenation-->
     <div class="pagination">
@@ -135,7 +131,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <input class="modify-id" type="hidden" name="id" value=''>
-                    <textarea class="modify-title" name="title"></textarea>
+                    <input class="modify-title" name="title" type="textarea">
                 </div>
 
                 <div class="modal-body">
@@ -183,10 +179,26 @@
 </div>
 <!-- end Modal -->
 
-
+<script type="text/javascript" src="/resources/js/etc/screenHeight.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        $(".contentList").on("click", function(){
+
+            let listNum = "content_" + $(this).attr("name");
+            let divDisplay = $("div[name=" + listNum + "]").css("display");
+
+            if(divDisplay == "none"){
+                $("div[name=" + listNum + "]").css("display","block");
+            }else{
+                $("div[name=" + listNum + "]").css("display","none");
+            }
+
+            calculateContentLength();
+        })
+
+        $("#psnlQ-link").attr("class", "menu active");
 
         //사용자 1:1문의 오류 메시지를 controller에서 보내줌.
         let error = "${error}";
@@ -210,25 +222,17 @@
             actionForm.submit();
         });
 
-
-        //답변상태, 수정 css 변경
-        $(".finish").css({
-            "background-color": "rgb(71, 71, 71)",
-            "color": "white"
-        });
-
-
     });
 
     //1:1문의 register 이동
-    $(".btn-active").on("click", function () {
+    $("#reg-psnQust").on("click", function () {
         console.log("1:1문의");
         self.location = "/user/mypage/psnlQustBoard/register";
     });
 
 
     //modify modal
-    $(".wait").on("click", function () {
+    $(".modify").on("click", function () {
 
 
         var modifyForm = $("form");
@@ -268,7 +272,7 @@
             $(".search-selected").html("[판매]");
         }
 
-        $(".modify-title").html(psnl.title);
+        $(".modify-title").val(psnl.title);
 
         $(".modify-content").html(psnl.cntnt);
 
@@ -351,6 +355,21 @@
         });
 
     }); //end delete
+
+
+</script>
+<script>
+
+    $(document).ready(function (){
+
+        $(".img_show").on("click", function(){
+
+            let imgPath = $(this).val();
+
+            window.open($(this).val(), "gifticon img", "width=700, height=900");
+        });
+
+    })
 
 
 </script>

@@ -5,9 +5,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import lombok.extern.log4j.Log4j;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+@Log4j
 @Component
 public class SendMmsMessage {
 	/*
@@ -61,7 +64,9 @@ public class SendMmsMessage {
 
 	public String sendAuthCode(String phone, String code) throws Exception {
 		String msg = "인증코드: " + code;
-		return this.send(this.userId, this.callback, phone, msg, null, null, null, null);
+		String result = this.send(this.userId, this.callback, phone, msg, null, null, null, null);
+		log.info(result);
+		return result;
 	}
 
 	public String send(String userid, String callback, String phone, String msg

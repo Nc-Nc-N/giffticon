@@ -49,7 +49,7 @@ public class SaleRegisterController {
     final private GifticonService giftiService;
 
     public SaleRegisterController(
-        @Value("#{barcodepath['path']}") String barcodepath,
+        @Value("#{imgPath['path']}") String barcodepath,
         CategoryService cateService,
         BrandService brandService,
         ProductService prodService,
@@ -174,7 +174,7 @@ public class SaleRegisterController {
         log.info("update ajax post................");
 
         List<AttachFileDTO> list = new ArrayList<>();
-        String uploadFolder = barcodepath;
+        String uploadFolder = barcodepath + "/barcode";
 
         String uploadFolderPath = getFolder();
         //make folder --------
@@ -251,6 +251,7 @@ public class SaleRegisterController {
 
         File file = new File(barcodepath + fileName);
 
+        log.info("barcode Path : " + barcodepath + fileName);
         log.info("file: " + file);
 
         ResponseEntity<byte[]> result = null;
