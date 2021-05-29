@@ -314,6 +314,32 @@
                 #{imgPath}, #{isAutoPrc}, '001', default, current_user(), default, current_user(), null)
     </insert>
 
+    <!-- 가격변동사항 저장 -->
+    <insert id="insertDcPrcHist">
+        insert into dc_prc_hist
+        values
+        (default, #{id}, #{dcPrc}, now(), null, default, current_user(), default, current_user())
+    </insert>
+
+    <select id="getGftIdByBarcode" resultType="_int">
+        select id from gifticon
+        where brcd=#{brcd}
+    </select>
+
+    <!-- dc_prc_hist table의 end_dt 업데이트할 row의 id 가져오기 -->
+    <select id="getDcPrcHistIdByGftId" resultType="_int">
+        select id from dc_prc_hist
+        where gft_id=#{gftId}
+        order by id desc
+            limit 1
+    </select>
+
+    <update id="updateDcPrcHist">
+        update dc_prc_hist
+        set end_dt = now()
+        where id=#{id}
+    </update>
+
     <select id="getMainGftByBrandName" resultType="com.ncncn.domain.ProdListVO">
         select prdT.img_path     pimgPath,
                brdT.name         bname,
@@ -514,4 +540,5 @@
         from gifticon
         where id = #{gftId};
     </select>
+
 </mapper>
