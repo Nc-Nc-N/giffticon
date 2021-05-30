@@ -104,8 +104,7 @@
                 {userId: "${userId}",
                     prodCode: prodCode});
 
-           actionForm.find("input[name='pageNum']").val(1);
-           actionForm.submit();
+            location.href = "/user/mypage/wishList"
         })
 
         if(${pageMaker.total} === 0) {
