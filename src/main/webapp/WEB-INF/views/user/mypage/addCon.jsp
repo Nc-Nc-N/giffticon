@@ -1,10 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <jsp:include page="templete.jsp"/>
 
 <link rel="stylesheet" href="/resources/css/user/mypage/addCon.css" type="text/css">
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <div class="contentheader">
     <span> 콘 충전</span>
@@ -47,18 +49,17 @@
     </div>
 
     <div class="pnt_info_column">
-        <div class="con_info"> 현재 콘 <span class="userPnt"><c:out value="${userCon}"/> 콘</span> </div>
+        <div class="con_info"> 현재 콘 <span class="userPnt"><fmt:formatNumber value="${userCon}" type="number" maxFractionDigits="3"/> 콘</span> </div>
         <div class="con_info"> 충전 콘 <span class="addCon"></span> <span class="benefits"></span></div>
         <div class="con_info"> 충전 후 콘 <span class="afterAdd"></span></div>
         <div class="con_info"> 총 결제 금액
             <span class="money">
             </span>
         </div>
+        <div class="space50"></div>
         <div class="pnt_bought_btn_section">
             <button id="charge_kakao" class="btn btn-active">결제하기</button>
         </div>
-
-
     </div>
 </div>
 </div>
@@ -66,6 +67,7 @@
 </div>
 </div>
 </div>
+<div class="space100"></div>
 <%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
