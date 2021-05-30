@@ -72,11 +72,11 @@
             <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
         </form>
     </div>
-    <div class="space50"></div>
 </div>
 </div>
 </div>
 </div>
+<div class="space50"></div>
 </body>
 
 <script type="text/javascript" src="/resources/js/user/wishList.js"></script>
@@ -96,7 +96,6 @@
 
         // 삭제 버튼 이벤트 처리
         $(".delete-btn").on("click", function (e){
-            console.log("delete-btn 클릭!")
             // 상품 코드
             let prodCode = $(this).attr("value");
 
@@ -104,7 +103,7 @@
                 {userId: "${userId}",
                     prodCode: prodCode});
 
-            location.href = "/user/mypage/wishList"
+            location.href = "/user/mypage/wishList";
         })
 
         if(${pageMaker.total} === 0) {
