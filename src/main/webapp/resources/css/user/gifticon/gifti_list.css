@@ -1,46 +1,53 @@
-#container{
-    width:1000px;
+#container {
+    width: 1000px;
     margin: 0 auto 10%;
     color: #333;
 }
-.space{
-    height:40px;
-    width:1000px;
-    margin:auto;
+
+.space {
+    height: 40px;
+    width: 1000px;
+    margin: auto;
 }
 
 /* 카테고리 네비게이션바 */
-.catename, .search-result{
+.catename, .search-result {
     padding: 10px;
 }
-.catename >.fas{
+
+.catename > .fas {
     color: #FF585D;
 }
-table{
+
+table {
     width: 1000px;
 }
-nav ul{
+
+nav ul {
     width: 1000px;
-	background-color: white;
-	padding: 0;
-	overflow: hidden;
+    background-color: white;
+    padding: 0;
+    overflow: hidden;
     border-bottom: 1px solid gainsboro;
-	-webkit-transition: max-height 0.4s;
-	-ms-transition: max-height 0.4s;
-	-moz-transition: max-height 0.4s;
-	-o-transition: max-height 0.4s;
-	transition: max-height 0.4s;
+    -webkit-transition: max-height 0.4s;
+    -ms-transition: max-height 0.4s;
+    -moz-transition: max-height 0.4s;
+    -o-transition: max-height 0.4s;
+    transition: max-height 0.4s;
 }
-nav ul a{
+
+nav ul a {
     color: #202020;
-	display: inline-block;
-	padding: 10px;
+    display: inline-block;
+    padding: 10px;
     font-size: small;
-    list-style:none;
+    list-style: none;
 }
-nav ul a:hover{
-	color: #FF585D
+
+nav ul a:hover {
+    color: #FF585D
 }
+
 .search-select {
     background-color: rgb(245, 244, 244);
     border: none;
@@ -48,22 +55,22 @@ nav ul a:hover{
     border-radius: 5px;
     float: right;
     margin: 10px;
-    
 }
+
 /* 상품 목록 */
-table td{
+table td {
     border-bottom: 1px solid #e6e6e6;
     padding: 5% 2%;
     display: inline-block;
 }
 
-td a:link{
+td a:link {
     text-decoration: none;
 }
 
-.items{
-    width:200px;
-    height:100%;
+.items {
+    width: 200px;
+    height: 100%;
 }
 
 .itemoriginprice > span {
@@ -71,14 +78,13 @@ td a:link{
 }
 
 /* 페이지네이션 css */
-
 .pagination {
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
 }
 
-.pagination li{
-    list-style:none;
+.pagination li {
+    list-style: none;
 }
 
 .pagination a {
@@ -104,23 +110,40 @@ td a:link{
 }
 
 /* 재검색 안내 */
-.noresult, .noresult-tip{
+.noresult, .noresult-tip {
     text-align: center;
 }
-.noresult-tip{
+
+.noresult-tip {
     margin-top: 30px;
 }
-.tip_lst{
+
+.tip_lst {
     font-size: small;
     color: grey;
-    line-height: 8px;
 }
-a { text-decoration: none; color: #333; }
-a:visited { text-decoration: none; }
-a:hover { text-decoration: none; }
-a:focus { text-decoration: none; }
-a:hover, a:active { text-decoration: none; }
 
-.brandList.active, .cateAll.active{
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:focus {
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: none;
+}
+
+.brandList.active, .cateAll.active {
     color: rgb(255, 88, 93);
 }

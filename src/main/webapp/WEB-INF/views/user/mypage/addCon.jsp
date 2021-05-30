@@ -45,11 +45,12 @@
             </tr>
             </tbody>
         </table>
-        <p  style="color: grey; margin: 5% 5%; font-size: small">최소 충전금액은 5,000원이며 최대 충전금액은 50,000원 입니다.</p>
+        <p style="color: grey; margin: 5% 5%; font-size: small">최소 충전금액은 5,000원이며 최대 충전금액은 50,000원 입니다.</p>
     </div>
 
     <div class="pnt_info_column">
-        <div class="con_info"> 현재 콘 <span class="userPnt"><fmt:formatNumber value="${userCon}" type="number" maxFractionDigits="3"/> 콘</span> </div>
+        <div class="con_info"> 현재 콘 <span class="userPnt"><fmt:formatNumber value="${userCon}" type="number"
+                                                                            maxFractionDigits="3"/> 콘</span></div>
         <div class="con_info"> 충전 콘 <span class="addCon"></span> <span class="benefits"></span></div>
         <div class="con_info"> 충전 후 콘 <span class="afterAdd"></span></div>
         <div class="con_info"> 총 결제 금액
@@ -68,14 +69,15 @@
 </div>
 </div>
 <div class="space100"></div>
-<%@include file="/WEB-INF/views/common/footer.jsp"%>
+<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
+        $("#con-link").attr("class", "menu active");
 
-        let csrfHeaderName="${_csrf.headerName}";
-        let csrfTokenValue="${_csrf.token}";
+        let csrfHeaderName = "${_csrf.headerName}";
+        let csrfTokenValue = "${_csrf.token}";
 
         const email = '${email}';
         const name = '${name}';
@@ -85,34 +87,30 @@
         let money = 0;
 
         // 라디오 버튼 클릭시 충전 콘 정보 변경
-        $('input[name="cp_item"]').click(function (){
-
+        $('input[name="cp_item"]').click(function () {
             money = $('input[name="cp_item"]:checked').val();
             let benefits = 0;
 
-            $('.addCon').html(money).append(" 콘");                                   // 충전 콘
-            $('.money').html(money).append(" 원");                                   // 결제 금액
+            $('.addCon').html(numberWithCommas(money)).append(" 콘");                                   // 충전 콘
+            $('.money').html(numberWithCommas(money)).append(" 원");                                   // 결제 금액
 
             // 콘 충전 혜택
-            if(money == 10000){
+            if (money === 10000) {
                 benefits = 1000;
-            }else if(money == 20000){
+            } else if (money === 20000) {
                 benefits = 2500;
-            }else if(money == 50000){
+            } else if (money === 50000) {
                 benefits = 6000;
             }
 
-            if(benefits>0){
-                $('.benefits').html(" +"+benefits+"콘 추가 지급!")
+            if (benefits > 0) {
+                $('.benefits').html(" +" + benefits + "콘 추가 지급!")
             }
 
-            $('.afterAdd').html(userCon+parseInt(money)+benefits).append(" 콘");    // 충전 후 콘
-
-        })
+            $('.afterAdd').html(numberWithCommas(userCon + parseInt(money) + benefits)).append(" 콘");    // 충전 후 콘
+        });
 
         $('#charge_kakao').click(function () {
-            console.log("money: "+money);
-
             // getter
             let IMP = window.IMP;
             IMP.init('imp60743034');
@@ -120,7 +118,6 @@
             IMP.request_pay({
                 pg: 'kakao',
                 merchant_uid: 'merchant_' + new Date().getTime(),
-
                 name: '콘 충전',
                 amount: money,
                 buyer_email: email,
@@ -129,7 +126,6 @@
                 buyer_addr: '인천광역시 부평구',
                 buyer_postcode: '123-456'
             }, function (rsp) {
-                console.log(rsp);
                 if (rsp.success) {
                     var msg = "결제가 완료되었습니다.";
                     msg += '결제 금액 : ' + rsp.paid_amount;
@@ -140,19 +136,17 @@
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                         },
-                        data:
-                            JSON.stringify({
+                        data: JSON.stringify({
                             "chgQuty": money,
                             "pntHistCode": "001"        // 충전
-                            }),
+                        }),
                         contentType: 'application/json; charset=UTF-8',
                         async: false,
-                        success: function (){
+                        success: function () {
                         },
-                        error:function (){
+                        error: function () {
                             alert('충전 업데이트에 실패하였습니다. 관리자에게 문의해주시기 바랍니다.')
                         }
-
                     });
                 } else {
                     var msg = '충전에 실패하였습니다. 다시 시도해 주세요.';
@@ -162,7 +156,9 @@
                 document.location.href = "/user/mypage/addCon"; //alert창 확인 후 이동할 url 설정
             });
         });
-    })
+    });
 
-
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 </script>

@@ -54,7 +54,6 @@
             <c:if test="${qna.stusCode == '000'}">
                 <button class="btn-ans-modify modify" id="<c:out value='${qna.id}'/>">수정</button>
             </c:if>
-
         </label>
 
         <div class="content" name="content_<c:out value="${status.index}"/>">
@@ -79,9 +78,9 @@
 </div>
 <!-- end accordionMenu-->
 
+<div class="space50"></div>
 
 <div id="notion-write">
-
     <%--1:1 문의 register btn--%>
     <button class="btn btn-active" id="reg-psnQust">1:1문의</button>
 
@@ -107,13 +106,12 @@
     </div>
     <!-- end pagenation-->
 
-    <form ID='actionForm' action="/user/mypage/psnlQustBoard" method="get">
+    <form id='actionForm' action="/user/mypage/psnlQustBoard" method="get">
         <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
         <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
         <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
         <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
     </form>
-
 </div>
 
 </div>
@@ -150,7 +148,6 @@
 </div>
 <!-- end Modal -->
 
-
 <!-- delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -179,13 +176,14 @@
 </div>
 <!-- end Modal -->
 
+<%@include file="/WEB-INF/views/common/footer.jsp"%>
+</body>
+</html>
+
 <script type="text/javascript" src="/resources/js/etc/screenHeight.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function () {
-
         $(".contentList").on("click", function(){
-
             let listNum = "content_" + $(this).attr("name");
             let divDisplay = $("div[name=" + listNum + "]").css("display");
 
@@ -206,22 +204,17 @@
         // error 발생 시 해당 에러 메시지를 alert
         if (error.length > 0) {
             alert("에러 발생. 담당자에게 문의해주세요. \n" + error);
-            console.log(error);
         }
 
         //pagination
         var actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {
-
             e.preventDefault();
-
-            console.log('click');
 
             actionForm.find("input[name='pageNum']").val($(this).attr("href"));
             actionForm.submit();
         });
-
     });
 
     //1:1문의 register 이동
@@ -230,15 +223,9 @@
         self.location = "/user/mypage/psnlQustBoard/register";
     });
 
-
     //modify modal
     $(".modify").on("click", function () {
-
-
-        var modifyForm = $("form");
-
-        console.log("this id:" + this.id);
-
+        let modifyForm = $("form");
         let psnl = '';
 
         //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
@@ -249,59 +236,36 @@
             async: false,
             success: function (result) {
                 psnl = result;
-                console.log("ajax result:" + result);
-                console.log(psnl);
-            },
-            error: function () {
-
             }
         });
 
-
         // 모달창 안에 psnl 객체 값으로 채우기.
-
-        console.log("psnl.id : " + psnl.id);
         $(".modify-id").val(psnl.id);
-
         if (psnl.csCateCode == "001") {
-
             $(".search-selected").html("[구매]");
-
         } else {
-
             $(".search-selected").html("[판매]");
         }
 
         $(".modify-title").val(psnl.title);
-
         $(".modify-content").html(psnl.cntnt);
-
 
         $("#modifyModal").fadeIn();     //모달창 열기.
 
-
         $('#btn-modify').on("click", function () {  //확인 버튼 클릭 시
-
             modifyForm.attr("action", "/user/mypage/psnlQustBoard/modify");
             modifyForm.submit();
         });
 
         $("#closeModifyModalBtn").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
-
             e.preventDefault();
             $("#modifyModal").fadeOut();
         });
-
     }); //end ans
-
 
     //delete
     $(".btn-erase").on("click", function () {
-
-
-        var formObj = $("form");
-        console.log(this.id);
-
+        let formObj = $("form");
         let psnl = '';
 
         //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
@@ -311,70 +275,41 @@
             async: false,
             success: function (result) {
                 psnl = result;
-                console.log(psnl);
-            },
-            error: function () {
-
             }
         });
-
 
         // 모달창 안에 Notice 객체 값으로 채우기.
         $(".del-id").val(psnl.id);
 
         if (psnl.csCateCode == "001") {
-
             $(".search-selected").html("[구매]");
-
         } else {
-
             $(".search-selected").html("[판매]");
         }
 
         $(".del-id").html(psnl.id);
-
         $(".de-title").html(psnl.title);
-
         $(".de-cntnt").html(psnl.cntnt);
 
         $("#deleteModal").fadeIn();
 
         $("#btn-delete").on("click", function (e) {     //확인 버튼 클릭 시
-
             formObj.attr("action", "/user/mypage/psnlQustBoard/remove");
             formObj.submit();
-
-
         });
 
-
         $("#closeModalBtn").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
-
             e.preventDefault();
             $("#deleteModal").fadeOut();
         });
-
     }); //end delete
-
-
 </script>
 <script>
-
     $(document).ready(function (){
-
         $(".img_show").on("click", function(){
-
             let imgPath = $(this).val();
 
             window.open($(this).val(), "gifticon img", "width=700, height=900");
         });
-
-    })
-
-
+    });
 </script>
-
-</body>
-</html>
-
-<%@include file="/WEB-INF/views/common/footer.jsp"%>

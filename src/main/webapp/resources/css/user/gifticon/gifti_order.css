@@ -26,11 +26,12 @@
 }
 
 /* 구매상품 이미지 */
-.imgsec{
+.imgsec {
     padding-top: 20px;
     text-align: center;
 }
-.imgsec > img{
+
+.imgsec > img {
     width: 240px;
 }
 
@@ -41,18 +42,19 @@
 }
 
 /* 구매자 정보 아래 내용 */
-.goodsinfo_table, .orderitem_money_info, .goodsinfo_table{
+.goodsinfo_table, .orderitem_money_info, .goodsinfo_table {
     display: flex;
     border-top: 1px solid gainsboro;
 }
 
-.goodsinfo_table >tbody, .orderitem_money_info{
+.goodsinfo_table > tbody, .orderitem_money_info {
     padding-top: 19px;
 }
 
-.data_orderer .goodsinfo_table .fst th, .money_info_table .fst th{
+.data_orderer .goodsinfo_table .fst th, .money_info_table .fst th {
     padding-top: 19px;
 }
+
 .goodsinfo_table th, .money_info_table th {
     width: 190px;
     padding: 8px 0 0;
@@ -63,6 +65,7 @@
     letter-spacing: -0.32px;
     vertical-align: top;
 }
+
 .goodsinfo_table th, .money_info_table th {
     padding: 10px;
     color: #202020;
@@ -73,6 +76,7 @@
 .data_orderer .goodsinfo_table .fst td {
     padding-top: 19px;
 }
+
 .goodsinfo_table td, .money_info_table td {
     position: relative;
     padding: 8px 0;
@@ -81,6 +85,7 @@
     line-height: 24px;
     vertical-align: top;
 }
+
 .goodsinfo_table td, .money_info_table td {
     padding-left: 10px;
 }
@@ -88,12 +93,14 @@
 .data_orderer .txt_guide {
     padding: 16px 0 9px;
 }
+
 .txt_guide > .txt {
     display: block;
     font-size: 12px;
     line-height: 21px;
     color: #666;
 }
+
 .txt_guide .txt .txt_desc {
     font-weight: 500;
 }
@@ -112,7 +119,7 @@
     white-space: nowrap;
 }
 
-.label_radio > input{
+.label_radio > input {
     margin-right: 5px;
 }
 
@@ -121,6 +128,7 @@
     float: left;
     width: 200px;
 }
+
 #cardSelect .select_box .list {
     position: absolute;
     left: 0;
@@ -152,11 +160,13 @@
     height: 0;
     clear: both;
 }
+
 #cardSelect .card_event .inner_card {
     display: block;
     margin-bottom: -4px;
     padding-top: 6px;
 }
+
 #cardSelect .card_event .inner_card div {
     font-size: 12px;
     color: #666;
@@ -168,7 +178,7 @@
     padding-top: 23px;
 }
 
-.p_pink{
+.p_pink {
     margin-left: 5%;
     color: #FF585D;
 }
@@ -213,20 +223,20 @@
     color: #999;
 }
 
-ul{
+.list_agree {
     list-style-type: none;
-    margin-left: -40px;
+    margin-left: 35px;
 }
 
-.agree_check > .ico{
-    padding-left: 20px ;
+.agree_check > .ico {
+    padding-left: 20px;
 }
 
 .btn_payment {
     display: block;
     width: 200px;
     height: 56px;
-    margin: 40px auto 0;
+    margin: 50px auto 0;
     border: 0 none;
     border-radius: 3px;
     background-color: #FF585D;
@@ -236,7 +246,15 @@ ul{
     text-align: center;
 }
 
-.btn_payment:disabled{
+.btn_payment:disabled {
     background-color: #aaaaaa;
     cursor: not-allowed;
+}
+
+.reg_agree {
+    width: fit-content;
+}
+
+.txt_notice > ul {
+    margin-left: 10px;
 }

@@ -73,7 +73,7 @@
                 </div>
                 <div class="item_code">상품코드: <c:out value="${list.prdCode}"/><c:out value="${list.id}"/></div>
             </span>
-            <span class="item_prc"><c:out value="${list.dcPrc}"/>원</span>
+            <span class="item_prc"><fmt:formatNumber value="${list.dcPrc}" type="number" maxFractionDigits="3"/>원</span>
             <span class="item_status">
                 <div><c:out value="${list.codeName}"/></div>
                 <div class="expr_dt">

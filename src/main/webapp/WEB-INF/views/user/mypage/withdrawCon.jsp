@@ -64,13 +64,17 @@
         </div>
     </div>
 </div>
-<%@include file="/WEB-INF/views/common/footer.jsp"%>
+
+<%@include file="/WEB-INF/views/common/footer.jsp" %>
+
 </body>
 </html>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script type="text/javascript" src="/resources/js/banking/openBanking.js"></script>
 <script>
     $(document).ready(function () {
+        $("#con-link").attr("class", "menu active");
 
         // 문자열에서 앞 0 제거하는 함수
         let trimFrontZero = function (String) {
@@ -91,7 +95,7 @@
             }
 
             if ($targetObj) {
-                if ($targetObj.length == 1) {
+                if ($targetObj.length === 1) {
                     $objArr.push($targetObj);
                 } else {
                     $objArr = $targetObj;
@@ -147,16 +151,14 @@
         });
 
         // 인출할 충전 콘이 1000원 미만일 때 1000원으로 처리
-        $(function () {
-            $(document).mousedown(function () {
-                if (isNotInMyArea([$("button"), $("#wdCon")])) {
-                    if (parseInt(inputBox.val()) < 1000) {
-                        alert("충전 콘은 1,000원 이상부터 1원 단위로 인출하실 수 있습니다.");
-                        inputBox.val(1000);
-                        $('.afterAdd').html(userCon - 1000).append(" 콘");
-                    }
+        $(document).mousedown(function () {
+            if (isNotInMyArea([$("button"), $("#wdCon")])) {
+                if (parseInt(inputBox.val()) < 1000) {
+                    alert("충전 콘은 1,000원 이상부터 1원 단위로 인출하실 수 있습니다.");
+                    inputBox.val(1000);
+                    $('.afterAdd').html(userCon - 1000).append(" 콘");
                 }
-            });
+            }
         });
 
         $modal = $(".modal");
