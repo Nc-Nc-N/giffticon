@@ -5,7 +5,7 @@
 
 <!-- Site footer -->
 <footer class="site-footer">
-    <div class="container">
+    <div class="footer-container">
         <div class="row">
             <div class="footer-info">
                 <img src="/resources/img/logo.png" alt="기쁘티콘 로고">
@@ -22,7 +22,7 @@
         </div>
         <hr>
     </div>
-    <div class="container">
+    <div class="footer-container">
         <div class="row">
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <ul class="social-icons">

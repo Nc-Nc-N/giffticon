@@ -30,7 +30,7 @@ a {
 }
 
 a > img {
-    width: 250px;
+    width: 200px;
     height: auto;
 }
 
@@ -87,7 +87,7 @@ input {
 }
 
 .btn001 {
-    width: 45%;
+    width: 183px;
     height: 45px;
     background-color: rgb(255, 88, 93);
     border-radius: 5px;
@@ -176,10 +176,10 @@ a.link:hover {
     /*background-color: grey;*/
 }
 
-#socialLogin > img{
-    height: 45px;
-    width: 100%;
-}
+/*#socialLogin > img{*/
+/*    height: 45px;*/
+/*    width: 100%;*/
+/*}*/
 
 #gSignInWrapper{
     width: 45px;

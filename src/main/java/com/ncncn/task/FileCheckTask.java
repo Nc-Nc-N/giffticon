@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Component
 public class FileCheckTask {
 
-    @Value("#{barcodepath['path']}")
+    @Value("#{imgPath['path']}")
     String barcodepath;
 
     @Setter(onMethod_ = {@Autowired})

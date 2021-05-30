@@ -3,14 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-
-<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_editPwd.css" type="text/css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-</style>
-
+<link rel="stylesheet" href="/resources/css/user/mypage/user_info_modal.css" type="text/css">
 
 <body>
 <div id="register-content">
@@ -27,7 +20,7 @@
                     <div class="input_text">
                         <input type="password" class="originPwd" placeholder="기존 비밀번호를 입력해주세요">
                     </div>
-                    <button class="btn btn-submit" id="btn-confirmOriginPwd">인증</button>
+                    <button class="btn btn-confirm" id="btn-confirmOriginPwd">인증</button>
                 </div>
                 <div class="message" id="msg-originPwd">
 
@@ -59,7 +52,7 @@
     </div>
     <div id="reg-btn-area">
         <button class="btn btn-active" id="modifyMyInfo">등록</button>
-        <button class="btn btn-dark cancel" id="cancelMyInfo">취소</button>
+        <button class="btn cancel" id="cancelMyInfo">취소</button>
     </div>
 </div>
 </body>
@@ -68,9 +61,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
         let pwdExist = <c:out value="${pwdExist}"/>;
-        console.log("pwdExist:" + pwdExist);
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
@@ -96,12 +87,10 @@
         if (!pwdExist) {
             checkAllConfirmedforPwd[0] = true;
             insertNewPwd.removeAttr("disabled");
-            console.log("pwdExist disabled");
         }
 
         //기존 비밀번호 인증
         btnOriginPwd.on("click", function (e) {
-
             var msg = "";
             let oriPwdVal = insertOriginPwd.val();
 
@@ -121,7 +110,6 @@
                     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                 },
                 success: function () {
-
                     msg += "비밀번호가 일치합니다.";
                     checkIsCorrect(originPwdMsg, msg, true);
                     checkAllConfirmedforPwd[0] = true;
@@ -129,23 +117,17 @@
                     //기존 비밀번호 인증 시 새로운 비밀번호 입력 가능, 인증 된 비밀번호는 수정 불가
                     insertOriginPwd.attr("readonly", true);
                     insertNewPwd.removeAttr("disabled");
-
-
                 },
                 error: function () {
-
                     msg += "비밀번호가 다릅니다.";
                     checkIsCorrect(originPwdMsg, msg, false);
                     checkAllConfirmedforPwd[0] = false;
                 }
-
-            })
-
-        })
+            });
+        });
 
         //새로운 비밀번호 변경 시 메세지 출력 및 확인
         insertNewPwd.keyup(function (e) {
-
             checkAllConfirmedforPwd[2] = false;
 
             let newPwdVal = insertNewPwd.val();
@@ -158,17 +140,14 @@
 
             //기존 비밀번호와 동일여부 체크
             if (newPwdVal != oriPwdVal) {
-
                 checkCondition = pwdChecker(newPwdVal);
 
                 //비밀번호 양식 일치 여부 확인
                 if (!checkCondition) {
-
                     msg += "비밀번호 조건을 확인하세요";
                     checkIsCorrect(newPwdMsg, msg, false);
                     checkAllConfirmedforPwd[1] = false;
                 } else {
-
                     //새로운 비밀번호가 양식에 맞으면 새로운 비밀번호 재입력 가능
                     newPwdMsg.html("");
                     confirmNewPwd.removeAttr("disabled");
@@ -176,13 +155,11 @@
                     checkAllConfirmedforPwd[1] = true;
                 }
             } else {
-
-                msg += "기존과 다른 비밀번호로 설정해주세요.";
+                msg += "기존 비밀번호로 변경불가";
                 checkIsCorrect(newPwdMsg, msg, false)
                 checkAllConfirmedforPwd[1] = false;
             }
-
-        })
+        });
 
         //새로운 비밀번호 재확인
         confirmNewPwd.keyup(function (e) {
@@ -192,19 +169,16 @@
             let msg = "";
 
             if (!(newPwdVal == confirmNewPwdVal)) {
-
                 msg += "<i class='fas fa-exclamation-circle'></i>";
                 msg += "<p>&nbsp;비밀번호가 일치하지 않습니다.</p>";
                 confirmNewPwdMsg.html(msg);
 
                 checkAllConfirmedforPwd[2] = false;
             } else {
-
                 confirmNewPwdMsg.html("");
-
                 checkAllConfirmedforPwd[2] = true;
             }
-        })
+        });
 
         //수정 확인 버튼 클릭
         $("#modifyMyInfo").on("click", function (e) {
@@ -230,11 +204,9 @@
                         xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
                     },
                     success: function () {
-
                         alert("비밀번호가 변경되었습니다.");
                         //모달 닫고 input 정보 지우기
                         window.location.reload();
-
                     },
                     error: function () {
                         alert("실패");
@@ -247,7 +219,7 @@
                 alert("정보를 정확히 입력하세요");
                 return;
             }
-        })
+        });
 
         //취소 버튼 클릭 시 모든 입력값 초기화
         $('#cancelMyInfo').on("click", function (e) {
@@ -266,12 +238,10 @@
 
             checkAllConfirmedforPwd = [false, false, false];
 
-            if(!pwdExist){
+            if (!pwdExist) {
                 checkAllConfirmedforPwd[0] = true;
                 insertNewPwd.removeAttr("disabled");
             }
-
-        })
-
-    })
+        });
+    });
 </script>

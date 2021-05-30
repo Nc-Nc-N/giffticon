@@ -3,7 +3,6 @@
 .noSearchResult {
     width: 100%;
     height: 50px;
-    /*background-color: #333333;*/
     display: flex;
     justify-content: center;
     align-content: center;
@@ -11,16 +10,15 @@
     margin-top: 100px;
 }
 
-
 .contentfooter {
     width: 100%;
     height: 60px;
     margin-top: 60px;
     text-align: center;
-    /*background-color: cadetblue;*/
 }
 
-.delete-btn{
+.delete-btn {
+>>>>>>> c08d4284644355590471cd3444ebae14537495db
     display: block;
     float: none;
     width: 60px;
@@ -33,7 +31,7 @@
     cursor: pointer;
 }
 
-.noResult{
+.noResult {
     margin-top: 30px;
     text-align: center;
 }

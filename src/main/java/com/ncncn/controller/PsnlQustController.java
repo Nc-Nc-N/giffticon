@@ -42,7 +42,7 @@ public class PsnlQustController {
 	private String psnlqustpath;
 
 	public PsnlQustController(
-			@Value("#{psnlqustpath['path']}") String psnlqustpath,
+			@Value("#{imgPath['path']}") String psnlqustpath,
 			PsnlQustService service
 	){
 		this.psnlqustpath = psnlqustpath;
@@ -101,7 +101,7 @@ public class PsnlQustController {
 		log.info("upload ajax post.......");
 
 		List<AttachFileDTO> list = new ArrayList<>();
-		String uploadFolder = psnlqustpath;
+		String uploadFolder = psnlqustpath + "/psnlQust";
 
 		String uploadFolderPath = getFolder();
 

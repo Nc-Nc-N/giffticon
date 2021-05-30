@@ -8,6 +8,7 @@
 #advertiser{
     width:100%;
     display: flex;
+    margin-top: 5px;
 }
 
 #container{
@@ -74,18 +75,27 @@
     justify-content: flex-end;
 }
 
+.categorypaging{
+    text-align:center;
+    margin-top:10px;
+    margin-right:10px;
+    font-size: small;
+}
+
 .main-btn {
     top: 0;
     right: 0;
     min-width: 85px;
     height: 35px;
-    border: 1px solid #d5d5d5;
-    font-size: 12px;
+    /* border: 1px solid #d5d5d5; */
+    font-size: 13px;
     line-height: 35px;
-    color: #777;
+    color: #333;
     text-align: center;
     text-decoration: none;
+    font-weight: 600;
 }
+
 .listcontent{
     width:1000px;
     height:80%;
@@ -156,6 +166,7 @@ h3{
     color: #333;
     margin: 25%;
 }
+
 .listnamelast table, .dl{
     margin: 5% 0;
     display: flex;
@@ -163,7 +174,12 @@ h3{
 
 .listnamelast table{
     padding-left: 6%;
+}j
+
+.fa-caret-right{
+    font-size: 14px;
 }
+
 .items-wish{
     cursor: pointer;
     margin-right: 30px;
@@ -172,9 +188,11 @@ h3{
 .map-main{
     height: 100%;
 }
+  
 .map-img{
     width: 100%;
 }
+  
 .map-txt{
     background: rgb(245, 244, 244);
     border-radius: 40px;
@@ -184,10 +202,12 @@ h3{
     top: 43%;
     left: 5%;
 }
+  
 .map-txt span{
     font-size: 12px;
     line-height: 40px;
 }
+  
 .map-img img{
     height: 300px;
 }

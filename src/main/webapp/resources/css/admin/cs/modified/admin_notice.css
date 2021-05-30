@@ -11,6 +11,7 @@ h2 {
 .search-area {
     display: flex;
     float: right;
+    margin-right: 5%;
 }
 
 .search-form {
@@ -39,7 +40,9 @@ h2 {
 }
 
 .accordionMenu {
+    width: 90%;
     margin-top: 50px;
+    margin-left: 5%;
 }
 
 .accordionMenu input[type=checkbox] {
@@ -113,9 +116,11 @@ h2 {
 
 /* 페이지네이션 css */
 .pagination {
+    margin-right: 5%;
     display: flex;
     margin-top: 15px;
     float: right;
+    margin-bottom: 50px;
 }
 
 .pagination a {
@@ -138,6 +143,10 @@ h2 {
     background-color: rgb(255, 88, 93);
     color: white;
     border-radius: 5px;
+}
+
+.pagination > li {
+    list-style: none;
 }
 
 /*modal css*/
@@ -179,6 +188,7 @@ h2 {
 
 .modal-header {
     border-bottom: 1px solid #dee2e6;
+    margin: 10px;
 }
 
 #delete-header {
@@ -194,7 +204,6 @@ h2 {
 }
 
 .modal-header textarea {
-    margin: 10px;
     width: 780px;
     height: 35px;
     font-size: 20px;
@@ -274,4 +283,35 @@ h2 {
 .btn-register, .btn-cancel {
     float: right;
     margin: 10px;
+}
+
+.content{
+    display: none;
+    padding: 0 25px 0 10px;
+    background-color: #F5F4F4;
+}
+
+.inner{
+    padding: 10px 80px 10px 25px;
+}
+
+.modify{
+    background-color:rgb(255,88,93);
+    /*border: 1px solid rgb(71, 71, 71);*/
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    border-radius: 0px;
+    font-size: 12px;
+}
+.finish{
+    background-color:gainsboro;
+    /*border: 1px solid rgb(71, 71, 71);*/
+    color: #333;
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    border-radius: 0px;
+    font-size: 12px;
 }

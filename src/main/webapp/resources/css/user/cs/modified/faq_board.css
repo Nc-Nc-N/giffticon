@@ -18,9 +18,9 @@ li{
 
 .content{
     background-color: #F5F4F4;
-    padding: 20px 0 20px 0;
+    padding: 20px 100px 20px 0;
 }
 
 .qna-q {
-    color: rgb(71, 71, 71);
+    color: #333;
 }

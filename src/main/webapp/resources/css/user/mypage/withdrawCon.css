@@ -7,6 +7,7 @@ table.type02 {
     border-collapse: collapse;
     width: 90%;
 }
+
 table.type02 th {
     width: 150px;
     padding: 10px;
@@ -16,6 +17,7 @@ table.type02 th {
     border-bottom: 1px solid #ccc;
     background: rgb(245, 244, 244);
 }
+
 table.type02 td {
     width: 350px;
     padding: 10px;
@@ -30,9 +32,11 @@ table.type02 td {
     height: 30px;
     text-align: right;
 }
+
 .pnt_info_column{
     margin: 5% 5%;
 }
+
 .con_info{
     border-bottom: 1px solid gainsboro;
     line-height: 60px;
@@ -43,6 +47,7 @@ table.type02 td {
     float: right;
     margin-right: 3%;
 }
+
 .pnt_bought_btn_section{
     float: right;
     margin-top: 5%;
@@ -91,6 +96,7 @@ input:-webkit-autofill:active {
     -webkit-transition: background-color 9999s ease-out;
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
+
 input{
     border: 1px solid #ccc;
 }
@@ -116,9 +122,7 @@ input{
     justify-content: flex-start;
     font-size: 11px;
 }
-i {
-    color: rgb(255, 88, 93);
-}
+
 .withdraw_con{
     margin: 3% 0;
     display: flex;

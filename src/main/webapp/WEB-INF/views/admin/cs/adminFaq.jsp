@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="/resources/css/admin/adminLayout.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
-    <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/admin/cs/modified/admin_faq.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/admin/cs/modified/admin_notice.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/user/cs/modified/faq_board.css" type="text/css">
 
             <h2>고객센터</h2>
             <div id="submenu">
@@ -63,15 +63,15 @@
                 <c:forEach items="${list}" var="faq" varStatus="status">
                     <!-- 1st menu-->
                     <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">
-                    <label for="acc<c:out value="${status.index+1}"/>">
+                    <label class="contentList" name="<c:out value="${status.index}"/>" for="acc<c:out value="${status.index+1}"/>">
                         <span class="qna-q">Q. </span><c:out value="${faq.csCateCode == '001' ? '[구매]':'[판매]'}"/> <c:out value="${faq.qust}"/>
                         <button id="<c:out value='${faq.id}'/>" class="btn-no btn-erase">
                             <i class="fas fa-minus"></i></button>
-                        <button class="btn-no btn-modify" id="<c:out value='${faq.id}'/>" onclick="">수정</button>
+                        <button class="btn-no modify" id="<c:out value='${faq.id}'/>" onclick="">수정</button>
                     </label>
-                    <div class="content">
+                    <div class="content" name="content_<c:out value="${status.index}"/>">
                         <div class="inner">
-                            <p><span class="qna-a">A. </span> <c:out value="${faq.ans}"/></p>
+                            <p><span class="qna-a"></span> <c:out value="${faq.ans}"/></p>
                         </div>
 
                     </div>
@@ -250,6 +250,19 @@
             console.log(error);
         }
 
+        $(".contentList").on("click", function(){
+
+            let listNum = "content_" + $(this).attr("name");
+            let divDisplay = $("div[name=" + listNum + "]").css("display");
+
+            if(divDisplay == "none"){
+                $("div[name=" + listNum + "]").css("display","block");
+            }else{
+                $("div[name=" + listNum + "]").css("display","none");
+            }
+
+        })
+
 
         document.getElementById("adminCs").className = 'active';
 
@@ -271,9 +284,9 @@
 
 
     //delete
-    $(".btn-erase").on("click", function () {
+    $(".btn-erase").on("click", function (e) {
 
-
+        e.stopPropagation();
         var formObj = $("form");
         console.log(this.id);
 
@@ -331,8 +344,8 @@
 
 
     //modify
-    $(".btn-modify").on("click", function () {
-
+    $(".modify").on("click", function (e) {
+        e.stopPropagation();
         var modifyForm = $("form");
         console.log(this.id);
 

@@ -61,7 +61,7 @@
             <div class="wishname">
                 <h3>나만의 관심상품</h3>
                 <div class="categorycontroller">
-                    <a href="/user/mypage/wishList" class="main-btn">전체보기</a>
+                    <a href="/user/mypage/wishList" class="main-btn">전체보기 <i class="fas fa-caret-right"></i></a>
                 </div>
             </div>
 
@@ -106,7 +106,7 @@
                 <h3>모두들 찾는 인기상품</h3>
             </div>
             <div class="categorycontroller">
-                <a href="/user/gifti_list?keyword=&code=0&orderby=best" class="main-btn">전체보기</a>
+                <a href="/user/gifti_list?keyword=&code=0&orderby=best" class="main-btn">전체보기 <i class="fas fa-caret-right"></i></a>
             </div>
         </div>
 
@@ -172,7 +172,7 @@
                 <h3>초특가! 만료 임박 상품</h3>
             </div>
             <div class="categorycontroller">
-                <a href="/user/gifti_list?keyword=&code=0&orderby=deadline" class="main-btn">전체보기</a>
+                <a href="/user/gifti_list?keyword=&code=0&orderby=deadline" class="main-btn">전체보기 <i class="fas fa-caret-right"></i></a>
             </div>
         </div>
         <div class="listcontent">

@@ -1,19 +1,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="templete.jsp"/>
-<link rel="stylesheet" href="/resources/css/user/mypage/mypage_info_editPwd.css" type="text/css">
+
+<link rel="stylesheet" href="/resources/css/user/mypage/user_info_modal.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_deals_detail.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_selling_products_detail.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_selling_products_detail_modify.css" type="text/css">
+
 <div class="contentheader">
-    <span>판매 내역 > 상품 상세</span>
+    <span>상품상세</span>
+</div>
+<div class="contentinfo">
+    판매대기&nbsp;<i class="fas fa-caret-right"></i>&nbsp;판매중&nbsp;<i class="fas fa-caret-right"></i>
+    &nbsp;거래확정대기&nbsp;<i class="fas fa-caret-right"></i>&nbsp;거래확정완료
 </div>
 <div class="item_info">
-    <div class="item_img">
-        <img src="<c:out value="${gftInfo.prdImgPath}"/>">
+    <div class="item_img gifticon-img">
+        <a class="gft-img-btn" href="<c:out value='${gftInfo.brcdImgPath}'/>"><img src="/resources/img/gft-img.png"></a>
     </div>
     <div class="item_nameNcode">
         <div class="item_name">
@@ -28,30 +34,6 @@
             <div>상품 번호</div>
             <c:out value="${gftInfo.prdCode}"/><c:out value="${gftInfo.id}"/>
         </div>
-    </div>
-    <div class="item_btn_seller">
-        <c:choose>
-            <c:when test="${gftInfo.codeName eq '판매대기' || gftInfo.codeName eq '판매중'}">
-                <button id="modifyGift" class="btn btn-dark" value="<c:out value="${gftInfo.id}"/>">상품수정</button>
-                <button id="deleteGift" class="btn btn-dark" value="<c:out value="${gftInfo.id}"/>">내역삭제</button>
-            </c:when>
-            <c:when test="${gftInfo.codeName eq '판매불가'}">
-                <button class="btn btn-disabled">판매 불가</button>
-                <button class="btn btn-disabled">수정 불가</button>
-            </c:when>
-            <c:otherwise>
-                <button class="btn btn-disabled">판매 완료</button>
-                <button class="btn btn-disabled">수정 불가</button>
-            </c:otherwise>
-        </c:choose>
-
-    </div>
-</div>
-<div class="item_info">
-    <div class="item_img">
-        <img src="<c:out value="${gftInfo.brcdImgPath}"/>">
-    </div>
-    <div class="item_nameNcode">
         <div class="item_name">
             <div>등록일자</div>
             <c:choose>
@@ -62,6 +44,15 @@
                     미승인
                 </c:otherwise>
             </c:choose>
+        </div>
+        <div class="item_name">
+            <div>추천할인율</div>
+            <c:out value="${gftInfo.isAutoPrc eq '1'.charAt(0) ? '적용' : '판매자 제시가격'}"/>
+        </div>
+        <div class="item_name">
+            <div>판매가격</div>
+            <c:out value="${gftInfo.dcPrc}"/>원 &nbsp;
+            <sapn style="color: rgb(255, 88, 93)"><fmt:formatNumber value="${gftInfo.finalDcRate}" type="percent" pattern="0%"/></sapn>&nbsp;
         </div>
         <div class="item_name">
             <div>유효기간</div>
@@ -76,29 +67,26 @@
             <c:out value="${gftInfo.codeName}"/>
         </div>
     </div>
-    <div class="item_btn">
+    <div class="item_btn_seller">
+        <c:choose>
+            <c:when test="${gftInfo.codeName eq '판매대기' || gftInfo.codeName eq '판매중'}">
+                <button id="modifyGift" class="btn btn-active" value="<c:out value="${gftInfo.id}"/>">상품수정</button>
+                <button id="deleteGift" class="btn btn-remove" value="<c:out value="${gftInfo.id}"/>">내역삭제</button>
+            </c:when>
+            <c:when test="${gftInfo.codeName eq '판매불가'}">
+                <button class="btn btn-disabled">판매불가</button>
+                <button class="btn btn-disabled">수정불가</button>
+            </c:when>
+            <c:otherwise>
+                <button class="btn btn-disabled">판매완료</button>
+                <button class="btn btn-disabled">수정불가</button>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
-<div class="item_prc">
-    <div class="item_prc_left">
-        <div class="prc_column">
-            <div class="prc_column_left">자동할인</div>
-            <div class="isAutoPrc">
-                <c:out value="${gftInfo.isAutoPrc eq '1'.charAt(0) ? 'O' : 'X'}"/></div>
-        </div>
-        <div class="prc_column"></div>
-    </div>
-    <div class="item_prc_right">
-        <div class="prc_column">
-            <div class="prc_column_right">할인률</div>
-            <fmt:formatNumber value="${gftInfo.finalDcRate}" type="percent" pattern="0.0%"/>
-        </div>
-        <div class="prc_column">
-            <div class="prc_column_right">판매가격</div>
-            <c:out value="${gftInfo.dcPrc}"/>원
-        </div>
-    </div>
-</div>
+
+<div class="space50"></div>
+
 <div class="toListbtn">
     <form id="actionForm" action="/user/mypage/sells" method="get">
         <input type="hidden" name="dateFrom" value="<c:out value="${cri.dateFrom}"/>">
@@ -108,23 +96,26 @@
         <input type="hidden" name="keyword" value="<c:out value="${cri.keyword}"/>"/>
         <input type="hidden" name="type" value="<c:out value="${cri.type}"/>"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <button class="btn btn-active" id="toListbtn">목록</button>
+        <button id="toListbtn">목록</button>
     </form>
+</div>
 
 </div>
 </div>
 </div>
 </div>
-</div>
-</body>
+
 <div class="modalOn">
     <jsp:include page="mypage_selling_products_detail_modify.jsp"/>
 </div>
+<div class="space100"></div>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+</body>
 </html>
 
 <script> //actionForm , 기프티콘 수정 및 삭제
-
 $(".document").ready(function () {
+    $("#sell-link").attr("class", "menu active");
 
     var actionForm = $("#actionForm");
 
@@ -138,22 +129,26 @@ $(".document").ready(function () {
         } else {
             return;
         }
-    })
+    });
 
     //수정 버튼 클릭시 모달 띄우기
     $("#modifyGift").on("click", function (e) {
-
+        let h = $("body").css("height");
+        $(".modalOn").css("height", h);
         $(".modalOn").css("visibility", "visible");
-    })
+    });
 
     //닫기 버튼 클릭 시 모달 닫기
     $("#modal-close").on("click", function (e) {
 
         $(".modalOn").css("visibility", "hidden");
-    })
+    });
 
-})
+    $(".gft-img-btn").on("click", function (e) {
+        e.preventDefault();
+
+        window.open($(this).attr("href"), "gifticon img", "width=700, height=900");
+    });
+});
 
 </script>
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -12,9 +12,9 @@
 <link rel="stylesheet" href="/resources/css/common/search-box.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/admin/cs/admin_psnl_qust.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/cs/modified/admin_notice.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/cs/modified/admin_faq.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/cs/modified/admin_psnl_qust.css" type="text/css">
 
 
     <h2>고객센터</h2>
@@ -67,7 +67,7 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <input type="checkbox" class="list-id" name="trg1" id="<c:out value="${status.index+1}"/>">
-                <label for="<c:out value="${status.index+1}"/>">
+            <label class="contentList" name="<c:out value="${status.index}"/>" for="<c:out value="${status.index+1}"/>">
                     <span class="qna-q">Q. </span><c:out value="${qna.csCateCode == '001' ? '[구매]':'[판매]'}"/> <c:out
                         value="${qna.title}"/>
                     <span class="qna-user-id"><c:out value="${qna.userId}"/></span>
@@ -78,20 +78,19 @@
                         <c:out value="${qna.stusCode == '001' ? '답변완료':'답변대기'}"/>
                     </button>
                 </label>
-                <div class="content">
-                    <div class="inner">
-                        <p class="qna-a">Q. </p>
-                        <p><c:out value="${qna.cntnt}"/></p>
-                        <br>
-                        <a href="<c:out value="${qna.atchFilePath}"/>" download class="atch-file" name="atchFilePath">
-                            <c:out value="${qna.atchFilePath}"/></a>
-                    </div>
-                    <div class="admin-inner">
-                        <p class="qna-a">A. </p>
-                        <p class="ans-cntnt" name="ansCntnt" id="ans<c:out value="${status.index+1}"/>">
-                            <c:out value="${qna.ansCntnt}"/>
+                <div class="content" name="content_<c:out value="${status.index}"/>">
+
+                    <div class="inner psnlQinner">
+                        <p class="qna-a" name="cntnt"><c:out value="${qna.cntnt}"/>&nbsp;&nbsp;
+                            <c:if test="${qna.atchFilePath != ''}">
+                                <button class="btn img_show" value="<c:out value="${qna.atchFilePath}"/>">첨부파일</button>
+                            </c:if>
                         </p>
                     </div>
+                    <div class="psnlAinner">
+                        <p class="qna-a"><c:out value="${qna.ansCntnt}"/></p>
+                    </div>
+
                 </div>
         </c:forEach>
         <c:if test="${dealList.size() == 0}">
@@ -131,8 +130,8 @@
         </form>
 
     </div>
-
 </div>
+
 <!--end main-->
 
 
@@ -144,7 +143,7 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>답변</h2>
+                    <input type="text" class="modal-modify-ans" value="" readonly>
                     <input class="ans-id" type="hidden" name="id" value="">
                     <input class="ans-admin-id" type="hidden" name="adminId" value="">
                     <input class="ans-stus-code" type="hidden" name="stusCode" value="">
@@ -230,6 +229,26 @@
 
     $(document).ready(function () {
 
+        $(".contentList").on("click", function(){
+
+            let listNum = "content_" + $(this).attr("name");
+            let divDisplay = $("div[name=" + listNum + "]").css("display");
+
+            if(divDisplay == "none"){
+                $("div[name=" + listNum + "]").css("display","block");
+            }else{
+                $("div[name=" + listNum + "]").css("display","none");
+            }
+
+        })
+
+        $(".img_show").on("click", function(){
+
+            let imgPath = $(this).val();
+
+            window.open($(this).val(), "gifticon img", "width=700, height=900");
+        });
+
 
         document.getElementById("adminCs").className = 'active';
 
@@ -280,9 +299,9 @@
 
 
     //ans modal
-    $(".btn-modify").on("click", function () {
+    $(".btn-modify").on("click", function (e) {
 
-
+        e.stopPropagation();
         var ansForm = $("form");
 
         console.log("this id: " + this.id);
@@ -316,7 +335,7 @@
         $(".ans-content").val(psnl.ansCntnt);
 
         $("#ansModal").fadeIn();
-
+        $(".modal-modify-ans").val(psnl.title);
 
         $('#btn-modify').on("click", function () {      //확인 버튼 클릭 시
 
@@ -340,9 +359,9 @@
 
 
     //delete
-    $(".btn-erase").on("click", function () {
+    $(".btn-erase").on("click", function (e) {
 
-
+        e.stopPropagation();
         var formObj = $("form");
         console.log(this.id);
 

@@ -2,16 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%@include file="/WEB-INF/views/common/header.jsp" %>
-
+<jsp:include page="csTemplete.jsp"/>
 <meta charset="UTF-8">
 
-<script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-<link rel="stylesheet" href="/resources/css/user/mypage/templete.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/common/pagination.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_notice.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_faq.css" type="text/css">
@@ -19,10 +12,9 @@
 <link rel="stylesheet" href="/resources/css/user/cs/notice_board.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
 
-<%@ include file="/WEB-INF/views/user/cs/csTemplete.jsp" %>
-
-
 <h3>자주묻는 질문</h3>
+
+<div class="line-117"></div>
 
 <div class="sub-category-area">
     <button class="sub sub-category-btn-all" value="NE" name="type"
@@ -40,11 +32,8 @@
 </div>
 
 <!-- search area -->
-
 <form class="search-form" id='searchForm' action="/user/cs/faqBoard" method="get">
     <div class="search-area">
-
-
         <div class="search-input-area">
             <input type="text" class="search-input" name="keyword"
                    value='<c:out value="${pageMaker.cri.keyword}"/>'>
@@ -57,24 +46,21 @@
         </div>
     </div>
 </form>
-
 <!-- search area end -->
-
 
 <!--accordionMenu-->
 <div class="accordionMenu">
-
     <c:forEach items="${list}" var="faq" varStatus="status">
         <!-- 1st menu-->
         <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">
-        <label for="acc<c:out value="${status.index+1}"/>">
+        <label class="contentList" name="<c:out value="${status.index}"/>" for="acc<c:out value="${status.index+1}"/>">
             <span class="qna-q">Q. </span><c:out value="${faq.csCateCode == '001' ? '[구매]':'[판매]'}"/>
             <c:out value="${faq.qust}"/>
 
         </label>
-        <div class="content">
+        <div class="content" name="content_<c:out value="${status.index}"/>">
             <div class="inner">
-                <p><span class="qna-a">A. </span> <c:out value="${faq.ans}"/></p>
+                <p><span class="qna-a"></span> <c:out value="${faq.ans}"/></p>
             </div>
 
         </div>
@@ -85,10 +71,10 @@
 </div>
 <!-- end accordionMenu-->
 
+<div class="space50"></div>
 
 <!-- pagenation-->
 <div class="pagination">
-
     <c:if test="${pageMaker.prev}">
         <li>
             <a class="paginate_button previous" href="${pageMaker.startPage -1}">&lt;</a></li>
@@ -107,38 +93,58 @@
 </div>
 <!-- end pagenation-->
 
-<form ID='actionForm' action="/user/cs/faqBoard" method="get">
+<form id='actionForm' action="/user/cs/faqBoard" method="get">
     <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
     <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
     <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
     <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
 </form>
-
 </div>
 <!-- end content -->
-
 </div>
 </div>
 </div>
 
+<%@include file="/WEB-INF/views/common/footer.jsp"%>
 
+</body>
+</html>
+
+<script type="text/javascript" src="/resources/js/etc/screenHeight.js"></script>
 <script type="text/javascript">
-
     //검색
     var searchForm = $("#searchForm");
 
     $(".search-button").on("click", function (e) {
-
-
-        searchForm.find("input[name='pageNum']").val("1");
         e.preventDefault();
 
+        searchForm.find("input[name='pageNum']").val("1");
         searchForm.submit();
-
     });
 
 
     $(document).ready(function () {
+
+        let type = "${pageMaker.cri.type}";
+
+        let activeMenu = type === 'NE' ? ".sub-category-btn-all" : type === 'N' ? ".sub-category-btn-notice" : ".sub-category-btn-event";
+        $(activeMenu).css("color", "rgb(255, 88, 93)");
+
+        $(".contentList").on("click", function(){
+
+            let listNum = "content_" + $(this).attr("name");
+            let divDisplay = $("div[name=" + listNum + "]").css("display");
+
+            if(divDisplay == "none"){
+                $("div[name=" + listNum + "]").css("display","block");
+            }else{
+                $("div[name=" + listNum + "]").css("display","none");
+            }
+
+            calculateContentLength();
+        })
+
+        $("#faq-link").attr("class", "menu active");
 
         //사용자 Faq 오류 메시지를 controller에서 보내줌.
         let error = "${error}";
@@ -146,29 +152,18 @@
         // error 발생 시 해당 에러 메시지를 alert
         if (error.length > 0) {
             alert("에러 발생. 담당자에게 문의해주세요. \n" + error);
-            console.log(error);
         }
 
         //pagenation
         var actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {
-
             e.preventDefault();
-
-            console.log('click');
 
             actionForm.find("input[name='pageNum']").val($(this).attr("href"));
             actionForm.submit();
         });
-
-
     });
 
 </script>
 
-
-</body>
-</html>
-
-<%@include file="/WEB-INF/views/common/footer.jsp"%>

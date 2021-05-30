@@ -151,7 +151,6 @@
                         <input type="text" id="fixedprice" readonly> 원
                         <div class="pricename"><span>판매가</span>
                             <span id="dcrateindicator">(할인율 : %)</span>
-
                         </div>
                         <div class="explain">
                             <input type="text" id="dcprice" placeholder=" 숫자만 입력해주세요." readonly> 원
@@ -169,9 +168,7 @@
                             </label>
                         </div>
                     </div>
-
                 </div>
-
             </div>    <!-- end 가격 정보 -->
 
             <!-- 기쁘티콘에게 전달할 메시지부터 -->
@@ -213,10 +210,10 @@
     <!-- Modal -->
 </div>    <!-- end of container -->
 
-</body>
-
-</html>
 <%@include file="/WEB-INF/views/common/footer.jsp" %>
+
+</body>
+</html>
 
 <script type="text/javascript">
 
@@ -365,11 +362,11 @@
     }
 
     // 가격종류(자동/직접입력)에 따라 최종 할인율 입력하는 함수
-    let setFinalDcRate = function() {
+    let setFinalDcRate = function () {
         // 자동입력이면 finalDcRate에 indcRate + getAddDcRate 입력
-        if(document.getElementById("autoprice").checked) {
+        if (document.getElementById("autoprice").checked) {
             finalDcRate = inDcRate + getAddDcRate();
-        // 자동입력 아니면 finalDcRate에 수동입력 가격에서 할인율 계산해서 입력
+            // 자동입력 아니면 finalDcRate에 수동입력 가격에서 할인율 계산해서 입력
         } else {
             finalDcRate = calculateDcRate() / 100;
         }
@@ -584,7 +581,7 @@
     let inDcRate = 0.0;
     let userId = ${userId};
     let originPath = "";
-    let barcodepath = "<spring:eval expression="@barcodepath['path']"/>";
+    let barcodepath = "<spring:eval expression="@imgPath['path']"/>";
     let finalDcRate = 0.0;
 
     // 소분류 클릭시 동작
@@ -607,6 +604,7 @@
         } else {
             return;
         }
+
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
@@ -662,7 +660,7 @@
 
             // controller 호출. 썸네일 이미지 받아옴
             document.getElementById('thumbnail').src =
-                "/user/display?fileName=/" + fileCallPath;
+                "/user/display?fileName=/barcode/" + fileCallPath;
 
             // DB gifticon 테이블 img_path에 입력할때 사용할 변수 originPath
             originPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;
@@ -760,23 +758,22 @@
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
 
-        var form =
-            {
-                id: null,
-                userId: userId,
-                prodCode: prodCode,
-                dcPrc: $("#dcprice")[0].value * 1,
-                dcRate: finalDcRate,
-                expirDt: $("#end-date")[0].value,
-                brcd: $("#barcode")[0].value,
-                descn: $("#descn")[0].value,
-                imgPath: "/user/display?fileName=" + "/" + originPath,
-                isAutoPrc: $("input[name=group1]:checked")[0].value,
-                gftStusCode: '001',
-                aprvDt: null,
-                inDate: null,
-                upDate: null
-            }
+        var form = {
+            id: null,
+            userId: userId,
+            prodCode: prodCode,
+            dcPrc: $("#dcprice")[0].value * 1,
+            dcRate: finalDcRate,
+            expirDt: $("#end-date")[0].value,
+            brcd: $("#barcode")[0].value,
+            descn: $("#descn")[0].value,
+            imgPath: "/user/display?fileName=/barcode/" + originPath,
+            isAutoPrc: $("input[name=group1]:checked")[0].value,
+            gftStusCode: '001',
+            aprvDt: null,
+            inDate: null,
+            upDate: null
+        };
 
         $.ajax({
             url: '/user/registerGifticonAction',
@@ -788,20 +785,15 @@
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             success: function (result) {
-
-                console.log(result);
                 // 등록 성공시 모달창 보여주기
                 showFinalModal();
-
             },
             error: function (error) {
-                console.log(error);
                 alert("등록과정에서 오류가 발생했습니다. \n" +
                     "(이미 등록된 바코드번호일 수 있습니다.)");
             }
         });
     }
-
 
     // ------------------유효성검사 개별 함수------------------
     // 회원정보 확인
@@ -850,7 +842,6 @@
     }
     // ------------------유효성검사 개별 함수------------------
 
-
     // 모달 배경처리
     function wrapWindowByMask() {
         var maskHeight = $(document).height();
@@ -893,7 +884,6 @@
         }
         return addDcRate;
     }
-
 
     // 대분류 클릭시 동작
     // 선택된 대분류에만 클래스이름 추가, 나머지는 삭제

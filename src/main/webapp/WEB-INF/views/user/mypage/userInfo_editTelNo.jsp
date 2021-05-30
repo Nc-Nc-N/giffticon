@@ -3,12 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<link rel="stylesheet" href="/resources/css/user/mypage/userInfo_editTelNo.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-</style>
+
+<link rel="stylesheet" href="/resources/css/user/mypage/user_info_modal.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/mypage/userInfo_editTelNo.css" type="text/css">
 
 <body>
 <div id="register-content">
@@ -16,19 +15,22 @@
 
     <div id="content">
         <div class="info_section">
-            <div>
-                <h3>전화번호</h3>
+            <div> <h3>전화번호</h3>
                 <div class="input_text">
                     <input type="text" class="input_telNo" placeholder="전화번호를 입력해주세요.">
                 </div>
-                <button class="btn btn-submit" id="btn-confirmTelNo">인증</button>
+                <button class="btn btn-confirm" id="btn-confirmTelNo">인증</button>
             </div>
-            <div class="verifyCode">
-                <div class="code_section">
-                    <span>인증코드 : </span>
+        </div>
+
+        <div class="info_section">
+            <div>
+                <h3>인증코드</h3>
+                <div class="input_text">
                     <input type="text" class="input_code" placeholder="">
                 </div>
-                <span class="msg_code_verify">인증코드 일치</span>
+            </div>
+            <div class="message" id="msg-telNo-confirm">
             </div>
         </div>
 
@@ -38,18 +40,17 @@
                 <div class="input_text">
                     <input type="password" class="originPwd-telno" placeholder="기존 비밀번호를 입력해주세요">
                 </div>
-                <button class="btn btn-submit" id="btn-confirmOriginPwd-telno">인증</button>
+                <button class="btn btn-confirm" id="btn-confirmOriginPwd-telno">인증</button>
             </div>
             <div class="message" id="msg-tel-confirmPwd">
 
             </div>
         </div>
-
     </div>
 
     <div id="reg-btn-area">
         <button class="btn btn-active" id="modifyMyInfo-telno">등록</button>
-        <button class="btn btn-dark cancel" id="cancelMyInfo-telno">취소</button>
+        <button class="btn cancel" id="cancelMyInfo-telno">취소</button>
     </div>
 </div>
 </body>
@@ -75,6 +76,10 @@
         let telNoConfirmMsg = $(".msg_code_verify");
         let checkAllConfirmedForTelNo = [false, false];
 
+        inputTelNo.on("propertychange change keyup paste input", function (e) {
+            btnConfirmTelNo.attr("class", "btn btn-confirm");
+            checkAllConfirmedForTelNo[0] = false;           // 휴대폰 인증여부 false
+        });
 
         //sms 인증 버튼 -- 전화인증 완료 후 code 추가 예정
         btnConfirmTelNo.on("click", function (e) {
@@ -87,7 +92,7 @@
                 return;
             }
 
-            btnConfirmTelNo.attr("class", "btn btn-disabled");
+            btnConfirmTelNo.attr("class", "btn disabled");
 
             //sms 보내기 ajax
             $.ajax({
@@ -96,20 +101,21 @@
                 success: function (result) {
                     telAuthCode = result.code;   // 인증코드 메일 전송을 성공하면 해당 코드값을 받아옴
                 }, error: function (result) {
-                    btnConfirmTelNo.attr("class", "btn btn-submit");
+                    btnConfirmTelNo.attr("class", "btn btn-confirm");
                     alert("인증코드 전송에 실패했습니다. 다시 시도해주세요.\n문제가 반복되면 문의남겨주시면 빠르게 해결하겠습니다. (" + result.error + ")");
                 }
             });
 
         });
 
+        let telNoConfirm = $("#msg-telNo-confirm");
+
         inputCode.on("propertychange change keyup paste input", function (e) {
-            if (telAuthCode === $(this).val()) {            // 입력 값과 인증코드가 같으면
-                telNoConfirmMsg.css("display", "block");
+            if (telAuthCode !== '' && telAuthCode === $(this).val()) {            // 입력 값과 인증코드가 같으면
+                checkIsCorrect(telNoConfirm, "인증코드 일치", true);
                 checkAllConfirmedForTelNo[0] = true;        // 휴대폰 인증여부 true
                 return;
             }
-            telNoConfirmMsg.css("display", "none");
             checkAllConfirmedForTelNo[0] = false;           // 휴대폰 인증여부 false
         });
 
@@ -136,6 +142,8 @@
                     msg += "비밀번호가 일치합니다.";
                     checkIsCorrect(msgPwd, msg, true)
                     checkAllConfirmedForTelNo[1] = true
+                    btnOriginPwd.prop("disabled", "true");
+                    btnOriginPwd.attr("class", "btn disabled");
                 },
                 error: function () {
                     msg += "비밀번호가 다릅니다.";
@@ -179,7 +187,9 @@
             inputPwd.val("");
             inputTelNo.val("");
             inputCode.val("");
-            btnConfirmTelNo.attr("class", "btn btn-submit");
+            btnOriginPwd.prop("disabled", "false");
+            btnOriginPwd.attr("class", "btn btn-confirm");
+            btnConfirmTelNo.attr("class", "btn btn-confirm");
             msgPwd.html("");
             telAuthCode='';
             telNoConfirmMsg.css("display", "none");
