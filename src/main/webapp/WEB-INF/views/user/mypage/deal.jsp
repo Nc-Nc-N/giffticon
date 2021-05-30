@@ -50,6 +50,7 @@
         </div>
     </form>
 </div>
+<div class="space30"></div>
 <div class="item">
     <c:forEach items="${dealList}" var="list" varStatus="num">
         <div class='item_purdate'>
