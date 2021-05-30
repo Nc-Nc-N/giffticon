@@ -1,38 +1,38 @@
 /* 컨테이너 전체 */
-#container{
-    width:1000px;
-    height:2400px;
+#container {
+    width: 1000px;
+    height: 2400px;
     /* background-color:khaki; */
     margin: auto;
 }
 
 /* 공백 */
-#space{
-    height:65px;
-    width:1000px;
+#space {
+    height: 65px;
+    width: 1000px;
     background-color: transparent;
 }
 
 /* 헤더 아래 내용 시작 */
-#main{
-    width:1000px;
-    height:935px;
+#main {
+    width: 1000px;
+    height: 935px;
 }
 
 /* 판매하기 */
-.menuname{
-    width:1000px;
+.menuname {
+    width: 1000px;
     /* background-color:yellow; */
 }
 
 /* 판매하기 내용 시작 */
-#content{
-    height:855px;
-    width:900px;
+#content {
+    height: 855px;
+    width: 900px;
 }
 
 /* 한 카테고리 전체 */
-.block{
+.block {
     width: 1000px;
     display: flex;
     padding: 0px 0px 80px 0;
@@ -42,15 +42,17 @@
 /* 왼쪽 타이틀 */
 .catename {
     width: 14%;
-    font-size: 18px;
+    font-size: 15px;
+    font-weight: 600;
     padding-top: 80px;
 }
+
 .catename > span {
     color: rgb(255, 88, 93);
 }
 
 /* 오른쪽 내용 시작 */
-.innerblock{
+.innerblock {
     width: 100%;
     margin-top: 80px
 }
@@ -86,18 +88,20 @@
 }
 
 /* select 박스 내용 */
-.categorySelect, .brandSelect, .productSelect  {
+.categorySelect, .brandSelect, .productSelect {
     display: flex;
     width: 100%;
     height: 40px;
     -webkit-box-align: center;
     align-items: center;
 }
+
 .select {
     width: 100%;
     height: 100%;
     padding: 0px 1.5rem;
 }
+
 /* 박스 테두리 */
 .innerbox:nth-child(2), .innerbox:nth-child(3) {
     border-left: 1px solid rgb(220, 220, 220);
@@ -105,41 +109,44 @@
 
 /* 선택한 카테고리:~ */
 .showCategory {
-    margin-top: 20px;
-    margin-bottom: 30px;
-    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: 600;
     color: rgb(255, 88, 93);
 }
 
 /* 대표 이미지 */
-.imgspace{
+.imgspace {
     width: 284px;
     height: 284px;
     border: 1px solid rgb(220, 220, 220);
 }
-.imgspace > img{
+
+.imgspace > img {
     height: 100%;
     width: 100%;
 }
 
 /* 상품 설명 */
-.prodInfo{
+.prodInfo {
     display: flex;
     justify-content: space-between;
 }
-.prodInfo > textarea{
+
+.prodInfo > textarea {
     width: 66%;
     padding: 12px 20px;
     box-sizing: border-box;
     border: 1px solid rgb(220, 220, 220);
     background-color: #f8f8f8;
     resize: none;
+    outline: none;
 }
 
 /* 정가, 판매가 */
-.pricename{
-    margin-top: 2%;
-    margin-bottom: 2%;
+.pricename {
+    margin-bottom: 20px;
 }
 
 /* 자동입력, 가격제시 */
@@ -156,11 +163,11 @@
 }
 
 /* 자동입력 설명 */
-.explain{
+.explain {
     padding: 0;
 }
 
-.explain > label, .innerblock > label{
+.explain > label, .innerblock > label {
     color: #FF585D;
     vertical-align: middle;
     display: inline-block;
@@ -169,24 +176,24 @@
 }
 
 /* 쿠폰등록 부분 -> 구분선 없어서 따로 */
-.couponblock{
+.couponblock {
     width: 1000px;
     display: flex;
 }
 
 .coupon {
-    display:flex;
+    display: flex;
 }
 
 #gifticon-img-upload {
-    background-image : url('/resources/img/thumbnailDefault2.png');
-    background-position:top right;
-    background-repeat:no-repeat;
+    background-image: url('/resources/img/thumbnailDefault2.png');
+    background-position: top right;
+    background-repeat: no-repeat;
 }
 
 /* 쿠폰 등록 유의사항 */
-.coupon > textarea{
-    font-size:13px;
+.coupon > textarea {
+    font-size: 13px;
     width: 100%;
     height: 200px;
     padding: 12px 20px;
@@ -194,34 +201,35 @@
     border: 1px solid rgb(220, 220, 220);
     background-color: #f8f8f8;
     resize: none;
+    outline: none;
 }
 
 /* 쿠폰 파일 업로드 */
-.box-file-input{
+.box-file-input {
     margin-top: 3%;
-    display:flex;
+    display: flex;
 
 }
 
 .thumbnailspace {
-    width:200px;
-    height:200px;
-    margin-right:15px;
+    width: 200px;
+    height: 200px;
+    margin-right: 15px;
 }
 
 #thumbnail {
-    width:200px;
-    height:200px;
+    width: 200px;
+    height: 200px;
 
 }
 
 /* 쿠폰 등록 버튼 */
-.box-file-input label{
-    display:inline-block;
-    background:#FF585D;
-    color:#fff;
-    padding:0px 15px;
-    line-height:32px;
+.box-file-input label {
+    display: inline-block;
+    background: #FF585D;
+    color: #fff;
+    padding: 0px 15px;
+    line-height: 32px;
     text-align: center;
     border: none;
     width: 80px;
@@ -233,30 +241,32 @@
 }
 
 #dcrateindicator {
-    color:rgb(255,88,93);
-    font-size:14px;
+    color: rgb(255, 88, 93);
+    font-size: 14px;
 }
 
-.box-file-input label:after{
-    content:"쿠폰등록";
-}
-.box-file-input .file-input{
-    display:none;
+.box-file-input label:after {
+    content: "쿠폰등록";
 }
 
-.box-file-input .filename{
-    display:inline-block;
-    padding-left:10px;
+.box-file-input .file-input {
+    display: none;
+}
+
+.box-file-input .filename {
+    display: inline-block;
+    padding-left: 10px;
 }
 
 /* 기쁘티콘에게 전달할 메시지 */
 .message-title {
-    font-size: 18px;
+    font-size: 15px;
+    font-weight: 600;
     padding-top: 50px;
     padding-bottom: 20px;
 }
 
-.message > textarea{
+.message > textarea {
     width: 1000px;
     height: 150px;
     padding: 12px 20px 0px 20px;
@@ -264,40 +274,44 @@
     border: 1px solid rgb(220, 220, 220);
     background-color: #f8f8f8;
     resize: none;
+    outline: none;
 }
 
 
 /* 네모 input 박스 */
-.pricebox > input, .explain > input, .couponblock >.innerblock > input{
+.pricebox > input, .explain > input, .couponblock > .innerblock > input {
     border: 1px solid rgb(220, 220, 220);
     width: 284px;
     height: 45px;
-    margin-bottom: 1%;
+    /*margin-bottom: 1%;*/
 }
 
 /* 버튼, input박스 텍스트 */
-button, input{
-    font-size: 100%;
+input {
+    font-size: 16px;
     line-height: 1.15;
-    margin: 0px;
+    margin: 0;
+    outline: none;
 }
 
-button{
+.innerbox button {
     -webkit-font-smoothing: antialiased;
     direction: ltr;
     text-align: left;
     letter-spacing: -0.5px;
-    outline: 0px;
-    border: 0px;
+    outline: 0;
+    border: 0;
     background-color: transparent;
     cursor: pointer;
     outline: none;
+    line-height: 1.15;
+    margin: 0;
+    font-size: 15px;
 }
 
 /* date input  */
-#end-date{
+#end-date {
     -webkit-font-smoothing: antialiased;
-    border: none;
     border-radius: 5px;
     border: 1px solid rgb(220, 220, 220);
     color: rgb(88, 88, 88);
@@ -306,7 +320,7 @@ button{
 }
 
 /* 버튼 css */
-.btn{
+.btn {
     border: none;
     width: 160px;
     height: 40px;
@@ -314,30 +328,28 @@ button{
     font-size: 20px;
     outline: none;
     cursor: pointer;
-    line-height:32px;
+    line-height: 32px;
     text-align: center;
     background-color: rgb(255, 88, 93);
     color: white;
 }
 
 #btn-to-main, #btn-to-hist {
-    color:white;
-    width:300px;
-    height:60px;
+    color: white;
+    width: 300px;
+    height: 60px;
 }
 
 #btn-to-main {
-    background-color:grey;
+    background-color: grey;
 }
 
-
-.register{
+.register {
     width: 1000px;
     margin: 10px 0;
     padding: 5% 0;
     text-align: right;
 }
-
 
 /* Modal */
 .modal1 * {
@@ -346,29 +358,30 @@ button{
     color: rgb(71, 71, 71);
 }
 
-.modal_wrap{
-    display:none;
-    width:850px;
-    height:400px;
-    position:absolute;
-    top:2150px;
-    left:27%;
-    background:rgb(240,240,240);
+.modal_wrap {
+    display: none;
+    width: 850px;
+    height: 400px;
+    position: absolute;
+    top: 2150px;
+    left: 27%;
+    background: rgb(240, 240, 240);
     z-index: 2;
 
 }
 
-.black_bg{
-    display:none;
-    position:absolute;
+.black_bg {
+    display: none;
+    position: absolute;
     content: "";
     width: 100%;
     height: 1000px;
-    background-color:rgba(0, 0, 0, 0.5);
-    top:0;
-    left:0;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
     z-index: 1;
 }
+
 .modal_close {
     width: 26px;
     height: 26px;
@@ -376,37 +389,38 @@ button{
     top: -30px;
     right: 0;
 }
+
 .modal_close > a {
-    display:block;
+    display: block;
     width: 100%;
     height: 100%;
-    background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+    background: url(https://img.icons8.com/metro/26/000000/close-window.png);
     text-indent: -9999px;
 }
 
 #modal-text1, #modal-text2 {
-    margin-top:60px;
-    text-align:center;
+    margin-top: 60px;
+    text-align: center;
 }
 
 .inputcontainer {
-    width:80%;
-    border-bottom:1px solid grey;
-    margin-left:75px;
+    width: 80%;
+    border-bottom: 1px solid grey;
+    margin-left: 75px;
 
 }
 
 .inputtitle {
-    margin-left:80px;
+    margin-left: 80px;
 }
 
 .feeinput input {
-    height:30px;
-    width:150px;
+    height: 30px;
+    width: 150px;
 }
 
 .modalbtn {
-    margin:30px 100px;
+    margin: 30px 100px;
 }
 
 .select:hover {
@@ -414,11 +428,15 @@ button{
 }
 
 .select.on {
-    color:rgb(255,88,93);
+    color: rgb(255, 88, 93);
 }
 
 .select {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+#fixedprice {
+    margin-bottom: 20px;
 }
