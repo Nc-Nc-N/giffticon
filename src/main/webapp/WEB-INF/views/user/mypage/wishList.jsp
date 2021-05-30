@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="templete.jsp"/>
 <link rel="stylesheet" href="/resources/css/user/mypage/mypage_wish.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/user/gifticon/prod.css" type="text/css">
 
 <head>
     <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
@@ -14,22 +15,38 @@
 </div>
 
 <div class="space30"></div>
+<c:set var="i" value="0"/>
+<c:set var="j" value="3"/>
 <div class="item">
-    <c:forEach items="${wishList}" var="list" varStatus="num">
-
-        <div class='item_info'>
-            <span class="item_img"><img src="<c:out value='${list.imgPath}'/>"></span>
-            <span class="item_brdNname">
-                 <div class="item_brd"><c:out value="${list.bname}"/></div>
-                 <div class="item_name" value="<c:out value="${list.prodCode}"/>"><c:out value="${list.pname}"/></div>
-            </span>
-
-            <button type="button" class="delete-btn" value="<c:out value="${list.prodCode}"/>">
-                삭제
-            </button>
-
-        </div>
-    </c:forEach>
+    <table>
+        <c:forEach items="${wishList}" var="list" varStatus="num">
+        <c:if test="${i%j==0}">
+        <tr>
+        </c:if>
+        <td>
+            <div class="items">
+                <div class="pic">
+                    <div class="img">
+                        <img src="<c:out value='${list.imgPath}'/>">
+                    </div>
+                </div>
+                <div class="itembrand">
+                    <c:out value="${list.bname}"/>
+                </div>
+                <div class="itemname" value="<c:out value="${list.prodCode}"/>">
+                    <c:out value="${list.pname}"/>
+                </div>
+                <button type="button" class="delete-btn" value="<c:out value="${list.prodCode}"/>">
+                    삭제
+                </button>
+            </div>
+        </td>
+        <c:if test="${i%j == j-1}">
+        </tr>
+        </c:if>
+        <c:set var="i" value="${i+1}"/>
+        </c:forEach>
+    </table>
 
     <div class="noResult" style="display: none">
         관심 상품이 존재하지 않습니다.
@@ -43,7 +60,7 @@
             </c:if>
             <c:forEach var="num" begin="${pageMaker.startPage}"
                        end="${pageMaker.endPage}">
-                <a class="paginate_btn ${pageMaker.cri.pageNum == num ? "active" : ""}" href="${num}" }>${num}</a>
+                <a class="paginate_btn ${pageMaker.cri.pageNum == num ? "active" : ""}" href="${num}">${num}</a>
             </c:forEach>
             <c:if test="${pageMaker.next}">
                 <a class="paginate_btn next" href="${pageMaker.endPage + 1}">></a>
@@ -55,6 +72,8 @@
             <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
         </form>
     </div>
+    <div class="space50"></div>
+</div>
 </div>
 </div>
 </div>
@@ -81,21 +100,19 @@
 
            wishListService.remove(
                 {userId: "${userId}",
-                    prodCode: prodCode},
-                function (result){
-                    alert("관심상품에서 삭제되었습니다.");
-                });
+                    prodCode: prodCode});
 
            actionForm.find("input[name='pageNum']").val(1);
            actionForm.submit();
         })
 
-        if(${pageMaker.total}===0){
+        if(${pageMaker.total} === 0) {
+
             $('.noResult').show();
         }
 
         //물품 이름 클릭 시 해당 물품의 판매중인 기프티콘 조회. 판매중 있을 시 상품상세로 이동
-        $(".item_name").on("click", function (e) {
+        $(".itemname").on("click", function (e) {
             e.preventDefault();
 
             let prdCode = $(this).attr("value");
