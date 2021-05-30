@@ -47,10 +47,8 @@
         </div>
     </div>
     <div class="psnlQ">
-    <div class="q-input header cntTitle">문의 내용</div>
-    <div class="cntInput">
-        <textarea class="cnt"></textarea>
-    </div>
+        <div class="q-input header cntTitle">문의 내용</div>
+        <div class="cntInput"><textarea class="cnt"></textarea></div>
     </div>
 </div>
 <div id="qna-write">
@@ -65,11 +63,11 @@
 
 <script>
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         $("#psnlQ-link").attr("class", "menu active");
 
-        $(".cnt").keyup(function(e){
+        $(".cnt").keyup(function (e) {
 
             let inputLength = $(this).val().length;
             let remain = inputLength < 240 ? 240 - inputLength : 0;
@@ -82,7 +80,6 @@
             }
 
             $('.cnt').html(remain);
-
 
 
         })
@@ -167,7 +164,7 @@
     //유효성 검사 후 db 저장
     $(".btn-active").on("click", function () {
 
-        if($('input[name="qcate"]:checked').val() == null){
+        if ($('input[name="qcate"]:checked').val() == null) {
             alert("문의 유형을 선택해주세요");
             return false;
         }
@@ -234,4 +231,4 @@
 </body>
 </html>
 
-<%@include file="/WEB-INF/views/common/footer.jsp"%>
+<%@include file="/WEB-INF/views/common/footer.jsp" %>
