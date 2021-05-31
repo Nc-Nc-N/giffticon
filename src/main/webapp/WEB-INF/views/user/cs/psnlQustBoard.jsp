@@ -46,7 +46,8 @@
         <input type="checkbox" class="list-id" name="trg1" id="acc<c:out value="${status.index+1}"/>">
         <label class="contentList" name="<c:out value="${status.index}"/>" for="acc<c:out value="${status.index+1}"/>">
             <span class="qna-q">Q. </span><c:out value="${qna.csCateCode == '001' ? '[구매]':'[판매]'}"/>
-            <c:out value="${qna.title}"/>
+            <c:out value="${qna.title}"/>&nbsp;
+            <c:if test="${qna.atchFilePath != ''}"><i class="far fa-file-image"></i></c:if>
             <button id="<c:out value='${qna.id}'/>" class="btn-no btn-erase">
                 <i class="fas fa-minus"></i></button>
             <button class="btn-no btn-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
@@ -55,7 +56,7 @@
             </button>
 
             <c:if test="${qna.stusCode == '000'}">
-                <button class="btn-ans-modify modify" id="<c:out value='${qna.id}'/>">수정</button>
+                &nbsp;<button class="btn-ans-modify modify" id="<c:out value='${qna.id}'/>">수정</button>
             </c:if>
         </label>
 
@@ -65,7 +66,7 @@
                 <div class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/></div>
                 <div>
                     <c:if test="${qna.atchFilePath != ''}">
-                        <button class="btn img_show" value="<c:out value="${qna.atchFilePath}"/>">첨부파일</button>
+                        <button class="btn img_show" value="<c:out value="${qna.atchFilePath}"/>">첨부이미지</button>
                     </c:if>
                 </div>
             </div>
@@ -225,99 +226,99 @@
             actionForm.find("input[name='pageNum']").val($(this).attr("href"));
             actionForm.submit();
         });
-    });
 
-    //1:1문의 register 이동
-    $("#reg-psnQust").on("click", function () {
-        self.location = "/user/mypage/psnlQustBoard/register";
-    });
+        //1:1문의 register 이동
+        $("#reg-psnQust").on("click", function () {
+            self.location = "/user/mypage/psnlQustBoard/register";
+        });
 
-    //modify modal
-    $(".modify").on("click", function () {
-        let modifyForm = $("form");
-        let psnl = '';
+        //modify modal
+        $(".modify").on("click", function (e) {
+            e.stopPropagation();
 
-        //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
-        //list의 id는 status.index+1
-        $.ajax({
-            type: 'get',
-            url: '/psnl?id=' + this.id,
-            async: false,
-            success: function (result) {
-                psnl = result;
+            let modifyForm = $("form");
+            let psnl = '';
+
+            //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
+            //list의 id는 status.index+1
+            $.ajax({
+                type: 'get',
+                url: '/psnl?id=' + this.id,
+                async: false,
+                success: function (result) {
+                    psnl = result;
+                }
+            });
+
+            // 모달창 안에 psnl 객체 값으로 채우기.
+            $(".modify-id").val(psnl.id);
+            if (psnl.csCateCode === "001") {
+                $(".search-selected").html("[구매]");
+            } else {
+                $(".search-selected").html("[판매]");
             }
-        });
 
-        // 모달창 안에 psnl 객체 값으로 채우기.
-        $(".modify-id").val(psnl.id);
-        if (psnl.csCateCode === "001") {
-            $(".search-selected").html("[구매]");
-        } else {
-            $(".search-selected").html("[판매]");
-        }
+            $("input[name='title']").val(psnl.title);
+            $(".psnl-content textarea").html(psnl.cntnt);
 
-        $("input[name='title']").val(psnl.title);
-        $(".psnl-content textarea").html(psnl.cntnt);
+            $(".modify-modal").css("visibility", "visible");     //모달창 열기.
 
-        $(".modify-modal").css("visibility", "visible");     //모달창 열기.
+            $('.psnl-modify').on("click", function () {  //확인 버튼 클릭 시
+                modifyForm.attr("action", "/user/mypage/psnlQustBoard/modify");
+                modifyForm.submit();
+            });
 
-        $('.psnl-modify').on("click", function () {  //확인 버튼 클릭 시
-            modifyForm.attr("action", "/user/mypage/psnlQustBoard/modify");
-            modifyForm.submit();
-        });
+            $(".cancel").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
+                e.preventDefault();
+                $(".modify-modal").css("visibility", "hidden");     //모달창 열기.
+            });
+        }); //end ans
 
-        $(".cancel").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
-            e.preventDefault();
-            $(".modify-modal").css("visibility", "hidden");     //모달창 열기.
-        });
-    }); //end ans
+        //delete
+        $(".btn-erase").on("click", function (e) {
+            e.stopPropagation();
 
-    //delete
-    $(".btn-erase").on("click", function () {
-        let formObj = $("form");
-        let psnl = '';
+            let formObj = $("form");
+            let psnl = '';
 
-        //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
-        $.ajax({
-            type: 'get',
-            url: '/psnl?id=' + this.id,
-            async: false,
-            success: function (result) {
-                psnl = result;
+            //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
+            $.ajax({
+                type: 'get',
+                url: '/psnl?id=' + this.id,
+                async: false,
+                success: function (result) {
+                    psnl = result;
+                }
+            });
+
+            // 모달창 안에 Notice 객체 값으로 채우기.
+            $(".del-id").val(psnl.id);
+
+            if (psnl.csCateCode === "001") {
+                $(".search-selected").html("[구매]");
+            } else {
+                $(".search-selected").html("[판매]");
             }
-        });
 
-        // 모달창 안에 Notice 객체 값으로 채우기.
-        $(".del-id").val(psnl.id);
+            $(".del-id").html(psnl.id);
+            $("input[name='title']").val(psnl.title);
+            $(".psnl-content textarea").html(psnl.cntnt);
 
-        if (psnl.csCateCode === "001") {
-            $(".search-selected").html("[구매]");
-        } else {
-            $(".search-selected").html("[판매]");
-        }
+            $("#deleteModal").css("visibility", "visible");
 
-        $(".del-id").html(psnl.id);
-        $("input[name='title']").val(psnl.title);
-        $(".psnl-content textarea").html(psnl.cntnt);
+            $("#btn-delete").on("click", function (e) {     //확인 버튼 클릭 시
+                formObj.attr("action", "/user/mypage/psnlQustBoard/remove");
+                formObj.submit();
+            });
 
-        $("#deleteModal").css("visibility", "visible");
+            $(".cancel").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
+                e.preventDefault();
+                $("#deleteModal").css("visibility", "hidden");
+            });
+        }); //end delete
 
-        $("#btn-delete").on("click", function (e) {     //확인 버튼 클릭 시
-            formObj.attr("action", "/user/mypage/psnlQustBoard/remove");
-            formObj.submit();
-        });
-
-        $(".cancel").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
-            e.preventDefault();
-            $("#deleteModal").css("visibility", "hidden");
-        });
-    }); //end delete
-</script>
-<script>
-    $(document).ready(function () {
         $(".img_show").on("click", function () {
             let imgPath = $(this).val();
-
             window.open($(this).val(), "gifticon img", "width=700, height=900");
         });
     });

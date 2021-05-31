@@ -161,3 +161,7 @@ input[name='title'], input[type='textarea'] {
 .psnl-delete {
     margin-top: 0;
 }
+
+.fa-file-image {
+    color: #8b8b8b;
+}

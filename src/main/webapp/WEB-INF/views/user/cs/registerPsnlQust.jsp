@@ -64,26 +64,31 @@
 <script>
 
     $(document).ready(function () {
-
         $("#psnlQ-link").attr("class", "menu active");
 
         $(".cnt").keyup(function (e) {
-
             let inputLength = $(this).val().length;
-            let remain = inputLength < 240 ? 240 - inputLength : 0;
+            let remain = inputLength < 1000 ? 1000 - inputLength : 0;
 
             // 150자가 넘어가면 입력하지 못하게
             if (remain <= 0) {
-                alert("최대 240글자까지 입력 가능합니다.");
-                let content = ($(this).val()).substring(0, 240);
+                alert("최대 1000자까지 입력 가능합니다.");
+                let content = ($(this).val()).substring(0, 1000);
                 $(this).val(content);
             }
+        });
 
-            $('.cnt').html(remain);
+        $(".input-title").keyup(function (e) {
+            let inputLength = $(this).val().length;
+            let remain = inputLength < 28 ? 28 - inputLength : 0;
 
-
-        })
-    })
+            // 150자가 넘어가면 입력하지 못하게
+            if (remain <= 0) {
+                let content = ($(this).val()).substring(0, 30);
+                $(this).val(content);
+            }
+        });
+    });
 
     let userId = "<c:out value="${userId}"/>";
 
@@ -95,7 +100,6 @@
     var maxSize = 5242880; //5MB
 
     function checkExtension(fileName, fileSize) {
-
         if (fileSize >= maxSize) {
             alert("파일 사이즈 초과");
             return false;
@@ -110,7 +114,6 @@
 
     //파일 업로드
     $(document).on("change", ".file-input", function () {
-
         var formData = new FormData();
         var inputFile = $("input[name='uploadFile']");
         var files = inputFile[0].files;
@@ -125,7 +128,6 @@
 
         let csrfHeaderName = "${_csrf.headerName}";
         let csrfTokenValue = "${_csrf.token}";
-
 
         $.ajax({
             url: '/psnl/uploadAjaxAction',
@@ -148,17 +150,11 @@
 
         //이미지 파일 save하는 함수
         function saveFile(uploadResultArr) {
-
-            console.log("uploadResultArr: " + uploadResultArr);
             $(uploadResultArr).each(function (i, obj) {
-
                 originPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;
-
-                console.log(originPath);
                 originPath = originPath.replace(new RegExp(/\\/g), "/");
             });
         }
-
     });
 
     //유효성 검사 후 db 저장
@@ -218,14 +214,10 @@
                 self.location = "/user/mypage/psnlQustBoard";
             },
             error: function (error) {
-                console.log(error);
                 alert("등록과정에서 오류가 발생했습니다. 관리자에게 문의해주세요.");
             }
-        })
-
+        });
     }
-
-
 </script>
 
 </body>
