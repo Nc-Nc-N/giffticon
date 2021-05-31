@@ -98,8 +98,8 @@
                     <tr>
                         <td>${conH.codeName}</td>
                         <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${conH.chgDt}"/></td>
-                        <td>${conH.chgQuty}</td>
-                        <td>${conH.balance}</td>
+                        <td><fmt:formatNumber value="${conH.chgQuty}" type="number" maxFractionDigits="3"/></td>
+                        <td><fmt:formatNumber value="${conH.balance}" type="number" maxFractionDigits="3"/></td>
                     </tr>
                 </c:forEach>
             </c:when>
