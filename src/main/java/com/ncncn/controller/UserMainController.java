@@ -3,6 +3,7 @@ package com.ncncn.controller;
 
 import com.ncncn.domain.BrandVO;
 import com.ncncn.domain.CategoryVO;
+import com.ncncn.domain.pagination.GiftiCriteria;
 import com.ncncn.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -31,10 +32,10 @@ public class UserMainController {
 
 	private WishListService wishService;
 
-  private DealListService dealListService;
+  	private DealListService dealListService;
 
 	@GetMapping("/home")
-	public void main(HttpServletRequest request, Model model){
+	public void main(HttpServletRequest request, Model model, GiftiCriteria cri){
 
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 
@@ -52,7 +53,7 @@ public class UserMainController {
 
 		try{
 			model.addAttribute("bestList", giftiService.getBestGifti());				// 인기상품
-			model.addAttribute("deadlineList", giftiService.getDeadlineGifti());		// 마감상품
+			model.addAttribute("deadlineList", giftiService.getDeadlineGifti(cri));		// 마감상품
 
 		}catch (Exception e){
 			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");

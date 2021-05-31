@@ -57,7 +57,9 @@ public interface GifticonMapper {
 	public List<ProdListVO> getBestGifti();
 
 	// 마감임박 상품 목록
-	public List<ProdListVO> getDeadlineGifti();
+	public List<ProdListVO> getDeadlineGifti(GiftiCriteria cri);
+
+	public int getDeadTotal();
 
 	public void registerGifticon(GifticonVO gifticon);
 
@@ -102,4 +104,5 @@ public interface GifticonMapper {
 	public int checkGft(@Param("gftId") int gftId, @Param("userId") int userId);
 
 	public GifticonVO checkValidPrc(@Param("gftId") int gftId);
+
 }

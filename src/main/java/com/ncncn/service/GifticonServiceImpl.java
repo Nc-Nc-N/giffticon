@@ -95,9 +95,9 @@ public class GifticonServiceImpl implements GifticonService {
     }
 
     @Override
-    public List<ProdListVO> getDeadlineGifti() {
+    public List<ProdListVO> getDeadlineGifti(GiftiCriteria cri) {
 
-        return gifticonMapper.getDeadlineGifti();
+        return gifticonMapper.getDeadlineGifti(cri);
     }
 
     @Transactional
@@ -158,8 +158,13 @@ public class GifticonServiceImpl implements GifticonService {
         }
 
     }
-  
-      // 현재 가격수정이력 row의 end_dt 컬럼에 변경시간을 입력하는 메서드
+
+    @Override
+    public int getDeadTotal() {
+        return gifticonMapper.getDeadTotal();
+    }
+
+    // 현재 가격수정이력 row의 end_dt 컬럼에 변경시간을 입력하는 메서드
     private void updateDcPrcHistEndDt(PrcUpdateVO prcUpdate) {
         int gftIdForUpdate = gifticonMapper.getDcPrcHistIdByGftId(prcUpdate);
         gifticonMapper.updateDcPrcHist(gftIdForUpdate);

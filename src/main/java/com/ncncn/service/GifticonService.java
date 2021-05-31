@@ -38,7 +38,9 @@ public interface GifticonService {
 	public List<ProdListVO> getBestGifti();
 
 	// 마감상품 목록
-	public List<ProdListVO> getDeadlineGifti();
+	public List<ProdListVO> getDeadlineGifti(GiftiCriteria cri);
+
+	public int getDeadTotal();
 
 	public void registerGifticon(GifticonVO gifticon);
 

@@ -10,7 +10,11 @@ public class GiftiCriteria extends Criteria {
 	private String keyword;
 
 	public GiftiCriteria(){
-		this(1,12,"0","best");
+		this(1,12);
+	}
+
+	public GiftiCriteria(int pageNum, int amount){
+		super(pageNum, amount);
 	}
 
 	public GiftiCriteria(int pageNum, int amount, String code, String orderby){
