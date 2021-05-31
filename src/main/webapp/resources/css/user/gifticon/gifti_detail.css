@@ -4,6 +4,7 @@
     font-size: 11px;
     color: #909090;
     font-weight: normal;
+    margin-top: 10px;
 }
 
 .titArea span.nav a{
@@ -50,7 +51,12 @@
 .product_detail_top .detail {
     float: right;
     width: 540px;
+    height: 543px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
+
 .product_detail_top .product {
     padding-bottom: 25px;
     border-bottom: solid 1px #d5d5d5;
@@ -198,4 +204,10 @@
 
 .group{
     display: flex;
+}
+.product{
+    margin-top: 50px;
+}
+.name{
+    height: 70px;
 }

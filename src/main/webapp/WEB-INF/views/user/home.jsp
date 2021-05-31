@@ -83,13 +83,11 @@
                                             <img src="${wishList.imgPath}">
                                         </div>
                                     </div>
-                                    <div class="itemnameNprice">
-                                        <div class="itembrand">
-                                            <c:out value="${wishList.bname}"/>
-                                        </div>
-                                        <div class="itemname">
-                                            <c:out value="${wishList.pname}"/>
-                                        </div>
+                                    <div class="itembrand">
+                                        <c:out value="${wishList.bname}"/>
+                                    </div>
+                                    <div class="itemname">
+                                        <c:out value="${wishList.pname}"/>
                                     </div>
                                 </div>
                             </td>
