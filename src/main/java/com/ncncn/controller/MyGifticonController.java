@@ -111,6 +111,8 @@ public class MyGifticonController {
 
 		int userId = (int) request.getSession().getAttribute("userId");
 		int total = wishService.getTotalCount(userId);
+		log.info("wishList....");
+		log.info("total: "+total);
 		cri.setAmount(6);
 
 		model.addAttribute("pageMaker", new PageDTO(cri, total));

@@ -69,7 +69,6 @@
 
         <form id="actionForm" action="/user/mypage/wishList" method="get">
             <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-            <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
         </form>
     </div>
 </div>
@@ -103,7 +102,8 @@
                 {userId: "${userId}",
                     prodCode: prodCode});
 
-            location.href = "/user/mypage/wishList";
+            actionForm.find("input[name=pageNum]").val(1);
+            actionForm.submit();
         })
 
         if(${pageMaker.total} === 0) {

@@ -43,6 +43,7 @@
                 </div>
                 <!-- 오른쪽 상품 정보 -->
                 <div class="detail">
+                    <div class="right-detail">
                     <div class="product">
                         <p class="brand"><c:out value="${gifticon.bname}"/></p>
                         <p class="name"><c:out value="${gifticon.pname}"/></p>
@@ -61,6 +62,7 @@
                         <p class="desc">공항 백화점, 대형 쇼핑몰, 휴게소 등 일부 특수매장에서는 사용이 제한될 수 있습니다.</p>
                         <p class="desc">판매되는 쿠폰은 개인 간 거래를 통해 리셀링되는 상품으로 <span class="fc_red">유효기간 연장 및 환불이 불가</span>합니다.</p>
                         <p class="desc">쿠폰 사용과 관련한 불편은 1:1 문의로 문의바랍니다.</p>
+                    </div>
                     </div>
 
                     <div class="option-group">
