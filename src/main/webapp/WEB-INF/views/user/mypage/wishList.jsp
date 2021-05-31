@@ -52,7 +52,6 @@
         관심 상품이 존재하지 않습니다.
     </div>
 </div>
-
     <div class="contentfooter">
         <div class="pagination">
             <c:if test="${pageMaker.prev}">
@@ -75,7 +74,7 @@
 </div>
 </div>
 </div>
-<div class="space50"></div>
+<div class="space100"></div>
 </body>
 
 <script type="text/javascript" src="/resources/js/user/wishList.js"></script>
@@ -103,7 +102,7 @@
             wishListService.remove(wish)
                 .then(() => actionForm.submit())
                 .catch(error => alert(error));
-        })
+        });
 
         if("${pageMaker.total}" == 0) {
 
