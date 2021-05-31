@@ -786,6 +786,7 @@
             type: 'POST',
             success: function (result) {
                 // 등록 성공시 모달창 보여주기
+                scrolldown();
                 showFinalModal();
             },
             error: function (error) {
@@ -864,6 +865,10 @@
             return false;
         });
     };
+
+    let scrolldown = function() {
+        $('html, body').scrollTop(document.body.scrollHeight);
+    }
 
     // 날짜에 따른 추가 할인율 계산
     let getAddDcRate = function () {
