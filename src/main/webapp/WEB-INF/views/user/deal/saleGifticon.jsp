@@ -41,7 +41,7 @@
                 </div>
                 <div class="innerblock"> <!-- 카테고리 내용 전체-->
                     <div class="category"> <!-- select box 3개 묶음 -->
-                        <div class="innerbox"> <!-- select box 1개-->
+                        <div class="innerbox type2"> <!-- select box 1개-->
                             <ul class="categorybox"> <!-- 대분류 카테고리 -->
                                 <c:forEach items="${categoryList}" var="catL">
                                     <li class="categorySelect">
@@ -51,14 +51,14 @@
 
                             </ul>
                         </div>
-                        <div class="innerbox">
+                        <div class="innerbox type2">
                             <!-- <span>중분류 선택</span> -->
                             <ul class="brandbox"> <!-- 중분류 카테고리 -->
 
                             </ul>
                         </div>
 
-                        <div class="innerbox">
+                        <div class="innerbox type2">
                             <!-- <span>소분류 선택<span> -->
                             <ul class="productbox"> <!-- 소분류 카테고리 -->
 
@@ -72,7 +72,7 @@
                         <div class="imgspace"> <!-- 이미지 테두리-->
                             <img id="prodImg" src="/resources/img/product/99/9999/999999.jpeg">
                         </div>
-                        <textarea id="prodDescn" readonly>
+                        <textarea id="prodDescn" class="type2"readonly>
                                 </textarea>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                             </label>
 
                         </div>
-                        <textarea readonly="readonly">[ 쿠폰 등록시 유의사항 ]
+                        <textarea class="type2" readonly="readonly">[ 쿠폰 등록시 유의사항 ]
 
 1. 반드시 쿠폰 이미지만 잘라서 올려주세요. 캡쳐 이미지에 배터리 잔여량, 통신사, 시간, 화살표 등이 표기된 경우, 저희 시스템상 바코드와 유효기간을 잘못 인식하는 경우가 많아 반려하고 있습니다.
 
