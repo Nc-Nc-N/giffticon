@@ -133,8 +133,10 @@
 
             if($("#like-button").hasClass('selected')){
                 wishListService.remove(wish)
+                    .then(() => $("#like-button").removeClass('selected'))
+                    .catch(error => alert(error));
             }else{
-                wishListService.add(wish)
+                wishListService.add(wish);
             }
 
         }

@@ -33,6 +33,9 @@ let wishListService = (function () {
 
     // 관심상품 삭제
     function remove(wish) {
+
+        return new Promise(function (resolve,reject){
+
         console.log("delete wish....")
 
         $.ajax({
@@ -45,14 +48,15 @@ let wishListService = (function () {
             contentType: "application/json; charset=utf-8",
             success: function () {
 
-                $("#like-button").removeClass('selected');
                 alert("관심상품에서 삭제되었습니다.");
+                resolve();
 
             }, error: function () {
 
-                alert("다시 시도해주세요.");
+                reject("다시 시도해주세요.");
 
             }
+        })
         })
     }
 

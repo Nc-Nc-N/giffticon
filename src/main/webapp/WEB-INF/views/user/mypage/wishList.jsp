@@ -97,16 +97,15 @@
         $(".delete-btn").on("click", function (e){
             // 상품 코드
             let prodCode = $(this).attr("value");
+            let wish = {userId: "${userId}", prodCode: prodCode}
+            actionForm.find("input[name='pageNum']").val(1);
 
-           wishListService.remove(
-                {userId: "${userId}",
-                    prodCode: prodCode});
-
-            actionForm.find("input[name=pageNum]").val(1);
-            actionForm.submit();
+            wishListService.remove(wish)
+                .then(() => actionForm.submit())
+                .catch(error => alert(error));
         })
 
-        if(${pageMaker.total} === 0) {
+        if("${pageMaker.total}" == 0) {
 
             $('.noResult').show();
         }
