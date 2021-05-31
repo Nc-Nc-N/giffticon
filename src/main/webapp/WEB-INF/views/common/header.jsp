@@ -145,7 +145,7 @@
                 success: function (result) {
                     for (let i = 0; i < result.length - 1; i++) {
                         menu.append('<li class="flyout-right"><a href="/user/gifti_list?code=' + result[i].code + '">' + result[i].name + '</a>' +
-                            '<div class="brdBox type1"><ul class="animated-' + result[i].code + '"></ul></div></li>');
+                            '<div class="brdBox type2"><ul class="animated-' + result[i].code + '"></ul></div></li>');
                     }
                 },
                 error: function () {

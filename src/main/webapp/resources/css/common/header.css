@@ -482,12 +482,12 @@ a:hover, a:active {
 }
 
 /* 스크롤바 설정*/
-.type1::-webkit-scrollbar {
+.type2::-webkit-scrollbar {
     width: 15px;
 }
 
 /* 스크롤바 막대 설정*/
-.type1::-webkit-scrollbar-thumb {
+.type2::-webkit-scrollbar-thumb {
     height: 17%;
     background-color:gainsboro;
     /* 스크롤바 둥글게 설정    */
@@ -495,6 +495,6 @@ a:hover, a:active {
 }
 
 /* 스크롤바 뒷 배경 설정*/
-.type1::-webkit-scrollbar-track {
+.type2::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0);
 }
