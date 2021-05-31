@@ -133,9 +133,9 @@ input[type="date"] {
 }
 
 #reg-btn-area {
-    margin-top: 40px;
-    margin-bottom: 30px;
-    justify-content: center;
+    width: 40%;
+    margin: 40px auto 20px auto;
+    justify-content: space-between;
 }
 
 .email_section, .date_section, .img_section, .price_section {
@@ -155,6 +155,7 @@ h4 {
 .btn {
     width: 60px;
     height: 30px;
+    font-size: 14px;
 }
 
 .btn-dark {
@@ -167,4 +168,15 @@ h4 {
 .btn-dark:hover {
     background-color: white;
     border: 1px solid rgb(237, 237, 237);
+}
+
+.btn-submit {
+    background-color: #FF585D;
+    color: white;
+}
+
+.btn-submit:hover {
+    background-color: white;
+    border: 1px solid #FF585D;
+    color: #FF585D;
 }

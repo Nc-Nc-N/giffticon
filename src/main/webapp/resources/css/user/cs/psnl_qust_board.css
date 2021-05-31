@@ -1,37 +1,37 @@
-.modal-content{
+.modal-content {
     height: 340px;
 }
 
-.modal-header{
+.modal-header {
     height: 70px;
 }
 
-.modal-body{
+.modal-body {
     height: 180px;
 }
 
-.search-selected{
+.search-selected {
     margin: 20px;
 }
 
-.btn-no{
+.btn-no {
     width: auto;
 }
 
-.dark, .btn-modify{
+.dark, .btn-modify {
     margin-top: 5px;
 }
 
-.sub-category-btn-notice{
+.sub-category-btn-notice {
     border-right: none;
 }
 
-.sub-category-btn-event{
+.sub-category-btn-event {
     border-left: 1px solid rgb(172, 172, 172);
 }
 
 
-.modify-title{
+.modify-title {
     margin: 10px 20px 0px 20px;
     width: 560px;
     height: 40px;
@@ -40,20 +40,20 @@
     border: 1px solid gainsboro;
 }
 
-.content{
+.content {
     width: 100%;
     height: 100%;
     margin: 0 0 0 0;
     /*padding: 0 25px 0 35px;*/
 }
 
-.userQstInner, .admin-inner{
+.userQstInner, .admin-inner {
     padding: 10px 25px 10px 35px;
     font-size: 16px;
     color: #333333;
 }
 
-.img_show{
+.img_show {
     background-color: white;
     border: 1px solid rgb(71, 71, 71);
     color: #333333;
@@ -63,8 +63,9 @@
     border-radius: 3px;
     font-size: 12px;
 }
-.wait{
-    background-color:rgb(255,88,93);
+
+.wait {
+    background-color: rgb(255, 88, 93);
     /*border: 1px solid rgb(71, 71, 71);*/
     color: white;
     cursor: pointer;
@@ -73,8 +74,9 @@
     border-radius: 0px;
     font-size: 12px;
 }
-.finish{
-    background-color:gainsboro;
+
+.finish {
+    background-color: gainsboro;
     /*border: 1px solid rgb(71, 71, 71);*/
     color: #333;
     cursor: pointer;
@@ -84,13 +86,82 @@
     font-size: 12px;
 }
 
-.modify{
+.modify {
     z-index: 1;
-    color: rgb(255,88,93);
-    font-size:14px;
+    color: rgb(255, 88, 93);
+    font-size: 14px;
     border: none;
     background-color: unset;
 }
 
+.text-input {
+    width: 450px;
+}
 
+input[name='title'] {
+    height: 30px;
+}
 
+input[name='title'], input[type='textarea'] {
+    border: none;
+    outline: none;
+    width: 90%;
+}
+
+.psnl-content {
+    padding: 5px 5px;
+}
+
+.psnl-content > textarea {
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: scroll;
+    overflow-x: hidden;
+    width: 100%;
+    height: 120px;
+    font-size: 14px;
+}
+
+.psnl-modify {
+    margin-top: 0;
+}
+
+.detail-modal table {
+    margin: 20px auto;
+}
+
+.td-title {
+    font-size: 14px;
+}
+
+.qna-q, .qna-a {
+    height: 30px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.qna-a {
+    margin-top: 10px;
+}
+
+.ans-cntnt {
+    margin-bottom: 10px;
+    white-space: pre-line;
+}
+
+.inner {
+    border-bottom: none !important;
+}
+
+.admin-inner {
+    border-top: 2px solid white;
+}
+
+.psnl-delete {
+    margin-top: 0;
+}
+
+.fa-file-image {
+    color: #8b8b8b;
+}

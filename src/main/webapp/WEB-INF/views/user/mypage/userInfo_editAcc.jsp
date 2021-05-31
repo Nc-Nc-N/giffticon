@@ -32,7 +32,7 @@
             <div>
                 <h3>예금주</h3>
                 <div class="input_text">
-                    <input type="text" class="acc-holder" placeholder="기존 예금주 출력">
+                    <input type="text" class="acc-holder">
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
             <div>
                 <h3>계좌번호</h3>
                 <div class="input_text">
-                    <input type="text" class="acc-account" placeholder="기존 계좌번호 출력">
+                    <input type="text" class="acc-account">
                 </div>
                 <button class="btn btn-confirm" id="btn-accConfirm">인증</button>
             </div>

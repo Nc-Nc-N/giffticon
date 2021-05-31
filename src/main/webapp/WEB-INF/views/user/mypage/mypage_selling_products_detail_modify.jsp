@@ -25,7 +25,7 @@
             </h4>
         </div>
         <div class="img_section">
-            <h3>상품 정보</h3>
+            <h3>상품 이미지</h3>
             <div>
                 <div class="img_container">
                     <img class="modal-img" src="<c:out value="${gftInfo.prdImgPath}"/>">

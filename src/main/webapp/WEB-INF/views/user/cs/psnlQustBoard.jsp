@@ -15,11 +15,14 @@
 <link rel="stylesheet" href="/resources/css/admin/cs/admin_psnl_qust.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/cs/notice_board.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/cs/faq_board.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/admin/common/modal.css" type="text/css">
 <link rel="stylesheet" href="/resources/css/user/cs/psnl_qust_board.css" type="text/css">
 
 <script src="https://kit.fontawesome.com/61917e421e.js" crossorigin="anonymous"></script>
 
 <h3>1:1문의</h3>
+<div class="line-117"></div>
+
 <div class="sub-category-area">
     <button class="sub sub-category-btn-all" value="NE" name="type"
             onclick="location.href='/user/mypage/psnlQustBoard?pageNum=1&amount=10&type=NE&keyword=';">
@@ -43,7 +46,8 @@
         <input type="checkbox" class="list-id" name="trg1" id="acc<c:out value="${status.index+1}"/>">
         <label class="contentList" name="<c:out value="${status.index}"/>" for="acc<c:out value="${status.index+1}"/>">
             <span class="qna-q">Q. </span><c:out value="${qna.csCateCode == '001' ? '[구매]':'[판매]'}"/>
-            <c:out value="${qna.title}"/>
+            <c:out value="${qna.title}"/>&nbsp;
+            <c:if test="${qna.atchFilePath != ''}"><i class="far fa-file-image"></i></c:if>
             <button id="<c:out value='${qna.id}'/>" class="btn-no btn-erase">
                 <i class="fas fa-minus"></i></button>
             <button class="btn-no btn-modify <c:out value="${qna.stusCode == '001' ? 'finish':'wait'}"/>"
@@ -52,25 +56,26 @@
             </button>
 
             <c:if test="${qna.stusCode == '000'}">
-                <button class="btn-ans-modify modify" id="<c:out value='${qna.id}'/>">수정</button>
+                &nbsp;<button class="btn-ans-modify modify" id="<c:out value='${qna.id}'/>">수정</button>
             </c:if>
-
         </label>
 
         <div class="content" name="content_<c:out value="${status.index}"/>">
-
             <div class="inner userQstInner">
-                <p class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/>&nbsp;&nbsp;
-                <c:if test="${qna.atchFilePath != ''}">
-                <button class="btn img_show" value="<c:out value="${qna.atchFilePath}"/>">첨부파일</button>
-                </c:if>
-                </p>
+                <div class="qna-q">문의내용</div>
+                <div class="ans-cntnt" name="cntnt"><c:out value="${qna.cntnt}"/></div>
+                <div>
+                    <c:if test="${qna.atchFilePath != ''}">
+                        <button class="btn img_show" value="<c:out value="${qna.atchFilePath}"/>">첨부이미지</button>
+                    </c:if>
+                </div>
             </div>
-            <div class="admin-inner">
-                <p class="qna-a"></p>
-                <p><c:out value="${qna.ansCntnt}"/></p>
-            </div>
-
+            <c:if test="${qna.ansCntnt ne null}">
+                <div class="admin-inner">
+                    <div class="qna-a">답변내용</div>
+                    <div class="ans-cntnt"><c:out value="${qna.ansCntnt}"/></div>
+                </div>
+            </c:if>
         </div>
     </c:forEach>
     <c:if test="${list.size() == 0}">
@@ -79,9 +84,9 @@
 </div>
 <!-- end accordionMenu-->
 
+<div class="space50"></div>
 
 <div id="notion-write">
-
     <%--1:1 문의 register btn--%>
     <button class="btn btn-active" id="reg-psnQust">1:1문의</button>
 
@@ -107,13 +112,12 @@
     </div>
     <!-- end pagenation-->
 
-    <form ID='actionForm' action="/user/mypage/psnlQustBoard" method="get">
+    <form id='actionForm' action="/user/mypage/psnlQustBoard" method="get">
         <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
         <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
         <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
         <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
     </form>
-
 </div>
 
 </div>
@@ -121,78 +125,83 @@
 </div>
 </div>
 
-
-<!-- Modify Modal -->
-<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="modifyModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal modify-modal" id="deleteModal">
+    <div class="detail-modal">
+        <div class="modal-title">삭제하시겠습니까?</div>
         <form role="form" action="" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <input class="modify-id" type="hidden" name="id" value=''>
-                    <input class="modify-title" name="title" type="textarea">
-                </div>
-
-                <div class="modal-body">
-                    <textarea class="modify-content" name="cntnt"></textarea>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-register" id="btn-modify">OK</button>
-                    <button class="btn btn-cancel" id="closeModifyModalBtn">CANCEL</button>
-                </div>
+            <input class="del-id" type="hidden" name="id" value=''>
+            <table id="delete-td">
+                <tr class="under-line">
+                    <td class="td-title">제목</td>
+                    <td colspan="5">
+                        <div class="td-cntnt text-input"><input type="text" name="title" readonly/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-title">문의내용</td>
+                    <td colspan="5">
+                        <div class="td-cntnt psnl-content text-input">
+                            <textarea name="cntnt" readonly></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="detail-btn-area">
+                <button class="btn btn-active psnl-delete" id="btn-delete">확인</button>
+                <button class="btn btn-disabled cancel">취소</button>
             </div>
-            <!--/.modal-content -->
         </form>
     </div>
-    <!--/.modal-dialog -->
 </div>
-<!-- end Modal -->
 
-
-<!-- delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal modify-modal" id="modifyModal">
+    <div class="detail-modal">
+        <div class="modal-title">1:1문의 수정</div>
         <form role="form" action="" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <input class="del-id" type="hidden" name="id" value=''>
-                    <p class="delete-question" id="ModalLabel">정말 삭제하시겠습니까?</p>
-                </div>
-                <div class="modal-body">
-                    <span class="search-selected"></span>
-                    <span class="de-title"></span>
-                    <p class="de-cntnt"></p>
-
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-register" id="btn-delete">OK</button>
-                    <button class="btn btn-cancel" id="closeModalBtn">CANCEL</button>
-                </div>
+            <input class="modify-id" type="hidden" name="id" value=''>
+            <table id="modify-td">
+                <tr class="under-line">
+                    <td class="td-title">제목</td>
+                    <td colspan="5">
+                        <div class="td-cntnt text-input"><input type="text" name="title" placeholder="제목을 입력해주세요."/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-title">문의내용</td>
+                    <td colspan="5">
+                        <div class="td-cntnt psnl-content text-input">
+                            <textarea name="cntnt" placeholder="상품 설명을 입력해주세요."></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="detail-btn-area">
+                <button class="btn btn-active psnl-modify">등록</button>
+                <button class="btn btn-disabled cancel">취소</button>
             </div>
-            <!--/.modal-content -->
         </form>
     </div>
-    <!--/.modal-dialog -->
 </div>
-<!-- end Modal -->
+
+<%@include file="/WEB-INF/views/common/footer.jsp" %>
+</body>
+</html>
 
 <script type="text/javascript" src="/resources/js/etc/screenHeight.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function () {
-
-        $(".contentList").on("click", function(){
-
+        $(".contentList").on("click", function () {
             let listNum = "content_" + $(this).attr("name");
             let divDisplay = $("div[name=" + listNum + "]").css("display");
 
-            if(divDisplay == "none"){
-                $("div[name=" + listNum + "]").css("display","block");
-            }else{
-                $("div[name=" + listNum + "]").css("display","none");
+            if (divDisplay == "none") {
+                $("div[name=" + listNum + "]").css("display", "block");
+            } else {
+                $("div[name=" + listNum + "]").css("display", "none");
             }
 
             calculateContentLength();
@@ -206,175 +215,111 @@
         // error 발생 시 해당 에러 메시지를 alert
         if (error.length > 0) {
             alert("에러 발생. 담당자에게 문의해주세요. \n" + error);
-            console.log(error);
         }
 
         //pagination
         var actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {
-
             e.preventDefault();
-
-            console.log('click');
 
             actionForm.find("input[name='pageNum']").val($(this).attr("href"));
             actionForm.submit();
         });
 
-    });
+        //1:1문의 register 이동
+        $("#reg-psnQust").on("click", function () {
+            self.location = "/user/mypage/psnlQustBoard/register";
+        });
 
-    //1:1문의 register 이동
-    $("#reg-psnQust").on("click", function () {
-        console.log("1:1문의");
-        self.location = "/user/mypage/psnlQustBoard/register";
-    });
+        //modify modal
+        $(".modify").on("click", function (e) {
+            e.stopPropagation();
 
+            let modifyForm = $("form");
+            let psnl = '';
 
-    //modify modal
-    $(".modify").on("click", function () {
+            //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
+            //list의 id는 status.index+1
+            $.ajax({
+                type: 'get',
+                url: '/psnl?id=' + this.id,
+                async: false,
+                success: function (result) {
+                    psnl = result;
+                }
+            });
 
-
-        var modifyForm = $("form");
-
-        console.log("this id:" + this.id);
-
-        let psnl = '';
-
-        //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
-        //list의 id는 status.index+1
-        $.ajax({
-            type: 'get',
-            url: '/psnl?id=' + this.id,
-            async: false,
-            success: function (result) {
-                psnl = result;
-                console.log("ajax result:" + result);
-                console.log(psnl);
-            },
-            error: function () {
-
+            // 모달창 안에 psnl 객체 값으로 채우기.
+            $(".modify-id").val(psnl.id);
+            if (psnl.csCateCode === "001") {
+                $(".search-selected").html("[구매]");
+            } else {
+                $(".search-selected").html("[판매]");
             }
-        });
 
+            $("input[name='title']").val(psnl.title);
+            $(".psnl-content textarea").html(psnl.cntnt);
 
-        // 모달창 안에 psnl 객체 값으로 채우기.
+            $(".modify-modal").css("visibility", "visible");     //모달창 열기.
 
-        console.log("psnl.id : " + psnl.id);
-        $(".modify-id").val(psnl.id);
+            $('.psnl-modify').on("click", function () {  //확인 버튼 클릭 시
+                modifyForm.attr("action", "/user/mypage/psnlQustBoard/modify");
+                modifyForm.submit();
+            });
 
-        if (psnl.csCateCode == "001") {
+            $(".cancel").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
+                e.preventDefault();
+                $(".modify-modal").css("visibility", "hidden");     //모달창 열기.
+            });
+        }); //end ans
 
-            $(".search-selected").html("[구매]");
+        //delete
+        $(".btn-erase").on("click", function (e) {
+            e.stopPropagation();
 
-        } else {
+            let formObj = $("form");
+            let psnl = '';
 
-            $(".search-selected").html("[판매]");
-        }
+            //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
+            $.ajax({
+                type: 'get',
+                url: '/psnl?id=' + this.id,
+                async: false,
+                success: function (result) {
+                    psnl = result;
+                }
+            });
 
-        $(".modify-title").val(psnl.title);
+            // 모달창 안에 Notice 객체 값으로 채우기.
+            $(".del-id").val(psnl.id);
 
-        $(".modify-content").html(psnl.cntnt);
-
-
-        $("#modifyModal").fadeIn();     //모달창 열기.
-
-
-        $('#btn-modify').on("click", function () {  //확인 버튼 클릭 시
-
-            modifyForm.attr("action", "/user/mypage/psnlQustBoard/modify");
-            modifyForm.submit();
-        });
-
-        $("#closeModifyModalBtn").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
-
-            e.preventDefault();
-            $("#modifyModal").fadeOut();
-        });
-
-    }); //end ans
-
-
-    //delete
-    $(".btn-erase").on("click", function () {
-
-
-        var formObj = $("form");
-        console.log(this.id);
-
-        let psnl = '';
-
-        //list id를 함께 보내서 해당 list의 CsPsnlQustVO를 가져옴.
-        $.ajax({
-            type: 'get',
-            url: '/psnl?id=' + this.id,
-            async: false,
-            success: function (result) {
-                psnl = result;
-                console.log(psnl);
-            },
-            error: function () {
-
+            if (psnl.csCateCode === "001") {
+                $(".search-selected").html("[구매]");
+            } else {
+                $(".search-selected").html("[판매]");
             }
-        });
 
+            $(".del-id").html(psnl.id);
+            $("input[name='title']").val(psnl.title);
+            $(".psnl-content textarea").html(psnl.cntnt);
 
-        // 모달창 안에 Notice 객체 값으로 채우기.
-        $(".del-id").val(psnl.id);
+            $("#deleteModal").css("visibility", "visible");
 
-        if (psnl.csCateCode == "001") {
+            $("#btn-delete").on("click", function (e) {     //확인 버튼 클릭 시
+                formObj.attr("action", "/user/mypage/psnlQustBoard/remove");
+                formObj.submit();
+            });
 
-            $(".search-selected").html("[구매]");
+            $(".cancel").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
+                e.preventDefault();
+                $("#deleteModal").css("visibility", "hidden");
+            });
+        }); //end delete
 
-        } else {
-
-            $(".search-selected").html("[판매]");
-        }
-
-        $(".del-id").html(psnl.id);
-
-        $(".de-title").html(psnl.title);
-
-        $(".de-cntnt").html(psnl.cntnt);
-
-        $("#deleteModal").fadeIn();
-
-        $("#btn-delete").on("click", function (e) {     //확인 버튼 클릭 시
-
-            formObj.attr("action", "/user/mypage/psnlQustBoard/remove");
-            formObj.submit();
-
-
-        });
-
-
-        $("#closeModalBtn").on('click', function (e) {    //취소 눌렀을 떄 모달창 닫기.
-
-            e.preventDefault();
-            $("#deleteModal").fadeOut();
-        });
-
-    }); //end delete
-
-
-</script>
-<script>
-
-    $(document).ready(function (){
-
-        $(".img_show").on("click", function(){
-
+        $(".img_show").on("click", function () {
             let imgPath = $(this).val();
-
             window.open($(this).val(), "gifticon img", "width=700, height=900");
         });
-
-    })
-
-
+    });
 </script>
-
-</body>
-</html>
-
-<%@include file="/WEB-INF/views/common/footer.jsp"%>
