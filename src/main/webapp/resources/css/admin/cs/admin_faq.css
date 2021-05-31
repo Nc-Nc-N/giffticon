@@ -1,12 +1,7 @@
 .qna-q{
-
-    font-weight:bold;
+    font-size: 14px;
+    font-weight: 600;
     color:rgb(255, 88, 93);
-}
-
-.qna-a{
-
-    font-size: bold;    
 }
 
 .faq-date{

@@ -436,6 +436,7 @@ a:hover, a:active {
 .tooltip {
     display: inline-block;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .tooltip-text {

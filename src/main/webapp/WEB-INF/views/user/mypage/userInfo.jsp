@@ -32,7 +32,8 @@
                 생년월일을 등록해주세요
             </c:if>
             <c:if test="${user.birthDt != null}">
-                <c:out value="${user.birthDt}"/>
+                <fmt:parseDate value="${user.birthDt}" var="birth" pattern="yyyyMMdd"/>
+                <fmt:formatDate value="${birth}" pattern="yyyy/MM/dd"/>
             </c:if>
         </div>
         <div><c:out value="${user.telNo}"/></div>

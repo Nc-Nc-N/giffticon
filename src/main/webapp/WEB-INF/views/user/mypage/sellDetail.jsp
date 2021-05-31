@@ -51,8 +51,8 @@
         </div>
         <div class="item_name">
             <div>판매가격</div>
-            <c:out value="${gftInfo.dcPrc}"/>원 &nbsp;
-            <sapn style="color: rgb(255, 88, 93)"><fmt:formatNumber value="${gftInfo.finalDcRate}" type="percent" pattern="0%"/></sapn>&nbsp;
+            <fmt:formatNumber value="${gftInfo.dcPrc}" type="number" maxFractionDigits="3"/>원&nbsp;
+            <sapn style="color: rgb(255, 88, 93)"><fmt:formatNumber value="${gftInfo.finalDcRate}" type="percent" pattern="0%"/></sapn>
         </div>
         <div class="item_name">
             <div>유효기간</div>
@@ -108,6 +108,7 @@
 <div class="modalOn">
     <jsp:include page="mypage_selling_products_detail_modify.jsp"/>
 </div>
+
 <div class="space100"></div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>

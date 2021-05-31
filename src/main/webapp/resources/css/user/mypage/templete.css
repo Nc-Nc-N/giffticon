@@ -169,6 +169,7 @@ body {
 }
 
 .full-content{
+    min-height: 800px;
     height: fit-content;
     width: 750px;
     margin: 0 0 0 50px;
