@@ -104,25 +104,6 @@
 <script type="text/javascript" src="/resources/js/user/wishList.js"></script>
 <script>
     $(document).ready(function (){
-        // url 이동
-        function common_goUrl(url){
-            if(url != ""){
-                location.href = url;
-            }
-        }
-
-        // 에러 메시지 처리
-        let error = "${error}";
-
-        if(error.length > 0){
-            alert("error: " + error);
-        }
-    });
-</script>
-
-<%--관심상품, 구매하기--%>
-<script>
-    $(document).ready(function (){
         let has = ${hasWish};
         const userId = ${userId};
 
@@ -191,6 +172,12 @@
                 }
             }
         })
+        // 에러 메시지 처리
+        let error = "${error}";
+
+        if(error.length > 0){
+            alert("error: " + error);
+        }
     });
 </script>
 
