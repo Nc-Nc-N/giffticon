@@ -44,3 +44,7 @@
 .inner {
     padding: 0 25px 0 35px;
 }
+
+.inner-content {
+    white-space: pre-line;
+}
