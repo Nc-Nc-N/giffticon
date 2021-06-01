@@ -86,6 +86,7 @@
                 <input type="text" class="h-search-input" name="keyword"
                        value='<c:out value="${headerPageMaker.cri.keyword}"/>' placeholder=" 브랜드 또는 상품을 검색해보세요."/>
                 <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'/>
+                <input type="hidden" name="orderby" value="best">
                 <button class="h-search-button"><i class="fas fa-search"></i></button>
             </form>
         <div>
@@ -144,8 +145,10 @@
                 async: false,
                 success: function (result) {
                     for (let i = 0; i < result.length - 1; i++) {
-                        menu.append('<li class="flyout-right"><a href="/user/gifti_list?code=' + result[i].code + '">' + result[i].name + '</a>' +
-                            '<div class="brdBox type2"><ul class="animated-' + result[i].code + '"></ul></div></li>');
+
+                        menu.append('<li class="flyout-right"><a href="/user/gifti_list?code=' + result[i].code + '&orderby=best">' + result[i].name + '</a>' +
+                            '<div class="brdBox type1"><ul class="animated-' + result[i].code + '"></ul></div></li>');
+
                     }
                 },
                 error: function () {
@@ -177,7 +180,7 @@
 
                     // 브랜드 목록 추가
                     for (let i = 0; i < result.length; i++) {
-                        cate.append('<li><a href="/user/gifti_list?code=' + result[i].code + '">' + result[i].name + '</a></li>');
+                        cate.append('<li><a href="/user/gifti_list?code=' + result[i].code + '&orderby=best">' + result[i].name + '</a></li>');
                     }
                 },
                 error: function () {

@@ -168,22 +168,6 @@ public class ProdMapperTests {
 	}
 
 	@Test
-	public void testGetDeadLineGifti(){
-
-		List<ProdListVO> list = mapper.getDeadlineGifti();
-		int dDay1 = list.get(0).getDDay();
-		int dDay2 = list.get(7).getDDay();
-		String stuCode1 = list.get(3).getGftStusCode();
-
-		list.forEach(gifti->log.info(gifti));
-
-		assertTrue(dDay1<7);
-		assertTrue(dDay2<7);
-		assertThat(stuCode1, is("002"));
-
-	}
-
-	@Test
 	public void test() {
 		ProdRegisterDTO prodRegisterDTO = new ProdRegisterDTO();
 		prodRegisterDTO.setBrdCode("0701");

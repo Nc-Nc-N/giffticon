@@ -112,16 +112,4 @@ public class ProdServiceTests {
 		assertEquals(8, list.size());
 	}
 
-	@Test
-	public void testGetDeadLineGifti(){
-
-		List<ProdListVO> list = giftiService.getDeadlineGifti();
-		int dDay1 = list.get(0).getDDay();
-		int dDay2 = list.get(7).getDDay();
-
-		assertTrue(dDay1 < 7);
-		assertTrue(dDay2 < 7);
-		assertEquals("002", list.get(0).getGftStusCode());
-
-	}
 }

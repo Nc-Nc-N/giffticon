@@ -27,14 +27,14 @@
             </nav>
 
             <!-- 현재 위치-->
-            <h2 class="titArea">
+            <div class="titArea">
                 <span class="nav">
-                    <span class="icoHome" onclick="javascript:common_goUrl('/user/home');" style="cursor: pointer;">홈</span>
-                        &gt; <a onclick="javascript:common_goUrl('gifti_list?code=${category.code}');" style="cursor: pointer;"><c:out value="${category.name}"/></a>
-                        &gt; <a onclick="javascript:common_goUrl('gifti_list?code=${gifticon.brdCode}');" style="cursor: pointer;"><c:out value="${gifticon.bname}"/></a>
+                    <a href="/user/home" style="cursor: pointer;">홈</a>
+                        &gt; <a href="gifti_list?code=${category.code}&orderby=best" style="cursor: pointer;"><c:out value="${category.name}"/></a>
+                        &gt; <a href="gifti_list?code=${gifticon.brdCode}&orderby=best" style="cursor: pointer;"><c:out value="${gifticon.bname}"/></a>
                         &gt; <span class="state"><c:out value="${gifticon.pname}"/></span>
                 </span>
-            </h2>
+            </div>
             <!-- 상품 -->
             <div class="product_detail_top">
                 <!-- 왼쪽 사진 -->
@@ -102,25 +102,6 @@
     </div>
 </body>
 <script type="text/javascript" src="/resources/js/user/wishList.js"></script>
-<script>
-    $(document).ready(function (){
-        // url 이동
-        function common_goUrl(url){
-            if(url != ""){
-                location.href = url;
-            }
-        }
-
-        // 에러 메시지 처리
-        let error = "${error}";
-
-        if(error.length > 0){
-            alert("error: " + error);
-        }
-    });
-</script>
-
-<%--관심상품, 구매하기--%>
 <script>
     $(document).ready(function (){
         let has = ${hasWish};
@@ -191,6 +172,12 @@
                 }
             }
         })
+        // 에러 메시지 처리
+        let error = "${error}";
+
+        if(error.length > 0){
+            alert("error: " + error);
+        }
     });
 </script>
 

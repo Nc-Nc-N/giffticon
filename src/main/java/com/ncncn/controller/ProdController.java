@@ -1,13 +1,11 @@
 package com.ncncn.controller;
 
 import com.ncncn.domain.CategoryVO;
+import com.ncncn.domain.ProdListVO;
 import com.ncncn.domain.WishListVO;
 import com.ncncn.domain.pagination.GiftiCriteria;
 import com.ncncn.domain.pagination.PageDTO;
-import com.ncncn.service.BrandService;
-import com.ncncn.service.CategoryService;
-import com.ncncn.service.GifticonService;
-import com.ncncn.service.WishListService;
+import com.ncncn.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
@@ -33,19 +31,22 @@ public class ProdController {
 
 	private WishListService wishService;
 
+	private DealListService dealListService;
+
 	// 기프티콘 목록 페이지
 	@GetMapping(value = "/gifti_list")
 	public String giftiList(GiftiCriteria cri, Model model){
 
 		String code = cri.getCode();
-		int total = giftiService.getTotal(cri);
 
 		try {
+			int total = giftiService.getTotal(cri);
 
 			model.addAttribute("category", cateService.getCate(code));            	// 카테고리
 			model.addAttribute("brandList", brandService.getBrdList(code));    		// 브랜드 목록
 			model.addAttribute("gifti", giftiService.getGiftiWithPaging(cri));    	// 기프티콘 목록(페이징 처리 포함)
 			model.addAttribute("headerPageMaker", new PageDTO(cri, total));
+			model.addAttribute("fromUrl", "/user/gifti_list");
 
 		} catch (Exception e) {
 			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
@@ -59,7 +60,6 @@ public class ProdController {
 	public String giftiDetail(HttpServletRequest request, GiftiCriteria cri, WishListVO wish, Model model){
 
 		String code = cri.getCode();
-		int total = giftiService.getTotal(cri);
 		int hasWish = 0;
 		Integer userId = null;
 
@@ -99,6 +99,21 @@ public class ProdController {
 
 		model.addAttribute("cateList", cateList);
 
+	}
+
+	@GetMapping("/deadList")
+	public String deadList(Model model,GiftiCriteria cri){
+		try {
+			int total = giftiService.getDeadTotal();
+
+			model.addAttribute("gifti",  giftiService.getDeadlineGifti(cri));
+			model.addAttribute("headerPageMaker", new PageDTO(cri, total));
+			model.addAttribute("fromUrl", "/user/deadList");
+		}catch (Exception e){
+			model.addAttribute("error", "상품 조회 중 문제가 발생했습니다.");
+		}
+
+		return "/user/gifticon/gifti_list";
 	}
 
 }

@@ -172,7 +172,7 @@
                 <h3>초특가! 만료 임박 상품</h3>
             </div>
             <div class="categorycontroller">
-                <a href="/user/gifti_list?keyword=&code=0&orderby=deadline" class="main-btn">전체보기 <i class="fas fa-caret-right"></i></a>
+                <a href="/user/deadList" class="main-btn">전체보기 <i class="fas fa-caret-right"></i></a>
             </div>
         </div>
         <div class="listcontent">
@@ -219,49 +219,61 @@
 </body>
 
 <script>
-    <%--  슬라이드바   --%>
-    let elms = document.getElementsByClassName('splide');
-    for (let i = 0, len = elms.length; i < len; i++) {
-        new Splide(elms[i], {
-            rewind: true
-        }).mount();
-    }
+    $(document).ready(function (e){
+        <%--  슬라이드바   --%>
+        let elms = document.getElementsByClassName('splide');
+        for (let i = 0, len = elms.length; i < len; i++) {
+            new Splide(elms[i], {
+                rewind: true
+            }).mount();
+        }
 
-    // 로그인 안 되어 있을 때 문구 출력
-    let notice = "${notice}";
+        // 로그인 안 되어 있을 때 문구 출력
+        let notice = "${notice}";
 
-    if (notice.length > 0) {
-        $('.noWish').show();
-    }
+        if (notice.length > 0) {
+            $('.noWish').show();
+        }
 
-    // 에러 메시지 처리
-    let error = "${error}";
+        // 에러 메시지 처리
+        let error = "${error}";
 
-    if(error.length > 0){
-        alert("error: " + error);
-    }
+        if(error.length > 0){
+            alert("error: " + error);
+        }
 
-    //물품 이름 클릭 시 해당 물품의 판매중인 기프티콘 조회. 판매중 있을 시 상품상세로 이동
-    $(".items-wish").on("click", function (e) {
-        e.preventDefault();
+        //물품 이름 클릭 시 해당 물품의 판매중인 기프티콘 조회. 판매중 있을 시 상품상세로 이동
+        $(".items-wish").on("click", function (e) {
+            e.preventDefault();
 
-        let prdCode = $(this).attr("value");
+            let prdCode = $(this).attr("value");
 
-        $.ajax({
-            url: '/gifticon/' + prdCode,
-            type: 'get',
-            success: function () {
-                if (confirm("해당 상품 판매 페이지로 이동하시겠습니까?")) {
-                    location.href = "/user/gifti_detail?code=" + prdCode;
-                } else {
-                    return;
+            $.ajax({
+                url: '/gifticon/' + prdCode,
+                type: 'get',
+                success: function () {
+                    if (confirm("해당 상품 판매 페이지로 이동하시겠습니까?")) {
+                        location.href = "/user/gifti_detail?code=" + prdCode;
+                    } else {
+                        return;
+                    }
+                },
+                error: function () {
+                    alert("해당 물품의 구매가능한 기프티콘이 없습니다.")
                 }
-            },
-            error: function () {
-                alert("해당 물품의 구매가능한 기프티콘이 없습니다.")
-            }
+            })
         })
-    })
+
+        let deadForm = $("#deadForm");
+
+        $(".deal_total").on("click",function(){
+
+            e.preventDefault();
+
+            deadForm.submit();
+
+        })
+    });
 </script>
 
 <%@include file="../common/footer.jsp" %>

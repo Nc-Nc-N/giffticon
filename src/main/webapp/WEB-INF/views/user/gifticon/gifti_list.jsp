@@ -37,6 +37,7 @@
             </div>
 
             <%-- 정렬 방식 --%>
+            <c:if test="${fromUrl eq '/user/gifti_list'}">
             <select class="search-select">
                 <option id="best" value="best"
                         <c:out value="${headerPageMaker.cri.orderby eq 'best' ? 'selected':''}"/>>인기순</option>
@@ -44,9 +45,8 @@
                         <c:out value="${headerPageMaker.cri.orderby eq 'low' ? 'selected':''}"/>>낮은 가격순</option>
                 <option id="high" value="high"
                         <c:out value="${headerPageMaker.cri.orderby eq 'high' ? 'selected':''}"/>>높은 가격순</option>
-                <option id="deadline" value="deadline"
-                        <c:out value="${headerPageMaker.cri.orderby eq 'deadline' ? 'selected':''}"/>>마감 임박순</option>
             </select>
+            </c:if>
 
             <%-- 상품 목록 리스트 --%>
             <c:set var="i" value="0"/>
@@ -123,7 +123,7 @@
     </div>
 
     <%-- 페이지 번호 -> url 이동 --%>
-    <form id="actionForm" action='/user/gifti_list' method="get">
+    <form id="actionForm" action='<c:out value="${fromUrl}"/>' method="get">
         <input type="hidden" name="keyword" value='<c:out value="${headerPageMaker.cri.keyword}"/>'>
         <input type="hidden" name="code" value='<c:out value="${headerPageMaker.cri.code}"/>'>
         <input type="hidden" name="orderby" value='<c:out value="${headerPageMaker.cri.orderby}"/>'>
@@ -141,14 +141,15 @@
         // 현재 url의 code parameter value
         let code = new_curr_url.searchParams.get("code");
 
-        // 현재 url의 orderby parameter value
+        // 현재 url의 orderby, keyword parameter value
         let selectedOrder = new_curr_url.searchParams.get("orderby");
+        let keyword = new_curr_url.searchParams.get("keyword");
 
         // 인기순 8위까지 보여주기
-        if(selectedOrder==='best' && code==='0'){
+        if(selectedOrder==='best' && code==='0' && keyword===''){
             $('.best').show();
         }
-        if(${headerPageMaker.cri.pageNum} > 1){
+        if("${headerPageMaker.cri.pageNum}" > 1){
             $('.best').hide();
         }
 
@@ -160,7 +161,7 @@
         }
 
         // 검색 결과가 0일 때
-        if(${headerPageMaker.total}===0 && code==='0'){
+        if("${headerPageMaker.total}"==0 && code==='0'){
             $('.search-result').hide();
             $('.search-select').hide();
             $('.noresult').show();
