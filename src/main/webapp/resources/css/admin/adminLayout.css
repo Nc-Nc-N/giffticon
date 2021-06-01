@@ -79,7 +79,7 @@ body {
 
 #sidebar {
     flex-grow: 1;
-    max-width: 300px;
+    max-width: 220px;
     background-color: rgb(71, 71, 71);
     line-height: 1.5;
 }
@@ -91,15 +91,15 @@ body {
 }
 
 .logo {
-    width: 300px;
-    height: 65px;
-    margin: 20px 0;
+    width: 220px;
+    height: 55px;
+    margin: 55px 0;
     text-align: center;
 }
 
 .logo img{
-    width: 115px;
-    height: 60px;
+    width: 110px;
+    height: 55px;
 }
 
 #admin-menu {
@@ -113,7 +113,7 @@ body {
 
 #admin-menu a {
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     display: block;
     padding: 12px 12px 12px 25px;
@@ -217,4 +217,9 @@ body {
 .space30{
     height: 30px;
     background-color: yellow;
+}
+
+#main h1 {
+    font-size: 26px;
+    font-weight: bold;
 }

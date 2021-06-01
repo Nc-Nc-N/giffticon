@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/resources/css/admin/cs/modified/admin_notice.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/user/cs/modified/faq_board.css" type="text/css">
 
-            <h2>고객센터</h2>
+            <h1>고객센터</h1>
             <div id="submenu">
                 <div>
                     <a href="/admin/adminNotice" >공지사항</a>
