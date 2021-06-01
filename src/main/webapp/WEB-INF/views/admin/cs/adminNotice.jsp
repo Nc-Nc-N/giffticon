@@ -15,8 +15,6 @@
     <link rel="stylesheet" href="/resources/css/common/button.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/admin/cs/modified/admin_notice.css" type="text/css">
 
-
-
             <h2>고객센터</h2>
             <div id="submenu">
                 <div class="menu-item">
@@ -29,7 +27,6 @@
                     <a href="/admin/adminPsnlQust">1:1문의</a>
                 </div>
             </div>
-
 
             <!-- search area -->
 
@@ -74,7 +71,7 @@
                     </label>
                     <div class="content" name="content_<c:out value="${status.index}"/>">
                         <div class="inner">
-                            <p><c:out value="${notice.cntnt}"/></p>
+                            <div><c:out value="${notice.cntnt}"/></div>
                         </div>
                     </div>
                 </c:forEach>
@@ -82,35 +79,8 @@
                     <div class="noSearchResult">검색 결과가 없습니다.</div>
                 </c:if>
             </div>
-            <!--accordionMenu-->
-<%--            <div class="accordionMenu">--%>
-
-<%--                <c:forEach items="${list}" var="notice" varStatus="status">--%>
-<%--                    <!-- 1st menu-->--%>
-<%--                    <input type="checkbox" name="trg1" id="acc<c:out value="${status.index+1}"/>">--%>
-<%--                    <label for="acc<c:out value="${status.index+1}"/>"><c:out--%>
-<%--                            value="${notice.csCateCode == '003' ? '[공지]':'[이벤트]'}"/> <c:out value="${notice.title}"/>--%>
-<%--                        <span class="no-date"><fmt:formatDate value="${notice.startDt}" pattern="yyyy-MM-dd"/></span>--%>
-<%--                        <button id="<c:out value='${notice.id}'/>" class="btn-no btn-erase">--%>
-<%--                            <i class="fas fa-minus"></i></button>--%>
-<%--                        <button class="btn-no btn-modify" id="<c:out value='${notice.id}'/>" onclick="">수정</button>--%>
-<%--                    </label>--%>
-<%--                    <div class="content">--%>
-<%--                        <div class="inner">--%>
-<%--                            <p><c:out value="${notice.cntnt}"/></p>--%>
-<%--                        </div>--%>
-
-<%--                    </div>--%>
-<%--                </c:forEach>--%>
-<%--                <c:if test="${list.size() == 0}">--%>
-<%--                    <div class="noSearchResult">검색 결과가 없습니다.</div>--%>
-<%--                </c:if>--%>
-<%--            </div>--%>
-            <!-- end accordionMenu-->
-
 
             <div id="notion-write">
-
                 <button class="btn btn-active">글쓰기</button>
 
                 <!-- pagenation-->
@@ -142,13 +112,8 @@
                 <input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
                 <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
             </form>
-
-
         </div>
         <!--end main-->
-
-
-
 
 <!-- delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -210,7 +175,6 @@
 </div>
 <!-- end Modal -->
 
-
 <!-- register Modal -->
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
      aria-hidden="true">
@@ -266,32 +230,24 @@
 </script>
 
 <script type="text/javascript">
-
     //검색
     var searchForm = $("#searchForm");
 
     $(".search-button").on("click", function (e) {
-
         searchForm.find("input[name='pageNum']").val("1");
         e.preventDefault();
 
         searchForm.submit();
-
     });
 
-
     $(document).ready(function () {
-
-
         //관리자 공지사항 오류 메시지를 controller에서 보내줌.
         let error = "${error}";
 
         // error 발생 시 해당 에러 메시지를 alert
         if (error.length > 0) {
             alert("에러 발생. 담당자에게 문의해주세요. \n" + error);
-            console.log(error);
         }
-
 
         document.getElementById("adminCs").className = 'active';
 
@@ -299,26 +255,18 @@
         var actionForm = $("#actionForm");
 
         $(".paginate_button").on("click", function (e) {
-
             e.preventDefault();
-
-            console.log('click');
 
             actionForm.find("input[name='pageNum']").val($(this).attr("href"));
             actionForm.submit();
         });
-
-
     });
-
 
     //delete
     $(".btn-erase").on("click", function (e) {
-
         e.stopPropagation();
-        var formObj = $("form");
-        console.log(this.id);
 
+        var formObj = $("form");
         let notice = '';
 
         $.ajax({
@@ -327,56 +275,39 @@
             async: false,
             success: function (result) {
                 notice = result;
-                console.log(notice);
-            },
-            error: function () {
-
             }
         });
-
 
         // 모달창 안에 Notice 객체 값으로 채우기.
         $(".del-id").val(notice.id);
 
         if (notice.csCateCode == "003") {
-
             $(".search-selected").html("[공지]");
-
         } else {
-
             $(".search-selected").html("[이벤트]");
         }
 
         $(".del-id").html(notice.id);
-
         $(".de-title").html(notice.title);
-
 
         $("#deleteModal").fadeIn();
 
         $("#btn-delete").on("click", function (e) {
-
             formObj.attr("action", "/admin/adminNotice/remove");
             formObj.submit();
-
-
         });
 
-
         $("#closeModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
-
             e.preventDefault();
             $("#deleteModal").fadeOut();
         });
-
     }); //end btn-erase
-
 
     //modify
     $(".modify").on("click", function (e) {
         e.stopPropagation();
+
         var modifyForm = $("form");
-        console.log(this.id);
         let date;
 
         let notice = '';
@@ -387,18 +318,12 @@
             async: false,
             success: function (result) {
                 notice = result;
-                console.log(notice);
-            },
-            error: function () {
-
             }
         });
-
 
         // 모달창 안에 Notice 객체 값으로 채우기.
 
         $(".modify-id").val(notice.id);
-
         $(".modify-fixed").val(notice.isFixed);
 
         date = new Date(notice.endDt);
@@ -413,23 +338,16 @@
             "-"+("0" + (date.getMonth() + 1)).slice(-2)+
             "-"+("0" + date.getDate()).slice(-2));
 
-
-
         if (notice.csCateCode == "003") {
-
             $(".search-selected").html("[공지]");
-
         } else {
-
             $(".search-selected").html("[이벤트]");
         }
 
         $(".modify-title").html(notice.title);
-
         $(".modify-content").html(notice.cntnt);
 
         $("#modifyModal").fadeIn();
-
 
         $('#btn-modify').on("click", function () {
                 if ($(".modify-end-dt").val() == ''){
@@ -448,17 +366,13 @@
         });
 
         $("#closeModifyModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
-
             e.preventDefault();
             $("#modifyModal").fadeOut();
         });
-
     });
-
 
     //register
     $(".btn-active").on("click", function () {
-
         registerForm = $("form");
 
         let userId = "<c:out value="${userId}"/>";
@@ -472,23 +386,15 @@
 
         //register 값 채우기
         if ($('input:checkbox[name="isFixed"]').is(":checked") == true) {
-
             $(".register-fixed").val('1');
-
         } else {
-
             $(".register-fixed").val('0');
-
         }
-
 
         $(".register-user-id").val(userId);
 
 
-
-
         $("#btn-register").on("click", function () {
-
             if($(".register-end-dt").val() == ''){
                 alert("날짜를 입력해주세요");
                 return false;
@@ -505,8 +411,8 @@
         });
 
         $("#closeRegisterModalBtn").on('click', function (e) {    //삭제 취소 눌렀을 떄 모달창 닫기.
-
             e.preventDefault();
+
             $("#registerModal").fadeOut();
         });
     });

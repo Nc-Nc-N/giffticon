@@ -81,18 +81,18 @@
                 <div class="content" name="content_<c:out value="${status.index}"/>">
 
                     <div class="inner psnlQinner">
-                        <p class="qna-a" name="cntnt"><c:out value="${qna.cntnt}"/>&nbsp;&nbsp;
+                        <div class="qna-a" name="cntnt"><c:out value="${qna.cntnt}"/>&nbsp;&nbsp;
                             <c:if test="${qna.atchFilePath != ''}">
                                 <button class="btn img_show" value="<c:out value="${qna.atchFilePath}"/>">첨부파일</button>
                             </c:if>
-                        </p>
+                        </div>
                     </div>
                     <div class="psnlAinner">
-                        <p class="qna-a"><c:out value="${qna.ansCntnt}"/></p>
+                        <div class="qna-a"><c:out value="${qna.ansCntnt}"/></div>
                     </div>
-
                 </div>
         </c:forEach>
+
         <c:if test="${dealList.size() == 0}">
             <div class="noSearchResult">검색 결과가 없습니다.</div>
         </c:if>

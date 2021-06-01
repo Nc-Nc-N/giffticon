@@ -150,7 +150,7 @@ h2 {
 }
 
 /*modal css*/
-.modal{
+.modal {
     z-index: 2;
     display: none;
     position: fixed;
@@ -285,18 +285,18 @@ h2 {
     margin: 10px;
 }
 
-.content{
+.content {
     display: none;
     padding: 0 25px 0 10px;
     background-color: #F5F4F4;
 }
 
-.inner{
+.inner {
     padding: 10px 80px 10px 25px;
 }
 
-.modify{
-    background-color:rgb(255,88,93);
+.modify {
+    background-color: rgb(255, 88, 93);
     /*border: 1px solid rgb(71, 71, 71);*/
     color: white;
     cursor: pointer;
@@ -305,8 +305,9 @@ h2 {
     border-radius: 0px;
     font-size: 12px;
 }
-.finish{
-    background-color:gainsboro;
+
+.finish {
+    background-color: gainsboro;
     /*border: 1px solid rgb(71, 71, 71);*/
     color: #333;
     cursor: pointer;
@@ -314,4 +315,8 @@ h2 {
     height: 20px;
     border-radius: 0px;
     font-size: 12px;
+}
+
+.inner > div {
+    white-space: pre-line;
 }
