@@ -130,10 +130,6 @@ h5 {
     border: 1px solid #ededed;
 }
 
-#msg-newPwd, #msg-confirmNewPwd {
-    margin-left: 35% !important;
-}
-
 .acc_bank_select{
     height: 30px;
     border-radius: 5px;
