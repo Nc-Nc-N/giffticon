@@ -15,6 +15,7 @@ h2 {
 }
 
 .search-form {
+    width: fit-content;
     display: flex;
     align-items: center;
     border-radius: unset;
@@ -40,8 +41,9 @@ h2 {
 }
 
 .accordionMenu {
+    display: flex;
+    flex-direction: column;
     width: 90%;
-    margin-top: 50px;
     margin-left: 5%;
 }
 
@@ -98,10 +100,6 @@ h2 {
     color: white;
 }
 
-.btn-modify:hover {
-    color: black;
-}
-
 .btn-erase {
     font-size: large;
     border: 0;
@@ -110,17 +108,10 @@ h2 {
     background-color: white;
 }
 
-.btn-active {
-    margin-top: 13px;
-}
-
 /* 페이지네이션 css */
 .pagination {
-    margin-right: 5%;
     display: flex;
-    margin-top: 15px;
     float: right;
-    margin-bottom: 50px;
 }
 
 .pagination a {
@@ -150,7 +141,7 @@ h2 {
 }
 
 /*modal css*/
-.modal{
+.modal {
     z-index: 2;
     display: none;
     position: fixed;
@@ -285,33 +276,57 @@ h2 {
     margin: 10px;
 }
 
-.content{
+.content {
     display: none;
     padding: 0 25px 0 10px;
     background-color: #F5F4F4;
 }
 
-.inner{
+.inner {
     padding: 10px 80px 10px 25px;
 }
 
-.modify{
-    background-color:rgb(255,88,93);
+.modify {
+    background-color: rgb(255, 88, 93);
     /*border: 1px solid rgb(71, 71, 71);*/
     color: white;
     cursor: pointer;
     width: 50px;
     height: 20px;
-    border-radius: 0px;
+    border-radius: 0;
     font-size: 12px;
 }
-.finish{
-    background-color:gainsboro;
+
+.finish {
+    background-color: gainsboro;
     /*border: 1px solid rgb(71, 71, 71);*/
     color: #333;
     cursor: pointer;
     width: 50px;
     height: 20px;
-    border-radius: 0px;
+    border-radius: 0;
     font-size: 12px;
+}
+
+.inner > div {
+    white-space: pre-line;
+}
+
+.search-area {
+    margin: 20px 0;
+}
+
+.search-select {
+    width: 80px;
+    height: 30px;
+}
+
+#search-input-area {
+    width: 300px;
+}
+
+#notion-write {
+    width: 90%;
+    height: fit-content;
+    margin: 20px auto;
 }

@@ -60,7 +60,7 @@
         </label>
         <div class="content" name="content_<c:out value="${status.index}"/>">
             <div class="inner">
-                <p><span class="qna-a"></span> <c:out value="${faq.ans}"/></p>
+                <div class="inner-content"><span class="qna-a"></span> <c:out value="${faq.ans}"/></div>
             </div>
 
         </div>

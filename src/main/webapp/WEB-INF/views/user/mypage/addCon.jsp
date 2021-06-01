@@ -95,16 +95,16 @@
             $('.money').html(numberWithCommas(money)).append(" 원");                                   // 결제 금액
 
             // 콘 충전 혜택
-            if (money === 10000) {
+            if (money === "10000") {
                 benefits = 1000;
-            } else if (money === 20000) {
+            } else if (money === "20000") {
                 benefits = 2500;
-            } else if (money === 50000) {
+            } else if (money === "50000") {
                 benefits = 6000;
             }
 
             if (benefits > 0) {
-                $('.benefits').html(" +" + benefits + "콘 추가 지급!")
+                $('.benefits').text(" +" + benefits + "콘 추가 지급!")
             }
 
             $('.afterAdd').html(numberWithCommas(userCon + parseInt(money) + benefits)).append(" 콘");    // 충전 후 콘

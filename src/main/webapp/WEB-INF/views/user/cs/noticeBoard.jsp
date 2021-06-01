@@ -55,7 +55,7 @@
         </label>
         <div class="content" name="content_<c:out value="${status.index}"/>">
             <div class="inner">
-                <p><c:out value="${notice.cntnt}"/></p>
+                <div class="inner-content"><c:out value="${notice.cntnt}"/></div>
             </div>
         </div>
     </c:forEach>
