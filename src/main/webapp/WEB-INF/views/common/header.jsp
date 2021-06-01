@@ -120,10 +120,15 @@
         headerSearchForm.find("input[name='code']").val("0");
         e.preventDefault();
 
-        if (!headerSearchForm.find("input[name='keyword']").val()) {
+        let keyword = headerSearchForm.find("input[name='keyword']");
+
+        if (!keyword.val()) {
             alert("검색어를 입력해주세요");
             return false;
         }
+
+        keyword.val(keyword.val().trim());
+
         headerSearchForm.submit();
     });
 
