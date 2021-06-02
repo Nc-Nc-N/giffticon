@@ -87,7 +87,7 @@
         <td class="c3">ㅤ</td>
         <td class="c3"><input type="button" class="btnclass" id="btn3" value="1:1문의 조회"></td>
         <td class="c3">
-            <form action="/admin/user/update-status" id="statusUpdateForm" method="post" onchange="submitStatus()">
+            <form action="/admin/user/update-status" id="statusUpdateForm" method="post">
                 <sec:csrfInput/>
                 <select name="statusTxt" class="btnclass" id="statusbtn">
                     <option value="정상" selected="selected">정상</option>
@@ -122,6 +122,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        if(${user.enabled == 1}) {
+            prevStatus = '정상';
+        } else {
+            prevStatus = '탈퇴';
+        }
 
         // 페이지 로딩시 회원 상세정보 불러오기 실패하면 에러메세지 출력
         if ("${initError}" != "") {
@@ -140,12 +145,18 @@
 
     });
 
+    let prevStatus = '';
+
     let submitStatus = function () {
         document.getElementById('statusUpdateForm').submit();
     }
 
     $("#statusbtn").change(function () {
-        alert("회원상태를 변경합니다.");
+        if(!confirm("회원상태를 변경하시겠습니까?")) {
+            document.getElementById('statusbtn').value = prevStatus;
+            return;
+        }
+        submitStatus();
     });
 
     $("#btn1").click(function() {
