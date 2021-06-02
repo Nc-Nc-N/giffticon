@@ -44,7 +44,7 @@
     </div>
     <div class="item_btn">
         <c:if test="${gftInfo.stusCode eq '거래확정대기'}">
-            <button name="dealCmplBtn" class="btn btn-cmpl" value="<c:out value="${gftInfo.gftId}"/>">거래확정</button>
+            <button name="dealCmplBtn" class="btn btn-cmpl" value="<c:out value="${gftInfo.gftId}"/>" id="<c:out value="${gftInfo.dealId}"/>">거래 확정
         </c:if>
         <c:if test="${gftInfo.stusCode eq '거래확정완료'}">
             <button class="btn btn-disabled">확정완료</button>

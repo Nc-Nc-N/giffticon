@@ -483,12 +483,12 @@ a:hover, a:active {
 
 /* 스크롤바 설정*/
 .type2::-webkit-scrollbar {
-    width: 15px;
+    width: 10px;
 }
 
 /* 스크롤바 막대 설정*/
 .type2::-webkit-scrollbar-thumb {
-    height: 17%;
+    height: 15%;
     background-color:gainsboro;
     /* 스크롤바 둥글게 설정    */
     border-radius: 10px;
