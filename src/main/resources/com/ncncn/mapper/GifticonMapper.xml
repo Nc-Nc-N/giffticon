@@ -515,7 +515,7 @@
     </select>
 
     <select id="getNotCmplGft" resultType="com.ncncn.domain.DealDetailVO">
-        select gftT.id gifticonId, dealT.pymt_prc pymtPrc
+        select gftT.id gifticonId, dealT.pymt_prc pymtPrc, dealT.id id
         from deal_detail dealT,
              gifticon gftT
         where dealT.gifticon_id = gftT.id
