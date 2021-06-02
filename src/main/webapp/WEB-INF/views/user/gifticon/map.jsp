@@ -125,22 +125,22 @@ $(".brandbar").on("click", function () {
 </script>
 
 <script>
-    var lat = 0;
-    var lon = 0;
+    var lat = 37.715133;
+    var lon = 126.734086;
 
-    if (navigator.geolocation) {
-        // 현재 접속 위치 얻기
-        navigator.geolocation.getCurrentPosition(function (position) {
-            lat = position.coords.latitude; // 위도
-            lon = position.coords.longitude; // 경도
-
-            lat = lat.toFixed(6);
-            lon = lon.toFixed(6);
-        });
-    } else {
-        lat = 33.450701;
-        lon = 126.570667;
-    }
+    // if (navigator.geolocation) {
+    //     // 현재 접속 위치 얻기
+    //     navigator.geolocation.getCurrentPosition(function (position) {
+    //         lat = position.coords.latitude; // 위도
+    //         lon = position.coords.longitude; // 경도
+    //
+    //         lat = lat.toFixed(6);
+    //         lon = lon.toFixed(6);
+    //     });
+    // } else {
+    //     lat = 33.450701;
+    //     lon = 126.570667;
+    // }
 
 </script>
 
