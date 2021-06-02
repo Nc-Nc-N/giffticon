@@ -1,5 +1,7 @@
 <html>
 <body>
-<h2>Hello World!</h2>
 </body>
 </html>
+<script type="text/javascript">
+    window.location.href="/user/home";
+</script>
