@@ -99,9 +99,7 @@ public class GftManagingServiceImpl implements GftManagingService {
     }
 
     @Override
-    public int autoDealCmpl(List<DealDetailVO> gftList) {
-
-        return gifticonMapper.autoDealCmpl(gftList); }
+    public int autoDealCmpl(List<DealDetailVO> gftList) { return gifticonMapper.autoDealCmpl(gftList); }
 
     // 현재 가격수정이력 row의 end_dt 컬럼에 변경시간을 입력하는 메서드
     private void updateDcPrcHistEndDt(PrcUpdateVO prcUpdate) {
