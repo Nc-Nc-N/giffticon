@@ -125,8 +125,9 @@ $(".brandbar").on("click", function () {
 </script>
 
 <script>
-    var lat = 37.715133;
-    var lon = 126.734086;
+
+    var lat = 37.570395;
+    var lon = 126.985377;
 
     // if (navigator.geolocation) {
     //     // 현재 접속 위치 얻기

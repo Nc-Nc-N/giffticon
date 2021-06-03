@@ -47,7 +47,7 @@ public class GifticonController {
 
 		//pnt_history 객체 만들기
 		pntHistVO.setUserId(gifticonVO.getUserId());
-		pntHistVO.setChgQuty(gifticonVO.getDcPrc() / (100 * 90));
+		pntHistVO.setChgQuty(gifticonVO.getDcPrc() / 100 * 90);
 		pntHistVO.setDealId(dealId);
 		pntHistVO.setPntHistCode("004");
 
