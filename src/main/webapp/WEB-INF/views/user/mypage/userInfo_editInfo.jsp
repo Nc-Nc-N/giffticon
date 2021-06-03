@@ -97,7 +97,7 @@
         //생년월일 출력 포맷에 변경 후 placeholder에 출력
         let birthDt = "<c:out value="${user.birthDt}"/>";
         birthDt = birthDt.slice(0, 4) + "/" + birthDt.slice(4, 6) + "/" + birthDt.slice(6, birthDt.length);
-        newBirthDt.attr("placeholder", birthDt);
+        newBirthDt.val(birthDt);
 
         //checklist
         let checkPwdForEditInfo = [false, false];
@@ -166,7 +166,7 @@
             }
 
             //비밀번호 통과 시
-            if (checkPwdForEditInfo[0] == true && checkPwdForEditInfo[1] == true) {
+            if (nameChecker(newName.val()) && checkPwdForEditInfo[1] == true) {
 
                 //바꾸기 전에 한번 물어보자
                 if (!confirm("회원정보를 수정하시겠습니까?")) {
