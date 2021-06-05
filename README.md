@@ -22,7 +22,7 @@
 * 불필요한 개인정보 노출없이 기쁘티콘에서 바로 결제하는 편리한 구매 과정과 기쁘티콘에서 검수 후 소비자에게 제공하는 형태로 허위 매물 등 판매 사기를 예방
 
 ### Built With
-* 서버기술:Apache2, Tomcat8, AWS EC2, AWS RDB, MySQL, Spring Framework
+* 서버기술:Apache2, Tomcat8, AWS EC2, AWS RDS, MySQL, Spring Framework
 * 회면기술:HTML5, CSS3, JavaScript, Bootstrap
 * 개발도구:Intellij, MySQL Workbench
 
