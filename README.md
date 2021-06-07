@@ -49,3 +49,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 * 이성민 - https://github.com/planner26
 * 이혜지 - https://github.com/1eehyeji
 
+
+
+<!-- Presentation -->
+## Presentation
+
+* Youtube - https://www.youtube.com/watch?v=wte0n7cOc3c
